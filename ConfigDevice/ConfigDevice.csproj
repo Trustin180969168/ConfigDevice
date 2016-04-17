@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0B40EC62-1E6A-4D80-9B0C-9692CE9B4B65}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ConfigDevice</RootNamespace>
+    <AssemblyName>SocketTest</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
+    <Reference Include="DevExpress.Utils.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
+    <Reference Include="DevExpress.XtraEditors.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
+    <Reference Include="DevExpress.XtraGrid.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraGrid.v8.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
+    <Reference Include="DevExpress.XtraRichTextEdit.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraRichTextEdit.v8.1\8.1.1.0__49d90c14d24271b5\DevExpress.XtraRichTextEdit.v8.1.dll</HintPath>
+    </Reference>
+    <Reference Include="IpInputExt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\Command.cs" />
+    <Compile Include="Class\Device.cs" />
+    <Compile Include="Class\DeviceAmplifier.cs" />
+    <Compile Include="Class\FactoryDevice.cs" />
+    <Compile Include="Class\IFactory.cs" />
+    <Compile Include="Class\NetworkCtrl.cs" />
+    <Compile Include="Class\DevicedWeatherStation.cs" />
+    <Compile Include="Data\DeviceData.cs" />
+    <Compile Include="Common\ThreadActionTimer.cs">
+    </Compile>
+    <Compile Include="Config\DeviceConfig.cs" />
+    <Compile Include="Class\DeviceCtrl.cs" />
+    <Compile Include="Config\NetworkConfig.cs" />
+    <Compile Include="Data\NetworkData.cs">
+    </Compile>
+    <Compile Include="Class\SysCtrl.cs" />
+    <Compile Include="Data\UdpData.cs" />
+    <Compile Include="Config\PublicConfig.cs" />
+    <Compile Include="Data\UserUdpData.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\IpInputTextbox.resx">
+      <DependentUpon>IpInputTextbox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\UCtrlBaseEdit.resx">
+      <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmAmplifier.resx">
+      <DependentUpon>FrmAmplifier.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmBaseDevice.resx">
+      <DependentUpon>FrmBaseDevice.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmDevice.resx">
+      <DependentUpon>FrmDevice.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmNetworkEdit.resx">
+      <DependentUpon>FrmNetworkEdit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmNetworkPW.resx">
+      <DependentUpon>FrmNetworkPW.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmPackageInfo.resx">
+      <DependentUpon>FrmPackageInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmTest.resx">
+      <DependentUpon>FrmTest.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmTestSocket.resx">
+      <DependentUpon>FrmTestSocket.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PleaseWait.resx">
+      <DependentUpon>PleaseWait.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ConvertTools.cs" />
+    <Compile Include="Tools\CommonTools.cs" />
+    <Compile Include="Tools\CRC32.cs" />
+    <Compile Include="Tools\IpInputTextbox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tools\IpInputTextbox.Designer.cs">
+      <DependentUpon>IpInputTextbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\MySocket.cs" />
+    <Compile Include="Tools\NumberTextBoxExt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\UCtrlBaseEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tools\UCtrlBaseEdit.Designer.cs">
+      <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\UdpTools.cs" />
+    <Compile Include="Tools\MySocketTest.cs" />
+    <Compile Include="UI\FrmAmplifier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmAmplifier.Designer.cs">
+      <DependentUpon>FrmAmplifier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmBaseDevice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmBaseDevice.Designer.cs">
+      <DependentUpon>FrmBaseDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmDevice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmDevice.Designer.cs">
+      <DependentUpon>FrmDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmNetworkEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmNetworkEdit.Designer.cs">
+      <DependentUpon>FrmNetworkEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmNetworkPW.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmNetworkPW.Designer.cs">
+      <DependentUpon>FrmNetworkPW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmPackageInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmPackageInfo.Designer.cs">
+      <DependentUpon>FrmPackageInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmTest.Designer.cs">
+      <DependentUpon>FrmTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmTestSocket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmTestSocket.Designer.cs">
+      <DependentUpon>FrmTestSocket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmWeatherStation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmWeatherStation.Designer.cs">
+      <DependentUpon>FrmWeatherStation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PleaseWait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PleaseWait.Designer.cs">
+      <DependentUpon>PleaseWait.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Point.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Point1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\load.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\work.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
