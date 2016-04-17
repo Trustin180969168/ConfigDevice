@@ -51,7 +51,7 @@ namespace ProgramTest
             else
                 Console.Out.WriteLine("没有 85FE");
             */
-
+           //test
  
             MyButton mb = new MyButton("MyButton对象");
             mb.Click += MyButton_Click1;
