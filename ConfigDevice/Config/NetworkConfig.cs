@@ -38,8 +38,8 @@ namespace ConfigDevice
         public const string DC_MAC = "MAC";//物理ID
         public const string DC_PORT = "Port";//端口
         public const string DC_IP = "IP";//IP地址
-        public const string DC_CONNECTED = "已连接";//物理ID
-        public const string DC_NOT_CONNECTED = "未连接";//物理ID
+        public const string STATE_CONNECTED = "已连接";//物理ID
+        public const string STATE_NOT_CONNECTED = "未连接";//物理ID
         public const string DC_PC_ADDRESS = "PCAddress";//与PC的通信地址
         public const string DC_REMARK = "Remark";//备注
 

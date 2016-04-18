@@ -21,7 +21,7 @@ namespace ConfigDevice
             try
             {
                 if (this.InvokeRequired)
-                { this.Invoke(new CallBackUIAction(this.CallBackUI)); }
+                    this.Invoke(new CallBackUIAction(this.CallBackUI),new object[]{values}); 
                 else
                 {
                     edtHardwareVer.Text = DeviceEdit.HardwareVer;
@@ -46,7 +46,7 @@ namespace ConfigDevice
         {
             if (cbxPosition.Properties.Items.Count == 0)
             {
-                NetworkData network = SysConfig.ListConnectedNetworks[DeviceEdit.NetworkID];
+                NetworkData network = SysConfig.ListNetworks[DeviceEdit.NetworkID];
                 foreach (Position p in network.ListPosition)
                     if (p.Name.Trim() != "")
                         cbxPosition.Properties.Items.Add(p.Name);

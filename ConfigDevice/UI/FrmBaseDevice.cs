@@ -37,7 +37,7 @@ namespace ConfigDevice
             {
                 if (this.InvokeRequired)
                 {
-                    this.Invoke(new CallBackUIAction(callbackUI));
+                    this.Invoke(new CallBackUIAction(callbackUI),new object[]{values});
                 }
                 else
                 {

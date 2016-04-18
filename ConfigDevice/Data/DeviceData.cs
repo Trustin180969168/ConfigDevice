@@ -25,7 +25,7 @@ namespace ConfigDevice
             //-------计算位置名称-------
             byte byteNum = AddressID[0];
             int num = 0x7F & byteNum; //序号          
-            NetworkData network = SysConfig.ListConnectedNetworks[NetworkID];
+            NetworkData network = SysConfig.ListNetworks[userUdpData.IP];
             if (num <= network.ListPosition.Count - 1)
                 AddressName = network.ListPosition[num].Name;
             //-------设备名称---------
@@ -127,7 +127,6 @@ namespace ConfigDevice
                 CallbackUI(null);
 
         }
-
         /// <summary>
         /// 创建读取VER的UDP包
         /// </summary>

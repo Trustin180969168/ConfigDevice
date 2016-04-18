@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Net;
 
 namespace ConfigDevice
 {
@@ -20,6 +21,7 @@ namespace ConfigDevice
 
         private void FrmNetworkEdit_Load(object sender, EventArgs e)
         {
+            NetworkEdit.CallbackUI = this.callbackUI;
             initData();
         }
 
@@ -46,19 +48,8 @@ namespace ConfigDevice
             edtNetworkName.Text = NetworkEdit.DeviceName;
             edtNetworkID.Text = NetworkEdit.DeviceID;
             edtNetworkIP.IP = NetworkEdit.NetworkIP;
-        }
 
-        /// <summary>
-        /// 校验是否错误
-        /// </summary>
-        private void edtName_KeyUp(object sender, KeyEventArgs e)
-        {
-            DataRow dr = gvPosition.GetDataRow(gvPosition.FocusedRowHandle);
-            if (dr == null) return;
-            string name = dr[Position.DC_NAME].ToString();
-            byte[] byteName = Encoding.GetEncoding("GB2312").GetBytes(name);
-            if (byteName.Length > 12)
-                CommonTools.MessageShow("名称超出长度,最多6个字!", 2, "");
+            NetworkEdit.SearchVer();
         }
 
         /// <summary>
@@ -66,10 +57,14 @@ namespace ConfigDevice
         /// </summary>
         private void btSavePosition_Click(object sender, EventArgs e)
         {
+            gvPosition.PostEditor();
+            DataRow drEdit = gvPosition.GetDataRow(gvPosition.FocusedRowHandle);
+            drEdit.EndEdit();
             DataTable dtModify = dtPosition.GetChanges(DataRowState.Modified);
+            if (dtModify == null) return;
             foreach (DataRow dr in dtModify.Rows)
             {
-                Position pos = new Position((int)dr[Position.DC_NUM] - 1, dr[Position.DC_NAME].ToString(), (bool)dr[Position.DC_HAS_PASSWORD]);
+                Position pos = new Position(Convert.ToInt16(dr[Position.DC_NUM]), dr[Position.DC_NAME].ToString(), Convert.ToBoolean(dr[Position.DC_HAS_PASSWORD]));
                 NetworkEdit.SavePositionList(pos, this.callBackSavePosition);
             }
         }
@@ -81,13 +76,51 @@ namespace ConfigDevice
         private void callBackSavePosition(object[] values)
         {
             if (this.InvokeRequired)
-            { 
-                this.callBackSavePosition(values); 
-                return;   
+            {
+                this.Invoke(new CallBackUIAction(this.callBackSavePosition), new object[] { values });
+                return;
             }
             Position pos = values[0] as Position;
             dtPosition.Rows[pos.Num - 1].AcceptChanges();
+
         }
+
+        private void callbackUI(object[] values)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CallBackUIAction(this.callbackUI), new object[] { values });
+                return;
+            }
+            edtSoftwareVer.Text = NetworkEdit.SoftwareVer;
+            edtHarewareVer.Text = NetworkEdit.HardwareVer;
+        }
+
+        /// <summary>
+        /// 校验是否错误
+        /// </summary>
+        private void edtName_Leave(object sender, EventArgs e)
+        {
+            DataRow dr = gvPosition.GetDataRow(gvPosition.FocusedRowHandle);
+            if (dr == null) return;
+            string name = dr[Position.DC_NAME].ToString();
+            byte[] byteName = Encoding.GetEncoding("GB2312").GetBytes(name);
+            if (byteName.Length > 12)
+                CommonTools.MessageShow("\""+name+"\"名称超出长度,最多6个字!", 2, "");
+        }
+
+        /// <summary>
+        /// 校验网络名称
+        /// </summary>
+        private void edtNetworkName_Leave(object sender, EventArgs e)
+        {
+            string name = edtNetworkName.Text;
+            byte[] byteName = Encoding.GetEncoding("GB2312").GetBytes(name);
+            if (byteName.Length > 30)
+                CommonTools.MessageShow("\"" + name + "\"名称超出长度,最多30个字!", 2, "");
+        }
+
+
 
     }
 }

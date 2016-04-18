@@ -14,9 +14,9 @@ namespace ConfigDevice
     // 摘要:SysConfig.cs
     //     用于保存系统的基本配置信息,包括公共常量,本地IP,端口,初始化工作等
     public class SysCtrl
-    {         
+    {
 
-        
+
         /// <summary>
         /// 初始化系统配置
         /// </summary>
@@ -49,7 +49,7 @@ namespace ConfigDevice
         {
             string cdnStr = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
             DataRow[] rows = SysConfig.DtDevice.Select(cdnStr);
-            if (rows.Length == 0)        return;
+            if (rows.Length == 0) return;
             DataRow dr = rows[0];
             dr[DeviceConfig.DC_DEVICE_ID] = device.DeviceID;
             dr[DeviceConfig.DC_NETWORK_ID] = device.NetworkID;
@@ -58,7 +58,7 @@ namespace ConfigDevice
             dr[DeviceConfig.DC_STATE] = device.State;
             dr[DeviceConfig.DC_ADDRESS] = device.AddressName;
             SysConfig.DtDevice.AcceptChanges();
-  
+
         }
 
 
@@ -121,6 +121,26 @@ namespace ConfigDevice
                 return -1;
             }
             return lport;
+        }
+
+        /// <summary> 
+        /// 获得广播地址 
+        /// </summary> 
+        /// <param name="ipAddress">IP地址</param> 
+        /// <param name="subnetMask">子网掩码</param> 
+        /// <returns>广播地址</returns> 
+        public static string GetBroadcast(string ipAddress, string subnetMask)
+        {
+
+            byte[] ip = IPAddress.Parse(ipAddress).GetAddressBytes();
+            byte[] sub = IPAddress.Parse(subnetMask).GetAddressBytes();
+
+            // 广播地址=子网按位求反 再 或IP地址 
+            for (int i = 0; i < ip.Length; i++)
+            {
+                ip[i] = (byte)((~sub[i]) | ip[i]);
+            }
+            return new IPAddress(ip).ToString();
         }
 
 

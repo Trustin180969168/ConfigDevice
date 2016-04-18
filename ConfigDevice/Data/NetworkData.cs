@@ -69,6 +69,8 @@ namespace ConfigDevice
         public int Port;//对方的发送端口
         public List<Position> ListPosition; //设备位置列表
         private MySocket mySocket = MySocket.GetInstance();
+        private byte[] managerPassword;//管理员密码
+        private byte[] userPassword;//用户密码
 
         public byte BytePCAddress { get { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; } }
         public byte ByteDeviceId { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }
@@ -76,8 +78,11 @@ namespace ConfigDevice
         public byte[] ByteMacAddress { get { return ConvertTools.StrToToHexByte(MacAddress); } }
 
         public DateTime RefreshTime;
-        private CallbackFromUdp callbackGetPosition = new CallbackFromUdp();
-
+        private CallbackFromUdp callbackGetPosition;
+        private CallbackFromUdp callbackGetVer;
+        public string SoftwareVer = "";//软件版本
+        public string HardwareVer = "";//硬件版本
+        public CallBackUIAction CallbackUI;
         /// <summary>
         /// 获取终端点
         /// </summary>
@@ -96,7 +101,7 @@ namespace ConfigDevice
         {
             DeviceID = Convert.ToInt16(userUdpData.Source[0]).ToString();
             NetworkID = Convert.ToInt16(userUdpData.Source[1]).ToString();
-            State = NetworkConfig.DC_NOT_CONNECTED;
+            State = NetworkConfig.STATE_NOT_CONNECTED;
             //-------MAC地址---------
             byte[] byteMac = new Byte[12];
             Buffer.BlockCopy(userUdpData.Data, 6, byteMac, 0, 12);
@@ -133,8 +138,8 @@ namespace ConfigDevice
         /// </summary>
         private void regeditRJ45Callback()
         {
-            callbackGetPosition.CallBackAction += callbackGetPositions;
-            SysConfig.AddRJ45CallBackList(NetworkConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);
+            callbackGetPosition = new CallbackFromUdp(callbackGetPositions);
+          callbackGetVer = new CallbackFromUdp(getVer);
         }
 
 
@@ -144,9 +149,9 @@ namespace ConfigDevice
         public void GetPositionList()
         {
             ListPosition.Clear();
+            SysConfig.AddRJ45CallBackList(NetworkConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
             UdpData udpSend = createGetPositionListUdp();
-            callbackGetPosition.Udp = udpSend;
-
+            callbackGetPosition.Udp = udpSend;         
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackGetReply), new object[] { udpSend });
         }
         private void callbackGetReply(UdpData udpReply, object[] values)
@@ -240,7 +245,10 @@ namespace ConfigDevice
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("保存位置- " + pos.Name + " 失败!", udpReply.ReplyByte);//----错误则提示---- 
             else
-                callbackUI(new object[]{ pos});//----返回界面结果----
+            {
+                ListPosition[pos.Num - 1] = pos;
+                callbackUI(new object[] { pos });//----返回界面结果----
+            }
         }
         /// <summary>
         /// 创建获取修改位置包
@@ -287,6 +295,316 @@ namespace ConfigDevice
             return udp;
         }
 
+        /// <summary>
+        /// 获取版本号
+        /// </summary>
+        public void SearchVer()
+        {
+            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackGetVer);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
+            UdpData udpSearch = createSearchVerUdp();
+            MySocket.GetInstance().SendData(udpSearch, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackSearchVer), new object[] { udpSearch });
+        }
+        private void callbackSearchVer(UdpData udpReply, object[] values)
+        {
+            UdpData sendUdp = (UdpData)values[0];
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("获取版本号失败!", udpReply.ReplyByte);
+        }
+        private void getVer(UdpData data, object[] values)
+        {
+            //-----获取数据-----
+            UserUdpData userData = new UserUdpData(data);
+            DeviceData device = new DeviceData(userData);
+            if (DeviceID == device.DeviceID)
+            {
+                //-----获取版本号------                
+                byte[] temp1 = new byte[20]; byte[] temp2 = new byte[20];
+                Buffer.BlockCopy(userData.Data, 0, temp1, 0, 20);
+                SoftwareVer = Encoding.GetEncoding("ASCII").GetString(temp1).TrimEnd('\0');
+                Buffer.BlockCopy(userData.Data, 20, temp2, 0, 20);
+                HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0');
+
+                //------回复反馈的设备信息-------
+                UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
+                mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
+            }
+            else
+            {     //------回复反馈的设备信息-------
+                UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
+                mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
+            }
+            if (CallbackUI != null)
+                CallbackUI(null);
+
+        }
+        /// <summary>
+        /// 创建读取VER的UDP包
+        /// </summary>
+        /// <returns></returns>
+        private UdpData createSearchVerUdp()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)------
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
+
+            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_VER;//----用户命令-----
+            byte len = 0x04;//---数据长度---
+            //--------添加到用户数据--------
+            byte[] userData = new byte[10];
+            Buffer.BlockCopy(target, 0, userData, 0, 3);
+            Buffer.BlockCopy(source, 0, userData, 3, 3);
+            userData[6] = page;
+            Buffer.BlockCopy(cmd, 0, userData, 7, 2);
+            userData[9] = len;
+            byte[] crc = CRC32.GetCheckValue(userData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(userData, 0, udp.ProtocolData, 0, 10);
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, 10, 4);
+            Array.Resize(ref udp.ProtocolData, 14);//重新设定长度    
+            udp.Length = 28 + 14 + 1;
+
+            return udp;
+        }
+
+        /// <summary>
+        /// 修改名称
+        /// </summary>
+        /// <param name="newName"></param>
+        public void SaveNetworkName(string newName)
+        {
+            UdpData udpSend = createSaveNetworkNameUdp(newName);
+            MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackSaveNetworkName), new object[] { udpSend, newName });
+        }
+        private void callbackSaveNetworkName(UdpData udpReply, object[] values)
+        {
+            UdpData sendUdp = (UdpData)values[0];
+            string newName = (string)values[1];
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("获取版本号失败!", udpReply.ReplyByte);
+            else
+                this.DeviceName = newName;
+        }
+        /// <summary>
+        /// 保存网络名称
+        /// </summary>
+        /// <returns>返回UDP</returns>
+        private UdpData createSaveNetworkNameUdp(string newName)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)------
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
+
+            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_VER;//----用户命令-----
+            byte len = 0x04;//---数据长度---
+            //--------添加到用户数据--------
+            byte[] userData = new byte[10];
+            Buffer.BlockCopy(target, 0, userData, 0, 3);
+            Buffer.BlockCopy(source, 0, userData, 3, 3);
+            userData[6] = page;
+            Buffer.BlockCopy(cmd, 0, userData, 7, 2);
+            userData[9] = len;
+            byte[] crc = CRC32.GetCheckValue(userData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(userData, 0, udp.ProtocolData, 0, 10);
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, 10, 4);
+            Array.Resize(ref udp.ProtocolData, 14);//重新设定长度    
+            udp.Length = 28 + 14 + 1;
+
+            return udp;
+        }
+
+        /// <summary>
+        /// 连接网络
+        /// </summary>
+        /// <network>链接的网络</network>
+        /// <returns>返回数据表</returns>
+        public void ConnectNetwork()
+        {
+            //----------判断是否已经连接--------
+            if (this.State == NetworkConfig.STATE_CONNECTED)
+                return;
+            FrmNetworkPW frmPW = new FrmNetworkPW();
+            string pw = ""; frmPW.NetworkName = DeviceName;
+            if (frmPW.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                pw = frmPW.PassWord;
+            else
+                return;    
+            //-----------执行链接网络------------
+            UdpData udpSend = createConnectNetworkUdpData(pw);
+            string str1 = pw.Substring(0, 1); string str2 = pw.Substring(1, 1);
+            string str3 = pw.Substring(2, 1); string str4 = pw.Substring(3, 1);
+            byte[] mangerPw = ConvertTools.StrToToHexByte(str2 + str1 + str4 + str3 + "FFFF");//---管理员密码
+            byte[] userPw = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };//---用户密码---
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackConnectNetwork),
+                new object[] { mangerPw, userPw });
+        }
+        /// <summary>
+        /// 回调网络搜索
+        /// </summary>
+        /// <param name="udp">udp包</param>
+        private void callbackConnectNetwork(UdpData udpReceive, object[] values)
+        {
+            lock (SysConfig.ListNetworks)
+            {
+                //string temp = ConvertTools.ByteToHexStr(udpReceive.GetUdpData());
+                UserUdpData userData = new UserUdpData(udpReceive);
+                if (CommonTools.BytesEuqals(userData.Command, NetworkConfig.CMD_PC_CONNECT_ACK))//---为连接成功-----
+                {
+                    byte result = userData.Data[0];
+                    if (result == CONNECT_RESULT.NOT_ALLOW_CONNECT)
+                    { CommonTools.MessageShow("密码错误!", 2, ""); return; }
+
+                    string pcAddress = userData.Data[13].ToString();
+                    PCAddress = pcAddress;
+                    RefreshTime = DateTime.Now;
+                    State = NetworkConfig.STATE_CONNECTED;
+                    managerPassword = (byte[])(values[0]);
+                    userPassword = (byte[])(values[1]);
+                    NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
+                    GetPositionList(); //----------获取位置列表---------
+
+                    return;
+                }
+                else
+                    return;
+            }
+        }
+        /// <summary>
+        /// 创建申请连接网络申请的UDP
+        /// </summary>
+        /// <param name="network">网络数据</param>
+        /// <returns>UDP</returns>
+        private UdpData createConnectNetworkUdpData(string pw)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = 0x01;//----包数据类------
+            udp.PacketProperty[0] = BroadcastKind.Broadcast;//----包属性----
+            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
+            Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
+
+            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { 0xFF, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            byte[] cmd = NetworkConfig.CMD_PC_CONNECT;//----用户命令-----
+            byte len = 0x1A;//---数据长度---
+            //---管理员密码---密码:1234 => 0x21,0x43,0xFF,0xFF
+            string str1 = pw.Substring(0, 1); string str2 = pw.Substring(1, 1);
+            string str3 = pw.Substring(2, 1); string str4 = pw.Substring(3, 1);
+            byte[] mangerPw = ConvertTools.StrToToHexByte(str2 + str1 + str4 + str3 + "FFFF");
+            byte[] userPw = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };//---用户密码---
+            byte[] temp = new byte[] { 0x8F, 0x90 };//----保留----
+            byte[] mac = ByteMacAddress; //---MAC----
+
+            //--------添加到用户数据--------
+            byte[] userData = new byte[32];
+            Buffer.BlockCopy(target, 0, userData, 0, 3);
+            Buffer.BlockCopy(source, 0, userData, 3, 3);
+            userData[6] = page;
+            Buffer.BlockCopy(cmd, 0, userData, 7, 2);
+            userData[9] = len;
+            Buffer.BlockCopy(mangerPw, 0, userData, 10, 4);
+            Buffer.BlockCopy(userPw, 0, userData, 14, 4);
+            Buffer.BlockCopy(temp, 0, userData, 18, 2);
+            Buffer.BlockCopy(mac, 0, userData, 20, 12);
+
+            byte[] crc = CRC32.GetCheckValue(userData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(userData, 0, udp.ProtocolData, 0, 32);
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, 32, 4);
+            Array.Resize(ref udp.ProtocolData, 36);//重新设定长度    
+            udp.Length = 28 + 36 + 1;
+
+            return udp;
+
+        }
+
+
+        /// <summary>
+        /// 断开网络
+        /// </summary>
+        /// <network>链接的网络</network>
+        /// <returns>返回数据表</returns>
+        public void DisconnectNetwork()
+        {
+            //----------判断是否已经连接--------
+            if (State == NetworkConfig.STATE_NOT_CONNECTED)
+                return;
+            //-----------执行链接网络------------
+            UdpData udpSend = createDisconnectNetworkUdpData();
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackDisconnectNetwork), new object[] {  });
+
+        }
+        /// <summary>
+        /// 回调断开网络
+        /// </summary>
+        /// <param name="udp">udp包</param>
+        private void callbackDisconnectNetwork(UdpData udpReceive, object[] values)
+        {
+            lock (SysConfig.ListNetworks)
+            {
+                UserUdpData userData = new UserUdpData(udpReceive);
+                if (CommonTools.BytesEuqals(userData.Command, NetworkConfig.CMD_PC_DISCONNECT))//---成功回复断开连接-----
+                {
+                    PCAddress = "";
+                    State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
+                    NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
+                    return;
+                }
+                else
+                    return;
+            }
+        }
+        /// <summary>
+        /// 创建断开网络的UDP包
+        /// </summary>
+        /// <param name="network">网络</param>
+        /// <returns>UDP包数据</returns>
+        private UdpData createDisconnectNetworkUdpData()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)------
+            udp.PacketProperty[0] = BroadcastKind.Broadcast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
+            Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
+
+            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            byte[] cmd = NetworkConfig.CMD_PC_DISCONNECT;//----用户命令-----
+            byte len = 0x04;//---数据长度---
+
+            //--------添加到用户数据--------
+            byte[] userData = new byte[10];
+            Buffer.BlockCopy(target, 0, userData, 0, 3);
+            Buffer.BlockCopy(source, 0, userData, 3, 3);
+            userData[6] = page;
+            Buffer.BlockCopy(cmd, 0, userData, 7, 2);
+            userData[9] = len;
+            byte[] crc = CRC32.GetCheckValue(userData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(userData, 0, udp.ProtocolData, 0, 10);
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, 10, 4);
+            Array.Resize(ref udp.ProtocolData, 14);//重新设定长度    
+            udp.Length = 28 + 14 + 1;
+
+            return udp;
+
+        }
+   
     }
 
 

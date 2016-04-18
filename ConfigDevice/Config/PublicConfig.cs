@@ -104,10 +104,9 @@ namespace ConfigDevice
     {
         public static DataTable DtNetwork = new DataTable("Network");//-----网络列表-----
         public static DataTable DtDevice = new DataTable("Device");//-----设备列表-----
-        public static Dictionary<string, NetworkData> ListConnectedNetworks = new Dictionary<string, NetworkData>();//-----登记已经连接的网络-----   
+        public static Dictionary<string, NetworkData> ListNetworks = new Dictionary<string, NetworkData>();//-----登记网络-----   
 
         public static StringBuilder sbTest = new StringBuilder();
-
         public static readonly byte[] LOCAL_PORT = { 0x1D, 0x25 };//-----本地端口---
         public static readonly byte[] REMOTE_PORT = { 0xCB, 0x2B };//----远程端口-----      
         public static int LocalPort = BitConverter.ToInt16(LOCAL_PORT, 0);//本地端口
@@ -140,14 +139,9 @@ namespace ConfigDevice
             }
         }
 
-
-
         public static Dictionary<string, CallbackFromUdp> RJ45CallBackList = new Dictionary<string, CallbackFromUdp>();//----RJ45回调表-----
 
-        static SysConfig()
-        {
-
-        }
+  
 
         /// <summary>
         /// 添加到回调表
@@ -166,8 +160,6 @@ namespace ConfigDevice
         }
 
     }
-
-
 
     /// <summary>
     /// 回调对象

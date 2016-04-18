@@ -86,7 +86,7 @@ namespace ConfigDevice
             try
             {
                 if (this.InvokeRequired)
-                { this.Invoke(new CallBackUIAction(CallBackUI), new object[]{values}); }
+                { this.Invoke(new CallBackUIAction(CallBackUI), new object[]{values} ); }
                 else
                 {
                     gvNetwork.BestFitColumns();
@@ -103,8 +103,8 @@ namespace ConfigDevice
         private void FrmSocketClientTest_FormClosing(object sender, FormClosingEventArgs e)
         {
             //------断开所有连接网络-------
-            foreach(NetworkData network in SysConfig.ListConnectedNetworks.Values)
-                networkCtrl.DisconnectNetwork(network);
+            foreach (NetworkData network in SysConfig.ListNetworks.Values)
+                if(network.State == NetworkConfig.STATE_CONNECTED) network.DisconnectNetwork();
 
             socket.Close();
         }
@@ -116,9 +116,11 @@ namespace ConfigDevice
         {
             if (gvNetwork.FocusedRowHandle == -1) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
-            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.DC_CONNECTED)
+            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_CONNECTED)
             { CommonTools.MessageShow("你已经连接了" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-            networkCtrl.ConnectNetwork(new NetworkData(dr));
+
+            NetworkData network = new NetworkData(dr);
+            network.ConnectNetwork();
         }
 
         /// <summary>
@@ -130,9 +132,10 @@ namespace ConfigDevice
         {
             if (gvNetwork.FocusedRowHandle == -1) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
-            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.DC_NOT_CONNECTED)
+            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
             { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-            networkCtrl.DisconnectNetwork(new NetworkData(dr));
+            NetworkData network = new NetworkData(dr);
+            network.DisconnectNetwork();
         }
 
         delegate void searchDevices(NetworkData network); 
@@ -143,7 +146,7 @@ namespace ConfigDevice
         {
             if (gvNetwork.FocusedRowHandle == -1) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
-            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.DC_NOT_CONNECTED)
+            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
             {
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
@@ -202,7 +205,7 @@ namespace ConfigDevice
             if (gvDevices.FocusedRowHandle == -1) return;   
             DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);         
             DeviceData device = new DeviceData(dr);
-            if (!SysConfig.ListConnectedNetworks.ContainsKey(device.NetworkID))
+            if (!SysConfig.ListNetworks.ContainsKey(device.NetworkID))
             { CommonTools.MessageShow("网络链接已断开,请重新链接!", 2, ""); return; }
 
             FrmDevice frm = getFactory(device.ByteKindID).CreateDevice(device);
@@ -223,7 +226,6 @@ namespace ConfigDevice
                 default: return new FactoryBaseDevice();  
             }
         }
-
         /// <summary>
         /// 双击链接或打开网络
         /// </summary>
@@ -232,14 +234,14 @@ namespace ConfigDevice
             if (gvNetwork.FocusedRowHandle == -1) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             NetworkData network = new NetworkData(dr);
-            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.DC_CONNECTED)
+            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_CONNECTED)
             {
                 FrmNetworkEdit frm = new FrmNetworkEdit();
-                frm.NetworkEdit = SysConfig.ListConnectedNetworks[network.NetworkID];
+                frm.NetworkEdit = SysConfig.ListNetworks[network.NetworkID];
                 frm.Show(this);
             }
             else
-                networkCtrl.ConnectNetwork(network);
+                network.ConnectNetwork();
         }
 
 

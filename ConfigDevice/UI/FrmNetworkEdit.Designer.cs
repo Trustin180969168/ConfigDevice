@@ -161,7 +161,7 @@
             // 
             // edtSoftwareVer
             // 
-            this.edtSoftwareVer.Location = new System.Drawing.Point(438, 57);
+            this.edtSoftwareVer.Location = new System.Drawing.Point(438, 56);
             this.edtSoftwareVer.Name = "edtSoftwareVer";
             this.edtSoftwareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtSoftwareVer.Properties.Appearance.Options.UseFont = true;
@@ -211,7 +211,7 @@
             // 
             // edtHarewareVer
             // 
-            this.edtHarewareVer.Location = new System.Drawing.Point(438, 93);
+            this.edtHarewareVer.Location = new System.Drawing.Point(438, 88);
             this.edtHarewareVer.Name = "edtHarewareVer";
             this.edtHarewareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtHarewareVer.Properties.Appearance.Options.UseFont = true;
@@ -237,6 +237,7 @@
             this.edtNetworkName.Properties.Appearance.Options.UseFont = true;
             this.edtNetworkName.Size = new System.Drawing.Size(565, 26);
             this.edtNetworkName.TabIndex = 17;
+            this.edtNetworkName.Leave += new System.EventHandler(this.edtNetworkName_Leave);
             // 
             // label7
             // 
@@ -314,7 +315,7 @@
             // 
             this.edtName.AutoHeight = false;
             this.edtName.Name = "edtName";
-            this.edtName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.edtName_KeyUp);
+            this.edtName.Leave += new System.EventHandler(this.edtName_Leave);
             // 
             // password
             // 
@@ -414,6 +415,9 @@
             this.Controls.Add(this.gcPosition);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.toolStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmNetworkEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "网络信息";
