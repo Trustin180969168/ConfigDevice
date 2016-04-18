@@ -83,7 +83,7 @@ namespace ConfigDevice
             if (this.InvokeRequired)
             { 
                 this.callBackSavePosition(values); 
-                return; 
+                return;   
             }
             Position pos = values[0] as Position;
             dtPosition.Rows[pos.Num - 1].AcceptChanges();
