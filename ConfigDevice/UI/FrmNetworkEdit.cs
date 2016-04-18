@@ -81,7 +81,10 @@ namespace ConfigDevice
         private void callBackSavePosition(object[] values)
         {
             if (this.InvokeRequired)
-            { this.callBackSavePosition(values); return; }
+            { 
+                this.callBackSavePosition(values); 
+                return; 
+            }
             Position pos = values[0] as Position;
             dtPosition.Rows[pos.Num - 1].AcceptChanges();
         }
