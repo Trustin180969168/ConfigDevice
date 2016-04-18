@@ -31,7 +31,7 @@ namespace ConfigDevice
         /// <summary>
         /// 回调
         /// </summary>
-        private void callbackUI()
+        private void callbackUI(object[] values)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace ConfigDevice
                 }
                 else
                 {
-                    frmSetting.CallBackUI();
+                    frmSetting.CallBackUI(null);
                 }
             }
             catch { }

@@ -62,7 +62,6 @@ namespace ConfigDevice
             SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackVer);
             callbackSaveID = new CallbackFromUdp(getResultDevice);  
             callbackRefresh = new CallbackFromUdp(getRefreshDevice);
-
         }
 
         /// <summary>
@@ -125,7 +124,7 @@ namespace ConfigDevice
                 mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
             }
             if(CallbackUI != null)
-                CallbackUI();
+                CallbackUI(null);
 
         }
 
@@ -204,7 +203,7 @@ namespace ConfigDevice
                 else
                     CommonTools.MessageShow("设备ID修改失败!", 2, "");
    
-                CallbackUI();
+                CallbackUI(null);
             }
 
         }
@@ -388,7 +387,7 @@ namespace ConfigDevice
                 this.NetworkIP = device.NetworkIP;
                 this.AddressName = device.AddressName;
 
-                this.CallbackUI();//---返回UI----
+                this.CallbackUI(null);//---返回UI----
                 SysCtrl.RefreshDevices(this);//--刷新----
             }
         }

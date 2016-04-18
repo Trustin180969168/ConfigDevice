@@ -47,8 +47,8 @@ namespace ConfigDevice
         /// <param name="device">设备</param>
         public static void RefreshDevices(Device device)
         {
-            string temp = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
-            DataRow[] rows = SysConfig.DtDevice.Select(temp);
+            string cdnStr = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
+            DataRow[] rows = SysConfig.DtDevice.Select(cdnStr);
             if (rows.Length == 0)        return;
             DataRow dr = rows[0];
             dr[DeviceConfig.DC_DEVICE_ID] = device.DeviceID;

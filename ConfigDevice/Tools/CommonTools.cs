@@ -115,9 +115,9 @@ namespace ConfigDevice
         /// <returns>字节数组</returns>
         public static byte[] CopyBytes(byte[] src, int start, int len)
         {
-            byte[] temp= new byte[len];
-            Buffer.BlockCopy(src, start, temp, 0, len);
-            return temp;
+            byte[] value= new byte[len];
+            Buffer.BlockCopy(src, start, value, 0, len);
+            return value;
         }
     }
 }

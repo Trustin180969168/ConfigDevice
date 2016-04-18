@@ -274,25 +274,17 @@ namespace ConfigDevice
                         UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据-----
                         AddRJ45SendList(udpReceive.PacketCodeStr, udpReceive);//包标识和命令作为键
 
-                        byte[] key = findKey(userData.Command);
-                        if (key != null)//------是否存在被动回调列表----
+                        string keyStr = userData.CommandStr;
+                        if (SysConfig.RJ45CallBackList.ContainsKey(keyStr))//------是否存在被动回调列表----
                         {
-                            state = SysConfig.RJ45CallBackList[key];   
-                            state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----        
+                            state = SysConfig.RJ45CallBackList[keyStr];  
+                            if(state != null)
+                                state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----        
                         }
                     }
                 }
             //}
         }
-
-        private byte[] findKey(byte[] keyValue)
-        {
-            foreach(byte[] key in SysConfig.RJ45CallBackList.Keys)
-                if (CommonTools.BytesEuqals(key, keyValue))
-                    return key;
-            return null;
-        }
-
         /// <summary>
         /// 判断是否广播包
         /// </summary>
@@ -316,8 +308,7 @@ namespace ConfigDevice
         {
             if (udp.Length < UdpDataConfig.MIN_USER_DATA_SIZE) return true;//---回复包直接通过--
             UserUdpData userData = new UserUdpData(udp);//----从UDP协议包中分离出用户协议数据-----
-            //string temp1 = ConvertTools.ByteToHexStr(udp.ProtocolData);
-            //string temp2 = ConvertTools.ByteToHexStr(userData.Data);
+
             byte[]temp = new byte[udp.ProtocolData.Length - 4];
             Buffer.BlockCopy(udp.ProtocolData, 0, temp, 0, temp.Length);
             byte[] result = CRC32.GetCheckValue(temp);

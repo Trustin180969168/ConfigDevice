@@ -24,8 +24,9 @@ namespace ConfigDevice
             callbackGetSearchDevices.CallBackAction += new CallBackUdpAction(this.callbackGetDevices);
             callbackGetStopSearchDevices.CallBackAction += new CallBackUdpAction(this.callbackStopSearch);
 
-            SysConfig.RJ45CallBackList[DeviceConfig.CMD_PUBLIC_WRITE_INF] = callbackGetSearchDevices;//---回调设备-----
-            SysConfig.RJ45CallBackList[DeviceConfig.CMD_PUBLIC_STOP_SEARCH] = callbackGetStopSearchDevices;//---回调停止搜索----
+            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF,callbackGetSearchDevices);//---回调设备-----
+            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_STOP_SEARCH,callbackGetStopSearchDevices);//---回调停止搜索----
+        
         }
 
         /// <summary>
@@ -165,7 +166,7 @@ namespace ConfigDevice
             //------回复停止搜索-------               
             UdpData udpReply = createReplyUdp(data);
             mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
-            CallBackUI();
+            CallBackUI(null);
         }
 
 

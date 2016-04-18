@@ -145,8 +145,8 @@ namespace ConfigDevice
         /// <returns>一个字节</returns>
         public static byte GetByteFrom8BitNumStr(string num)
         {
-            byte temp = BitConverter.GetBytes(Convert.ToInt16(num))[0];
-            return temp;
+            byte value = BitConverter.GetBytes(Convert.ToInt16(num))[0];
+            return value;
         }
 
         /// <summary>
@@ -156,8 +156,8 @@ namespace ConfigDevice
         /// <returns>两个字节</returns>
         public static byte[] GetByteFrom16BitInt(int num)
         {
-            byte[] temp = BitConverter.GetBytes(Convert.ToInt16(num));
-            return temp;
+            byte[] value = BitConverter.GetBytes(Convert.ToInt16(num));
+            return value;
         }
     }
 }

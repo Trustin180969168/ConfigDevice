@@ -28,7 +28,7 @@ namespace ConfigDevice
         public const string DC_NAME = "Name";
         public const string DC_HAS_PASSWORD = "HasPassword";
 
-        public int Num = 0;//位置编号
+        public int Num = 1;//位置编号,从1开始
         public string Name = "";//位置名称
         public bool HasPassword;//是否有密码
 
@@ -84,16 +84,16 @@ namespace ConfigDevice
         /// <returns></returns>
         public EndPoint GetEndPoint()
         {
-           IPEndPoint ipep = new IPEndPoint(IPAddress.Parse(NetworkIP), Port);
-           EndPoint remotePoint = (EndPoint)(ipep);
-           return remotePoint;
+            IPEndPoint ipep = new IPEndPoint(IPAddress.Parse(NetworkIP), Port);
+            EndPoint remotePoint = (EndPoint)(ipep);
+            return remotePoint;
         }
 
         /// <summary>
         /// 构造函数
         /// </summary>
         public NetworkData(UserUdpData userUdpData)
-        {  
+        {
             DeviceID = Convert.ToInt16(userUdpData.Source[0]).ToString();
             NetworkID = Convert.ToInt16(userUdpData.Source[1]).ToString();
             State = NetworkConfig.DC_NOT_CONNECTED;
@@ -107,8 +107,7 @@ namespace ConfigDevice
             DeviceName = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0');//.Replace("网关:","");
             ListPosition = new List<Position>();
 
-
-            callbackGetPosition.CallBackAction += callbackGetPositions;
+            regeditRJ45Callback();
         }
 
         /// <summary>
@@ -122,11 +121,20 @@ namespace ConfigDevice
             MacAddress = dr[NetworkConfig.DC_MAC].ToString();
             DeviceName = dr[NetworkConfig.DC_DEVICE_NAME].ToString();
             NetworkIP = dr[NetworkConfig.DC_IP].ToString();
-            Port = Convert.ToInt16( dr[NetworkConfig.DC_PORT]);
+            Port = Convert.ToInt16(dr[NetworkConfig.DC_PORT]);
             PCAddress = dr[NetworkConfig.DC_PC_ADDRESS].ToString();
             ListPosition = new List<Position>();
 
+            regeditRJ45Callback();//-------注册RJ45回调------
+        }
+
+        /// <summary>
+        /// 注册RJ45回调
+        /// </summary>
+        private void regeditRJ45Callback()
+        {
             callbackGetPosition.CallBackAction += callbackGetPositions;
+            SysConfig.AddRJ45CallBackList(NetworkConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);
         }
 
 
@@ -138,7 +146,7 @@ namespace ConfigDevice
             ListPosition.Clear();
             UdpData udpSend = createGetPositionListUdp();
             callbackGetPosition.Udp = udpSend;
-            SysConfig.AddRJ45CallBackList(NetworkConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);
+
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackGetReply), new object[] { udpSend });
         }
         private void callbackGetReply(UdpData udpReply, object[] values)
@@ -187,8 +195,6 @@ namespace ConfigDevice
             return udp;
         }
 
-
-
         /// <summary>
         /// 回调搜索地址列表
         /// </summary>
@@ -196,26 +202,90 @@ namespace ConfigDevice
         /// <param name="values">参数组</param>
         private void callbackGetPositions(UdpData udpPosition, object[] values)
         {
-            //SysConfig.sbTest.Append(udpPosition.PacketCodeStr + "位置数据到达时间----" + DateTime.Now.ToString("mm:ss:ffff") + "\n");            
             //-----------回复RJ45,已经获取了一个设备位置-------
             UdpData udpReply = UdpTools.CreateDeviceReplyUdp(udpPosition);
             mySocket.ReplyData(udpReply, udpPosition.IP, SysConfig.RemotePort);
 
-           // SysConfig.sbTest.Append(udpPosition.PacketCodeStr + "回复位置数据时间----" + DateTime.Now.ToString("mm:ss:ffff") + "\n");
             UserUdpData userData = new UserUdpData(udpPosition);
-            byte temp = userData.Data[0];//第一个字节
-            bool numHas = (int)(temp >> 7) == 1 ? true : false;//是否有密码
-            int num = 0x7F & temp + 1; //序号
+            byte value = userData.Data[0];//第一个字节
+            bool numHas = (int)(value >> 7) == 1 ? true : false;//是否有密码
+            int num = 0x7F & value + 1; //序号,从位置从1开始
             byte[] byteName = CommonTools.CopyBytes(userData.Data, 1, 12);//---名称---
             string PositionName = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0');
             Position pos = new Position(num, PositionName, numHas);
-            //if (!ListPosition.Contains(pos))
-            ListPosition.Add(pos);
-
-            ListPosition.Sort();
-            //SysConfig.sbTest.Append(udpPosition.PacketCodeStr + "执行位置读取结束----" + DateTime.Now.ToString("mm:ss:ffff") + "\n");
+            if (ListPosition.Count < num + 1)//----有则修改,无则添加
+            { ListPosition.Add(pos); ListPosition.Sort(); }
+            else
+            {
+                ListPosition[pos.Num].Name = pos.Name;
+                ListPosition[pos.Num].HasPassword = pos.HasPassword;
+            }            
         }
 
+        /// <summary>
+        /// 保存位置列表信息
+        /// </summary>
+        /// <param name="_position">位置</param>
+        /// <param name="_name">名称</param>
+        public void SavePositionList(Position pos, CallBackUIAction callbackUI)
+        {
+            UdpData udpSend = createSavePositionUdp(pos);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackGetSavePositionReply), new object[] { udpSend, pos, callbackUI });
+        }
+        private void callbackGetSavePositionReply(UdpData udpReply, object[] values)
+        {
+            UdpData udpSend = (UdpData)values[0];
+            Position pos = (Position)values[1];
+            CallBackUIAction callbackUI = (CallBackUIAction)values[2];
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("保存位置- " + pos.Name + " 失败!", udpReply.ReplyByte);//----错误则提示---- 
+            else
+                callbackUI(new object[]{ pos});//----返回界面结果----
+        }
+        /// <summary>
+        /// 创建获取修改位置包
+        /// </summary>
+        /// <returns></returns>
+        private UdpData createSavePositionUdp(Position pos)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类------
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性----
+            udp.SendPort = SysConfig.LOCAL_PORT;//--发送端口---
+            udp.Protocol = UserProtocol.RJ45;//---用户协议-------
+
+            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//-----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            byte[] cmd = NetworkConfig.CMD_PC_WRITE_LOCALL_NAME;//----用户命令-----
+            //---位置------
+            byte num = (byte)(pos.Num - 1);
+            if(pos.HasPassword)//--是否有密码----
+                 num = (byte)(0x80 | num);
+            //----------------名称---------
+            byte[] tempName = Encoding.GetEncoding("GB2312").GetBytes(pos.Name);
+            byte[] byteName = new byte[12];//----最多12个字节,不足补0
+            Buffer.BlockCopy(tempName, 0, byteName, 0, tempName.Length);
+            byte len = (byte)(1 + byteName.Length + 4);//---数据长度 = 地址1 + 名称长度12 + 校验码4 ---
+            //---------添加到校验数据--------
+            byte[] crcData = new byte[10 + 1 + byteName.Length];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            crcData[10] = num;
+            Buffer.BlockCopy(byteName, 0, crcData, 11, byteName.Length);
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
 
     }
 

@@ -81,19 +81,19 @@ namespace ConfigDevice
             Action searchAction = new Action(networkCtrl.SearchNetworks);
             searchAction.BeginInvoke(null, null);                  
         }
-        public void CallBackUI()
+        public void CallBackUI(object[] values)
         {
             try
             {
                 if (this.InvokeRequired)
-                { this.Invoke(new CallBackUIAction(CallBackUI)); }
+                { this.Invoke(new CallBackUIAction(CallBackUI), new object[]{values}); }
                 else
                 {
                     gvNetwork.BestFitColumns();
                     gvDevices.BestFitColumns();
                 }
             }
-            catch { }
+            catch (Exception e1) { e1.ToString(); }
         }
         
 

@@ -52,7 +52,7 @@ namespace ConfigDevice
         public static UInt32 CRC32Software(byte[] pData, short Length)
         {
             UInt32 nReg;//CRC寄存器
-            UInt32 nTemp = 0;
+            UInt32 nValue = 0;
             UInt16 i, n;
             byte[] p = new byte[4];
             int position = 0;//记录复制的位置
@@ -64,9 +64,9 @@ namespace ConfigDevice
                 nReg ^= BitConverter.ToUInt32(p, 0);  //-----转换32位无符号整数
                 for (i = 0; i < 4; i++)
                 {
-                    nTemp = Crc32Table[(byte)((nReg >> 24) & 0xff)]; //取一个字节，查表
+                    nValue = Crc32Table[(byte)((nReg >> 24) & 0xff)]; //取一个字节，查表
                     nReg <<= 8;                        //丢掉计算过的头一个BYTE
-                    nReg ^= nTemp;                	   //与前一个BYTE的计算结果异或 
+                    nReg ^= nValue;                	   //与前一个BYTE的计算结果异或 
                 }
                 position += 4;
             }
@@ -76,22 +76,22 @@ namespace ConfigDevice
                 Buffer.BlockCopy(pData, position, p, 0, Length % 4);//----获取剩余长度的字节
                 if ((Length % 4) == 1)
                 {
-                    nTemp = BitConverter.ToUInt32(p, 0) &0x000000ff;
+                    nValue = BitConverter.ToUInt32(p, 0) &0x000000ff;
                 }
                 else if ((Length % 4) == 2)
                 {
-                    nTemp = BitConverter.ToUInt32(p, 0) &0x0000ffff;
+                    nValue = BitConverter.ToUInt32(p, 0) &0x0000ffff;
                 }
                 else
                 {
-                    nTemp = BitConverter.ToUInt32(p, 0) &0x00ffffff;
+                    nValue = BitConverter.ToUInt32(p, 0) &0x00ffffff;
                 }
-                nReg ^= nTemp;
+                nReg ^= nValue;
                 for (i = 0; i < 4; i++)
                 {
-                    nTemp = Crc32Table[(byte)((nReg >> 24) & 0xff)]; 		//取一个字节，查表
+                    nValue = Crc32Table[(byte)((nReg >> 24) & 0xff)]; 		//取一个字节，查表
                     nReg <<= 8;                        						//丢掉计算过的头一个BYTE
-                    nReg ^= nTemp;                		  					//与前一个BYTE的计算结果异或 
+                    nReg ^= nValue;                		  					//与前一个BYTE的计算结果异或 
                 }
             }
             return nReg;

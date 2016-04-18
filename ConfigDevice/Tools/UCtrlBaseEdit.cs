@@ -16,7 +16,7 @@ namespace ConfigDevice
             InitializeComponent();
         }
 
-        public void CallBackUI()
+        public void CallBackUI(object[] values)
         {
             try
             {

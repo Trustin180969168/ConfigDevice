@@ -31,7 +31,7 @@
             this.ipInputTextbox1 = new IpInputExt.Ctrls.IpInputTextbox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btSaveInfo = new System.Windows.Forms.ToolStripButton();
-            this.btOpenLight = new System.Windows.Forms.ToolStripButton();
+            this.btSavePosition = new System.Windows.Forms.ToolStripButton();
             this.edtNetworkID = new DevExpress.XtraEditors.TextEdit();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -86,7 +86,7 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSaveInfo,
-            this.btOpenLight});
+            this.btSavePosition});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(792, 31);
@@ -101,13 +101,14 @@
             this.btSaveInfo.Size = new System.Drawing.Size(92, 28);
             this.btSaveInfo.Text = "保存信息";
             // 
-            // btOpenLight
+            // btSavePosition
             // 
-            this.btOpenLight.Image = global::ConfigDevice.Properties.Resources.Point1;
-            this.btOpenLight.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btOpenLight.Name = "btOpenLight";
-            this.btOpenLight.Size = new System.Drawing.Size(92, 28);
-            this.btOpenLight.Text = "保存位置";
+            this.btSavePosition.Image = global::ConfigDevice.Properties.Resources.Point1;
+            this.btSavePosition.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSavePosition.Name = "btSavePosition";
+            this.btSavePosition.Size = new System.Drawing.Size(92, 28);
+            this.btSavePosition.Text = "保存位置";
+            this.btSavePosition.Click += new System.EventHandler(this.btSavePosition_Click);
             // 
             // edtNetworkID
             // 
@@ -441,7 +442,7 @@
         private IpInputExt.Ctrls.IpInputTextbox  ipInputTextbox1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btSaveInfo;
-        private System.Windows.Forms.ToolStripButton btOpenLight;
+        private System.Windows.Forms.ToolStripButton btSavePosition;
         private DevExpress.XtraEditors.TextEdit edtNetworkID;
         private IpInputTextbox edtGateway;
         private System.Windows.Forms.Label label1;

@@ -70,7 +70,7 @@ namespace ConfigDevice
                 network.DeviceName, network.MacAddress,network.NetworkIP,network.Port.ToString(),network.Remark });
 
                 SysConfig.DtNetwork.AcceptChanges();
-                CallBackUI();
+                CallBackUI(null);
             }
         }
 

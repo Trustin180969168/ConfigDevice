@@ -10,7 +10,10 @@ namespace ConfigDevice
 
     public delegate void Action();//用于公共委托类型,陆续添加带参数的
     public delegate void CallBackUdpAction(UdpData udpData,object[] values);//----回调执行UDP包----
-    public delegate void CallBackUIAction();//---回调UI界面---
+    public delegate void CallBackUIAction(object[] values);//----回调UI界面----
+
+
+
 
     /// <summary>
     /// 回复结果
@@ -105,7 +108,6 @@ namespace ConfigDevice
 
         public static StringBuilder sbTest = new StringBuilder();
 
-
         public static readonly byte[] LOCAL_PORT = { 0x1D, 0x25 };//-----本地端口---
         public static readonly byte[] REMOTE_PORT = { 0xCB, 0x2B };//----远程端口-----      
         public static int LocalPort = BitConverter.ToInt16(LOCAL_PORT, 0);//本地端口
@@ -140,14 +142,11 @@ namespace ConfigDevice
 
 
 
-        public static Dictionary<byte[], CallbackFromUdp> RJ45CallBackList = new Dictionary<byte[], CallbackFromUdp>();//----RJ45回调表-----
+        public static Dictionary<string, CallbackFromUdp> RJ45CallBackList = new Dictionary<string, CallbackFromUdp>();//----RJ45回调表-----
 
         static SysConfig()
         {
-            RJ45CallBackList.Add(NetworkConfig.CMD_PC_WRITE_LOCALL_NAME, null);//---返回设备位置列表的回调-----
-            RJ45CallBackList.Add(DeviceConfig.CMD_PUBLIC_WRITE_INF, null);//---返回设备列表的回调-----
-            RJ45CallBackList.Add(DeviceConfig.CMD_PUBLIC_STOP_SEARCH, null);//---返回设备列表的回调----
-            RJ45CallBackList.Add(NetworkConfig.CMD_PC_CONNECTING, null);//---返回设备列表的回调----
+
         }
 
         /// <summary>
@@ -157,20 +156,13 @@ namespace ConfigDevice
         /// <param name="callback">回调对象</param>
         public static void AddRJ45CallBackList(byte[] key,CallbackFromUdp callback)
         {
-            byte[] findKey = ContainsKey(key);
-            if (findKey == null)
-                RJ45CallBackList.Add(key, callback);
+            string keyStr = ConvertTools.ByteToHexStr(key);
+            if (!RJ45CallBackList.ContainsKey(keyStr))
+                RJ45CallBackList.Add(keyStr, callback);
             else
             {
-                RJ45CallBackList[key] = callback;  //----暂时只用于单个事件订阅,直接覆盖------
+                RJ45CallBackList[keyStr] = callback;  //----暂时只用于单个事件订阅,直接覆盖------
             }
-        }
-        private static byte[] ContainsKey(byte[] keyValue)//----key不能判断字节数组,需要自己判断---
-        {
-            foreach (byte[] key in SysConfig.RJ45CallBackList.Keys)
-                if (CommonTools.BytesEuqals(key, keyValue))
-                    return key;
-            return null;
         }
 
     }
