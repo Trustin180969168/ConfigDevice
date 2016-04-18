@@ -21,7 +21,7 @@ namespace ConfigDevice
             try
             {
                 if (this.InvokeRequired)
-                    this.Invoke(new CallBackUIAction(this.CallBackUI),new object[]{values}); 
+                    this.Invoke(new CallbackUIAction(this.CallBackUI),new object[]{values}); 
                 else
                 {
                     edtHardwareVer.Text = DeviceEdit.HardwareVer;

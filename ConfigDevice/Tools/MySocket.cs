@@ -165,7 +165,7 @@ namespace ConfigDevice
         /// <param name="receivePort">接收端口</param>
         /// <param name="receivePort">接收参数</param>
         /// <returns>void</returns>
-        public void SendData(UdpData udp, string receiveIP, int receivePort, CallBackUdpAction callback, object[] objs)
+        public void SendData(UdpData udp, string receiveIP, int receivePort, CallbackUdpAction callback, object[] objs)
         {
             //lock (obj)
             //{
@@ -183,7 +183,7 @@ namespace ConfigDevice
         /// <param name="data">发送的数据包</param>
         /// <param name="remotePoint">网络地址</param>
         /// <returns>void</returns>
-        public void SendData(UdpData udp, EndPoint remotePoint, CallBackUdpAction callback, object[] objs)
+        public void SendData(UdpData udp, EndPoint remotePoint, CallbackUdpAction callback, object[] objs)
         {
             //-------发送前,把包标识码加1-------
             byte[] packageCount = BitConverter.GetBytes(++sendCount);

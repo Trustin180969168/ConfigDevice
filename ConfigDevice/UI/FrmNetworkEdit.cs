@@ -77,7 +77,7 @@ namespace ConfigDevice
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CallBackUIAction(this.callBackSavePosition), new object[] { values });
+                this.Invoke(new CallbackUIAction(this.callBackSavePosition), new object[] { values });
                 return;
             }
             Position pos = values[0] as Position;
@@ -89,7 +89,7 @@ namespace ConfigDevice
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CallBackUIAction(this.callbackUI), new object[] { values });
+                this.Invoke(new CallbackUIAction(this.callbackUI), new object[] { values });
                 return;
             }
             edtSoftwareVer.Text = NetworkEdit.SoftwareVer;

@@ -82,7 +82,7 @@ namespace ConfigDevice
         private CallbackFromUdp callbackGetVer;
         public string SoftwareVer = "";//软件版本
         public string HardwareVer = "";//硬件版本
-        public CallBackUIAction CallbackUI;
+        public CallbackUIAction CallbackUI;
         /// <summary>
         /// 获取终端点
         /// </summary>
@@ -152,7 +152,7 @@ namespace ConfigDevice
             SysConfig.AddRJ45CallBackList(NetworkConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
             UdpData udpSend = createGetPositionListUdp();
             callbackGetPosition.Udp = udpSend;         
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackGetReply), new object[] { udpSend });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackGetReply), new object[] { udpSend });
         }
         private void callbackGetReply(UdpData udpReply, object[] values)
         {
@@ -232,16 +232,16 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="_position">位置</param>
         /// <param name="_name">名称</param>
-        public void SavePositionList(Position pos, CallBackUIAction callbackUI)
+        public void SavePositionList(Position pos, CallbackUIAction callbackUI)
         {
             UdpData udpSend = createSavePositionUdp(pos);
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackGetSavePositionReply), new object[] { udpSend, pos, callbackUI });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackGetSavePositionReply), new object[] { udpSend, pos, callbackUI });
         }
         private void callbackGetSavePositionReply(UdpData udpReply, object[] values)
         {
             UdpData udpSend = (UdpData)values[0];
             Position pos = (Position)values[1];
-            CallBackUIAction callbackUI = (CallBackUIAction)values[2];
+            CallbackUIAction callbackUI = (CallbackUIAction)values[2];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("保存位置- " + pos.Name + " 失败!", udpReply.ReplyByte);//----错误则提示---- 
             else
@@ -302,7 +302,7 @@ namespace ConfigDevice
         {
             SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackGetVer);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
             UdpData udpSearch = createSearchVerUdp();
-            MySocket.GetInstance().SendData(udpSearch, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackSearchVer), new object[] { udpSearch });
+            MySocket.GetInstance().SendData(udpSearch, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchVer), new object[] { udpSearch });
         }
         private void callbackSearchVer(UdpData udpReply, object[] values)
         {
@@ -379,7 +379,7 @@ namespace ConfigDevice
         public void SaveNetworkName(string newName)
         {
             UdpData udpSend = createSaveNetworkNameUdp(newName);
-            MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackSaveNetworkName), new object[] { udpSend, newName });
+            MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveNetworkName), new object[] { udpSend, newName });
         }
         private void callbackSaveNetworkName(UdpData udpReply, object[] values)
         {
@@ -447,7 +447,7 @@ namespace ConfigDevice
             string str3 = pw.Substring(2, 1); string str4 = pw.Substring(3, 1);
             byte[] mangerPw = ConvertTools.StrToToHexByte(str2 + str1 + str4 + str3 + "FFFF");//---管理员密码
             byte[] userPw = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };//---用户密码---
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackConnectNetwork),
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackConnectNetwork),
                 new object[] { mangerPw, userPw });
         }
         /// <summary>
@@ -544,7 +544,7 @@ namespace ConfigDevice
                 return;
             //-----------执行链接网络------------
             UdpData udpSend = createDisconnectNetworkUdpData();
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackDisconnectNetwork), new object[] {  });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackDisconnectNetwork), new object[] {  });
 
         }
         /// <summary>

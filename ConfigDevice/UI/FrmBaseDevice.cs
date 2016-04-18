@@ -24,7 +24,7 @@ namespace ConfigDevice
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {     
-            this.Device.CallbackUI = new CallBackUIAction(this.callbackUI);
+            this.Device.CallbackUI = new CallbackUIAction(this.callbackUI);
             this.Device.SearchVer();//---获取版本号-----
         }
 
@@ -37,7 +37,7 @@ namespace ConfigDevice
             {
                 if (this.InvokeRequired)
                 {
-                    this.Invoke(new CallBackUIAction(callbackUI),new object[]{values});
+                    this.Invoke(new CallbackUIAction(callbackUI),new object[]{values});
                 }
                 else
                 {

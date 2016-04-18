@@ -9,11 +9,8 @@ namespace ConfigDevice
 {
 
     public delegate void Action();//用于公共委托类型,陆续添加带参数的
-    public delegate void CallBackUdpAction(UdpData udpData,object[] values);//----回调执行UDP包----
-    public delegate void CallBackUIAction(object[] values);//----回调UI界面----
-
-
-
+    public delegate void CallbackUdpAction(UdpData udpData,object[] values);//----回调执行UDP包----
+    public delegate void CallbackUIAction(object[] values);//----回调UI界面----
 
     /// <summary>
     /// 回复结果
@@ -167,16 +164,16 @@ namespace ConfigDevice
     public class  CallbackFromUdp
     {
         public UdpData Udp;//---包数据---
-        public event CallBackUdpAction CallBackAction;//----委托操作----    
+        public event CallbackUdpAction CallBackAction;//----委托操作----    
         public EndPoint RemotePoint;//---标识网络地址---
         public object[] Values;
 
-        public CallBackUdpAction getCallBackAction
+        public CallbackUdpAction getCallBackAction
         {
             get { return CallBackAction; }
         }
 
-        public CallbackFromUdp(UdpData udp, CallBackUdpAction callBack, EndPoint endPoint, object[] objs)
+        public CallbackFromUdp(UdpData udp, CallbackUdpAction callBack, EndPoint endPoint, object[] objs)
         {
             Udp = udp;
             CallBackAction = callBack;
@@ -189,7 +186,7 @@ namespace ConfigDevice
 
         }
 
-        public CallbackFromUdp(CallBackUdpAction callBack)
+        public CallbackFromUdp(CallbackUdpAction callBack)
         {
             CallBackAction = callBack;
         }

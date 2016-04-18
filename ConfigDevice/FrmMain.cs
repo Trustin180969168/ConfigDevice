@@ -86,7 +86,7 @@ namespace ConfigDevice
             try
             {
                 if (this.InvokeRequired)
-                { this.Invoke(new CallBackUIAction(CallBackUI), new object[]{values} ); }
+                { this.Invoke(new CallbackUIAction(CallBackUI), new object[]{values} ); }
                 else
                 {
                     gvNetwork.BestFitColumns();
@@ -138,7 +138,6 @@ namespace ConfigDevice
             network.DisconnectNetwork();
         }
 
-        delegate void searchDevices(NetworkData network); 
         /// <summary>
         /// 搜索设备
         /// </summary>

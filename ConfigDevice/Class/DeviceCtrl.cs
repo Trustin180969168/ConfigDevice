@@ -12,7 +12,7 @@ namespace ConfigDevice
         private MySocket mySocket = MySocket.GetInstance();
         private int AvaliableSize = 19;//--最小有效长度
         private int countNum = 0;
-        public CallBackUIAction CallBackUI = null;//返回
+        public CallbackUIAction CallBackUI = null;//返回
         private CallbackFromUdp callbackGetSearchDevices;
         private CallbackFromUdp callbackGetStopSearchDevices;
 
@@ -21,8 +21,8 @@ namespace ConfigDevice
 
             callbackGetSearchDevices = new CallbackFromUdp();
             callbackGetStopSearchDevices = new CallbackFromUdp();
-            callbackGetSearchDevices.CallBackAction += new CallBackUdpAction(this.callbackGetDevices);
-            callbackGetStopSearchDevices.CallBackAction += new CallBackUdpAction(this.callbackStopSearch);
+            callbackGetSearchDevices.CallBackAction += new CallbackUdpAction(this.callbackGetDevices);
+            callbackGetStopSearchDevices.CallBackAction += new CallbackUdpAction(this.callbackStopSearch);
 
             SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF,callbackGetSearchDevices);//---回调设备-----
             SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_STOP_SEARCH,callbackGetStopSearchDevices);//---回调停止搜索----
@@ -67,7 +67,7 @@ namespace ConfigDevice
             //-----------执行搜索设备------------            
             UdpData udp = this.createSearchDevices(network);
             callbackGetSearchDevices.Udp = udp;
-            MySocket.GetInstance().SendData(udp, network.NetworkIP, SysConfig.RemotePort, new CallBackUdpAction(callbackSearchDevices), null);
+            MySocket.GetInstance().SendData(udp, network.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchDevices), null);
         }
         /// <summary>
         /// 回调设备搜索

@@ -15,7 +15,7 @@ namespace ConfigDevice
         private long RefreshCount = 0;
         private MySocket mySocket = MySocket.GetInstance();
         private static object objLock = new object();//----刷新网络跟断开网络同样具有删除网络功能,避免线程冲突---
-        public CallBackUIAction CallBackUI = null;//返回UI
+        public CallbackUIAction CallBackUI = null;//返回UI
         private CallbackFromUdp callbackRefreshNetwork;//回调类
 
         public NetworkCtrl()
@@ -29,9 +29,7 @@ namespace ConfigDevice
             callbackRefreshNetwork.CallBackAction += callbackRefreshNetworkData;
             SysConfig.AddRJ45CallBackList(NetworkConfig.CMD_PC_CONNECTING, callbackRefreshNetwork);
         }
-        
-
-  
+          
 
         /// <summary>
         /// 搜索网络
@@ -44,7 +42,7 @@ namespace ConfigDevice
             //listNetworks.Clear();//----清空---
             //-----------执行搜索网络------------            
             UdpData udp = this.createSendUdpData();
-            mySocket.SendData(udp, NetworkConfig.BROADCAST_IP, SysConfig.RemotePort, new CallBackUdpAction(callbackSearchNetworks), null);           
+            mySocket.SendData(udp, NetworkConfig.BROADCAST_IP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchNetworks), null);           
             RefreshConnectState.Start();//---继续启动刷新------
         }
         /// <summary>
@@ -66,7 +64,10 @@ namespace ConfigDevice
                 network.Port = udp.IPPoint.Port;
                 //------修改已经连接网络的状态----
                 if (SysConfig.ListNetworks.ContainsKey(network.NetworkIP))
+                {
                     network.State = SysConfig.ListNetworks[network.NetworkIP].State;
+                    SysConfig.ListNetworks[network.NetworkIP] = network;//----刷新数据-----
+                }
                 //-----排查网段ID冲突------------------
                 temp = NetworkConfig.DC_NETWORK_ID + "='" + network.NetworkID + "'";
                 DataRow[] rows = SysConfig.DtNetwork.Select(temp);
@@ -79,10 +80,11 @@ namespace ConfigDevice
                 //------添加到数据表----------
                 SysConfig.DtNetwork.Rows.Add(new object[] { network.DeviceID, network.NetworkID, network.State, 
                 network.DeviceName, network.MacAddress,network.NetworkIP,network.Port.ToString(),network.Remark });
+                SysConfig.DtNetwork.AcceptChanges();
+
                 if (!SysConfig.ListNetworks.ContainsKey(network.NetworkIP))
                     SysConfig.ListNetworks.Add(network.NetworkIP, network);
-
-                SysConfig.DtNetwork.AcceptChanges();
+                
                 CallBackUI(null);
             }
         }
