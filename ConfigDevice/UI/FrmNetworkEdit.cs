@@ -120,6 +120,14 @@ namespace ConfigDevice
                 CommonTools.MessageShow("\"" + name + "\"名称超出长度,最多30个字!", 2, "");
         }
 
+        /// <summary>
+        /// 保存基本信息
+        /// </summary>
+        private void btSaveInfo_Click(object sender, EventArgs e)
+        {
+            NetworkEdit.SaveNetworkName(edtNetworkName.Text);
+        }
+
 
 
     }

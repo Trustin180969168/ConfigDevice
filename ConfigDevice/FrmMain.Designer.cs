@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.gcDevices = new DevExpress.XtraGrid.GridControl();
             this.gvDevices = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -45,6 +46,9 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel2 = new System.Windows.Forms.Panel();
             this.gcNetwork = new DevExpress.XtraGrid.GridControl();
+            this.contextMenuStripNetwork = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiChangePassword = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiParameter = new System.Windows.Forms.ToolStripMenuItem();
             this.gvNetwork = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.networkDeviceID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -68,6 +72,7 @@
             this.toolStrip2.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcNetwork)).BeginInit();
+            this.contextMenuStripNetwork.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvNetwork)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -291,9 +296,11 @@
             // 
             // gcNetwork
             // 
+            this.gcNetwork.ContextMenuStrip = this.contextMenuStripNetwork;
             this.gcNetwork.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcNetwork.EmbeddedNavigator.Name = "";
             this.gcNetwork.FormsUseDefaultLookAndFeel = false;
+            this.gcNetwork.ImeMode = System.Windows.Forms.ImeMode.On;
             this.gcNetwork.Location = new System.Drawing.Point(0, 31);
             this.gcNetwork.MainView = this.gvNetwork;
             this.gcNetwork.Name = "gcNetwork";
@@ -301,6 +308,29 @@
             this.gcNetwork.TabIndex = 6;
             this.gcNetwork.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvNetwork});
+            // 
+            // contextMenuStripNetwork
+            // 
+            this.contextMenuStripNetwork.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiChangePassword,
+            this.tsmiParameter});
+            this.contextMenuStripNetwork.Name = "contextMenuStripNetwork";
+            this.contextMenuStripNetwork.Size = new System.Drawing.Size(153, 70);
+            // 
+            // tsmiChangePassword
+            // 
+            this.tsmiChangePassword.Image = global::ConfigDevice.Properties.Resources.client;
+            this.tsmiChangePassword.Name = "tsmiChangePassword";
+            this.tsmiChangePassword.Size = new System.Drawing.Size(152, 22);
+            this.tsmiChangePassword.Text = "修改密码";
+            this.tsmiChangePassword.Click += new System.EventHandler(this.tsmiChangePassword_Click);
+            // 
+            // tsmiParameter
+            // 
+            this.tsmiParameter.Image = global::ConfigDevice.Properties.Resources.goyi;
+            this.tsmiParameter.Name = "tsmiParameter";
+            this.tsmiParameter.Size = new System.Drawing.Size(152, 22);
+            this.tsmiParameter.Text = "网络参数";
             // 
             // gvNetwork
             // 
@@ -540,6 +570,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcNetwork)).EndInit();
+            this.contextMenuStripNetwork.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvNetwork)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -583,5 +614,8 @@
         private System.Windows.Forms.ToolStripSplitButton btXtxx;
         private System.Windows.Forms.ToolStripMenuItem btRJ45Send;
         private System.Windows.Forms.ToolStripMenuItem btPCSend;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripNetwork;
+        private System.Windows.Forms.ToolStripMenuItem tsmiChangePassword;
+        private System.Windows.Forms.ToolStripMenuItem tsmiParameter;
     }
 }

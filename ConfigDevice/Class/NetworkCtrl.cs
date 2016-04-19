@@ -14,8 +14,7 @@ namespace ConfigDevice
         public ThreadActionTimer RefreshConnectState;//计时器执行
         private long RefreshCount = 0;
         private MySocket mySocket = MySocket.GetInstance();
-        private static object objLock = new object();//----刷新网络跟断开网络同样具有删除网络功能,避免线程冲突---
-        public CallbackUIAction CallBackUI = null;//返回UI
+         public CallbackUIAction CallBackUI = null;//返回UI
         private CallbackFromUdp callbackRefreshNetwork;//回调类
 
         public NetworkCtrl()
@@ -63,11 +62,9 @@ namespace ConfigDevice
                 network.NetworkIP = udp.IPPoint.Address.ToString();
                 network.Port = udp.IPPoint.Port;
                 //------修改已经连接网络的状态----
-                if (SysConfig.ListNetworks.ContainsKey(network.NetworkIP))
-                {
-                    network.State = SysConfig.ListNetworks[network.NetworkIP].State;
-                    SysConfig.ListNetworks[network.NetworkIP] = network;//----刷新数据-----
-                }
+                if (SysConfig.ListNetworks.ContainsKey(network.NetworkIP) && 
+                    SysConfig.ListNetworks[network.NetworkIP].State == NetworkConfig.STATE_CONNECTED)      
+                    network=  SysConfig.ListNetworks[network.NetworkIP];//----刷新数据-----
                 //-----排查网段ID冲突------------------
                 temp = NetworkConfig.DC_NETWORK_ID + "='" + network.NetworkID + "'";
                 DataRow[] rows = SysConfig.DtNetwork.Select(temp);
@@ -139,25 +136,17 @@ namespace ConfigDevice
         {            
             lock (SysConfig.ListNetworks)
             {
-                //-------移除超时连接---------
-                ArrayList akeys = new ArrayList(SysConfig.ListNetworks.Keys);
-                for (int i = 0; i < akeys.Count; i++)
+                foreach (NetworkData network in SysConfig.ListNetworks.Values)
                 {
-                    NetworkData network = SysConfig.ListNetworks[(string)akeys[i]];
-                    if (network.RefreshTime.AddSeconds(NetworkConfig.CONNECT_TIME_OUT) < DateTime.Now)
+                    if (network.State == NetworkConfig.STATE_CONNECTED)
                     {
-                        setConnectState(network, NetworkConfig.STATE_NOT_CONNECTED);//---变更为未链接----                     
-                        i++;
-                    }
-                    else
-                    {
-                        UdpData udp = createRefrashNetworkUdpData(network);
-                        mySocket.SendData(udp, network.NetworkIP, SysConfig.RemotePort);
+                        if (network.RefreshTime.AddSeconds(NetworkConfig.CONNECT_TIME_OUT) < DateTime.Now)   
+                            setConnectState(network, NetworkConfig.STATE_NOT_CONNECTED);//---变更为未链接----   
+                        else  //----PC主动刷新网络
+                            network.RefreshConnection();
                     }
                 }
-
             }
-
         }
 
         /// <summary>
@@ -166,7 +155,7 @@ namespace ConfigDevice
         /// <param name="network"></param>
         private void setConnectState(NetworkData network, string state)
         {
-            network.State = NetworkConfig.STATE_CONNECTED;//标记状态         
+            network.State = state;//标记状态         
             foreach (DataRow dr in SysConfig.DtNetwork.Rows)
             {
                 if (dr[NetworkConfig.DC_MAC].ToString() == network.MacAddress)
@@ -202,23 +191,6 @@ namespace ConfigDevice
             }
         }
 
-        /// <summary>
-        /// 设置状态
-        /// </summary>
-        /// <param name="network"></param>
-        private void setPCAddress(NetworkData network, string pcAddress)
-        {
-            network.State = NetworkConfig.STATE_CONNECTED;//标记状态         
-            foreach (DataRow dr in SysConfig.DtNetwork.Rows)
-            {
-                if (dr[NetworkConfig.DC_MAC].ToString() == network.MacAddress)
-                {
-                    dr[NetworkConfig.DC_PC_ADDRESS] = pcAddress;
-                    dr.AcceptChanges();
-                    break;
-                }                
-            }
-        }
 
         /// <summary>
         /// 根据设备ID获取地址
@@ -286,43 +258,6 @@ namespace ConfigDevice
         }
 
 
-        /// <summary>
-        /// 创建刷新网络的UDP包
-        /// </summary>
-        /// <param name="network">网络数据</param>
-        /// <returns>UDP</returns>
-        private UdpData createRefrashNetworkUdpData(NetworkData network)
-        {            
-            UdpData udp = new UdpData();
-
-            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)------
-            udp.PacketProperty[0] = BroadcastKind.Broadcast;//----包属性(单播/广播/组播)----
-            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
-            Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
-
-            byte[] target = new byte[] { network.ByteDeviceId, network.ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
-            byte[] source = new byte[] { network.BytePCAddress, network.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
-            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = NetworkConfig.CMD_PC_CONNECTING;//----用户命令-----
-            byte len = 0x04;//---数据长度---
-
-            //--------添加到用户数据--------
-            byte[] userData = new byte[10];
-            Buffer.BlockCopy(target, 0, userData, 0, 3);
-            Buffer.BlockCopy(source, 0, userData, 3, 3);
-            userData[6] = page;
-            Buffer.BlockCopy(cmd, 0, userData, 7, 2);
-            userData[9] = len;
-            byte[] crc = CRC32.GetCheckValue(userData);     //---------获取CRC校验码--------
-            //---------拼接到包中------
-            Buffer.BlockCopy(userData, 0, udp.ProtocolData, 0, 10);
-            Buffer.BlockCopy(crc, 0, udp.ProtocolData, 10, 4);
-            Array.Resize(ref udp.ProtocolData, 14);//重新设定长度    
-            udp.Length = 28 + 14 + 1;            
-
-            return udp;
-
-        }
 
     }
 }

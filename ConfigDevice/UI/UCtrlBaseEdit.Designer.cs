@@ -310,6 +310,7 @@
             this.cbxPosition.Properties.Appearance.Options.UseFont = true;
             this.cbxPosition.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxPosition.Properties.DropDownRows = 15;
             this.cbxPosition.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbxPosition.Size = new System.Drawing.Size(267, 26);
             this.cbxPosition.TabIndex = 41;

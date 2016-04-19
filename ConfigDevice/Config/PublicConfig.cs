@@ -36,6 +36,13 @@ namespace ConfigDevice
         public const string STR_ERR = "回复确认,包出错!";    //包号出错 
     }
 
+    /// <summary>
+    /// 密码类型
+    /// </summary>
+    public enum PasswordKind
+    {
+        Manager,User
+    }
 
     /// <summary>
     /// 发送类型

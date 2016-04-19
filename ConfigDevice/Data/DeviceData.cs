@@ -291,7 +291,6 @@ namespace ConfigDevice
             byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_NAME;//----用户命令-----
           
             //---------新名称-------------
-            //byte[] byteName = Encoding.GetEncoding("GB2312").GetBytes(newName);
             byte[] value = Encoding.GetEncoding("GB2312").GetBytes(newName);
             byte[] byteName = new byte[32];
             Buffer.BlockCopy(value, 0, byteName, 0, value.Length);
@@ -486,6 +485,8 @@ namespace ConfigDevice
                     CommonTools.MessageShow(success, 1, "");
             }
         }
+
+    
 
     }
 }

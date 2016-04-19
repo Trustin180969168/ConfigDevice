@@ -100,6 +100,7 @@
             this.btSaveInfo.Name = "btSaveInfo";
             this.btSaveInfo.Size = new System.Drawing.Size(92, 28);
             this.btSaveInfo.Text = "保存信息";
+            this.btSaveInfo.Click += new System.EventHandler(this.btSaveInfo_Click);
             // 
             // btSavePosition
             // 
@@ -223,7 +224,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label6.Location = new System.Drawing.Point(363, 96);
+            this.label6.Location = new System.Drawing.Point(363, 91);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 19);
             this.label6.TabIndex = 19;

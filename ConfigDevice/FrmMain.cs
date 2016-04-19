@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-
 using System.Text;
 using System.Windows.Forms;
 using System.Net.Sockets;
@@ -24,7 +23,6 @@ namespace ConfigDevice
 
         public FrmMain()
         {
-
             sysCtrl = new SysCtrl();
             networkCtrl = new NetworkCtrl();
             deviceCtrl = new DeviceCtrl();
@@ -32,7 +30,6 @@ namespace ConfigDevice
 
             InitializeComponent();
 
-           
             gcNetwork.DataSource = SysConfig.DtNetwork;
             gcDevices.DataSource = SysConfig.DtDevice;
             networkCtrl.CallBackUI = this.CallBackUI;
@@ -105,7 +102,6 @@ namespace ConfigDevice
             //------断开所有连接网络-------
             foreach (NetworkData network in SysConfig.ListNetworks.Values)
                 if(network.State == NetworkConfig.STATE_CONNECTED) network.DisconnectNetwork();
-
             socket.Close();
         }
 
@@ -118,8 +114,7 @@ namespace ConfigDevice
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_CONNECTED)
             { CommonTools.MessageShow("你已经连接了" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-
-            NetworkData network = new NetworkData(dr);
+            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             network.ConnectNetwork();
         }
 
@@ -134,7 +129,7 @@ namespace ConfigDevice
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
             { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-            NetworkData network = new NetworkData(dr);
+            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             network.DisconnectNetwork();
         }
 
@@ -150,19 +145,8 @@ namespace ConfigDevice
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
             }   
-            //-------先判断位置信息是否加载完毕-----
-            Dictionary<string,UdpData> sendlist =  MySocket.GetInstance().GetCopySendListData(NetworkConfig.CMD_PC_READ_LOCALL_NAME,
-                ConvertTools.GetByteFrom8BitNumStr(dr[NetworkConfig.DC_NETWORK_ID].ToString()));
-            if(sendlist.Count>0)
-            {
-                CommonTools.MessageShow("设备位置信息未接收完,请稍后执行!", 1, "");
-                return;
-            }
-            deviceCtrl.SearchDevices(new NetworkData(dr));
-            //pw = new PleaseWait(10);
-            //pw.Show(this);
-            //searchDevices searchDevices = new searchDevices(deviceCtrl.SearchDevices);
-            //searchDevices.BeginInvoke(new NetworkData(dr), closePw, null);
+
+            deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);
         }
 
         public void closePw(IAsyncResult asyncResult)
@@ -200,15 +184,17 @@ namespace ConfigDevice
         /// 打开设备
         /// </summary>
         private void gvDevices_DoubleClick(object sender, EventArgs e)
-        { 
-            if (gvDevices.FocusedRowHandle == -1) return;   
-            DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);         
+        {
+            if (gvDevices.FocusedRowHandle == -1) return;
+            DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
             DeviceData device = new DeviceData(dr);
-            if (!SysConfig.ListNetworks.ContainsKey(device.NetworkID))
-            { CommonTools.MessageShow("网络链接已断开,请重新链接!", 2, ""); return; }
-
-            FrmDevice frm = getFactory(device.ByteKindID).CreateDevice(device);
-            frm.Show();
+            if (SysConfig.ListNetworks.ContainsKey(device.NetworkIP) &&
+                SysConfig.ListNetworks[device.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
+            {
+                FrmDevice frm = getFactory(device.ByteKindID).CreateDevice(device);
+                frm.Show();
+            }
+            else { CommonTools.MessageShow("网络链接已断开,请重新链接!", 2, ""); return; }
         }
 
         /// <summary>
@@ -232,15 +218,29 @@ namespace ConfigDevice
         {
             if (gvNetwork.FocusedRowHandle == -1) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
-            NetworkData network = new NetworkData(dr);
-            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_CONNECTED)
+
+            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            if (network.State == NetworkConfig.STATE_CONNECTED)
             {
                 FrmNetworkEdit frm = new FrmNetworkEdit();
-                frm.NetworkEdit = SysConfig.ListNetworks[network.NetworkID];
+                frm.NetworkEdit = network;
                 frm.Show(this);
             }
             else
                 network.ConnectNetwork();
+        }
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        private void tsmiChangePassword_Click(object sender, EventArgs e)
+        {
+            if (gvNetwork.FocusedRowHandle == -1) return;
+            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            FrmChangePassword frm = new FrmChangePassword();
+            frm.NetworkEdit = network;
+            frm.Show();
         }
 
 
