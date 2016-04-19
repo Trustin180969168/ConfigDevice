@@ -48,6 +48,8 @@ namespace ConfigDevice
             edtNetworkName.Text = NetworkEdit.DeviceName;
             edtNetworkID.Text = NetworkEdit.DeviceID;
             edtNetworkIP.IP = NetworkEdit.NetworkIP;
+            edtMask.IP = SysConfig.SubnetMask.ToString();
+            edtGateway.IP = SysConfig.DefaultIPGateway.ToString();
 
             NetworkEdit.SearchVer();
         }

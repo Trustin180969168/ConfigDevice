@@ -113,7 +113,7 @@
             // 
             // edtNetworkID
             // 
-            this.edtNetworkID.Location = new System.Drawing.Point(113, 56);
+            this.edtNetworkID.Location = new System.Drawing.Point(437, 56);
             this.edtNetworkID.Name = "edtNetworkID";
             this.edtNetworkID.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtNetworkID.Properties.Appearance.Options.UseFont = true;
@@ -124,7 +124,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label1.Location = new System.Drawing.Point(69, 60);
+            this.label1.Location = new System.Drawing.Point(394, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 19);
             this.label1.TabIndex = 19;
@@ -134,7 +134,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label2.Location = new System.Drawing.Point(54, 91);
+            this.label2.Location = new System.Drawing.Point(56, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 19);
             this.label2.TabIndex = 19;
@@ -144,7 +144,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label3.Location = new System.Drawing.Point(69, 123);
+            this.label3.Location = new System.Drawing.Point(70, 88);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 19);
             this.label3.TabIndex = 19;
@@ -154,7 +154,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label4.Location = new System.Drawing.Point(37, 157);
+            this.label4.Location = new System.Drawing.Point(363, 90);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(73, 19);
             this.label4.TabIndex = 19;
@@ -162,7 +162,7 @@
             // 
             // edtSoftwareVer
             // 
-            this.edtSoftwareVer.Location = new System.Drawing.Point(438, 56);
+            this.edtSoftwareVer.Location = new System.Drawing.Point(113, 118);
             this.edtSoftwareVer.Name = "edtSoftwareVer";
             this.edtSoftwareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtSoftwareVer.Properties.Appearance.Options.UseFont = true;
@@ -174,7 +174,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label5.Location = new System.Drawing.Point(363, 60);
+            this.label5.Location = new System.Drawing.Point(39, 121);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 19);
             this.label5.TabIndex = 19;
@@ -184,7 +184,7 @@
             // 
             this.edtNetworkIP.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtNetworkIP.IP = "IP地址格式不正确";
-            this.edtNetworkIP.Location = new System.Drawing.Point(113, 88);
+            this.edtNetworkIP.Location = new System.Drawing.Point(113, 56);
             this.edtNetworkIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.edtNetworkIP.Name = "edtNetworkIP";
             this.edtNetworkIP.Size = new System.Drawing.Size(240, 26);
@@ -194,7 +194,7 @@
             // 
             this.edtMask.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtMask.IP = "IP地址格式不正确";
-            this.edtMask.Location = new System.Drawing.Point(113, 154);
+            this.edtMask.Location = new System.Drawing.Point(437, 88);
             this.edtMask.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.edtMask.Name = "edtMask";
             this.edtMask.Size = new System.Drawing.Size(240, 26);
@@ -204,7 +204,7 @@
             // 
             this.edtGateway.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtGateway.IP = "IP地址格式不正确";
-            this.edtGateway.Location = new System.Drawing.Point(113, 121);
+            this.edtGateway.Location = new System.Drawing.Point(113, 87);
             this.edtGateway.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.edtGateway.Name = "edtGateway";
             this.edtGateway.Size = new System.Drawing.Size(240, 26);
@@ -212,7 +212,7 @@
             // 
             // edtHarewareVer
             // 
-            this.edtHarewareVer.Location = new System.Drawing.Point(438, 88);
+            this.edtHarewareVer.Location = new System.Drawing.Point(437, 119);
             this.edtHarewareVer.Name = "edtHarewareVer";
             this.edtHarewareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtHarewareVer.Properties.Appearance.Options.UseFont = true;
@@ -224,7 +224,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label6.Location = new System.Drawing.Point(363, 91);
+            this.label6.Location = new System.Drawing.Point(365, 122);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 19);
             this.label6.TabIndex = 19;
@@ -244,7 +244,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label7.Location = new System.Drawing.Point(69, 28);
+            this.label7.Location = new System.Drawing.Point(71, 28);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(41, 19);
             this.label7.TabIndex = 19;
@@ -255,14 +255,14 @@
             this.gcPosition.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcPosition.EmbeddedNavigator.Name = "";
             this.gcPosition.FormsUseDefaultLookAndFeel = false;
-            this.gcPosition.Location = new System.Drawing.Point(0, 232);
+            this.gcPosition.Location = new System.Drawing.Point(0, 198);
             this.gcPosition.MainView = this.gvPosition;
             this.gcPosition.Name = "gcPosition";
             this.gcPosition.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemComboBox1,
             this.cedtHasPassword,
             this.edtName});
-            this.gcPosition.Size = new System.Drawing.Size(792, 341);
+            this.gcPosition.Size = new System.Drawing.Size(792, 375);
             this.gcPosition.TabIndex = 20;
             this.gcPosition.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPosition});
@@ -405,7 +405,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 31);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(792, 201);
+            this.panelControl1.Size = new System.Drawing.Size(792, 167);
             this.panelControl1.TabIndex = 21;
             // 
             // FrmNetworkEdit

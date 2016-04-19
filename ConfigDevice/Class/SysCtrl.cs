@@ -5,6 +5,7 @@ using System.Data;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using System.Management;
 
 
 namespace ConfigDevice
@@ -13,31 +14,15 @@ namespace ConfigDevice
     //
     // 摘要:SysConfig.cs
     //     用于保存系统的基本配置信息,包括公共常量,本地IP,端口,初始化工作等
-    public class SysCtrl
+    public  class SysCtrl
     {
-
 
         /// <summary>
         /// 初始化系统配置
         /// </summary>
-        public void Init()
+        public static void Init()
         {
 
-
-            //启动一个新的线程，执行方法this.ReceiveHandle，  
-            //以便在一个独立的进程中执行数据接收的操作  
-            //RunningFlag = true;
-            //Thread thread = new Thread(new ThreadStart(this.ReceiveHandle));
-            //thread.Start();
-
-
-
-
-            //string[] arr = SysConfig.LocalIP.ToString().Split(".");
-            //int value = Convert.ToInt16(arr[3].ToString());
-            //int hValue = (value >> 8) & 0xFF;
-            //int lValue = value & 0xFF;
-            //byte[] data = new byte[] { (byte)hValue, (byte)lValue };
         }
 
 

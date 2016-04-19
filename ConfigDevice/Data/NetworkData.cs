@@ -756,8 +756,61 @@ namespace ConfigDevice
         
             mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort);
         }
+
+        /// <summary>
+        /// 保存网络参数
+        /// </summary>
+        public void SaveNetworkParameter(string newIP, string gateWay, string mask, int _networkID)
+        {
+            UdpData udpSend = createChangePasswordUdpData(newPassword, kind);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangePassword), new object[] { udpSend });
+        }
+        /// <summary>
+        /// 创建申请连接网络申请的UDP
+        /// </summary>
+        /// <param name="network">网络数据</param>
+        /// <returns>UDP</returns>
+        private UdpData createSaveNetworkParameter(byte[] newIP,byte[] gateWay, byte[] mask, int _networkID)
+        {
+            UdpData udp = new UdpData();
         
-   
+            udp.PacketKind[0] = 0x01;//----包数据类------
+            udp.PacketProperty[0] = BroadcastKind.Broadcast;//----包属性----
+            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
+            Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
+
+            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            byte[] cmd = NetworkConfig.CMD_PC_CHANGENET;//----用户命令-----
+            byte len = 0x2B;//---数据长度---
+            byte[] temp = new byte[] { 0x0, 0x0 };    //----保留----      
+            byte[] dns = new byte[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };//--临时dns地址,一共两个
+            //--------添加到用户数据--------
+            byte[] crcData = new byte[39];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            Buffer.BlockCopy(managerPassword, 0, crcData, 10, 4);
+            Buffer.BlockCopy(newIP, 0, crcData, 14, 4);
+            Buffer.BlockCopy(temp, 0, crcData, 18, 2);
+            Buffer.BlockCopy(gateWay, 0, crcData, 20, 4);
+            Buffer.BlockCopy(mask, 0, crcData, 24, 4);
+            crcData[28] = (byte)_networkID;
+            Buffer.BlockCopy(mac, 0, crcData, 29, 12);
+            Buffer.BlockCopy(dns, 0, crcData, 41, 8);
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+
+        }
     }
 
 

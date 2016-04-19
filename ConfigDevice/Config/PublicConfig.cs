@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Data;
+using System.Management;
 
 namespace ConfigDevice
 {
@@ -118,7 +119,24 @@ namespace ConfigDevice
         public const Int16 MAX_DATA_SIZE = 128;//若定最大128长度.
         public const Int16 MIN_DATA_SIZE = 30;//若定最小30长度.
 
-
+        /// <summary>
+        /// 本地默认网关
+        /// </summary>
+        public static IPAddress DefaultIPGateway
+        {
+            get
+            {
+                string AddressIP = string.Empty;
+                ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+                ManagementObjectCollection nics = mc.GetInstances();
+                foreach (ManagementObject nic in nics)
+                {
+                    if (Convert.ToBoolean(nic["ipEnabled"]) == true)
+                        AddressIP = (nic["DefaultIPGateway"] as String[])[0];
+                }
+                return IPAddress.Parse(AddressIP);
+            }
+        }
         /// <summary>
         /// 本地IP
         /// </summary>
@@ -126,26 +144,38 @@ namespace ConfigDevice
         {
             get
             {
-                ///获取本地的IP地址
                 string AddressIP = string.Empty;
-                foreach (IPAddress _IPAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+                ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+                ManagementObjectCollection nics = mc.GetInstances();
+                foreach (ManagementObject nic in nics)
                 {
-                    if (_IPAddress.AddressFamily.ToString() == "InterNetwork")
-                    {
-                        
-                        AddressIP = _IPAddress.ToString();
-                        if(AddressIP.Contains("172")) continue;
-                        else 
-                            break;
-                    }
+                    if (Convert.ToBoolean(nic["ipEnabled"]) == true)
+                        AddressIP = (nic["IPAddress"] as String[])[0];
                 }
                 return IPAddress.Parse(AddressIP);
             }
         }
 
-        public static Dictionary<string, CallbackFromUdp> RJ45CallBackList = new Dictionary<string, CallbackFromUdp>();//----RJ45回调表-----
+        /// <summary>
+        /// 子网掩码
+        /// </summary>
+        public static IPAddress SubnetMask
+        {
+            get
+            {
+                string AddressIP = string.Empty;
+                ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+                ManagementObjectCollection nics = mc.GetInstances();
+                foreach (ManagementObject nic in nics)
+                {
+                    if (Convert.ToBoolean(nic["ipEnabled"]) == true)
+                        AddressIP = (nic["IPSubnet"] as String[])[0];
+                }
+                return IPAddress.Parse(AddressIP);
+            }
+        }
 
-  
+        public static Dictionary<string, CallbackFromUdp> RJ45CallBackList = new Dictionary<string, CallbackFromUdp>();//----RJ45回调表-----  
 
         /// <summary>
         /// 添加到回调表
