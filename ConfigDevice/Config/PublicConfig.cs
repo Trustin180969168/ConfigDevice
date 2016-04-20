@@ -102,6 +102,23 @@ namespace ConfigDevice
         public const int MIN_USER_DATA_SIZE = 43;//最小用户有效数据
     }
 
+    /// <summary>
+    /// IP信息
+    /// </summary>
+    public class IPInfo
+    {
+        public string IP = "";
+        public string Gateway = "";
+        public string SubnetMask = "";
+
+        public IPInfo(string _ip, string _gateway, string _subnetMask)
+        {
+            IP = _ip;
+            Gateway = _gateway;
+            SubnetMask = _subnetMask;
+        }
+    }
+
     //
     // 摘要:Command.cs
     //     用于保存系统配置
@@ -118,7 +135,9 @@ namespace ConfigDevice
         public static int RemotePort = BitConverter.ToInt16(REMOTE_PORT, 0);//远程端口
         public const Int16 MAX_DATA_SIZE = 128;//若定最大128长度.
         public const Int16 MIN_DATA_SIZE = 30;//若定最小30长度.
+        public static Dictionary<int, IPInfo> IPList = new Dictionary<int, IPInfo>();
 
+        private static IPAddress defaultIPGateway;
         /// <summary>
         /// 本地默认网关
         /// </summary>
@@ -126,17 +145,11 @@ namespace ConfigDevice
         {
             get
             {
-                string AddressIP = string.Empty;
-                ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
-                ManagementObjectCollection nics = mc.GetInstances();
-                foreach (ManagementObject nic in nics)
-                {
-                    if (Convert.ToBoolean(nic["ipEnabled"]) == true)
-                        AddressIP = (nic["DefaultIPGateway"] as String[])[0];
-                }
-                return IPAddress.Parse(AddressIP);
+                return defaultIPGateway;
             }
         }
+
+        private static IPAddress localIP;
         /// <summary>
         /// 本地IP
         /// </summary>
@@ -144,18 +157,11 @@ namespace ConfigDevice
         {
             get
             {
-                string AddressIP = string.Empty;
-                ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
-                ManagementObjectCollection nics = mc.GetInstances();
-                foreach (ManagementObject nic in nics)
-                {
-                    if (Convert.ToBoolean(nic["ipEnabled"]) == true)
-                        AddressIP = (nic["IPAddress"] as String[])[0];
-                }
-                return IPAddress.Parse(AddressIP);
+                return localIP;
             }
         }
 
+        private static IPAddress subnetMask;
         /// <summary>
         /// 子网掩码
         /// </summary>
@@ -163,16 +169,20 @@ namespace ConfigDevice
         {
             get
             {
-                string AddressIP = string.Empty;
-                ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
-                ManagementObjectCollection nics = mc.GetInstances();
-                foreach (ManagementObject nic in nics)
-                {
-                    if (Convert.ToBoolean(nic["ipEnabled"]) == true)
-                        AddressIP = (nic["IPSubnet"] as String[])[0];
-                }
-                return IPAddress.Parse(AddressIP);
+                return subnetMask;
             }
+        }
+
+
+        /// <summary>
+        /// 设置本地地址信息
+        /// </summary>
+        /// <param name="index"></param>
+        public static void SetLocalIPInfo(int index)
+        {
+            SysConfig.localIP = IPAddress.Parse(SysConfig.IPList[index].IP);
+            SysConfig.subnetMask = IPAddress.Parse(SysConfig.IPList[index].SubnetMask);
+            SysConfig.defaultIPGateway = IPAddress.Parse(SysConfig.IPList[index].Gateway);
         }
 
         public static Dictionary<string, CallbackFromUdp> RJ45CallBackList = new Dictionary<string, CallbackFromUdp>();//----RJ45回调表-----  

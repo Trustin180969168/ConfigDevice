@@ -22,8 +22,37 @@ namespace ConfigDevice
         /// </summary>
         public static void Init()
         {
+            GetLocalIPList();
+            if (SysConfig.IPList.Count > 0)
+                SysConfig.SetLocalIPInfo(0);
 
         }
+
+        /// <summary>
+        /// 获取本地IP地址
+        /// </summary>
+        /// <returns>返回列表</returns>
+        public static void GetLocalIPList()
+        {
+            string AddressIP = string.Empty;
+            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+            ManagementObjectCollection nics = mc.GetInstances();
+            foreach (ManagementObject nic in nics)
+            {
+                int i = 0;
+                if (Convert.ToBoolean(nic["ipEnabled"]) == true)
+                {
+                    try
+                    {
+                        IPInfo ipInfo = new IPInfo((nic["IPAddress"] as String[])[0], (nic["DefaultIPGateway"] as String[])[0],
+                            (nic["IPSubnet"] as String[])[0]);
+                        SysConfig.IPList.Add(i++, ipInfo);
+                    }
+                    catch { continue; }
+                }
+            }
+        }
+
 
 
         /// <summary>

@@ -23,7 +23,7 @@ namespace ConfigDevice
 
         public FrmMain()
         {
-            sysCtrl = new SysCtrl();
+            SysCtrl.Init();//初始化配置
             networkCtrl = new NetworkCtrl();
             deviceCtrl = new DeviceCtrl();
             socket = MySocket.GetInstance();
@@ -59,11 +59,16 @@ namespace ConfigDevice
         /// </summary>
         private void FrmSocketClientTest_Load(object sender, EventArgs e)
         {
-            //sysCtrl.Init();//初始化配置
+    
             gcNetwork.DataSource = SysConfig.DtNetwork;
             gcDevices.DataSource = SysConfig.DtDevice;
             networkCtrl.CallBackUI = this.CallBackUI;
             deviceCtrl.CallBackUI = this.CallBackUI;
+            //-------设置本地IP信息---------
+            foreach (IPInfo ipInfo in SysConfig.IPList.Values)
+                cbxIPList.Items.Add(ipInfo.IP);
+            if (cbxIPList.Items.Count > 0)
+                cbxIPList.SelectedIndex = 0;
 
             btNetworkSearch_Click(sender, e);
         }
@@ -242,6 +247,13 @@ namespace ConfigDevice
             frm.NetworkEdit = network;
             frm.Show();
         }
+
+        private void cbxIPList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SysConfig.SetLocalIPInfo(cbxIPList.SelectedIndex);
+        }
+
+
 
 
 

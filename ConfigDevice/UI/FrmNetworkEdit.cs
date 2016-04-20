@@ -132,6 +132,9 @@ namespace ConfigDevice
                 ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text));
         }
 
+        /// <summary>
+        /// 保存名称
+        /// </summary>
         private void btSaveName_Click(object sender, EventArgs e)
         {
             NetworkEdit.SaveNetworkName(edtNetworkName.Text);
