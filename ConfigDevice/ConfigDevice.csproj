@@ -85,8 +85,18 @@
     <Compile Include="Data\UdpData.cs" />
     <Compile Include="Config\PublicConfig.cs" />
     <Compile Include="Data\UserUdpData.cs" />
+    <Compile Include="DeviceUI\FrmFourInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmFourInput.Designer.cs">
+      <DependentUpon>FrmFourInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DeviceUI\FrmFourInput.resx">
+      <DependentUpon>FrmFourInput.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
       <SubType>Designer</SubType>

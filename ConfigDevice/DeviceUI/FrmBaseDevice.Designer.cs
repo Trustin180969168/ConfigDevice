@@ -1,6 +1,6 @@
 ﻿namespace ConfigDevice
 {
-    partial class FrmBaseDevice
+    partial class FrmFourInput
     {
         /// <summary>
         /// Required designer variable.

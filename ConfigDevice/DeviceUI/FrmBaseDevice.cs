@@ -8,16 +8,16 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public partial class FrmBaseDevice : FrmDevice
+    public partial class FrmFourInput : FrmDevice
     {
-        public FrmBaseDevice(DeviceData _device):base(_device)
+        public FrmFourInput(DeviceData _device):base(_device)
         {
           
             InitializeComponent();
             frmSetting.DeviceEdit = _device;
         }
 
-        public FrmBaseDevice():base()
+        public FrmFourInput():base()
         {
             InitializeComponent();
         }
