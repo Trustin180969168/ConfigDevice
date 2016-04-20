@@ -100,47 +100,47 @@
       <DependentUpon>IpInputTextbox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmChangePassword.resx">
+    <EmbeddedResource Include="SysUI\FrmChangePassword.resx">
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UCtrlBaseEdit.resx">
+    <EmbeddedResource Include="DeviceUI\UCtrlBaseEdit.resx">
       <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmAmplifier.resx">
+    <EmbeddedResource Include="DeviceUI\FrmAmplifier.resx">
       <DependentUpon>FrmAmplifier.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmBaseDevice.resx">
+    <EmbeddedResource Include="DeviceUI\FrmBaseDevice.resx">
       <DependentUpon>FrmBaseDevice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmDevice.resx">
+    <EmbeddedResource Include="SysUI\FrmDevice.resx">
       <DependentUpon>FrmDevice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmNetworkEdit.resx">
+    <EmbeddedResource Include="SysUI\FrmNetworkEdit.resx">
       <DependentUpon>FrmNetworkEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmNetworkPW.resx">
+    <EmbeddedResource Include="SysUI\FrmNetworkPW.resx">
       <DependentUpon>FrmNetworkPW.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmPackageInfo.resx">
+    <EmbeddedResource Include="SysUI\FrmPackageInfo.resx">
       <DependentUpon>FrmPackageInfo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmTest.resx">
+    <EmbeddedResource Include="SysUI\FrmTest.resx">
       <DependentUpon>FrmTest.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmTestSocket.resx">
+    <EmbeddedResource Include="SysUI\FrmTestSocket.resx">
       <DependentUpon>FrmTestSocket.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\PleaseWait.resx">
+    <EmbeddedResource Include="SysUI\PleaseWait.resx">
       <DependentUpon>PleaseWait.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -177,78 +177,78 @@
     <Compile Include="Tools\NumberTextBoxExt.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\FrmChangePassword.cs">
+    <Compile Include="SysUI\FrmChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmChangePassword.Designer.cs">
+    <Compile Include="SysUI\FrmChangePassword.Designer.cs">
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UCtrlBaseEdit.cs">
+    <Compile Include="DeviceUI\UCtrlBaseEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UCtrlBaseEdit.Designer.cs">
+    <Compile Include="DeviceUI\UCtrlBaseEdit.Designer.cs">
       <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\UdpTools.cs" />
     <Compile Include="Tools\MySocketTest.cs" />
-    <Compile Include="UI\FrmAmplifier.cs">
+    <Compile Include="DeviceUI\FrmAmplifier.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmAmplifier.Designer.cs">
+    <Compile Include="DeviceUI\FrmAmplifier.Designer.cs">
       <DependentUpon>FrmAmplifier.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmBaseDevice.cs">
+    <Compile Include="DeviceUI\FrmBaseDevice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmBaseDevice.Designer.cs">
+    <Compile Include="DeviceUI\FrmBaseDevice.Designer.cs">
       <DependentUpon>FrmBaseDevice.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmDevice.cs">
+    <Compile Include="SysUI\FrmDevice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmDevice.Designer.cs">
+    <Compile Include="SysUI\FrmDevice.Designer.cs">
       <DependentUpon>FrmDevice.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmNetworkEdit.cs">
+    <Compile Include="SysUI\FrmNetworkEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmNetworkEdit.Designer.cs">
+    <Compile Include="SysUI\FrmNetworkEdit.Designer.cs">
       <DependentUpon>FrmNetworkEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmNetworkPW.cs">
+    <Compile Include="SysUI\FrmNetworkPW.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmNetworkPW.Designer.cs">
+    <Compile Include="SysUI\FrmNetworkPW.Designer.cs">
       <DependentUpon>FrmNetworkPW.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmPackageInfo.cs">
+    <Compile Include="SysUI\FrmPackageInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmPackageInfo.Designer.cs">
+    <Compile Include="SysUI\FrmPackageInfo.Designer.cs">
       <DependentUpon>FrmPackageInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmTest.cs">
+    <Compile Include="SysUI\FrmTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmTest.Designer.cs">
+    <Compile Include="SysUI\FrmTest.Designer.cs">
       <DependentUpon>FrmTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmTestSocket.cs">
+    <Compile Include="SysUI\FrmTestSocket.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmTestSocket.Designer.cs">
+    <Compile Include="SysUI\FrmTestSocket.Designer.cs">
       <DependentUpon>FrmTestSocket.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmWeatherStation.cs">
+    <Compile Include="DeviceUI\FrmWeatherStation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmWeatherStation.Designer.cs">
+    <Compile Include="DeviceUI\FrmWeatherStation.Designer.cs">
       <DependentUpon>FrmWeatherStation.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\PleaseWait.cs">
+    <Compile Include="SysUI\PleaseWait.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\PleaseWait.Designer.cs">
+    <Compile Include="SysUI\PleaseWait.Designer.cs">
       <DependentUpon>PleaseWait.cs</DependentUpon>
     </Compile>
   </ItemGroup>
