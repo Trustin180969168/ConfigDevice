@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public partial class FrmBaseDevice : FrmDevice
+    public partial class FrmFourInput : FrmDevice
     {
-        public FrmBaseDevice(DeviceData _device)
+        public FrmFourInput(DeviceData _device)
             : base(_device)
         {
           
@@ -18,15 +18,17 @@ namespace ConfigDevice
             frmSetting.DeviceEdit = _device;
         }
 
-        public FrmBaseDevice():base()
+        public FrmFourInput()
+            : base()
         {
             InitializeComponent();
         }
 
-        private void FrmBaseDevice_Load(object sender, EventArgs e)
+        private void FrmFourInput_Load(object sender, EventArgs e)
         {     
             this.Device.CallbackUI = new CallbackUIAction(this.callbackUI);
             this.Device.SearchVer();//---获取版本号-----
+            xtraTabControl1.SelectedTabPageIndex = 0;
         }
 
         /// <summary>

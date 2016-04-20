@@ -68,11 +68,9 @@
   <ItemGroup>
     <Compile Include="Class\Command.cs" />
     <Compile Include="Class\Device.cs" />
-    <Compile Include="Class\DeviceAmplifier.cs" />
     <Compile Include="Class\FactoryDevice.cs" />
     <Compile Include="Class\IFactory.cs" />
     <Compile Include="Class\NetworkCtrl.cs" />
-    <Compile Include="Class\DevicedWeatherStation.cs" />
     <Compile Include="Data\DeviceData.cs" />
     <Compile Include="Common\ThreadActionTimer.cs">
     </Compile>

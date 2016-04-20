@@ -60,13 +60,6 @@ namespace ConfigDevice.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap _operator {
-            get {
-                object obj = ResourceManager.GetObject("operator", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap client {
             get {
                 object obj = ResourceManager.GetObject("client", resourceCulture);

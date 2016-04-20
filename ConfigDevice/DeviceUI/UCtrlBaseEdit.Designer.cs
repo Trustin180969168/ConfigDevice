@@ -253,7 +253,7 @@
             // 
             // edtSoftwareVer
             // 
-            this.edtSoftwareVer.Location = new System.Drawing.Point(342, 3);
+            this.edtSoftwareVer.Location = new System.Drawing.Point(342, 2);
             this.edtSoftwareVer.Name = "edtSoftwareVer";
             this.edtSoftwareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtSoftwareVer.Properties.Appearance.Options.UseFont = true;
@@ -304,7 +304,7 @@
             // 
             // cbxPosition
             // 
-            this.cbxPosition.Location = new System.Drawing.Point(0, 3);
+            this.cbxPosition.Location = new System.Drawing.Point(0, 2);
             this.cbxPosition.Name = "cbxPosition";
             this.cbxPosition.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.cbxPosition.Properties.Appearance.Options.UseFont = true;
@@ -317,7 +317,7 @@
             // 
             // edtHardwareVer
             // 
-            this.edtHardwareVer.Location = new System.Drawing.Point(342, 3);
+            this.edtHardwareVer.Location = new System.Drawing.Point(342, 1);
             this.edtHardwareVer.Name = "edtHardwareVer";
             this.edtHardwareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtHardwareVer.Properties.Appearance.Options.UseFont = true;
@@ -329,7 +329,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Verdana", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(277, 8);
+            this.label7.Location = new System.Drawing.Point(277, 6);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(64, 17);
             this.label7.TabIndex = 34;
