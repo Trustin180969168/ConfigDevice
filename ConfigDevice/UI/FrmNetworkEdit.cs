@@ -46,7 +46,7 @@ namespace ConfigDevice
             gvPosition.RefreshData();
 
             edtNetworkName.Text = NetworkEdit.DeviceName;
-            edtNetworkID.Text = NetworkEdit.DeviceID;
+            edtNetworkID.Text = NetworkEdit.NetworkID;
             edtNetworkIP.IP = NetworkEdit.NetworkIP;
             edtMask.IP = SysConfig.SubnetMask.ToString();
             edtGateway.IP = SysConfig.DefaultIPGateway.ToString();
@@ -108,7 +108,7 @@ namespace ConfigDevice
             string name = dr[Position.DC_NAME].ToString();
             byte[] byteName = Encoding.GetEncoding("GB2312").GetBytes(name);
             if (byteName.Length > 12)
-                CommonTools.MessageShow("\""+name+"\"名称超出长度,最多6个字!", 2, "");
+                CommonTools.MessageShow("\"" + name + "\"名称超出长度,最多6个字!", 2, "");
         }
 
         /// <summary>
@@ -128,6 +128,24 @@ namespace ConfigDevice
         private void btSaveInfo_Click(object sender, EventArgs e)
         {
             NetworkEdit.SaveNetworkName(edtNetworkName.Text);
+            NetworkEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
+                ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text));
+        }
+
+        private void btSaveName_Click(object sender, EventArgs e)
+        {
+            NetworkEdit.SaveNetworkName(edtNetworkName.Text);
+        }
+
+        private void btSavePagameter_Click(object sender, EventArgs e)
+        {
+            NetworkEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
+                         ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text));
+        }
+
+        private void btSaveInfo_MouseHover(object sender, EventArgs e)
+        {
+            btSaveInfo.ShowDropDown();
         }
 
 

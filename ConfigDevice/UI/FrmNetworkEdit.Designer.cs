@@ -30,7 +30,9 @@
         {
             this.ipInputTextbox1 = new IpInputExt.Ctrls.IpInputTextbox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btSaveInfo = new System.Windows.Forms.ToolStripButton();
+            this.btSaveInfo = new System.Windows.Forms.ToolStripSplitButton();
+            this.btSaveName = new System.Windows.Forms.ToolStripMenuItem();
+            this.btSavePagameter = new System.Windows.Forms.ToolStripMenuItem();
             this.btSavePosition = new System.Windows.Forms.ToolStripButton();
             this.edtNetworkID = new DevExpress.XtraEditors.TextEdit();
             this.label1 = new System.Windows.Forms.Label();
@@ -95,16 +97,36 @@
             // 
             // btSaveInfo
             // 
-            this.btSaveInfo.Image = global::ConfigDevice.Properties.Resources.Point1;
+            this.btSaveInfo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btSaveName,
+            this.btSavePagameter});
+            this.btSaveInfo.Image = global::ConfigDevice.Properties.Resources.save;
             this.btSaveInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSaveInfo.Name = "btSaveInfo";
-            this.btSaveInfo.Size = new System.Drawing.Size(92, 28);
+            this.btSaveInfo.Size = new System.Drawing.Size(104, 28);
             this.btSaveInfo.Text = "保存信息";
             this.btSaveInfo.Click += new System.EventHandler(this.btSaveInfo_Click);
+            this.btSaveInfo.MouseHover += new System.EventHandler(this.btSaveInfo_MouseHover);
+            // 
+            // btSaveName
+            // 
+            this.btSaveName.Image = global::ConfigDevice.Properties.Resources.goyi;
+            this.btSaveName.Name = "btSaveName";
+            this.btSaveName.Size = new System.Drawing.Size(160, 30);
+            this.btSaveName.Text = "保存名称";
+            this.btSaveName.Click += new System.EventHandler(this.btSaveName_Click);
+            // 
+            // btSavePagameter
+            // 
+            this.btSavePagameter.Image = global::ConfigDevice.Properties.Resources.goyi;
+            this.btSavePagameter.Name = "btSavePagameter";
+            this.btSavePagameter.Size = new System.Drawing.Size(160, 30);
+            this.btSavePagameter.Text = "保存参数";
+            this.btSavePagameter.Click += new System.EventHandler(this.btSavePagameter_Click);
             // 
             // btSavePosition
             // 
-            this.btSavePosition.Image = global::ConfigDevice.Properties.Resources.Point1;
+            this.btSavePosition.Image = global::ConfigDevice.Properties.Resources.relation;
             this.btSavePosition.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSavePosition.Name = "btSavePosition";
             this.btSavePosition.Size = new System.Drawing.Size(92, 28);
@@ -144,7 +166,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label3.Location = new System.Drawing.Point(70, 88);
+            this.label3.Location = new System.Drawing.Point(70, 89);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 19);
             this.label3.TabIndex = 19;
@@ -280,8 +302,6 @@
             this.gvPosition.Name = "gvPosition";
             this.gvPosition.OptionsView.ShowGroupPanel = false;
             this.gvPosition.OptionsView.ShowIndicator = false;
-            this.gvPosition.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.num, DevExpress.Data.ColumnSortOrder.Ascending)});
             // 
             // num
             // 
@@ -446,7 +466,6 @@
 
         private IpInputExt.Ctrls.IpInputTextbox  ipInputTextbox1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton btSaveInfo;
         private System.Windows.Forms.ToolStripButton btSavePosition;
         private DevExpress.XtraEditors.TextEdit edtNetworkID;
         private IpInputTextbox edtGateway;
@@ -474,5 +493,8 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox1;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit cedtHasPassword;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtName;
+        private System.Windows.Forms.ToolStripSplitButton btSaveInfo;
+        private System.Windows.Forms.ToolStripMenuItem btSaveName;
+        private System.Windows.Forms.ToolStripMenuItem btSavePagameter;
     }
 }

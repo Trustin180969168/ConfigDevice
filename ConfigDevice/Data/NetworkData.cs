@@ -323,9 +323,9 @@ namespace ConfigDevice
                 //-----获取版本号------                
                 byte[] temp1 = new byte[20]; byte[] temp2 = new byte[20];
                 Buffer.BlockCopy(userData.Data, 0, temp1, 0, 20);
-                SoftwareVer = Encoding.GetEncoding("ASCII").GetString(temp1).TrimEnd('\0');
+                SoftwareVer = Encoding.GetEncoding("ASCII").GetString(temp1).TrimEnd('\0').Trim();
                 Buffer.BlockCopy(userData.Data, 20, temp2, 0, 20);
-                HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0');
+                HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0').Trim();
 
                 //------回复反馈的设备信息-------
                 UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
@@ -760,17 +760,29 @@ namespace ConfigDevice
         /// <summary>
         /// 保存网络参数
         /// </summary>
-        public void SaveNetworkParameter(string newIP, string gateWay, string mask, int _networkID)
+        public void SaveNetworkParameter(byte[] newIP, byte[] gateWay, byte[] mask, byte _networkID)
         {
-            UdpData udpSend = createChangePasswordUdpData(newPassword, kind);
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangePassword), new object[] { udpSend });
+            UdpData udpSend = createSaveNetworkParameter(newIP, gateWay, mask, _networkID);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangeParameter), new object[] { udpSend });
+        }
+        private void callbackChangeParameter(UdpData udpReply, object[] values)
+        {
+            byte[] mac = CommonTools.CopyBytes(udpReply.ProtocolData, 11, 12);
+            if (CommonTools.BytesEuqals(mac, ByteMacAddress))
+            {
+                int result = (int)udpReply.ProtocolData[10];
+                if (result == 0)
+                    CommonTools.MessageShow("参数修改成功!", 1, "");
+                else
+                    CommonTools.MessageShow("参数修改失败!", 1, "");
+            }
         }
         /// <summary>
         /// 创建申请连接网络申请的UDP
         /// </summary>
         /// <param name="network">网络数据</param>
         /// <returns>UDP</returns>
-        private UdpData createSaveNetworkParameter(byte[] newIP,byte[] gateWay, byte[] mask, int _networkID)
+        private UdpData createSaveNetworkParameter(byte[] newIP,byte[] gateWay, byte[] mask, byte _networkID)
         {
             UdpData udp = new UdpData();
         
@@ -781,13 +793,14 @@ namespace ConfigDevice
 
             byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
             byte[] source = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PC };//----源信息----
+                 
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_CHANGENET;//----用户命令-----
             byte len = 0x2B;//---数据长度---
-            byte[] temp = new byte[] { 0x0, 0x0 };    //----保留----      
+            byte[] temp = new byte[] { 0x47, 0x53 };    //----保留----      
             byte[] dns = new byte[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };//--临时dns地址,一共两个
             //--------添加到用户数据--------
-            byte[] crcData = new byte[39];
+            byte[] crcData = new byte[49];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
@@ -798,8 +811,8 @@ namespace ConfigDevice
             Buffer.BlockCopy(temp, 0, crcData, 18, 2);
             Buffer.BlockCopy(gateWay, 0, crcData, 20, 4);
             Buffer.BlockCopy(mask, 0, crcData, 24, 4);
-            crcData[28] = (byte)_networkID;
-            Buffer.BlockCopy(mac, 0, crcData, 29, 12);
+            crcData[28] = _networkID;
+            Buffer.BlockCopy(ByteMacAddress, 0, crcData, 29, 12);
             Buffer.BlockCopy(dns, 0, crcData, 41, 8);
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
@@ -809,7 +822,6 @@ namespace ConfigDevice
             udp.Length = 28 + crcData.Length + 4 + 1;
 
             return udp;
-
         }
     }
 

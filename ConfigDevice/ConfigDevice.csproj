@@ -275,6 +275,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
+    <None Include="Resources\confirm.png" />
+    <None Include="Resources\relation.png" />
+    <None Include="Resources\operator.png" />
+    <None Include="Resources\section.png" />
     <None Include="Resources\goyi.png" />
     <None Include="Resources\client.png" />
     <None Include="Resources\Exit.png" />
