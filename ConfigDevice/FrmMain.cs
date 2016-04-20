@@ -58,8 +58,7 @@ namespace ConfigDevice
         /// 加载
         /// </summary>
         private void FrmSocketClientTest_Load(object sender, EventArgs e)
-        {
-    
+        {    
             gcNetwork.DataSource = SysConfig.DtNetwork;
             gcDevices.DataSource = SysConfig.DtDevice;
             networkCtrl.CallBackUI = this.CallBackUI;
@@ -159,7 +158,7 @@ namespace ConfigDevice
             pw.CloseWaiting();
         }
 
-       /// <summary>
+        /// <summary>
         /// 打开RJ45发送表
         /// </summary>
         private void btRJ45Send_Click(object sender, EventArgs e)
@@ -183,7 +182,6 @@ namespace ConfigDevice
         {
             btXtxx.ShowDropDown();
         }
-
         
         /// <summary>
         /// 打开设备
@@ -252,10 +250,6 @@ namespace ConfigDevice
         {
             SysConfig.SetLocalIPInfo(cbxIPList.SelectedIndex);
         }
-
-
-
-
 
 
 
