@@ -195,6 +195,7 @@ namespace ConfigDevice
                 SysConfig.ListNetworks[device.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
             {
                 FrmDevice frm = getFactory(device.ByteKindID).CreateDevice(device);
+                frm.Text = device.Name;
                 frm.Show();
             }
             else { CommonTools.MessageShow("网络链接已断开,请重新链接!", 2, ""); return; }
@@ -211,7 +212,7 @@ namespace ConfigDevice
             {
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
                 case DeviceConfig.EQUIPMENT_RJ45: return new FactoryBaseDevice();
-                case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryFourInput();
+             //   case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryFourInput();
                 default: return new FactoryBaseDevice();  
             }
         }

@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmNetworkEdit));
             this.ipInputTextbox1 = new IpInputExt.Ctrls.IpInputTextbox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btSaveInfo = new System.Windows.Forms.ToolStripSplitButton();
             this.btSaveName = new System.Windows.Forms.ToolStripMenuItem();
             this.btSavePagameter = new System.Windows.Forms.ToolStripMenuItem();
             this.btSavePosition = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripLabel();
+            this.cbxNetwork = new System.Windows.Forms.ToolStripComboBox();
             this.edtNetworkID = new DevExpress.XtraEditors.TextEdit();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -88,7 +92,10 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSaveInfo,
-            this.btSavePosition});
+            this.btSavePosition,
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.cbxNetwork});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(792, 31);
@@ -112,7 +119,7 @@
             // 
             this.btSaveName.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.btSaveName.Name = "btSaveName";
-            this.btSaveName.Size = new System.Drawing.Size(160, 30);
+            this.btSaveName.Size = new System.Drawing.Size(140, 30);
             this.btSaveName.Text = "保存名称";
             this.btSaveName.Click += new System.EventHandler(this.btSaveName_Click);
             // 
@@ -120,7 +127,7 @@
             // 
             this.btSavePagameter.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.btSavePagameter.Name = "btSavePagameter";
-            this.btSavePagameter.Size = new System.Drawing.Size(160, 30);
+            this.btSavePagameter.Size = new System.Drawing.Size(140, 30);
             this.btSavePagameter.Text = "保存参数";
             this.btSavePagameter.Click += new System.EventHandler(this.btSavePagameter_Click);
             // 
@@ -132,6 +139,30 @@
             this.btSavePosition.Size = new System.Drawing.Size(92, 28);
             this.btSavePosition.Text = "保存位置";
             this.btSavePosition.Click += new System.EventHandler(this.btSavePosition_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Margin = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(6, 31);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(68, 28);
+            this.toolStripButton2.Text = "网络设备:";
+            // 
+            // cbxNetwork
+            // 
+            this.cbxNetwork.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxNetwork.Font = new System.Drawing.Font("宋体", 12F);
+            this.cbxNetwork.MaxDropDownItems = 16;
+            this.cbxNetwork.Name = "cbxNetwork";
+            this.cbxNetwork.Size = new System.Drawing.Size(200, 31);
+            this.cbxNetwork.SelectedIndexChanged += new System.EventHandler(this.cbxNetwork_SelectedIndexChanged);
             // 
             // edtNetworkID
             // 
@@ -496,5 +527,8 @@
         private System.Windows.Forms.ToolStripSplitButton btSaveInfo;
         private System.Windows.Forms.ToolStripMenuItem btSaveName;
         private System.Windows.Forms.ToolStripMenuItem btSavePagameter;
+        private System.Windows.Forms.ToolStripSeparator toolStripButton1;
+        private System.Windows.Forms.ToolStripLabel toolStripButton2;
+        private System.Windows.Forms.ToolStripComboBox cbxNetwork;
     }
 }

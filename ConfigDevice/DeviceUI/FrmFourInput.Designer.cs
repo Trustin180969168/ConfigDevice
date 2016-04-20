@@ -42,10 +42,10 @@
             this.xtraTabControl1.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 12F);
             this.xtraTabControl1.AppearancePage.Header.Options.UseFont = true;
             this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xtraTabControl1.Location = new System.Drawing.Point(0, 0);
+            this.xtraTabControl1.Location = new System.Drawing.Point(0, 25);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.pageJcsz;
-            this.xtraTabControl1.Size = new System.Drawing.Size(792, 573);
+            this.xtraTabControl1.Size = new System.Drawing.Size(792, 548);
             this.xtraTabControl1.TabIndex = 1;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pagePzjm,
@@ -56,7 +56,7 @@
             // 
             this.pageJcsz.Controls.Add(this.frmSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(783, 536);
+            this.pageJcsz.Size = new System.Drawing.Size(783, 511);
             this.pageJcsz.Text = "基础配置";
             // 
             // frmSetting
@@ -64,7 +64,7 @@
             this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frmSetting.Location = new System.Drawing.Point(0, 0);
             this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(783, 536);
+            this.frmSetting.Size = new System.Drawing.Size(783, 511);
             this.frmSetting.TabIndex = 0;
             // 
             // pagePzjm
@@ -82,10 +82,12 @@
             this.Name = "FrmFourInput";
             this.Text = "门输入4配置";
             this.Load += new System.EventHandler(this.FrmFourInput_Load);
+            this.Controls.SetChildIndex(this.xtraTabControl1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.pageJcsz.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

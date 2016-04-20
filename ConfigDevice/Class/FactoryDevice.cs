@@ -13,7 +13,7 @@ namespace ConfigDevice
         #region IFactory 成员
         FrmDevice IFactory.CreateDevice(DeviceData data)
         {
-            return new FrmFourInput(data);
+            return new FrmBaseDevice(data);
         }
 
         #endregion

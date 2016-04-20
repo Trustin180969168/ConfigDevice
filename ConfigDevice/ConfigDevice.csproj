@@ -124,7 +124,7 @@
       <DependentUpon>FrmBaseDevice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SysUI\FrmDevice.resx">
+    <EmbeddedResource Include="DeviceUI\FrmDevice.resx">
       <DependentUpon>FrmDevice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -211,10 +211,10 @@
     <Compile Include="DeviceUI\FrmBaseDevice.Designer.cs">
       <DependentUpon>FrmBaseDevice.cs</DependentUpon>
     </Compile>
-    <Compile Include="SysUI\FrmDevice.cs">
+    <Compile Include="DeviceUI\FrmDevice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SysUI\FrmDevice.Designer.cs">
+    <Compile Include="DeviceUI\FrmDevice.Designer.cs">
       <DependentUpon>FrmDevice.cs</DependentUpon>
     </Compile>
     <Compile Include="SysUI\FrmNetworkEdit.cs">

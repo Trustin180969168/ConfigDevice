@@ -13,23 +13,12 @@ namespace ConfigDevice
     {
         public NetworkData NetworkEdit = null;
         DataTable dtPosition = new DataTable("Position");
+        private Dictionary<int, string> listNetworkKey = new Dictionary<int, string>();//保存对应关系
 
         public FrmNetworkEdit()
         {
             InitializeComponent();
-        }
 
-        private void FrmNetworkEdit_Load(object sender, EventArgs e)
-        {
-            NetworkEdit.CallbackUI = this.callbackUI;
-            initData();
-        }
-
-        /// <summary>
-        /// 初始化位置列表
-        /// </summary>
-        private void initData()
-        {
             num.FieldName = Position.DC_NUM;
             password.FieldName = Position.DC_HAS_PASSWORD;
             name.FieldName = Position.DC_NAME;
@@ -37,7 +26,21 @@ namespace ConfigDevice
             dtPosition.Columns.Add(Position.DC_NUM, System.Type.GetType("System.Int16"));
             dtPosition.Columns.Add(Position.DC_NAME, System.Type.GetType("System.String"));
             dtPosition.Columns.Add(Position.DC_HAS_PASSWORD, System.Type.GetType("System.Boolean"));
+        }
 
+        private void FrmNetworkEdit_Load(object sender, EventArgs e)
+        {
+            NetworkEdit.CallbackUI = this.callbackUI;
+            initCbxNetwork();
+            initData();          
+        }
+
+        /// <summary>
+        /// 初始化位置列表
+        /// </summary>
+        private void initData()
+        {
+            dtPosition.Clear(); dtPosition.AcceptChanges();
             foreach (Position position in NetworkEdit.ListPosition)
                 dtPosition.Rows.Add(new object[] { position.Num, position.Name, position.HasPassword });
 
@@ -51,7 +54,23 @@ namespace ConfigDevice
             edtMask.IP = SysConfig.SubnetMask.ToString();
             edtGateway.IP = SysConfig.DefaultIPGateway.ToString();
 
-            NetworkEdit.SearchVer();
+            if (NetworkEdit.State == NetworkConfig.STATE_CONNECTED)
+                NetworkEdit.SearchVer();
+            else
+            { edtSoftwareVer.Text = ""; edtHarewareVer.Text = ""; }
+                
+        }
+
+        private void initCbxNetwork()
+        {
+            //-----网络列表------------------
+            int i = 0;
+            foreach (NetworkData network in SysConfig.ListNetworks.Values)
+            {
+                cbxNetwork.Items.Add(network.DeviceName);
+                listNetworkKey.Add(i++, network.NetworkIP);
+            }
+            cbxNetwork.Text = NetworkEdit.DeviceName;
         }
 
         /// <summary>
@@ -149,6 +168,15 @@ namespace ConfigDevice
         private void btSaveInfo_MouseHover(object sender, EventArgs e)
         {
             btSaveInfo.ShowDropDown();
+        }
+
+        private void cbxNetwork_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = cbxNetwork.SelectedIndex;
+            string key = listNetworkKey[i];
+            NetworkEdit = SysConfig.ListNetworks[key];
+
+            initData();
         }
 
 

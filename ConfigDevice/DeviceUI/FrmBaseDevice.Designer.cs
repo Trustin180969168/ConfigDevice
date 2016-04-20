@@ -39,10 +39,10 @@
             // xtraTabControl1
             // 
             this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xtraTabControl1.Location = new System.Drawing.Point(0, 0);
+            this.xtraTabControl1.Location = new System.Drawing.Point(0, 25);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.pageJcsz;
-            this.xtraTabControl1.Size = new System.Drawing.Size(792, 573);
+            this.xtraTabControl1.Size = new System.Drawing.Size(792, 548);
             this.xtraTabControl1.TabIndex = 1;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz});
@@ -52,7 +52,7 @@
             // 
             this.pageJcsz.Controls.Add(this.frmSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(783, 541);
+            this.pageJcsz.Size = new System.Drawing.Size(783, 516);
             this.pageJcsz.Text = "基础配置";
             // 
             // frmSetting
@@ -60,7 +60,7 @@
             this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frmSetting.Location = new System.Drawing.Point(0, 0);
             this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(783, 541);
+            this.frmSetting.Size = new System.Drawing.Size(783, 516);
             this.frmSetting.TabIndex = 0;
             // 
             // FrmBaseDevice
@@ -72,10 +72,12 @@
             this.Name = "FrmBaseDevice";
             this.Text = "FrmBaseDevice";
             this.Load += new System.EventHandler(this.FrmBaseDevice_Load);
+            this.Controls.SetChildIndex(this.xtraTabControl1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.pageJcsz.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

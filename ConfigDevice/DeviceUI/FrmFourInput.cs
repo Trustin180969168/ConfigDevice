@@ -18,11 +18,7 @@ namespace ConfigDevice
             frmSetting.DeviceEdit = _device;
         }
 
-        public FrmFourInput()
-            : base()
-        {
-            InitializeComponent();
-        }
+   
 
         private void FrmFourInput_Load(object sender, EventArgs e)
         {     
