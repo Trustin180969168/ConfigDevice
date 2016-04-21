@@ -32,16 +32,9 @@
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.clbcWldkpb = new DevExpress.XtraEditors.CheckedListBoxControl();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.clbcAqjb = new DevExpress.XtraEditors.CheckedListBoxControl();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.btSave = new System.Windows.Forms.ToolStripButton();
-            this.pageActionList = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.cedtAfpb1 = new DevExpress.XtraEditors.CheckEdit();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.cedtAfpb1 = new DevExpress.XtraEditors.CheckEdit();
             this.cedtAfpb2 = new DevExpress.XtraEditors.CheckEdit();
             this.cedtAfpb3 = new DevExpress.XtraEditors.CheckEdit();
             this.cedtAfpb4 = new DevExpress.XtraEditors.CheckEdit();
@@ -65,22 +58,22 @@
             this.edtMcmc2 = new DevExpress.XtraEditors.TextEdit();
             this.edtMcmc3 = new DevExpress.XtraEditors.TextEdit();
             this.edtMcmc4 = new DevExpress.XtraEditors.TextEdit();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.clbcWldkpb = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.cdtSelectAll = new DevExpress.XtraEditors.CheckEdit();
+            this.clbcAqjb = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.pageActionList = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pageJcsz.SuspendLayout();
             this.pagePzjm.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.clbcWldkpb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
-            this.groupControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).BeginInit();
-            this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb1.Properties)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb4.Properties)).BeginInit();
@@ -92,7 +85,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc4.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.clbcWldkpb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).BeginInit();
+            this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -115,7 +115,7 @@
             // 
             this.pageJcsz.Controls.Add(this.frmSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(783, 512);
+            this.pageJcsz.Size = new System.Drawing.Size(785, 514);
             this.pageJcsz.Text = "基础配置";
             // 
             // frmSetting
@@ -123,7 +123,7 @@
             this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frmSetting.Location = new System.Drawing.Point(0, 0);
             this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(783, 512);
+            this.frmSetting.Size = new System.Drawing.Size(785, 514);
             this.frmSetting.TabIndex = 0;
             // 
             // pagePzjm
@@ -136,118 +136,15 @@
             this.pagePzjm.Size = new System.Drawing.Size(785, 514);
             this.pagePzjm.Text = "配置界面";
             // 
-            // groupControl2
-            // 
-            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.clbcWldkpb);
-            this.groupControl2.Location = new System.Drawing.Point(46, 156);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(500, 100);
-            this.groupControl2.TabIndex = 5;
-            this.groupControl2.Text = "物理端口屏蔽";
-            // 
-            // clbcWldkpb
-            // 
-            this.clbcWldkpb.CheckOnClick = true;
-            this.clbcWldkpb.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
-            this.clbcWldkpb.HotTrackSelectMode = DevExpress.XtraEditors.HotTrackSelectMode.SelectItemOnClick;
-            this.clbcWldkpb.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口1"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口2"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口3"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口4")});
-            this.clbcWldkpb.LeftCoord = 0;
-            this.clbcWldkpb.Location = new System.Drawing.Point(15, 30);
-            this.clbcWldkpb.MultiColumn = true;
-            this.clbcWldkpb.Name = "clbcWldkpb";
-            this.clbcWldkpb.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.clbcWldkpb.Size = new System.Drawing.Size(268, 30);
-            this.clbcWldkpb.TabIndex = 1;
-            // 
-            // groupControl1
-            // 
-            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl1.Controls.Add(this.cdtSelectAll);
-            this.groupControl1.Controls.Add(this.clbcAqjb);
-            this.groupControl1.Location = new System.Drawing.Point(46, 50);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(500, 100);
-            this.groupControl1.TabIndex = 4;
-            this.groupControl1.Text = "安防级别";
-            // 
-            // clbcAqjb
-            // 
-            this.clbcAqjb.CheckOnClick = true;
-            this.clbcAqjb.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
-            this.clbcAqjb.HotTrackSelectMode = DevExpress.XtraEditors.HotTrackSelectMode.SelectItemOnClick;
-            this.clbcAqjb.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("1"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("2"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("3"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("4"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("5"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("6"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("7"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("8"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("9"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("10"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("11"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("12"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("13"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("14"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("15")});
-            this.clbcAqjb.LeftCoord = 0;
-            this.clbcAqjb.Location = new System.Drawing.Point(15, 50);
-            this.clbcAqjb.MultiColumn = true;
-            this.clbcAqjb.Name = "clbcAqjb";
-            this.clbcAqjb.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.clbcAqjb.Size = new System.Drawing.Size(457, 45);
-            this.clbcAqjb.TabIndex = 1;
-            // 
-            // toolStrip2
-            // 
-            this.toolStrip2.Font = new System.Drawing.Font("宋体", 12F);
-            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btSave});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(785, 31);
-            this.toolStrip2.TabIndex = 1;
-            this.toolStrip2.Text = "toolStrip2";
-            // 
-            // btSave
-            // 
-            this.btSave.Image = global::ConfigDevice.Properties.Resources.save;
-            this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(76, 28);
-            this.btSave.Text = "保存 ";
-            // 
-            // pageActionList
-            // 
-            this.pageActionList.Name = "pageActionList";
-            this.pageActionList.Size = new System.Drawing.Size(783, 512);
-            this.pageActionList.Text = "指令配置";
-            // 
             // groupControl3
             // 
             this.groupControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.groupControl3.Controls.Add(this.tableLayoutPanel1);
             this.groupControl3.Location = new System.Drawing.Point(46, 262);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(723, 215);
+            this.groupControl3.Size = new System.Drawing.Size(692, 194);
             this.groupControl3.TabIndex = 5;
             this.groupControl3.Text = "提示音配置:第1曲为专用提示音：“已关锁好门窗”;第0曲表示不播放提示音;(注:功放：SD卡./WINDOW)";
-            // 
-            // cedtAfpb1
-            // 
-            this.cedtAfpb1.Location = new System.Drawing.Point(3, 3);
-            this.cedtAfpb1.Name = "cedtAfpb1";
-            this.cedtAfpb1.Properties.Caption = "第1路:安防屏蔽";
-            this.cedtAfpb1.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.cedtAfpb1.Size = new System.Drawing.Size(107, 19);
-            this.cedtAfpb1.TabIndex = 3;
             // 
             // tableLayoutPanel1
             // 
@@ -291,6 +188,15 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(703, 135);
             this.tableLayoutPanel1.TabIndex = 4;
+            // 
+            // cedtAfpb1
+            // 
+            this.cedtAfpb1.Location = new System.Drawing.Point(3, 3);
+            this.cedtAfpb1.Name = "cedtAfpb1";
+            this.cedtAfpb1.Properties.Caption = "第1路:安防屏蔽";
+            this.cedtAfpb1.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.cedtAfpb1.Size = new System.Drawing.Size(107, 19);
+            this.cedtAfpb1.TabIndex = 3;
             // 
             // cedtAfpb2
             // 
@@ -473,6 +379,45 @@
             this.edtMcmc4.Size = new System.Drawing.Size(350, 21);
             this.edtMcmc4.TabIndex = 5;
             // 
+            // groupControl2
+            // 
+            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl2.Controls.Add(this.clbcWldkpb);
+            this.groupControl2.Location = new System.Drawing.Point(46, 156);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(500, 100);
+            this.groupControl2.TabIndex = 5;
+            this.groupControl2.Text = "物理端口屏蔽";
+            // 
+            // clbcWldkpb
+            // 
+            this.clbcWldkpb.CheckOnClick = true;
+            this.clbcWldkpb.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
+            this.clbcWldkpb.HotTrackSelectMode = DevExpress.XtraEditors.HotTrackSelectMode.SelectItemOnClick;
+            this.clbcWldkpb.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口1"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口2"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口3"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口4")});
+            this.clbcWldkpb.LeftCoord = 0;
+            this.clbcWldkpb.Location = new System.Drawing.Point(15, 30);
+            this.clbcWldkpb.MultiColumn = true;
+            this.clbcWldkpb.Name = "clbcWldkpb";
+            this.clbcWldkpb.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.clbcWldkpb.Size = new System.Drawing.Size(268, 30);
+            this.clbcWldkpb.TabIndex = 1;
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl1.Controls.Add(this.cdtSelectAll);
+            this.groupControl1.Controls.Add(this.clbcAqjb);
+            this.groupControl1.Location = new System.Drawing.Point(46, 50);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(500, 100);
+            this.groupControl1.TabIndex = 4;
+            this.groupControl1.Text = "安防级别";
+            // 
             // cdtSelectAll
             // 
             this.cdtSelectAll.Location = new System.Drawing.Point(13, 26);
@@ -480,6 +425,61 @@
             this.cdtSelectAll.Properties.Caption = "全选";
             this.cdtSelectAll.Size = new System.Drawing.Size(75, 19);
             this.cdtSelectAll.TabIndex = 2;
+            // 
+            // clbcAqjb
+            // 
+            this.clbcAqjb.CheckOnClick = true;
+            this.clbcAqjb.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
+            this.clbcAqjb.HotTrackSelectMode = DevExpress.XtraEditors.HotTrackSelectMode.SelectItemOnClick;
+            this.clbcAqjb.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("1"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("2"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("3"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("4"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("5"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("6"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("7"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("8"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("9"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("10"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("11"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("12"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("13"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("14"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("15")});
+            this.clbcAqjb.LeftCoord = 0;
+            this.clbcAqjb.Location = new System.Drawing.Point(15, 50);
+            this.clbcAqjb.MultiColumn = true;
+            this.clbcAqjb.Name = "clbcAqjb";
+            this.clbcAqjb.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.clbcAqjb.Size = new System.Drawing.Size(457, 45);
+            this.clbcAqjb.TabIndex = 1;
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.Font = new System.Drawing.Font("宋体", 12F);
+            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btSave});
+            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(785, 31);
+            this.toolStrip2.TabIndex = 1;
+            this.toolStrip2.Text = "toolStrip2";
+            // 
+            // btSave
+            // 
+            this.btSave.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSave.Name = "btSave";
+            this.btSave.Size = new System.Drawing.Size(76, 28);
+            this.btSave.Text = "保存 ";
+            // 
+            // pageActionList
+            // 
+            this.pageActionList.Name = "pageActionList";
+            this.pageActionList.Size = new System.Drawing.Size(785, 514);
+            this.pageActionList.Text = "指令配置";
             // 
             // FrmFourInput
             // 
@@ -496,19 +496,11 @@
             this.pageJcsz.ResumeLayout(false);
             this.pagePzjm.ResumeLayout(false);
             this.pagePzjm.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.clbcWldkpb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
-            this.groupControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).EndInit();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb1.Properties)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb4.Properties)).EndInit();
@@ -520,7 +512,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc4.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.clbcWldkpb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).EndInit();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
