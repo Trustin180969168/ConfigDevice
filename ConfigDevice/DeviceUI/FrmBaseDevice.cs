@@ -66,6 +66,7 @@ namespace ConfigDevice
             DeviceSelect.CallbackUI += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = DeviceSelect;
             Device = DeviceSelect;
+            this.Text = Device.Name;
             Device.SearchVer();
 
 
