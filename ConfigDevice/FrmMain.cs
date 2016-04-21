@@ -193,7 +193,7 @@ namespace ConfigDevice
             {
                 FrmDevice frm = SysCtrl.GetFactory(device.ByteKindID).CreateDevice(device);
                 frm.Text = device.Name;
-                frm.Show();
+                frm.Show(this);
             }
             else { CommonTools.MessageShow("网络链接已断开,请重新链接!", 2, ""); return; }
         }

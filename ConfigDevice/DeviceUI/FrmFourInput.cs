@@ -12,18 +12,18 @@ namespace ConfigDevice
     {
         public FrmFourInput(DeviceData _device)
             : base(_device)
-        {
-          
+        {          
             InitializeComponent();
-            frmSetting.DeviceEdit = _device;
+            this.Device.CallbackUI += this.callbackUI;
+            this.Device.CallbackUI += frmSetting.CallBackUI;
+            frmSetting.DeviceEdit = this.Device;
         }   
 
         private void FrmFourInput_Load(object sender, EventArgs e)
-        {     
-            this.Device.CallbackUI += this.callbackUI;
-            this.Device.CallbackUI += frmSetting.CallBackUI;
-            this.Device.SearchVer();//---获取版本号-----
-            xtraTabControl1.SelectedTabPageIndex = 0;
+        {
+            frmSetting.DeviceEdit.SearchVer();//---获取版本号-----   
+            InitSelectDevice();
+            tctrlEdit.SelectedTabPageIndex = 0;
         }
 
         /// <summary>
@@ -40,12 +40,25 @@ namespace ConfigDevice
                 }
                 else
                 {
-                    frmSetting.CallBackUI(null);
+
                 }
             }
             catch { }
         }
 
+        /// <summary>
+        /// 选择事件
+        /// </summary>
+        public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DeviceData DeviceSelect = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            if (Device.MAC == DeviceSelect.MAC) return;
 
+            DeviceSelect.CallbackUI += this.callbackUI;
+            DeviceSelect.CallbackUI += frmSetting.CallBackUI;
+            frmSetting.DeviceEdit = DeviceSelect;
+            Device = DeviceSelect;
+            Device.SearchVer();
+        }
     }
 }

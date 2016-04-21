@@ -167,7 +167,7 @@ namespace ConfigDevice
             {
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
                 case DeviceConfig.EQUIPMENT_RJ45: return new FactoryBaseDevice();
-                //   case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryFourInput();
+                case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryFourInput();
                 default: return new FactoryBaseDevice();
             }
         }
