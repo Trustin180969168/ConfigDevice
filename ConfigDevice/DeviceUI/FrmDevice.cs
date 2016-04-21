@@ -12,7 +12,7 @@ namespace ConfigDevice
     {
         public DeviceData Device;
         public ToolStripComboBox CbxSelectDevice { get { return (cbxSelectDevice as ToolStripComboBox); } }
-        public Dictionary<int, DeviceData> SelectDeviceList = new Dictionary<int, DeviceData>();//---列表---
+        public Dictionary<int, DataRow> SelectDeviceList = new Dictionary<int, DataRow>();//---列表---
 
         public FrmDevice(DeviceData _device)
         {
@@ -37,10 +37,11 @@ namespace ConfigDevice
             int i = 0;
             foreach (DataRow dr in rows)
             {
-                cbxSelectDevice.Items.Add(dr[DeviceConfig.DC_NAME].ToString());
-                SelectDeviceList.Add(i++, new DeviceData(dr));
+                cbxSelectDevice.Items.Add("设备ID:"+dr[DeviceConfig.DC_DEVICE_ID].ToString()+
+                    "  设备类型:"+dr[DeviceConfig.DC_KIND_NAME].ToString() + "  设备名称:"+dr[DeviceConfig.DC_NAME].ToString());           
+                SelectDeviceList.Add(i++, dr);
             }
-            cbxSelectDevice.Text = Device.Name;
+            //cbxSelectDevice.Text = Device.Name;
         }
 
         /// <summary>
@@ -50,19 +51,10 @@ namespace ConfigDevice
         /// <param name="e"></param>
         public virtual void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+
             
-
-
-
         }
-
-        private void cbxSelectDevice_Click(object sender, EventArgs e)
-        {
-            //if(SelectDeviceList.Count ==0)
-            //InitSelectDevice();
-        }
-
- 
 
 
 

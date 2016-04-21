@@ -9,11 +9,11 @@ namespace ConfigDevice
     public class DeviceData:Device
     {
         protected MySocket mySocket = MySocket.GetInstance();
-        public CallbackUIAction CallbackUI;   //----回调UI----
-        public CallbackFromUdp callbackVer;//----回调版本号----
-        public CallbackFromUdp callbackSaveID;//----回调保存ID号-----
-        public CallbackFromUdp callbackSaveName;//--回调保存名称-----
-        public CallbackFromUdp callbackRefresh;//---回调刷新----
+        public event CallbackUIAction CallbackUI;   //----回调UI----
+        public CallbackFromUDP callbackVer;//----回调版本号----
+        public CallbackFromUDP callbackSaveID;//----回调保存ID号-----
+        public CallbackFromUDP callbackSaveName;//--回调保存名称-----
+        public CallbackFromUDP callbackRefresh;//---回调刷新----
 
         public DeviceData(UserUdpData userUdpData)
         {
@@ -54,14 +54,24 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 回调UI
+        /// </summary>
+        /// <param name="values"></param>
+        private void callbackUI(object[] values)
+        {
+            if (this.CallbackUI != null)
+                CallbackUI(values);
+        }
+
+        /// <summary>
         /// 注册RJ45回调
         /// </summary>
         private void initCallback()
         {
-            callbackVer = new CallbackFromUdp(getVer);
+            callbackVer = new CallbackFromUDP(getVer);
             SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackVer);
-            callbackSaveID = new CallbackFromUdp(getResultDevice);  
-            callbackRefresh = new CallbackFromUdp(getRefreshDevice);
+            callbackSaveID = new CallbackFromUDP(getResultDevice);  //涉及同命令多事件,执行前绑定,避免异常
+            callbackRefresh = new CallbackFromUDP(getRefreshDevice);//涉及同命令多事件,执行前绑定,避免异常
         }
 
         /// <summary>
@@ -97,17 +107,17 @@ namespace ConfigDevice
         {
             UdpData sendUdp = (UdpData)values[0];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                CommonTools.ShowReplyInfo("获取版本号失败!", udpReply.ReplyByte);
-          
+                CommonTools.ShowReplyInfo("获取版本号失败!", udpReply.ReplyByte);          
         }
         private void getVer(UdpData data, object[] values)
         {
+            string name = this.Name;
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);
             DeviceData device = new DeviceData(userData);
             if (DeviceID == device.DeviceID)
             {
-                //-----获取版本号------                
+                //------获取版本号------                
                 byte[] temp1 = new byte[20]; byte[] temp2 = new byte[20];
                 Buffer.BlockCopy(userData.Data, 0, temp1, 0, 20);
                 SoftwareVer = Encoding.GetEncoding("ASCII").GetString(temp1).TrimEnd('\0');
@@ -119,13 +129,11 @@ namespace ConfigDevice
                 mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
             }
             else
-            {     //------回复反馈的设备信息-------
+            {   //------回复反馈的设备信息-------
                 UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
                 mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
-            }
-            if(CallbackUI != null)
-                CallbackUI(null);
-
+            } 
+            callbackUI(null);
         }
         /// <summary>
         /// 创建读取VER的UDP包
@@ -201,8 +209,8 @@ namespace ConfigDevice
                 }
                 else
                     CommonTools.MessageShow("设备ID修改失败!", 2, "");
-   
-                CallbackUI(null);
+
+                callbackUI(null);
             }
 
         }
@@ -246,7 +254,6 @@ namespace ConfigDevice
 
             return udp;
         }
-
 
         /// <summary>
         /// 保存名称
@@ -385,7 +392,7 @@ namespace ConfigDevice
                 this.NetworkIP = device.NetworkIP;
                 this.AddressName = device.AddressName;
 
-                this.CallbackUI(null);//---返回UI----
+                callbackUI(null);//---返回UI----
                 SysCtrl.RefreshDevices(this);//--刷新----
             }
         }
@@ -464,7 +471,6 @@ namespace ConfigDevice
             UdpData udpSend = createCommandUdp(DeviceConfig.CMD_PUBLIC_DISCOVER_DISABLE);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult),
                 new object[] { udpSend, "关闭发现设备失败!", "关闭发现设备!" });
- 
         }
 
         /// <summary>

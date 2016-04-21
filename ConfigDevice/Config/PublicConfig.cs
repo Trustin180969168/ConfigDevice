@@ -185,21 +185,21 @@ namespace ConfigDevice
             SysConfig.defaultIPGateway = IPAddress.Parse(SysConfig.IPList[index].Gateway);
         }
 
-        public static Dictionary<string, CallbackFromUdp> RJ45CallBackList = new Dictionary<string, CallbackFromUdp>();//----RJ45回调表-----  
+        public static Dictionary<string, CallbackFromUDP> RJ45CallBackList = new Dictionary<string, CallbackFromUDP>();//----RJ45回调表-----  
 
         /// <summary>
         /// 添加到回调表
         /// </summary>
         /// <param name="key">命令</param>
         /// <param name="callback">回调对象</param>
-        public static void AddRJ45CallBackList(byte[] key,CallbackFromUdp callback)
+        public static void AddRJ45CallBackList(byte[] key,CallbackFromUDP callback)
         {
             string keyStr = ConvertTools.ByteToHexStr(key);
             if (!RJ45CallBackList.ContainsKey(keyStr))
                 RJ45CallBackList.Add(keyStr, callback);
             else
             {
-                RJ45CallBackList[keyStr] = callback;  //----暂时只用于单个事件订阅,直接覆盖------
+                RJ45CallBackList[keyStr] = callback;  //----暂时只用于单个事件订阅,所以直接覆盖------
             }
         }
 
@@ -208,7 +208,7 @@ namespace ConfigDevice
     /// <summary>
     /// 回调对象
     /// </summary>
-    public class  CallbackFromUdp
+    public class  CallbackFromUDP
     {
         public UdpData Udp;//---包数据---
         public event CallbackUdpAction CallBackAction;//----委托操作----    
@@ -220,7 +220,7 @@ namespace ConfigDevice
             get { return CallBackAction; }
         }
 
-        public CallbackFromUdp(UdpData udp, CallbackUdpAction callBack, EndPoint endPoint, object[] objs)
+        public CallbackFromUDP(UdpData udp, CallbackUdpAction callBack, EndPoint endPoint, object[] objs)
         {
             Udp = udp;
             CallBackAction = callBack;
@@ -228,12 +228,12 @@ namespace ConfigDevice
             Values = objs;//回调时可能需要其他参数,
         }
 
-        public CallbackFromUdp()
+        public CallbackFromUDP()
         {
 
         }
 
-        public CallbackFromUdp(CallbackUdpAction callBack)
+        public CallbackFromUDP(CallbackUdpAction callBack)
         {
             CallBackAction = callBack;
         }

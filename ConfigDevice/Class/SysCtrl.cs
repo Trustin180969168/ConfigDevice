@@ -25,7 +25,6 @@ namespace ConfigDevice
             GetLocalIPList();
             if (SysConfig.IPList.Count > 0)
                 SysConfig.SetLocalIPInfo(0);
-
         }
 
         /// <summary>
@@ -157,7 +156,21 @@ namespace ConfigDevice
             return new IPAddress(ip).ToString();
         }
 
-
+        /// <summary>
+        /// 获取抽象工厂
+        /// </summary>
+        /// <param name="kindId">类型</param>
+        /// <returns></returns>
+        public static IFactory GetFactory(byte kindId)
+        {
+            switch (kindId)
+            {
+                case DeviceConfig.EQUIPMENT_AMP_MP3:
+                case DeviceConfig.EQUIPMENT_RJ45: return new FactoryBaseDevice();
+                //   case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryFourInput();
+                default: return new FactoryBaseDevice();
+            }
+        }
 
     }
 }

@@ -48,7 +48,7 @@
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(472, 24);
+            this.toolStrip1.Size = new System.Drawing.Size(645, 24);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -72,15 +72,14 @@
             this.cbxSelectDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSelectDevice.Font = new System.Drawing.Font("宋体", 12F);
             this.cbxSelectDevice.Name = "cbxSelectDevice";
-            this.cbxSelectDevice.Size = new System.Drawing.Size(200, 24);
+            this.cbxSelectDevice.Size = new System.Drawing.Size(400, 24);
             this.cbxSelectDevice.SelectedIndexChanged += new System.EventHandler(this.cbxSelectDevice_SelectedIndexChanged);
-            this.cbxSelectDevice.Click += new System.EventHandler(this.cbxSelectDevice_Click);
             // 
             // FrmDevice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 325);
+            this.ClientSize = new System.Drawing.Size(645, 325);
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

@@ -16,13 +16,12 @@ namespace ConfigDevice
           
             InitializeComponent();
             frmSetting.DeviceEdit = _device;
-        }
-
-   
+        }   
 
         private void FrmFourInput_Load(object sender, EventArgs e)
         {     
-            this.Device.CallbackUI = new CallbackUIAction(this.callbackUI);
+            this.Device.CallbackUI += this.callbackUI;
+            this.Device.CallbackUI += frmSetting.CallBackUI;
             this.Device.SearchVer();//---获取版本号-----
             xtraTabControl1.SelectedTabPageIndex = 0;
         }
@@ -37,6 +36,7 @@ namespace ConfigDevice
                 if (this.InvokeRequired)
                 {
                     this.Invoke(new CallbackUIAction(callbackUI),new object[]{values});
+                    return;
                 }
                 else
                 {

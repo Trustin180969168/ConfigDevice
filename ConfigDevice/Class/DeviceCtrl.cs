@@ -12,15 +12,14 @@ namespace ConfigDevice
         private MySocket mySocket = MySocket.GetInstance();
         private int AvaliableSize = 19;//--最小有效长度
         private int countNum = 0;
-        public CallbackUIAction CallBackUI = null;//返回
-        private CallbackFromUdp callbackGetSearchDevices;
-        private CallbackFromUdp callbackGetStopSearchDevices;
+        public event CallbackUIAction CallBackUI = null;//返回
+        private CallbackFromUDP callbackGetSearchDevices;
+        private CallbackFromUDP callbackGetStopSearchDevices;
 
         public DeviceCtrl()
         {
-
-            callbackGetSearchDevices = new CallbackFromUdp();
-            callbackGetStopSearchDevices = new CallbackFromUdp();
+            callbackGetSearchDevices = new CallbackFromUDP();
+            callbackGetStopSearchDevices = new CallbackFromUDP();
             callbackGetSearchDevices.CallBackAction += new CallbackUdpAction(this.callbackGetDevices);
             callbackGetStopSearchDevices.CallBackAction += new CallbackUdpAction(this.callbackStopSearch);
 
@@ -55,6 +54,14 @@ namespace ConfigDevice
             countNum = 0; SysConfig.DtDevice.Clear(); SysConfig.DtDevice.AcceptChanges();//---初始化数据----
         }
 
+        /// <summary>
+        /// 回调界面
+        /// </summary>
+        private void callbackUI(object[] values)
+        {
+            if(CallBackUI != null)
+                CallBackUI(values);
+        }
 
         /// <summary>
         /// 搜索设备
@@ -166,7 +173,7 @@ namespace ConfigDevice
             //------回复停止搜索-------               
             UdpData udpReply = createReplyUdp(data);
             mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
-            CallBackUI(null);
+            callbackUI(null);
         }
 
 
@@ -193,25 +200,6 @@ namespace ConfigDevice
             return udpReply;
         }
 
-        /// <summary>
-        /// 找出一个返回刷新的包
-        /// </summary>
-        private UdpData findDeviceUdp(NetworkData network)
-        {
-            lock (mySocket.RJ45SendList)
-            {
-                UdpData result = null;
-                foreach (UdpData udp in MySocket.GetInstance().RJ45SendList.Values)
-                {
-                    if (udp.Length < AvaliableSize) continue;
-                    UserUdpData userData = new UserUdpData(udp);
-                    if (userData.IP == network.NetworkIP && CommonTools.BytesEuqals(userData.Command, NetworkConfig.CMD_PC_CONNECTING))
-                    {
-                        result = udp;
-                    }
-                }
-                return result;
-            }
-        }
+
     }
 }

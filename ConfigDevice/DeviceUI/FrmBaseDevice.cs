@@ -14,7 +14,8 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
-            this.Device.CallbackUI = new CallbackUIAction(this.callbackUI);
+            this.Device.CallbackUI += this.callbackUI;
+            this.Device.CallbackUI += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = this.Device;
         }
 
@@ -24,8 +25,9 @@ namespace ConfigDevice
         }
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
-        { 
-            this.Device.SearchVer();//---获取版本号-----       
+        {
+            frmSetting.DeviceEdit.SearchVer();//---获取版本号-----   
+            InitSelectDevice();
         }
 
         /// <summary>
@@ -41,8 +43,8 @@ namespace ConfigDevice
                 }
                 else
                 {
-                    frmSetting.CallBackUI(null);
-                    InitSelectDevice();
+                  
+
                 }
             }
             catch { }
@@ -53,12 +55,20 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DeviceData DeviceSelect = SelectDeviceList[CbxSelectDevice.SelectedIndex];
+            DeviceData DeviceSelect = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
             if (Device.MAC == DeviceSelect.MAC) return;
+            //this.Close();
+            //FrmDevice frm = SysCtrl.GetFactory(DeviceSelect.ByteKindID).CreateDevice(DeviceSelect);
+            //frm.Text = DeviceSelect.Name;
+            //frm.Show();
 
-            this.Device = DeviceSelect;
-            this.Device.CallbackUI = new CallbackUIAction(this.callbackUI);
-            frmSetting.DeviceEdit = this.Device;
+            DeviceSelect.CallbackUI += this.callbackUI;
+            DeviceSelect.CallbackUI += frmSetting.CallBackUI;
+            frmSetting.DeviceEdit = DeviceSelect;
+            Device = DeviceSelect;
+            Device.SearchVer();
+
+
         }
 
 

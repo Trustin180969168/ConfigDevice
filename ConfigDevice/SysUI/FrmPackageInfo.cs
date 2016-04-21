@@ -87,9 +87,9 @@ namespace ConfigDevice
                 dtPackage.Clear();
                 if (sendKind == ENUM_PackageSendKind.PC_SEND)
                 {
-                    CallbackFromUdp[] states = new CallbackFromUdp[mySocket.PCCallBackList.Count];
+                    CallbackFromUDP[] states = new CallbackFromUDP[mySocket.PCCallBackList.Count];
                     mySocket.PCCallBackList.Values.CopyTo(states, 0);
-                    foreach (CallbackFromUdp state in states)
+                    foreach (CallbackFromUDP state in states)
                     {
                         UdpData udp = state.Udp;
                         dtPackage.Rows.Add(new object[] { udp.PacketCodeStr,ConvertTools.ByteToHexStr(udp.PacketKind), 

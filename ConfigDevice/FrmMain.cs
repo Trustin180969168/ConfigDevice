@@ -32,8 +32,8 @@ namespace ConfigDevice
 
             gcNetwork.DataSource = SysConfig.DtNetwork;
             gcDevices.DataSource = SysConfig.DtDevice;
-            networkCtrl.CallBackUI = this.CallBackUI;
-            deviceCtrl.CallBackUI = this.CallBackUI;
+            networkCtrl.CallBackUI += this.CallBackUI;
+            deviceCtrl.CallBackUI += this.CallBackUI;
 
             //-------初始化列表字段名-------
             networkDeviceID.FieldName = NetworkConfig.DC_DEVICE_ID;
@@ -59,10 +59,7 @@ namespace ConfigDevice
         /// </summary>
         private void FrmSocketClientTest_Load(object sender, EventArgs e)
         {    
-            gcNetwork.DataSource = SysConfig.DtNetwork;
-            gcDevices.DataSource = SysConfig.DtDevice;
-            networkCtrl.CallBackUI = this.CallBackUI;
-            deviceCtrl.CallBackUI = this.CallBackUI;
+
             //-------设置本地IP信息---------
             foreach (IPInfo ipInfo in SysConfig.IPList.Values)
                 cbxIPList.Items.Add(ipInfo.IP);
@@ -194,28 +191,14 @@ namespace ConfigDevice
             if (SysConfig.ListNetworks.ContainsKey(device.NetworkIP) &&
                 SysConfig.ListNetworks[device.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
             {
-                FrmDevice frm = getFactory(device.ByteKindID).CreateDevice(device);
+                FrmDevice frm = SysCtrl.GetFactory(device.ByteKindID).CreateDevice(device);
                 frm.Text = device.Name;
                 frm.Show();
             }
             else { CommonTools.MessageShow("网络链接已断开,请重新链接!", 2, ""); return; }
         }
 
-        /// <summary>
-        /// 获取抽象工厂
-        /// </summary>
-        /// <param name="kindId">类型</param>
-        /// <returns></returns>
-        private IFactory getFactory(byte kindId)
-        {
-            switch (kindId)
-            {
-                case DeviceConfig.EQUIPMENT_AMP_MP3:
-                case DeviceConfig.EQUIPMENT_RJ45: return new FactoryBaseDevice();
-             //   case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryFourInput();
-                default: return new FactoryBaseDevice();  
-            }
-        }
+
         /// <summary>
         /// 双击链接或打开网络
         /// </summary>

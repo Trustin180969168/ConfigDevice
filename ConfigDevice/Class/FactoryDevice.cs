@@ -5,6 +5,11 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
+    public interface IFactory
+    {
+        FrmDevice CreateDevice(DeviceData device);
+    }
+
     /// <summary>
     /// 一般设备
     /// </summary>

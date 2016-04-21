@@ -66,10 +66,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\Command.cs" />
     <Compile Include="Class\Device.cs" />
     <Compile Include="Class\FactoryDevice.cs" />
-    <Compile Include="Class\IFactory.cs" />
     <Compile Include="Class\NetworkCtrl.cs" />
     <Compile Include="Data\DeviceData.cs" />
     <Compile Include="Common\ThreadActionTimer.cs">
@@ -86,7 +84,7 @@
     <Compile Include="DeviceUI\FrmFourInput.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeviceUI\FrmFourInput.Designer.cs">
+    <Compile Include="DeviceUI\FrmFourInput.designer.cs">
       <DependentUpon>FrmFourInput.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />

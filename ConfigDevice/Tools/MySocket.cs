@@ -22,7 +22,7 @@ namespace ConfigDevice
         private static readonly Object obj = new Object();//加锁对象
         private static readonly Object lockReceive = new Object();//加锁对象
         private static UInt16 sendCount = 0;
-        private static Dictionary<string, CallbackFromUdp> pcCallBackList = new Dictionary<string, CallbackFromUdp>();//---PC回调列表----
+        private static Dictionary<string, CallbackFromUDP> pcCallBackList = new Dictionary<string, CallbackFromUDP>();//---PC回调列表----
         private static Dictionary<string, UdpData> rj45SendList = new Dictionary<string, UdpData>();//---RJ45发送列表---- 
 
         public int Available { get { return mySocket.Available; } }//当前可用的所有UDP接收数据长度
@@ -36,7 +36,7 @@ namespace ConfigDevice
         /// <summary>
         /// 获取发送列表
         /// </summary>
-        public Dictionary<string, CallbackFromUdp> PCCallBackList { get { return pcCallBackList; } }
+        public Dictionary<string, CallbackFromUDP> PCCallBackList { get { return pcCallBackList; } }
 
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="key">包标识</param>
         /// <param name="state">回调内容</param>
-        public void AddPCCallbackList(string key, CallbackFromUdp state)
+        public void AddPCCallbackList(string key, CallbackFromUDP state)
         {
             lock (pcCallBackList)
             {
@@ -130,7 +130,7 @@ namespace ConfigDevice
                 IPAddress ip = getValidIP(receiveIP);
                 IPEndPoint ipep = new IPEndPoint(ip, receivePort);
                 EndPoint remotePoint = (EndPoint)(ipep);
-                CallbackFromUdp state = new CallbackFromUdp(udp, null, null,null);//创建返回结果
+                CallbackFromUDP state = new CallbackFromUDP(udp, null, null,null);//创建返回结果
                 mySocket.BeginSendTo(udp.GetUdpData(), 0, udp.Length, SocketFlags.None, remotePoint, new AsyncCallback(SendCallback), state);//--异步发送--- 
 
             //}
@@ -188,7 +188,7 @@ namespace ConfigDevice
             //-------发送前,把包标识码加1-------
             byte[] packageCount = BitConverter.GetBytes(++sendCount);
             Buffer.BlockCopy(packageCount, 0, udp.PacketCode, 0, 2);
-            CallbackFromUdp state = new CallbackFromUdp(udp, callback, remotePoint, objs);//创建返回结果
+            CallbackFromUDP state = new CallbackFromUDP(udp, callback, remotePoint, objs);//创建返回结果
             mySocket.BeginSendTo(udp.GetUdpData(), 0, udp.Length, SocketFlags.None, remotePoint, new AsyncCallback(SendCallback), state);//--异步发送--- 
         }
 
@@ -203,7 +203,7 @@ namespace ConfigDevice
             {
                 if (asyncResult.AsyncState != null)
                 {
-                    CallbackFromUdp state = (CallbackFromUdp)asyncResult.AsyncState;
+                    CallbackFromUDP state = (CallbackFromUDP)asyncResult.AsyncState;
                     if (state.Udp.PacketKind[0] == PackegeSendReply.SEND)//----发送包添加到回复列表---
                         AddPCCallbackList(state.Udp.PacketCodeStr, state);
                     else
@@ -242,7 +242,7 @@ namespace ConfigDevice
             //{
                 IPEndPoint ipep = new IPEndPoint(IPAddress.Any, SysConfig.RemotePort);//获取所有地址为自远程端口的值
                 EndPoint remotePoint = (EndPoint)(ipep);
-                CallbackFromUdp state;//回调对象
+                CallbackFromUDP state;//回调对象
                 while (true)
                 {
                     if (mySocket == null || mySocket.Available < 1)//----等待数据接收-----

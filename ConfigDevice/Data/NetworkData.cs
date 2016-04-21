@@ -78,11 +78,11 @@ namespace ConfigDevice
         public byte[] ByteMacAddress { get { return ConvertTools.StrToToHexByte(MacAddress); } }
 
         public DateTime RefreshTime;
-        private CallbackFromUdp callbackGetPosition;
-        private CallbackFromUdp callbackGetVer;
+        private CallbackFromUDP callbackGetPosition;
+        private CallbackFromUDP callbackGetVer;
         public string SoftwareVer = "";//软件版本
         public string HardwareVer = "";//硬件版本
-        public CallbackUIAction CallbackUI;
+        public event CallbackUIAction CallbackUI;
         /// <summary>
         /// 获取终端点
         /// </summary>
@@ -92,6 +92,16 @@ namespace ConfigDevice
             IPEndPoint ipep = new IPEndPoint(IPAddress.Parse(NetworkIP), Port);
             EndPoint remotePoint = (EndPoint)(ipep);
             return remotePoint;
+        }
+
+        /// <summary>
+        /// 回调UI
+        /// </summary>
+        /// <param name="values"></param>
+        private void callbackUI(object[] values)
+        {
+            if (this.CallbackUI != null)
+                CallbackUI(values);
         }
 
         /// <summary>
@@ -141,8 +151,8 @@ namespace ConfigDevice
         /// </summary>
         private void regeditRJ45Callback()
         {
-            callbackGetPosition = new CallbackFromUdp(callbackGetPositions);
-          callbackGetVer = new CallbackFromUdp(getVer);
+            callbackGetPosition = new CallbackFromUDP(callbackGetPositions);
+          callbackGetVer = new CallbackFromUDP(getVer);
         }
 
 
@@ -336,8 +346,7 @@ namespace ConfigDevice
                 UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
                 mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
             }
-            if (CallbackUI != null)
-                CallbackUI(null);
+            callbackUI(null);
 
         }
         /// <summary>

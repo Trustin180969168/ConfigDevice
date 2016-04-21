@@ -53,7 +53,7 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 按照时间间隔执行
+        /// 按照时间间隔执行,避免定时器的重入机制造成混乱
         /// </summary>
         public void Timer_Elaspsed(object sender, ElapsedEventArgs e)
         {

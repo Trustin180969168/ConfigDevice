@@ -14,8 +14,8 @@ namespace ConfigDevice
         public ThreadActionTimer RefreshConnectState;//计时器执行
         private long RefreshCount = 0;
         private MySocket mySocket = MySocket.GetInstance();
-         public CallbackUIAction CallBackUI = null;//返回UI
-        private CallbackFromUdp callbackRefreshNetwork;//回调类
+        public event CallbackUIAction CallBackUI = null;//返回UI
+        private CallbackFromUDP callbackRefreshNetwork;//回调类
 
         public NetworkCtrl()
         {
@@ -24,11 +24,16 @@ namespace ConfigDevice
             RefreshConnectState = new ThreadActionTimer(3000, new Action(RefreshNetwork));
             RefreshConnectState.Start();
             //-------------RJ45主动刷新网络包的回调----------------
-            callbackRefreshNetwork = new CallbackFromUdp();
-            callbackRefreshNetwork.CallBackAction += callbackRefreshNetworkData;
+            callbackRefreshNetwork = new CallbackFromUDP(callbackRefreshNetworkData);
             SysConfig.AddRJ45CallBackList(NetworkConfig.CMD_PC_CONNECTING, callbackRefreshNetwork);
         }
-          
+
+        private void callbackUI(object[] values)
+        {
+            if (CallBackUI != null)
+                CallBackUI(values);
+        }
+
 
         /// <summary>
         /// 搜索网络
@@ -129,7 +134,7 @@ namespace ConfigDevice
             }
         }
         /// <summary>
-        /// 刷新网络
+        /// 刷新网络,3秒检查一次,并发送保持链接包
         /// </summary>
         /// <returns>返回数据表</returns>
         public void RefreshNetwork()
@@ -192,18 +197,7 @@ namespace ConfigDevice
         }
 
 
-        /// <summary>
-        /// 根据设备ID获取地址
-        /// </summary>
-        /// <param name="ip"></param>
-        /// <returns></returns>
-        private string getRemoteIP_Str(string deviceID)
-        {
-            string localIP_Str = SysConfig.LocalIP.ToString();
-            int index = localIP_Str.LastIndexOf(".");
-            string tempStr = localIP_Str.Substring(0, index + 1 );
-            return tempStr + deviceID;
-        }
+
 
         /// <summary>
         /// 根据接收的包生成回复刷新的包
