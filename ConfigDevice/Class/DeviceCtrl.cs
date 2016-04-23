@@ -133,7 +133,7 @@ namespace ConfigDevice
         {
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);
-            DeviceData device = new DeviceData(userData);
+            DeviceData device = new BaseDevice(userData);
 
             //-----回复反馈的设备信息-------
             UdpData udpReply = createReplyUdp(data);

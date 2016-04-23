@@ -55,7 +55,7 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DeviceData DeviceSelect = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            DeviceData DeviceSelect = new BaseDevice(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
             if (Device.MAC == DeviceSelect.MAC) return;
             //this.Close();
             //FrmDevice frm = SysCtrl.GetFactory(DeviceSelect.ByteKindID).CreateDevice(DeviceSelect);

@@ -327,7 +327,7 @@ namespace ConfigDevice
         {
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);
-            DeviceData device = new DeviceData(userData);
+            DeviceData device = new BaseDevice(userData);
             if (DeviceID == device.DeviceID)
             {
                 //-----获取版本号------                

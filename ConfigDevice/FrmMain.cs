@@ -187,11 +187,11 @@ namespace ConfigDevice
         {
             if (gvDevices.FocusedRowHandle == -1) return;
             DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
-            DeviceData device = new DeviceData(dr);
+            DeviceData device = new BaseDevice(dr);
             if (SysConfig.ListNetworks.ContainsKey(device.NetworkIP) &&
                 SysConfig.ListNetworks[device.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
             {
-                FrmDevice frm = SysCtrl.GetFactory(device.ByteKindID).CreateDevice(device);
+                FrmDevice frm = SysCtrl.GetFactory(device.ByteKindID).CreateDevice(dr);
                 frm.Text = device.Name;
                 frm.Show(this);
             }

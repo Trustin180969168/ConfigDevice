@@ -425,6 +425,7 @@
             this.cdtSelectAll.Properties.Caption = "全选";
             this.cdtSelectAll.Size = new System.Drawing.Size(75, 19);
             this.cdtSelectAll.TabIndex = 2;
+            this.cdtSelectAll.CheckedChanged += new System.EventHandler(this.cdtSelectAll_CheckedChanged);
             // 
             // clbcAqjb
             // 

@@ -102,9 +102,9 @@ namespace ConfigDevice
                 
                 
                 byte[] data2 = new byte[128];UdpData udp2 = new UdpData();
-                if (MySocketTest.GetInstance().Available > 1)
+                if (MySocket.GetInstance().Available > 1)
                 { 
-                     udp2 = MySocketTest.GetInstance().ReceiveData(RemotePoint); 
+                  //   udp2 = MySocket.GetInstance().ReceiveData(RemotePoint); 
                 }
                 this.rtbReceive.BeginInvoke(myI, new object[] { RemotePoint.ToString() + " : " + udp.GetUdpInfo() 
                 +"\n ******upd2*******\n"+udp2.GetUdpInfo()          });

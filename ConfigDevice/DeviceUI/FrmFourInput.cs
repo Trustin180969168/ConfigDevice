@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using DevExpress.XtraEditors.Controls;
 
 namespace ConfigDevice
 {
@@ -14,6 +15,7 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
+            this.Device = this.Device as DoorInput4;
             this.Device.CallbackUI += this.callbackUI;
             this.Device.CallbackUI += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = this.Device;
@@ -51,7 +53,7 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DeviceData DeviceSelect = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            DeviceData DeviceSelect = new BaseDevice(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
             if (Device.MAC == DeviceSelect.MAC) return;
 
             DeviceSelect.CallbackUI += this.callbackUI;
@@ -60,5 +62,16 @@ namespace ConfigDevice
             Device = DeviceSelect;
             Device.SearchVer();
         }
+
+        /// <summary>
+        /// 全选,全不选
+        /// </summary>
+        private void cdtSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (CheckedListBoxItem item in clbcAqjb.Items)
+                item.CheckState = cdtSelectAll.CheckState;
+        }
+
+
     }
 }

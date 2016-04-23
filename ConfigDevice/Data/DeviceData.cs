@@ -6,8 +6,33 @@ using System.Data;
 namespace ConfigDevice
 {  
 
-    public class DeviceData:Device
+    public abstract class  DeviceData
     {
+        public string DeviceID = "";//设备ID
+        public string NetworkID = "";//网段ID
+        public string KindID;//设备类型ID
+        public string KindName = "";//设备类型名称
+        public string Name = "";//设备名称
+        public string MAC = "";//设备机身码
+        public string State = "";//设备状态
+        public string Remark = "";//设备提示
+        public string SoftwareVer = "";//软件版本
+        public string HardwareVer = "";//硬件版本
+        public string PCAddress = "";//PC通讯地址
+        public string NetworkIP = "";//设备通讯IP地址
+        public string AddressName = "";//设备地址
+        public byte[] AddressID;//设备地址ID
+
+
+ 
+
+        public byte BytePCAddress { get { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; } }
+        public byte ByteDeviceID { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }
+        public byte ByteKindID { get { return BitConverter.GetBytes(Convert.ToInt16(KindID))[0]; } }
+        public byte[] ByteMacAddress { get { return ConvertTools.StrToToHexByte(MAC); } }
+        public byte ByteNetworkId { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } }
+
+
         protected MySocket mySocket = MySocket.GetInstance();
         public event CallbackUIAction CallbackUI;   //----回调UI----
         public CallbackFromUDP callbackVer;//----回调版本号----
@@ -114,7 +139,7 @@ namespace ConfigDevice
             string name = this.Name;
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);
-            DeviceData device = new DeviceData(userData);
+            DeviceData device = new BaseDevice(userData);
             if (DeviceID == device.DeviceID)
             {
                 //------获取版本号------                
@@ -193,7 +218,7 @@ namespace ConfigDevice
         {
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);
-            DeviceData resultDevice = new DeviceData(userData);
+            DeviceData resultDevice = new BaseDevice(userData);
             //-----获取版本号------
             if (resultDevice.MAC == this.MAC)
             {
@@ -327,7 +352,7 @@ namespace ConfigDevice
         /// <summary>
         /// 刷新基本信息
         /// </summary>
-        public override void RefreshData()
+        public  void RefreshData()
         {
             UdpData udpSend = createRefreshUdp();
             SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackRefresh);//回调刷新结果
@@ -375,7 +400,7 @@ namespace ConfigDevice
         {
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);
-            DeviceData device = new DeviceData(userData);
+            DeviceData device = new BaseDevice(userData);
             //------回复反馈的设备信息-------
             UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
             mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
@@ -436,7 +461,7 @@ namespace ConfigDevice
         /// <summary>
         /// 通信设备灯开
         /// </summary>
-        public override void OpenLight()
+        public  void OpenLight()
         {
             UdpData udpSend = createCommandUdp(DeviceConfig.CMD_PUBLIC_UART_LED_ENABLE);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult),
@@ -446,7 +471,7 @@ namespace ConfigDevice
         /// <summary>
         /// 通信设备灯关
         /// </summary>
-        public override void CloseLight()
+        public  void CloseLight()
         {
             UdpData udpSend = createCommandUdp(DeviceConfig.CMD_PUBLIC_UART_LED_DISABLE);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult),
@@ -456,7 +481,7 @@ namespace ConfigDevice
         /// <summary>
         /// 打开发现设备
         /// </summary>
-        public override void OpenDiscover()
+        public  void OpenDiscover()
         {
             UdpData udpSend = createCommandUdp(DeviceConfig.CMD_PUBLIC_DISCOVER_ENABLE);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult), 
@@ -466,7 +491,7 @@ namespace ConfigDevice
         /// <summary>
         /// 关闭发现设备
         /// </summary>
-        public override void CloseDiscover()
+        public  void CloseDiscover()
         {
             UdpData udpSend = createCommandUdp(DeviceConfig.CMD_PUBLIC_DISCOVER_DISABLE);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult),
