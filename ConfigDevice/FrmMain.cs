@@ -15,7 +15,6 @@ namespace ConfigDevice
 {
     public partial class FrmMain : Form
     {
-        private SysCtrl sysCtrl;//------系统控制-------
         private MySocket socket;//---通讯对象-----
         private NetworkCtrl networkCtrl;//----网络控制-----
         private DeviceCtrl deviceCtrl;//----设备控制-----

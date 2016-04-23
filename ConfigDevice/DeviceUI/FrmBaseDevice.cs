@@ -14,8 +14,8 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
-            this.Device.CallbackUI += this.callbackUI;
-            this.Device.CallbackUI += frmSetting.CallBackUI;
+            this.Device.OnCallbackUI_Action += this.callbackUI;
+            this.Device.OnCallbackUI_Action += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = this.Device;
         }
 
@@ -62,8 +62,8 @@ namespace ConfigDevice
             //frm.Text = DeviceSelect.Name;
             //frm.Show();
 
-            DeviceSelect.CallbackUI += this.callbackUI;
-            DeviceSelect.CallbackUI += frmSetting.CallBackUI;
+            DeviceSelect.OnCallbackUI_Action += this.callbackUI;
+            DeviceSelect.OnCallbackUI_Action += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = DeviceSelect;
             Device = DeviceSelect;
             this.Text = Device.Name;

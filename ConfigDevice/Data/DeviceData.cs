@@ -24,8 +24,6 @@ namespace ConfigDevice
         public byte[] AddressID;//设备地址ID
 
 
- 
-
         public byte BytePCAddress { get { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; } }
         public byte ByteDeviceID { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }
         public byte ByteKindID { get { return BitConverter.GetBytes(Convert.ToInt16(KindID))[0]; } }
@@ -34,7 +32,7 @@ namespace ConfigDevice
 
 
         protected MySocket mySocket = MySocket.GetInstance();
-        public event CallbackUIAction CallbackUI;   //----回调UI----
+        public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
         public CallbackFromUDP callbackVer;//----回调版本号----
         public CallbackFromUDP callbackSaveID;//----回调保存ID号-----
         public CallbackFromUDP callbackSaveName;//--回调保存名称-----
@@ -82,10 +80,10 @@ namespace ConfigDevice
         /// 回调UI
         /// </summary>
         /// <param name="values"></param>
-        private void callbackUI(object[] values)
+        protected void callbackUI(object[] values)
         {
-            if (this.CallbackUI != null)
-                CallbackUI(values);
+            if (this.OnCallbackUI_Action != null)
+                OnCallbackUI_Action(values);
         }
 
         /// <summary>
@@ -517,7 +515,6 @@ namespace ConfigDevice
             }
         }
 
-    
 
     }
 }

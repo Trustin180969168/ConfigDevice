@@ -16,8 +16,8 @@ namespace ConfigDevice
         {          
             InitializeComponent();
             this.Device = this.Device as DoorInput4;
-            this.Device.CallbackUI += this.callbackUI;
-            this.Device.CallbackUI += frmSetting.CallBackUI;
+            this.Device.OnCallbackUI_Action += this.callbackUI;
+            this.Device.OnCallbackUI_Action += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = this.Device;
         }   
 
@@ -56,8 +56,8 @@ namespace ConfigDevice
             DeviceData DeviceSelect = new BaseDevice(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
             if (Device.MAC == DeviceSelect.MAC) return;
 
-            DeviceSelect.CallbackUI += this.callbackUI;
-            DeviceSelect.CallbackUI += frmSetting.CallBackUI;
+            DeviceSelect.OnCallbackUI_Action += this.callbackUI;
+            DeviceSelect.OnCallbackUI_Action += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = DeviceSelect;
             Device = DeviceSelect;
             Device.SearchVer();

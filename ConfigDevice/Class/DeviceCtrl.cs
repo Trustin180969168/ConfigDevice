@@ -10,7 +10,6 @@ namespace ConfigDevice
       
         private NetworkData SearchingNetwork;//---搜素的网络设备(RJ45)----
         private MySocket mySocket = MySocket.GetInstance();
-        private int AvaliableSize = 19;//--最小有效长度
         private int countNum = 0;
         public event CallbackUIAction CallBackUI = null;//返回
         private CallbackFromUDP callbackGetSearchDevices;

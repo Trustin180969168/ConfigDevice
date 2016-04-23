@@ -8,7 +8,8 @@ namespace ConfigDevice
 
     public class DoorInput4 : DeviceData
     {
-        public byte[] SecurityLevel;//----安全级别------
+
+        private byte[] SecurityLevel;//----安全级别------
         public byte PhysicalShieldingPorts;//----物理端口屏蔽------
         public byte Road1;//---第1路--
         public byte Road2;//---第2路--
@@ -34,8 +35,9 @@ namespace ConfigDevice
         private CallbackFromUDP getSettingInfo;//----获取设置信息----
         private CallbackFromUDP getRoadTitles;//-------每路门窗名称----
 
-        //public bool[] SecurityLevelValue = new bool[] { false, false, false, false, false, false, false, false, false, false };//安全级别值翻译为bool
-        //public bool[] PhysicalShieldingPortsValue = new bool[] { false, false, false, false };//屏蔽物理端口
+        public bool[] SecurityLevelValue = new bool[] { false, false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false };//安全级别值翻译为bool
+        public bool[] PhysicalShieldingPortsValue = new bool[] { false, false, false, false };//屏蔽物理端口
 
         public DoorInput4(UserUdpData userUdpData)
             : base(userUdpData)
@@ -56,7 +58,9 @@ namespace ConfigDevice
         /// 注册RJ45回调
         /// </summary>
         private void initCallback()
-        {            
+        {
+            getSettingInfo = new CallbackFromUDP(getSettingInfoData);
+            getRoadTitles = new CallbackFromUDP(getRoadTitlesData);
             SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, getSettingInfo);
             SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, getRoadTitles);
         }
@@ -116,37 +120,77 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             SecurityLevel = CommonTools.CopyBytes(userData.Data, 0, 2);//安防级别
             PhysicalShieldingPorts = userData.Data[2];  //----屏蔽物理端口
-            Road1 = userData.Data[3];
-            Road2 = userData.Data[4];
-            Road3 = userData.Data[5];
-            Road4 = userData.Data[6];
+            Road1 = userData.Data[3];//----第1路----
+            Road2 = userData.Data[4];//----第2路----
+            Road3 = userData.Data[5];//----第3路----
+            Road4 = userData.Data[6];//----第4路----
+            setSecurityLevelValue();
+            setPhysicalShieldingPortsValue();
+            callbackUI(null);
         }
 
         /// <summary>
         /// 获取每路门窗名称
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">数据包</param>
         /// <param name="values"></param>
         public void getRoadTitlesData(UdpData data, object[] values)
         {
             UserUdpData userData = new UserUdpData(data);
-            SecurityLevel = CommonTools.CopyBytes(userData.Data, 0, 2);//安防级别
-            PhysicalShieldingPorts = userData.Data[2];  //----屏蔽物理端口
-            
-            
+            int num = userData.Data[0];
+            byte[] byteName = CommonTools.CopyBytes(userData.Data, 4, userData.Data.Length - 4);
+            switch (num)
+            {
+                case 0: RoadTitle1 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
+                case 1: RoadTitle2 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
+                case 2: RoadTitle3 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
+                case 3: RoadTitle4 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
+            }
 
+            callbackUI(null);
+        }
 
-            Road1 = userData.Data[3];
-            Road2 = userData.Data[4];
-            Road3 = userData.Data[5];
-            Road4 = userData.Data[6];
-
-
+        /// <summary>
+        /// 设置安全级别
+        /// </summary>
+        private void setSecurityLevelValue()
+        { 
+            byte b1 = SecurityLevel[0];
+            byte b2 = SecurityLevel[1];
+            int num = 0;
+            for (int i = 1; i <= 128; i *= 2)
+                SecurityLevelValue[num++] = (int)(b1 & i) == 1 ? true : false;
+            num = 8;
+            for (int i = 1; i <= 64; i *= 2)
+                SecurityLevelValue[num++] = (int)(b1 & i) == 1 ? true : false;
 
         }
 
+        /// <summary>
+        /// 设置屏蔽端口值
+        /// </summary>
+        private void setPhysicalShieldingPortsValue()
+        {
+            int num = 0;
+            for (int i = 1; i <= 8; i *= 2)
+                PhysicalShieldingPortsValue[num++] = (int)(PhysicalShieldingPorts & i) == 1 ? true : false;
+        }
 
 
+        //二、获取值
+
+        //获取一个字节中的每一位的值，需要分别与128 64 32 16 8 4 2 1相与&运算
+
+        //假设字节为byte1 
+
+        //bit8 = byte1 & 128 == 128 ? 1 : 0; 
+        //bit7 = byte1 & 64 == 64 ? 1 : 0; 
+        //bit6 = byte1 & 32 == 32 ? 1 : 0; 
+        //bit5 = byte1 & 16 == 16 ? 1 : 0; 
+        //bit4 = byte1 & 8 == 8 ? 1 : 0; 
+        //bit3 = byte1 & 4 == 4 ? 1 : 0; 
+        //bit2 = byte1 & 2 == 2 ? 1 : 0; 
+        //bit1 = byte1 & 1 == 1 ? 1 : 0;
 
     }
 }
