@@ -6,7 +6,7 @@ using System.Data;
 namespace ConfigDevice
 {  
 
-    public abstract class  DeviceData
+    public abstract class  DeviceData 
     {
         public string DeviceID = "";//设备ID
         public string NetworkID = "";//网段ID

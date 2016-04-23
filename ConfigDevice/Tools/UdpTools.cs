@@ -72,6 +72,17 @@ namespace ConfigDevice
             MySocket.GetInstance().ReplyData(udpReply, udpDevice.IP, SysConfig.RemotePort);
         }
 
+        /// <summary>
+        /// 申请返回结果
+        /// </summary>
+        /// <param name="udpReply"></param>
+        /// <param name="values"></param>
+        public static void RequestResult(UdpData udpReply, object[] values)
+        {
+            string errStr = (string)values[0];
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo(errStr, udpReply.ReplyByte);
+        }
 
 
     }

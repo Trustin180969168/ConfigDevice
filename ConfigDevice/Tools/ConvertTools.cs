@@ -150,6 +150,17 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 根据一个8位的整数,翻译成一个字节
+        /// </summary>
+        /// <param name="num">8位整数字符串</param>
+        /// <returns>一个字节</returns>
+        public static byte GetByteFrom8BitNum(int num)
+        {
+            byte value = BitConverter.GetBytes(num)[0];
+            return value;
+        }
+
+        /// <summary>
         /// 根据一个16位的整数,翻译成两个字节的数组
         /// </summary>
         /// <param name="num">16位整数</param>
