@@ -38,11 +38,13 @@
             // 
             // xtraTabControl1
             // 
+            this.xtraTabControl1.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.xtraTabControl1.AppearancePage.Header.Options.UseFont = true;
             this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xtraTabControl1.Location = new System.Drawing.Point(0, 25);
+            this.xtraTabControl1.Location = new System.Drawing.Point(0, 24);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.pageJcsz;
-            this.xtraTabControl1.Size = new System.Drawing.Size(792, 548);
+            this.xtraTabControl1.Size = new System.Drawing.Size(792, 549);
             this.xtraTabControl1.TabIndex = 1;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz});
@@ -52,7 +54,7 @@
             // 
             this.pageJcsz.Controls.Add(this.frmSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(783, 516);
+            this.pageJcsz.Size = new System.Drawing.Size(783, 512);
             this.pageJcsz.Text = "基础配置";
             // 
             // frmSetting
@@ -60,7 +62,7 @@
             this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frmSetting.Location = new System.Drawing.Point(0, 0);
             this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(783, 516);
+            this.frmSetting.Size = new System.Drawing.Size(783, 512);
             this.frmSetting.TabIndex = 0;
             // 
             // FrmBaseDevice

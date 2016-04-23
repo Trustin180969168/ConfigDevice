@@ -63,8 +63,9 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.cdtSelectAll = new DevExpress.XtraEditors.CheckEdit();
             this.clbcAqjb = new DevExpress.XtraEditors.CheckedListBoxControl();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageActionList = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
@@ -92,7 +93,7 @@
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).BeginInit();
-            this.toolStrip2.SuspendLayout();
+            this.tsDoorInput.SuspendLayout();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -128,10 +129,10 @@
             // 
             // pagePzjm
             // 
+            this.pagePzjm.Controls.Add(this.tsDoorInput);
             this.pagePzjm.Controls.Add(this.groupControl3);
             this.pagePzjm.Controls.Add(this.groupControl2);
             this.pagePzjm.Controls.Add(this.groupControl1);
-            this.pagePzjm.Controls.Add(this.toolStrip2);
             this.pagePzjm.Name = "pagePzjm";
             this.pagePzjm.Size = new System.Drawing.Size(785, 514);
             this.pagePzjm.Text = "配置界面";
@@ -456,17 +457,18 @@
             this.clbcAqjb.Size = new System.Drawing.Size(457, 45);
             this.clbcAqjb.TabIndex = 1;
             // 
-            // toolStrip2
+            // tsDoorInput
             // 
-            this.toolStrip2.Font = new System.Drawing.Font("宋体", 12F);
-            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btSave});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(785, 31);
-            this.toolStrip2.TabIndex = 1;
-            this.toolStrip2.Text = "toolStrip2";
+            this.tsDoorInput.Font = new System.Drawing.Font("宋体", 12F);
+            this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btSave,
+            this.btRefresh});
+            this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
+            this.tsDoorInput.Name = "tsDoorInput";
+            this.tsDoorInput.Size = new System.Drawing.Size(785, 31);
+            this.tsDoorInput.TabIndex = 1;
+            this.tsDoorInput.Text = "toolStrip2";
             // 
             // btSave
             // 
@@ -475,6 +477,15 @@
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(76, 28);
             this.btSave.Text = "保存 ";
+            // 
+            // btRefresh
+            // 
+            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(100, 28);
+            this.btRefresh.Text = "刷新数据";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // pageActionList
             // 
@@ -520,8 +531,8 @@
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).EndInit();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
+            this.tsDoorInput.ResumeLayout(false);
+            this.tsDoorInput.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -533,7 +544,7 @@
         private DevExpress.XtraTab.XtraTabPage pageJcsz;
         private UCtrlBaseEdit frmSetting;
         private DevExpress.XtraTab.XtraTabPage pagePzjm;
-        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStrip tsDoorInput;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.CheckedListBoxControl clbcAqjb;
@@ -567,6 +578,7 @@
         private DevExpress.XtraEditors.TextEdit edtMcmc3;
         private DevExpress.XtraEditors.TextEdit edtMcmc4;
         private DevExpress.XtraEditors.CheckEdit cdtSelectAll;
+        private System.Windows.Forms.ToolStripButton btRefresh;
 
 
     }

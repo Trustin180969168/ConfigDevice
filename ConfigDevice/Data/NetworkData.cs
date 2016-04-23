@@ -221,8 +221,7 @@ namespace ConfigDevice
         private void callbackGetPositions(UdpData udpPosition, object[] values)
         {
             //-----------回复RJ45,已经获取了一个设备位置-------
-            UdpData udpReply = UdpTools.CreateDeviceReplyUdp(udpPosition);
-            mySocket.ReplyData(udpReply, udpPosition.IP, SysConfig.RemotePort);
+            UdpTools.ReplyDeviceDataUdp(udpPosition);
 
             UserUdpData userData = new UserUdpData(udpPosition);
             byte value = userData.Data[0];//第一个字节
@@ -338,13 +337,11 @@ namespace ConfigDevice
                 HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0').Trim();
 
                 //------回复反馈的设备信息-------
-                UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
-                mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
+                UdpTools.ReplyDeviceDataUdp(data);
             }
             else
             {     //------回复反馈的设备信息-------
-                UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
-                mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
+                UdpTools.ReplyDeviceDataUdp(data);
             }
             callbackUI(null);
 

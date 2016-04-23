@@ -46,12 +46,14 @@ namespace ConfigDevice
          * */
 
 
+
+
         /// <summary>
         /// 根据设备发送包生成回复包
         /// </summary>
         /// <param name="udpDevice">发送的包</param>
         /// <returns>设备回复包</returns>
-        public static UdpData CreateDeviceReplyUdp(UdpData udpDevice)
+        public static void ReplyDeviceDataUdp(UdpData udpDevice)
         {
             //---udpDevice---41 59 4C 53 4F 4E 20 73 6D 61 72 74 68 6F 6D 65 00 00 35 00 01 55 CB 2B 02 00 00 00 C9 5C FE 3E 5C 13 11 82 FF 1B 56 FF 71 06 49 86 51 52 32 14 18 87 07 00 B5 DA B0 CB D0 D0 D6 D0 00 0F 6A 92 C2 50 
             //---udpReply----41 59 4C 53 4F 4E 20 73 6D 61 72 74 68 6F 6D 65 00 00 35 00 02 42 1C 25 02 00 00 00 55 5C 
@@ -63,14 +65,12 @@ namespace ConfigDevice
             udpReply.PacketProperty[0] = BroadcastKind.Broadcast;
             udpReply.SendPort = SysConfig.LOCAL_PORT;
             udpReply.Protocol = UserProtocol.Device;
-            udpReply.ProtocolData = new byte[] { REPLY_RESULT.CMD_TRUE};
+            udpReply.ProtocolData = new byte[] { REPLY_RESULT.CMD_TRUE };
             udpReply.CheckCodeAdd[0] = udpDevice.ProtocolData[1];
             udpReply.Length = 30;
-            return udpReply;
+
+            MySocket.GetInstance().ReplyData(udpReply, udpDevice.IP, SysConfig.RemotePort);
         }
-
-
-      
 
 
 

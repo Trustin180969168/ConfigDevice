@@ -148,13 +148,11 @@ namespace ConfigDevice
                 HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0');
 
                 //------回复反馈的设备信息-------
-                UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
-                mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
+                UdpTools.ReplyDeviceDataUdp(data);
             }
             else
             {   //------回复反馈的设备信息-------
-                UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
-                mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
+                UdpTools.ReplyDeviceDataUdp(data);
             } 
             callbackUI(null);
         }
@@ -224,8 +222,7 @@ namespace ConfigDevice
                 {
                     DeviceID = tempNewID;
                     //------回复反馈的设备信息-------
-                    UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
-                    mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
+                    UdpTools.ReplyDeviceDataUdp(data);
                     tempNewID = "";
                     SysCtrl.RefreshDevices(this);
                     CommonTools.MessageShow("设备ID修改成功!", 1, "");
@@ -400,8 +397,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             DeviceData device = new BaseDevice(userData);
             //------回复反馈的设备信息-------
-            UdpData udpReply = UdpTools.CreateDeviceReplyUdp(data);
-            mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
+            UdpTools.ReplyDeviceDataUdp(data);
 
             if (device.MAC == this.MAC)
             {

@@ -14,8 +14,8 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
-            this.Device.OnCallbackUI_Action += this.callbackUI;
-            this.Device.OnCallbackUI_Action += frmSetting.CallBackUI;
+            this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
+            this.Device.OnCallbackUI_Action += frmSetting.CallBackUI;//----注册回调事件
             frmSetting.DeviceEdit = this.Device;
         }
 
