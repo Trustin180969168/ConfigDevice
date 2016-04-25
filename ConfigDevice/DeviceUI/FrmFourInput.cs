@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors;
 
 namespace ConfigDevice
 {
@@ -137,8 +138,19 @@ namespace ConfigDevice
 
         private void btSave_Click(object sender, EventArgs e)
         {
-            updateDoorInput4Data();
+            updateDoorInput4Data();//同步数据结果
 
+            doorInput4.SaveSetting();//保存门输入4
+            doorInput4.SaveRoadSetting();//保存回路配置
+        }
+
+        private void edtMcmc_Leave(object sender, EventArgs e)
+        {
+            TextEdit edtName = sender as TextEdit;
+            string newName = edtName.Text;
+            byte[] byteName = Encoding.GetEncoding("GB2312").GetBytes(newName);
+            if (byteName.Length > 30)
+            { CommonTools.MessageShow("设备名称不能大于30字节!", 3, ""); edtName.Focus(); }
         }
 
 

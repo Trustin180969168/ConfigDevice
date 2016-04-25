@@ -374,6 +374,7 @@
             this.edtMcmc1.Name = "edtMcmc1";
             this.edtMcmc1.Size = new System.Drawing.Size(350, 21);
             this.edtMcmc1.TabIndex = 5;
+            this.edtMcmc1.Leave += new System.EventHandler(this.edtMcmc_Leave);
             // 
             // edtMcmc2
             // 
@@ -381,6 +382,7 @@
             this.edtMcmc2.Name = "edtMcmc2";
             this.edtMcmc2.Size = new System.Drawing.Size(350, 21);
             this.edtMcmc2.TabIndex = 5;
+            this.edtMcmc2.Leave += new System.EventHandler(this.edtMcmc_Leave);
             // 
             // edtMcmc3
             // 
@@ -388,6 +390,7 @@
             this.edtMcmc3.Name = "edtMcmc3";
             this.edtMcmc3.Size = new System.Drawing.Size(350, 21);
             this.edtMcmc3.TabIndex = 5;
+            this.edtMcmc3.Leave += new System.EventHandler(this.edtMcmc_Leave);
             // 
             // edtMcmc4
             // 
@@ -395,6 +398,7 @@
             this.edtMcmc4.Name = "edtMcmc4";
             this.edtMcmc4.Size = new System.Drawing.Size(350, 21);
             this.edtMcmc4.TabIndex = 5;
+            this.edtMcmc4.Leave += new System.EventHandler(this.edtMcmc_Leave);
             // 
             // groupControl2
             // 
