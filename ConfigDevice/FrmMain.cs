@@ -59,7 +59,7 @@ namespace ConfigDevice
         /// 加载
         /// </summary>
         private void FrmSocketClientTest_Load(object sender, EventArgs e)
-        {    
+        {
             //-------设置本地IP信息---------
             foreach (IPInfo ipInfo in SysConfig.IPList.Values)
                 cbxIPList.Items.Add(ipInfo.IP);
@@ -77,25 +77,25 @@ namespace ConfigDevice
             pw = new PleaseWait(1);//---时间不可控,显示2秒---
             pw.Show(this);
             Action searchAction = new Action(networkCtrl.SearchNetworks);
-            searchAction.BeginInvoke(null, null);                  
+            searchAction.BeginInvoke(null, null);
         }
         public void CallBackUI(object[] values)
         {
             try
             {
                 if (this.InvokeRequired)
-                { this.Invoke(new CallbackUIAction(CallBackUI), new object[]{values} ); }
+                { this.Invoke(new CallbackUIAction(CallBackUI), new object[] { values }); }
                 else
                 {
                     gvNetwork.BestFitColumns();
                     gvDevices.BestFitColumns();
-                    if (cbxSelectNetwork.Items.Count <= 1) 
+                    if (cbxSelectNetwork.Items.Count <= 1)
                         initCbxSelectNetwork();
                 }
             }
             catch (Exception e1) { e1.ToString(); }
         }
-        
+
 
         /// <summary>
         /// 窗体关闭前退出socket
@@ -104,7 +104,7 @@ namespace ConfigDevice
         {
             //------断开所有连接网络-------
             foreach (NetworkData network in SysConfig.ListNetworks.Values)
-                if(network.State == NetworkConfig.STATE_CONNECTED) network.DisconnectNetwork();
+                if (network.State == NetworkConfig.STATE_CONNECTED) network.DisconnectNetwork();
             socket.Close();
         }
 
@@ -147,7 +147,7 @@ namespace ConfigDevice
             {
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
-            }   
+            }
             deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);
         }
 
@@ -180,7 +180,7 @@ namespace ConfigDevice
         {
             btXtxx.ShowDropDown();
         }
-        
+
         /// <summary>
         /// 打开设备
         /// </summary>
@@ -258,13 +258,13 @@ namespace ConfigDevice
         Dictionary<string, string> listNetworkNameID = new Dictionary<string, string>();
         private void cbxSelectNetwork_Click(object sender, EventArgs e)
         {
-            initCbxSelectNetwork();         
+            initCbxSelectNetwork();
         }
 
         private void initCbxSelectNetwork()
         {
             string oldSelect = cbxSelectNetwork.Text;
-      
+
             listNetworkNameID.Clear(); cbxSelectNetwork.Items.Clear();
 
             cbxSelectNetwork.Items.Add("");

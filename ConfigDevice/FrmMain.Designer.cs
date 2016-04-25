@@ -67,6 +67,11 @@
             this.btNetworkSearch = new System.Windows.Forms.ToolStripButton();
             this.btConnectnetwork = new System.Windows.Forms.ToolStripButton();
             this.btDisconnectNetwork = new System.Windows.Forms.ToolStripButton();
+            this.btGJ = new System.Windows.Forms.ToolStripDropDownButton();
+            this.清空RJToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.同步设备ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.同步数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.同步数据ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.btClearNetwork = new System.Windows.Forms.ToolStripButton();
             this.btXtxx = new System.Windows.Forms.ToolStripSplitButton();
             this.btPCSend = new System.Windows.Forms.ToolStripMenuItem();
@@ -521,6 +526,7 @@
             this.btConnectnetwork,
             this.btDisconnectNetwork,
             this.btClearNetwork,
+            this.btGJ,
             this.btXtxx,
             this.toolStripButton1,
             this.toolStripButton2,
@@ -533,7 +539,7 @@
             // 
             // btNetworkSearch
             // 
-            this.btNetworkSearch.Image = global::ConfigDevice.Properties.Resources.Point1;
+            this.btNetworkSearch.Image = global::ConfigDevice.Properties.Resources.View;
             this.btNetworkSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btNetworkSearch.Name = "btNetworkSearch";
             this.btNetworkSearch.Size = new System.Drawing.Size(96, 28);
@@ -542,7 +548,7 @@
             // 
             // btConnectnetwork
             // 
-            this.btConnectnetwork.Image = global::ConfigDevice.Properties.Resources.Point1;
+            this.btConnectnetwork.Image = global::ConfigDevice.Properties.Resources.connect;
             this.btConnectnetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btConnectnetwork.Name = "btConnectnetwork";
             this.btConnectnetwork.Size = new System.Drawing.Size(96, 28);
@@ -551,12 +557,51 @@
             // 
             // btDisconnectNetwork
             // 
-            this.btDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.Point1;
+            this.btDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect;
             this.btDisconnectNetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btDisconnectNetwork.Name = "btDisconnectNetwork";
             this.btDisconnectNetwork.Size = new System.Drawing.Size(96, 28);
             this.btDisconnectNetwork.Text = "断开网络 ";
             this.btDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
+            // 
+            // btGJ
+            // 
+            this.btGJ.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.清空RJToolStripMenuItem,
+            this.同步设备ToolStripMenuItem,
+            this.同步数据ToolStripMenuItem,
+            this.同步数据ToolStripMenuItem1});
+            this.btGJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btGJ.Image = global::ConfigDevice.Properties.Resources.goyi;
+            this.btGJ.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btGJ.Name = "btGJ";
+            this.btGJ.Size = new System.Drawing.Size(82, 28);
+            this.btGJ.Text = "高级 ";
+            // 
+            // 清空RJToolStripMenuItem
+            // 
+            this.清空RJToolStripMenuItem.Image = global::ConfigDevice.Properties.Resources.Clear;
+            this.清空RJToolStripMenuItem.Name = "清空RJToolStripMenuItem";
+            this.清空RJToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
+            this.清空RJToolStripMenuItem.Text = "清空RJ45";
+            // 
+            // 同步设备ToolStripMenuItem
+            // 
+            this.同步设备ToolStripMenuItem.Name = "同步设备ToolStripMenuItem";
+            this.同步设备ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.同步设备ToolStripMenuItem.Text = "同步ID";
+            // 
+            // 同步数据ToolStripMenuItem
+            // 
+            this.同步数据ToolStripMenuItem.Name = "同步数据ToolStripMenuItem";
+            this.同步数据ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.同步数据ToolStripMenuItem.Text = "同步时间";
+            // 
+            // 同步数据ToolStripMenuItem1
+            // 
+            this.同步数据ToolStripMenuItem1.Name = "同步数据ToolStripMenuItem1";
+            this.同步数据ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.同步数据ToolStripMenuItem1.Text = "同步数据";
             // 
             // btClearNetwork
             // 
@@ -695,5 +740,10 @@
         private System.Windows.Forms.ToolStripComboBox cbxSelectNetwork;
         private System.Windows.Forms.ToolStripButton btClearDevice;
         private System.Windows.Forms.ToolStripButton btClearNetwork;
+        private System.Windows.Forms.ToolStripDropDownButton btGJ;
+        private System.Windows.Forms.ToolStripMenuItem 清空RJToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 同步设备ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 同步数据ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 同步数据ToolStripMenuItem1;
     }
 }
