@@ -47,7 +47,8 @@ namespace ConfigDevice
         public const string BROADCAST_IP = "255.255.255.255";//广播地址
         public const string BROADCAST_HEX_STR = "FF FF FF FF FF FF FF FF";//广播地址
 
-        public const string ERROR_SAME_NETWORKID = "网段ID冲突";//网段冲突
+        public const string ERROR_SAME_NETWORKID = "网段ID冲突!";//网段冲突
+        public const string ERROR_SAME_NETWORKNAME = "网段名称冲突!";//网段名称冲突
 
     }
 

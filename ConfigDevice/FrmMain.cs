@@ -10,6 +10,8 @@ using System.Net;
 using System.Threading;
 using System.Timers;
 using System.IO;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Columns;
 
 namespace ConfigDevice
 {
@@ -58,7 +60,6 @@ namespace ConfigDevice
         /// </summary>
         private void FrmSocketClientTest_Load(object sender, EventArgs e)
         {    
-
             //-------设置本地IP信息---------
             foreach (IPInfo ipInfo in SysConfig.IPList.Values)
                 cbxIPList.Items.Add(ipInfo.IP);
@@ -88,6 +89,8 @@ namespace ConfigDevice
                 {
                     gvNetwork.BestFitColumns();
                     gvDevices.BestFitColumns();
+                    if (cbxSelectNetwork.Items.Count <= 1) 
+                        initCbxSelectNetwork();
                 }
             }
             catch (Exception e1) { e1.ToString(); }
@@ -145,7 +148,6 @@ namespace ConfigDevice
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
             }   
-
             deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);
         }
 
@@ -234,6 +236,61 @@ namespace ConfigDevice
         {
             SysConfig.SetLocalIPInfo(cbxIPList.SelectedIndex);
         }
+
+        /// <summary>
+        /// 清空网络
+        /// </summary>
+        private void btClearNetwork_Click(object sender, EventArgs e)
+        {
+            this.networkCtrl.ClearNetwork();
+            cbxSelectNetwork.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// 清空设备
+        /// </summary>
+        private void btClearDevice_Click(object sender, EventArgs e)
+        {
+            deviceCtrl.ClearDevices();
+            cbxSelectNetwork.SelectedIndex = 0;
+        }
+
+        Dictionary<string, string> listNetworkNameID = new Dictionary<string, string>();
+        private void cbxSelectNetwork_Click(object sender, EventArgs e)
+        {
+            initCbxSelectNetwork();         
+        }
+
+        private void initCbxSelectNetwork()
+        {
+            string oldSelect = cbxSelectNetwork.Text;
+      
+            listNetworkNameID.Clear(); cbxSelectNetwork.Items.Clear();
+
+            cbxSelectNetwork.Items.Add("");
+            //-----网络列表------------------
+            foreach (NetworkData network in SysConfig.ListNetworks.Values)
+            {
+                cbxSelectNetwork.Items.Add(network.DeviceName);
+                listNetworkNameID.Add(network.DeviceName, network.NetworkID);
+            }
+            cbxSelectNetwork.SelectedIndexChanged -= cbxSelectNetwork_SelectedIndexChanged;
+            cbxSelectNetwork.Text = oldSelect;
+            cbxSelectNetwork.SelectedIndexChanged += cbxSelectNetwork_SelectedIndexChanged;
+        }
+
+        private void cbxSelectNetwork_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxSelectNetwork.Text == "")
+                deviceNetworkID.ClearFilter();
+            else
+            {
+                string networkID = listNetworkNameID[cbxSelectNetwork.Text];
+                deviceNetworkID.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "'");
+                //        gvDevices.Columns["deviceNetworkID"].FilterInfo = new ColumnFilterInfo("["+DeviceConfig.DC_NETWORK_ID+"] = '" + networkID + "'");
+            }
+        }
+
 
 
 

@@ -7,7 +7,7 @@ namespace ConfigDevice
 {
     public class DeviceCtrl
     {
-      
+
         private NetworkData SearchingNetwork;//---搜素的网络设备(RJ45)----
         private MySocket mySocket = MySocket.GetInstance();
         private int countNum = 0;
@@ -22,15 +22,15 @@ namespace ConfigDevice
             callbackGetSearchDevices.CallBackAction += new CallbackUdpAction(this.callbackGetDevices);
             callbackGetStopSearchDevices.CallBackAction += new CallbackUdpAction(this.callbackStopSearch);
 
-            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF,callbackGetSearchDevices);//---回调设备-----
-            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_STOP_SEARCH,callbackGetStopSearchDevices);//---回调停止搜索----
-        
+            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackGetSearchDevices);//---回调设备-----
+            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_STOP_SEARCH, callbackGetStopSearchDevices);//---回调停止搜索----
+
         }
 
         /// <summary>
         /// 初始化设备数据
         /// </summary>
-        private  void initDataTableDevices()
+        private void initDataTableDevices()
         {
             //----初始化表结构-------
             if (SysConfig.DtDevice.Columns.Count == 0)
@@ -48,9 +48,11 @@ namespace ConfigDevice
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_HARDWARE_VER, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NETWORK_IP, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ADDRESS, System.Type.GetType("System.String"));                
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ADDRESS, System.Type.GetType("System.String"));
             }
-            countNum = 0; SysConfig.DtDevice.Clear(); SysConfig.DtDevice.AcceptChanges();//---初始化数据----
+            if (SysConfig.DtDevice.Rows.Count == 0)
+                countNum = 0;
+            SysConfig.DtDevice.AcceptChanges();//---初始化数据----
         }
 
         /// <summary>
@@ -58,7 +60,7 @@ namespace ConfigDevice
         /// </summary>
         private void callbackUI(object[] values)
         {
-            if(CallBackUI != null)
+            if (CallBackUI != null)
                 CallBackUI(values);
         }
 
@@ -144,7 +146,7 @@ namespace ConfigDevice
                 return;
             countNum++;
             //-----排查ID冲突------------------
-            temp = DeviceConfig.DC_DEVICE_ID + "='" + device.DeviceID + "'";
+            temp = DeviceConfig.DC_DEVICE_ID + "='" + device.DeviceID + "' and "+ DeviceConfig.DC_NETWORK_ID + " = '" + device.NetworkID + "'";
             DataRow[] rows = SysConfig.DtDevice.Select(temp);
             if (rows.Length > 0)
             {
@@ -155,6 +157,19 @@ namespace ConfigDevice
                 }
                 device.State = DeviceConfig.STATE_ERROR;
                 device.Remark = DeviceConfig.ERROR_SAME_DEVICE_ID;
+            }
+            //-----排查名称冲突------------------
+            temp = DeviceConfig.DC_NAME + "='" + device.Name + "'";
+            rows = SysConfig.DtDevice.Select(temp);
+            if (rows.Length > 0)
+            {
+                foreach (DataRow dr in rows)
+                {
+                    dr[DeviceConfig.DC_REMARK] += DeviceConfig.ERROR_SAME_DEVICE_TITLE; ;
+                    dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
+                }
+                device.State = DeviceConfig.STATE_ERROR;
+                device.Remark += DeviceConfig.ERROR_SAME_DEVICE_TITLE;
             }
             //------添加到数据表----------                    
             DataRow drInsert = SysConfig.DtDevice.Rows.Add(new object[] {countNum.ToString(),device.DeviceID,device.NetworkID,
@@ -193,12 +208,17 @@ namespace ConfigDevice
             udpReply.PacketProperty[0] = BroadcastKind.Broadcast;
             udpReply.SendPort = SysConfig.LOCAL_PORT;
             udpReply.Protocol = UserProtocol.Device;
-            udpReply.ProtocolData = new byte[] { BroadcastKind.Unicast};
+            udpReply.ProtocolData = new byte[] { BroadcastKind.Unicast };
             udpReply.CheckCodeAdd[0] = udpDevice.ProtocolData[1];
             udpReply.Length = 30;
             return udpReply;
         }
 
+        public void ClearDevices()
+        {
+            SysConfig.DtDevice.Clear();
+            SysConfig.DtDevice.AcceptChanges();
+        }
 
     }
 }

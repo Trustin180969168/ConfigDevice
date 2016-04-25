@@ -29,7 +29,8 @@ namespace ConfigDevice
         public const string DC_NETWORK_IP = "NetworkIP";//网络IP
         public const string DC_ADDRESS = "Address";//设备地址
 
-        public const string ERROR_SAME_DEVICE_ID = "设备ID冲突";//设备ID冲突
+        public const string ERROR_SAME_DEVICE_ID = "设备ID冲突!";//设备ID冲突
+        public const string ERROR_SAME_DEVICE_TITLE = "设备名称冲突!";//设备名称冲突
         public const string STATE_RIGHT = "√";//正常状态
         public const string STATE_ERROR = "×";//错误状态
 
