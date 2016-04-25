@@ -239,8 +239,137 @@ namespace ConfigDevice
 
         }
 
+        /// <summary>
+        /// 保存配置
+        /// </summary>
+        public void SaveSetting()
+        {
+            UdpData udpSend = createSaveSettingUdp();
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { udpSend, "申请保存配置失败!" });
+        }
+        private UdpData createSaveSettingUdp()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_CONFIG;//----用户命令-----
+            byte len = 0x0B;
+            //-------安防级别-----------------
+            byte b1 = 0;
+            byte b2 = 0;
+            int num = 0;
+            for (int i = 1; i <= 128; i *= 2)
+                if (SecurityLevelValue[num++])
+                    b1 = (byte)(b1 | i);
+            num = 8;
+            for (int i = 1; i <= 64; i *= 2)
+                if (SecurityLevelValue[num++])
+                    b2 = (byte)(b2 | i);
+            securityLevel[0] = b1;
+            securityLevel[1] = b2;
+            //-------屏蔽物理端口-----------------
+            num = 0; physicalShieldingPorts = 0;
+            for (int i = 1; i <= 8; i *= 2)
+                if (PhysicalShieldingPortsValue[num++])
+                    physicalShieldingPorts = (byte)(physicalShieldingPorts | i);
+            //-------门窗配置--------------------
+            Road1 = 0;
+            if (RoadShield1) Road1 = (byte)(Road1 | 128);
+            Road1 = (byte)(Road1 | RoadMusicNum1);
+            Road2 = 0;
+            if (RoadShield2) Road2 = (byte)(Road2 | 128);
+            Road2 = (byte)(Road2 | RoadMusicNum2);
+            Road3 = 0;
+            if (RoadShield3) Road3 = (byte)(Road3 | 128);
+            Road3 = (byte)(Road3 | RoadMusicNum3);
+
+            byte[] crcData = new byte[len - 4 + 10];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            Buffer.BlockCopy(securityLevel, 0, crcData, 10, 2);
+            crcData[12] = physicalShieldingPorts;
+            crcData[13] = Road1;
+            crcData[14] = Road2;
+            crcData[15] = Road3;
+            crcData[16] = Road4;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
 
 
+        /// <summary>
+        /// 保存回路配置
+        /// </summary>
+        public void SaveRoadSetting()
+        {
+            UdpData udpSend = createSaveRoadSettingUdp(0, RoadTitle1);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { udpSend, "保存回路1 " + RoadTitle1 + "失败!" });
 
+            udpSend = createSaveRoadSettingUdp(1, RoadTitle2);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { udpSend, "保存回路2 " + RoadTitle2 + "失败!" });
+
+            udpSend = createSaveRoadSettingUdp(2, RoadTitle3);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { udpSend, "保存回路3 " + RoadTitle3 + "失败!" });
+
+            udpSend = createSaveRoadSettingUdp(3, RoadTitle4);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { udpSend, "保存回路4 " + RoadTitle4 + "失败!" });
+        }
+        private UdpData createSaveRoadSettingUdp(int roadNum,string roadName)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME;//----用户命令-----
+            //---------计算长度------------------
+
+            //---------新名称-------------
+            byte[] value = Encoding.GetEncoding("GB2312").GetBytes(roadName);
+            byte[] byteName = new byte[32];
+            Buffer.BlockCopy(value, 0, byteName, 0, value.Length);
+            byte len = (byte)(1 + 2 + 1 + byteName.Length + 4);//---数据长度 = 第几路 + 命令 + 保留 + 校验码4-----   
+
+            byte[] crcData = new byte[len - 4 + 10];//10 固定长度:源+目标+命令+长度+分页
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            crcData[10] = (byte)roadNum;
+            crcData[13] = 2;//11,12保留
+            Buffer.BlockCopy(byteName, 0, crcData, 13, byteName.Length);
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
     }
 }

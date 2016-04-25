@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
-            this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
+            this.tsDoorInput = new System.Windows.Forms.ToolStrip();
+            this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cedtAfpb1 = new DevExpress.XtraEditors.CheckEdit();
@@ -63,14 +64,13 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.cdtSelectAll = new DevExpress.XtraEditors.CheckEdit();
             this.clbcAqjb = new DevExpress.XtraEditors.CheckedListBoxControl();
-            this.tsDoorInput = new System.Windows.Forms.ToolStrip();
-            this.btSave = new System.Windows.Forms.ToolStripButton();
-            this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
+            this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
             this.pageActionList = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
-            this.pageJcsz.SuspendLayout();
             this.pagePzjm.SuspendLayout();
+            this.tsDoorInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -93,7 +93,7 @@
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).BeginInit();
-            this.tsDoorInput.SuspendLayout();
+            this.pageJcsz.SuspendLayout();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -103,7 +103,7 @@
             this.tctrlEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
-            this.tctrlEdit.SelectedTabPage = this.pageJcsz;
+            this.tctrlEdit.SelectedTabPage = this.pagePzjm;
             this.tctrlEdit.Size = new System.Drawing.Size(794, 551);
             this.tctrlEdit.TabIndex = 1;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
@@ -111,21 +111,6 @@
             this.pageJcsz,
             this.pageActionList});
             this.tctrlEdit.Text = "xtraTabControl1";
-            // 
-            // pageJcsz
-            // 
-            this.pageJcsz.Controls.Add(this.frmSetting);
-            this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(785, 514);
-            this.pageJcsz.Text = "基础配置";
-            // 
-            // frmSetting
-            // 
-            this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmSetting.Location = new System.Drawing.Point(0, 0);
-            this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(785, 514);
-            this.frmSetting.TabIndex = 0;
             // 
             // pagePzjm
             // 
@@ -136,6 +121,37 @@
             this.pagePzjm.Name = "pagePzjm";
             this.pagePzjm.Size = new System.Drawing.Size(785, 514);
             this.pagePzjm.Text = "配置界面";
+            // 
+            // tsDoorInput
+            // 
+            this.tsDoorInput.Font = new System.Drawing.Font("宋体", 12F);
+            this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btSave,
+            this.btRefresh});
+            this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
+            this.tsDoorInput.Name = "tsDoorInput";
+            this.tsDoorInput.Size = new System.Drawing.Size(785, 31);
+            this.tsDoorInput.TabIndex = 1;
+            this.tsDoorInput.Text = "toolStrip2";
+            // 
+            // btSave
+            // 
+            this.btSave.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSave.Name = "btSave";
+            this.btSave.Size = new System.Drawing.Size(76, 28);
+            this.btSave.Text = "保存 ";
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
+            // btRefresh
+            // 
+            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(100, 28);
+            this.btRefresh.Text = "刷新数据";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // groupControl3
             // 
@@ -457,35 +473,20 @@
             this.clbcAqjb.Size = new System.Drawing.Size(457, 45);
             this.clbcAqjb.TabIndex = 1;
             // 
-            // tsDoorInput
+            // pageJcsz
             // 
-            this.tsDoorInput.Font = new System.Drawing.Font("宋体", 12F);
-            this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btSave,
-            this.btRefresh});
-            this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
-            this.tsDoorInput.Name = "tsDoorInput";
-            this.tsDoorInput.Size = new System.Drawing.Size(785, 31);
-            this.tsDoorInput.TabIndex = 1;
-            this.tsDoorInput.Text = "toolStrip2";
+            this.pageJcsz.Controls.Add(this.frmSetting);
+            this.pageJcsz.Name = "pageJcsz";
+            this.pageJcsz.Size = new System.Drawing.Size(785, 514);
+            this.pageJcsz.Text = "基础配置";
             // 
-            // btSave
+            // frmSetting
             // 
-            this.btSave.Image = global::ConfigDevice.Properties.Resources.save;
-            this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(76, 28);
-            this.btSave.Text = "保存 ";
-            // 
-            // btRefresh
-            // 
-            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
-            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(100, 28);
-            this.btRefresh.Text = "刷新数据";
-            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.frmSetting.Location = new System.Drawing.Point(0, 0);
+            this.frmSetting.Name = "frmSetting";
+            this.frmSetting.Size = new System.Drawing.Size(785, 514);
+            this.frmSetting.TabIndex = 0;
             // 
             // pageActionList
             // 
@@ -505,9 +506,10 @@
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);
-            this.pageJcsz.ResumeLayout(false);
             this.pagePzjm.ResumeLayout(false);
             this.pagePzjm.PerformLayout();
+            this.tsDoorInput.ResumeLayout(false);
+            this.tsDoorInput.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -531,8 +533,7 @@
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).EndInit();
-            this.tsDoorInput.ResumeLayout(false);
-            this.tsDoorInput.PerformLayout();
+            this.pageJcsz.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

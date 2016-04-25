@@ -77,7 +77,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="udpReply"></param>
         /// <param name="values"></param>
-        public static void RequestResult(UdpData udpReply, object[] values)
+        public static void CallbackRequestResult(UdpData udpReply, object[] values)
         {
             string errStr = (string)values[0];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)

@@ -14,19 +14,18 @@ namespace ConfigDevice
         private DoorInput4 doorInput4;
         public FrmFourInput(DeviceData _device)
             : base(_device)
-        {          
+        {
             InitializeComponent();
 
             doorInput4 = this.Device as DoorInput4;
             doorInput4.OnCallbackUI_Action += this.callbackUI;
             doorInput4.OnCallbackUI_Action += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = doorInput4;
-        }   
+        }
 
         private void FrmFourInput_Load(object sender, EventArgs e)
-        {    
+        {
             base.InitSelectDevice();//初始化选择列表
-            tctrlEdit.SelectedTabPageIndex = 0;
             loadData();
         }
 
@@ -46,7 +45,7 @@ namespace ConfigDevice
             {
                 if (this.InvokeRequired)
                 {
-                    this.Invoke(new CallbackUIAction(callbackUI),new object[]{values});
+                    this.Invoke(new CallbackUIAction(callbackUI), new object[] { values });
                     return;
                 }
                 else
@@ -54,8 +53,8 @@ namespace ConfigDevice
                     for (int i = 0; i < 15; i++)
                         clbcAqjb.Items[i].CheckState = doorInput4.SecurityLevelValue[i] == true ? CheckState.Checked : CheckState.Unchecked;
                     for (int i = 0; i < 4; i++)
-                        clbcWldkpb.Items[i].CheckState = doorInput4.PhysicalShieldingPortsValue[i] == true ?  CheckState.Checked : CheckState.Unchecked;
-                    
+                        clbcWldkpb.Items[i].CheckState = doorInput4.PhysicalShieldingPortsValue[i] == true ? CheckState.Checked : CheckState.Unchecked;
+
                     edtMcmc1.Text = doorInput4.RoadTitle1;
                     edtMcmc2.Text = doorInput4.RoadTitle2;
                     edtMcmc3.Text = doorInput4.RoadTitle3;
@@ -72,7 +71,7 @@ namespace ConfigDevice
                     edtNum4.Text = doorInput4.RoadMusicNum4.ToString();
 
                     if (clbcAqjb.SelectedItems.Count == 15)
-                        cdtSelectAll.Checked = true; 
+                        cdtSelectAll.Checked = true;
                 }
             }
             catch { }
@@ -101,6 +100,8 @@ namespace ConfigDevice
         {
             foreach (CheckedListBoxItem item in clbcAqjb.Items)
                 item.CheckState = cdtSelectAll.CheckState;
+            for (int i = 0; i < 15; i++)
+                doorInput4.SecurityLevelValue[i] = clbcAqjb.Items[i].CheckState == CheckState.Checked ? true : false;
         }
 
         /// <summary>
@@ -110,6 +111,38 @@ namespace ConfigDevice
         {
             doorInput4.RefreshData();
         }
+
+        /// <summary>
+        /// 同步修改结果
+        /// </summary>
+        private void updateDoorInput4Data()
+        {
+            for (int i = 0; i < 15; i++)
+                doorInput4.SecurityLevelValue[i] = clbcAqjb.Items[i].CheckState == CheckState.Checked ? true : false;
+            for (int i = 0; i < 4; i++)
+                doorInput4.PhysicalShieldingPortsValue[i] = clbcWldkpb.Items[i].CheckState == CheckState.Checked ? true : false;
+            doorInput4.RoadShield1 = cedtAfpb1.Checked;
+            doorInput4.RoadShield2 = cedtAfpb2.Checked;
+            doorInput4.RoadShield3 = cedtAfpb3.Checked;
+            doorInput4.RoadShield4 = cedtAfpb4.Checked;
+            doorInput4.RoadMusicNum1 = Convert.ToInt16(edtNum1.Text);
+            doorInput4.RoadMusicNum2 = Convert.ToInt16(edtNum2.Text);
+            doorInput4.RoadMusicNum3 = Convert.ToInt16(edtNum3.Text);
+            doorInput4.RoadMusicNum4 = Convert.ToInt16(edtNum4.Text);
+            doorInput4.RoadTitle1 = edtMcmc1.Text;
+            doorInput4.RoadTitle2 = edtMcmc2.Text;
+            doorInput4.RoadTitle3 = edtMcmc3.Text;
+            doorInput4.RoadTitle4 = edtMcmc4.Text;
+        }
+
+        private void btSave_Click(object sender, EventArgs e)
+        {
+            updateDoorInput4Data();
+
+        }
+
+
+
 
 
     }
