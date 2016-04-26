@@ -607,6 +607,7 @@
             this.btSyncData.Name = "btSyncData";
             this.btSyncData.Size = new System.Drawing.Size(160, 30);
             this.btSyncData.Text = "同步数据";
+            this.btSyncData.Click += new System.EventHandler(this.btSyncData_Click);
             // 
             // btXtxx
             // 

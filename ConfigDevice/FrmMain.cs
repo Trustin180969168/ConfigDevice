@@ -336,6 +336,19 @@ namespace ConfigDevice
             network.SnycTime();
         }
 
+        /// <summary>
+        /// 同步数据
+        /// </summary>
+        private void btSyncData_Click(object sender, EventArgs e)
+        {
+            if (gvNetwork.FocusedRowHandle == -1) return;
+            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
+            { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
+            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            network.SnycData();
+        }
+
 
 
 

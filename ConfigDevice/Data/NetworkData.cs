@@ -864,9 +864,16 @@ namespace ConfigDevice
             Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
             udp.Length = 28 + crcData.Length + 4 + 1;
 
-            mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { "同步网络ID失败!" });
-
+            mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSyncID), null);
         }
+        private void callbackSyncID(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("同步网络ID失败!", udpReply.ReplyByte);
+            else
+                new DeviceCtrl().SearchDevices(this);//----刷新设备----
+        }
+
 
         /// <summary>
         /// 同步时间
@@ -911,12 +918,12 @@ namespace ConfigDevice
             mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { "同步时间失败!" });
 
         }
-
+        
 
         /// <summary>
         /// 同步数据
         /// </summary>
-        private void SnycNetworkData()
+        public void SnycData()
         {
             UdpData udp = new UdpData();
 
@@ -924,27 +931,19 @@ namespace ConfigDevice
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性----
             Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
-            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
 
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_NET_ID;//----用户命令-----
-            byte len = 0x0B;//---数据长度---
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_RESET_HOST;//----用户命令-----
+            byte len = 0x0C;//---数据长度---
             //--------添加到用户数据--------
-            byte[] crcData = new byte[17];
+            byte[] crcData = new byte[11];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
-            DateTime now = DateTime.Now;
-            crcData[10] = (byte)now.Year;
-            crcData[11] = (byte)now.Month;
-            crcData[12] = (byte)now.Day;
-            crcData[13] = (byte)now.DayOfWeek;
-            crcData[14] = (byte)now.Hour;
-            crcData[15] = (byte)now.Minute;
-            crcData[16] = (byte)now.Second;
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
@@ -953,7 +952,7 @@ namespace ConfigDevice
             Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
             udp.Length = 28 + crcData.Length + 4 + 1;
 
-            mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { "同步时间失败!" });
+            mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { "同步数据失败!" });
 
         }
 
