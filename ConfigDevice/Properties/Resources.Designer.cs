@@ -60,6 +60,13 @@ namespace ConfigDevice.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap checkWork {
+            get {
+                object obj = ResourceManager.GetObject("checkWork", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Clear {
             get {
                 object obj = ResourceManager.GetObject("Clear", resourceCulture);
@@ -91,6 +98,13 @@ namespace ConfigDevice.Properties {
         internal static System.Drawing.Bitmap disconnect {
             get {
                 object obj = ResourceManager.GetObject("disconnect", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap exchange {
+            get {
+                object obj = ResourceManager.GetObject("exchange", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -161,6 +175,13 @@ namespace ConfigDevice.Properties {
         internal static System.Drawing.Bitmap section {
             get {
                 object obj = ResourceManager.GetObject("section", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap snyc {
+            get {
+                object obj = ResourceManager.GetObject("snyc", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

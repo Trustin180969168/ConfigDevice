@@ -68,11 +68,10 @@
             this.btConnectnetwork = new System.Windows.Forms.ToolStripButton();
             this.btDisconnectNetwork = new System.Windows.Forms.ToolStripButton();
             this.btGJ = new System.Windows.Forms.ToolStripDropDownButton();
-            this.清空RJToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.同步设备ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.同步数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.同步数据ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btClearNetwork = new System.Windows.Forms.ToolStripButton();
+            this.btClearRJ45 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btSyncID = new System.Windows.Forms.ToolStripMenuItem();
+            this.btSyncTime = new System.Windows.Forms.ToolStripMenuItem();
+            this.btSyncData = new System.Windows.Forms.ToolStripMenuItem();
             this.btXtxx = new System.Windows.Forms.ToolStripSplitButton();
             this.btPCSend = new System.Windows.Forms.ToolStripMenuItem();
             this.btRJ45Send = new System.Windows.Forms.ToolStripMenuItem();
@@ -525,7 +524,6 @@
             this.btNetworkSearch,
             this.btConnectnetwork,
             this.btDisconnectNetwork,
-            this.btClearNetwork,
             this.btGJ,
             this.btXtxx,
             this.toolStripButton1,
@@ -567,50 +565,48 @@
             // btGJ
             // 
             this.btGJ.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.清空RJToolStripMenuItem,
-            this.同步设备ToolStripMenuItem,
-            this.同步数据ToolStripMenuItem,
-            this.同步数据ToolStripMenuItem1});
+            this.btClearRJ45,
+            this.btSyncID,
+            this.btSyncTime,
+            this.btSyncData});
             this.btGJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btGJ.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.btGJ.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btGJ.Name = "btGJ";
             this.btGJ.Size = new System.Drawing.Size(82, 28);
             this.btGJ.Text = "高级 ";
+            this.btGJ.MouseHover += new System.EventHandler(this.btGJ_MouseHover);
             // 
-            // 清空RJToolStripMenuItem
+            // btClearRJ45
             // 
-            this.清空RJToolStripMenuItem.Image = global::ConfigDevice.Properties.Resources.Clear;
-            this.清空RJToolStripMenuItem.Name = "清空RJToolStripMenuItem";
-            this.清空RJToolStripMenuItem.Size = new System.Drawing.Size(160, 30);
-            this.清空RJToolStripMenuItem.Text = "清空RJ45";
+            this.btClearRJ45.Image = global::ConfigDevice.Properties.Resources.Clear;
+            this.btClearRJ45.Name = "btClearRJ45";
+            this.btClearRJ45.Size = new System.Drawing.Size(160, 30);
+            this.btClearRJ45.Text = "清空RJ45";
+            this.btClearRJ45.Click += new System.EventHandler(this.btClearNetwork_Click);
             // 
-            // 同步设备ToolStripMenuItem
+            // btSyncID
             // 
-            this.同步设备ToolStripMenuItem.Name = "同步设备ToolStripMenuItem";
-            this.同步设备ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.同步设备ToolStripMenuItem.Text = "同步ID";
+            this.btSyncID.Image = global::ConfigDevice.Properties.Resources.exchange;
+            this.btSyncID.Name = "btSyncID";
+            this.btSyncID.Size = new System.Drawing.Size(160, 30);
+            this.btSyncID.Text = "同步ID";
+            this.btSyncID.Click += new System.EventHandler(this.btSyncID_Click);
             // 
-            // 同步数据ToolStripMenuItem
+            // btSyncTime
             // 
-            this.同步数据ToolStripMenuItem.Name = "同步数据ToolStripMenuItem";
-            this.同步数据ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.同步数据ToolStripMenuItem.Text = "同步时间";
+            this.btSyncTime.Image = global::ConfigDevice.Properties.Resources.checkWork;
+            this.btSyncTime.Name = "btSyncTime";
+            this.btSyncTime.Size = new System.Drawing.Size(160, 30);
+            this.btSyncTime.Text = "同步时间";
+            this.btSyncTime.Click += new System.EventHandler(this.btSyncTime_Click);
             // 
-            // 同步数据ToolStripMenuItem1
+            // btSyncData
             // 
-            this.同步数据ToolStripMenuItem1.Name = "同步数据ToolStripMenuItem1";
-            this.同步数据ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.同步数据ToolStripMenuItem1.Text = "同步数据";
-            // 
-            // btClearNetwork
-            // 
-            this.btClearNetwork.Image = global::ConfigDevice.Properties.Resources.Clear;
-            this.btClearNetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btClearNetwork.Name = "btClearNetwork";
-            this.btClearNetwork.Size = new System.Drawing.Size(92, 28);
-            this.btClearNetwork.Text = "清空网络";
-            this.btClearNetwork.Click += new System.EventHandler(this.btClearNetwork_Click);
+            this.btSyncData.Image = global::ConfigDevice.Properties.Resources.snyc;
+            this.btSyncData.Name = "btSyncData";
+            this.btSyncData.Size = new System.Drawing.Size(160, 30);
+            this.btSyncData.Text = "同步数据";
             // 
             // btXtxx
             // 
@@ -739,11 +735,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripComboBox cbxSelectNetwork;
         private System.Windows.Forms.ToolStripButton btClearDevice;
-        private System.Windows.Forms.ToolStripButton btClearNetwork;
         private System.Windows.Forms.ToolStripDropDownButton btGJ;
-        private System.Windows.Forms.ToolStripMenuItem 清空RJToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 同步设备ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 同步数据ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 同步数据ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem btClearRJ45;
+        private System.Windows.Forms.ToolStripMenuItem btSyncID;
+        private System.Windows.Forms.ToolStripMenuItem btSyncTime;
+        private System.Windows.Forms.ToolStripMenuItem btSyncData;
     }
 }

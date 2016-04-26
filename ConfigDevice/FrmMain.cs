@@ -291,6 +291,37 @@ namespace ConfigDevice
             }
         }
 
+        private void btGJ_MouseHover(object sender, EventArgs e)
+        {
+            btGJ.ShowDropDown();
+        }
+
+        /// <summary>
+        /// 同步网络ID
+        /// </summary>
+        private void btSyncID_Click(object sender, EventArgs e)
+        {
+            if (gvNetwork.FocusedRowHandle == -1) return;
+            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
+            { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
+            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            network.SnycNetworkID();
+        }
+
+        /// <summary>
+        /// 同步时间
+        /// </summary>
+        private void btSyncTime_Click(object sender, EventArgs e)
+        {
+            if (gvNetwork.FocusedRowHandle == -1) return;
+            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
+            { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
+            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            network.SnycTime();
+        }
+
 
 
 

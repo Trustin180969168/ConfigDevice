@@ -272,6 +272,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
+    <None Include="Resources\snyc.png" />
+    <None Include="Resources\checkWork.png" />
+    <None Include="Resources\exchange.png" />
     <None Include="Resources\disconnect.png" />
     <None Include="Resources\connect.png" />
     <None Include="Resources\Clear.png" />
