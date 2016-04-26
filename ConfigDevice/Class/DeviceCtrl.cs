@@ -102,8 +102,8 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PC, network.ByteNetworkId, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
-            byte[] source = new byte[] { network.BytePCAddress, network.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PC, network.ByteNetworkID, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
+            byte[] source = new byte[] { network.BytePCAddress, network.ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_START_SEARCH;//----用户命令-----
             byte len = 0x06;//---数据长度---
@@ -170,6 +170,12 @@ namespace ConfigDevice
                 }
                 device.State = DeviceConfig.STATE_ERROR;
                 device.Remark += DeviceConfig.ERROR_SAME_DEVICE_TITLE;
+            }
+            //-----排查网络ID-----------------
+            if (device.NetworkID != SearchingNetwork.NetworkID)
+            {
+                device.State = DeviceConfig.STATE_ERROR;
+                device.Remark += DeviceConfig.ERROR_SAME_DEVICE_NETWORK_ID;
             }
             //------添加到数据表----------                    
             DataRow drInsert = SysConfig.DtDevice.Rows.Add(new object[] {countNum.ToString(),device.DeviceID,device.NetworkID,

@@ -232,6 +232,9 @@ namespace ConfigDevice
             frm.Show();
         }
 
+        /// <summary>
+        /// 变更IP地址
+        /// </summary>
         private void cbxIPList_SelectedIndexChanged(object sender, EventArgs e)
         {
             SysConfig.SetLocalIPInfo(cbxIPList.SelectedIndex);
@@ -255,12 +258,18 @@ namespace ConfigDevice
             cbxSelectNetwork.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// 通过ID匹配选择列表
+        /// </summary>
         Dictionary<string, string> listNetworkNameID = new Dictionary<string, string>();
-        private void cbxSelectNetwork_Click(object sender, EventArgs e)
+        private void cbxSelectNetwork_Click(object sender, EventArgs e)//初始化选择表
         {
             initCbxSelectNetwork();
         }
 
+        /// <summary>
+        /// 初始化网络选择
+        /// </summary>
         private void initCbxSelectNetwork()
         {
             string oldSelect = cbxSelectNetwork.Text;
@@ -279,6 +288,9 @@ namespace ConfigDevice
             cbxSelectNetwork.SelectedIndexChanged += cbxSelectNetwork_SelectedIndexChanged;
         }
 
+        /// <summary>
+        /// 筛选网络设备
+        /// </summary>
         private void cbxSelectNetwork_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbxSelectNetwork.Text == "")
@@ -287,10 +299,12 @@ namespace ConfigDevice
             {
                 string networkID = listNetworkNameID[cbxSelectNetwork.Text];
                 deviceNetworkID.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "'");
-                //        gvDevices.Columns["deviceNetworkID"].FilterInfo = new ColumnFilterInfo("["+DeviceConfig.DC_NETWORK_ID+"] = '" + networkID + "'");
             }
         }
 
+        /// <summary>
+        /// 显示下拉
+        /// </summary>
         private void btGJ_MouseHover(object sender, EventArgs e)
         {
             btGJ.ShowDropDown();

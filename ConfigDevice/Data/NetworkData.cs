@@ -73,8 +73,8 @@ namespace ConfigDevice
         private byte[] userPassword;//用户密码
 
         public byte BytePCAddress { get { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; } }
-        public byte ByteDeviceId { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }
-        public byte ByteNetworkId { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } }
+        public byte ByteDeviceID { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }
+        public byte ByteNetworkID { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } }
         public byte[] ByteMacAddress { get { return ConvertTools.StrToToHexByte(MacAddress); } }
 
         public DateTime RefreshTime;
@@ -186,8 +186,8 @@ namespace ConfigDevice
             udp.SendPort = SysConfig.LOCAL_PORT;//--发送端口---
             udp.Protocol = UserProtocol.RJ45;//---用户协议-------
 
-            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
-            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_READ_LOCALL_NAME;//----用户命令-----
             byte len = 0x6;//---数据长度---
@@ -275,8 +275,8 @@ namespace ConfigDevice
             udp.SendPort = SysConfig.LOCAL_PORT;//--发送端口---
             udp.Protocol = UserProtocol.RJ45;//---用户协议-------
 
-            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
-            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//-----源信息----
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//-----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_WRITE_LOCALL_NAME;//----用户命令-----
             //---位置------
@@ -359,8 +359,8 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//-----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
-            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_VER;//----用户命令-----
             byte len = 0x04;//---数据长度---
@@ -519,8 +519,8 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
-            byte[] source = new byte[] { 0xFF, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { 0xFF, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_CONNECT;//----用户命令-----
             byte len = 0x1A;//---数据长度---
@@ -607,8 +607,8 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
-            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_DISCONNECT;//----用户命令-----
             byte len = 0x04;//---数据长度---
@@ -739,8 +739,8 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { ByteDeviceId, ByteNetworkId, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
-            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_CONNECTING;//----用户命令-----
             byte len = 0x04;//---数据长度---
@@ -829,7 +829,147 @@ namespace ConfigDevice
 
             return udp;
         }
-    }
+
+
+        /// <summary>
+        /// 同步ID
+        /// </summary>
+        public void SnycNetworkID()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = 0x01;//----包数据类------
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性----
+            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
+            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PC };//----源信息----
+
+            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_NET_ID;//----用户命令-----
+            byte len = 0x05;//---数据长度---
+            //--------添加到用户数据--------
+            byte[] crcData = new byte[11];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            crcData[10] = ByteNetworkID;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { "同步网络ID失败!" });
+
+        }
+
+        /// <summary>
+        /// 同步时间
+        /// </summary>
+        public void SnycTime()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = 0x01;//----包数据类------
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性----
+            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
+            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
+
+            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_TIME;//----用户命令-----
+            byte len = 0x0B;//---数据长度---
+            //--------添加到用户数据--------
+            byte[] crcData = new byte[17];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            DateTime now = DateTime.Now;
+            crcData[10] = (byte)now.Year;
+            crcData[11] = (byte)now.Month;
+            crcData[12] = (byte)now.Day;
+            crcData[13] = (byte)now.DayOfWeek;
+            crcData[14] = (byte)now.Hour;
+            crcData[15] = (byte)now.Minute;
+            crcData[16] = (byte)now.Second;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { "同步时间失败!" });
+
+        }
+
+
+        /// <summary>
+        /// 同步数据
+        /// </summary>
+        private void SnycNetworkData()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = 0x01;//----包数据类------
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性----
+            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
+            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
+
+            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_NET_ID;//----用户命令-----
+            byte len = 0x0B;//---数据长度---
+            //--------添加到用户数据--------
+            byte[] crcData = new byte[17];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            DateTime now = DateTime.Now;
+            crcData[10] = (byte)now.Year;
+            crcData[11] = (byte)now.Month;
+            crcData[12] = (byte)now.Day;
+            crcData[13] = (byte)now.DayOfWeek;
+            crcData[14] = (byte)now.Hour;
+            crcData[15] = (byte)now.Minute;
+            crcData[16] = (byte)now.Second;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { "同步时间失败!" });
+
+        }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
