@@ -8,10 +8,9 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public partial class FrmCurtainsThreeRoad : FrmDevice
+    public partial class FrmWeatherStation : FrmDevice
     {
-        public FrmCurtainsThreeRoad(DeviceData _device)
-            : base(_device)
+        public FrmWeatherStation(DeviceData _device):base(_device)
         {
         }
 

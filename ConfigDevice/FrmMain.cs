@@ -90,15 +90,13 @@ namespace ConfigDevice
                     if (values == null)
                     {
                         gvNetwork.BestFitColumns();
-         
-                        initCbxSelectNetwork();
-                    } else if ( (ActionKind)values[0] == ActionKind.SearchDevice)
+                   //     initCbxSelectNetwork();
+                    }
+                    else if ((ActionKind)values[0] == ActionKind.SearchDevice)
                     {
 
                         gvDevices.BestFitColumns();
                     }
-
-
                 }
             }
             catch (Exception e1) { e1.ToString(); }
@@ -274,7 +272,7 @@ namespace ConfigDevice
         Dictionary<string, string> listNetworkNameID = new Dictionary<string, string>();
         private void cbxSelectNetwork_Click(object sender, EventArgs e)//初始化选择表
         {
-        //    initCbxSelectNetwork();
+            initCbxSelectNetwork();
         }
 
         /// <summary>
