@@ -104,10 +104,10 @@
             this.gcDevices.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcDevices.EmbeddedNavigator.Name = "";
             this.gcDevices.FormsUseDefaultLookAndFeel = false;
-            this.gcDevices.Location = new System.Drawing.Point(0, 31);
+            this.gcDevices.Location = new System.Drawing.Point(0, 32);
             this.gcDevices.MainView = this.gvDevices;
             this.gcDevices.Name = "gcDevices";
-            this.gcDevices.Size = new System.Drawing.Size(1016, 438);
+            this.gcDevices.Size = new System.Drawing.Size(1016, 437);
             this.gcDevices.TabIndex = 7;
             this.gcDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDevices});
@@ -126,8 +126,13 @@
             this.gridColumn13});
             this.gvDevices.GridControl = this.gcDevices;
             this.gvDevices.Name = "gvDevices";
+            this.gvDevices.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click;
+            this.gvDevices.OptionsView.EnableAppearanceEvenRow = true;
+            this.gvDevices.OptionsView.EnableAppearanceOddRow = true;
             this.gvDevices.OptionsView.ShowGroupPanel = false;
             this.gvDevices.OptionsView.ShowIndicator = false;
+            this.gvDevices.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.xh, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gvDevices.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
             // 
             // xh
@@ -142,6 +147,7 @@
             this.xh.Name = "xh";
             this.xh.OptionsColumn.AllowEdit = false;
             this.xh.OptionsColumn.ReadOnly = true;
+            this.xh.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
             this.xh.Visible = true;
             this.xh.VisibleIndex = 0;
             // 
@@ -267,7 +273,9 @@
             // 
             // toolStrip2
             // 
+            this.toolStrip2.BackColor = System.Drawing.Color.Lavender;
             this.toolStrip2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSearchDevices,
@@ -276,7 +284,7 @@
             this.cbxSelectNetwork});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1016, 31);
+            this.toolStrip2.Size = new System.Drawing.Size(1016, 32);
             this.toolStrip2.TabIndex = 6;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -285,7 +293,7 @@
             this.btSearchDevices.Image = global::ConfigDevice.Properties.Resources.View;
             this.btSearchDevices.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSearchDevices.Name = "btSearchDevices";
-            this.btSearchDevices.Size = new System.Drawing.Size(92, 28);
+            this.btSearchDevices.Size = new System.Drawing.Size(92, 29);
             this.btSearchDevices.Text = "设备搜索";
             this.btSearchDevices.Click += new System.EventHandler(this.btSearchDevices_Click);
             // 
@@ -294,7 +302,7 @@
             this.btClearDevice.Image = global::ConfigDevice.Properties.Resources.Clear;
             this.btClearDevice.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClearDevice.Name = "btClearDevice";
-            this.btClearDevice.Size = new System.Drawing.Size(96, 28);
+            this.btClearDevice.Size = new System.Drawing.Size(96, 29);
             this.btClearDevice.Text = "清空设备 ";
             this.btClearDevice.Click += new System.EventHandler(this.btClearDevice_Click);
             // 
@@ -302,14 +310,18 @@
             // 
             this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 32);
             // 
             // cbxSelectNetwork
             // 
+            this.cbxSelectNetwork.BackColor = System.Drawing.SystemColors.Info;
             this.cbxSelectNetwork.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxSelectNetwork.Font = new System.Drawing.Font("宋体", 12F);
+            this.cbxSelectNetwork.DropDownWidth = 300;
+            this.cbxSelectNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.cbxSelectNetwork.ForeColor = System.Drawing.Color.DarkViolet;
+            this.cbxSelectNetwork.MaxDropDownItems = 16;
             this.cbxSelectNetwork.Name = "cbxSelectNetwork";
-            this.cbxSelectNetwork.Size = new System.Drawing.Size(300, 31);
+            this.cbxSelectNetwork.Size = new System.Drawing.Size(300, 32);
             this.cbxSelectNetwork.SelectedIndexChanged += new System.EventHandler(this.cbxSelectNetwork_SelectedIndexChanged);
             this.cbxSelectNetwork.Click += new System.EventHandler(this.cbxSelectNetwork_Click);
             // 
@@ -340,10 +352,10 @@
             this.gcNetwork.EmbeddedNavigator.Name = "";
             this.gcNetwork.FormsUseDefaultLookAndFeel = false;
             this.gcNetwork.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.gcNetwork.Location = new System.Drawing.Point(0, 31);
+            this.gcNetwork.Location = new System.Drawing.Point(0, 32);
             this.gcNetwork.MainView = this.gvNetwork;
             this.gcNetwork.Name = "gcNetwork";
-            this.gcNetwork.Size = new System.Drawing.Size(1016, 237);
+            this.gcNetwork.Size = new System.Drawing.Size(1016, 236);
             this.gcNetwork.TabIndex = 6;
             this.gcNetwork.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvNetwork});
@@ -354,13 +366,13 @@
             this.tsmiChangePassword,
             this.tsmiParameter});
             this.contextMenuStripNetwork.Name = "contextMenuStripNetwork";
-            this.contextMenuStripNetwork.Size = new System.Drawing.Size(119, 48);
+            this.contextMenuStripNetwork.Size = new System.Drawing.Size(153, 70);
             // 
             // tsmiChangePassword
             // 
             this.tsmiChangePassword.Image = global::ConfigDevice.Properties.Resources.client;
             this.tsmiChangePassword.Name = "tsmiChangePassword";
-            this.tsmiChangePassword.Size = new System.Drawing.Size(118, 22);
+            this.tsmiChangePassword.Size = new System.Drawing.Size(152, 22);
             this.tsmiChangePassword.Text = "修改密码";
             this.tsmiChangePassword.Click += new System.EventHandler(this.tsmiChangePassword_Click);
             // 
@@ -368,8 +380,9 @@
             // 
             this.tsmiParameter.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.tsmiParameter.Name = "tsmiParameter";
-            this.tsmiParameter.Size = new System.Drawing.Size(118, 22);
+            this.tsmiParameter.Size = new System.Drawing.Size(152, 22);
             this.tsmiParameter.Text = "网络参数";
+            this.tsmiParameter.Click += new System.EventHandler(this.gvNetwork_DoubleClick);
             // 
             // gvNetwork
             // 
@@ -385,6 +398,7 @@
             this.gridColumn4});
             this.gvNetwork.GridControl = this.gcNetwork;
             this.gvNetwork.Name = "gvNetwork";
+            this.gvNetwork.OptionsView.EnableAppearanceEvenRow = true;
             this.gvNetwork.OptionsView.ShowGroupPanel = false;
             this.gvNetwork.OptionsView.ShowIndicator = false;
             this.gvNetwork.DoubleClick += new System.EventHandler(this.gvNetwork_DoubleClick);
@@ -518,7 +532,9 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.OldLace;
             this.toolStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btNetworkSearch,
@@ -531,7 +547,7 @@
             this.cbxIPList});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1016, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(1016, 32);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -540,7 +556,7 @@
             this.btNetworkSearch.Image = global::ConfigDevice.Properties.Resources.View;
             this.btNetworkSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btNetworkSearch.Name = "btNetworkSearch";
-            this.btNetworkSearch.Size = new System.Drawing.Size(96, 28);
+            this.btNetworkSearch.Size = new System.Drawing.Size(96, 29);
             this.btNetworkSearch.Text = "网络搜索 ";
             this.btNetworkSearch.Click += new System.EventHandler(this.btNetworkSearch_Click);
             // 
@@ -549,7 +565,7 @@
             this.btConnectnetwork.Image = global::ConfigDevice.Properties.Resources.connect;
             this.btConnectnetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btConnectnetwork.Name = "btConnectnetwork";
-            this.btConnectnetwork.Size = new System.Drawing.Size(96, 28);
+            this.btConnectnetwork.Size = new System.Drawing.Size(96, 29);
             this.btConnectnetwork.Text = "连接网络 ";
             this.btConnectnetwork.Click += new System.EventHandler(this.btConnectnetwork_Click);
             // 
@@ -558,7 +574,7 @@
             this.btDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect;
             this.btDisconnectNetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btDisconnectNetwork.Name = "btDisconnectNetwork";
-            this.btDisconnectNetwork.Size = new System.Drawing.Size(96, 28);
+            this.btDisconnectNetwork.Size = new System.Drawing.Size(96, 29);
             this.btDisconnectNetwork.Text = "断开网络 ";
             this.btDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
             // 
@@ -573,7 +589,7 @@
             this.btGJ.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.btGJ.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btGJ.Name = "btGJ";
-            this.btGJ.Size = new System.Drawing.Size(82, 28);
+            this.btGJ.Size = new System.Drawing.Size(82, 29);
             this.btGJ.Text = "高级 ";
             this.btGJ.MouseHover += new System.EventHandler(this.btGJ_MouseHover);
             // 
@@ -581,7 +597,7 @@
             // 
             this.btClearRJ45.Image = global::ConfigDevice.Properties.Resources.Clear;
             this.btClearRJ45.Name = "btClearRJ45";
-            this.btClearRJ45.Size = new System.Drawing.Size(160, 30);
+            this.btClearRJ45.Size = new System.Drawing.Size(148, 24);
             this.btClearRJ45.Text = "清空RJ45";
             this.btClearRJ45.Click += new System.EventHandler(this.btClearNetwork_Click);
             // 
@@ -589,7 +605,7 @@
             // 
             this.btSyncID.Image = global::ConfigDevice.Properties.Resources.exchange;
             this.btSyncID.Name = "btSyncID";
-            this.btSyncID.Size = new System.Drawing.Size(160, 30);
+            this.btSyncID.Size = new System.Drawing.Size(148, 24);
             this.btSyncID.Text = "同步ID";
             this.btSyncID.Click += new System.EventHandler(this.btSyncID_Click);
             // 
@@ -597,7 +613,7 @@
             // 
             this.btSyncTime.Image = global::ConfigDevice.Properties.Resources.checkWork;
             this.btSyncTime.Name = "btSyncTime";
-            this.btSyncTime.Size = new System.Drawing.Size(160, 30);
+            this.btSyncTime.Size = new System.Drawing.Size(148, 24);
             this.btSyncTime.Text = "同步时间";
             this.btSyncTime.Click += new System.EventHandler(this.btSyncTime_Click);
             // 
@@ -605,7 +621,7 @@
             // 
             this.btSyncData.Image = global::ConfigDevice.Properties.Resources.snyc;
             this.btSyncData.Name = "btSyncData";
-            this.btSyncData.Size = new System.Drawing.Size(160, 30);
+            this.btSyncData.Size = new System.Drawing.Size(148, 24);
             this.btSyncData.Text = "同步数据";
             this.btSyncData.Click += new System.EventHandler(this.btSyncData_Click);
             // 
@@ -618,7 +634,7 @@
             this.btXtxx.Image = global::ConfigDevice.Properties.Resources.fact;
             this.btXtxx.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btXtxx.Name = "btXtxx";
-            this.btXtxx.Size = new System.Drawing.Size(104, 28);
+            this.btXtxx.Size = new System.Drawing.Size(104, 29);
             this.btXtxx.Text = "系统信息";
             this.btXtxx.MouseHover += new System.EventHandler(this.btXtxx_MouseHover);
             // 
@@ -642,23 +658,25 @@
             // 
             this.toolStripButton1.Margin = new System.Windows.Forms.Padding(60, 0, 0, 0);
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(6, 31);
+            this.toolStripButton1.Size = new System.Drawing.Size(6, 32);
             // 
             // toolStripButton2
             // 
             this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(52, 28);
+            this.toolStripButton2.Size = new System.Drawing.Size(60, 29);
             this.toolStripButton2.Text = "IP地址:";
             // 
             // cbxIPList
             // 
+            this.cbxIPList.BackColor = System.Drawing.SystemColors.Info;
             this.cbxIPList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxIPList.Font = new System.Drawing.Font("宋体", 12F);
+            this.cbxIPList.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.cbxIPList.Name = "cbxIPList";
-            this.cbxIPList.Size = new System.Drawing.Size(200, 31);
+            this.cbxIPList.Size = new System.Drawing.Size(200, 32);
             this.cbxIPList.SelectedIndexChanged += new System.EventHandler(this.cbxIPList_SelectedIndexChanged);
             // 
             // FrmMain

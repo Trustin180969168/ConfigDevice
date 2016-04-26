@@ -87,10 +87,18 @@ namespace ConfigDevice
                 { this.Invoke(new CallbackUIAction(CallBackUI), new object[] { values }); }
                 else
                 {
-                    gvNetwork.BestFitColumns();
-                    gvDevices.BestFitColumns();
-                    if (cbxSelectNetwork.Items.Count <= 1)
+                    if (values == null)
+                    {
+                        gvNetwork.BestFitColumns();
+         
                         initCbxSelectNetwork();
+                    } else if ( (ActionKind)values[0] == ActionKind.SearchDevice)
+                    {
+
+                        gvDevices.BestFitColumns();
+                    }
+
+
                 }
             }
             catch (Exception e1) { e1.ToString(); }
@@ -148,7 +156,9 @@ namespace ConfigDevice
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
             }
+         
             deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);
+       
         }
 
         public void closePw(IAsyncResult asyncResult)
@@ -264,7 +274,7 @@ namespace ConfigDevice
         Dictionary<string, string> listNetworkNameID = new Dictionary<string, string>();
         private void cbxSelectNetwork_Click(object sender, EventArgs e)//初始化选择表
         {
-            initCbxSelectNetwork();
+        //    initCbxSelectNetwork();
         }
 
         /// <summary>
@@ -273,15 +283,13 @@ namespace ConfigDevice
         private void initCbxSelectNetwork()
         {
             string oldSelect = cbxSelectNetwork.Text;
-
             listNetworkNameID.Clear(); cbxSelectNetwork.Items.Clear();
-
             cbxSelectNetwork.Items.Add("");
             //-----网络列表------------------
             foreach (NetworkData network in SysConfig.ListNetworks.Values)
-            {
+            {                
                 cbxSelectNetwork.Items.Add(network.DeviceName);
-                listNetworkNameID.Add(network.DeviceName, network.NetworkID);
+                listNetworkNameID.Add(network.DeviceName, network.NetworkID);                
             }
             cbxSelectNetwork.SelectedIndexChanged -= cbxSelectNetwork_SelectedIndexChanged;
             cbxSelectNetwork.Text = oldSelect;

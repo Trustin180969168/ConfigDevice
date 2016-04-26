@@ -45,6 +45,18 @@ namespace ConfigDevice
         Manager,User
     }
 
+
+    /// <summary>
+    /// 执行类型
+    /// </summary>
+    public enum ActionKind
+    {
+        SearchDevice,
+        SearchNetwork
+        
+    }
+
+
     /// <summary>
     /// 发送类型
     /// </summary>

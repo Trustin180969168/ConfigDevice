@@ -19,7 +19,7 @@ namespace ConfigDevice
         {
             callbackGetSearchDevices = new CallbackFromUDP();
             callbackGetStopSearchDevices = new CallbackFromUDP();
-            callbackGetSearchDevices.CallBackAction += new CallbackUdpAction(this.callbackGetDevices);
+            callbackGetSearchDevices.CallBackAction += new CallbackUdpAction(this.getDevices);
             callbackGetStopSearchDevices.CallBackAction += new CallbackUdpAction(this.callbackStopSearch);
 
             SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackGetSearchDevices);//---回调设备-----
@@ -34,8 +34,8 @@ namespace ConfigDevice
         {
             //----初始化表结构-------
             if (SysConfig.DtDevice.Columns.Count == 0)
-            {
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_DEVICE_NUM, System.Type.GetType("System.String"));
+            { 
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_DEVICE_NUM, System.Type.GetType("System.Int16"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_DEVICE_ID, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NETWORK_ID, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_KIND_ID, System.Type.GetType("System.String"));
@@ -130,59 +130,69 @@ namespace ConfigDevice
         /// <summary>
         /// 获取设备
         /// </summary>
-        private void callbackGetDevices(UdpData data, object[] values)
+        private void getDevices(UdpData data, object[] values)
         {
-            //-----获取数据-----
-            UserUdpData userData = new UserUdpData(data);
-            DeviceData device = new BaseDevice(userData);
-
-            //-----回复反馈的设备信息-------
-            UdpData udpReply = createReplyUdp(data);
-            mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
-
-            //-----排除重复项-------
-            string temp = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
-            if (SysConfig.DtDevice.Select(temp).Length > 0)
-                return;
-            countNum++;
-            //-----排查ID冲突------------------
-            temp = DeviceConfig.DC_DEVICE_ID + "='" + device.DeviceID + "' and "+ DeviceConfig.DC_NETWORK_ID + " = '" + device.NetworkID + "'";
-            DataRow[] rows = SysConfig.DtDevice.Select(temp);
-            if (rows.Length > 0)
+            lock (this)
             {
-                foreach (DataRow dr in rows)
+                int num = 0;
+                //-----获取数据-----
+                UserUdpData userData = new UserUdpData(data);
+                DeviceData device = new BaseDevice(userData);
+                //-----回复反馈的设备信息-------
+                UdpData udpReply = createReplyUdp(data);
+                mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
+                //-----删除重复项-------
+                string temp = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
+                DataRow[] rows = SysConfig.DtDevice.Select(temp);
+                if (rows.Length > 0)
                 {
-                    dr[DeviceConfig.DC_REMARK] = DeviceConfig.ERROR_SAME_DEVICE_ID;
-                    dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
+                    num = Convert.ToInt16( rows[0][DeviceConfig.DC_DEVICE_NUM]);
+                    SysConfig.DtDevice.Rows.Remove(rows[0]);
+                    SysConfig.DtDevice.AcceptChanges();                
                 }
-                device.State = DeviceConfig.STATE_ERROR;
-                device.Remark = DeviceConfig.ERROR_SAME_DEVICE_ID;
-            }
-            //-----排查名称冲突------------------
-            temp = DeviceConfig.DC_NAME + "='" + device.Name + "'";
-            rows = SysConfig.DtDevice.Select(temp);
-            if (rows.Length > 0)
-            {
-                foreach (DataRow dr in rows)
+                else
+                    num = ++countNum;
+                //-----排查ID冲突------------------
+                temp = DeviceConfig.DC_DEVICE_ID + "='" + device.DeviceID + "' and " + DeviceConfig.DC_NETWORK_ID + " = '" + device.NetworkID + "'";
+                rows = SysConfig.DtDevice.Select(temp);
+                if (rows.Length > 0)
                 {
-                    dr[DeviceConfig.DC_REMARK] += DeviceConfig.ERROR_SAME_DEVICE_TITLE; ;
-                    dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
+                    foreach (DataRow dr in rows)
+                    {
+                        dr[DeviceConfig.DC_REMARK] = DeviceConfig.ERROR_SAME_DEVICE_ID;
+                        dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
+                    }
+                    device.State = DeviceConfig.STATE_ERROR;
+                    device.Remark = DeviceConfig.ERROR_SAME_DEVICE_ID;
                 }
-                device.State = DeviceConfig.STATE_ERROR;
-                device.Remark += DeviceConfig.ERROR_SAME_DEVICE_TITLE;
-            }
-            //-----排查网络ID-----------------
-            if (device.NetworkID != SearchingNetwork.NetworkID)
-            {
-                device.State = DeviceConfig.STATE_ERROR;
-                device.Remark += DeviceConfig.ERROR_SAME_DEVICE_NETWORK_ID;
-            }
-            //------添加到数据表----------                    
-            DataRow drInsert = SysConfig.DtDevice.Rows.Add(new object[] {countNum.ToString(),device.DeviceID,device.NetworkID,
+                //-----排查名称冲突------------------
+                temp = DeviceConfig.DC_NAME + "='" + device.Name + "'";
+                rows = SysConfig.DtDevice.Select(temp);
+                if (rows.Length > 0)
+                {
+                    foreach (DataRow dr in rows)
+                    {
+                        dr[DeviceConfig.DC_REMARK] += DeviceConfig.ERROR_SAME_DEVICE_TITLE; ;
+                        dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
+                    }
+                    device.State = DeviceConfig.STATE_ERROR;
+                    device.Remark += DeviceConfig.ERROR_SAME_DEVICE_TITLE;
+                }
+                //-----排查网络ID-----------------
+                if (device.NetworkID != SearchingNetwork.NetworkID)
+                {
+                    device.State = DeviceConfig.STATE_ERROR;
+                    device.Remark += DeviceConfig.ERROR_SAME_DEVICE_NETWORK_ID;
+                }
+                //------添加到数据表----------                    
+                DataRow drInsert = SysConfig.DtDevice.Rows.Add(new object[] {num.ToString(),device.DeviceID,device.NetworkID,
                             device.KindID, device.KindName,device.Name,device.MAC,device.State,device.Remark,"","",device.PCAddress,
                             device.NetworkIP,device.AddressName});
 
-            SysConfig.DtDevice.AcceptChanges();
+                SysConfig.DtDevice.AcceptChanges();
+  
+
+            }
         }
 
         /// <summary>
@@ -193,7 +203,7 @@ namespace ConfigDevice
             //------回复停止搜索-------               
             UdpData udpReply = createReplyUdp(data);
             mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
-            callbackUI(null);
+            CallBackUI(new object[] { ActionKind.SearchDevice });
         }
 
 
