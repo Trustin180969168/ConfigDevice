@@ -90,12 +90,15 @@ namespace ConfigDevice
                     if (values == null)
                     {
                         gvNetwork.BestFitColumns();
-                   //     initCbxSelectNetwork();
+                        //     initCbxSelectNetwork();
                     }
                     else if ((ActionKind)values[0] == ActionKind.SearchDevice)
-                    {
-
                         gvDevices.BestFitColumns();
+                    else if ((ActionKind)values[0] == ActionKind.SyncNetworkID)
+                    {
+                        NetworkData network = (NetworkData)(values[1]);
+                        network.CallbackUI -= this.CallBackUI;//----返回后退订-----
+                        deviceCtrl.SearchDevices(network);
                     }
                 }
             }
@@ -326,6 +329,7 @@ namespace ConfigDevice
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
             { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
             NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            network.CallbackUI += this.CallBackUI;//---同步ID需要刷新结果----
             network.SnycNetworkID();
         }
 

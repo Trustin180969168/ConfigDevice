@@ -78,6 +78,7 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripLabel();
             this.cbxIPList = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).BeginInit();
@@ -281,6 +282,7 @@
             this.btSearchDevices,
             this.btClearDevice,
             this.toolStripSeparator1,
+            this.toolStripButton3,
             this.cbxSelectNetwork});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
@@ -366,13 +368,13 @@
             this.tsmiChangePassword,
             this.tsmiParameter});
             this.contextMenuStripNetwork.Name = "contextMenuStripNetwork";
-            this.contextMenuStripNetwork.Size = new System.Drawing.Size(153, 70);
+            this.contextMenuStripNetwork.Size = new System.Drawing.Size(119, 48);
             // 
             // tsmiChangePassword
             // 
             this.tsmiChangePassword.Image = global::ConfigDevice.Properties.Resources.client;
             this.tsmiChangePassword.Name = "tsmiChangePassword";
-            this.tsmiChangePassword.Size = new System.Drawing.Size(152, 22);
+            this.tsmiChangePassword.Size = new System.Drawing.Size(118, 22);
             this.tsmiChangePassword.Text = "修改密码";
             this.tsmiChangePassword.Click += new System.EventHandler(this.tsmiChangePassword_Click);
             // 
@@ -380,7 +382,7 @@
             // 
             this.tsmiParameter.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.tsmiParameter.Name = "tsmiParameter";
-            this.tsmiParameter.Size = new System.Drawing.Size(152, 22);
+            this.tsmiParameter.Size = new System.Drawing.Size(118, 22);
             this.tsmiParameter.Text = "网络参数";
             this.tsmiParameter.Click += new System.EventHandler(this.gvNetwork_DoubleClick);
             // 
@@ -679,6 +681,16 @@
             this.cbxIPList.Size = new System.Drawing.Size(200, 32);
             this.cbxIPList.SelectedIndexChanged += new System.EventHandler(this.cbxIPList_SelectedIndexChanged);
             // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(41, 29);
+            this.toolStripButton3.Text = "网络";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -759,5 +771,6 @@
         private System.Windows.Forms.ToolStripMenuItem btSyncID;
         private System.Windows.Forms.ToolStripMenuItem btSyncTime;
         private System.Windows.Forms.ToolStripMenuItem btSyncData;
+        private System.Windows.Forms.ToolStripLabel toolStripButton3;
     }
 }

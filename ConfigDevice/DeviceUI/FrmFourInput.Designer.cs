@@ -66,7 +66,6 @@
             this.clbcAqjb = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
-            this.pageActionList = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -108,8 +107,7 @@
             this.tctrlEdit.TabIndex = 1;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pagePzjm,
-            this.pageJcsz,
-            this.pageActionList});
+            this.pageJcsz});
             this.tctrlEdit.Text = "xtraTabControl1";
             // 
             // pagePzjm
@@ -492,12 +490,6 @@
             this.frmSetting.Size = new System.Drawing.Size(785, 514);
             this.frmSetting.TabIndex = 0;
             // 
-            // pageActionList
-            // 
-            this.pageActionList.Name = "pageActionList";
-            this.pageActionList.Size = new System.Drawing.Size(785, 514);
-            this.pageActionList.Text = "指令配置";
-            // 
             // FrmFourInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -555,7 +547,6 @@
         private DevExpress.XtraEditors.CheckedListBoxControl clbcAqjb;
         private DevExpress.XtraEditors.CheckedListBoxControl clbcWldkpb;
         private System.Windows.Forms.ToolStripButton btSave;
-        private DevExpress.XtraTab.XtraTabPage pageActionList;
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private DevExpress.XtraEditors.CheckEdit cedtAfpb1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

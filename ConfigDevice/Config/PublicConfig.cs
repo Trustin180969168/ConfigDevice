@@ -52,7 +52,8 @@ namespace ConfigDevice
     public enum ActionKind
     {
         SearchDevice,
-        SearchNetwork
+        SearchNetwork,
+        SyncNetworkID
         
     }
 
