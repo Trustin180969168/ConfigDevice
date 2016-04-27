@@ -864,14 +864,14 @@ namespace ConfigDevice
             Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
             udp.Length = 28 + crcData.Length + 4 + 1;
 
-            mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSyncID),null);
+            mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSyncID), null);
         }
         private void callbackSyncID(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("同步网络ID失败!", udpReply.ReplyByte);
             else
-                callbackUI(new object[] { ActionKind.SyncNetworkID,this });
+                callbackUI(new object[] { ActionKind.SyncNetworkID, this });
         }
 
 

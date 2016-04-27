@@ -5,6 +5,7 @@ using System.Text;
 namespace ConfigDevice
 {
 
+
     class DeviceConfig
     {
         // 回应启动搜索设备
