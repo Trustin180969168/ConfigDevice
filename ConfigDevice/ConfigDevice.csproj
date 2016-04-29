@@ -66,6 +66,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Command\CircuitCommand.cs" />
+    <Compile Include="Class\Command\MessageCommand.cs" />
+    <Compile Include="Data\CommandData.cs" />
     <Compile Include="Class\DoorInput4.cs">
     </Compile>
     <Compile Include="Class\FactoryDevice.cs" />
@@ -160,6 +163,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SysUI\PleaseWait.resx">
       <DependentUpon>PleaseWait.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\ViewCommandTools.resx">
+      <DependentUpon>ViewCommandTools.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -286,6 +293,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
+    <Compile Include="Class\Command\ViewCommand.cs" />
+    <Compile Include="Class\Command\SceneCommand.cs" />
+    <Compile Include="Class\Command\TimingCommand.cs" />
+    <Compile Include="Class\Command\SwitchCommand.cs" />
+    <Compile Include="Class\Command\MotorCommand.cs" />
+    <Compile Include="Class\Command\BackgroundCommand.cs" />
+    <Compile Include="Tools\ViewCommandTools.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tools\ViewCommandTools.Designer.cs">
+      <DependentUpon>ViewCommandTools.cs</DependentUpon>
+    </Compile>
     <None Include="Resources\snyc.png" />
     <None Include="Resources\checkWork.png" />
     <None Include="Resources\exchange.png" />

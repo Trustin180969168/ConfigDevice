@@ -8,6 +8,10 @@ namespace ConfigDevice
 
     public class DoorInput4 : DeviceData
     {
+        public const string AREAR_DOOR_WINDOW_OPEN = "门窗开";
+        public const string AREAR_DOOR_WINDOW_CLOSE= "门窗关";
+        public const string AREAR_DOOR_ALARM_OPEN = "警报";
+        public const string AREAR_DOOR_ALARM_CLOSE = "撤销警报";//区域-门窗关
 
         private byte[] securityLevel;//----安全级别------
         private byte physicalShieldingPorts;//----物理端口屏蔽------
