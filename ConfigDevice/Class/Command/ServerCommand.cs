@@ -7,11 +7,11 @@ using DevExpress.XtraGrid.Views.Grid;
 namespace ConfigDevice
 {
     /// <summary>
-    /// 回路指令
+    /// 电机指令
     /// </summary>
-    public class CircuitCommand : ViewCommand
+    public class ServerCommand : ViewCommand
     {
-        public CircuitCommand(string name, GridView gv)
+        public ServerCommand(string name, GridView gv)
             : base(name, gv)
         {
 

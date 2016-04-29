@@ -66,6 +66,7 @@
             this.clbcAqjb = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
+            this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -107,7 +108,8 @@
             this.tctrlEdit.TabIndex = 1;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pagePzjm,
-            this.pageJcsz});
+            this.pageJcsz,
+            this.pageCommand});
             this.tctrlEdit.Text = "xtraTabControl1";
             // 
             // pagePzjm
@@ -490,6 +492,12 @@
             this.frmSetting.Size = new System.Drawing.Size(785, 514);
             this.frmSetting.TabIndex = 0;
             // 
+            // pageCommand
+            // 
+            this.pageCommand.Name = "pageCommand";
+            this.pageCommand.Size = new System.Drawing.Size(785, 514);
+            this.pageCommand.Text = "指令配置";
+            // 
             // FrmFourInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -575,6 +583,7 @@
         private DevExpress.XtraEditors.TextEdit edtMcmc4;
         private DevExpress.XtraEditors.CheckEdit cdtSelectAll;
         private System.Windows.Forms.ToolStripButton btRefresh;
+        private DevExpress.XtraTab.XtraTabPage pageCommand;
 
 
     }

@@ -11,8 +11,8 @@ namespace ConfigDevice
     /// </summary>
     public class MotorCommand : ViewCommand
     {
-        public MotorCommand(GridView gv)
-            : base(gv)
+        public MotorCommand(string name, GridView gv)
+            : base(name, gv)
         {
 
         }

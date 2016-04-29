@@ -11,8 +11,8 @@ namespace ConfigDevice
     /// </summary>
     public class BackgroundCommand : ViewCommand
     {
-        public BackgroundCommand(GridView gv)
-            : base(gv)
+        public BackgroundCommand(string name, GridView gv)
+            : base(name, gv)
         {
 
         }

@@ -11,8 +11,8 @@ namespace ConfigDevice
     /// </summary>
     public class MessageCommand : ViewCommand
     {
-        public MessageCommand(GridView gv)
-            : base(gv)
+        public MessageCommand(string name, GridView gv)
+            : base(name, gv)
         {
 
         }

@@ -61,6 +61,8 @@ namespace ConfigDevice
             return -1;
         }
 
+        
+
         /// <summary>
         /// ¼üÅÌÊäÈë¿ØÖÆ
         /// </summary>
@@ -110,5 +112,8 @@ namespace ConfigDevice
                 return true;
             }
         }
+        
+
+
     }
 }

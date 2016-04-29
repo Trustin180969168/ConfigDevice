@@ -11,8 +11,8 @@ namespace ConfigDevice
     /// </summary>
     public class SceneCommand : ViewCommand
     {
-        public SceneCommand(GridView gv)
-            : base(gv)
+        public SceneCommand(string name, GridView gv)
+            : base(name, gv)
         {
 
         }

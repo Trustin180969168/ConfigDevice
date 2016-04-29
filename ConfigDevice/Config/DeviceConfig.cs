@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ConfigDevice
-{
-
-
-    class DeviceConfig
+{   
+    public class DeviceConfig
     {
-        // 回应启动搜索设备
+        public static readonly byte[] ControlDevice = new byte[] { EQUIPMENT_SWIT_8, EQUIPMENT_SWIT_4, EQUIPMENT_TRAILING_6, 
+            EQUIPMENT_TRAILING_8, EQUIPMENT_CURTAIN_3CH };//----被控制的操作设备----
+
+        //-----------回应启动搜索设备-------------
         public const byte RETSTARTSEARCH_TRUE = 0x0;        // 成功启动搜索设备
         public const byte RETSTARTSEARCH_NET_ER = 0x1;      // 错误,网段参数错误
         public const byte RETSTARTSEARCH_BUSY = 0x2;         // 正忙,其它设备搜索设备中
         public const byte RETSTARTSEARCH_TOTAL = 0x3;          // 总数
 
-        //------定义全局对应--------
+        //-----------定义全局对应--------
         public const string DC_DEVICE_NUM = "NUM";//设备ID
         public const string DC_DEVICE_ID = "DeviceID";//设备ID
         public const string DC_NETWORK_ID = "NetworkID";//网段ID

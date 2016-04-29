@@ -11,8 +11,8 @@ namespace ConfigDevice
     /// </summary>
     public class TimingCommand : ViewCommand
     {
-        public TimingCommand(GridView gv)
-            : base(gv)
+        public TimingCommand(string name, GridView gv)
+            : base(name, gv)
         {
 
         }

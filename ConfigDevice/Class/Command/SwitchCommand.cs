@@ -11,8 +11,8 @@ namespace ConfigDevice
     /// </summary>
     public class SwitchCommand : ViewCommand
     {
-        public SwitchCommand(GridView gv)
-            : base(gv)
+        public SwitchCommand(string name,GridView gv)
+            : base(name,gv)
         {
 
         }
