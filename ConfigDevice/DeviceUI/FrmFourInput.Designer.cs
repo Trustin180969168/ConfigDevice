@@ -67,6 +67,7 @@
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
+            this.uCtrlCommandEdit1 = new ConfigDevice.DeviceUI.UCtrlCommandEdit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -94,6 +95,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).BeginInit();
             this.pageJcsz.SuspendLayout();
+            this.pageCommand.SuspendLayout();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -494,9 +496,18 @@
             // 
             // pageCommand
             // 
+            this.pageCommand.Controls.Add(this.uCtrlCommandEdit1);
             this.pageCommand.Name = "pageCommand";
             this.pageCommand.Size = new System.Drawing.Size(785, 514);
             this.pageCommand.Text = "指令配置";
+            // 
+            // uCtrlCommandEdit1
+            // 
+            this.uCtrlCommandEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uCtrlCommandEdit1.Location = new System.Drawing.Point(0, 0);
+            this.uCtrlCommandEdit1.Name = "uCtrlCommandEdit1";
+            this.uCtrlCommandEdit1.Size = new System.Drawing.Size(785, 514);
+            this.uCtrlCommandEdit1.TabIndex = 0;
             // 
             // FrmFourInput
             // 
@@ -538,6 +549,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).EndInit();
             this.pageJcsz.ResumeLayout(false);
+            this.pageCommand.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -584,6 +596,7 @@
         private DevExpress.XtraEditors.CheckEdit cdtSelectAll;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageCommand;
+        private ConfigDevice.DeviceUI.UCtrlCommandEdit uCtrlCommandEdit1;
 
 
     }

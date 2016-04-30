@@ -10,23 +10,17 @@ namespace ConfigDevice
     /// <summary>
     /// 回路指令
     /// </summary>
-    public abstract class  ViewCommand : CommandData
+    public abstract class  ViewCommand
     {
-
-        public byte TargetId;//目标ID
-        public byte TargetNet;//目标网段
-        public byte TargetType;//目标类型
-
-        public byte[] Cmd = new byte[2];//命令
-        public byte Len;//长度
-        public byte[] Data = new byte[30];//数据最长30字节
+        public ControlObj controlObj;//控制对象
+        public CommandData commandObj;//命令对象
 
         //----配置界面列表------
         public GridView ViewSetting;
         private DataTable dtSetting;
-        public ViewCommand(string name, GridView gv)
-            : base(name)
+        public ViewCommand(ControlObj _controlObj, GridView gv)
         {
+            controlObj = _controlObj;
             dtSetting = new DataTable(); 
             ViewSetting = gv;
             ViewSetting.GridControl.DataSource = dtSetting;
@@ -41,11 +35,14 @@ namespace ConfigDevice
         /// <summary>
         /// 重置
         /// </summary>
-        public void ResetSetting()
-        {
-            ViewSetting.GridControl.DataSource = dtSetting;
-            ViewSetting.Columns.Clear();
-        }
+        public abstract void ResetSetting();
+
+        
+        /// <summary>
+        /// 生成指令数据
+        /// </summary>
+        /// <returns></returns>
+        public abstract byte[] CreateCommand();
 
     }
 }

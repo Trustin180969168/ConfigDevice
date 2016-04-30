@@ -226,6 +226,7 @@
             this.ClientSize = new System.Drawing.Size(792, 573);
             this.Controls.Add(this.gcDevices);
             this.Name = "SelectDevice";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "设备选择";
             this.Load += new System.EventHandler(this.SelectDevice_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).EndInit();

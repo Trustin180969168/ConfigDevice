@@ -95,6 +95,13 @@ namespace ConfigDevice.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap del1 {
+            get {
+                object obj = ResourceManager.GetObject("del1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap disconnect {
             get {
                 object obj = ResourceManager.GetObject("disconnect", resourceCulture);

@@ -11,6 +11,9 @@ namespace ConfigDevice
         {
             Name = "回路";
         }
+
+
+
     }
 
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using System.Reflection;
 namespace ProgramTest
 {
 
@@ -50,7 +50,7 @@ namespace ProgramTest
                 Console.Out.WriteLine("有 85FE");
             else
                 Console.Out.WriteLine("没有 85FE");
-            */
+           
 
  
             MyButton mb = new MyButton("MyButton对象");
@@ -59,6 +59,9 @@ namespace ProgramTest
             mb.Click += MyButton_Click2;
             mb.OnClick();  
             Console.Read();
-        }
+             
+             */
+
+        } 
     }
 }
