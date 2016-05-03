@@ -9,22 +9,13 @@ namespace ConfigDevice
     /// <summary>
     /// 回路指令
     /// </summary>
-    public class ViewCircuitCommand : ViewCommand
+    public class ViewCircuitControl : ViewControl
     {
-        public ViewCircuitCommand(ControlObj controlObj, GridView gv)
+        public ViewCircuitControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
         {
-            commandObj = new CircuitCommand(CircuitCommand.CommandKindList[0]);
-        }
-
-        /// <summary>
-        /// 命令字节
-        /// </summary>
-        /// <returns></returns>
-        public override byte[] CreateCommand()
-        {
-            return null;
-        }
+            
+        } 
 
         /// <summary>
         /// 初始化界面配置
@@ -40,6 +31,15 @@ namespace ConfigDevice
         public override void ResetSetting()
         {
             
+        }
+
+        /// <summary>
+        /// 生成指令数据
+        /// </summary>
+        /// <returns></returns>
+        public override CommandData GetCommand()
+        {
+            return null;
         }
 
 

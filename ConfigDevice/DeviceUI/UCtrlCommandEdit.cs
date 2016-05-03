@@ -14,5 +14,10 @@ namespace ConfigDevice.DeviceUI
         {
             InitializeComponent();
         }
+
+        private void viewCommandTools2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -29,27 +29,27 @@
         private void InitializeComponent()
         {
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.btReadCommand = new System.Windows.Forms.ToolStripButton();
             this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
-            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
             this.viewCommandTools2 = new ConfigDevice.Tools.ViewCommandTools();
             this.viewCommandTools1 = new ConfigDevice.Tools.ViewCommandTools();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
+            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
             this.toolStrip2.SuspendLayout();
             this.xtraScrollableControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip2
@@ -66,6 +66,22 @@
             this.toolStrip2.TabIndex = 3;
             this.toolStrip2.Text = "toolStrip2";
             // 
+            // btReadCommand
+            // 
+            this.btReadCommand.Image = global::ConfigDevice.Properties.Resources.section;
+            this.btReadCommand.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btReadCommand.Name = "btReadCommand";
+            this.btReadCommand.Size = new System.Drawing.Size(108, 28);
+            this.btReadCommand.Text = "读取指令 ";
+            // 
+            // btSaveCommands
+            // 
+            this.btSaveCommands.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSaveCommands.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSaveCommands.Name = "btSaveCommands";
+            this.btSaveCommands.Size = new System.Drawing.Size(108, 28);
+            this.btSaveCommands.Text = "保存指令 ";
+            // 
             // xtraScrollableControl1
             // 
             this.xtraScrollableControl1.Controls.Add(this.viewCommandTools2);
@@ -75,6 +91,23 @@
             this.xtraScrollableControl1.Name = "xtraScrollableControl1";
             this.xtraScrollableControl1.Size = new System.Drawing.Size(748, 360);
             this.xtraScrollableControl1.TabIndex = 5;
+            // 
+            // viewCommandTools2
+            // 
+            this.viewCommandTools2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools2.Location = new System.Drawing.Point(0, 60);
+            this.viewCommandTools2.Name = "viewCommandTools2";
+            this.viewCommandTools2.Size = new System.Drawing.Size(748, 60);
+            this.viewCommandTools2.TabIndex = 1;
+            this.viewCommandTools2.Load += new System.EventHandler(this.viewCommandTools2_Load);
+            // 
+            // viewCommandTools1
+            // 
+            this.viewCommandTools1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools1.Location = new System.Drawing.Point(0, 0);
+            this.viewCommandTools1.Name = "viewCommandTools1";
+            this.viewCommandTools1.Size = new System.Drawing.Size(748, 60);
+            this.viewCommandTools1.TabIndex = 0;
             // 
             // panelControl1
             // 
@@ -93,41 +126,36 @@
             this.panelControl1.Size = new System.Drawing.Size(748, 94);
             this.panelControl1.TabIndex = 6;
             // 
-            // btReadCommand
+            // comboBoxEdit1
             // 
-            this.btReadCommand.Image = global::ConfigDevice.Properties.Resources.section;
-            this.btReadCommand.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btReadCommand.Name = "btReadCommand";
-            this.btReadCommand.Size = new System.Drawing.Size(108, 28);
-            this.btReadCommand.Text = "读取指令 ";
+            this.comboBoxEdit1.Location = new System.Drawing.Point(372, 20);
+            this.comboBoxEdit1.Name = "comboBoxEdit1";
+            this.comboBoxEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.comboBoxEdit1.Properties.Appearance.Options.UseFont = true;
+            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboBoxEdit1.Size = new System.Drawing.Size(200, 26);
+            this.comboBoxEdit1.TabIndex = 9;
             // 
-            // btSaveCommands
+            // labelControl3
             // 
-            this.btSaveCommands.Image = global::ConfigDevice.Properties.Resources.save;
-            this.btSaveCommands.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSaveCommands.Name = "btSaveCommands";
-            this.btSaveCommands.Size = new System.Drawing.Size(108, 28);
-            this.btSaveCommands.Text = "保存指令 ";
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Location = new System.Drawing.Point(302, 23);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(64, 19);
+            this.labelControl3.TabIndex = 8;
+            this.labelControl3.Text = "当前按键";
             // 
-            // checkEdit1
+            // textEdit2
             // 
-            this.checkEdit1.Location = new System.Drawing.Point(46, 20);
-            this.checkEdit1.Name = "checkEdit1";
-            this.checkEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.checkEdit1.Properties.Appearance.Options.UseFont = true;
-            this.checkEdit1.Properties.Caption = "同步编辑";
-            this.checkEdit1.Size = new System.Drawing.Size(107, 24);
-            this.checkEdit1.TabIndex = 4;
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(165, 23);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(16, 19);
-            this.labelControl1.TabIndex = 5;
-            this.labelControl1.Text = "从";
+            this.textEdit2.EditValue = "10";
+            this.textEdit2.Location = new System.Drawing.Point(240, 20);
+            this.textEdit2.Name = "textEdit2";
+            this.textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.textEdit2.Properties.Appearance.Options.UseFont = true;
+            this.textEdit2.Size = new System.Drawing.Size(25, 26);
+            this.textEdit2.TabIndex = 7;
             // 
             // textEdit1
             // 
@@ -149,52 +177,25 @@
             this.labelControl2.TabIndex = 5;
             this.labelControl2.Text = "到";
             // 
-            // textEdit2
+            // labelControl1
             // 
-            this.textEdit2.EditValue = "10";
-            this.textEdit2.Location = new System.Drawing.Point(240, 20);
-            this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.textEdit2.Properties.Appearance.Options.UseFont = true;
-            this.textEdit2.Size = new System.Drawing.Size(25, 26);
-            this.textEdit2.TabIndex = 7;
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControl1.Appearance.Options.UseFont = true;
+            this.labelControl1.Location = new System.Drawing.Point(165, 23);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(16, 19);
+            this.labelControl1.TabIndex = 5;
+            this.labelControl1.Text = "从";
             // 
-            // labelControl3
+            // checkEdit1
             // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Location = new System.Drawing.Point(302, 23);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(64, 19);
-            this.labelControl3.TabIndex = 8;
-            this.labelControl3.Text = "当前按键";
-            // 
-            // comboBoxEdit1
-            // 
-            this.comboBoxEdit1.Location = new System.Drawing.Point(372, 20);
-            this.comboBoxEdit1.Name = "comboBoxEdit1";
-            this.comboBoxEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.comboBoxEdit1.Properties.Appearance.Options.UseFont = true;
-            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEdit1.Size = new System.Drawing.Size(200, 26);
-            this.comboBoxEdit1.TabIndex = 9;
-            // 
-            // viewCommandTools2
-            // 
-            this.viewCommandTools2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewCommandTools2.Location = new System.Drawing.Point(0, 60);
-            this.viewCommandTools2.Name = "viewCommandTools2";
-            this.viewCommandTools2.Size = new System.Drawing.Size(748, 60);
-            this.viewCommandTools2.TabIndex = 1;
-            // 
-            // viewCommandTools1
-            // 
-            this.viewCommandTools1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewCommandTools1.Location = new System.Drawing.Point(0, 0);
-            this.viewCommandTools1.Name = "viewCommandTools1";
-            this.viewCommandTools1.Size = new System.Drawing.Size(748, 60);
-            this.viewCommandTools1.TabIndex = 0;
+            this.checkEdit1.Location = new System.Drawing.Point(46, 20);
+            this.checkEdit1.Name = "checkEdit1";
+            this.checkEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.checkEdit1.Properties.Appearance.Options.UseFont = true;
+            this.checkEdit1.Properties.Caption = "同步编辑";
+            this.checkEdit1.Size = new System.Drawing.Size(107, 24);
+            this.checkEdit1.TabIndex = 4;
             // 
             // UCtrlCommandEdit
             // 
@@ -210,10 +211,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -10,15 +10,14 @@ namespace ConfigDevice
     /// <summary>
     /// 回路指令
     /// </summary>
-    public abstract class  ViewCommand
+    public abstract class  ViewControl
     {
         public ControlObj controlObj;//控制对象
-        public CommandData commandObj;//命令对象
 
         //----配置界面列表------
         public GridView ViewSetting;
         private DataTable dtSetting;
-        public ViewCommand(ControlObj _controlObj, GridView gv)
+        public ViewControl(ControlObj _controlObj, GridView gv)
         {
             controlObj = _controlObj;
             dtSetting = new DataTable(); 
@@ -42,7 +41,7 @@ namespace ConfigDevice
         /// 生成指令数据
         /// </summary>
         /// <returns></returns>
-        public abstract byte[] CreateCommand();
+        public abstract CommandData GetCommand();
 
     }
 }

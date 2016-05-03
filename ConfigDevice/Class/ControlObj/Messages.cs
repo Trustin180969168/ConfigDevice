@@ -7,10 +7,14 @@ namespace ConfigDevice
 
     public class Messages : ControlObj
     {
-        public Messages()
+        public Messages(DeviceData _deviceCtrl)
         {
             Name = "消息";
+            deviceControled = _deviceCtrl;
         }
+
+
+
     }
 
 

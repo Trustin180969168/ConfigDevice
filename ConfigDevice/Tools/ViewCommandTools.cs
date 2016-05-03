@@ -10,6 +10,9 @@ namespace ConfigDevice.Tools
 {
     public partial class ViewCommandTools : UserControl
     {
+        public ControlObj currentControlObj;//---控制对象-----
+        public ViewControl viewControl;// ----视图控制----
+
         public ViewCommandTools()
         {
             InitializeComponent();

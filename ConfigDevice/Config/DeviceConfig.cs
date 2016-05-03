@@ -37,90 +37,7 @@ namespace ConfigDevice
         public const string STATE_RIGHT = "√";//正常状态
         public const string STATE_ERROR = "×";//错误状态
 
-        //--------------------定义设备命令-----------------------------
-        public static readonly byte[] CMD_PUBLIC_START_SEARCH = new byte[2] { 0x31, 0xFF };//----搜索设备命令----
-        public static readonly byte[] CMD_PUBLIC_RET_START_SEARCH = new byte[2] { 0x3F, 0xFF };//----回复确认搜索设备命令----
-        public static readonly byte[] CMD_PUBLIC_WRITE_INF = new byte[2] { 0x82, 0xFF };//----设备基本信息返回命令----
-        public static readonly byte[] CMD_PUBLIC_STOP_SEARCH = new byte[2] { 0x32, 0xFF };//----停止搜索设备----
-        public static readonly byte[] CMD_PUBLIC_READ_VER = new byte[2] { 0xB0, 0xFF };//-----读设备软硬件版本----
-        public static readonly byte[] CMD_PUBLIC_WRITE_VER = new byte[2] { 0xB1, 0xFF };//----写设备软硬件版本----
-        public static readonly byte[] CMD_PUBLIC_ASSIGN_ID = new byte[2] { 0x35, 0xFF };//----修改设备ID----        
-        public static readonly byte[] CMD_PUBLIC_NC1 = new byte[2] { 0x00, 0xFF };//无效指令，上位机不会发送此指令
-        public static readonly byte[] CMD_PUBLIC_NC2 = new byte[2] { 0xff, 0xFF };//同上
-        public static readonly byte[] CMD_PUBLIC_NULL = new byte[2] { 0x30, 0xFF };//空指令，但上位机会发送此指令，这个用于上位机临时修改用，下位机要保存此数据        
-        public static readonly byte[] CMD_PUBLIC_ROLLCALL = new byte[2] { 0x33, 0xFF };//设备点名             
-        public static readonly byte[] CMD_PUBLIC_SEARCH_UNROLLCALL = new byte[2] { 0x34, 0xFF };//搜索没点名的设备       
-        public static readonly byte[] CMD_PUBLIC_STOP_READ = new byte[2] { 0x36, 0xFF };//停止读取设备信息 	
-        public static readonly byte[] CMD_PUBLIC_TEST = new byte[2] { 0x37, 0xFF };//设备测试指令  
-        public static readonly byte[] CMD_PUBLIC_UART_LED_ENABLE = new byte[2] { 0x38, 0xFF };//开通度灯
-        public static readonly byte[] CMD_PUBLIC_UART_LED_DISABLE = new byte[2] { 0x39, 0xFF };//关通度灯
-        public static readonly byte[] CMD_PUBLIC_DISCOVER_ENABLE = new byte[2] { 0x3a, 0xFF };//发现设备,通信关亮1分钟，或面板的灯闪1分钟方便调试时找到设备
-        public static readonly byte[] CMD_PUBLIC_DISCOVER_DISABLE = new byte[2] { 0x3b, 0xFF };//关发现设备
-        public static readonly byte[] CMD_PUBLIC_DEL_COMMAND = new byte[2] { 0x3d, 0xFF };//删除指令
-        public static readonly byte[] CMD_PUBLIC_STOP = new byte[2] { 0x3e, 0xFF };//停止读控制信息
-        public static readonly byte[] CMD_PUBLIC_RET_READ_INF = new byte[2] { 0x3f, 0xFF };//回复读信息
-        public static readonly byte[] CMD_PUBLIC_END_READ_INF = new byte[2] { 0x40, 0xFF };//完成配置信息读取
-        public static readonly byte[] CMD_PUBLIC_RET_READ_STATE = new byte[2] { 0x41, 0xFF };//回复读状态
-        public static readonly byte[] CMD_PUBLIC_WRITE_END = new byte[2] { 0x43, 0xFF };//读完成
-        public static readonly byte[] CMD_PUBLIC_END_READ_STATE = new byte[2] { 0x44, 0xFF };//读状态完成
-        public static readonly byte[] CMD_PUBLIC_BROADCAST_PACKET_ID = new byte[2] { 0x45, 0xFF };//广播包号
-        public static readonly byte[] CMD_PUBLIC_APPLY_PACKET = new byte[2] { 0x46, 0xFF };//补包
-        public static readonly byte[] CMD_PUBLIC_ROLLCALL_ONLINE = new byte[2] { 0x47, 0xFF };//点名在线设备
-        public static readonly byte[] CMD_PUBLIC_ONLINE_STATE = new byte[2] { 0x48, 0xFF };//设备在线情况
-        public static readonly byte[] CMD_PUBLIC_ONLINE = new byte[2] { 0x49, 0xFF };//设备上线
-        public static readonly byte[] CMD_PUBLIC_READ_TIME = new byte[2] { 0x01, 0xFF };//读系统时间
-        public static readonly byte[] CMD_PUBLIC_WRITE_TIME = new byte[2] { 0x81, 0xFF };//系统时间        
-        public static readonly byte[] CMD_PUBLIC_READ_INF = new byte[2] { 0x02, 0xFF };//读基本信息         	
-        public static readonly byte[] CMD_PUBLIC_READ_SET_INF = new byte[2] { 0x03, 0xFF };//读取设备信息	    
-        public static readonly byte[] CMD_PUBLIC_READ_NAME = new byte[2] { 0x04, 0xFF };//读设备名称           
-        public static readonly byte[] CMD_PUBLIC_WRITE_NAME = new byte[2] { 0x84, 0xFF };//写设备名称   
-        public static readonly byte[] CMD_PUBLIC_READ_LOOP_NAME = new byte[2] { 0x05, 0xFF };//读回路名称 
-        public static readonly byte[] CMD_PUBLIC_WRITE_LOOP_NAME = new byte[2] { 0x85, 0xFF };//写回路名称	
-        public static readonly byte[] CMD_PUBLIC_READ_APPOINT_MACHINE = new byte[2] { 0x06, 0xFF };//读回指定设备的基本信息，这个是长按状态键，使设备处于返回状态时才有效，按下此按60秒处于有效状态，
-        //当返回后3秒才把状态清，因防止数据转发时出错重发。用CMD_WRITE_INF 返回   
-        public static readonly byte[] CMD_PUBLIC_READ_LOGIC_SEARCH = new byte[2] { 0x07, 0xFF };//逻辑查找指令
-        public static readonly byte[] CMD_PUBLIC_WRITE_LOGIC_SEARCH = new byte[2] { 0x87, 0xFF };//返回逻辑查找指令
-        public static readonly byte[] CMD_PUBLIC_READ_COMPARE_DATA = new byte[2] { 0x08, 0xFF };//读查找比较控制指令
-        public static readonly byte[] CMD_PUBLIC_WRITE_COMPARE_DATA = new byte[2] { 0x88, 0xFF };//写查找比较控制指令
-        public static readonly byte[] CMD_PUBLIC_READ_COMMAND = new byte[2] { 0x09, 0xFF };//读出控制指令
-        public static readonly byte[] CMD_PUBLIC_WRITE_COMMAND = new byte[2] { 0x89, 0xFF };//写入控制指令
-        public static readonly byte[] CMD_PUBLIC_WRITE_NET_ID = new byte[2] { 0x8a, 0xFF };//修改网络ID
-        public static readonly byte[] CMD_PUBLIC_READ_CONFIG = new byte[2] { 0x0b, 0xFF };//读配置信息
-        public static readonly byte[] CMD_PUBLIC_WRITE_CONFIG = new byte[2] { 0x8b, 0xFF };//写配置信息
-        public static readonly byte[] CMD_PUBLIC_READ_STATE = new byte[2] { 0x0c, 0xFF };//读状态信息
-        public static readonly byte[] CMD_PUBLIC_WRITE_STATE = new byte[2] { 0x8c, 0xFF };//写状态	
-        public static readonly byte[] CMD_PUBLIC_READ_SWIT_STATE = new byte[2] { 0x0d, 0xFF };//读开关状态 
-        public static readonly byte[] CMD_PUBLIC_WRITE_SWIT_STATE = new byte[2] { 0x8d, 0xFF };//写开关状态 
-        public static readonly byte[] CMD_PUBLIC_READ_HVAC_STATE = new byte[2] { 0x0e, 0xFF };//读空调状态
-        public static readonly byte[] CMD_PUBLIC_WRITE_HVAC_STATE = new byte[2] { 0x8e, 0xFF };//写空调状态
-        public static readonly byte[] CMD_PUBLIC_READ_CURTAIN_STATE = new byte[2] { 0x0f, 0xFF };//读窗帘状态
-        public static readonly byte[] CMD_PUBLIC_WRITE_CURTAIN_STATE = new byte[2] { 0x8f, 0xFF };//写窗帘状态
-        public static readonly byte[] CMD_PUBLIC_READ_SENSOR_STATE = new byte[2] { 0x10, 0xFF };//读传感器状态
-        public static readonly byte[] CMD_PUBLIC_WRITE_SENSOR_STATE = new byte[2] { 0x90, 0xFF };//写传感器状态
-        public static readonly byte[] CMD_PUBLIC_READ_KB_STATE = new byte[2] { 0x11, 0xFF };//读键盘按状态
-        public static readonly byte[] CMD_PUBLIC_WRITE_KB_STATE = new byte[2] { 0x91, 0xFF };//写键盘按状态
-        public static readonly byte[] CMD_PUBLIC_READ_MULTI = new byte[2] { 0x12, 0xFF };//公共读指令多条返回  
-        public static readonly byte[] CMD_PUBLIC_READ_SINGLE = new byte[2] { 0x13, 0xFF };//公共读指令单条返回
-        public static readonly byte[] CMD_PUBLIC_READ_PLACE_NAME = new byte[2] { 0x14, 0xFF };//读位置名称
-        public static readonly byte[] CMD_PUBLIC_WRITE_PLACE_NAME = new byte[2] { 0x94, 0xFF };//写位置名称
-        public static readonly byte[] CMD_PUBLIC_READ_PASSWORD = new byte[2] { 0x15, 0xFF };//读密码
-        public static readonly byte[] CMD_PUBLIC_WRITE_PASSWORD = new byte[2] { 0x95, 0xFF };//写密码
-        public static readonly byte[] CMD_PUBLIC_SIMPLE_SWIT = new byte[2] { 0x20, 0xFF };//简易开关指令，接着数据0表示关，非0表示调光的数值
-        public static readonly byte[] CMD_PUBLIC_SWIT = new byte[2] { 0x22, 0xFF };//开关指令  ，指令的第一个数据 0表示关，1表示开，2表示取反 ,数据的第三位（不能修改）表示开关对像
-        public static readonly byte[] CMD_PUBLIC_SWIT_OPEN = new byte[2] { 0x23, 0xFF };//开指令     
-        public static readonly byte[] CMD_PUBLIC_SWIT_CLOSE = new byte[2] { 0x24, 0xFF };//关指令 
-        public static readonly byte[] CMD_PUBLIC_SWIT_OPEN_CONDITION = new byte[2] { 0x2b, 0xFF };//开指令,只有参数开时才执行
-        public static readonly byte[] CMD_PUBLIC_SWIT_CLOSE_CONDITION = new byte[2] { 0x2c, 0xFF };//关指令,只有参数关时才执行
-        public static readonly byte[] CMD_PUBLIC_SIMPLE_SWIT_NOT = new byte[2] { 0x25, 0xFF };//简易取反指令
-        public static readonly byte[] CMD_PUBLIC_SWIT_NOT = new byte[2] { 0x25, 0xFF };//相反指令	
-        public static readonly byte[] CMD_PUBLIC_INC = new byte[2] { 0x26, 0xFF };//指令加    
-        public static readonly byte[] CMD_PUBLIC_DEC = new byte[2] { 0x27, 0xFF };//指令减    
-        public static readonly byte[] CMD_PUBLIC_VAL = new byte[2] { 0x28, 0xFF };//指定数值，如灯光的亮度，量音的大小
-        public static readonly byte[] CMD_PUBLIC_SIMULATE_KEY = new byte[2] { 0x29, 0xFF };//模拟键盘
-        public static readonly byte[] CMD_PUBLIC_WINDOWS_PLAY = new byte[2] { 0x2a, 0xFF };//门窗播放指令
-        public static readonly byte[] CMD_PUBLIC_SAFETY_STATE = new byte[2] { 0xa0, 0xFF };//安防状态 
-        public static readonly byte[] CMD_PUBLIC_RESET_HOST = new byte[2] { 0xb2, 0xFF };       //复位与主机连接  
-
+        //-------------------设备类型----------------------------
         //设备类型   如果以下无设备的类型则新增
         public const byte EQUIPMENT_KEY = 0x0;          //代表所有的键盘
         public const byte EQUIPMENT_SWIT = 0x1;          //代表所以的开关设备   
@@ -211,9 +128,162 @@ namespace ConfigDevice
         public const byte EQUIPMENT_MOBILE = 0xfc;        //手机
         public const byte EQUIPMENT_SERVER = 0xfd;        //服务器
         public const byte EQUIPMENT_PC = 0xfe;        //PC类型
-        public const byte EQUIPMENT_PUBLIC = 0xff;        //共公类型
+        public const byte EQUIPMENT_PUBLIC = 0xFF;        //共公类型
 
 
+        //-------------------指令分类--------------------
+       public const byte 	CMD_TYPE_PUBLIC     = EQUIPMENT_PUBLIC;           //公共类型
+ public const byte	CMD_TYPE_PC         = EQUIPMENT_PC;              //电脑类型
+	 public const byte CMD_TYPE_SERVER     = EQUIPMENT_SERVER;           //服务器   
+	public const byte CMD_TYPE_SWITCH     = EQUIPMENT_SWIT;        	   //开关
+	public const byte CMD_TYPE_KEY        = EQUIPMENT_KEY;           	   //按键
+	public const byte CMD_TYPE_LOGIC      = EQUIPMENT_LOGIC;             //逻辑
+	public const byte CMD_TYPE_AC         = EQUIPMENT_HVAC_2CH;        //空调
+	public const byte CMD_TYPE_CURTAIN    = EQUIPMENT_CURTAIN_2CH;   //窗帘
+	public const byte CMD_TYPE_PRI        = EQUIPMENT_PRI_3;	 		   //人体感应器	
+	public const byte CMD_TYPE_AMP        = EQUIPMENT_AMP_MP3;           //功放  
+	public const byte CMD_TYPE_WINDOWS    = EQUIPMENT_WINDOWS_2;		   //门窗
+	public const byte CMD_TYPE_IR         = EQUIPMENT_IR_CEIL;           //红外线
+	public const byte CMD_TYPE_DOORBELL   = EQUIPMENT_DOORBELL;          //门铃 
+	public const byte CMD_TYPE_GSM        = EQUIPMENT_GSM;               //GSM网络
+	public const byte CMD_TYPE_MOBILE     = EQUIPMENT_MOBILE;           //手机
+    public const byte CMD_TYPE_PANEL = EQUIPMENT_PANEL;         //通用控制面板
+
+        //--------------------定义设备命令-----------------------------
+        public static readonly byte[] CMD_PUBLIC_START_SEARCH = new byte[] { 0x31, EQUIPMENT_PUBLIC };//----搜索设备命令----
+        public static readonly byte[] CMD_PUBLIC_RET_START_SEARCH = new byte[] { 0x3F, EQUIPMENT_PUBLIC };//----回复确认搜索设备命令----
+        public static readonly byte[] CMD_PUBLIC_WRITE_INF = new byte[] { 0x82, EQUIPMENT_PUBLIC };//----设备基本信息返回命令----
+        public static readonly byte[] CMD_PUBLIC_STOP_SEARCH = new byte[] { 0x32, EQUIPMENT_PUBLIC };//----停止搜索设备----
+        public static readonly byte[] CMD_PUBLIC_READ_VER = new byte[] { 0xB0, EQUIPMENT_PUBLIC };//-----读设备软硬件版本----
+        public static readonly byte[] CMD_PUBLIC_WRITE_VER = new byte[] { 0xB1, EQUIPMENT_PUBLIC };//----写设备软硬件版本----
+        public static readonly byte[] CMD_PUBLIC_ASSIGN_ID = new byte[] { 0x35, EQUIPMENT_PUBLIC };//----修改设备ID----        
+        public static readonly byte[] CMD_PUBLIC_NC1 = new byte[] { 0x00, EQUIPMENT_PUBLIC };//无效指令，上位机不会发送此指令
+        public static readonly byte[] CMD_PUBLIC_NC2 = new byte[] { EQUIPMENT_PUBLIC, EQUIPMENT_PUBLIC };//同上
+        public static readonly byte[] CMD_PUBLIC_NULL = new byte[] { 0x30, EQUIPMENT_PUBLIC };//空指令，但上位机会发送此指令，这个用于上位机临时修改用，下位机要保存此数据        
+        public static readonly byte[] CMD_PUBLIC_ROLLCALL = new byte[] { 0x33, EQUIPMENT_PUBLIC };//设备点名             
+        public static readonly byte[] CMD_PUBLIC_SEARCH_UNROLLCALL = new byte[] { 0x34, EQUIPMENT_PUBLIC };//搜索没点名的设备       
+        public static readonly byte[] CMD_PUBLIC_STOP_READ = new byte[] { 0x36, EQUIPMENT_PUBLIC };//停止读取设备信息 	
+        public static readonly byte[] CMD_PUBLIC_TEST = new byte[] { 0x37, EQUIPMENT_PUBLIC };//设备测试指令  
+        public static readonly byte[] CMD_PUBLIC_UART_LED_ENABLE = new byte[] { 0x38, EQUIPMENT_PUBLIC };//开通度灯
+        public static readonly byte[] CMD_PUBLIC_UART_LED_DISABLE = new byte[] { 0x39, EQUIPMENT_PUBLIC };//关通度灯
+        public static readonly byte[] CMD_PUBLIC_DISCOVER_ENABLE = new byte[] { 0x3a, EQUIPMENT_PUBLIC };//发现设备,通信关亮1分钟，或面板的灯闪1分钟方便调试时找到设备
+        public static readonly byte[] CMD_PUBLIC_DISCOVER_DISABLE = new byte[] { 0x3b, EQUIPMENT_PUBLIC };//关发现设备
+        public static readonly byte[] CMD_PUBLIC_DEL_COMMAND = new byte[] { 0x3d, EQUIPMENT_PUBLIC };//删除指令
+        public static readonly byte[] CMD_PUBLIC_STOP = new byte[] { 0x3e, EQUIPMENT_PUBLIC };//停止读控制信息
+        public static readonly byte[] CMD_PUBLIC_RET_READ_INF = new byte[] { 0x3f, EQUIPMENT_PUBLIC };//回复读信息
+        public static readonly byte[] CMD_PUBLIC_END_READ_INF = new byte[] { 0x40, EQUIPMENT_PUBLIC };//完成配置信息读取
+        public static readonly byte[] CMD_PUBLIC_RET_READ_STATE = new byte[] { 0x41, EQUIPMENT_PUBLIC };//回复读状态
+        public static readonly byte[] CMD_PUBLIC_WRITE_END = new byte[] { 0x43, EQUIPMENT_PUBLIC };//读完成
+        public static readonly byte[] CMD_PUBLIC_END_READ_STATE = new byte[] { 0x44, EQUIPMENT_PUBLIC };//读状态完成
+        public static readonly byte[] CMD_PUBLIC_BROADCAST_PACKET_ID = new byte[] { 0x45, EQUIPMENT_PUBLIC };//广播包号
+        public static readonly byte[] CMD_PUBLIC_APPLY_PACKET = new byte[] { 0x46, EQUIPMENT_PUBLIC };//补包
+        public static readonly byte[] CMD_PUBLIC_ROLLCALL_ONLINE = new byte[] { 0x47, EQUIPMENT_PUBLIC };//点名在线设备
+        public static readonly byte[] CMD_PUBLIC_ONLINE_STATE = new byte[] { 0x48, EQUIPMENT_PUBLIC };//设备在线情况
+        public static readonly byte[] CMD_PUBLIC_ONLINE = new byte[] { 0x49, EQUIPMENT_PUBLIC };//设备上线
+        public static readonly byte[] CMD_PUBLIC_READ_TIME = new byte[] { 0x01, EQUIPMENT_PUBLIC };//读系统时间
+        public static readonly byte[] CMD_PUBLIC_WRITE_TIME = new byte[] { 0x81, EQUIPMENT_PUBLIC };//系统时间        
+        public static readonly byte[] CMD_PUBLIC_READ_INF = new byte[] { 0x02, EQUIPMENT_PUBLIC };//读基本信息         	
+        public static readonly byte[] CMD_PUBLIC_READ_SET_INF = new byte[] { 0x03, EQUIPMENT_PUBLIC };//读取设备信息	    
+        public static readonly byte[] CMD_PUBLIC_READ_NAME = new byte[] { 0x04, EQUIPMENT_PUBLIC };//读设备名称           
+        public static readonly byte[] CMD_PUBLIC_WRITE_NAME = new byte[] { 0x84, EQUIPMENT_PUBLIC };//写设备名称   
+        public static readonly byte[] CMD_PUBLIC_READ_LOOP_NAME = new byte[] { 0x05, EQUIPMENT_PUBLIC };//读回路名称 
+        public static readonly byte[] CMD_PUBLIC_WRITE_LOOP_NAME = new byte[] { 0x85, EQUIPMENT_PUBLIC };//写回路名称	
+        public static readonly byte[] CMD_PUBLIC_READ_APPOINT_MACHINE = new byte[] { 0x06, EQUIPMENT_PUBLIC };//读回指定设备的基本信息，这个是长按状态键，使设备处于返回状态时才有效，按下此按60秒处于有效状态，
+        //当返回后3秒才把状态清，因防止数据转发时出错重发。用CMD_WRITE_INF 返回   
+        public static readonly byte[] CMD_PUBLIC_READ_LOGIC_SEARCH = new byte[] { 0x07, EQUIPMENT_PUBLIC };//逻辑查找指令
+        public static readonly byte[] CMD_PUBLIC_WRITE_LOGIC_SEARCH = new byte[] { 0x87, EQUIPMENT_PUBLIC };//返回逻辑查找指令
+        public static readonly byte[] CMD_PUBLIC_READ_COMPARE_DATA = new byte[] { 0x08, EQUIPMENT_PUBLIC };//读查找比较控制指令
+        public static readonly byte[] CMD_PUBLIC_WRITE_COMPARE_DATA = new byte[] { 0x88, EQUIPMENT_PUBLIC };//写查找比较控制指令
+        public static readonly byte[] CMD_PUBLIC_READ_COMMAND = new byte[] { 0x09, EQUIPMENT_PUBLIC };//读出控制指令
+        public static readonly byte[] CMD_PUBLIC_WRITE_COMMAND = new byte[] { 0x89, EQUIPMENT_PUBLIC };//写入控制指令
+        public static readonly byte[] CMD_PUBLIC_WRITE_NET_ID = new byte[] { 0x8a, EQUIPMENT_PUBLIC };//修改网络ID
+        public static readonly byte[] CMD_PUBLIC_READ_CONFIG = new byte[] { 0x0b, EQUIPMENT_PUBLIC };//读配置信息
+        public static readonly byte[] CMD_PUBLIC_WRITE_CONFIG = new byte[] { 0x8b, EQUIPMENT_PUBLIC };//写配置信息
+        public static readonly byte[] CMD_PUBLIC_READ_STATE = new byte[] { 0x0c, EQUIPMENT_PUBLIC };//读状态信息
+        public static readonly byte[] CMD_PUBLIC_WRITE_STATE = new byte[] { 0x8c, EQUIPMENT_PUBLIC };//写状态	
+        public static readonly byte[] CMD_PUBLIC_READ_SWIT_STATE = new byte[] { 0x0d, EQUIPMENT_PUBLIC };//读开关状态 
+        public static readonly byte[] CMD_PUBLIC_WRITE_SWIT_STATE = new byte[] { 0x8d, EQUIPMENT_PUBLIC };//写开关状态 
+        public static readonly byte[] CMD_PUBLIC_READ_HVAC_STATE = new byte[] { 0x0e, EQUIPMENT_PUBLIC };//读空调状态
+        public static readonly byte[] CMD_PUBLIC_WRITE_HVAC_STATE = new byte[] { 0x8e, EQUIPMENT_PUBLIC };//写空调状态
+        public static readonly byte[] CMD_PUBLIC_READ_CURTAIN_STATE = new byte[] { 0x0f, EQUIPMENT_PUBLIC };//读窗帘状态
+        public static readonly byte[] CMD_PUBLIC_WRITE_CURTAIN_STATE = new byte[] { 0x8f, EQUIPMENT_PUBLIC };//写窗帘状态
+        public static readonly byte[] CMD_PUBLIC_READ_SENSOR_STATE = new byte[] { 0x10, EQUIPMENT_PUBLIC };//读传感器状态
+        public static readonly byte[] CMD_PUBLIC_WRITE_SENSOR_STATE = new byte[] { 0x90, EQUIPMENT_PUBLIC };//写传感器状态
+        public static readonly byte[] CMD_PUBLIC_READ_KB_STATE = new byte[] { 0x11, EQUIPMENT_PUBLIC };//读键盘按状态
+        public static readonly byte[] CMD_PUBLIC_WRITE_KB_STATE = new byte[] { 0x91, EQUIPMENT_PUBLIC };//写键盘按状态
+        public static readonly byte[] CMD_PUBLIC_READ_MULTI = new byte[] { 0x12, EQUIPMENT_PUBLIC };//公共读指令多条返回  
+        public static readonly byte[] CMD_PUBLIC_READ_SINGLE = new byte[] { 0x13, EQUIPMENT_PUBLIC };//公共读指令单条返回
+        public static readonly byte[] CMD_PUBLIC_READ_PLACE_NAME = new byte[] { 0x14, EQUIPMENT_PUBLIC };//读位置名称
+        public static readonly byte[] CMD_PUBLIC_WRITE_PLACE_NAME = new byte[] { 0x94, EQUIPMENT_PUBLIC };//写位置名称
+        public static readonly byte[] CMD_PUBLIC_READ_PASSWORD = new byte[] { 0x15, EQUIPMENT_PUBLIC };//读密码
+        public static readonly byte[] CMD_PUBLIC_WRITE_PASSWORD = new byte[] { 0x95, EQUIPMENT_PUBLIC };//写密码
+        public static readonly byte[] CMD_PUBLIC_SIMPLE_SWIT = new byte[] { 0x20, EQUIPMENT_PUBLIC };//简易开关指令，接着数据0表示关，非0表示调光的数值
+        public static readonly byte[] CMD_PUBLIC_SWIT = new byte[] { 0x22, EQUIPMENT_PUBLIC };//开关指令  ，指令的第一个数据 0表示关，1表示开，2表示取反 ,数据的第三位（不能修改）表示开关对像
+        public static readonly byte[] CMD_PUBLIC_SWIT_OPEN = new byte[] { 0x23, EQUIPMENT_PUBLIC };//开指令     
+        public static readonly byte[] CMD_PUBLIC_SWIT_CLOSE = new byte[] { 0x24, EQUIPMENT_PUBLIC };//关指令 
+        public static readonly byte[] CMD_PUBLIC_SWIT_OPEN_CONDITION = new byte[] { 0x2b, EQUIPMENT_PUBLIC };//开指令,只有参数开时才执行
+        public static readonly byte[] CMD_PUBLIC_SWIT_CLOSE_CONDITION = new byte[] { 0x2c, EQUIPMENT_PUBLIC };//关指令,只有参数关时才执行
+        public static readonly byte[] CMD_PUBLIC_SIMPLE_SWIT_NOT = new byte[] { 0x25, EQUIPMENT_PUBLIC };//简易取反指令
+        public static readonly byte[] CMD_PUBLIC_SWIT_NOT = new byte[] { 0x25, EQUIPMENT_PUBLIC };//相反指令	
+        public static readonly byte[] CMD_PUBLIC_INC = new byte[] { 0x26, EQUIPMENT_PUBLIC };//指令加    
+        public static readonly byte[] CMD_PUBLIC_DEC = new byte[] { 0x27, EQUIPMENT_PUBLIC };//指令减    
+        public static readonly byte[] CMD_PUBLIC_VAL = new byte[] { 0x28, EQUIPMENT_PUBLIC };//指定数值，如灯光的亮度，量音的大小
+        public static readonly byte[] CMD_PUBLIC_SIMULATE_KEY = new byte[] { 0x29, EQUIPMENT_PUBLIC };//模拟键盘
+        public static readonly byte[] CMD_PUBLIC_WINDOWS_PLAY = new byte[] { 0x2a, EQUIPMENT_PUBLIC };//门窗播放指令
+        public static readonly byte[] CMD_PUBLIC_SAFETY_STATE = new byte[] { 0xa0, EQUIPMENT_PUBLIC };//安防状态 
+        public static readonly byte[] CMD_PUBLIC_RESET_HOST = new byte[] { 0xb2, EQUIPMENT_PUBLIC };       //复位与主机连接  
+
+
+/*
+enum  //继电器，调光器指令  CMD_TYPE_SWITCH,电机
+{
+	CMD_SW_READ_GROUP_NAME 				= ((CMD_TYPE_SWITCH << 8) | 0x01)           ,//读分组名称    
+	CMD_SW_WRITE_GROUP_NAME             = ((CMD_TYPE_SWITCH << 8) | 0x81)           ,//写分组名称     
+	CMD_SW_READ_SCENE_NAME              = ((CMD_TYPE_SWITCH << 8) | 0x02) 			,//读场景名称    
+	CMD_SW_WRITE_SCENE_NAME             = ((CMD_TYPE_SWITCH << 8) | 0x82) 			,//写场景名称     
+	CMD_SW_READ_LIST_NAME               = ((CMD_TYPE_SWITCH << 8) | 0x03) 			,//读时序名称    
+	CMD_SW_WRITE_LIST_NAME              = ((CMD_TYPE_SWITCH << 8) | 0x83) 			,//写时序名称     
+	CMD_SW_READ_GROUP_INF               = ((CMD_TYPE_SWITCH << 8) | 0x04) 			,//读分组信息    
+	CMD_SW_WRITE_GROUP_INF              = ((CMD_TYPE_SWITCH << 8) | 0x84) 			,//写分组信息    
+	CMD_SW_READ_SCENE_INF               = ((CMD_TYPE_SWITCH << 8) | 0x05) 			,//读场景信息    
+	CMD_SW_WRITE_SCENE_INF              = ((CMD_TYPE_SWITCH << 8) | 0x85)  			,//写场景信息    
+	CMD_SW_READ_LIST_INF                = ((CMD_TYPE_SWITCH << 8) | 0x06) 			,//读时序信息    
+	CMD_SW_WRITE_LIST_INF               = ((CMD_TYPE_SWITCH << 8) | 0x86) 			,//写时序信息    
+	CMD_SW_READ_SWIT_PROCE              = ((CMD_TYPE_SWITCH << 8) | 0x07) 			,//读回路控制过程序参数
+	CMD_SW_WRITE_SWIT_PROCE             = ((CMD_TYPE_SWITCH << 8) | 0x87) 			,//写回路控制过程序参数
+	CMD_SW_READ_SWIT_VOLTAGE            = ((CMD_TYPE_SWITCH << 8) | 0x08) 			,//读回路电压
+	CMD_SW_WRITE_SWIT_VOLTAGE           = ((CMD_TYPE_SWITCH << 8) | 0x88) 			,//写回路电压 	
+	CMD_SW_READ_SWIT_CURRENT            = ((CMD_TYPE_SWITCH << 8) | 0x09) 			,//读回路电流
+	CMD_SW_WRITE_SWIT_CURRENT           = ((CMD_TYPE_SWITCH << 8) | 0x89) 			,//写回路电流
+	CMD_SW_READ_SWIT_POWER              = ((CMD_TYPE_SWITCH << 8) | 0x0a)  			,//读回路功率
+	CMD_SW_WRITE_SWIT_POWER             = ((CMD_TYPE_SWITCH << 8) | 0x8a)  			,//写回路功率
+	CMD_SW_READ_POWER_ON_RESUME		    = ((CMD_TYPE_SWITCH << 8) | 0x0b)  			,//读回路上电设置状态
+	CMD_SW_WRITE_POWER_ON_RESUME		= ((CMD_TYPE_SWITCH << 8) | 0x8b)  			,//写回路上电设置状态
+
+	CMD_SW_SWIT_LOOP		            = ((CMD_TYPE_SWITCH << 8) | 0x20)  			,//回路开关
+	CMD_SW_SWIT_LOOP_OPEN	            = ((CMD_TYPE_SWITCH << 8) | 0x21)  			,//回路开
+	CMD_SW_SWIT_LOOP_CLOSE	            = ((CMD_TYPE_SWITCH << 8) | 0x22)  			,//回路关
+	CMD_SW_SWIT_LOOP_NOT	            = ((CMD_TYPE_SWITCH << 8) | 0x23)  			,//回路取反
+	CMD_SW_SWIT_LOOP_OPEN_CONDITION     = ((CMD_TYPE_SWITCH << 8) | 0x30)  			,//回路带条件开
+	CMD_SW_SWIT_LOOP_CLOSE_CONDITION    = ((CMD_TYPE_SWITCH << 8) | 0x31)  			,//回路带条件关
+
+	CMD_SW_SWIT_SCENE		            = ((CMD_TYPE_SWITCH << 8) | 0x24)  			,//场景开关
+	CMD_SW_SWIT_SCENE_OPEN	            = ((CMD_TYPE_SWITCH << 8) | 0x25)  			,//场景开
+	CMD_SW_SWIT_SCENE_CLOSE	            = ((CMD_TYPE_SWITCH << 8) | 0x26)  			,//场景关
+	CMD_SW_SWIT_SCENE_NOT	            = ((CMD_TYPE_SWITCH << 8) | 0x27)  			,//场景取反
+
+	CMD_SW_SWIT_LIST		            = ((CMD_TYPE_SWITCH << 8) | 0x28)  			,//时序开关
+	CMD_SW_SWIT_LIST_OPEN	            = ((CMD_TYPE_SWITCH << 8) | 0x29)  			,//时序开
+	CMD_SW_SWIT_LIST_CLOSE	            = ((CMD_TYPE_SWITCH << 8) | 0x2a)  			,//时序关
+	CMD_SW_SWIT_LIST_NOT	            = ((CMD_TYPE_SWITCH << 8) | 0x2b)  			,//时序取反
+
+	CMD_SW_SWIT_ALL		           		= ((CMD_TYPE_SWITCH << 8) | 0x2c)  			,//全部开关
+	CMD_SW_SWIT_ALL_OPEN	            = ((CMD_TYPE_SWITCH << 8) | 0x2d)  			,//全部开
+	CMD_SW_SWIT_ALL_CLOSE	            = ((CMD_TYPE_SWITCH << 8) | 0x2e)  			,//全部关
+
+	CMD_SW_TEST_LOOP					= ((CMD_TYPE_SWITCH << 8) | 0x2f)  			,//回路测试
+};
+*/
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
         static DeviceConfig()//---静态构造函数------
         {

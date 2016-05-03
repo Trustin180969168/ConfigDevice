@@ -137,6 +137,7 @@ namespace ConfigDevice
     //     用于保存系统配置
     public static class SysConfig
     {
+
         public static DataTable DtNetwork = new DataTable("Network");//-----网络列表-----
         public static DataTable DtDevice = new DataTable("Device");//-----设备列表-----
         public static Dictionary<string, NetworkData> ListNetworks = new Dictionary<string, NetworkData>();//-----登记网络-----   

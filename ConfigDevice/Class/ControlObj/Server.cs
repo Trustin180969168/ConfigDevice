@@ -7,10 +7,15 @@ namespace ConfigDevice
 
     public class Server : ControlObj
     {
-        public Server()
+        public Server(DeviceData _deviceCtrl)
         {
             Name = "服务器";
+            deviceControled = _deviceCtrl;
         }
+
+
+
+
     }
 
 

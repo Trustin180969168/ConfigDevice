@@ -12,6 +12,7 @@ namespace ConfigDevice
     {
         public FrmWeatherStation(DeviceData _device):base(_device)
         {
+        
         }
 
  

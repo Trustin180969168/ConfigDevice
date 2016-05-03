@@ -7,10 +7,14 @@ namespace ConfigDevice
 
     public class Scene : ControlObj
     {
-        public Scene()
+        public Scene(DeviceData _deviceCtrl)
         {
             Name = "场景";
+            deviceControled = _deviceCtrl;
         }
+
+
+
     }
 
 

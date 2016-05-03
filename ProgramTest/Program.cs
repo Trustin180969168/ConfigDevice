@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
+
+
 namespace ProgramTest
 {
-
+        enum Command
+        {
+            CMD_PUBLIC_NC1 = ((0 << 8) | 0x85)
+        }
     class Program
     {
         //响应处理方法  
@@ -17,7 +22,9 @@ namespace ProgramTest
         private static void MyButton_Click2(string msg)
         {
             Console.Out.WriteLine("MyButton_Click2" + msg);
-        }  
+        }
+
+
 
         static void Main(string[] args)
         {
@@ -61,6 +68,14 @@ namespace ProgramTest
             Console.Read();
              
              */
+
+
+            byte CMD_TYPE_KEY = 0;
+            UInt16	CMD_KB_WRITE_PASSWORD_PAGE = (UInt16)((CMD_TYPE_KEY << 8) | 0x84);//写密码页面设置   
+
+      //      Console.Out.WriteLine(ConvertTools.ByteToHexStr( BitConverter.GetBytes( CMD_KB_WRITE_PASSWORD_PAGE)));
+            Console.Out.WriteLine(ConvertTools.ByteToHexStr(BitConverter.GetBytes((UInt16)Command.CMD_PUBLIC_NC1)));
+            Console.Read();
 
         } 
     }

@@ -30,6 +30,8 @@
         {
             this.gcDevices = new DevExpress.XtraGrid.GridControl();
             this.gvDevices = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.del = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.xh = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceNetworkID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -43,14 +45,12 @@
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cbxObj = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
-            this.del = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cbxCommandKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.tedtTime = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxObj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxObj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCommandKind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tedtTime)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +68,7 @@
             this.linkEdit,
             this.cbxCommandKind,
             this.tedtTime});
-            this.gcDevices.Size = new System.Drawing.Size(1000, 270);
+            this.gcDevices.Size = new System.Drawing.Size(1000, 244);
             this.gcDevices.TabIndex = 8;
             this.gcDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDevices});
@@ -99,6 +99,25 @@
             this.gvDevices.OptionsView.ShowGroupPanel = false;
             this.gvDevices.OptionsView.ShowIndicator = false;
             this.gvDevices.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
+            // 
+            // del
+            // 
+            this.del.ColumnEdit = this.linkEdit;
+            this.del.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.del.Name = "del";
+            this.del.Visible = true;
+            this.del.VisibleIndex = 0;
+            this.del.Width = 32;
+            // 
+            // linkEdit
+            // 
+            this.linkEdit.AutoHeight = false;
+            this.linkEdit.Image = global::ConfigDevice.Properties.Resources.del1;
+            this.linkEdit.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.linkEdit.Name = "linkEdit";
+            this.linkEdit.NullText = "1";
+            this.linkEdit.ReadOnly = true;
+            this.linkEdit.Click += new System.EventHandler(this.linkEdit_Click);
             // 
             // xh
             // 
@@ -292,25 +311,6 @@
             this.cbxObj.Name = "cbxObj";
             this.cbxObj.SelectedIndexChanged += new System.EventHandler(this.cbxBox_SelectedIndexChanged);
             // 
-            // linkEdit
-            // 
-            this.linkEdit.AutoHeight = false;
-            this.linkEdit.Image = global::ConfigDevice.Properties.Resources.del1;
-            this.linkEdit.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.linkEdit.Name = "linkEdit";
-            this.linkEdit.NullText = "1";
-            this.linkEdit.ReadOnly = true;
-            this.linkEdit.Click += new System.EventHandler(this.linkEdit_Click);
-            // 
-            // del
-            // 
-            this.del.ColumnEdit = this.linkEdit;
-            this.del.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.del.Name = "del";
-            this.del.Visible = true;
-            this.del.VisibleIndex = 0;
-            this.del.Width = 32;
-            // 
             // cbxCommandKind
             // 
             this.cbxCommandKind.AutoHeight = false;
@@ -332,11 +332,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gcDevices);
             this.Name = "ViewCommandTools";
-            this.Size = new System.Drawing.Size(1000, 270);
+            this.Size = new System.Drawing.Size(1000, 244);
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxObj)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxObj)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCommandKind)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tedtTime)).EndInit();
             this.ResumeLayout(false);

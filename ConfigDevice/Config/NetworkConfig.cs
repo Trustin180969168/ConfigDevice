@@ -14,20 +14,20 @@ namespace ConfigDevice
 
     public class NetworkConfig
     {
-        public static readonly byte[] CMD_PC_SEARCH = new byte[2] { 0x01, 0xFE };       //----搜索网络命令----
-        public static readonly byte[] CMD_PC_CONNECT = new byte[2] { 0x30, 0xFE };      //----链接网络命令---
-        public static readonly byte[] CMD_PC_CONNECT_ACK = new byte[2] { 0xB0, 0xFE };  //----允许连接命令----
-        public static readonly byte[] CMD_PC_CONNECTING = new byte[2] { 0x31, 0xFE };   //----RJ45或主机主动刷新连接命令----
-        public static readonly byte[] CMD_PC_DISCONNECT = new byte[2] { 0x32, 0xFE };   //----PC主动断开连接命令----
-        public static readonly byte[] CMD_PC_SEARCH_ACK = new byte[2] { 0x81, 0xFE };   //2. <RJ45-PC> RJ45上报基本信息
-        public static readonly byte[] CMD_PC_CHANGEPASSWORD = new byte[2] { 0x02, 0xFE };   //3. <PC-RJ45> 修改RJ45密码
-        public static readonly byte[] CMD_PC_CHANGEPASSWORD_ACK = new byte[2] { 0x82, 0xFE };//4. <RJ45-PC> 回应修改RJ45密码结果
-        public static readonly byte[] CMD_PC_CHANGENET = new byte[2] { 0x03, 0xFE };        //5. <PC-RJ45> 修改RJ45网络参数
-        public static readonly byte[] CMD_PC_CHANGENET_ACK = new byte[2] { 0x83, 0xFE };    //6. <RJ45-PC> 回应PC修改RJ45网络参数结果
-        public static readonly byte[] CMD_PC_CHANGENAME = new byte[2] { 0x04, 0xFE };       //7. <PC-RJ45> 修改RJ45设备名称
-        public static readonly byte[] CMD_PC_CHANGENAME_ACK = new byte[2] { 0x84, 0xFE };   //8. <RJ45-PC> 回应PC修改RJ45设备名称结果
-        public static readonly byte[] CMD_PC_READ_LOCALL_NAME = new byte[2] { 0x05, 0xFE }; //14.<PC-RJ45> 读位置名称
-        public static readonly byte[] CMD_PC_WRITE_LOCALL_NAME = new byte[2] { 0x85, 0xFE };//14.<RJ45-PC> 写位置名称
+        public static readonly byte[] CMD_PC_SEARCH = new byte[] { 0x01, DeviceConfig.EQUIPMENT_PC };       //----搜索网络命令----
+        public static readonly byte[] CMD_PC_CONNECT = new byte[] { 0x30, DeviceConfig.EQUIPMENT_PC };      //----链接网络命令---
+        public static readonly byte[] CMD_PC_CONNECT_ACK = new byte[] { 0xB0, DeviceConfig.EQUIPMENT_PC };  //----允许连接命令----
+        public static readonly byte[] CMD_PC_CONNECTING = new byte[] { 0x31, DeviceConfig.EQUIPMENT_PC };   //----RJ45或主机主动刷新连接命令----
+        public static readonly byte[] CMD_PC_DISCONNECT = new byte[] { 0x32, DeviceConfig.EQUIPMENT_PC };   //----PC主动断开连接命令----
+        public static readonly byte[] CMD_PC_SEARCH_ACK = new byte[] { 0x81, DeviceConfig.EQUIPMENT_PC };   //2. <RJ45-PC> RJ45上报基本信息
+        public static readonly byte[] CMD_PC_CHANGEPASSWORD = new byte[] { 0x02, DeviceConfig.EQUIPMENT_PC };   //3. <PC-RJ45> 修改RJ45密码
+        public static readonly byte[] CMD_PC_CHANGEPASSWORD_ACK = new byte[] { 0x82, DeviceConfig.EQUIPMENT_PC };//4. <RJ45-PC> 回应修改RJ45密码结果
+        public static readonly byte[] CMD_PC_CHANGENET = new byte[] { 0x03, DeviceConfig.EQUIPMENT_PC };        //5. <PC-RJ45> 修改RJ45网络参数
+        public static readonly byte[] CMD_PC_CHANGENET_ACK = new byte[] { 0x83, DeviceConfig.EQUIPMENT_PC };    //6. <RJ45-PC> 回应PC修改RJ45网络参数结果
+        public static readonly byte[] CMD_PC_CHANGENAME = new byte[] { 0x04, DeviceConfig.EQUIPMENT_PC };       //7. <PC-RJ45> 修改RJ45设备名称
+        public static readonly byte[] CMD_PC_CHANGENAME_ACK = new byte[] { 0x84, DeviceConfig.EQUIPMENT_PC };   //8. <RJ45-PC> 回应PC修改RJ45设备名称结果
+        public static readonly byte[] CMD_PC_READ_LOCALL_NAME = new byte[] { 0x05, DeviceConfig.EQUIPMENT_PC }; //14.<PC-RJ45> 读位置名称
+        public static readonly byte[] CMD_PC_WRITE_LOCALL_NAME = new byte[] { 0x85, DeviceConfig.EQUIPMENT_PC };//14.<RJ45-PC> 写位置名称
 
 
         //------定义全局对应--------

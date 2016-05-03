@@ -7,10 +7,12 @@ namespace ConfigDevice
 
     public class Motor : ControlObj
     {
-        public Motor()
+        public Motor(DeviceData _deviceCtrl)
         {
             Name = "电机";
+            deviceControled = _deviceCtrl;
         }
+
     }
 
 

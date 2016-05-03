@@ -6,9 +6,11 @@ namespace ConfigDevice
 {
     public abstract class ControlObj
     {
-        public string Name = "";//控制对象名称
+        public string Name = "";//控制对象名称    
+        protected DeviceData deviceControled;//控制设备
 
     }
+  
 
 
 }

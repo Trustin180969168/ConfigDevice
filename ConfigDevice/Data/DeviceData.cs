@@ -22,7 +22,7 @@ namespace ConfigDevice
         public string NetworkIP = "";//设备通讯IP地址
         public string AddressName = "";//设备地址
         public byte[] AddressID;//设备地址ID
-
+        public List<ControlObj> ContrlObjs = new List<ControlObj>();//控制对象列表
 
         public byte BytePCAddress { get { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; } }
         public byte ByteDeviceID { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }

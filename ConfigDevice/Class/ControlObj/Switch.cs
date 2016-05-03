@@ -7,10 +7,13 @@ namespace ConfigDevice
 
     public class Switch : ControlObj
     {
-        public Switch()
+        public Switch(DeviceData _deviceCtrl)
         {
             Name = "全部";
+            deviceControled = _deviceCtrl;
         }
+
+ 
     }
 
 

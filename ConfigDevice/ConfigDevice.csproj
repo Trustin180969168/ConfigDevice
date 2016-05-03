@@ -66,12 +66,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\ICommandData.cs" />
-    <Compile Include="Class\DoorInput4.cs">
+    <Compile Include="Class\Devices\DoorInput4.cs">
     </Compile>
     <Compile Include="Class\FactoryDevice.cs" />
     <Compile Include="Class\NetworkCtrl.cs" />
-    <Compile Include="Class\BaseDevice.cs" />
+    <Compile Include="Class\Devices\BaseDevice.cs" />
     <Compile Include="Data\DeviceData.cs" />
     <Compile Include="Common\ThreadActionTimer.cs">
     </Compile>
@@ -299,19 +298,29 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
+    <Content Include="Config\SmartLight.h" />
+    <Compile Include="Class\Devices\Road4Relay.cs" />
+    <Compile Include="Class\Devices\Road6FrontDimming.cs" />
+    <Compile Include="Class\Devices\Road8FrontDimming.cs" />
     <None Include="Resources\del1.png" />
-    <Compile Include="Class\Command\ViewCircuitCommand.cs" />
-    <Compile Include="Class\Command\Commands.cs" />
-    <Compile Include="Class\Command\ViewCommand.cs" />
-    <Compile Include="Class\Compose\Background.cs" />
-    <Compile Include="Class\Compose\Circuit.cs" />
-    <Compile Include="Class\Compose\ControlObj.cs" />
-    <Compile Include="Class\Compose\Messages.cs" />
-    <Compile Include="Class\Compose\Motor.cs" />
-    <Compile Include="Class\Compose\Scene.cs" />
-    <Compile Include="Class\Compose\Server.cs" />
-    <Compile Include="Class\Compose\Switch.cs" />
-    <Compile Include="Class\Compose\Timing.cs" />
+    <Compile Include="Class\ViewControl\ViewCircuitControl.cs" />
+    <Compile Include="Class\FactoryViewControl.cs" />
+    <Compile Include="Class\Devices\Road8Relay.cs" />
+    <Compile Include="Class\Devices\Road3Window.cs" />
+    <Compile Include="Class\Devices\Amplifier.cs" />
+    <Compile Include="Class\Devices\Servers.cs" />
+    <Compile Include="Data\CommandData.cs" />
+    <Compile Include="Class\ViewControl\ViewControl.cs" />
+    <Compile Include="Class\ViewControl\ViewMotorControl.cs" />
+    <Compile Include="Class\ControlObj\Background.cs" />
+    <Compile Include="Class\ControlObj\Circuit.cs" />
+    <Compile Include="Class\ControlObj\ControlObj.cs" />
+    <Compile Include="Class\ControlObj\Messages.cs" />
+    <Compile Include="Class\ControlObj\Motor.cs" />
+    <Compile Include="Class\ControlObj\Scene.cs" />
+    <Compile Include="Class\ControlObj\Server.cs" />
+    <Compile Include="Class\ControlObj\Switch.cs" />
+    <Compile Include="Class\ControlObj\Timing.cs" />
     <Compile Include="DeviceUI\UCtrlCommandEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -7,11 +7,15 @@ namespace ConfigDevice
 
     public class Timing : ControlObj
     {
-        public Timing()
+        public Timing(DeviceData _deviceCtrl)
         {
             Name = "时序";
+            deviceControled = _deviceCtrl;
         }
+
+
     }
+
 
 
 
