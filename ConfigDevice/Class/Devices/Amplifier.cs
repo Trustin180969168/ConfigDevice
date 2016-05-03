@@ -26,8 +26,8 @@ namespace ConfigDevice
         /// </summary>
         private void initControlObjs()
         {
-            ContrlObjs.Add(new Background(this));
-            ContrlObjs.Add(new Messages(this));
+            ContrlObjs.Add("背景",new Background(this));
+            ContrlObjs.Add("消息",new Messages(this));
         }
 
     }

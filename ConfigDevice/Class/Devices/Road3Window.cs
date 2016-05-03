@@ -26,7 +26,7 @@ namespace ConfigDevice
         /// </summary>
         private void initControlObjs()
         {
-            ContrlObjs.Add(new Motor(this));
+            ContrlObjs.Add("电机",new Motor(this));
         }
 
     }

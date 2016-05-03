@@ -26,7 +26,7 @@ namespace ConfigDevice
         /// </summary>
         private void initControlObjs()
         {
-            ContrlObjs.Add(new Server(this));
+            ContrlObjs.Add("服务器",new Server(this));
         }
 
     }
