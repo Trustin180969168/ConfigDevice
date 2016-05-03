@@ -31,7 +31,6 @@ namespace ConfigDevice
             ContrlObjs.Add(new Scene(this));
             ContrlObjs.Add(new Timing(this));
             ContrlObjs.Add(new Switch(this));
-            ContrlObjs.Add(new Motor(this));
         }
 
     }

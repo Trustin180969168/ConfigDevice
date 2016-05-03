@@ -74,7 +74,7 @@ namespace ConfigDevice
         /// </summary>
         private void btNetworkSearch_Click(object sender, EventArgs e)
         {
-            pw = new PleaseWait(1);//---时间不可控,显示2秒---
+            pw = new PleaseWait(0);//---时间不可控,显示1秒---
             pw.Show(this);
             Action searchAction = new Action(networkCtrl.SearchNetworks);
             searchAction.BeginInvoke(null, null);

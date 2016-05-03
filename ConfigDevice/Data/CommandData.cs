@@ -24,6 +24,23 @@ namespace ConfigDevice
             Name = _name;
         }
 
+        /// <summary>
+        /// 获取指令字节
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetValue()
+        {
+            byte[] All = new byte[36];
+            All[0] = TargetId;
+            All[1] = TargetNet;
+            All[2] = TargetType;
+            Buffer.BlockCopy(Cmd, 0, All, 3, 2);
+            All[5] = Len;
+            Buffer.BlockCopy(Data, 0, All, 6, 30);
+
+            return All;
+        }
+
     }
 
 

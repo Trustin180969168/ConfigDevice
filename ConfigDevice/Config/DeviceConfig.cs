@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ConfigDevice
-{   
+{
     public class DeviceConfig
     {
         public static readonly byte[] ControlDevice = new byte[] { EQUIPMENT_SWIT_8, EQUIPMENT_SWIT_4, EQUIPMENT_TRAILING_6, 
@@ -132,22 +132,22 @@ namespace ConfigDevice
 
 
         //-------------------指令分类--------------------
-       public const byte 	CMD_TYPE_PUBLIC     = EQUIPMENT_PUBLIC;           //公共类型
- public const byte	CMD_TYPE_PC         = EQUIPMENT_PC;              //电脑类型
-	 public const byte CMD_TYPE_SERVER     = EQUIPMENT_SERVER;           //服务器   
-	public const byte CMD_TYPE_SWITCH     = EQUIPMENT_SWIT;        	   //开关
-	public const byte CMD_TYPE_KEY        = EQUIPMENT_KEY;           	   //按键
-	public const byte CMD_TYPE_LOGIC      = EQUIPMENT_LOGIC;             //逻辑
-	public const byte CMD_TYPE_AC         = EQUIPMENT_HVAC_2CH;        //空调
-	public const byte CMD_TYPE_CURTAIN    = EQUIPMENT_CURTAIN_2CH;   //窗帘
-	public const byte CMD_TYPE_PRI        = EQUIPMENT_PRI_3;	 		   //人体感应器	
-	public const byte CMD_TYPE_AMP        = EQUIPMENT_AMP_MP3;           //功放  
-	public const byte CMD_TYPE_WINDOWS    = EQUIPMENT_WINDOWS_2;		   //门窗
-	public const byte CMD_TYPE_IR         = EQUIPMENT_IR_CEIL;           //红外线
-	public const byte CMD_TYPE_DOORBELL   = EQUIPMENT_DOORBELL;          //门铃 
-	public const byte CMD_TYPE_GSM        = EQUIPMENT_GSM;               //GSM网络
-	public const byte CMD_TYPE_MOBILE     = EQUIPMENT_MOBILE;           //手机
-    public const byte CMD_TYPE_PANEL = EQUIPMENT_PANEL;         //通用控制面板
+        public const byte CMD_TYPE_PUBLIC = EQUIPMENT_PUBLIC;           //公共类型
+        public const byte CMD_TYPE_PC = EQUIPMENT_PC;              //电脑类型
+        public const byte CMD_TYPE_SERVER = EQUIPMENT_SERVER;           //服务器   
+        public const byte CMD_TYPE_SWITCH = EQUIPMENT_SWIT;        	   //开关
+        public const byte CMD_TYPE_KEY = EQUIPMENT_KEY;           	   //按键
+        public const byte CMD_TYPE_LOGIC = EQUIPMENT_LOGIC;             //逻辑
+        public const byte CMD_TYPE_AC = EQUIPMENT_HVAC_2CH;        //空调
+        public const byte CMD_TYPE_CURTAIN = EQUIPMENT_CURTAIN_2CH;   //窗帘
+        public const byte CMD_TYPE_PRI = EQUIPMENT_PRI_3;	 		   //人体感应器	
+        public const byte CMD_TYPE_AMP = EQUIPMENT_AMP_MP3;           //功放  
+        public const byte CMD_TYPE_WINDOWS = EQUIPMENT_WINDOWS_2;		   //门窗
+        public const byte CMD_TYPE_IR = EQUIPMENT_IR_CEIL;           //红外线
+        public const byte CMD_TYPE_DOORBELL = EQUIPMENT_DOORBELL;          //门铃 
+        public const byte CMD_TYPE_GSM = EQUIPMENT_GSM;               //GSM网络
+        public const byte CMD_TYPE_MOBILE = EQUIPMENT_MOBILE;           //手机
+        public const byte CMD_TYPE_PANEL = EQUIPMENT_PANEL;         //通用控制面板
 
         //--------------------定义设备命令-----------------------------
         public static readonly byte[] CMD_PUBLIC_START_SEARCH = new byte[] { 0x31, EQUIPMENT_PUBLIC };//----搜索设备命令----
@@ -234,56 +234,55 @@ namespace ConfigDevice
         public static readonly byte[] CMD_PUBLIC_RESET_HOST = new byte[] { 0xb2, EQUIPMENT_PUBLIC };       //复位与主机连接  
 
 
-/*
-enum  //继电器，调光器指令  CMD_TYPE_SWITCH,电机
-{
-	CMD_SW_READ_GROUP_NAME 				= ((CMD_TYPE_SWITCH << 8) | 0x01)           ,//读分组名称    
-	CMD_SW_WRITE_GROUP_NAME             = ((CMD_TYPE_SWITCH << 8) | 0x81)           ,//写分组名称     
-	CMD_SW_READ_SCENE_NAME              = ((CMD_TYPE_SWITCH << 8) | 0x02) 			,//读场景名称    
-	CMD_SW_WRITE_SCENE_NAME             = ((CMD_TYPE_SWITCH << 8) | 0x82) 			,//写场景名称     
-	CMD_SW_READ_LIST_NAME               = ((CMD_TYPE_SWITCH << 8) | 0x03) 			,//读时序名称    
-	CMD_SW_WRITE_LIST_NAME              = ((CMD_TYPE_SWITCH << 8) | 0x83) 			,//写时序名称     
-	CMD_SW_READ_GROUP_INF               = ((CMD_TYPE_SWITCH << 8) | 0x04) 			,//读分组信息    
-	CMD_SW_WRITE_GROUP_INF              = ((CMD_TYPE_SWITCH << 8) | 0x84) 			,//写分组信息    
-	CMD_SW_READ_SCENE_INF               = ((CMD_TYPE_SWITCH << 8) | 0x05) 			,//读场景信息    
-	CMD_SW_WRITE_SCENE_INF              = ((CMD_TYPE_SWITCH << 8) | 0x85)  			,//写场景信息    
-	CMD_SW_READ_LIST_INF                = ((CMD_TYPE_SWITCH << 8) | 0x06) 			,//读时序信息    
-	CMD_SW_WRITE_LIST_INF               = ((CMD_TYPE_SWITCH << 8) | 0x86) 			,//写时序信息    
-	CMD_SW_READ_SWIT_PROCE              = ((CMD_TYPE_SWITCH << 8) | 0x07) 			,//读回路控制过程序参数
-	CMD_SW_WRITE_SWIT_PROCE             = ((CMD_TYPE_SWITCH << 8) | 0x87) 			,//写回路控制过程序参数
-	CMD_SW_READ_SWIT_VOLTAGE            = ((CMD_TYPE_SWITCH << 8) | 0x08) 			,//读回路电压
-	CMD_SW_WRITE_SWIT_VOLTAGE           = ((CMD_TYPE_SWITCH << 8) | 0x88) 			,//写回路电压 	
-	CMD_SW_READ_SWIT_CURRENT            = ((CMD_TYPE_SWITCH << 8) | 0x09) 			,//读回路电流
-	CMD_SW_WRITE_SWIT_CURRENT           = ((CMD_TYPE_SWITCH << 8) | 0x89) 			,//写回路电流
-	CMD_SW_READ_SWIT_POWER              = ((CMD_TYPE_SWITCH << 8) | 0x0a)  			,//读回路功率
-	CMD_SW_WRITE_SWIT_POWER             = ((CMD_TYPE_SWITCH << 8) | 0x8a)  			,//写回路功率
-	CMD_SW_READ_POWER_ON_RESUME		    = ((CMD_TYPE_SWITCH << 8) | 0x0b)  			,//读回路上电设置状态
-	CMD_SW_WRITE_POWER_ON_RESUME		= ((CMD_TYPE_SWITCH << 8) | 0x8b)  			,//写回路上电设置状态
 
-	CMD_SW_SWIT_LOOP		            = ((CMD_TYPE_SWITCH << 8) | 0x20)  			,//回路开关
-	CMD_SW_SWIT_LOOP_OPEN	            = ((CMD_TYPE_SWITCH << 8) | 0x21)  			,//回路开
-	CMD_SW_SWIT_LOOP_CLOSE	            = ((CMD_TYPE_SWITCH << 8) | 0x22)  			,//回路关
-	CMD_SW_SWIT_LOOP_NOT	            = ((CMD_TYPE_SWITCH << 8) | 0x23)  			,//回路取反
-	CMD_SW_SWIT_LOOP_OPEN_CONDITION     = ((CMD_TYPE_SWITCH << 8) | 0x30)  			,//回路带条件开
-	CMD_SW_SWIT_LOOP_CLOSE_CONDITION    = ((CMD_TYPE_SWITCH << 8) | 0x31)  			,//回路带条件关
+        //继电器，调光器指令  CMD_TYPE_SWITCH,电机
 
-	CMD_SW_SWIT_SCENE		            = ((CMD_TYPE_SWITCH << 8) | 0x24)  			,//场景开关
-	CMD_SW_SWIT_SCENE_OPEN	            = ((CMD_TYPE_SWITCH << 8) | 0x25)  			,//场景开
-	CMD_SW_SWIT_SCENE_CLOSE	            = ((CMD_TYPE_SWITCH << 8) | 0x26)  			,//场景关
-	CMD_SW_SWIT_SCENE_NOT	            = ((CMD_TYPE_SWITCH << 8) | 0x27)  			,//场景取反
+        public static readonly byte[] CMD_SW_READ_GROUP_NAME = new byte[] { 0x01, CMD_TYPE_SWITCH };//读分组名称    
+        public static readonly byte[] CMD_SW_WRITE_GROUP_NAME = new byte[] { 0x81, CMD_TYPE_SWITCH };//写分组名称     
+        public static readonly byte[] CMD_SW_READ_SCENE_NAME = new byte[] { 0x02, CMD_TYPE_SWITCH };//读场景名称    
+        public static readonly byte[] CMD_SW_WRITE_SCENE_NAME = new byte[] { 0x82, CMD_TYPE_SWITCH };//写场景名称     
+        public static readonly byte[] CMD_SW_READ_LIST_NAME = new byte[] { 0x03, CMD_TYPE_SWITCH };//读时序名称    
+        public static readonly byte[] CMD_SW_WRITE_LIST_NAME = new byte[] { 0x83, CMD_TYPE_SWITCH };//写时序名称     
+        public static readonly byte[] CMD_SW_READ_GROUP_INF = new byte[] { 0x04, CMD_TYPE_SWITCH };//读分组信息    
+        public static readonly byte[] CMD_SW_WRITE_GROUP_INF = new byte[] { 0x84, CMD_TYPE_SWITCH };//写分组信息    
+        public static readonly byte[] CMD_SW_READ_SCENE_INF = new byte[] { 0x05, CMD_TYPE_SWITCH };//读场景信息    
+        public static readonly byte[] CMD_SW_WRITE_SCENE_INF = new byte[] { 0x85, CMD_TYPE_SWITCH };//写场景信息    
+        public static readonly byte[] CMD_SW_READ_LIST_INF = new byte[] { 0x06, CMD_TYPE_SWITCH };//读时序信息    
+        public static readonly byte[] CMD_SW_WRITE_LIST_INF = new byte[] { 0x86, CMD_TYPE_SWITCH };//写时序信息    
+        public static readonly byte[] CMD_SW_READ_SWIT_PROCE = new byte[] { 0x07, CMD_TYPE_SWITCH };//读回路控制过程序参数
+        public static readonly byte[] CMD_SW_WRITE_SWIT_PROCE = new byte[] { 0x87, CMD_TYPE_SWITCH };//写回路控制过程序参数
+        public static readonly byte[] CMD_SW_READ_SWIT_VOLTAGE = new byte[] { 0x08, CMD_TYPE_SWITCH };//读回路电压
+        public static readonly byte[] CMD_SW_WRITE_SWIT_VOLTAGE = new byte[] { 0x88, CMD_TYPE_SWITCH };//写回路电压 	
+        public static readonly byte[] CMD_SW_READ_SWIT_CURRENT = new byte[] { 0x09, CMD_TYPE_SWITCH };//读回路电流
+        public static readonly byte[] CMD_SW_WRITE_SWIT_CURRENT = new byte[] { 0x89, CMD_TYPE_SWITCH };//写回路电流
+        public static readonly byte[] CMD_SW_READ_SWIT_POWER = new byte[] { 0x0a, CMD_TYPE_SWITCH };//读回路功率
+        public static readonly byte[] CMD_SW_WRITE_SWIT_POWER = new byte[] { 0x8a, CMD_TYPE_SWITCH };//写回路功率
+        public static readonly byte[] CMD_SW_READ_POWER_ON_RESUME = new byte[] { 0x0b, CMD_TYPE_SWITCH };//读回路上电设置状态
+        public static readonly byte[] CMD_SW_WRITE_POWER_ON_RESUME = new byte[] { 0x8b, CMD_TYPE_SWITCH };//写回路上电设置状态
 
-	CMD_SW_SWIT_LIST		            = ((CMD_TYPE_SWITCH << 8) | 0x28)  			,//时序开关
-	CMD_SW_SWIT_LIST_OPEN	            = ((CMD_TYPE_SWITCH << 8) | 0x29)  			,//时序开
-	CMD_SW_SWIT_LIST_CLOSE	            = ((CMD_TYPE_SWITCH << 8) | 0x2a)  			,//时序关
-	CMD_SW_SWIT_LIST_NOT	            = ((CMD_TYPE_SWITCH << 8) | 0x2b)  			,//时序取反
+        public static readonly byte[] CMD_SW_SWIT_LOOP = new byte[] { 0x20, CMD_TYPE_SWITCH };//回路开关
+        public static readonly byte[] CMD_SW_SWIT_LOOP_OPEN = new byte[] { 0x21, CMD_TYPE_SWITCH };//回路开
+        public static readonly byte[] CMD_SW_SWIT_LOOP_CLOSE = new byte[] { 0x22, CMD_TYPE_SWITCH };//回路关
+        public static readonly byte[] CMD_SW_SWIT_LOOP_NOT = new byte[] { 0x23, CMD_TYPE_SWITCH };//回路取反
+        public static readonly byte[] CMD_SW_SWIT_LOOP_OPEN_CONDITION = new byte[] { 0x30, CMD_TYPE_SWITCH };//回路带条件开
+        public static readonly byte[] CMD_SW_SWIT_LOOP_CLOSE_CONDITION = new byte[] { 0x31, CMD_TYPE_SWITCH };//回路带条件关
 
-	CMD_SW_SWIT_ALL		           		= ((CMD_TYPE_SWITCH << 8) | 0x2c)  			,//全部开关
-	CMD_SW_SWIT_ALL_OPEN	            = ((CMD_TYPE_SWITCH << 8) | 0x2d)  			,//全部开
-	CMD_SW_SWIT_ALL_CLOSE	            = ((CMD_TYPE_SWITCH << 8) | 0x2e)  			,//全部关
+        public static readonly byte[] CMD_SW_SWIT_SCENE = new byte[] { 0x24, CMD_TYPE_SWITCH };//场景开关
+        public static readonly byte[] CMD_SW_SWIT_SCENE_OPEN = new byte[] { 0x25, CMD_TYPE_SWITCH };//场景开
+        public static readonly byte[] CMD_SW_SWIT_SCENE_CLOSE = new byte[] { 0x26, CMD_TYPE_SWITCH };//场景关
+        public static readonly byte[] CMD_SW_SWIT_SCENE_NOT = new byte[] { 0x27, CMD_TYPE_SWITCH };//场景取反
 
-	CMD_SW_TEST_LOOP					= ((CMD_TYPE_SWITCH << 8) | 0x2f)  			,//回路测试
-};
-*/
+        public static readonly byte[] CMD_SW_SWIT_LIST = new byte[] { 0x28, CMD_TYPE_SWITCH };//时序开关
+        public static readonly byte[] CMD_SW_SWIT_LIST_OPEN = new byte[] { 0x29, CMD_TYPE_SWITCH };//时序开
+        public static readonly byte[] CMD_SW_SWIT_LIST_CLOSE = new byte[] { 0x2a, CMD_TYPE_SWITCH };//时序关
+        public static readonly byte[] CMD_SW_SWIT_LIST_NOT = new byte[] { 0x2b, CMD_TYPE_SWITCH };//时序取反
+
+        public static readonly byte[] CMD_SW_SWIT_ALL = new byte[] { 0x2c, CMD_TYPE_SWITCH };//全部开关
+        public static readonly byte[] CMD_SW_SWIT_ALL_OPEN = new byte[] { 0x2d, CMD_TYPE_SWITCH };//全部开
+        public static readonly byte[] CMD_SW_SWIT_ALL_CLOSE = new byte[] { 0x2e, CMD_TYPE_SWITCH };//全部关
+
+        public static readonly byte[] CMD_SW_TEST_LOOP = new byte[] { 0x2f, CMD_TYPE_SWITCH };//回路测试
+
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
         static DeviceConfig()//---静态构造函数------
         {
