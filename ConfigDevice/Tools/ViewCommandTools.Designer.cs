@@ -227,7 +227,6 @@
             this.deviceCommand.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.deviceCommand.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.deviceCommand.Caption = "指令";
-            this.deviceCommand.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.deviceCommand.Name = "deviceCommand";
             this.deviceCommand.Visible = true;
             this.deviceCommand.VisibleIndex = 7;

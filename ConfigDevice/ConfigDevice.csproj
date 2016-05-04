@@ -103,11 +103,11 @@
     <Compile Include="DeviceUI\FrmFourInput.designer.cs">
       <DependentUpon>FrmFourInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeviceUI\Frm.cs">
+    <Compile Include="DeviceUI\FrmWeatherStation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeviceUI\Frm.Designer.cs">
-      <DependentUpon>Frm.cs</DependentUpon>
+    <Compile Include="DeviceUI\FrmWeatherStation.Designer.cs">
+      <DependentUpon>FrmWeatherStation.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,8 +119,8 @@
       <DependentUpon>FrmCurtainsThreeRoad.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\Frm.resx">
-      <DependentUpon>Frm.cs</DependentUpon>
+    <EmbeddedResource Include="DeviceUI\FrmWeatherStation.resx">
+      <DependentUpon>FrmWeatherStation.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\UCtrlCommandEdit.resx">
@@ -146,10 +146,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\UCtrlBaseEdit.resx">
       <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\FrmAmplifier.resx">
-      <DependentUpon>FrmAmplifier.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\FrmBaseDevice.resx">
@@ -180,7 +176,7 @@
       <DependentUpon>PleaseWait.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SysUI\SelectDevice.resx">
+    <EmbeddedResource Include="Tools\SelectDevice.resx">
       <DependentUpon>SelectDevice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -234,12 +230,6 @@
       <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\UdpTools.cs" />
-    <Compile Include="DeviceUI\FrmAmplifier.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DeviceUI\FrmAmplifier.Designer.cs">
-      <DependentUpon>FrmAmplifier.cs</DependentUpon>
-    </Compile>
     <Compile Include="DeviceUI\FrmBaseDevice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -317,15 +307,25 @@
     <Compile Include="Class\Devices\Road6FrontDimming.cs" />
     <Compile Include="Class\Devices\Road8FrontDimming.cs" />
     <None Include="Resources\del1.png" />
-    <Compile Include="Class\ViewControl\ViewCircuitControl.cs" />
+    <Compile Include="Class\Devices\Road6Relay.cs" />
+    <Compile Include="Class\Devices\Road2FrontDimming.cs" />
+    <Compile Include="Class\Devices\Road4FrontDimming.cs" />
+    <Compile Include="Class\Devices\Road12FrontDimming.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewCircuitControl.cs" />
     <Compile Include="Class\FactoryViewControl.cs" />
     <Compile Include="Class\Devices\Road8Relay.cs" />
     <Compile Include="Class\Devices\Road3Window.cs" />
     <Compile Include="Class\Devices\Amplifier.cs" />
     <Compile Include="Class\Devices\Servers.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewSceneControl.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewTimingControl.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewSwitchControl.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewBackgroundControl.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewMessagesControl.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewServerControl.cs" />
     <Compile Include="Data\CommandData.cs" />
-    <Compile Include="Class\ViewControl\ViewControl.cs" />
-    <Compile Include="Class\ViewControl\ViewMotorControl.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewControl.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewMotorControl.cs" />
     <Compile Include="Class\ControlObj\Background.cs" />
     <Compile Include="Class\ControlObj\Circuit.cs" />
     <Compile Include="Class\ControlObj\ControlObj.cs" />
@@ -341,10 +341,10 @@
     <Compile Include="DeviceUI\UCtrlCommandEdit.Designer.cs">
       <DependentUpon>UCtrlCommandEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="SysUI\SelectDevice.cs">
+    <Compile Include="Tools\SelectDevice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SysUI\SelectDevice.Designer.cs">
+    <Compile Include="Tools\SelectDevice.Designer.cs">
       <DependentUpon>SelectDevice.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ViewCommandTools.cs">

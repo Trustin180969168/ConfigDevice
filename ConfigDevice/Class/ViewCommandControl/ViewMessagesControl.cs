@@ -7,16 +7,15 @@ using DevExpress.XtraGrid.Views.Grid;
 namespace ConfigDevice
 {
     /// <summary>
-    /// 电机指令
+    /// 消息指令
     /// </summary>
-    public class ViewMotorControl : ViewControl
+    public class ViewMessagesControl : ViewControl
     {
-        public ViewMotorControl(ControlObj controlObj, GridView gv)
+        public ViewMessagesControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
         {
-
-        }
-
+            
+        } 
 
         /// <summary>
         /// 初始化界面配置

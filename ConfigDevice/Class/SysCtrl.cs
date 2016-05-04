@@ -157,20 +157,48 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 获取抽象工厂
+        /// 获取抽象设备编辑
         /// </summary>
         /// <param name="kindId">类型</param>
         /// <returns></returns>
-        public static IFactory GetFactory(byte kindId)
+        public static IFactoryDeviceEdit GetFactoryDeviceEdit(byte kindId)
         {
             switch (kindId)
             {
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
-                case DeviceConfig.EQUIPMENT_RJ45: return new FactoryBaseDevice();
-                case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryFourInput();
+                case DeviceConfig.EQUIPMENT_RJ45: return new FactoryBaseDeviceEdit();
+                case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryDoor4InputEdit();
+                default: return new FactoryBaseDeviceEdit();
+            }
+        }
+
+        /// <summary>
+        /// 获取抽象设备
+        /// </summary>
+        /// <param name="kindId">类型</param>
+        /// <returns></returns>
+        public static IFactoryDevice GetDevice(byte kindId)
+        {
+            switch (kindId)
+            {
+                case DeviceConfig.EQUIPMENT_AMP_MP3: return new FactoryAmplifier();
+                case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryDoorInput4();
+                case DeviceConfig.EQUIPMENT_CURTAIN_3CH: return new FactoryRoad3Window();
+                case DeviceConfig.EQUIPMENT_SWIT_4: return new FactoryRoad4Relay();//4路继电器
+                case DeviceConfig.EQUIPMENT_SWIT_8: return new FactoryRoad8Relay();//6路继电器
+                case DeviceConfig.EQUIPMENT_SWIT_6: return new FactoryRoad6Relay();//8路继电器
+                case DeviceConfig.EQUIPMENT_TRAILING_2: return new FactoryRoad2FrontDimming();//2路前沿调光
+                case DeviceConfig.EQUIPMENT_TRAILING_4: return new FactoryRoad4FrontDimming();//4路前沿调光
+                case DeviceConfig.EQUIPMENT_TRAILING_6: return new FactoryRoad6FrontDimming();//6路前沿调光
+                case DeviceConfig.EQUIPMENT_TRAILING_8: return new FactoryRoad8FrontDimming();//8路前沿调光
+                case DeviceConfig.EQUIPMENT_TRAILING_12: return new FactoryRoad12FrontDimming();//12路前沿调光
+
+
                 default: return new FactoryBaseDevice();
             }
         }
+
+
 
     }
 }

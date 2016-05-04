@@ -99,7 +99,7 @@
             // 
             this.pageJcsz.Controls.Add(this.frmSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(785, 514);
+            this.pageJcsz.Size = new System.Drawing.Size(892, 469);
             this.pageJcsz.Text = "基础配置";
             // 
             // frmSetting
@@ -107,13 +107,13 @@
             this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frmSetting.Location = new System.Drawing.Point(0, 0);
             this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(785, 514);
+            this.frmSetting.Size = new System.Drawing.Size(892, 469);
             this.frmSetting.TabIndex = 0;
             // 
             // pageActionList
             // 
             this.pageActionList.Name = "pageActionList";
-            this.pageActionList.Size = new System.Drawing.Size(785, 514);
+            this.pageActionList.Size = new System.Drawing.Size(892, 469);
             this.pageActionList.Text = "指令配置";
             // 
             // FrmWeatherStation
@@ -124,6 +124,7 @@
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmWeatherStation";
             this.Text = "FrmWeatherStation";
+            this.Load += new System.EventHandler(this.FrmWeatherStation_Load);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);

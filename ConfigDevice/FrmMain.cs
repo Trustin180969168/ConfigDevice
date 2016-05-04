@@ -203,7 +203,7 @@ namespace ConfigDevice
             if (SysConfig.ListNetworks.ContainsKey(device.NetworkIP) &&
                 SysConfig.ListNetworks[device.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
             {
-                FrmDevice frm = SysCtrl.GetFactory(device.ByteKindID).CreateDevice(dr);
+                FrmDevice frm = SysCtrl.GetFactoryDeviceEdit(device.ByteKindID).CreateDevice(dr);
                 frm.Text = device.Name;
                 frm.Show(this);
             }

@@ -15,6 +15,11 @@ namespace ConfigDevice
         
         }
 
+        private void FrmWeatherStation_Load(object sender, EventArgs e)
+        {
+
+        }
+
  
     }
 }

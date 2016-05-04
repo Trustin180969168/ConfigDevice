@@ -32,8 +32,8 @@
             this.btReadCommand = new System.Windows.Forms.ToolStripButton();
             this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
             this.xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
-            this.viewCommandTools2 = new ConfigDevice.Tools.ViewCommandTools();
-            this.viewCommandTools1 = new ConfigDevice.Tools.ViewCommandTools();
+            this.viewCommandTools2 = new ConfigDevice.ViewCommandTools();
+            this.viewCommandTools1 = new ConfigDevice.ViewCommandTools();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
@@ -221,11 +221,11 @@
 
         #endregion
 
-        private ConfigDevice.Tools.ViewCommandTools viewCommandTools2;
+        private ConfigDevice.ViewCommandTools viewCommandTools2;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton btSaveCommands;
         private System.Windows.Forms.ToolStripButton btReadCommand;
-        private ConfigDevice.Tools.ViewCommandTools viewCommandTools1;
+        private ConfigDevice.ViewCommandTools viewCommandTools1;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.TextEdit textEdit1;
