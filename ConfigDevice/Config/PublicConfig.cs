@@ -13,6 +13,24 @@ namespace ConfigDevice
     public delegate void CallbackUdpAction(UdpData udpData,object[] values);//----回调执行UDP包----
     public delegate void CallbackUIAction(object[] values);//----回调UI界面----
 
+
+    /// <summary>
+    /// 电机动作
+    /// </summary>
+    public enum MotorAction
+    {
+        Road1Front = 0,
+        Road1Back = 1,
+        Road2Front = 2,
+        Road2Back = 3,
+        Road3Front = 4,
+        Road3Back = 5,
+        Road4Front = 6,
+        Road4Back = 7,
+        Road5Front = 8,
+        Road5Back = 9,
+    }
+
     /// <summary>
     /// 回复结果
     /// </summary>

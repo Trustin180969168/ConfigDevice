@@ -5,7 +5,13 @@ using System.Text;
 namespace ConfigDevice
 {
     public class Circuit : ControlObj
-    {   
+    {
+
+        public const string NAME_CMD_SWITLOOP = "开关回路";
+        public const string NAME_CMD_SWITLOOP_OPEN = "开回路";
+        public const string NAME_CMD_SWITLOOP_CLOSE = "关回路";
+
+
         public Circuit(DeviceData _deviceCtrl)
         {
             Name = "回路";

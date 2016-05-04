@@ -9,6 +9,11 @@ namespace ConfigDevice
     public class Road8Relay : DeviceData
     {
 
+        private const int circuitCount = 8;//回路数
+        public int CircuitCount
+        {
+            get { return circuitCount; }
+        } 
         public Road8Relay(UserUdpData userUdpData)
             : base(userUdpData)
         {

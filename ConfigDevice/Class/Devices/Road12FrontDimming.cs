@@ -8,6 +8,11 @@ namespace ConfigDevice
 
     public class Road12FrontDimming : DeviceData
     {
+        private const int circuitCount = 12;//回路数
+        public int CircuitCount
+        {
+            get { return circuitCount; }
+        } 
 
         public Road12FrontDimming(UserUdpData userUdpData)
             : base(userUdpData)

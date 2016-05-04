@@ -193,7 +193,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_TRAILING_6: return new FactoryRoad6FrontDimming();//6路前沿调光
                 case DeviceConfig.EQUIPMENT_TRAILING_8: return new FactoryRoad8FrontDimming();//8路前沿调光
                 case DeviceConfig.EQUIPMENT_TRAILING_12: return new FactoryRoad12FrontDimming();//12路前沿调光
-
+                case DeviceConfig.EQUIPMENT_SERVER: return new FactoryServers();//12路前沿调光
 
                 default: return new FactoryBaseDevice();
             }

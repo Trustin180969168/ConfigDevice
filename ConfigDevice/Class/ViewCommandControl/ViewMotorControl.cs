@@ -19,12 +19,13 @@ namespace ConfigDevice
         GridColumn dcRunTime;//运行时间
         GridColumn dcOpenDelay;//开延迟
         GridColumn dcCloseDelay;//关延迟
-
-        protected DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxActionKind;//选择命令类型编辑     
+        Motor motor;
+        DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxActionKind;//选择命令类型编辑     
 
         public ViewMotorControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
         {
+            motor = controlObj as Motor;
             dcCommand = ViewSetting.Columns["command"];
             dcMotorAction = ViewSetting.Columns["parameter1"];
             dcPercent = ViewSetting.Columns["parameter2"];
@@ -75,16 +76,30 @@ namespace ConfigDevice
 
         }
 
- 
-
         /// <summary>
         /// 生成指令数据
         /// </summary>
         /// <returns></returns>
         public override CommandData GetCommand()
         {
-            return null;
 
+
+            string actionStr = (string)ViewSetting.GetRowCellValue(0, dcMotorAction);
+            MotorAction action = MotorAction.Road1Front;
+            switch (actionStr)
+            {
+                case Motor.NAME_ACTION_ROAD_FRONT_1: action = MotorAction.Road1Front; break;
+                case Motor.NAME_ACTION_ROAD_BACK_1: action = MotorAction.Road1Back; break;
+                case Motor.NAME_ACTION_ROAD_FRONT_2: action = MotorAction.Road2Front; break;
+                case Motor.NAME_ACTION_ROAD_BACK_2: action = MotorAction.Road2Back; break;
+                case Motor.NAME_ACTION_ROAD_FRONT_3: action = MotorAction.Road3Front; break;
+                case Motor.NAME_ACTION_ROAD_BACK_3: action = MotorAction.Road3Back; break;
+                default: action = MotorAction.Road1Front; break;
+            }
+
+            string cmdStr =(string)ViewSetting.GetRowCellValue(0, dcCommand);
+
+            return null;
         }
 
 
