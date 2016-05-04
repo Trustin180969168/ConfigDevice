@@ -1,4 +1,4 @@
-﻿namespace ConfigDevice.Tools
+﻿namespace ConfigDevice
 {
     partial class ViewCommandTools
     {
@@ -38,21 +38,23 @@
             this.deviceKind = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceCtrlObj = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.deviceCommand = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.command = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.parameter1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.parameter2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.parameter3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.parameter4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.parameter5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cbxObj = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.cbxCommandKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.tedtTime = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
+            this.edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxObj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCommandKind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tedtTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum)).BeginInit();
             this.SuspendLayout();
             // 
             // gcDevices
@@ -67,7 +69,8 @@
             this.cbxObj,
             this.linkEdit,
             this.cbxCommandKind,
-            this.tedtTime});
+            this.tedtTime,
+            this.edtNum});
             this.gcDevices.Size = new System.Drawing.Size(1000, 244);
             this.gcDevices.TabIndex = 8;
             this.gcDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -83,12 +86,12 @@
             this.deviceKind,
             this.deviceName,
             this.deviceCtrlObj,
-            this.deviceCommand,
-            this.gridColumn1,
-            this.gridColumn2,
-            this.gridColumn3,
-            this.gridColumn4,
-            this.gridColumn5});
+            this.command,
+            this.parameter1,
+            this.parameter2,
+            this.parameter3,
+            this.parameter4,
+            this.parameter5});
             this.gvDevices.GridControl = this.gcDevices;
             this.gvDevices.Name = "gvDevices";
             this.gvDevices.OptionsSelection.EnableAppearanceFocusedRow = false;
@@ -218,89 +221,89 @@
             this.deviceCtrlObj.VisibleIndex = 6;
             this.deviceCtrlObj.Width = 70;
             // 
-            // deviceCommand
+            // command
             // 
-            this.deviceCommand.AppearanceCell.Options.UseTextOptions = true;
-            this.deviceCommand.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.deviceCommand.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.deviceCommand.AppearanceHeader.Options.UseTextOptions = true;
-            this.deviceCommand.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.deviceCommand.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.deviceCommand.Caption = "指令";
-            this.deviceCommand.Name = "deviceCommand";
-            this.deviceCommand.Visible = true;
-            this.deviceCommand.VisibleIndex = 7;
-            this.deviceCommand.Width = 46;
+            this.command.AppearanceCell.Options.UseTextOptions = true;
+            this.command.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.command.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.command.AppearanceHeader.Options.UseTextOptions = true;
+            this.command.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.command.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.command.Caption = "指令";
+            this.command.Name = "command";
+            this.command.Visible = true;
+            this.command.VisibleIndex = 7;
+            this.command.Width = 46;
             // 
-            // gridColumn1
+            // parameter1
             // 
-            this.gridColumn1.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn1.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn1.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn1.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn1.Caption = "参数1";
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 8;
-            this.gridColumn1.Width = 53;
+            this.parameter1.AppearanceCell.Options.UseTextOptions = true;
+            this.parameter1.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.parameter1.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.parameter1.AppearanceHeader.Options.UseTextOptions = true;
+            this.parameter1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.parameter1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.parameter1.Caption = "参数1";
+            this.parameter1.Name = "parameter1";
+            this.parameter1.Visible = true;
+            this.parameter1.VisibleIndex = 8;
+            this.parameter1.Width = 53;
             // 
-            // gridColumn2
+            // parameter2
             // 
-            this.gridColumn2.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn2.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn2.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn2.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn2.Caption = "参数2";
-            this.gridColumn2.Name = "gridColumn2";
-            this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 9;
-            this.gridColumn2.Width = 53;
+            this.parameter2.AppearanceCell.Options.UseTextOptions = true;
+            this.parameter2.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.parameter2.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.parameter2.AppearanceHeader.Options.UseTextOptions = true;
+            this.parameter2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.parameter2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.parameter2.Caption = "参数2";
+            this.parameter2.Name = "parameter2";
+            this.parameter2.Visible = true;
+            this.parameter2.VisibleIndex = 9;
+            this.parameter2.Width = 53;
             // 
-            // gridColumn3
+            // parameter3
             // 
-            this.gridColumn3.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn3.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn3.Caption = "参数3";
-            this.gridColumn3.Name = "gridColumn3";
-            this.gridColumn3.Visible = true;
-            this.gridColumn3.VisibleIndex = 10;
-            this.gridColumn3.Width = 53;
+            this.parameter3.AppearanceCell.Options.UseTextOptions = true;
+            this.parameter3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.parameter3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.parameter3.AppearanceHeader.Options.UseTextOptions = true;
+            this.parameter3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.parameter3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.parameter3.Caption = "参数3";
+            this.parameter3.Name = "parameter3";
+            this.parameter3.Visible = true;
+            this.parameter3.VisibleIndex = 10;
+            this.parameter3.Width = 53;
             // 
-            // gridColumn4
+            // parameter4
             // 
-            this.gridColumn4.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn4.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn4.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn4.Caption = "参数4";
-            this.gridColumn4.Name = "gridColumn4";
-            this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 11;
-            this.gridColumn4.Width = 74;
+            this.parameter4.AppearanceCell.Options.UseTextOptions = true;
+            this.parameter4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.parameter4.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.parameter4.AppearanceHeader.Options.UseTextOptions = true;
+            this.parameter4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.parameter4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.parameter4.Caption = "参数4";
+            this.parameter4.Name = "parameter4";
+            this.parameter4.Visible = true;
+            this.parameter4.VisibleIndex = 11;
+            this.parameter4.Width = 74;
             // 
-            // gridColumn5
+            // parameter5
             // 
-            this.gridColumn5.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn5.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn5.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn5.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn5.Caption = "参数5";
-            this.gridColumn5.Name = "gridColumn5";
-            this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 12;
-            this.gridColumn5.Width = 53;
+            this.parameter5.AppearanceCell.Options.UseTextOptions = true;
+            this.parameter5.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.parameter5.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.parameter5.AppearanceHeader.Options.UseTextOptions = true;
+            this.parameter5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.parameter5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.parameter5.Caption = "参数5";
+            this.parameter5.Name = "parameter5";
+            this.parameter5.Visible = true;
+            this.parameter5.VisibleIndex = 12;
+            this.parameter5.Width = 53;
             // 
             // cbxObj
             // 
@@ -325,6 +328,13 @@
             this.tedtTime.Name = "tedtTime";
             this.tedtTime.NullText = "00:00:00";
             // 
+            // edtNum
+            // 
+            this.edtNum.AutoHeight = false;
+            this.edtNum.Mask.EditMask = "d";
+            this.edtNum.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.edtNum.Name = "edtNum";
+            // 
             // ViewCommandTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -338,6 +348,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbxObj)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCommandKind)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tedtTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -352,16 +363,17 @@
         private DevExpress.XtraGrid.Columns.GridColumn deviceKind;
         private DevExpress.XtraGrid.Columns.GridColumn deviceName;
         private DevExpress.XtraGrid.Columns.GridColumn deviceCtrlObj;
-        private DevExpress.XtraGrid.Columns.GridColumn deviceCommand;
+        private DevExpress.XtraGrid.Columns.GridColumn command;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxObj;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraGrid.Columns.GridColumn parameter1;
+        private DevExpress.XtraGrid.Columns.GridColumn parameter2;
+        private DevExpress.XtraGrid.Columns.GridColumn parameter3;
+        private DevExpress.XtraGrid.Columns.GridColumn parameter4;
+        private DevExpress.XtraGrid.Columns.GridColumn parameter5;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkEdit;
         private DevExpress.XtraGrid.Columns.GridColumn del;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxCommandKind;
         private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit tedtTime;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtNum;
     }
 }
