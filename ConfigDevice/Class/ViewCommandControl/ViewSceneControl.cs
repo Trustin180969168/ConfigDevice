@@ -9,7 +9,7 @@ namespace ConfigDevice
     /// <summary>
     /// 场景指令
     /// </summary>
-    public class ViewSceneControl : ViewControl
+    public class ViewSceneControl : ViewCommandControl
     {
         public ViewSceneControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)

@@ -324,7 +324,7 @@
     <Compile Include="Class\ViewCommandControl\ViewMessagesControl.cs" />
     <Compile Include="Class\ViewCommandControl\ViewServerControl.cs" />
     <Compile Include="Data\CommandData.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewControl.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewCommandControl.cs" />
     <Compile Include="Class\ViewCommandControl\ViewMotorControl.cs" />
     <Compile Include="Class\ControlObj\Background.cs" />
     <Compile Include="Class\ControlObj\Circuit.cs" />

@@ -37,7 +37,7 @@ namespace ConfigDevice
             int i = 0;
             foreach (DataRow dr in rows)
             {
-                cbxSelectDevice.Items.Add("设备ID:"+dr[DeviceConfig.DC_DEVICE_ID].ToString()+
+                cbxSelectDevice.Items.Add("设备ID:"+dr[DeviceConfig.DC_ID].ToString()+
                     "  设备类型:"+dr[DeviceConfig.DC_KIND_NAME].ToString() + "  设备名称:"+dr[DeviceConfig.DC_NAME].ToString());           
                 SelectDeviceList.Add(i++, dr);
             }

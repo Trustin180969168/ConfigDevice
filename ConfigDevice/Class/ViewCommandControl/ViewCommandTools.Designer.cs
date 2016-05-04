@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gcDevices = new DevExpress.XtraGrid.GridControl();
-            this.gvDevices = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gcCommands = new DevExpress.XtraGrid.GridControl();
+            this.gvCommands = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.del = new DevExpress.XtraGrid.Columns.GridColumn();
             this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.xh = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -48,8 +48,8 @@
             this.cbxCommandKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.tedtTime = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
             this.edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxObj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCommandKind)).BeginInit();
@@ -57,28 +57,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.edtNum)).BeginInit();
             this.SuspendLayout();
             // 
-            // gcDevices
+            // gcCommands
             // 
-            this.gcDevices.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcDevices.EmbeddedNavigator.Name = "";
-            this.gcDevices.FormsUseDefaultLookAndFeel = false;
-            this.gcDevices.Location = new System.Drawing.Point(0, 0);
-            this.gcDevices.MainView = this.gvDevices;
-            this.gcDevices.Name = "gcDevices";
-            this.gcDevices.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.gcCommands.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcCommands.EmbeddedNavigator.Name = "";
+            this.gcCommands.FormsUseDefaultLookAndFeel = false;
+            this.gcCommands.Location = new System.Drawing.Point(0, 0);
+            this.gcCommands.MainView = this.gvCommands;
+            this.gcCommands.Name = "gcCommands";
+            this.gcCommands.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.cbxObj,
             this.linkEdit,
             this.cbxCommandKind,
             this.tedtTime,
             this.edtNum});
-            this.gcDevices.Size = new System.Drawing.Size(1000, 244);
-            this.gcDevices.TabIndex = 8;
-            this.gcDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvDevices});
+            this.gcCommands.Size = new System.Drawing.Size(1000, 244);
+            this.gcCommands.TabIndex = 8;
+            this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvCommands});
             // 
-            // gvDevices
+            // gvCommands
             // 
-            this.gvDevices.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gvCommands.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.del,
             this.xh,
             this.deviceID,
@@ -92,16 +92,16 @@
             this.parameter3,
             this.parameter4,
             this.parameter5});
-            this.gvDevices.GridControl = this.gcDevices;
-            this.gvDevices.Name = "gvDevices";
-            this.gvDevices.OptionsSelection.EnableAppearanceFocusedRow = false;
-            this.gvDevices.OptionsSelection.InvertSelection = true;
-            this.gvDevices.OptionsView.ColumnAutoWidth = false;
-            this.gvDevices.OptionsView.EnableAppearanceEvenRow = true;
-            this.gvDevices.OptionsView.EnableAppearanceOddRow = true;
-            this.gvDevices.OptionsView.ShowGroupPanel = false;
-            this.gvDevices.OptionsView.ShowIndicator = false;
-            this.gvDevices.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
+            this.gvCommands.GridControl = this.gcCommands;
+            this.gvCommands.Name = "gvCommands";
+            this.gvCommands.OptionsSelection.EnableAppearanceFocusedRow = false;
+            this.gvCommands.OptionsSelection.InvertSelection = true;
+            this.gvCommands.OptionsView.ColumnAutoWidth = false;
+            this.gvCommands.OptionsView.EnableAppearanceEvenRow = true;
+            this.gvCommands.OptionsView.EnableAppearanceOddRow = true;
+            this.gvCommands.OptionsView.ShowGroupPanel = false;
+            this.gvCommands.OptionsView.ShowIndicator = false;
+            this.gvCommands.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
             // 
             // del
             // 
@@ -339,11 +339,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.gcDevices);
+            this.Controls.Add(this.gcCommands);
             this.Name = "ViewCommandTools";
             this.Size = new System.Drawing.Size(1000, 244);
-            ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxObj)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCommandKind)).EndInit();
@@ -355,8 +355,8 @@
 
         #endregion
 
-        private DevExpress.XtraGrid.GridControl gcDevices;
-        private DevExpress.XtraGrid.Views.Grid.GridView gvDevices;
+        private DevExpress.XtraGrid.GridControl gcCommands;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvCommands;
         private DevExpress.XtraGrid.Columns.GridColumn xh;
         private DevExpress.XtraGrid.Columns.GridColumn deviceID;
         private DevExpress.XtraGrid.Columns.GridColumn deviceNetworkID;

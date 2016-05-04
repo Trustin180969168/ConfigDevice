@@ -9,7 +9,7 @@ namespace ConfigDevice
     /// <summary>
     /// 背景指令
     /// </summary>
-    public class ViewServerControl : ViewControl
+    public class ViewServerControl : ViewCommandControl
     {
         public ViewServerControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)

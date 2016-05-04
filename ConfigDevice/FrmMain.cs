@@ -44,8 +44,8 @@ namespace ConfigDevice
             networkState.FieldName = NetworkConfig.DC_STATE;
             networkRemark.FieldName = NetworkConfig.DC_REMARK;
 
-            xh.FieldName = DeviceConfig.DC_DEVICE_NUM;
-            deviceID.FieldName = DeviceConfig.DC_DEVICE_ID;
+            xh.FieldName = DeviceConfig.DC_NUM;
+            deviceID.FieldName = DeviceConfig.DC_ID;
             deviceNetworkID.FieldName = DeviceConfig.DC_NETWORK_ID;
             deviceKind.FieldName = DeviceConfig.DC_KIND_NAME;
             deviceName.FieldName = DeviceConfig.DC_NAME;

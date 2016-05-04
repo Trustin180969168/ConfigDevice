@@ -9,7 +9,7 @@ namespace ConfigDevice
 {
     public interface ICreateViewControl
     {
-        ViewControl CreateViewControl(ControlObj controlObj, GridView gv);
+        ViewCommandControl CreateViewControl(ControlObj controlObj, GridView gv);
     }
 
     /// <summary>
@@ -18,7 +18,7 @@ namespace ConfigDevice
     public class FactoryViewCircuit : ICreateViewControl
     {
         #region ICreateViewControl 成员
-        public ViewControl CreateViewControl(ControlObj controlObj, GridView gv)
+        public ViewCommandControl CreateViewControl(ControlObj controlObj, GridView gv)
         {
             return new ViewCircuitControl(controlObj as Circuit, gv);
         }
@@ -32,7 +32,7 @@ namespace ConfigDevice
     public class FactoryViewMotor : ICreateViewControl
     {
         #region ICreateViewControl 成员
-        public ViewControl CreateViewControl(ControlObj controlObj, GridView gv)
+        public ViewCommandControl CreateViewControl(ControlObj controlObj, GridView gv)
         {
             return new ViewMotorControl(controlObj as Motor, gv);
         }

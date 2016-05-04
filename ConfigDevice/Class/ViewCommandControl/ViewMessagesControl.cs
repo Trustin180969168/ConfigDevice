@@ -9,7 +9,7 @@ namespace ConfigDevice
     /// <summary>
     /// 消息指令
     /// </summary>
-    public class ViewMessagesControl : ViewControl
+    public class ViewMessagesControl : ViewCommandControl
     {
         public ViewMessagesControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)

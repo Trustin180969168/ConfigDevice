@@ -35,8 +35,8 @@ namespace ConfigDevice
             //----初始化表结构-------
             if (SysConfig.DtDevice.Columns.Count == 0)
             {
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_DEVICE_NUM, System.Type.GetType("System.Int16"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_DEVICE_ID, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NUM, System.Type.GetType("System.Int16"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NETWORK_ID, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_KIND_ID, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
@@ -154,7 +154,7 @@ namespace ConfigDevice
                 else
                     num = ++countNum;
                 //-------排查ID冲突------------------
-                temp = DeviceConfig.DC_DEVICE_ID + " = '" + device.DeviceID + "' and " + DeviceConfig.DC_NETWORK_ID + " = '" + device.NetworkID + "' " +
+                temp = DeviceConfig.DC_ID + " = '" + device.DeviceID + "' and " + DeviceConfig.DC_NETWORK_ID + " = '" + device.NetworkID + "' " +
                    " and " + DeviceConfig.DC_MAC + " <> '" + device.MAC + "' ";
                 rows = SysConfig.DtDevice.Select(temp);
                 if (rows.Length > 0)
@@ -212,7 +212,7 @@ namespace ConfigDevice
                 {
                     dr.BeginEdit();
 
-                    dr[DeviceConfig.DC_DEVICE_ID] = device.DeviceID;
+                    dr[DeviceConfig.DC_ID] = device.DeviceID;
                     dr[DeviceConfig.DC_NETWORK_ID] = device.NetworkID;
                     dr[DeviceConfig.DC_KIND_ID] = device.KindID;
                     dr[DeviceConfig.DC_KIND_NAME] = device.KindName;

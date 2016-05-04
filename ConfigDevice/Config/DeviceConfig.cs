@@ -16,8 +16,8 @@ namespace ConfigDevice
         public const byte RETSTARTSEARCH_TOTAL = 0x3;          // 总数
 
         //-----------定义全局对应--------
-        public const string DC_DEVICE_NUM = "NUM";//设备ID
-        public const string DC_DEVICE_ID = "DeviceID";//设备ID
+        public const string DC_NUM = "NUM";//设备ID
+        public const string DC_ID = "DeviceID";//设备ID
         public const string DC_NETWORK_ID = "NetworkID";//网段ID
         public const string DC_KIND_ID = "KindID";//设备类型ID
         public const string DC_KIND_NAME = "KindName";//设备类型名称
@@ -30,6 +30,13 @@ namespace ConfigDevice
         public const string DC_PC_ADDRESS = "PCAddress";//PC地址
         public const string DC_NETWORK_IP = "NetworkIP";//网络IP
         public const string DC_ADDRESS = "Address";//设备地址
+        public const string DC_CONTROL_OBJ = "ControlObj";//设备地址
+        public const string DC_PARAMETER1 = "Parameter1";//参数1
+        public const string DC_PARAMETER2 = "Parameter2";//参数2
+        public const string DC_PARAMETER3 = "Parameter3";//参数3
+        public const string DC_PARAMETER4 = "Parameter4";//参数4
+        public const string DC_PARAMETER5 = "Parameter5";//参数5
+
 
         public const string ERROR_SAME_DEVICE_ID = "设备ID冲突!";//设备ID冲突
         public const string ERROR_SAME_DEVICE_TITLE = "设备名称冲突!";//设备名称冲突

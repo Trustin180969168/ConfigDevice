@@ -11,7 +11,7 @@ namespace ConfigDevice
     /// <summary>
     /// 电机指令
     /// </summary>
-    public class ViewMotorControl : ViewControl
+    public class ViewMotorControl : ViewCommandControl
     {
         GridColumn dcCommand;//指令
         GridColumn dcMotorAction;//动作
@@ -62,8 +62,7 @@ namespace ConfigDevice
             cbxActionKind.Items.Add("2路反转");
             cbxActionKind.Items.Add("3路正转");
             cbxActionKind.Items.Add("3路反转");
-            dcMotorAction.ColumnEdit = cbxActionKind;
- 
+            dcMotorAction.ColumnEdit = cbxActionKind; 
 
             dcPercent.Name = "程度";
             dcPercent.ColumnEdit = edtNum;
@@ -76,13 +75,7 @@ namespace ConfigDevice
 
         }
 
-        /// <summary>
-        /// 重置
-        /// </summary>
-        public override void ResetSetting()
-        {
-            
-        }
+ 
 
         /// <summary>
         /// 生成指令数据
@@ -95,5 +88,11 @@ namespace ConfigDevice
         }
 
 
+        /// <summary>
+        /// 重置
+        /// </summary>
+        public override void ResetSetting()
+        { 
+        }
     }
 }

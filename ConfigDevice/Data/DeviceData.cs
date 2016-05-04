@@ -102,7 +102,7 @@ namespace ConfigDevice
         /// </summary>
         public DeviceData(DataRow dr)
         {
-            DeviceID = dr[DeviceConfig.DC_DEVICE_ID].ToString();
+            DeviceID = dr[DeviceConfig.DC_ID].ToString();
             NetworkID = dr[DeviceConfig.DC_NETWORK_ID].ToString();
             KindID = dr[DeviceConfig.DC_KIND_ID].ToString(); 
             KindName = dr[DeviceConfig.DC_KIND_NAME].ToString();

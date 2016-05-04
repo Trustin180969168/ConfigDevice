@@ -10,18 +10,17 @@ namespace ConfigDevice
     /// <summary>
     /// 回路指令
     /// </summary>
-    public abstract class  ViewControl
+    public abstract class  ViewCommandControl
     {
         public ControlObj controlObj;//控制对象
         protected DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxCommandKind;//选择命令类型编辑
         protected DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit tedtTime;//时间类型编辑
         protected DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtNum;//数字编辑
-
-
+        
         //----配置界面列表------
         public GridView ViewSetting;
         private DataTable dtSetting;
-        public ViewControl(ControlObj _controlObj, GridView gv)
+        public ViewCommandControl(ControlObj _controlObj, GridView gv)
         {
             this.cbxCommandKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxCommandKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;

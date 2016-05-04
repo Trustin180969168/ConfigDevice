@@ -9,7 +9,7 @@ namespace ConfigDevice
     /// <summary>
     /// 背景指令
     /// </summary>
-    public class ViewBackgroundControl : ViewControl
+    public class ViewBackgroundControl : ViewCommandControl
     {
         public ViewBackgroundControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)

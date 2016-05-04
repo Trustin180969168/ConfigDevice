@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using System.Management;
+using DevExpress.XtraGrid.Views.Grid;
 
 
 namespace ConfigDevice
@@ -14,7 +15,7 @@ namespace ConfigDevice
     //
     // 摘要:SysConfig.cs
     //     用于保存系统的基本配置信息,包括公共常量,本地IP,端口,初始化工作等
-    public  class SysCtrl
+    public class SysCtrl
     {
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace ConfigDevice
             DataRow[] rows = SysConfig.DtDevice.Select(cdnStr);
             if (rows.Length == 0) return;
             DataRow dr = rows[0];
-            dr[DeviceConfig.DC_DEVICE_ID] = device.DeviceID;
+            dr[DeviceConfig.DC_ID] = device.DeviceID;
             dr[DeviceConfig.DC_NETWORK_ID] = device.NetworkID;
             dr[DeviceConfig.DC_KIND_NAME] = device.KindName;
             dr[DeviceConfig.DC_NAME] = device.Name;
@@ -177,7 +178,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="kindId">类型</param>
         /// <returns></returns>
-        public static IFactoryDevice GetDevice(byte kindId)
+        public static IFactoryDevice CreateDevice(byte kindId)
         {
             switch (kindId)
             {
@@ -199,6 +200,28 @@ namespace ConfigDevice
         }
 
 
+        /// <summary>
+        /// 获取指令配置
+        /// </summary>
+        /// <param name="kindId">类型</param>
+        /// <returns></returns>
+        public static ViewCommandControl GetViewCommandControl(ControlObj controlObj, GridView gv)
+        {
+            string typeName = controlObj.GetType().ToString();
+            switch (typeName)
+            {
+                case "ConfigDevice.Background": return new ViewBackgroundControl(controlObj, gv);
+                case "ConfigDevice.Circuit": return new ViewCircuitControl(controlObj, gv);
+                case "ConfigDevice.Messages": return new ViewMessagesControl(controlObj, gv);
+                case "ConfigDevice.Motor": return new ViewMotorControl(controlObj, gv);
+                case "ConfigDevice.Scene": return new ViewSceneControl(controlObj, gv);
+                case "ConfigDevice.Server": return new ViewServerControl(controlObj, gv);
+                case "ConfigDevice.Switch": return new ViewSwitchControl(controlObj, gv);
+                case "ConfigDevice.Timing": return new ViewTimingControl(controlObj, gv);
+
+                default: return null;
+            }
+        }
 
     }
 }

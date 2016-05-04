@@ -9,7 +9,7 @@ namespace ConfigDevice
     /// <summary>
     /// 时序指令
     /// </summary>
-    public class ViewTimingControl : ViewControl
+    public class ViewTimingControl : ViewCommandControl
     {
         public ViewTimingControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)

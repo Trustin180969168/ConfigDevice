@@ -9,7 +9,7 @@ namespace ConfigDevice
     /// <summary>
     /// 开关指令
     /// </summary>
-    public class ViewSwitchControl : ViewControl
+    public class ViewSwitchControl : ViewCommandControl
     {
         public ViewSwitchControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)

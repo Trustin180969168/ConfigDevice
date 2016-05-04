@@ -9,7 +9,7 @@ namespace ConfigDevice
     /// <summary>
     /// 回路指令
     /// </summary>
-    public class ViewCircuitControl : ViewControl
+    public class ViewCircuitControl : ViewCommandControl
     {
         public ViewCircuitControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
