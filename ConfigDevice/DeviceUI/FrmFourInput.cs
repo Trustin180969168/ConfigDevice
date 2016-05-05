@@ -22,12 +22,15 @@ namespace ConfigDevice
             doorInput4.OnCallbackUI_Action += this.callbackUI;
             doorInput4.OnCallbackUI_Action += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = doorInput4;
+
         }
 
         private void FrmFourInput_Load(object sender, EventArgs e)
         {
             base.InitSelectDevice();//初始化选择列表
             loadData();
+
+            uCtrlCommandEdit.CommandGroupName = "当前区域";
         }
 
         private void loadData()
@@ -70,9 +73,27 @@ namespace ConfigDevice
                     edtNum2.Text = doorInput4.RoadMusicNum2.ToString();
                     edtNum3.Text = doorInput4.RoadMusicNum3.ToString();
                     edtNum4.Text = doorInput4.RoadMusicNum4.ToString();
-
-                    if (clbcAqjb.SelectedItems.Count == 15)
+                      if (clbcAqjb.SelectedItems.Count == 15)
                         cdtSelectAll.Checked = true;
+                    //---------初始化命令组-----------------
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Clear();
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第1路:门窗开-" + edtMcmc1.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第2路:门窗关-" + edtMcmc1.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第3路:警报-" + edtMcmc1.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第4路:撤防-" + edtMcmc1.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第1路:门窗开-" + edtMcmc2.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第2路:门窗关-" + edtMcmc2.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第3路:警报-" + edtMcmc2.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第4路:撤防-" + edtMcmc2.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第1路:门窗开-" + edtMcmc3.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第2路:门窗关-" + edtMcmc3.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第3路:警报-" + edtMcmc3.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第4路:撤防-" + edtMcmc3.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第1路:门窗开-" + edtMcmc4.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第2路:门窗关-" + edtMcmc4.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第3路:警报-" + edtMcmc4.Text);
+                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第4路:撤防-" + edtMcmc4.Text);
+                  
                 }
             }
             catch { }

@@ -32,21 +32,29 @@
             this.btReadCommand = new System.Windows.Forms.ToolStripButton();
             this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
             this.xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
-            this.viewCommandTools2 = new ConfigDevice.ViewCommandTools();
-            this.viewCommandTools1 = new ConfigDevice.ViewCommandTools();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.cbxGroup = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.lblGroupName = new DevExpress.XtraEditors.LabelControl();
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
+            this.viewCommandTools10 = new ConfigDevice.ViewCommandTools();
+            this.viewCommandTools9 = new ConfigDevice.ViewCommandTools();
+            this.viewCommandTools8 = new ConfigDevice.ViewCommandTools();
+            this.viewCommandTools7 = new ConfigDevice.ViewCommandTools();
+            this.viewCommandTools6 = new ConfigDevice.ViewCommandTools();
+            this.viewCommandTools5 = new ConfigDevice.ViewCommandTools();
+            this.viewCommandTools4 = new ConfigDevice.ViewCommandTools();
+            this.viewCommandTools3 = new ConfigDevice.ViewCommandTools();
+            this.viewCommandTools2 = new ConfigDevice.ViewCommandTools();
+            this.viewCommandTools1 = new ConfigDevice.ViewCommandTools();
             this.toolStrip2.SuspendLayout();
             this.xtraScrollableControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
@@ -84,6 +92,14 @@
             // 
             // xtraScrollableControl1
             // 
+            this.xtraScrollableControl1.Controls.Add(this.viewCommandTools10);
+            this.xtraScrollableControl1.Controls.Add(this.viewCommandTools9);
+            this.xtraScrollableControl1.Controls.Add(this.viewCommandTools8);
+            this.xtraScrollableControl1.Controls.Add(this.viewCommandTools7);
+            this.xtraScrollableControl1.Controls.Add(this.viewCommandTools6);
+            this.xtraScrollableControl1.Controls.Add(this.viewCommandTools5);
+            this.xtraScrollableControl1.Controls.Add(this.viewCommandTools4);
+            this.xtraScrollableControl1.Controls.Add(this.viewCommandTools3);
             this.xtraScrollableControl1.Controls.Add(this.viewCommandTools2);
             this.xtraScrollableControl1.Controls.Add(this.viewCommandTools1);
             this.xtraScrollableControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -92,28 +108,11 @@
             this.xtraScrollableControl1.Size = new System.Drawing.Size(748, 360);
             this.xtraScrollableControl1.TabIndex = 5;
             // 
-            // viewCommandTools2
-            // 
-            this.viewCommandTools2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewCommandTools2.Location = new System.Drawing.Point(0, 60);
-            this.viewCommandTools2.Name = "viewCommandTools2";
-            this.viewCommandTools2.Size = new System.Drawing.Size(748, 60);
-            this.viewCommandTools2.TabIndex = 1;
-            this.viewCommandTools2.Load += new System.EventHandler(this.viewCommandTools2_Load);
-            // 
-            // viewCommandTools1
-            // 
-            this.viewCommandTools1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewCommandTools1.Location = new System.Drawing.Point(0, 0);
-            this.viewCommandTools1.Name = "viewCommandTools1";
-            this.viewCommandTools1.Size = new System.Drawing.Size(748, 60);
-            this.viewCommandTools1.TabIndex = 0;
-            // 
             // panelControl1
             // 
             this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.panelControl1.Controls.Add(this.comboBoxEdit1);
-            this.panelControl1.Controls.Add(this.labelControl3);
+            this.panelControl1.Controls.Add(this.cbxGroup);
+            this.panelControl1.Controls.Add(this.lblGroupName);
             this.panelControl1.Controls.Add(this.textEdit2);
             this.panelControl1.Controls.Add(this.textEdit1);
             this.panelControl1.Controls.Add(this.labelControl2);
@@ -126,26 +125,29 @@
             this.panelControl1.Size = new System.Drawing.Size(748, 94);
             this.panelControl1.TabIndex = 6;
             // 
-            // comboBoxEdit1
+            // cbxGroup
             // 
-            this.comboBoxEdit1.Location = new System.Drawing.Point(372, 20);
-            this.comboBoxEdit1.Name = "comboBoxEdit1";
-            this.comboBoxEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.comboBoxEdit1.Properties.Appearance.Options.UseFont = true;
-            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.cbxGroup.Location = new System.Drawing.Point(372, 20);
+            this.cbxGroup.Name = "cbxGroup";
+            this.cbxGroup.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+            this.cbxGroup.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.cbxGroup.Properties.Appearance.Options.UseFont = true;
+            this.cbxGroup.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEdit1.Size = new System.Drawing.Size(200, 26);
-            this.comboBoxEdit1.TabIndex = 9;
+            this.cbxGroup.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxGroup.Size = new System.Drawing.Size(200, 26);
+            this.cbxGroup.TabIndex = 9;
+            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
             // 
-            // labelControl3
+            // lblGroupName
             // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Location = new System.Drawing.Point(302, 23);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(64, 19);
-            this.labelControl3.TabIndex = 8;
-            this.labelControl3.Text = "当前按键";
+            this.lblGroupName.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.lblGroupName.Appearance.Options.UseFont = true;
+            this.lblGroupName.Location = new System.Drawing.Point(302, 23);
+            this.lblGroupName.Name = "lblGroupName";
+            this.lblGroupName.Size = new System.Drawing.Size(64, 19);
+            this.lblGroupName.TabIndex = 8;
+            this.lblGroupName.Text = "当前按键";
             // 
             // textEdit2
             // 
@@ -197,6 +199,95 @@
             this.checkEdit1.Size = new System.Drawing.Size(107, 24);
             this.checkEdit1.TabIndex = 4;
             // 
+            // viewCommandTools10
+            // 
+            this.viewCommandTools10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools10.Location = new System.Drawing.Point(0, 630);
+            this.viewCommandTools10.Name = "viewCommandTools10";
+            this.viewCommandTools10.Size = new System.Drawing.Size(732, 70);
+            this.viewCommandTools10.TabIndex = 9;
+            this.viewCommandTools10.Visible = false;
+            // 
+            // viewCommandTools9
+            // 
+            this.viewCommandTools9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools9.Location = new System.Drawing.Point(0, 560);
+            this.viewCommandTools9.Name = "viewCommandTools9";
+            this.viewCommandTools9.Size = new System.Drawing.Size(732, 70);
+            this.viewCommandTools9.TabIndex = 8;
+            this.viewCommandTools9.Visible = false;
+            // 
+            // viewCommandTools8
+            // 
+            this.viewCommandTools8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools8.Location = new System.Drawing.Point(0, 490);
+            this.viewCommandTools8.Name = "viewCommandTools8";
+            this.viewCommandTools8.Size = new System.Drawing.Size(732, 70);
+            this.viewCommandTools8.TabIndex = 7;
+            this.viewCommandTools8.Visible = false;
+            // 
+            // viewCommandTools7
+            // 
+            this.viewCommandTools7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools7.Location = new System.Drawing.Point(0, 420);
+            this.viewCommandTools7.Name = "viewCommandTools7";
+            this.viewCommandTools7.Size = new System.Drawing.Size(732, 70);
+            this.viewCommandTools7.TabIndex = 6;
+            this.viewCommandTools7.Visible = false;
+            // 
+            // viewCommandTools6
+            // 
+            this.viewCommandTools6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools6.Location = new System.Drawing.Point(0, 350);
+            this.viewCommandTools6.Name = "viewCommandTools6";
+            this.viewCommandTools6.Size = new System.Drawing.Size(732, 70);
+            this.viewCommandTools6.TabIndex = 5;
+            this.viewCommandTools6.Visible = false;
+            // 
+            // viewCommandTools5
+            // 
+            this.viewCommandTools5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools5.Location = new System.Drawing.Point(0, 280);
+            this.viewCommandTools5.Name = "viewCommandTools5";
+            this.viewCommandTools5.Size = new System.Drawing.Size(732, 70);
+            this.viewCommandTools5.TabIndex = 4;
+            this.viewCommandTools5.Visible = false;
+            // 
+            // viewCommandTools4
+            // 
+            this.viewCommandTools4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools4.Location = new System.Drawing.Point(0, 210);
+            this.viewCommandTools4.Name = "viewCommandTools4";
+            this.viewCommandTools4.Size = new System.Drawing.Size(732, 70);
+            this.viewCommandTools4.TabIndex = 3;
+            this.viewCommandTools4.Visible = false;
+            // 
+            // viewCommandTools3
+            // 
+            this.viewCommandTools3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools3.Location = new System.Drawing.Point(0, 140);
+            this.viewCommandTools3.Name = "viewCommandTools3";
+            this.viewCommandTools3.Size = new System.Drawing.Size(732, 70);
+            this.viewCommandTools3.TabIndex = 2;
+            this.viewCommandTools3.Visible = false;
+            // 
+            // viewCommandTools2
+            // 
+            this.viewCommandTools2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools2.Location = new System.Drawing.Point(0, 70);
+            this.viewCommandTools2.Name = "viewCommandTools2";
+            this.viewCommandTools2.Size = new System.Drawing.Size(732, 70);
+            this.viewCommandTools2.TabIndex = 1;
+            this.viewCommandTools2.Visible = false;
+            // 
+            // viewCommandTools1
+            // 
+            this.viewCommandTools1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewCommandTools1.Location = new System.Drawing.Point(0, 0);
+            this.viewCommandTools1.Name = "viewCommandTools1";
+            this.viewCommandTools1.Size = new System.Drawing.Size(732, 70);
+            this.viewCommandTools1.TabIndex = 0;
+            // 
             // UCtrlCommandEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -211,7 +302,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
@@ -232,8 +323,16 @@
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.CheckEdit checkEdit1;
-        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxGroup;
+        private DevExpress.XtraEditors.LabelControl lblGroupName;
         private DevExpress.XtraEditors.TextEdit textEdit2;
+        private ViewCommandTools viewCommandTools10;
+        private ViewCommandTools viewCommandTools9;
+        private ViewCommandTools viewCommandTools8;
+        private ViewCommandTools viewCommandTools7;
+        private ViewCommandTools viewCommandTools6;
+        private ViewCommandTools viewCommandTools5;
+        private ViewCommandTools viewCommandTools4;
+        private ViewCommandTools viewCommandTools3;
     }
 }

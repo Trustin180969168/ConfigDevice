@@ -97,8 +97,6 @@
             this.gvCommands.OptionsSelection.EnableAppearanceFocusedRow = false;
             this.gvCommands.OptionsSelection.InvertSelection = true;
             this.gvCommands.OptionsView.ColumnAutoWidth = false;
-            this.gvCommands.OptionsView.EnableAppearanceEvenRow = true;
-            this.gvCommands.OptionsView.EnableAppearanceOddRow = true;
             this.gvCommands.OptionsView.ShowGroupPanel = false;
             this.gvCommands.OptionsView.ShowIndicator = false;
             this.gvCommands.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
@@ -233,7 +231,7 @@
             this.command.Name = "command";
             this.command.Visible = true;
             this.command.VisibleIndex = 7;
-            this.command.Width = 46;
+            this.command.Width = 132;
             // 
             // parameter1
             // 
@@ -247,7 +245,7 @@
             this.parameter1.Name = "parameter1";
             this.parameter1.Visible = true;
             this.parameter1.VisibleIndex = 8;
-            this.parameter1.Width = 53;
+            this.parameter1.Width = 93;
             // 
             // parameter2
             // 
@@ -261,7 +259,7 @@
             this.parameter2.Name = "parameter2";
             this.parameter2.Visible = true;
             this.parameter2.VisibleIndex = 9;
-            this.parameter2.Width = 53;
+            this.parameter2.Width = 103;
             // 
             // parameter3
             // 
@@ -275,7 +273,7 @@
             this.parameter3.Name = "parameter3";
             this.parameter3.Visible = true;
             this.parameter3.VisibleIndex = 10;
-            this.parameter3.Width = 53;
+            this.parameter3.Width = 96;
             // 
             // parameter4
             // 
@@ -289,7 +287,7 @@
             this.parameter4.Name = "parameter4";
             this.parameter4.Visible = true;
             this.parameter4.VisibleIndex = 11;
-            this.parameter4.Width = 74;
+            this.parameter4.Width = 105;
             // 
             // parameter5
             // 
@@ -303,7 +301,7 @@
             this.parameter5.Name = "parameter5";
             this.parameter5.Visible = true;
             this.parameter5.VisibleIndex = 12;
-            this.parameter5.Width = 53;
+            this.parameter5.Width = 85;
             // 
             // cbxControlObj
             // 

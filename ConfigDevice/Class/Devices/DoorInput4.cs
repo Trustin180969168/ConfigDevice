@@ -12,6 +12,8 @@ namespace ConfigDevice
         public const string AREAR_DOOR_WINDOW_CLOSE= "门窗关";
         public const string AREAR_DOOR_ALARM_OPEN = "警报";
         public const string AREAR_DOOR_ALARM_CLOSE = "撤销警报";//区域-门窗关
+        public string ControlGroupName = "";//控制组名称
+        
 
         private byte[] securityLevel;//----安全级别------
         private byte physicalShieldingPorts;//----物理端口屏蔽------

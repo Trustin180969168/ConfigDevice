@@ -67,7 +67,7 @@
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
-            this.uCtrlCommandEdit1 = new ConfigDevice.DeviceUI.UCtrlCommandEdit();
+            this.uCtrlCommandEdit = new ConfigDevice.DeviceUI.UCtrlCommandEdit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -106,7 +106,7 @@
             this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
             this.tctrlEdit.SelectedTabPage = this.pagePzjm;
-            this.tctrlEdit.Size = new System.Drawing.Size(794, 551);
+            this.tctrlEdit.Size = new System.Drawing.Size(1018, 719);
             this.tctrlEdit.TabIndex = 1;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pagePzjm,
@@ -496,24 +496,24 @@
             // 
             // pageCommand
             // 
-            this.pageCommand.Controls.Add(this.uCtrlCommandEdit1);
+            this.pageCommand.Controls.Add(this.uCtrlCommandEdit);
             this.pageCommand.Name = "pageCommand";
-            this.pageCommand.Size = new System.Drawing.Size(785, 514);
+            this.pageCommand.Size = new System.Drawing.Size(1009, 682);
             this.pageCommand.Text = "指令配置";
             // 
-            // uCtrlCommandEdit1
+            // uCtrlCommandEdit
             // 
-            this.uCtrlCommandEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uCtrlCommandEdit1.Location = new System.Drawing.Point(0, 0);
-            this.uCtrlCommandEdit1.Name = "uCtrlCommandEdit1";
-            this.uCtrlCommandEdit1.Size = new System.Drawing.Size(785, 514);
-            this.uCtrlCommandEdit1.TabIndex = 0;
+            this.uCtrlCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uCtrlCommandEdit.Location = new System.Drawing.Point(0, 0);
+            this.uCtrlCommandEdit.Name = "uCtrlCommandEdit";
+            this.uCtrlCommandEdit.Size = new System.Drawing.Size(1009, 682);
+            this.uCtrlCommandEdit.TabIndex = 0;
             // 
             // FrmFourInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 575);
+            this.ClientSize = new System.Drawing.Size(1018, 743);
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmFourInput";
             this.Text = "门输入4配置";
@@ -596,7 +596,7 @@
         private DevExpress.XtraEditors.CheckEdit cdtSelectAll;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageCommand;
-        private ConfigDevice.DeviceUI.UCtrlCommandEdit uCtrlCommandEdit1;
+        private ConfigDevice.DeviceUI.UCtrlCommandEdit uCtrlCommandEdit;
 
 
     }
