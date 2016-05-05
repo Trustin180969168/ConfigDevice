@@ -31,6 +31,7 @@ namespace ConfigDevice
         public const string DC_NETWORK_IP = "NetworkIP";//网络IP
         public const string DC_ADDRESS = "Address";//设备地址
         public const string DC_CONTROL_OBJ = "ControlObj";//设备地址
+        public const string DC_COMMAND = "Command";//设备指令
         public const string DC_PARAMETER1 = "Parameter1";//参数1
         public const string DC_PARAMETER2 = "Parameter2";//参数2
         public const string DC_PARAMETER3 = "Parameter3";//参数3

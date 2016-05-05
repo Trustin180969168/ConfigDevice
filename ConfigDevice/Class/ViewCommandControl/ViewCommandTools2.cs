@@ -8,14 +8,14 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public partial class ViewCommandTools : UserControl
+    public partial class ViewCommandTools2 : UserControl
     {
         public ControlObj currentControlObj;//---控制对象-----
         public ViewCommandControl viewControl;// ----视图控制----
         private DataTable dtCommandSetting;//---指令配置表-----
         public int Num = 1;
         public DeviceData CurrentDevice;//当前设备
-        public ViewCommandTools()
+        public ViewCommandTools2()
         {
             InitializeComponent();
 
@@ -27,10 +27,14 @@ namespace ConfigDevice
             dtCommandSetting.Columns.Add(DeviceConfig.DC_KIND_ID, System.Type.GetType("System.String"));
             dtCommandSetting.Columns.Add(DeviceConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
             dtCommandSetting.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
+            dtCommandSetting.Columns.Add(DeviceConfig.DC_MAC, System.Type.GetType("System.String"));
+            dtCommandSetting.Columns.Add(DeviceConfig.DC_STATE, System.Type.GetType("System.String"));
+            dtCommandSetting.Columns.Add(DeviceConfig.DC_REMARK, System.Type.GetType("System.String"));
+            dtCommandSetting.Columns.Add(DeviceConfig.DC_SOFTWARE_VER, System.Type.GetType("System.String"));
+            dtCommandSetting.Columns.Add(DeviceConfig.DC_HARDWARE_VER, System.Type.GetType("System.String"));
             dtCommandSetting.Columns.Add(DeviceConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
             dtCommandSetting.Columns.Add(DeviceConfig.DC_NETWORK_IP, System.Type.GetType("System.String"));
             dtCommandSetting.Columns.Add(DeviceConfig.DC_CONTROL_OBJ, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_COMMAND, System.Type.GetType("System.String"));
             dtCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER1, System.Type.GetType("System.String"));
             dtCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER2, System.Type.GetType("System.String"));
             dtCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER3, System.Type.GetType("System.String"));
@@ -43,7 +47,6 @@ namespace ConfigDevice
             deviceKind.FieldName = DeviceConfig.DC_KIND_NAME;
             deviceName.FieldName = DeviceConfig.DC_NAME;
             deviceCtrlObj.FieldName = DeviceConfig.DC_CONTROL_OBJ;
-            command.FieldName = DeviceConfig.DC_COMMAND;
             parameter1.FieldName = DeviceConfig.DC_PARAMETER1;
             parameter2.FieldName = DeviceConfig.DC_PARAMETER2;
             parameter3.FieldName = DeviceConfig.DC_PARAMETER3;
@@ -51,12 +54,10 @@ namespace ConfigDevice
             parameter5.FieldName = DeviceConfig.DC_PARAMETER5;
 
             dtCommandSetting.Rows.Add();
+
             gcCommands.DataSource = dtCommandSetting;
         }
 
-        /// <summary>
-        /// 选择设备
-        /// </summary>
         private void gvDevices_DoubleClick(object sender, EventArgs e)
         {
             SelectDevice select = new SelectDevice();
@@ -80,7 +81,7 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 选择控制对象
+        /// 选择指令种类
         /// </summary>
         private void cbxBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -98,7 +99,6 @@ namespace ConfigDevice
             DataRow dr = gvCommands.GetDataRow(0);
 
             dr[DeviceConfig.DC_CONTROL_OBJ] = "";
-            dr[DeviceConfig.DC_ADDRESS] = "";
             dr[DeviceConfig.DC_PARAMETER1] = "";
             dr[DeviceConfig.DC_PARAMETER2] = "";
             dr[DeviceConfig.DC_PARAMETER3] = "";

@@ -46,6 +46,7 @@
             this.btSearchDevices = new System.Windows.Forms.ToolStripButton();
             this.btClearDevice = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripLabel();
             this.cbxSelectNetwork = new System.Windows.Forms.ToolStripComboBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -78,7 +79,6 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripLabel();
             this.cbxIPList = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).BeginInit();
@@ -95,9 +95,9 @@
             this.panel1.Controls.Add(this.gcDevices);
             this.panel1.Controls.Add(this.toolStrip2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 272);
+            this.panel1.Location = new System.Drawing.Point(0, 164);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1016, 469);
+            this.panel1.Size = new System.Drawing.Size(1016, 577);
             this.panel1.TabIndex = 6;
             // 
             // gcDevices
@@ -108,7 +108,7 @@
             this.gcDevices.Location = new System.Drawing.Point(0, 32);
             this.gcDevices.MainView = this.gvDevices;
             this.gcDevices.Name = "gcDevices";
-            this.gcDevices.Size = new System.Drawing.Size(1016, 437);
+            this.gcDevices.Size = new System.Drawing.Size(1016, 545);
             this.gcDevices.TabIndex = 7;
             this.gcDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDevices});
@@ -314,6 +314,16 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 32);
             // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(41, 29);
+            this.toolStripButton3.Text = "网络";
+            // 
             // cbxSelectNetwork
             // 
             this.cbxSelectNetwork.BackColor = System.Drawing.SystemColors.Info;
@@ -331,7 +341,7 @@
             // 
             this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter1.Location = new System.Drawing.Point(0, 268);
+            this.splitter1.Location = new System.Drawing.Point(0, 160);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(1016, 4);
             this.splitter1.TabIndex = 7;
@@ -344,7 +354,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1016, 268);
+            this.panel2.Size = new System.Drawing.Size(1016, 160);
             this.panel2.TabIndex = 8;
             // 
             // gcNetwork
@@ -357,7 +367,7 @@
             this.gcNetwork.Location = new System.Drawing.Point(0, 32);
             this.gcNetwork.MainView = this.gvNetwork;
             this.gcNetwork.Name = "gcNetwork";
-            this.gcNetwork.Size = new System.Drawing.Size(1016, 236);
+            this.gcNetwork.Size = new System.Drawing.Size(1016, 128);
             this.gcNetwork.TabIndex = 6;
             this.gcNetwork.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvNetwork});
@@ -680,16 +690,6 @@
             this.cbxIPList.Name = "cbxIPList";
             this.cbxIPList.Size = new System.Drawing.Size(200, 32);
             this.cbxIPList.SelectedIndexChanged += new System.EventHandler(this.cbxIPList_SelectedIndexChanged);
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(41, 29);
-            this.toolStripButton3.Text = "网络";
             // 
             // FrmMain
             // 
