@@ -44,14 +44,14 @@
             this.parameter3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter5 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.cbxObj = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.cbxControlObj = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.cbxCommandKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.tedtTime = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
             this.edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxObj)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCommandKind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tedtTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtNum)).BeginInit();
@@ -66,7 +66,7 @@
             this.gcCommands.MainView = this.gvCommands;
             this.gcCommands.Name = "gcCommands";
             this.gcCommands.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.cbxObj,
+            this.cbxControlObj,
             this.linkEdit,
             this.cbxCommandKind,
             this.tedtTime,
@@ -305,13 +305,15 @@
             this.parameter5.VisibleIndex = 12;
             this.parameter5.Width = 53;
             // 
-            // cbxObj
+            // cbxControlObj
             // 
-            this.cbxObj.AutoHeight = false;
-            this.cbxObj.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.cbxControlObj.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+            this.cbxControlObj.AutoHeight = false;
+            this.cbxControlObj.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxObj.Name = "cbxObj";
-            this.cbxObj.SelectedIndexChanged += new System.EventHandler(this.cbxBox_SelectedIndexChanged);
+            this.cbxControlObj.Name = "cbxControlObj";
+            this.cbxControlObj.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxControlObj.SelectedIndexChanged += new System.EventHandler(this.cbxBox_SelectedIndexChanged);
             // 
             // cbxCommandKind
             // 
@@ -345,7 +347,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxObj)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxCommandKind)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tedtTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtNum)).EndInit();
@@ -364,7 +366,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn deviceName;
         private DevExpress.XtraGrid.Columns.GridColumn deviceCtrlObj;
         private DevExpress.XtraGrid.Columns.GridColumn command;
-        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxObj;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxControlObj;
         private DevExpress.XtraGrid.Columns.GridColumn parameter1;
         private DevExpress.XtraGrid.Columns.GridColumn parameter2;
         private DevExpress.XtraGrid.Columns.GridColumn parameter3;

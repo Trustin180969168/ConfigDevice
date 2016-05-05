@@ -316,10 +316,10 @@
     <Compile Include="Class\Devices\Road8Relay.cs" />
     <Compile Include="Class\Devices\Road3Window.cs" />
     <Compile Include="Class\Devices\Amplifier.cs" />
-    <Compile Include="Class\Devices\Servers.cs" />
+    <Compile Include="Class\Devices\Server.cs" />
     <Compile Include="Class\ViewCommandControl\ViewSceneControl.cs" />
     <Compile Include="Class\ViewCommandControl\ViewTimingControl.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewSwitchControl.cs" />
+    <Compile Include="Class\ViewCommandControl\ViewSwitControl.cs" />
     <Compile Include="Class\ViewCommandControl\ViewBackgroundControl.cs" />
     <Compile Include="Class\ViewCommandControl\ViewMessagesControl.cs" />
     <Compile Include="Class\ViewCommandControl\ViewServerControl.cs" />
@@ -332,8 +332,8 @@
     <Compile Include="Class\ControlObj\Messages.cs" />
     <Compile Include="Class\ControlObj\Motor.cs" />
     <Compile Include="Class\ControlObj\Scene.cs" />
-    <Compile Include="Class\ControlObj\Server.cs" />
-    <Compile Include="Class\ControlObj\Switch.cs" />
+    <Compile Include="Class\ControlObj\ServerControlObj.cs" />
+    <Compile Include="Class\ControlObj\Swit.cs" />
     <Compile Include="Class\ControlObj\Timing.cs" />
     <Compile Include="DeviceUI\UCtrlCommandEdit.cs">
       <SubType>UserControl</SubType>

@@ -74,9 +74,9 @@ namespace ConfigDevice
                 dr.EndEdit();
                 dtCommandSetting.AcceptChanges();
 
-                cbxObj.Items.Clear();
+                cbxControlObj.Items.Clear();
                 foreach(string key in CurrentDevice.ContrlObjs.Keys)
-                    cbxObj.Items.Add(key);
+                    cbxControlObj.Items.Add(key);
             }
         }
 

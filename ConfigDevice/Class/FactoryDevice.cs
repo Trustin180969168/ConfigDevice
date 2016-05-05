@@ -252,7 +252,7 @@ namespace ConfigDevice
 
         public DeviceData CreateDevice(DataRow data)
         {
-            DeviceData device = new Servers(data);
+            DeviceData device = new Server(data);
             return device;
         }
 

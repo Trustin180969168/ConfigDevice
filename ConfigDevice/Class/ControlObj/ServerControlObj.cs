@@ -5,9 +5,11 @@ using System.Text;
 namespace ConfigDevice
 {
 
-    public class Server : ControlObj
+    public class ServerControlObj : ControlObj
     {
-        public Server(DeviceData _deviceCtrl)
+        public const string NAME_CMD_SEND_WEIXIN = "发微信";
+
+        public ServerControlObj(DeviceData _deviceCtrl)
         {
             Name = "服务器";
             deviceControled = _deviceCtrl;

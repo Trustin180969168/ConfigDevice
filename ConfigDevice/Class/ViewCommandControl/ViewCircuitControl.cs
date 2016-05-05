@@ -67,7 +67,7 @@ namespace ConfigDevice
 
 
             dcPercent.Name = "亮度";
-            dcPercent.ColumnEdit = edtNum;
+            dcPercent.ColumnEdit = edtNum;            
             dcRunTime.Name = "运行时间";
             dcRunTime.ColumnEdit = tedtTime;
             dcOpenDelay.Name = "开延迟";

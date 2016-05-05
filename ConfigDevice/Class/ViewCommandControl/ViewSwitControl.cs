@@ -8,25 +8,21 @@ using DevExpress.XtraGrid.Columns;
 namespace ConfigDevice
 {
     /// <summary>
-    /// 时序指令
+    /// 开关指令
     /// </summary>
-    public class ViewTimingControl : ViewCommandControl
+    public class ViewSwitControl : ViewCommandControl
     {
         GridColumn dcCommand;//指令
-        GridColumn dcTimeNum;//时序序号
-        GridColumn dcGroup;//分组
-        GridColumn dcRunCount;//运行次数
-        Timing time;//时序
+        GridColumn dcRunTime;//运行时间
+        Swit swit;//开关
         DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxActionKind;//选择命令类型编辑     
 
-        public ViewTimingControl(ControlObj controlObj, GridView gv)
+        public ViewSwitControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
         {
-            time = controlObj as Timing;
+            swit = controlObj as Swit;
             dcCommand = ViewSetting.Columns["command"];
-            dcTimeNum = ViewSetting.Columns["parameter1"];
-            dcGroup = ViewSetting.Columns["parameter2"];
-            dcRunCount = ViewSetting.Columns["parameter3"];
+            dcRunTime = ViewSetting.Columns["parameter1"];
 
             cbxActionKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxActionKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
@@ -37,23 +33,21 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            dcTimeNum.Visible = true;
-            dcGroup.Visible = true;
-            dcRunCount.Visible = true;
+            dcCommand.Visible = true;
+            dcRunTime.Visible = true;
+            ViewSetting.Columns["parameter2"].Visible = false;
+            ViewSetting.Columns["parameter3"].Visible = false;
             ViewSetting.Columns["parameter4"].Visible = false;
             ViewSetting.Columns["parameter5"].Visible = false;
 
-            cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE);
-            cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE_OPEN);
-            cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE_CLOSE);
+            
+            cbxCommandKind.Items.Add(Swit.NAME_CMD_SW_SWIT_ALL);
+            cbxCommandKind.Items.Add(Swit.CMD_SW_SWIT_ALL_OPEN);
+            cbxCommandKind.Items.Add(Swit.CMD_SW_SWIT_ALL_CLOSE);
             dcCommand.ColumnEdit = cbxCommandKind;
 
-            dcTimeNum.Name = "时序";
-            dcTimeNum.ColumnEdit = edtNum;
-            dcGroup.Name = "分组";
-            dcGroup.ColumnEdit = edtNum;
-            dcRunCount.Name = "运行时间";
-            dcRunCount.ColumnEdit = edtNum;
+            dcRunTime.Name = "运行时间";
+            dcRunTime.ColumnEdit = tedtTime;
         }
 
         /// <summary>

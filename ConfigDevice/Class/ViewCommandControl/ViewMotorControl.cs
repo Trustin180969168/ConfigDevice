@@ -49,20 +49,20 @@ namespace ConfigDevice
             dcOpenDelay.Visible = true;
             dcCloseDelay.Visible = true;
 
-            cbxCommandKind.Items.Add("开关电机");
-            cbxCommandKind.Items.Add("开电机");
-            cbxCommandKind.Items.Add("关电机");
-            cbxCommandKind.Items.Add("开执行");
-            cbxCommandKind.Items.Add("关执行");
+            cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP);
+            cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_OPEN);
+            cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_CLOSE);
+            cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_OPEN_CONDITION);
+            cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_CLOSE_CONDITION);
             dcCommand.ColumnEdit = cbxCommandKind;
 
             dcMotorAction.Name = "电机动作";
-            cbxActionKind.Items.Add("1路正转");
-            cbxActionKind.Items.Add("1路反转");
-            cbxActionKind.Items.Add("2路正转");
-            cbxActionKind.Items.Add("2路反转");
-            cbxActionKind.Items.Add("3路正转");
-            cbxActionKind.Items.Add("3路反转");
+            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_FRONT_1);
+            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_BACK_1);
+            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_FRONT_2);
+            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_BACK_2);
+            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_FRONT_3);
+            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_BACK_3);
             dcMotorAction.ColumnEdit = cbxActionKind; 
 
             dcPercent.Name = "程度";
@@ -82,22 +82,20 @@ namespace ConfigDevice
         /// <returns></returns>
         public override CommandData GetCommand()
         {
+            //string actionStr = (string)ViewSetting.GetRowCellValue(0, dcMotorAction);
+            //MotorAction action = MotorAction.Road1Front;
+            //switch (actionStr)
+            //{
+            //    case Motor.NAME_ACTION_ROAD_FRONT_1: action = MotorAction.Road1Front; break;
+            //    case Motor.NAME_ACTION_ROAD_BACK_1: action = MotorAction.Road1Back; break;
+            //    case Motor.NAME_ACTION_ROAD_FRONT_2: action = MotorAction.Road2Front; break;
+            //    case Motor.NAME_ACTION_ROAD_BACK_2: action = MotorAction.Road2Back; break;
+            //    case Motor.NAME_ACTION_ROAD_FRONT_3: action = MotorAction.Road3Front; break;
+            //    case Motor.NAME_ACTION_ROAD_BACK_3: action = MotorAction.Road3Back; break;
+            //    default: action = MotorAction.Road1Front; break;
+            //}
 
-
-            string actionStr = (string)ViewSetting.GetRowCellValue(0, dcMotorAction);
-            MotorAction action = MotorAction.Road1Front;
-            switch (actionStr)
-            {
-                case Motor.NAME_ACTION_ROAD_FRONT_1: action = MotorAction.Road1Front; break;
-                case Motor.NAME_ACTION_ROAD_BACK_1: action = MotorAction.Road1Back; break;
-                case Motor.NAME_ACTION_ROAD_FRONT_2: action = MotorAction.Road2Front; break;
-                case Motor.NAME_ACTION_ROAD_BACK_2: action = MotorAction.Road2Back; break;
-                case Motor.NAME_ACTION_ROAD_FRONT_3: action = MotorAction.Road3Front; break;
-                case Motor.NAME_ACTION_ROAD_BACK_3: action = MotorAction.Road3Back; break;
-                default: action = MotorAction.Road1Front; break;
-            }
-
-            string cmdStr =(string)ViewSetting.GetRowCellValue(0, dcCommand);
+            //string cmdStr =(string)ViewSetting.GetRowCellValue(0, dcCommand);
 
             return null;
         }

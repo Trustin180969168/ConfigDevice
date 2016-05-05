@@ -33,7 +33,7 @@ namespace ConfigDevice
             ContrlObjs.Add("回路", new Circuit(this));
             ContrlObjs.Add("场景", new Scene(this));
             ContrlObjs.Add("时序", new Timing(this));
-            ContrlObjs.Add("全部", new Switch(this));
+            ContrlObjs.Add("全部", new Swit(this));
         }
 
     }

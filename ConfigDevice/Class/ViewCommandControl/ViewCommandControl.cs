@@ -24,6 +24,7 @@ namespace ConfigDevice
         {
             this.cbxCommandKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxCommandKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            cbxCommandKind.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
 
             this.tedtTime = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
             this.edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();

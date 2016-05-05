@@ -6,16 +6,16 @@ using System.Data;
 namespace ConfigDevice
 {
 
-    public class Servers : DeviceData
+    public class Server : DeviceData
     {
 
-        public Servers(UserUdpData userUdpData)
+        public Server(UserUdpData userUdpData)
             : base(userUdpData)
         {
             initControlObjs();
         }
 
-        public Servers(DataRow dr)
+        public Server(DataRow dr)
             : base(dr)
         {
             initControlObjs();
@@ -26,7 +26,7 @@ namespace ConfigDevice
         /// </summary>
         private void initControlObjs()
         {
-            ContrlObjs.Add("服务器",new Server(this));
+            ContrlObjs.Add("服务器",new ServerControlObj(this));
         }
 
     }
