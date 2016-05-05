@@ -30,7 +30,6 @@
         {
             this.gcDevices = new DevExpress.XtraGrid.GridControl();
             this.gvDevices = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.xh = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceNetworkID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceKind = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -58,8 +57,11 @@
             // 
             // gvDevices
             // 
+            this.gvDevices.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.gvDevices.Appearance.GroupRow.ForeColor = System.Drawing.Color.Blue;
+            this.gvDevices.Appearance.GroupRow.Options.UseFont = true;
+            this.gvDevices.Appearance.GroupRow.Options.UseForeColor = true;
             this.gvDevices.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.xh,
             this.deviceID,
             this.deviceNetworkID,
             this.deviceKind,
@@ -79,25 +81,8 @@
             this.gvDevices.OptionsView.ShowGroupPanel = false;
             this.gvDevices.OptionsView.ShowIndicator = false;
             this.gvDevices.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.deviceKind, DevExpress.Data.ColumnSortOrder.Ascending),
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.xh, DevExpress.Data.ColumnSortOrder.Ascending)});
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.deviceKind, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gvDevices.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
-            // 
-            // xh
-            // 
-            this.xh.AppearanceCell.Options.UseTextOptions = true;
-            this.xh.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.xh.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.xh.AppearanceHeader.Options.UseTextOptions = true;
-            this.xh.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.xh.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.xh.Caption = "序号";
-            this.xh.Name = "xh";
-            this.xh.OptionsColumn.AllowEdit = false;
-            this.xh.OptionsColumn.ReadOnly = true;
-            this.xh.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
-            this.xh.Visible = true;
-            this.xh.VisibleIndex = 0;
             // 
             // deviceID
             // 
@@ -112,7 +97,7 @@
             this.deviceID.OptionsColumn.AllowEdit = false;
             this.deviceID.OptionsColumn.ReadOnly = true;
             this.deviceID.Visible = true;
-            this.deviceID.VisibleIndex = 1;
+            this.deviceID.VisibleIndex = 0;
             // 
             // deviceNetworkID
             // 
@@ -127,7 +112,7 @@
             this.deviceNetworkID.OptionsColumn.AllowEdit = false;
             this.deviceNetworkID.OptionsColumn.ReadOnly = true;
             this.deviceNetworkID.Visible = true;
-            this.deviceNetworkID.VisibleIndex = 2;
+            this.deviceNetworkID.VisibleIndex = 1;
             // 
             // deviceKind
             // 
@@ -141,8 +126,6 @@
             this.deviceKind.Name = "deviceKind";
             this.deviceKind.OptionsColumn.AllowEdit = false;
             this.deviceKind.OptionsColumn.ReadOnly = true;
-            this.deviceKind.Visible = true;
-            this.deviceKind.VisibleIndex = 3;
             // 
             // deviceName
             // 
@@ -157,7 +140,7 @@
             this.deviceName.OptionsColumn.AllowEdit = false;
             this.deviceName.OptionsColumn.ReadOnly = true;
             this.deviceName.Visible = true;
-            this.deviceName.VisibleIndex = 3;
+            this.deviceName.VisibleIndex = 2;
             // 
             // deviceMac
             // 
@@ -172,7 +155,7 @@
             this.deviceMac.OptionsColumn.AllowEdit = false;
             this.deviceMac.OptionsColumn.ReadOnly = true;
             this.deviceMac.Visible = true;
-            this.deviceMac.VisibleIndex = 4;
+            this.deviceMac.VisibleIndex = 3;
             // 
             // deviceState
             // 
@@ -187,7 +170,7 @@
             this.deviceState.OptionsColumn.AllowEdit = false;
             this.deviceState.OptionsColumn.ReadOnly = true;
             this.deviceState.Visible = true;
-            this.deviceState.VisibleIndex = 5;
+            this.deviceState.VisibleIndex = 4;
             // 
             // deviceRemark
             // 
@@ -204,7 +187,7 @@
             this.deviceRemark.OptionsColumn.AllowEdit = false;
             this.deviceRemark.OptionsColumn.ReadOnly = true;
             this.deviceRemark.Visible = true;
-            this.deviceRemark.VisibleIndex = 6;
+            this.deviceRemark.VisibleIndex = 5;
             // 
             // gridColumn13
             // 
@@ -225,6 +208,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 573);
             this.Controls.Add(this.gcDevices);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SelectDevice";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "设备选择";
@@ -239,7 +225,6 @@
 
         private DevExpress.XtraGrid.GridControl gcDevices;
         private DevExpress.XtraGrid.Views.Grid.GridView gvDevices;
-        private DevExpress.XtraGrid.Columns.GridColumn xh;
         private DevExpress.XtraGrid.Columns.GridColumn deviceID;
         private DevExpress.XtraGrid.Columns.GridColumn deviceNetworkID;
         private DevExpress.XtraGrid.Columns.GridColumn deviceKind;

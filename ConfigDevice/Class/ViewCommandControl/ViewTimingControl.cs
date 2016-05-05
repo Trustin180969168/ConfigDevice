@@ -23,13 +23,15 @@ namespace ConfigDevice
             : base(controlObj, gv)
         {
             time = controlObj as Timing;
-            dcCommand = ViewSetting.Columns["command"];
-            dcTimeNum = ViewSetting.Columns["parameter1"];
-            dcGroup = ViewSetting.Columns["parameter2"];
-            dcRunCount = ViewSetting.Columns["parameter3"];
+            dcCommand = ViewSetting.Columns.ColumnByName("command");
+            dcTimeNum = ViewSetting.Columns.ColumnByName("parameter1");
+            dcGroup = ViewSetting.Columns.ColumnByName("parameter2");
+            dcRunCount = ViewSetting.Columns.ColumnByName("parameter3");
 
             cbxActionKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxActionKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+
+            InitViewSetting();
         } 
 
         /// <summary>
@@ -40,8 +42,8 @@ namespace ConfigDevice
             dcTimeNum.Visible = true;
             dcGroup.Visible = true;
             dcRunCount.Visible = true;
-            ViewSetting.Columns["parameter4"].Visible = false;
-            ViewSetting.Columns["parameter5"].Visible = false;
+            ViewSetting.Columns.ColumnByName("parameter4").Visible = false;
+            ViewSetting.Columns.ColumnByName("parameter5").Visible = false;
 
             cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE);
             cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE_OPEN);

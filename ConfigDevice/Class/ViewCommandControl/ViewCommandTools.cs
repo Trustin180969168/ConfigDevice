@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 
 namespace ConfigDevice
 {
@@ -15,6 +16,7 @@ namespace ConfigDevice
         private DataTable dtCommandSetting;//---指令配置表-----
         public int Num = 1;
         public DeviceData CurrentDevice;//当前设备
+
         public ViewCommandTools()
         {
             InitializeComponent();
@@ -51,6 +53,7 @@ namespace ConfigDevice
             parameter5.FieldName = DeviceConfig.DC_PARAMETER5;
 
             dtCommandSetting.Rows.Add();
+            dtCommandSetting.AcceptChanges();
             gcCommands.DataSource = dtCommandSetting;
         }
 
@@ -72,6 +75,7 @@ namespace ConfigDevice
 
                 dr.EndEdit();
                 dtCommandSetting.AcceptChanges();
+                gvCommands.BestFitColumns();
 
                 cbxControlObj.Items.Clear();
                 foreach(string key in CurrentDevice.ContrlObjs.Keys)
@@ -82,12 +86,15 @@ namespace ConfigDevice
         /// <summary>
         /// 选择控制对象
         /// </summary>
-        private void cbxBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbxControlObj_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataRow dr = dtCommandSetting.Rows[0];
-            string name = dr[DeviceConfig.DC_CONTROL_OBJ].ToString();
+            string name = (string)cbxControlObj.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
             currentControlObj = CurrentDevice.ContrlObjs[name];
-            viewControl = SysCtrl.GetViewCommandControl(currentControlObj,gvCommands);            
+            viewControl = SysCtrl.GetViewCommandControl(currentControlObj, gvCommands);
+
+            dtCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = name;
+            dtCommandSetting.AcceptChanges();
+            gvCommands.BestFitColumns();
         }
 
         /// <summary>
@@ -98,7 +105,7 @@ namespace ConfigDevice
             DataRow dr = gvCommands.GetDataRow(0);
 
             dr[DeviceConfig.DC_CONTROL_OBJ] = "";
-            dr[DeviceConfig.DC_ADDRESS] = "";
+            dr[DeviceConfig.DC_COMMAND] = "";
             dr[DeviceConfig.DC_PARAMETER1] = "";
             dr[DeviceConfig.DC_PARAMETER2] = "";
             dr[DeviceConfig.DC_PARAMETER3] = "";
@@ -108,6 +115,17 @@ namespace ConfigDevice
             dtCommandSetting.AcceptChanges();
             gvCommands.RefreshData();
         }
+
+        /// <summary>
+        /// 获取指令数据
+        /// </summary>
+        /// <returns>CommandData</returns>
+        public CommandData GetCommandData()
+        {
+          return  viewControl.GetCommand();
+        }
+
+
             
     }
 }

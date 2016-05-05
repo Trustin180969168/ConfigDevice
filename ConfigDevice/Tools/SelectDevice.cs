@@ -15,6 +15,15 @@ namespace ConfigDevice
         public SelectDevice()
         {
             InitializeComponent();
+
+
+            deviceID.FieldName = DeviceConfig.DC_ID;
+            deviceNetworkID.FieldName = DeviceConfig.DC_NETWORK_ID;
+            deviceKind.FieldName = DeviceConfig.DC_KIND_NAME;
+            deviceName.FieldName = DeviceConfig.DC_NAME;
+            deviceMac.FieldName = DeviceConfig.DC_MAC;
+            deviceState.FieldName = DeviceConfig.DC_STATE;
+            deviceRemark.FieldName = DeviceConfig.DC_REMARK;
         }
 
         /// <summary>
@@ -23,7 +32,7 @@ namespace ConfigDevice
         /// <returns></returns>
         private string chooseCondition()
         {
-            string temp = DeviceConfig.DC_ID + " in (" +
+            string temp = DeviceConfig.DC_KIND_ID + " in (" +
                           "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
                           "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +
                           "'" + (int)DeviceConfig.EQUIPMENT_SWIT_4 + "'," +
@@ -34,8 +43,8 @@ namespace ConfigDevice
                           "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_6 + "'," +
                           "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_8 + "'," +
                           "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'," +
-                           ")";
+                          "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
+                          ")";
             return temp;
         }
 
@@ -45,16 +54,13 @@ namespace ConfigDevice
         private void gvDevices_DoubleClick(object sender, EventArgs e)
         {
             if (gvDevices.FocusedRowHandle == -1) return;
-
+            DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
+            byte kindId = BitConverter.GetBytes(Convert.ToInt16(dr[DeviceConfig.DC_KIND_ID]))[0];   
+            ChooseDevice = SysCtrl.CreateDevice(kindId).CreateDevice(dr);//---创建相应的设备对象-----
             if (SysConfig.ListNetworks.ContainsKey(ChooseDevice.NetworkIP) &&
                 SysConfig.ListNetworks[ChooseDevice.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
-            {
-                DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
-                byte kindId = BitConverter.GetBytes(Convert.ToInt16(dr[DeviceConfig.DC_KIND_ID]))[0];
-                ChooseDevice = SysCtrl.CreateDevice(kindId).CreateDevice(dr);//---创建相应的设备对象-----
                 this.DialogResult = DialogResult.Yes;
-            }
-            else { CommonTools.MessageShow("网络链接已断开,请重新链接!", 2, ""); return; }
+            else { CommonTools.MessageShow("网络链接已断开,请重新链接!", 2, ""); ChooseDevice = null; }
         }
 
         /// <summary>
@@ -63,10 +69,11 @@ namespace ConfigDevice
         private void SelectDevice_Load(object sender, EventArgs e)
         {
             DataTable dt = SysConfig.DtDevice.Clone();
-            DataRow[] rows =  SysConfig.DtDevice.Select(chooseCondition());
+            string cdnStr = chooseCondition();
+            DataRow[] rows =  SysConfig.DtDevice.Select(cdnStr);
             foreach (DataRow dr in rows)
-                dt.Rows.Add(dr);
-
+                dt.Rows.Add(dr.ItemArray);
+            dt.AcceptChanges();
             gcDevices.DataSource = dt;
             gvDevices.BestFitColumns();
         }

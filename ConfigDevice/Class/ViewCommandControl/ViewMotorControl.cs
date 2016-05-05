@@ -19,22 +19,24 @@ namespace ConfigDevice
         GridColumn dcRunTime;//运行时间
         GridColumn dcOpenDelay;//开延迟
         GridColumn dcCloseDelay;//关延迟
-        Motor motor;
+        Motor motor;//控制对象
         DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxActionKind;//选择命令类型编辑     
 
         public ViewMotorControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
         {
             motor = controlObj as Motor;
-            dcCommand = ViewSetting.Columns["command"];
-            dcMotorAction = ViewSetting.Columns["parameter1"];
-            dcPercent = ViewSetting.Columns["parameter2"];
-            dcRunTime = ViewSetting.Columns["parameter3"];
-            dcOpenDelay = ViewSetting.Columns["parameter4"];
-            dcCloseDelay = ViewSetting.Columns["parameter5"];
+            dcCommand = ViewSetting.Columns.ColumnByName("command");
+            dcMotorAction = ViewSetting.Columns.ColumnByName("parameter1");
+            dcPercent = ViewSetting.Columns.ColumnByName("parameter2");
+            dcRunTime = ViewSetting.Columns.ColumnByName("parameter3");
+            dcOpenDelay = ViewSetting.Columns.ColumnByName("parameter4");
+            dcCloseDelay = ViewSetting.Columns.ColumnByName("parameter5");
 
             cbxActionKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxActionKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+
+            InitViewSetting();
         }
 
         /// <summary>
@@ -56,23 +58,25 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_CLOSE_CONDITION);
             dcCommand.ColumnEdit = cbxCommandKind;
 
-            dcMotorAction.Name = "电机动作";
+            dcMotorAction.Caption = "电机动作";
             cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_FRONT_1);
             cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_BACK_1);
             cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_FRONT_2);
             cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_BACK_2);
             cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_FRONT_3);
             cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_BACK_3);
-            dcMotorAction.ColumnEdit = cbxActionKind; 
+            dcMotorAction.ColumnEdit = cbxActionKind;
 
-            dcPercent.Name = "程度";
+            dcPercent.Caption = "程度";
             dcPercent.ColumnEdit = edtNum;
-            dcRunTime.Name = "运行时间";
+            dcRunTime.Caption = "运行时间";
             dcRunTime.ColumnEdit = tedtTime;
-            dcOpenDelay.Name = "开延迟";
+            dcOpenDelay.Caption = "开延迟";
             dcOpenDelay.ColumnEdit = tedtTime;
-            dcCloseDelay.Name = "关延迟";
+            dcCloseDelay.Caption = "关延迟";
             dcCloseDelay.ColumnEdit = tedtTime;
+
+            ViewSetting.BestFitColumns();
 
         }
 

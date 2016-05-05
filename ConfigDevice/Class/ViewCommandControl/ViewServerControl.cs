@@ -21,8 +21,10 @@ namespace ConfigDevice
             : base(controlObj, gv)
         {
             server = controlObj as ServerControlObj;
-            dcCommand = ViewSetting.Columns["command"];
-            dcWeiXinContent = ViewSetting.Columns["parameter1"];
+            dcCommand = ViewSetting.Columns.ColumnByName("command");
+            dcWeiXinContent = ViewSetting.Columns.ColumnByName("parameter1");
+
+            InitViewSetting();
         } 
 
         /// <summary>

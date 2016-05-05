@@ -26,18 +26,20 @@ namespace ConfigDevice
             : base(controlObj, gv)
         {
             message = controlObj as Messages;
-            dcCommand = ViewSetting.Columns["command"];
-            dcSoundSource = ViewSetting.Columns["parameter1"];
-            dcVolume = ViewSetting.Columns["parameter2"];
-            dcPlayOrder = ViewSetting.Columns["parameter3"];
-            dcPlayNum = ViewSetting.Columns["parameter4"];
-            dcPlayCount = ViewSetting.Columns["parameter5"];
+            dcCommand = ViewSetting.Columns.ColumnByName("command");
+            dcSoundSource = ViewSetting.Columns.ColumnByName("parameter1");
+            dcVolume = ViewSetting.Columns.ColumnByName("parameter2");
+            dcPlayOrder = ViewSetting.Columns.ColumnByName("parameter3");
+            dcPlayNum = ViewSetting.Columns.ColumnByName("parameter4");
+            dcPlayCount = ViewSetting.Columns.ColumnByName("parameter5");
 
             cbxSoundSource = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxSoundSource.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
 
             cbxPlayOrder = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxPlayOrder.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+
+            InitViewSetting();
 
         } 
 

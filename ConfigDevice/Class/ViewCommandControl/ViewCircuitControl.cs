@@ -28,15 +28,17 @@ namespace ConfigDevice
             : base(controlObj, gv)
         {
             circuit = controlObj as Circuit;
-            dcCommand = ViewSetting.Columns["command"];
-            dcCircuit = ViewSetting.Columns["parameter1"];
-            dcPercent = ViewSetting.Columns["parameter2"];
-            dcRunTime = ViewSetting.Columns["parameter3"];
-            dcOpenDelay = ViewSetting.Columns["parameter4"];
-            dcCloseDelay = ViewSetting.Columns["parameter5"];
+            dcCommand = ViewSetting.Columns.ColumnByName("command");
+            dcCircuit = ViewSetting.Columns.ColumnByName("parameter1");
+            dcPercent = ViewSetting.Columns.ColumnByName("parameter2");
+            dcRunTime = ViewSetting.Columns.ColumnByName("parameter3");
+            dcOpenDelay = ViewSetting.Columns.ColumnByName("parameter4");
+            dcCloseDelay = ViewSetting.Columns.ColumnByName("parameter5");
 
             cbxCircuitNum = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxCircuitNum.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+
+            InitViewSetting();
         } 
 
         /// <summary>

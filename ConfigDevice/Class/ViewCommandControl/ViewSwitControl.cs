@@ -21,11 +21,13 @@ namespace ConfigDevice
             : base(controlObj, gv)
         {
             swit = controlObj as Swit;
-            dcCommand = ViewSetting.Columns["command"];
-            dcRunTime = ViewSetting.Columns["parameter1"];
+            dcCommand = ViewSetting.Columns.ColumnByName("command");
+            dcRunTime = ViewSetting.Columns.ColumnByName("parameter1");
 
             cbxActionKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxActionKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+
+            InitViewSetting();
         } 
 
         /// <summary>
@@ -35,10 +37,10 @@ namespace ConfigDevice
         {
             dcCommand.Visible = true;
             dcRunTime.Visible = true;
-            ViewSetting.Columns["parameter2"].Visible = false;
-            ViewSetting.Columns["parameter3"].Visible = false;
-            ViewSetting.Columns["parameter4"].Visible = false;
-            ViewSetting.Columns["parameter5"].Visible = false;
+            ViewSetting.Columns.ColumnByName("parameter2").Visible = false;
+            ViewSetting.Columns.ColumnByName("parameter3").Visible = false;
+            ViewSetting.Columns.ColumnByName("parameter4").Visible = false;
+            ViewSetting.Columns.ColumnByName("parameter5").Visible = false;
 
             
             cbxCommandKind.Items.Add(Swit.NAME_CMD_SW_SWIT_ALL);

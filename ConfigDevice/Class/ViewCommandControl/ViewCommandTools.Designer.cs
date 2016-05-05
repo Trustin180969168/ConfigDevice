@@ -38,23 +38,19 @@
             this.deviceKind = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceCtrlObj = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.cbxControlObj = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.command = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter5 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.cbxControlObj = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            this.cbxCommandKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            this.tedtTime = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
-            this.edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.repositoryItemTimeEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxCommandKind)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tedtTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTimeEdit1)).BeginInit();
             this.SuspendLayout();
             // 
             // gcCommands
@@ -68,9 +64,7 @@
             this.gcCommands.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.cbxControlObj,
             this.linkEdit,
-            this.cbxCommandKind,
-            this.tedtTime,
-            this.edtNum});
+            this.repositoryItemTimeEdit1});
             this.gcCommands.Size = new System.Drawing.Size(1000, 244);
             this.gcCommands.TabIndex = 8;
             this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -131,6 +125,7 @@
             this.xh.Caption = "序号";
             this.xh.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.xh.Name = "xh";
+            this.xh.OptionsColumn.AllowEdit = false;
             this.xh.OptionsColumn.ReadOnly = true;
             this.xh.Visible = true;
             this.xh.VisibleIndex = 1;
@@ -213,10 +208,21 @@
             this.deviceCtrlObj.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.deviceCtrlObj.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.deviceCtrlObj.Caption = "控制对象";
+            this.deviceCtrlObj.ColumnEdit = this.cbxControlObj;
             this.deviceCtrlObj.Name = "deviceCtrlObj";
             this.deviceCtrlObj.Visible = true;
             this.deviceCtrlObj.VisibleIndex = 6;
             this.deviceCtrlObj.Width = 70;
+            // 
+            // cbxControlObj
+            // 
+            this.cbxControlObj.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+            this.cbxControlObj.AutoHeight = false;
+            this.cbxControlObj.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxControlObj.Name = "cbxControlObj";
+            this.cbxControlObj.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxControlObj.SelectedIndexChanged += new System.EventHandler(this.cbxControlObj_SelectedIndexChanged);
             // 
             // command
             // 
@@ -302,37 +308,13 @@
             this.parameter5.VisibleIndex = 12;
             this.parameter5.Width = 85;
             // 
-            // cbxControlObj
+            // repositoryItemTimeEdit1
             // 
-            this.cbxControlObj.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
-            this.cbxControlObj.AutoHeight = false;
-            this.cbxControlObj.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxControlObj.Name = "cbxControlObj";
-            this.cbxControlObj.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbxControlObj.SelectedIndexChanged += new System.EventHandler(this.cbxBox_SelectedIndexChanged);
-            // 
-            // cbxCommandKind
-            // 
-            this.cbxCommandKind.AutoHeight = false;
-            this.cbxCommandKind.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxCommandKind.Name = "cbxCommandKind";
-            // 
-            // tedtTime
-            // 
-            this.tedtTime.AutoHeight = false;
-            this.tedtTime.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.repositoryItemTimeEdit1.AutoHeight = false;
+            this.repositoryItemTimeEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.tedtTime.Name = "tedtTime";
-            this.tedtTime.NullText = "00:00:00";
-            // 
-            // edtNum
-            // 
-            this.edtNum.AutoHeight = false;
-            this.edtNum.Mask.EditMask = "d";
-            this.edtNum.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.edtNum.Name = "edtNum";
+            this.repositoryItemTimeEdit1.Mask.UseMaskAsDisplayFormat = true;
+            this.repositoryItemTimeEdit1.Name = "repositoryItemTimeEdit1";
             // 
             // ViewCommandTools
             // 
@@ -345,9 +327,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxCommandKind)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tedtTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTimeEdit1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -371,8 +351,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn parameter5;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkEdit;
         private DevExpress.XtraGrid.Columns.GridColumn del;
-        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxCommandKind;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit tedtTime;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtNum;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit repositoryItemTimeEdit1;
     }
 }
