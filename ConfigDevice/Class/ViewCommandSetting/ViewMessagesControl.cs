@@ -8,30 +8,30 @@ using DevExpress.XtraGrid.Columns;
 namespace ConfigDevice
 {
     /// <summary>
-    /// 背景指令
+    /// 消息指令
     /// </summary>
-    public class ViewBackgroundControl : ViewCommandControl
+    public class ViewMessagesControl : ViewCommandControl
     {
         GridColumn dcCommand;//指令
         GridColumn dcSoundSource;//音源
         GridColumn dcVolume;//音量
         GridColumn dcPlayOrder;//播放方式
         GridColumn dcPlayNum;//播放曲目
-        GridColumn dcPlayTime;//播放时间
-        Background background;//背景
+        GridColumn dcPlayCount;//播放次数
+        Messages message;//消息
         DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxSoundSource;//选择音源   
         DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxPlayOrder;//选择播放方式
 
-        public ViewBackgroundControl(ControlObj controlObj, GridView gv)
+        public ViewMessagesControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
         {
-            background = controlObj as Background;
+            message = controlObj as Messages;
             dcCommand = ViewSetting.Columns.ColumnByName("command");
             dcSoundSource = ViewSetting.Columns.ColumnByName("parameter1");
             dcVolume = ViewSetting.Columns.ColumnByName("parameter2");
             dcPlayOrder = ViewSetting.Columns.ColumnByName("parameter3");
             dcPlayNum = ViewSetting.Columns.ColumnByName("parameter4");
-            dcPlayTime = ViewSetting.Columns.ColumnByName("parameter5");
+            dcPlayCount = ViewSetting.Columns.ColumnByName("parameter5");
 
             cbxSoundSource = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxSoundSource.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
@@ -40,6 +40,7 @@ namespace ConfigDevice
             cbxPlayOrder.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
 
             InitViewSetting();
+
         } 
 
         /// <summary>
@@ -47,41 +48,45 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            dcCommand.Visible = true;
             dcSoundSource.Visible = true;
             dcVolume.Visible = true;
             dcPlayOrder.Visible = true;
             dcPlayNum.Visible = true;
-            dcPlayTime.Visible = true;
+            dcPlayCount.Visible = true;
 
-            cbxCommandKind.Items.Add(Background.NAME_CMD_SWIT_ALL_MUSIC);
-            cbxCommandKind.Items.Add(Background.NAME_CMD_SWIT_OPEN_MUSIC);
-            cbxCommandKind.Items.Add(Background.NAME_CMD_SWIT_CLOSE_MUSIC);
-            dcCommand.ColumnEdit = cbxCommandKind;
+            cbxCommandKind.Items.Add(Messages.NAME_CMD_SWIT_ALL_MUSIC);
+            cbxCommandKind.Items.Add(Messages.NAME_CMD_SWIT_OPEN_MUSIC);
+            cbxCommandKind.Items.Add(Messages.NAME_CMD_SWIT_CLOSE_MUSIC);
 
-            dcSoundSource.Name = "音源";
-            cbxSoundSource.Items.Add(Background.NAME_SOURCE_MP3);
-            cbxSoundSource.Items.Add(Background.NAME_SOURCE_RADIO);
-            cbxSoundSource.Items.Add(Background.NAME_SOURCE_AUX1);
-            cbxSoundSource.Items.Add(Background.NAME_SOURCE_AUX2);
+            dcSoundSource.Caption = "音源";
+            cbxSoundSource.Items.Add(Messages.NAME_SOURCE_URGENCY);
+            cbxSoundSource.Items.Add(Messages.NAME_SOURCE_DOOR_WINDOW);
             dcSoundSource.ColumnEdit = cbxSoundSource;
 
-            dcVolume.Name = "音量";
-            dcVolume.ColumnEdit = edtNum;
+            dcVolume.Caption = "音量";
+            dcVolume.ColumnEdit = edtPercentNum;
 
-            dcPlayOrder.Name = "播放方式";
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_ORDER_ONE);
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_ORDER_ONE_LOOP);
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_ORDER);
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_ORDER_LOOP);
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_ORDER_RANDOM);
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_INVALID);
+            dcPlayOrder.Caption = "播放方式";
+            cbxPlayOrder.Items.Add(Messages.NAME_PLAY_ONE_COUNT);
+            cbxPlayOrder.Items.Add(Messages.NAME_PLAY_ONE_COUNT_TIME);
+            cbxPlayOrder.Items.Add(Messages.NAME_PLAY_MORE_COUNT);
+            cbxPlayOrder.Items.Add(Messages.NAME_PLAY_MORE_COUNT_TIME);
+            cbxPlayOrder.Items.Add(Messages.NAME_PLAY_INVALID);
             dcPlayOrder.ColumnEdit = cbxPlayOrder;
 
-            dcPlayNum.Name = "曲目";
+            dcPlayNum.Caption = "曲目";
             dcPlayNum.ColumnEdit = edtNum;
-            dcPlayTime.Name = "播放时间";
-            dcPlayTime.ColumnEdit = tedtTime;
+            dcPlayCount.Caption = "播放次数";
+            dcPlayCount.ColumnEdit = edtNum;
+
+            ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcSoundSource, cbxSoundSource.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcVolume, "50");
+            ViewSetting.SetRowCellValue(0, dcPlayOrder, cbxPlayOrder.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcPlayNum, "1");
+            ViewSetting.SetRowCellValue(0, dcPlayCount, "1");
+
+            ViewSetting.BestFitColumns();
         }
 
         /// <summary>

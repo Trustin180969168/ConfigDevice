@@ -45,12 +45,14 @@
             this.parameter3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter5 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemTimeEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
+            this.timeTest = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
+            this.spinTest = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTimeEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeTest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinTest)).BeginInit();
             this.SuspendLayout();
             // 
             // gcCommands
@@ -64,7 +66,8 @@
             this.gcCommands.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.cbxControlObj,
             this.linkEdit,
-            this.repositoryItemTimeEdit1});
+            this.timeTest,
+            this.spinTest});
             this.gcCommands.Size = new System.Drawing.Size(1000, 244);
             this.gcCommands.TabIndex = 8;
             this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -94,6 +97,7 @@
             this.gvCommands.OptionsView.ShowGroupPanel = false;
             this.gvCommands.OptionsView.ShowIndicator = false;
             this.gvCommands.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
+            this.gvCommands.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCommands_CellValueChanged);
             // 
             // del
             // 
@@ -201,6 +205,10 @@
             // 
             // deviceCtrlObj
             // 
+            this.deviceCtrlObj.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.deviceCtrlObj.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.deviceCtrlObj.AppearanceCell.Options.UseBackColor = true;
+            this.deviceCtrlObj.AppearanceCell.Options.UseForeColor = true;
             this.deviceCtrlObj.AppearanceCell.Options.UseTextOptions = true;
             this.deviceCtrlObj.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.deviceCtrlObj.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -226,6 +234,10 @@
             // 
             // command
             // 
+            this.command.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.command.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.command.AppearanceCell.Options.UseBackColor = true;
+            this.command.AppearanceCell.Options.UseForeColor = true;
             this.command.AppearanceCell.Options.UseTextOptions = true;
             this.command.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.command.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -240,6 +252,10 @@
             // 
             // parameter1
             // 
+            this.parameter1.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.parameter1.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.parameter1.AppearanceCell.Options.UseBackColor = true;
+            this.parameter1.AppearanceCell.Options.UseForeColor = true;
             this.parameter1.AppearanceCell.Options.UseTextOptions = true;
             this.parameter1.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.parameter1.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -248,12 +264,14 @@
             this.parameter1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter1.Caption = "参数1";
             this.parameter1.Name = "parameter1";
-            this.parameter1.Visible = true;
-            this.parameter1.VisibleIndex = 8;
             this.parameter1.Width = 93;
             // 
             // parameter2
             // 
+            this.parameter2.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.parameter2.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.parameter2.AppearanceCell.Options.UseBackColor = true;
+            this.parameter2.AppearanceCell.Options.UseForeColor = true;
             this.parameter2.AppearanceCell.Options.UseTextOptions = true;
             this.parameter2.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.parameter2.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -262,12 +280,14 @@
             this.parameter2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter2.Caption = "参数2";
             this.parameter2.Name = "parameter2";
-            this.parameter2.Visible = true;
-            this.parameter2.VisibleIndex = 9;
             this.parameter2.Width = 103;
             // 
             // parameter3
             // 
+            this.parameter3.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.parameter3.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.parameter3.AppearanceCell.Options.UseBackColor = true;
+            this.parameter3.AppearanceCell.Options.UseForeColor = true;
             this.parameter3.AppearanceCell.Options.UseTextOptions = true;
             this.parameter3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.parameter3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -276,12 +296,14 @@
             this.parameter3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter3.Caption = "参数3";
             this.parameter3.Name = "parameter3";
-            this.parameter3.Visible = true;
-            this.parameter3.VisibleIndex = 10;
             this.parameter3.Width = 96;
             // 
             // parameter4
             // 
+            this.parameter4.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.parameter4.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.parameter4.AppearanceCell.Options.UseBackColor = true;
+            this.parameter4.AppearanceCell.Options.UseForeColor = true;
             this.parameter4.AppearanceCell.Options.UseTextOptions = true;
             this.parameter4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.parameter4.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -290,12 +312,14 @@
             this.parameter4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter4.Caption = "参数4";
             this.parameter4.Name = "parameter4";
-            this.parameter4.Visible = true;
-            this.parameter4.VisibleIndex = 11;
             this.parameter4.Width = 105;
             // 
             // parameter5
             // 
+            this.parameter5.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.parameter5.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.parameter5.AppearanceCell.Options.UseBackColor = true;
+            this.parameter5.AppearanceCell.Options.UseForeColor = true;
             this.parameter5.AppearanceCell.Options.UseTextOptions = true;
             this.parameter5.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.parameter5.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -304,17 +328,36 @@
             this.parameter5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter5.Caption = "参数5";
             this.parameter5.Name = "parameter5";
-            this.parameter5.Visible = true;
-            this.parameter5.VisibleIndex = 12;
             this.parameter5.Width = 85;
             // 
-            // repositoryItemTimeEdit1
+            // timeTest
             // 
-            this.repositoryItemTimeEdit1.AutoHeight = false;
-            this.repositoryItemTimeEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.timeTest.AutoHeight = false;
+            this.timeTest.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.repositoryItemTimeEdit1.Mask.UseMaskAsDisplayFormat = true;
-            this.repositoryItemTimeEdit1.Name = "repositoryItemTimeEdit1";
+            this.timeTest.DisplayFormat.FormatString = "d";
+            this.timeTest.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.timeTest.Mask.UseMaskAsDisplayFormat = true;
+            this.timeTest.Name = "timeTest";
+            // 
+            // spinTest
+            // 
+            this.spinTest.AutoHeight = false;
+            this.spinTest.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spinTest.Mask.EditMask = "P0";
+            this.spinTest.Mask.UseMaskAsDisplayFormat = true;
+            this.spinTest.MaxValue = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.spinTest.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.spinTest.Name = "spinTest";
             // 
             // ViewCommandTools
             // 
@@ -327,7 +370,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTimeEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timeTest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinTest)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -351,6 +395,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn parameter5;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkEdit;
         private DevExpress.XtraGrid.Columns.GridColumn del;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit repositoryItemTimeEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit timeTest;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit spinTest;
     }
 }

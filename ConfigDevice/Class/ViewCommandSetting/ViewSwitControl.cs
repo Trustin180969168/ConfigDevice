@@ -35,21 +35,23 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            dcCommand.Visible = true;
             dcRunTime.Visible = true;
             ViewSetting.Columns.ColumnByName("parameter2").Visible = false;
             ViewSetting.Columns.ColumnByName("parameter3").Visible = false;
             ViewSetting.Columns.ColumnByName("parameter4").Visible = false;
             ViewSetting.Columns.ColumnByName("parameter5").Visible = false;
-
             
             cbxCommandKind.Items.Add(Swit.NAME_CMD_SW_SWIT_ALL);
             cbxCommandKind.Items.Add(Swit.CMD_SW_SWIT_ALL_OPEN);
             cbxCommandKind.Items.Add(Swit.CMD_SW_SWIT_ALL_CLOSE);
-            dcCommand.ColumnEdit = cbxCommandKind;
 
-            dcRunTime.Name = "运行时间";
+            dcRunTime.Caption = "运行时间";
             dcRunTime.ColumnEdit = tedtTime;
+
+            ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcRunTime, "00:00:00");
+
+            ViewSetting.BestFitColumns();
         }
 
         /// <summary>

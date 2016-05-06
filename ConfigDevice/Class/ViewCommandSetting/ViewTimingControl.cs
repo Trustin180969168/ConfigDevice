@@ -8,25 +8,25 @@ using DevExpress.XtraGrid.Columns;
 namespace ConfigDevice
 {
     /// <summary>
-    /// 场景指令
+    /// 时序指令
     /// </summary>
-    public class ViewSceneControl : ViewCommandControl
+    public class ViewTimingControl : ViewCommandControl
     {
         GridColumn dcCommand;//指令
-        GridColumn dcSceneNum;//场景
+        GridColumn dcTimeNum;//时序序号
         GridColumn dcGroup;//分组
-        GridColumn dcRunTime;//运行时间
-        Scene scene;//场景
+        GridColumn dcRunCount;//运行次数
+        Timing time;//时序
         DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxActionKind;//选择命令类型编辑     
 
-        public ViewSceneControl(ControlObj controlObj, GridView gv)
+        public ViewTimingControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
         {
-            scene = controlObj as Scene;
+            time = controlObj as Timing;
             dcCommand = ViewSetting.Columns.ColumnByName("command");
-            dcSceneNum = ViewSetting.Columns.ColumnByName("parameter1");
+            dcTimeNum = ViewSetting.Columns.ColumnByName("parameter1");
             dcGroup = ViewSetting.Columns.ColumnByName("parameter2");
-            dcRunTime = ViewSetting.Columns.ColumnByName("parameter3");
+            dcRunCount = ViewSetting.Columns.ColumnByName("parameter3");
 
             cbxActionKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxActionKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
@@ -39,36 +39,29 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            dcCommand.Visible = true;
-            dcSceneNum.Visible = true;
+            dcTimeNum.Visible = true;
             dcGroup.Visible = true;
-            dcRunTime.Visible = true;
+            dcRunCount.Visible = true;
             ViewSetting.Columns.ColumnByName("parameter4").Visible = false;
             ViewSetting.Columns.ColumnByName("parameter5").Visible = false;
 
-            cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE);
-            cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE_OPEN);
-            cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE_CLOSE);
-            dcCommand.ColumnEdit = cbxCommandKind;
+            cbxCommandKind.Items.Add(Timing.NAME_CMD_SW_SWIT_TIMING);
+            cbxCommandKind.Items.Add(Timing.NAME_CMD_SW_SWIT_TIMING_OPEN);
+            cbxCommandKind.Items.Add(Timing.NAME_CMD_SW_SWIT_TIMING_CLOSE);
 
-            dcSceneNum.Name = "场景";
-            cbxActionKind.Items.Add("全部");
-            cbxActionKind.Items.Add("1");
-            cbxActionKind.Items.Add("2");
-            cbxActionKind.Items.Add("3");
-            cbxActionKind.Items.Add("4");
-            cbxActionKind.Items.Add("5");
-            cbxActionKind.Items.Add("6");
-            cbxActionKind.Items.Add("7");
-            cbxActionKind.Items.Add("8");
-            cbxActionKind.Items.Add("无效");
-            dcSceneNum.ColumnEdit = cbxActionKind;
-
-            dcGroup.Name = "分组";
+            dcTimeNum.Caption = "时序";
+            dcTimeNum.ColumnEdit = edtNum;
+            dcGroup.Caption = "分组";
             dcGroup.ColumnEdit = edtNum;
-            dcRunTime.Name = "运行时间";
-            dcRunTime.ColumnEdit = tedtTime;
+            dcRunCount.Caption = "运行次数";
+            dcRunCount.ColumnEdit = edtNum;
 
+            ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcTimeNum, "1");
+            ViewSetting.SetRowCellValue(0, dcGroup, "1");
+            ViewSetting.SetRowCellValue(0, dcRunCount, "1");
+
+            ViewSetting.BestFitColumns();
         }
 
         /// <summary>

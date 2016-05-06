@@ -33,8 +33,7 @@ namespace ConfigDevice
         public override void InitViewSetting()
         {
             cbxCommandKind.Items.Add(ServerControlObj.NAME_CMD_SEND_WEIXIN);
-            dcCommand.ColumnEdit = cbxCommandKind;
-            dcWeiXinContent.Name = "微信内容";
+            dcWeiXinContent.Caption = "微信内容";
         }
 
         /// <summary>

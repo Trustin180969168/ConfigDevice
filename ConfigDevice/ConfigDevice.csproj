@@ -82,18 +82,18 @@
   <ItemGroup>
     <Compile Include="Class\Devices\DoorInput4.cs">
     </Compile>
-    <Compile Include="Class\FactoryDevice.cs" />
-    <Compile Include="Class\NetworkCtrl.cs" />
+    <Compile Include="Class\Manage\FactoryDevice.cs" />
+    <Compile Include="Class\Manage\NetworkCtrl.cs" />
     <Compile Include="Class\Devices\BaseDevice.cs" />
     <Compile Include="Data\DeviceData.cs" />
     <Compile Include="Common\ThreadActionTimer.cs">
     </Compile>
     <Compile Include="Config\DeviceConfig.cs" />
-    <Compile Include="Class\DeviceCtrl.cs" />
+    <Compile Include="Class\Manage\DeviceCtrl.cs" />
     <Compile Include="Config\NetworkConfig.cs" />
     <Compile Include="Data\NetworkData.cs">
     </Compile>
-    <Compile Include="Class\SysCtrl.cs" />
+    <Compile Include="Class\Manage\SysCtrl.cs" />
     <Compile Include="Data\UdpData.cs" />
     <Compile Include="Config\PublicConfig.cs" />
     <Compile Include="Data\UserUdpData.cs" />
@@ -111,10 +111,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Class\ViewCommandControl\ViewCommandTools2.resx">
-      <DependentUpon>ViewCommandTools2.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\FrmFourInput.resx">
       <DependentUpon>FrmFourInput.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -127,7 +123,7 @@
       <DependentUpon>FrmWeatherStation.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\UCtrlCommandEdit.resx">
+    <EmbeddedResource Include="DeviceUI\Base\UCtrlCommandEdit.resx">
       <DependentUpon>UCtrlCommandEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -148,15 +144,15 @@
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\UCtrlBaseEdit.resx">
+    <EmbeddedResource Include="DeviceUI\Base\UCtrlBaseEdit.resx">
       <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\FrmBaseDevice.resx">
+    <EmbeddedResource Include="DeviceUI\Base\FrmBaseDevice.resx">
       <DependentUpon>FrmBaseDevice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\FrmDevice.resx">
+    <EmbeddedResource Include="DeviceUI\Base\FrmDevice.resx">
       <DependentUpon>FrmDevice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -184,7 +180,7 @@
       <DependentUpon>SelectDevice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Class\ViewCommandControl\ViewCommandTools.resx">
+    <EmbeddedResource Include="DeviceUI\Base\ViewCommandTools.resx">
       <DependentUpon>ViewCommandTools.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -227,23 +223,23 @@
     <Compile Include="SysUI\FrmChangePassword.Designer.cs">
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeviceUI\UCtrlBaseEdit.cs">
+    <Compile Include="DeviceUI\Base\UCtrlBaseEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DeviceUI\UCtrlBaseEdit.Designer.cs">
+    <Compile Include="DeviceUI\Base\UCtrlBaseEdit.Designer.cs">
       <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\UdpTools.cs" />
-    <Compile Include="DeviceUI\FrmBaseDevice.cs">
+    <Compile Include="DeviceUI\Base\FrmBaseDevice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeviceUI\FrmBaseDevice.Designer.cs">
+    <Compile Include="DeviceUI\Base\FrmBaseDevice.Designer.cs">
       <DependentUpon>FrmBaseDevice.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeviceUI\FrmDevice.cs">
+    <Compile Include="DeviceUI\Base\FrmDevice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeviceUI\FrmDevice.Designer.cs">
+    <Compile Include="DeviceUI\Base\FrmDevice.Designer.cs">
       <DependentUpon>FrmDevice.cs</DependentUpon>
     </Compile>
     <Compile Include="SysUI\FrmNetworkEdit.cs">
@@ -316,27 +312,21 @@
     <Compile Include="Class\Devices\Road2FrontDimming.cs" />
     <Compile Include="Class\Devices\Road4FrontDimming.cs" />
     <Compile Include="Class\Devices\Road12FrontDimming.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewCircuitControl.cs" />
-    <Compile Include="Class\FactoryViewControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
+    <Compile Include="Class\Manage\FactoryViewControl.cs" />
     <Compile Include="Class\Devices\Road8Relay.cs" />
     <Compile Include="Class\Devices\Road3Window.cs" />
     <Compile Include="Class\Devices\Amplifier.cs" />
     <Compile Include="Class\Devices\Server.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewSceneControl.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewTimingControl.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewSwitControl.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewBackgroundControl.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewMessagesControl.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewServerControl.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewCommandTools2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Class\ViewCommandControl\ViewCommandTools2.Designer.cs">
-      <DependentUpon>ViewCommandTools2.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Class\ViewCommandSetting\ViewSceneControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewTimingControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewSwitControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewBackgroundControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewMessagesControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewServerControl.cs" />
     <Compile Include="Data\CommandData.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewCommandControl.cs" />
-    <Compile Include="Class\ViewCommandControl\ViewMotorControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewCommandControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewMotorControl.cs" />
     <Compile Include="Class\ControlObj\Background.cs" />
     <Compile Include="Class\ControlObj\Circuit.cs" />
     <Compile Include="Class\ControlObj\ControlObj.cs" />
@@ -346,10 +336,10 @@
     <Compile Include="Class\ControlObj\ServerControlObj.cs" />
     <Compile Include="Class\ControlObj\Swit.cs" />
     <Compile Include="Class\ControlObj\Timing.cs" />
-    <Compile Include="DeviceUI\UCtrlCommandEdit.cs">
+    <Compile Include="DeviceUI\Base\UCtrlCommandEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DeviceUI\UCtrlCommandEdit.Designer.cs">
+    <Compile Include="DeviceUI\Base\UCtrlCommandEdit.Designer.cs">
       <DependentUpon>UCtrlCommandEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\SelectDevice.cs">
@@ -358,10 +348,10 @@
     <Compile Include="Tools\SelectDevice.Designer.cs">
       <DependentUpon>SelectDevice.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class\ViewCommandControl\ViewCommandTools.cs">
+    <Compile Include="DeviceUI\Base\ViewCommandTools.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Class\ViewCommandControl\ViewCommandTools.Designer.cs">
+    <Compile Include="DeviceUI\Base\ViewCommandTools.Designer.cs">
       <DependentUpon>ViewCommandTools.cs</DependentUpon>
     </Compile>
     <None Include="Resources\snyc.png" />

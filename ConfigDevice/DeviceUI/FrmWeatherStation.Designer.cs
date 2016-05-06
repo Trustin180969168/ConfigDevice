@@ -123,7 +123,7 @@
             this.ClientSize = new System.Drawing.Size(901, 530);
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmWeatherStation";
-            this.Text = "FrmWeatherStation";
+            this.Text = "气象站配置";
             this.Load += new System.EventHandler(this.FrmWeatherStation_Load);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();

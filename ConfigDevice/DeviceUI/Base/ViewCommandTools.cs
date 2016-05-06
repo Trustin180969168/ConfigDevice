@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Columns;
 
 namespace ConfigDevice
 {
@@ -65,6 +66,7 @@ namespace ConfigDevice
             SelectDevice select = new SelectDevice();
             if (select.ShowDialog() == DialogResult.Yes)
             {
+                this.linkEdit_Click(sender, e);//清空
                 CurrentDevice = select.ChooseDevice;
                 DataRow dr = dtCommandSetting.Rows[0];
                 dr[DeviceConfig.DC_NUM] = Num;
@@ -94,7 +96,10 @@ namespace ConfigDevice
 
             dtCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = name;
             dtCommandSetting.AcceptChanges();
+
             gvCommands.BestFitColumns();
+            foreach (GridColumn dc in gvCommands.Columns)
+                if (dc.VisibleIndex > 5) dc.Width += 15;
         }
 
         /// <summary>
@@ -112,6 +117,12 @@ namespace ConfigDevice
             dr[DeviceConfig.DC_PARAMETER4] = "";
             dr[DeviceConfig.DC_PARAMETER5] = "";
 
+            parameter1.Visible = false;
+            parameter2.Visible = false;
+            parameter3.Visible = false;
+            parameter4.Visible = false;
+            parameter5.Visible = false;
+
             dtCommandSetting.AcceptChanges();
             gvCommands.RefreshData();
         }
@@ -124,6 +135,15 @@ namespace ConfigDevice
         {
           return  viewControl.GetCommand();
         }
+
+        private void gvCommands_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            gvCommands.BestFitColumns();
+            foreach (GridColumn dc in gvCommands.Columns)
+                if (dc.VisibleIndex > 5) dc.Width += 15;
+        }
+
+
 
 
             

@@ -216,7 +216,7 @@ namespace ConfigDevice
                 case "ConfigDevice.Motor": return new ViewMotorControl(controlObj, gv);
                 case "ConfigDevice.Scene": return new ViewSceneControl(controlObj, gv);
                 case "ConfigDevice.Server": return new ViewServerControl(controlObj, gv);
-                case "ConfigDevice.Switch": return new ViewSwitControl(controlObj, gv);
+                case "ConfigDevice.Swit": return new ViewSwitControl(controlObj, gv);
                 case "ConfigDevice.Timing": return new ViewTimingControl(controlObj, gv);
 
                 default: return null;

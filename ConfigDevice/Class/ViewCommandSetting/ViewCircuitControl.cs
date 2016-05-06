@@ -46,7 +46,6 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            dcCommand.Visible = true;
             dcCircuit.Visible = true;
             dcPercent.Visible = true;
             dcRunTime.Visible = true;
@@ -56,10 +55,8 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWITLOOP);
             cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWITLOOP_OPEN);
             cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWITLOOP_CLOSE);
-            dcCommand.ColumnEdit = cbxCommandKind;
 
-
-            dcCircuit.Name = "回路";      
+            dcCircuit.Caption = "回路";      
             Type type = controlObj.deviceControled.GetType(); //获取类型
             System.Reflection.PropertyInfo propertyInfo = type.GetProperty("CircuitCount"); //获取指定名称的属性
             int count = (int)propertyInfo.GetValue(controlObj.deviceControled, null); //获取属性值
@@ -67,15 +64,23 @@ namespace ConfigDevice
                 cbxCircuitNum.Items.Add(i.ToString());
             dcCircuit.ColumnEdit = cbxCircuitNum;
 
-
-            dcPercent.Name = "亮度";
-            dcPercent.ColumnEdit = edtNum;            
-            dcRunTime.Name = "运行时间";
+            dcPercent.Caption = "亮度";
+            dcPercent.ColumnEdit = edtPercentNum;
+            dcRunTime.Caption = "运行时间";
             dcRunTime.ColumnEdit = tedtTime;
-            dcOpenDelay.Name = "开延迟";
+            dcOpenDelay.Caption = "开延迟";
             dcOpenDelay.ColumnEdit = tedtTime;
-            dcCloseDelay.Name = "关延迟";
+            dcCloseDelay.Caption = "关延迟";
             dcCloseDelay.ColumnEdit = tedtTime;
+
+            ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcCircuit, cbxCircuitNum.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcPercent, "0");
+            ViewSetting.SetRowCellValue(0, dcRunTime, "00:00:00");
+            ViewSetting.SetRowCellValue(0, dcOpenDelay, "00:00:00");
+            ViewSetting.SetRowCellValue(0, dcCloseDelay, "00:00:00");
+
+            ViewSetting.BestFitColumns();
         }
 
         /// <summary>

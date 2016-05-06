@@ -44,7 +44,6 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            dcCommand.Visible = true;
             dcMotorAction.Visible = true;
             dcPercent.Visible = true;
             dcRunTime.Visible = true;
@@ -56,7 +55,6 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_CLOSE);
             cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_OPEN_CONDITION);
             cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_CLOSE_CONDITION);
-            dcCommand.ColumnEdit = cbxCommandKind;
 
             dcMotorAction.Caption = "电机动作";
             cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_FRONT_1);
@@ -68,13 +66,20 @@ namespace ConfigDevice
             dcMotorAction.ColumnEdit = cbxActionKind;
 
             dcPercent.Caption = "程度";
-            dcPercent.ColumnEdit = edtNum;
+            dcPercent.ColumnEdit = edtPercentNum;
             dcRunTime.Caption = "运行时间";
             dcRunTime.ColumnEdit = tedtTime;
             dcOpenDelay.Caption = "开延迟";
             dcOpenDelay.ColumnEdit = tedtTime;
             dcCloseDelay.Caption = "关延迟";
             dcCloseDelay.ColumnEdit = tedtTime;
+
+            ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcMotorAction, cbxActionKind.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcPercent, "1");
+            ViewSetting.SetRowCellValue(0, dcRunTime, "00:00:00");
+            ViewSetting.SetRowCellValue(0, dcOpenDelay, "00:00:00");
+            ViewSetting.SetRowCellValue(0, dcCloseDelay, "00:00:00");
 
             ViewSetting.BestFitColumns();
 
