@@ -15,7 +15,13 @@ namespace ConfigDevice
         public ControlObj currentControlObj;//---控制对象-----
         public ViewCommandControl viewControl;// ----视图控制----
         private DataTable dtCommandSetting;//---指令配置表-----
-        public int Num = 1;
+        /// <summary>
+        /// 序号
+        /// </summary>
+        public int Num { set { cedtNum.Text = value.ToString(); } get { return Convert.ToInt16( cedtNum.Text); } }
+        public bool Checked { set { cedtNum.Checked = value; } get { return cedtNum.Checked; } }
+
+
         public DeviceData CurrentDevice;//当前设备
 
         public ViewCommandTools()
@@ -40,7 +46,6 @@ namespace ConfigDevice
             dtCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER4, System.Type.GetType("System.String"));
             dtCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER5, System.Type.GetType("System.String"));
 
-            xh.FieldName = DeviceConfig.DC_NUM;
             deviceID.FieldName = DeviceConfig.DC_ID;
             deviceNetworkID.FieldName = DeviceConfig.DC_NETWORK_ID;
             deviceKind.FieldName = DeviceConfig.DC_KIND_NAME;
@@ -57,7 +62,10 @@ namespace ConfigDevice
             dtCommandSetting.AcceptChanges();
             gcCommands.DataSource = dtCommandSetting;
         }
-
+        public ViewCommandTools(int num):this()
+        {
+            this.Num = num;
+        }
         /// <summary>
         /// 选择设备
         /// </summary>
@@ -69,7 +77,7 @@ namespace ConfigDevice
                 this.linkEdit_Click(sender, e);//清空
                 CurrentDevice = select.ChooseDevice;
                 DataRow dr = dtCommandSetting.Rows[0];
-                dr[DeviceConfig.DC_NUM] = Num;
+                dr[DeviceConfig.DC_NUM] = cedtNum.Text;
                 dr[DeviceConfig.DC_ID] = CurrentDevice.DeviceID;
                 dr[DeviceConfig.DC_NETWORK_ID] = CurrentDevice.NetworkID;
                 dr[DeviceConfig.DC_KIND_NAME] = CurrentDevice.KindName;
@@ -82,6 +90,12 @@ namespace ConfigDevice
                 cbxControlObj.Items.Clear();
                 foreach(string key in CurrentDevice.ContrlObjs.Keys)
                     cbxControlObj.Items.Add(key);
+
+                //-------默认第一个控制对象------
+                dtCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
+                currentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
+                viewControl = SysCtrl.GetViewCommandControl(currentControlObj, gvCommands);
+                refreshView(); 
             }
         }
 
@@ -97,6 +111,14 @@ namespace ConfigDevice
             dtCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = name;
             dtCommandSetting.AcceptChanges();
 
+            refreshView();
+        }
+
+        /// <summary>
+        /// 刷新界面
+        /// </summary>
+        private void refreshView()
+        {
             gvCommands.BestFitColumns();
             foreach (GridColumn dc in gvCommands.Columns)
                 if (dc.VisibleIndex > 5) dc.Width += 15;
@@ -106,6 +128,13 @@ namespace ConfigDevice
         /// 清空指令配置
         /// </summary>
         private void linkEdit_Click(object sender, EventArgs e)
+        {
+            DelCommandSetting();
+        }
+        /// <summary>
+        /// 清空指令配置
+        /// </summary>
+        private void DelCommandSetting()
         {
             DataRow dr = gvCommands.GetDataRow(0);
 
@@ -138,9 +167,7 @@ namespace ConfigDevice
 
         private void gvCommands_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            gvCommands.BestFitColumns();
-            foreach (GridColumn dc in gvCommands.Columns)
-                if (dc.VisibleIndex > 5) dc.Width += 15;
+            refreshView();
         }
 
 

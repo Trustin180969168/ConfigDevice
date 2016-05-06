@@ -30,9 +30,6 @@
         {
             this.gcCommands = new DevExpress.XtraGrid.GridControl();
             this.gvCommands = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.del = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
-            this.xh = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceNetworkID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceKind = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -45,14 +42,21 @@
             this.parameter3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.timeTest = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
             this.spinTest = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
+            this.cedtSelect = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.hyperLinkEdit1 = new DevExpress.XtraEditors.HyperLinkEdit();
+            this.cedtNum = new DevExpress.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinTest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cedtSelect)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // gcCommands
@@ -60,15 +64,16 @@
             this.gcCommands.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcCommands.EmbeddedNavigator.Name = "";
             this.gcCommands.FormsUseDefaultLookAndFeel = false;
-            this.gcCommands.Location = new System.Drawing.Point(0, 0);
+            this.gcCommands.Location = new System.Drawing.Point(77, 0);
             this.gcCommands.MainView = this.gvCommands;
             this.gcCommands.Name = "gcCommands";
             this.gcCommands.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.cbxControlObj,
             this.linkEdit,
             this.timeTest,
-            this.spinTest});
-            this.gcCommands.Size = new System.Drawing.Size(1000, 244);
+            this.spinTest,
+            this.cedtSelect});
+            this.gcCommands.Size = new System.Drawing.Size(923, 70);
             this.gcCommands.TabIndex = 8;
             this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvCommands});
@@ -76,8 +81,6 @@
             // gvCommands
             // 
             this.gvCommands.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.del,
-            this.xh,
             this.deviceID,
             this.deviceNetworkID,
             this.deviceKind,
@@ -99,42 +102,6 @@
             this.gvCommands.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
             this.gvCommands.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCommands_CellValueChanged);
             // 
-            // del
-            // 
-            this.del.ColumnEdit = this.linkEdit;
-            this.del.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.del.Name = "del";
-            this.del.Visible = true;
-            this.del.VisibleIndex = 0;
-            this.del.Width = 32;
-            // 
-            // linkEdit
-            // 
-            this.linkEdit.AutoHeight = false;
-            this.linkEdit.Image = global::ConfigDevice.Properties.Resources.del1;
-            this.linkEdit.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.linkEdit.Name = "linkEdit";
-            this.linkEdit.NullText = "1";
-            this.linkEdit.ReadOnly = true;
-            this.linkEdit.Click += new System.EventHandler(this.linkEdit_Click);
-            // 
-            // xh
-            // 
-            this.xh.AppearanceCell.Options.UseTextOptions = true;
-            this.xh.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.xh.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.xh.AppearanceHeader.Options.UseTextOptions = true;
-            this.xh.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.xh.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.xh.Caption = "序号";
-            this.xh.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.xh.Name = "xh";
-            this.xh.OptionsColumn.AllowEdit = false;
-            this.xh.OptionsColumn.ReadOnly = true;
-            this.xh.Visible = true;
-            this.xh.VisibleIndex = 1;
-            this.xh.Width = 46;
-            // 
             // deviceID
             // 
             this.deviceID.AppearanceCell.Options.UseTextOptions = true;
@@ -149,7 +116,7 @@
             this.deviceID.OptionsColumn.AllowEdit = false;
             this.deviceID.OptionsColumn.ReadOnly = true;
             this.deviceID.Visible = true;
-            this.deviceID.VisibleIndex = 2;
+            this.deviceID.VisibleIndex = 0;
             this.deviceID.Width = 58;
             // 
             // deviceNetworkID
@@ -166,7 +133,7 @@
             this.deviceNetworkID.OptionsColumn.AllowEdit = false;
             this.deviceNetworkID.OptionsColumn.ReadOnly = true;
             this.deviceNetworkID.Visible = true;
-            this.deviceNetworkID.VisibleIndex = 3;
+            this.deviceNetworkID.VisibleIndex = 1;
             this.deviceNetworkID.Width = 58;
             // 
             // deviceKind
@@ -183,7 +150,7 @@
             this.deviceKind.OptionsColumn.AllowEdit = false;
             this.deviceKind.OptionsColumn.ReadOnly = true;
             this.deviceKind.Visible = true;
-            this.deviceKind.VisibleIndex = 4;
+            this.deviceKind.VisibleIndex = 2;
             this.deviceKind.Width = 70;
             // 
             // deviceName
@@ -200,7 +167,7 @@
             this.deviceName.OptionsColumn.AllowEdit = false;
             this.deviceName.OptionsColumn.ReadOnly = true;
             this.deviceName.Visible = true;
-            this.deviceName.VisibleIndex = 5;
+            this.deviceName.VisibleIndex = 3;
             this.deviceName.Width = 70;
             // 
             // deviceCtrlObj
@@ -219,7 +186,7 @@
             this.deviceCtrlObj.ColumnEdit = this.cbxControlObj;
             this.deviceCtrlObj.Name = "deviceCtrlObj";
             this.deviceCtrlObj.Visible = true;
-            this.deviceCtrlObj.VisibleIndex = 6;
+            this.deviceCtrlObj.VisibleIndex = 4;
             this.deviceCtrlObj.Width = 70;
             // 
             // cbxControlObj
@@ -247,7 +214,7 @@
             this.command.Caption = "指令";
             this.command.Name = "command";
             this.command.Visible = true;
-            this.command.VisibleIndex = 7;
+            this.command.VisibleIndex = 5;
             this.command.Width = 132;
             // 
             // parameter1
@@ -330,6 +297,16 @@
             this.parameter5.Name = "parameter5";
             this.parameter5.Width = 85;
             // 
+            // linkEdit
+            // 
+            this.linkEdit.AutoHeight = false;
+            this.linkEdit.Image = global::ConfigDevice.Properties.Resources.del1;
+            this.linkEdit.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.linkEdit.Name = "linkEdit";
+            this.linkEdit.NullText = "1";
+            this.linkEdit.ReadOnly = true;
+            this.linkEdit.Click += new System.EventHandler(this.linkEdit_Click);
+            // 
             // timeTest
             // 
             this.timeTest.AutoHeight = false;
@@ -359,19 +336,61 @@
             0});
             this.spinTest.Name = "spinTest";
             // 
+            // cedtSelect
+            // 
+            this.cedtSelect.AutoHeight = false;
+            this.cedtSelect.Name = "cedtSelect";
+            this.cedtSelect.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
+            // 
+            // hyperLinkEdit1
+            // 
+            this.hyperLinkEdit1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.hyperLinkEdit1.Location = new System.Drawing.Point(47, 0);
+            this.hyperLinkEdit1.Name = "hyperLinkEdit1";
+            this.hyperLinkEdit1.Properties.AutoHeight = false;
+            this.hyperLinkEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+            this.hyperLinkEdit1.Properties.Image = global::ConfigDevice.Properties.Resources.del1;
+            this.hyperLinkEdit1.Properties.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.hyperLinkEdit1.Size = new System.Drawing.Size(30, 70);
+            this.hyperLinkEdit1.TabIndex = 11;
+            this.hyperLinkEdit1.Click += new System.EventHandler(this.linkEdit_Click);
+            // 
+            // cedtNum
+            // 
+            this.cedtNum.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cedtNum.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cedtNum.Location = new System.Drawing.Point(0, 0);
+            this.cedtNum.Name = "cedtNum";
+            this.cedtNum.Properties.AllowFocused = false;
+            this.cedtNum.Properties.Appearance.BackColor = System.Drawing.Color.AliceBlue;
+            this.cedtNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.cedtNum.Properties.Appearance.Options.UseBackColor = true;
+            this.cedtNum.Properties.Appearance.Options.UseFont = true;
+            this.cedtNum.Properties.AutoHeight = false;
+            this.cedtNum.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+            this.cedtNum.Properties.Caption = "1";
+            this.cedtNum.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Default;
+            this.cedtNum.Size = new System.Drawing.Size(47, 70);
+            this.cedtNum.TabIndex = 13;
+            // 
             // ViewCommandTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gcCommands);
+            this.Controls.Add(this.hyperLinkEdit1);
+            this.Controls.Add(this.cedtNum);
             this.Name = "ViewCommandTools";
-            this.Size = new System.Drawing.Size(1000, 244);
+            this.Size = new System.Drawing.Size(1000, 70);
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinTest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cedtSelect)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -380,7 +399,6 @@
 
         private DevExpress.XtraGrid.GridControl gcCommands;
         private DevExpress.XtraGrid.Views.Grid.GridView gvCommands;
-        private DevExpress.XtraGrid.Columns.GridColumn xh;
         private DevExpress.XtraGrid.Columns.GridColumn deviceID;
         private DevExpress.XtraGrid.Columns.GridColumn deviceNetworkID;
         private DevExpress.XtraGrid.Columns.GridColumn deviceKind;
@@ -394,8 +412,10 @@
         private DevExpress.XtraGrid.Columns.GridColumn parameter4;
         private DevExpress.XtraGrid.Columns.GridColumn parameter5;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkEdit;
-        private DevExpress.XtraGrid.Columns.GridColumn del;
         private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit timeTest;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit spinTest;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit cedtSelect;
+        private DevExpress.XtraEditors.HyperLinkEdit hyperLinkEdit1;
+        private DevExpress.XtraEditors.CheckEdit cedtNum;
     }
 }
