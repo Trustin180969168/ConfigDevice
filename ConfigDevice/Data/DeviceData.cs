@@ -114,6 +114,31 @@ namespace ConfigDevice
             NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
             AddressName = dr[DeviceConfig.DC_ADDRESS].ToString();
             State = dr[DeviceConfig.DC_STATE].ToString();
+                       
+            initCallback();
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public DeviceData(DeviceData value)
+        {
+
+            DeviceID = value.DeviceID;
+            NetworkID = value.NetworkID;
+            KindID = value.KindID;
+            KindName = value.KindName;
+            Name = value.Name;
+            MAC = value.MAC;
+            SoftwareVer = value.SoftwareVer;
+            HardwareVer = value.HardwareVer;
+            PCAddress = value.PCAddress;
+            NetworkIP = value.NetworkIP;
+            AddressName = value.AddressName;
+            State = value.State;
+
+            foreach (string key in value.ContrlObjs.Keys)
+                ContrlObjs.Add(key, ControlObjs[key]);
 
             initCallback();
         }

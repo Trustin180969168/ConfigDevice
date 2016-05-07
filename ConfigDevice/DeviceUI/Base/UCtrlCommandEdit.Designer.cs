@@ -28,17 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCtrlCommandEdit));
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.btSyncEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.xscCommands = new DevExpress.XtraEditors.XtraScrollableControl();
-            this.viewCommandTools5 = new ConfigDevice.ViewCommandTools();
-            this.viewCommandTools4 = new ConfigDevice.ViewCommandTools();
-            this.viewCommandTools3 = new ConfigDevice.ViewCommandTools();
-            this.viewCommandTools2 = new ConfigDevice.ViewCommandTools();
-            this.viewCommandTools1 = new ConfigDevice.ViewCommandTools();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
             this.cbxGroup = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -47,7 +44,6 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.toolStrip2.SuspendLayout();
-            this.xscCommands.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
@@ -64,7 +60,8 @@
             this.btSyncEdit,
             this.toolStripSeparator1,
             this.btSaveCommands,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripButton2});
             this.toolStrip2.Location = new System.Drawing.Point(2, 61);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(744, 31);
@@ -103,68 +100,23 @@
             this.toolStripButton1.Size = new System.Drawing.Size(74, 28);
             this.toolStripButton1.Text = "刷新 ";
             // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click_1);
+            // 
             // xscCommands
             // 
-            this.xscCommands.Controls.Add(this.viewCommandTools5);
-            this.xscCommands.Controls.Add(this.viewCommandTools4);
-            this.xscCommands.Controls.Add(this.viewCommandTools3);
-            this.xscCommands.Controls.Add(this.viewCommandTools2);
-            this.xscCommands.Controls.Add(this.viewCommandTools1);
             this.xscCommands.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xscCommands.Location = new System.Drawing.Point(0, 94);
             this.xscCommands.Name = "xscCommands";
             this.xscCommands.Size = new System.Drawing.Size(748, 360);
             this.xscCommands.TabIndex = 5;
-            // 
-            // viewCommandTools5
-            // 
-            this.viewCommandTools5.Checked = false;
-            this.viewCommandTools5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewCommandTools5.Location = new System.Drawing.Point(0, 280);
-            this.viewCommandTools5.Name = "viewCommandTools5";
-            this.viewCommandTools5.Num = 5;
-            this.viewCommandTools5.Size = new System.Drawing.Size(748, 70);
-            this.viewCommandTools5.TabIndex = 4;
-            // 
-            // viewCommandTools4
-            // 
-            this.viewCommandTools4.Checked = false;
-            this.viewCommandTools4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewCommandTools4.Location = new System.Drawing.Point(0, 210);
-            this.viewCommandTools4.Name = "viewCommandTools4";
-            this.viewCommandTools4.Num = 4;
-            this.viewCommandTools4.Size = new System.Drawing.Size(748, 70);
-            this.viewCommandTools4.TabIndex = 3;
-            // 
-            // viewCommandTools3
-            // 
-            this.viewCommandTools3.Checked = false;
-            this.viewCommandTools3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewCommandTools3.Location = new System.Drawing.Point(0, 140);
-            this.viewCommandTools3.Name = "viewCommandTools3";
-            this.viewCommandTools3.Num = 3;
-            this.viewCommandTools3.Size = new System.Drawing.Size(748, 70);
-            this.viewCommandTools3.TabIndex = 2;
-            // 
-            // viewCommandTools2
-            // 
-            this.viewCommandTools2.Checked = false;
-            this.viewCommandTools2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewCommandTools2.Location = new System.Drawing.Point(0, 70);
-            this.viewCommandTools2.Name = "viewCommandTools2";
-            this.viewCommandTools2.Num = 2;
-            this.viewCommandTools2.Size = new System.Drawing.Size(748, 70);
-            this.viewCommandTools2.TabIndex = 1;
-            // 
-            // viewCommandTools1
-            // 
-            this.viewCommandTools1.Checked = false;
-            this.viewCommandTools1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewCommandTools1.Location = new System.Drawing.Point(0, 0);
-            this.viewCommandTools1.Name = "viewCommandTools1";
-            this.viewCommandTools1.Num = 1;
-            this.viewCommandTools1.Size = new System.Drawing.Size(748, 70);
-            this.viewCommandTools1.TabIndex = 0;
             // 
             // panelControl1
             // 
@@ -212,7 +164,7 @@
             0});
             this.spinEdit1.Size = new System.Drawing.Size(46, 26);
             this.spinEdit1.TabIndex = 10;
-            this.spinEdit1.ValueChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
+            this.spinEdit1.ValueChanged += new System.EventHandler(this.RequestCommandData);
             // 
             // cbxGroup
             // 
@@ -235,7 +187,7 @@
             this.cbxGroup.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbxGroup.Size = new System.Drawing.Size(400, 26);
             this.cbxGroup.TabIndex = 9;
-            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
+            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.RequestCommandData);
             // 
             // lblGroupName
             // 
@@ -262,7 +214,6 @@
             this.edtBeginNum.Properties.ReadOnly = true;
             this.edtBeginNum.Size = new System.Drawing.Size(25, 26);
             this.edtBeginNum.TabIndex = 6;
-            this.edtBeginNum.KeyUp += new System.Windows.Forms.KeyEventHandler(this.edtBeginNum_KeyUp);
             // 
             // labelControl2
             // 
@@ -294,7 +245,6 @@
             this.Size = new System.Drawing.Size(748, 454);
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
-            this.xscCommands.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
@@ -307,10 +257,8 @@
 
         #endregion
 
-        private ConfigDevice.ViewCommandTools viewCommandTools2;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton btSaveCommands;
-        private ConfigDevice.ViewCommandTools viewCommandTools1;
         private DevExpress.XtraEditors.XtraScrollableControl xscCommands;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.TextEdit edtBeginNum;
@@ -318,12 +266,10 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.ComboBoxEdit cbxGroup;
         private DevExpress.XtraEditors.LabelControl lblGroupName;
-        private ViewCommandTools viewCommandTools5;
-        private ViewCommandTools viewCommandTools4;
-        private ViewCommandTools viewCommandTools3;
         private System.Windows.Forms.ToolStripButton btSyncEdit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private DevExpress.XtraEditors.SpinEdit spinEdit1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }

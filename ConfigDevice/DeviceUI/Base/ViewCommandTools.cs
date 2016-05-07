@@ -7,44 +7,46 @@ using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid;
 
 namespace ConfigDevice
 {
     public partial class ViewCommandTools : UserControl
     {
-        public ControlObj currentControlObj;//---控制对象-----
-        public ViewCommandControl viewControl;// ----视图控制----
-        private DataTable dtCommandSetting;//---指令配置表-----
+        public ControlObj CurrentControlObj;//---控制对象-----
+        public ViewCommandControl ViewCommandControlObj;// ----视图控制----
+        public DataTable DataCommandSetting;//---指令配置表-----
+        public DeviceData CurrentDevice;//当前设备
+        public SyncCommandSetting SyncCommandEdit;//---同步编辑----
+        public GridControl GridCommandView { get { return this.gcCommands; } }
+
         /// <summary>
         /// 序号
         /// </summary>
         public int Num { set { cedtNum.Text = value.ToString(); } get { return Convert.ToInt16( cedtNum.Text); } }
-        public bool Checked { set { cedtNum.Checked = value; } get { return cedtNum.Checked; } }
-
-
-        public DeviceData CurrentDevice;//当前设备
+        public bool Checked { set { cedtNum.Checked = value; } get { return cedtNum.Checked; } }        
 
         public ViewCommandTools()
         {
             InitializeComponent();
 
-            dtCommandSetting = new DataTable();
+            DataCommandSetting = new DataTable();
 
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_NUM, System.Type.GetType("System.Int16"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_NETWORK_ID, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_KIND_ID, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_NETWORK_IP, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_CONTROL_OBJ, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_COMMAND, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER1, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER2, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER3, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER4, System.Type.GetType("System.String"));
-            dtCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER5, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_NUM, System.Type.GetType("System.Int16"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_NETWORK_ID, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_KIND_ID, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_NETWORK_IP, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_CONTROL_OBJ, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_COMMAND, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER1, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER2, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER3, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER4, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER5, System.Type.GetType("System.String"));
 
             deviceID.FieldName = DeviceConfig.DC_ID;
             deviceNetworkID.FieldName = DeviceConfig.DC_NETWORK_ID;
@@ -58,9 +60,10 @@ namespace ConfigDevice
             parameter4.FieldName = DeviceConfig.DC_PARAMETER4;
             parameter5.FieldName = DeviceConfig.DC_PARAMETER5;
 
-            dtCommandSetting.Rows.Add();
-            dtCommandSetting.AcceptChanges();
-            gcCommands.DataSource = dtCommandSetting;
+            DataCommandSetting.Rows.Add();
+            DataCommandSetting.AcceptChanges();
+            gcCommands.DataSource = DataCommandSetting;
+
         }
         public ViewCommandTools(int num):this()
         {
@@ -76,15 +79,14 @@ namespace ConfigDevice
             {
                 this.linkEdit_Click(sender, e);//清空
                 CurrentDevice = select.ChooseDevice;
-                DataRow dr = dtCommandSetting.Rows[0];
+                DataRow dr = DataCommandSetting.Rows[0];
                 dr[DeviceConfig.DC_NUM] = cedtNum.Text;
                 dr[DeviceConfig.DC_ID] = CurrentDevice.DeviceID;
                 dr[DeviceConfig.DC_NETWORK_ID] = CurrentDevice.NetworkID;
                 dr[DeviceConfig.DC_KIND_NAME] = CurrentDevice.KindName;
                 dr[DeviceConfig.DC_NAME] = CurrentDevice.Name;
-
                 dr.EndEdit();
-                dtCommandSetting.AcceptChanges();
+                DataCommandSetting.AcceptChanges();
                 gvCommands.BestFitColumns();
 
                 cbxControlObj.Items.Clear();
@@ -92,9 +94,9 @@ namespace ConfigDevice
                     cbxControlObj.Items.Add(key);
 
                 //-------默认第一个控制对象------
-                dtCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
-                currentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
-                viewControl = SysCtrl.GetViewCommandControl(currentControlObj, gvCommands);
+                DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
+                CurrentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
+                ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
                 refreshView(); 
             }
         }
@@ -105,11 +107,11 @@ namespace ConfigDevice
         private void cbxControlObj_SelectedIndexChanged(object sender, EventArgs e)
         {
             string name = (string)cbxControlObj.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            currentControlObj = CurrentDevice.ContrlObjs[name];
-            viewControl = SysCtrl.GetViewCommandControl(currentControlObj, gvCommands);
+            CurrentControlObj = CurrentDevice.ContrlObjs[name];
+            ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
 
-            dtCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = name;
-            dtCommandSetting.AcceptChanges();
+            DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = name;
+            DataCommandSetting.AcceptChanges();
 
             refreshView();
         }
@@ -152,7 +154,7 @@ namespace ConfigDevice
             parameter4.Visible = false;
             parameter5.Visible = false;
 
-            dtCommandSetting.AcceptChanges();
+            DataCommandSetting.AcceptChanges();
             gvCommands.RefreshData();
         }
 
@@ -162,7 +164,7 @@ namespace ConfigDevice
         /// <returns>CommandData</returns>
         public CommandData GetCommandData()
         {
-          return  viewControl.GetCommand();
+          return  ViewCommandControlObj.GetCommand();
         }
 
         private void gvCommands_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
@@ -170,7 +172,39 @@ namespace ConfigDevice
             refreshView();
         }
 
+        /// <summary>
+        /// 同步更新
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gvCommands_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
+        {
+            if (SyncCommandEdit != null && this.Checked)
+                SyncCommandEdit(this);
+        }
 
+        /// <summary>
+        /// 同步本地编辑
+        /// </summary>
+        /// <param name="value"></param>
+        public void SyncCommandSettingEdit(ViewCommandTools value)
+        {
+            if (this.CurrentDevice == null || this.CurrentDevice.KindID != value.CurrentDevice.KindID)
+            {
+                this.CurrentDevice = new DeviceData(value.CurrentDevice);
+                this.DelCommandSetting();//----清空----
+                cbxControlObj.Items.Clear();
+                foreach (string key in CurrentDevice.ContrlObjs.Keys)
+                    cbxControlObj.Items.Add(key);
+            }
+            if (this.CurrentControlObj.Name != value.CurrentControlObj.Name)
+            {
+                CurrentControlObj = CurrentDevice.ContrlObjs[value.CurrentControlObj.Name];
+                ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);            
+            }
+            this.DataCommandSetting = value.DataCommandSetting.Copy();
+            refreshView();
+        }
 
 
             

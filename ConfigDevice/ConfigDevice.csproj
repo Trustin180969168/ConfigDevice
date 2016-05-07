@@ -303,6 +303,9 @@
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
     <Content Include="Config\SmartLight.h" />
+    <None Include="Resources\uncheck.jpg" />
+    <None Include="Resources\check.png" />
+    <None Include="Resources\Election11.png" />
     <None Include="Resources\Traces1.png" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
     <Compile Include="Class\Devices\Road6FrontDimming.cs" />

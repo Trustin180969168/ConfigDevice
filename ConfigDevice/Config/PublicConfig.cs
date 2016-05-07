@@ -12,7 +12,11 @@ namespace ConfigDevice
     public delegate void Action();//用于公共委托类型,陆续添加带参数的
     public delegate void CallbackUdpAction(UdpData udpData,object[] values);//----回调执行UDP包----
     public delegate void CallbackUIAction(object[] values);//----回调UI界面----
+    public delegate void SyncCommandSetting(ViewCommandTools viewCommandTools);//---同步指令设置
 
+    //public delegate void SyncCommandSetting_Device(DeviceData device);//---同步指令设置的设备----
+    //public delegate void SyncCommandSetting_ViewCommandObj(ViewCommandControl viewCommandControl);//---同步指令设置的视图控制----
+    //public delegate void SyncCommandSetting_Data(DataTable dataSetting);//---同步指令设置的数据----
 
     /// <summary>
     /// 电机动作

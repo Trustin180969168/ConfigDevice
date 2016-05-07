@@ -9,29 +9,29 @@ using DevExpress.XtraEditors;
 
 namespace ConfigDevice.DeviceUI
 {
+
     public partial class UCtrlCommandEdit : UserControl
     {
         public string CommandGroupName { set { this.lblGroupName.Text = value; } }
         public ComboBoxEdit CbxCommandGroup { get { return cbxGroup; } }
         private bool syncEdit = false;
-        private int commandCount = 5;
+        private int commandCount = 0;
         public UCtrlCommandEdit()
         {
             InitializeComponent();
+            int addCount = 5;
+            while (addCount-- > 0)
+                addViewCommandSetting();
         }
 
         /// <summary>
-        /// 选择命令组
+        /// 选择命令组,则刷新数据
         /// </summary>
-        private void cbxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        private void RequestCommandData(object sender, EventArgs e)
         {
             RequestCommandData();
         }
-        private void edtBeginNum_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                RequestCommandData();
-        }
+
         /// <summary>
         /// 申请获取指令数据
         /// </summary>
@@ -63,25 +63,47 @@ namespace ConfigDevice.DeviceUI
             {
                 syncEdit = !syncEdit;
                 btSyncEdit.Image = global::ConfigDevice.Properties.Resources.uncheck;
-
             }
             foreach (Control view in xscCommands.Controls)
+            {
                 (view as ViewCommandTools).Checked = syncEdit;
+            }
         }
 
+
+
         /// <summary>
-        /// 测试添加
+        /// 添加指令配置
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private ViewCommandTools addViewCommandSetting()
+        {            
+            ViewCommandTools viewNew = new ViewCommandTools(++commandCount);
+            xscCommands.Controls.Add(viewNew);
+            viewNew.Dock = DockStyle.Top;
+            viewNew.SyncCommandEdit += this.SyncCommandSetting;
+            (viewNew as Control).BringToFront();
+            return viewNew;
+        }
+
+
+        /// <summary>
+        /// 同步编辑
+        /// </summary>
+        public void SyncCommandSetting(ViewCommandTools value)
         {
-            ViewCommandTools view = new ViewCommandTools(++commandCount);
-            xscCommands.Controls.Add(view);
-            view.Dock = DockStyle.Top;
-            int i = commandCount;
-            foreach (Control view1 in xscCommands.Controls)
-                (view1 as ViewCommandTools).Num = i--;
+            foreach (Control view in xscCommands.Controls)
+            {
+                if (view == value) continue;
+                ViewCommandTools syncView = view as ViewCommandTools;
+                if (!value.Checked) continue;
+                syncView.SyncCommandSettingEdit(value);
+            }
+        }
+
+
+        private void toolStripButton2_Click_1(object sender, EventArgs e)
+        {
+            addViewCommandSetting();
         }
 
 

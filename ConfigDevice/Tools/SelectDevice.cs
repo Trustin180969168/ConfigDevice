@@ -16,7 +16,6 @@ namespace ConfigDevice
         {
             InitializeComponent();
 
-
             deviceID.FieldName = DeviceConfig.DC_ID;
             deviceNetworkID.FieldName = DeviceConfig.DC_NETWORK_ID;
             deviceKind.FieldName = DeviceConfig.DC_KIND_NAME;

@@ -101,6 +101,7 @@
             this.gvCommands.OptionsView.ShowIndicator = false;
             this.gvCommands.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
             this.gvCommands.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCommands_CellValueChanged);
+            this.gvCommands.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gvCommands_RowUpdated);
             // 
             // deviceID
             // 
