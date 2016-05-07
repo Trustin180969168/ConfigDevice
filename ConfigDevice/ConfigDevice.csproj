@@ -85,13 +85,13 @@
     <Compile Include="Class\Manage\FactoryDevice.cs" />
     <Compile Include="Class\Manage\NetworkCtrl.cs" />
     <Compile Include="Class\Devices\BaseDevice.cs" />
-    <Compile Include="Data\DeviceData.cs" />
+    <Compile Include="Class\Devices\Device.cs" />
     <Compile Include="Common\ThreadActionTimer.cs">
     </Compile>
     <Compile Include="Config\DeviceConfig.cs" />
     <Compile Include="Class\Manage\DeviceCtrl.cs" />
     <Compile Include="Config\NetworkConfig.cs" />
-    <Compile Include="Data\NetworkData.cs">
+    <Compile Include="Class\Devices\Network.cs">
     </Compile>
     <Compile Include="Class\Manage\SysCtrl.cs" />
     <Compile Include="Data\UdpData.cs" />
@@ -339,6 +339,8 @@
     <Compile Include="Class\ControlObj\ServerControlObj.cs" />
     <Compile Include="Class\ControlObj\Swit.cs" />
     <Compile Include="Class\ControlObj\Timing.cs" />
+    <Compile Include="Data\DeviceData.cs" />
+    <Compile Include="Data\NetworkData.cs" />
     <Compile Include="DeviceUI\Base\UCtrlCommandEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>

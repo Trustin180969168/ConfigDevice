@@ -8,7 +8,7 @@ namespace ConfigDevice
     public class DeviceCtrl
     {
 
-        private NetworkData SearchingNetwork;//---搜素的网络设备(RJ45)----
+        private Network SearchingNetwork;//---搜素的网络设备(RJ45)----
         private MySocket mySocket = MySocket.GetInstance();
         private int countNum = 0;
         public event CallbackUIAction CallBackUI = null;//返回
@@ -73,7 +73,7 @@ namespace ConfigDevice
         /// 搜索设备
         /// </summary>
         /// <param name="network">搜索设备</param>
-        public void SearchDevices(NetworkData network)
+        public void SearchDevices(Network network)
         { 
             this.SearchingNetwork = network;
             initDataTableDevices();//----初始化列表-----
@@ -98,7 +98,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="network">网络</param>
         /// <returns>UDP包</returns>
-        private UdpData createSearchDevices(NetworkData network)
+        private UdpData createSearchDevices(Network network)
         {
             UdpData udp = new UdpData();
 
@@ -142,7 +142,7 @@ namespace ConfigDevice
                 int num = 0; bool find = false;
                 //-----获取数据-----
                 UserUdpData userData = new UserUdpData(data);
-                DeviceData device = new BaseDevice(userData);
+                Device device = new BaseDevice(userData);
                 //-----回复反馈的设备信息-------
                 UdpData udpReply = createReplyUdp(data);
                 mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
@@ -202,7 +202,7 @@ namespace ConfigDevice
         /// 更新设备
         /// </summary>
         /// <param name="device">设备</param>
-        private void updateDevice(DeviceData device)
+        private void updateDevice(Device device)
         {
             string temp = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
             DataRow[] rows = SysConfig.DtDevice.Select(temp);

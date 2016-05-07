@@ -9,7 +9,7 @@ namespace ConfigDevice
     {
         public const string NAME_CMD_SEND_WEIXIN = "发微信";
 
-        public ServerControlObj(DeviceData _deviceCtrl)
+        public ServerControlObj(Device _deviceCtrl)
         {
             Name = "服务器";
             deviceControled = _deviceCtrl;

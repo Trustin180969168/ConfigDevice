@@ -6,7 +6,7 @@ using System.Data;
 namespace ConfigDevice
 {
 
-    public class DoorInput4 : DeviceData
+    public class DoorInput4 : Device
     {
         public const string AREAR_DOOR_WINDOW_OPEN = "门窗开";
         public const string AREAR_DOOR_WINDOW_CLOSE= "门窗关";
@@ -47,6 +47,13 @@ namespace ConfigDevice
 
         public DoorInput4(UserUdpData userUdpData)
             : base(userUdpData)
+        {
+            securityLevel = new byte[2];
+            initCallback();
+        }
+
+        public DoorInput4(DeviceData data)
+            : base(data)
         {
             securityLevel = new byte[2];
             initCallback();

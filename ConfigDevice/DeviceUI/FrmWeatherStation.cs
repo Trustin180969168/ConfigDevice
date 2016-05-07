@@ -10,7 +10,7 @@ namespace ConfigDevice
 {
     public partial class FrmWeatherStation : FrmDevice
     {
-        public FrmWeatherStation(DeviceData _device):base(_device)
+        public FrmWeatherStation(Device _device):base(_device)
         {
         
         }

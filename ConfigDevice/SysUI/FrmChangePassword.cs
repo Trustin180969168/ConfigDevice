@@ -10,7 +10,7 @@ namespace ConfigDevice
 {
     public partial class FrmChangePassword : Form
     {
-        public NetworkData NetworkEdit;
+        public Network NetworkEdit;
         public FrmChangePassword()
         {
             InitializeComponent();

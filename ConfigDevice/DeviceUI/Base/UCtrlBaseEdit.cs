@@ -10,7 +10,7 @@ namespace ConfigDevice
 {
     public partial class UCtrlBaseEdit : UserControl
     {
-        public DeviceData DeviceEdit;
+        public Device DeviceEdit;
         public UCtrlBaseEdit()
         {
             InitializeComponent();
@@ -46,7 +46,7 @@ namespace ConfigDevice
         {
             if (cbxPosition.Properties.Items.Count == 0)
             {
-                NetworkData network = SysConfig.ListNetworks[DeviceEdit.NetworkIP];
+                Network network = SysConfig.ListNetworks[DeviceEdit.NetworkIP];
                 foreach (Position p in network.ListPosition)
                     if (p.Name.Trim() != "")
                         cbxPosition.Properties.Items.Add(p.Name);

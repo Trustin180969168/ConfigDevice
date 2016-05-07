@@ -6,11 +6,17 @@ using System.Data;
 namespace ConfigDevice
 {
 
-    public class Amplifier : DeviceData
+    public class Amplifier : Device
     {
 
         public Amplifier(UserUdpData userUdpData)
             : base(userUdpData)
+        {
+            initControlObjs();
+        }
+
+        public Amplifier(DeviceData data)
+            : base(data)
         {
             initControlObjs();
         }

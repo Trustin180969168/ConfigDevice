@@ -93,10 +93,12 @@ namespace ConfigDevice.DeviceUI
         {
             foreach (Control view in xscCommands.Controls)
             {
-                if (view == value) continue;
                 ViewCommandTools syncView = view as ViewCommandTools;
-                if (!value.Checked) continue;
+                if (syncView.Num == value.Num) continue;      
+                if (!syncView.Checked) continue;
+                syncView.SyncCommandEdit -= this.SyncCommandSetting;//-----避免循环或者混乱回调,先退后订-----
                 syncView.SyncCommandSettingEdit(value);
+                syncView.SyncCommandEdit += this.SyncCommandSetting;
             }
         }
 

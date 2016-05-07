@@ -21,7 +21,7 @@ namespace ConfigDevice
         #region IFactory 成员
         FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
         {
-            DeviceData device = new BaseDevice(data);
+            Device device = new BaseDevice(data);
             return new FrmBaseDevice(device);
         }
         #endregion
@@ -46,7 +46,7 @@ namespace ConfigDevice
 
     public interface IFactoryDevice
     {
-        DeviceData CreateDevice(DataRow data);
+        Device CreateDevice(DeviceData data);
     }
     /// <summary>
     /// 功放
@@ -55,9 +55,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new BaseDevice(data);
+            Device device = new BaseDevice(data);
             return device;
         }
 
@@ -71,9 +71,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Amplifier(data);
+            Device device = new Amplifier(data);
             return device;
         }
 
@@ -87,9 +87,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new DoorInput4(data);
+            Device device = new DoorInput4(data);
             return device;
         }
 
@@ -103,9 +103,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Road3Window(data);
+            Device device = new Road3Window(data);
             return device;
         }
 
@@ -119,9 +119,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Road4Relay(data);
+            Device device = new Road4Relay(data);
             return device;
         }
 
@@ -135,9 +135,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Road6Relay(data);
+            Device device = new Road6Relay(data);
             return device;
         }
 
@@ -152,9 +152,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Road2FrontDimming(data);
+            Device device = new Road2FrontDimming(data);
             return device;
         }
 
@@ -169,9 +169,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Road4FrontDimming(data);
+            Device device = new Road4FrontDimming(data);
             return device;
         }
 
@@ -186,9 +186,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Road6FrontDimming(data);
+            Device device = new Road6FrontDimming(data);
             return device;
         }
 
@@ -202,9 +202,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Road8FrontDimming(data);
+            Device device = new Road8FrontDimming(data);
             return device;
         }
 
@@ -218,9 +218,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Road12FrontDimming(data);
+            Device device = new Road12FrontDimming(data);
             return device;
         }
 
@@ -234,9 +234,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Road8Relay(data);
+            Device device = new Road8Relay(data);
             return device;
         }
 
@@ -250,9 +250,9 @@ namespace ConfigDevice
     {
         #region IFactoryDevice 成员
 
-        public DeviceData CreateDevice(DataRow data)
+        public Device CreateDevice(DeviceData data)
         {
-            DeviceData device = new Server(data);
+            Device device = new Server(data);
             return device;
         }
 

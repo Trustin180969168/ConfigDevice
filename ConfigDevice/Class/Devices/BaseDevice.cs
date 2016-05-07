@@ -6,11 +6,17 @@ using System.Data;
 namespace ConfigDevice
 {
 
-    public class BaseDevice : DeviceData
+    public class BaseDevice : Device
     {
 
         public BaseDevice(UserUdpData userUdpData)
             : base(userUdpData)
+        {
+
+        }
+
+        public BaseDevice(DeviceData data)
+            : base(data)
         {
 
         }

@@ -10,7 +10,7 @@ namespace ConfigDevice
 {
     public partial class FrmCurtainsThreeRoad : FrmDevice
     {
-        public FrmCurtainsThreeRoad(DeviceData _device)
+        public FrmCurtainsThreeRoad(Device _device)
             : base(_device)
         {
         }

@@ -11,7 +11,7 @@ namespace ConfigDevice
          public const string CMD_SW_SWIT_ALL_OPEN = "开全部";
          public const string CMD_SW_SWIT_ALL_CLOSE = "关全部";
 
-        public Swit(DeviceData _deviceCtrl)
+        public Swit(Device _deviceCtrl)
         {
             Name = "全部";
             deviceControled = _deviceCtrl;

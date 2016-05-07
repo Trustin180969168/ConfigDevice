@@ -11,7 +11,7 @@ namespace ConfigDevice
         public const string NAME_CMD_SW_SWIT_TIMING_OPEN = "开时序";
         public const string NAME_CMD_SW_SWIT_TIMING_CLOSE = "关时序";
 
-        public Timing(DeviceData _deviceCtrl)
+        public Timing(Device _deviceCtrl)
         {
             Name = "时序";
             deviceControled = _deviceCtrl;

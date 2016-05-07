@@ -10,7 +10,7 @@ namespace ConfigDevice
 {
     public partial class SelectDevice : Form
     {
-        public DeviceData ChooseDevice;//设备选择
+        public Device ChooseDevice;//设备选择
 
         public SelectDevice()
         {
@@ -55,7 +55,7 @@ namespace ConfigDevice
             if (gvDevices.FocusedRowHandle == -1) return;
             DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
             byte kindId = BitConverter.GetBytes(Convert.ToInt16(dr[DeviceConfig.DC_KIND_ID]))[0];   
-            ChooseDevice = SysCtrl.CreateDevice(kindId).CreateDevice(dr);//---创建相应的设备对象-----
+            ChooseDevice = SysCtrl.CreateDevice(kindId).CreateDevice(new DeviceData(dr));//---创建相应的设备对象-----
             if (SysConfig.ListNetworks.ContainsKey(ChooseDevice.NetworkIP) &&
                 SysConfig.ListNetworks[ChooseDevice.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
                 this.DialogResult = DialogResult.Yes;

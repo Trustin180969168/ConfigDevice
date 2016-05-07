@@ -16,10 +16,12 @@ namespace ConfigDevice
         public ControlObj CurrentControlObj;//---控制对象-----
         public ViewCommandControl ViewCommandControlObj;// ----视图控制----
         public DataTable DataCommandSetting;//---指令配置表-----
-        public DeviceData CurrentDevice;//当前设备
+        public Device CurrentDevice;//当前设备
         public SyncCommandSetting SyncCommandEdit;//---同步编辑----
         public GridControl GridCommandView { get { return this.gcCommands; } }
+        private bool allowSync = true;//是否允许同步
 
+       
         /// <summary>
         /// 序号
         /// </summary>
@@ -77,7 +79,7 @@ namespace ConfigDevice
             SelectDevice select = new SelectDevice();
             if (select.ShowDialog() == DialogResult.Yes)
             {
-                this.linkEdit_Click(sender, e);//清空
+                DelCommandSetting();
                 CurrentDevice = select.ChooseDevice;
                 DataRow dr = DataCommandSetting.Rows[0];
                 dr[DeviceConfig.DC_NUM] = cedtNum.Text;
@@ -93,11 +95,14 @@ namespace ConfigDevice
                 foreach(string key in CurrentDevice.ContrlObjs.Keys)
                     cbxControlObj.Items.Add(key);
 
-                //-------默认第一个控制对象------
+                //-------默认第一个控制对象,涉及多个值的变动,采取手动同步------
+                allowSync = false;
                 DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
                 CurrentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
                 ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
-                refreshView(); 
+                refreshView();
+                allowSync = true;
+                SyncCommandSetting();
             }
         }
 
@@ -106,14 +111,17 @@ namespace ConfigDevice
         /// </summary>
         private void cbxControlObj_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //-------默认第一个控制对象,涉及多个值的变动,采取手动同步------
+            allowSync = false;
             string name = (string)cbxControlObj.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
             CurrentControlObj = CurrentDevice.ContrlObjs[name];
             ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
-
             DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = name;
             DataCommandSetting.AcceptChanges();
-
+            SyncCommandSetting();
             refreshView();
+            allowSync = true;
+            SyncCommandSetting();
         }
 
         /// <summary>
@@ -121,7 +129,9 @@ namespace ConfigDevice
         /// </summary>
         private void refreshView()
         {
+            gvCommands.PostEditor();
             gvCommands.BestFitColumns();
+            DataCommandSetting.AcceptChanges();
             foreach (GridColumn dc in gvCommands.Columns)
                 if (dc.VisibleIndex > 5) dc.Width += 15;
         }
@@ -132,6 +142,7 @@ namespace ConfigDevice
         private void linkEdit_Click(object sender, EventArgs e)
         {
             DelCommandSetting();
+            SyncCommandSetting();
         }
         /// <summary>
         /// 清空指令配置
@@ -167,19 +178,23 @@ namespace ConfigDevice
           return  ViewCommandControlObj.GetCommand();
         }
 
+        /// <summary>
+        /// 改变值后,自动同步
+        /// </summary>
         private void gvCommands_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            refreshView();
+            refreshView(); 
+            SyncCommandSetting();
         }
 
         /// <summary>
-        /// 同步更新
+        /// 执行同步
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void gvCommands_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
+        private void SyncCommandSetting()
         {
-            if (SyncCommandEdit != null && this.Checked)
+            gvCommands.PostEditor();
+            DataCommandSetting.AcceptChanges();
+            if (SyncCommandEdit != null && this.Checked && allowSync)
                 SyncCommandEdit(this);
         }
 
@@ -189,20 +204,33 @@ namespace ConfigDevice
         /// <param name="value"></param>
         public void SyncCommandSettingEdit(ViewCommandTools value)
         {
+            string valueCtrlObjName = value.DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ].ToString();//空为删除操作
+            string myCtrlObjName = this.DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ].ToString();//空为删除操作
             if (this.CurrentDevice == null || this.CurrentDevice.KindID != value.CurrentDevice.KindID)
             {
-                this.CurrentDevice = new DeviceData(value.CurrentDevice);
+                this.CurrentDevice = SysCtrl.CreateDevice(value.CurrentDevice.ByteKindID).CreateDevice(value.CurrentDevice.GetDeviceInfo());                               
                 this.DelCommandSetting();//----清空----
                 cbxControlObj.Items.Clear();
                 foreach (string key in CurrentDevice.ContrlObjs.Keys)
                     cbxControlObj.Items.Add(key);
+                if (valueCtrlObjName == "") return;     //-----------不同设备,初始化后退出------------------
             }
-            if (this.CurrentControlObj.Name != value.CurrentControlObj.Name)
+            else if (valueCtrlObjName == "")
+            { this.DelCommandSetting(); return; }//------相同设备且为删除操作,执行删除并退出-------
+            //---------控制对象为空,或者不同,则创建
+            if (this.CurrentControlObj == null || this.CurrentControlObj.Name != value.CurrentControlObj.Name )
             {
                 CurrentControlObj = CurrentDevice.ContrlObjs[value.CurrentControlObj.Name];
-                ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);            
+                ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
+            }//--------本地删除后,需要重新初始化----
+            else if (this.CurrentControlObj.Name == value.CurrentControlObj.Name && myCtrlObjName == "")
+            {
+                CurrentControlObj = CurrentDevice.ContrlObjs[value.CurrentControlObj.Name];
+                ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
             }
+
             this.DataCommandSetting = value.DataCommandSetting.Copy();
+            gcCommands.DataSource = this.DataCommandSetting;
             refreshView();
         }
 

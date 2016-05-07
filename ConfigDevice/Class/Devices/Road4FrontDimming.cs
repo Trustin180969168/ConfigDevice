@@ -6,7 +6,7 @@ using System.Data;
 namespace ConfigDevice
 {
 
-    public class Road4FrontDimming : DeviceData
+    public class Road4FrontDimming : Device
     {
         private const int circuitCount = 4;//回路数
         public int CircuitCount
@@ -18,7 +18,11 @@ namespace ConfigDevice
         {
             initControlObjs();
         }
-
+                public Road4FrontDimming(DeviceData data)
+            : base(data)
+        {
+            initControlObjs();
+        }
         public Road4FrontDimming(DataRow dr)
             : base(dr)
         {

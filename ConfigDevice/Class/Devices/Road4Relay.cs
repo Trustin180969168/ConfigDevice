@@ -7,7 +7,7 @@ using System.Data;
 namespace ConfigDevice
 {
 
-    public class Road4Relay : DeviceData
+    public class Road4Relay : Device
     {
         private const int circuitCount = 4;//回路数
         public int CircuitCount
@@ -19,7 +19,11 @@ namespace ConfigDevice
         {
             initControlObjs();
         }
-
+                public Road4Relay(DeviceData data)
+            : base(data)
+        {
+            initControlObjs();
+        }
         public Road4Relay(DataRow dr)
             : base(dr)
         {

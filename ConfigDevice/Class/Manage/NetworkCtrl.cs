@@ -63,7 +63,7 @@ namespace ConfigDevice
                     return;
 
                 UserUdpData userData = new UserUdpData(udp);//----用户协议数据---  
-                NetworkData network = new NetworkData(userData);//----网络对象-----
+                Network network = new Network(userData);//----网络对象-----
                 network.NetworkIP = udp.IPPoint.Address.ToString();
                 network.Port = udp.IPPoint.Port;
                 //------修改已经连接网络的状态----
@@ -132,7 +132,7 @@ namespace ConfigDevice
                 UdpData udpAck = createReplyRefreshUdpData(udpReply);//----根据回复包,创建回复刷新包----
                 mySocket.ReplyData(udpAck, udpReply.IP, SysConfig.RemotePort);//---回复刷新---  
             }
-            foreach (NetworkData network in SysConfig.ListNetworks.Values)
+            foreach (Network network in SysConfig.ListNetworks.Values)
             {
                 if (udpReply.IP == network.NetworkIP && network.State == NetworkConfig.STATE_CONNECTED )
                 {
@@ -150,7 +150,7 @@ namespace ConfigDevice
         {            
             lock (SysConfig.ListNetworks)
             {
-                foreach (NetworkData network in SysConfig.ListNetworks.Values)
+                foreach (Network network in SysConfig.ListNetworks.Values)
                 {
                     if (network.State == NetworkConfig.STATE_CONNECTED)
                     {
@@ -167,7 +167,7 @@ namespace ConfigDevice
         /// 设置状态
         /// </summary>
         /// <param name="network"></param>
-        private void setConnectState(NetworkData network, string state)
+        private void setConnectState(Network network, string state)
         {
             network.State = state;//标记状态         
             foreach (DataRow dr in SysConfig.DtNetwork.Rows)
@@ -185,7 +185,7 @@ namespace ConfigDevice
         /// 根据数据更新网络设备表
         /// </summary>
         /// <param name="network">RJ45</param>
-        public static void UpdateNetworkDataTable(NetworkData network)
+        public static void UpdateNetworkDataTable(Network network)
         {
             foreach (DataRow dr in SysConfig.DtNetwork.Rows)
             {
@@ -266,7 +266,7 @@ namespace ConfigDevice
         public void ClearNetwork()
         {
             //------断开所有连接网络-------
-            foreach (NetworkData network in SysConfig.ListNetworks.Values)
+            foreach (Network network in SysConfig.ListNetworks.Values)
                 if (network.State == NetworkConfig.STATE_CONNECTED) network.DisconnectNetwork();
             SysConfig.DtDevice.Clear(); SysConfig.DtDevice.AcceptChanges();
             SysConfig.DtNetwork.Clear(); SysConfig.DtNetwork.AcceptChanges();

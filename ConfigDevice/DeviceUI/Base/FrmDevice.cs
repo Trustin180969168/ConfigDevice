@@ -10,11 +10,11 @@ namespace ConfigDevice
 {
     public partial class FrmDevice : Form
     {
-        public DeviceData Device;
+        public Device Device;
         public ToolStripComboBox CbxSelectDevice { get { return (cbxSelectDevice as ToolStripComboBox); } }
         public Dictionary<int, DataRow> SelectDeviceList = new Dictionary<int, DataRow>();//---列表---
 
-        public FrmDevice(DeviceData _device)
+        public FrmDevice(Device _device)
         {
             this.Device = _device;
             InitializeComponent();

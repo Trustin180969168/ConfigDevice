@@ -162,7 +162,7 @@ namespace ConfigDevice
 
         public static DataTable DtNetwork = new DataTable("Network");//-----网络列表-----
         public static DataTable DtDevice = new DataTable("Device");//-----设备列表-----
-        public static Dictionary<string, NetworkData> ListNetworks = new Dictionary<string, NetworkData>();//-----登记网络-----   
+        public static Dictionary<string, Network> ListNetworks = new Dictionary<string, Network>();//-----登记网络-----   
 
         public static StringBuilder sbTest = new StringBuilder();
         public static readonly byte[] LOCAL_PORT = { 0x1D, 0x25 };//-----本地端口---

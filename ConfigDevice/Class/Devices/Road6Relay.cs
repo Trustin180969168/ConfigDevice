@@ -6,15 +6,22 @@ using System.Data;
 namespace ConfigDevice
 {
 
-    public class Road6Relay : DeviceData
+    public class Road6Relay : Device
     {
         private const int circuitCount = 6;//回路数
         public int CircuitCount
         {
             get { return circuitCount; }
         } 
+
         public Road6Relay(UserUdpData userUdpData)
             : base(userUdpData)
+        {
+            initControlObjs();
+        }
+
+        public Road6Relay(DeviceData data)
+            : base(data)
         {
             initControlObjs();
         }

@@ -10,7 +10,7 @@ namespace ConfigDevice
 {
     public partial class FrmBaseDevice : FrmDevice
     {
-        public FrmBaseDevice(DeviceData _device)
+        public FrmBaseDevice(Device _device)
             : base(_device)
         {          
             InitializeComponent();
@@ -55,7 +55,7 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DeviceData DeviceSelect = new BaseDevice(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            Device DeviceSelect = new BaseDevice(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
             if (Device.MAC == DeviceSelect.MAC) return;
             //this.Close();
             //FrmDevice frm = SysCtrl.GetFactory(DeviceSelect.ByteKindID).CreateDevice(DeviceSelect);

@@ -6,7 +6,7 @@ using System.Data;
 namespace ConfigDevice
 {
 
-    public class Server : DeviceData
+    public class Server : Device
     {
 
         public Server(UserUdpData userUdpData)
@@ -17,6 +17,12 @@ namespace ConfigDevice
 
         public Server(DataRow dr)
             : base(dr)
+        {
+            initControlObjs();
+        }
+
+        public Server(DeviceData data)
+            : base(data)
         {
             initControlObjs();
         }

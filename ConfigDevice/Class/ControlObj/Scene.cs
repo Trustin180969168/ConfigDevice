@@ -13,7 +13,7 @@ namespace ConfigDevice
         public const string NAME_CMD_SW_SWIT_SCENE_CLOSE = "关场景";
 
 
-        public Scene(DeviceData _deviceCtrl)
+        public Scene(Device _deviceCtrl)
         {
             Name = "场景";
             deviceControled = _deviceCtrl;

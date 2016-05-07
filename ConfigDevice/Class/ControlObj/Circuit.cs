@@ -12,7 +12,7 @@ namespace ConfigDevice
         public const string NAME_CMD_SWITLOOP_CLOSE = "关回路";
 
 
-        public Circuit(DeviceData _deviceCtrl)
+        public Circuit(Device _deviceCtrl)
         {
             Name = "回路";
             deviceControled = _deviceCtrl;

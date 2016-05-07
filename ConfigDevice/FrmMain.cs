@@ -96,7 +96,7 @@ namespace ConfigDevice
                         gvDevices.BestFitColumns();
                     else if ((ActionKind)values[0] == ActionKind.SyncNetworkID)
                     {
-                        NetworkData network = (NetworkData)(values[1]);
+                        Network network = (Network)(values[1]);
                         network.CallbackUI -= this.CallBackUI;//----返回后退订-----
                         deviceCtrl.SearchDevices(network);
                     }
@@ -112,7 +112,7 @@ namespace ConfigDevice
         private void FrmSocketClientTest_FormClosing(object sender, FormClosingEventArgs e)
         {
             //------断开所有连接网络-------
-            foreach (NetworkData network in SysConfig.ListNetworks.Values)
+            foreach (Network network in SysConfig.ListNetworks.Values)
                 if (network.State == NetworkConfig.STATE_CONNECTED) network.DisconnectNetwork();
             socket.Close();
         }
@@ -126,7 +126,7 @@ namespace ConfigDevice
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_CONNECTED)
             { CommonTools.MessageShow("你已经连接了" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             network.ConnectNetwork();
         }
 
@@ -141,7 +141,7 @@ namespace ConfigDevice
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
             { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             network.DisconnectNetwork();
         }
 
@@ -199,7 +199,7 @@ namespace ConfigDevice
         {
             if (gvDevices.FocusedRowHandle == -1) return;
             DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
-            DeviceData device = new BaseDevice(dr);
+            Device device = new BaseDevice(dr);
             if (SysConfig.ListNetworks.ContainsKey(device.NetworkIP) &&
                 SysConfig.ListNetworks[device.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
             {
@@ -219,7 +219,7 @@ namespace ConfigDevice
             if (gvNetwork.FocusedRowHandle == -1) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
 
-            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             if (network.State == NetworkConfig.STATE_CONNECTED)
             {
                 FrmNetworkEdit frm = new FrmNetworkEdit();
@@ -237,7 +237,7 @@ namespace ConfigDevice
         {
             if (gvNetwork.FocusedRowHandle == -1) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
-            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             FrmChangePassword frm = new FrmChangePassword();
             frm.NetworkEdit = network;
             frm.Show();
@@ -287,7 +287,7 @@ namespace ConfigDevice
             listNetworkNameID.Clear(); cbxSelectNetwork.Items.Clear();
             cbxSelectNetwork.Items.Add("");
             //-----网络列表------------------
-            foreach (NetworkData network in SysConfig.ListNetworks.Values)
+            foreach (Network network in SysConfig.ListNetworks.Values)
             {                
                 cbxSelectNetwork.Items.Add(network.DeviceName);
                 listNetworkNameID.Add(network.DeviceName, network.NetworkID);                
@@ -328,7 +328,7 @@ namespace ConfigDevice
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
             { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             network.CallbackUI += this.CallBackUI;//---同步ID需要刷新结果----
             network.SnycNetworkID();
         }
@@ -342,7 +342,7 @@ namespace ConfigDevice
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
             { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             network.SnycTime();
         }
 
@@ -355,7 +355,7 @@ namespace ConfigDevice
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
             { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-            NetworkData network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             network.SnycData();
         }
 

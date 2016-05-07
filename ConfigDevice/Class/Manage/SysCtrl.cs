@@ -59,7 +59,7 @@ namespace ConfigDevice
         /// 刷新设备列表
         /// </summary>
         /// <param name="device">设备</param>
-        public static void RefreshDevices(DeviceData device)
+        public static void RefreshDevices(Device device)
         {
             string cdnStr = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
             DataRow[] rows = SysConfig.DtDevice.Select(cdnStr);

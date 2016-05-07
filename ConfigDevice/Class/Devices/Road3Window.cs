@@ -6,7 +6,7 @@ using System.Data;
 namespace ConfigDevice
 {
 
-    public class Road3Window : DeviceData
+    public class Road3Window : Device
     {
 
         public Road3Window(UserUdpData userUdpData)
@@ -17,6 +17,12 @@ namespace ConfigDevice
 
         public Road3Window(DataRow dr)
             : base(dr)
+        {
+            initControlObjs();
+        }
+
+        public Road3Window(DeviceData data)
+            : base(data)
         {
             initControlObjs();
         }

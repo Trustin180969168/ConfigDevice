@@ -20,7 +20,7 @@ namespace ConfigDevice
         public const string NAME_PLAY_MORE_COUNT_TIME = "多曲计时";
         public const string NAME_PLAY_INVALID = "无效";
 
-        public Messages(DeviceData _deviceCtrl)
+        public Messages(Device _deviceCtrl)
         {
             Name = "消息";
             deviceControled = _deviceCtrl;

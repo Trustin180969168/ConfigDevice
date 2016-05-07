@@ -21,7 +21,7 @@ namespace ConfigDevice
         public const string NAME_ACTION_ROAD_FRONT_3 = "3路正转";
         public const string NAME_ACTION_ROAD_BACK_3 = "3路反转";
 
-        public Motor(DeviceData _deviceCtrl)
+        public Motor(Device _deviceCtrl)
         {
             Name = "电机";
             deviceControled = _deviceCtrl;

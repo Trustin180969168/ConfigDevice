@@ -23,7 +23,7 @@ namespace ConfigDevice
         public const string NAME_PLAY_ORDER_RANDOM = "随机播放";
         public const string NAME_PLAY_INVALID = "无效";
 
-        public Background(DeviceData _deviceCtrl)
+        public Background(Device _deviceCtrl)
         {
             Name = "背景";
             deviceControled = _deviceCtrl;

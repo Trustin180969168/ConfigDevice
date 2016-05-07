@@ -11,7 +11,7 @@ namespace ConfigDevice
 {
     public partial class FrmNetworkEdit : Form
     {
-        public NetworkData NetworkEdit = null;
+        public Network NetworkEdit = null;
         DataTable dtPosition = new DataTable("Position");
         private Dictionary<int, string> listNetworkKey = new Dictionary<int, string>();//保存对应关系
 
@@ -65,7 +65,7 @@ namespace ConfigDevice
         {
             //-----网络列表------------------
             int i = 0;
-            foreach (NetworkData network in SysConfig.ListNetworks.Values)
+            foreach (Network network in SysConfig.ListNetworks.Values)
             {
                 cbxNetwork.Items.Add(network.DeviceName);
                 listNetworkKey.Add(i++, network.NetworkIP);

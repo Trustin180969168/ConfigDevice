@@ -13,7 +13,7 @@ namespace ConfigDevice
     public partial class FrmFourInput : FrmDevice
     {
         private DoorInput4 doorInput4;
-        public FrmFourInput(DeviceData _device)
+        public FrmFourInput(Device _device)
             : base(_device)
         {
             InitializeComponent();
