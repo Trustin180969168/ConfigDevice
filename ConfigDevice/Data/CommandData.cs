@@ -6,6 +6,9 @@ namespace ConfigDevice
 {
     public class CommandData
     {
+        public byte ucCmdType;//指令类型
+        public int ucCmdKey;//第几个按键/分组
+        public int ucCmdNum;//第几个指令 
         public string Name = "";//命令名称
         public byte TargetId;//目标ID
         public byte TargetNet;//目标网段
@@ -22,6 +25,23 @@ namespace ConfigDevice
         public CommandData(string _name)
         {
             Name = _name;
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="userData">用户数据</param>
+        public CommandData(UserUdpData userData)
+        {
+            ucCmdType = userData.Data[0];
+            ucCmdKey = (int)userData.Data[1];
+            ucCmdNum = (int)userData.Data[2];
+            TargetId = userData.Data[3];
+            TargetNet = userData.Data[4];
+            TargetType = userData.Data[5];
+            Cmd = CommonTools.CopyBytes(userData.Data, 6, 2);
+            Len = userData.Data[8];
+            Buffer.BlockCopy(userData.Data, 9, Data, 0, (int)Len);
         }
 
         /// <summary>

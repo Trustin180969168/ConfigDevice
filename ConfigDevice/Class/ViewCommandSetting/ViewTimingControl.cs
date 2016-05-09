@@ -44,6 +44,9 @@ namespace ConfigDevice
             dcRunCount.Visible = true;
             ViewSetting.Columns.ColumnByName("parameter4").Visible = false;
             ViewSetting.Columns.ColumnByName("parameter5").Visible = false;
+            ViewSetting.Columns.ColumnByName("parameter1").VisibleIndex = 6;
+            ViewSetting.Columns.ColumnByName("parameter2").VisibleIndex = 7;
+            ViewSetting.Columns.ColumnByName("parameter3").VisibleIndex = 8;
 
             cbxCommandKind.Items.Add(Timing.NAME_CMD_SW_SWIT_TIMING);
             cbxCommandKind.Items.Add(Timing.NAME_CMD_SW_SWIT_TIMING_OPEN);

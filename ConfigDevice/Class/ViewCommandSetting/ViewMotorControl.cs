@@ -49,6 +49,11 @@ namespace ConfigDevice
             dcRunTime.Visible = true;
             dcOpenDelay.Visible = true;
             dcCloseDelay.Visible = true;
+            ViewSetting.Columns.ColumnByName("parameter1").VisibleIndex = 6;
+            ViewSetting.Columns.ColumnByName("parameter2").VisibleIndex = 7;
+            ViewSetting.Columns.ColumnByName("parameter3").VisibleIndex = 8;
+            ViewSetting.Columns.ColumnByName("parameter4").VisibleIndex = 9;
+            ViewSetting.Columns.ColumnByName("parameter5").VisibleIndex = 10;
 
             cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP);
             cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_OPEN);

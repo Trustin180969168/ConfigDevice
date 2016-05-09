@@ -80,7 +80,7 @@ namespace ConfigDevice
         /// 回调UI
         /// </summary>
         /// <param name="values"></param>
-        protected void callbackUI(object[] values)
+        public void CallbackUI(object[] values)
         {
             if (this.OnCallbackUI_Action != null)
                 OnCallbackUI_Action(values);
@@ -198,7 +198,7 @@ namespace ConfigDevice
             {   //------回复反馈的设备信息-------
                 UdpTools.ReplyDeviceDataUdp(data);
             }
-            callbackUI(null);
+            CallbackUI(null);
         }
         /// <summary>
         /// 创建读取VER的UDP包
@@ -210,7 +210,7 @@ namespace ConfigDevice
 
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)------
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
-            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
 
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
@@ -274,7 +274,7 @@ namespace ConfigDevice
                 else
                     CommonTools.MessageShow("设备ID修改失败!", 2, "");
 
-                callbackUI(null);
+                CallbackUI(null);
             }
 
         }
@@ -288,7 +288,7 @@ namespace ConfigDevice
 
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)------
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
-            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
 
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息----
@@ -353,7 +353,7 @@ namespace ConfigDevice
 
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
-            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
 
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
@@ -409,7 +409,7 @@ namespace ConfigDevice
 
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
-            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
 
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
@@ -455,7 +455,7 @@ namespace ConfigDevice
                 this.NetworkIP = device.NetworkIP;
                 this.AddressName = device.AddressName;
 
-                callbackUI(null);//---返回UI----
+                CallbackUI(null);//---返回UI----
                 SysCtrl.RefreshDevices(this);//--刷新----
             }
         }
@@ -472,7 +472,7 @@ namespace ConfigDevice
 
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
-            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
 
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--

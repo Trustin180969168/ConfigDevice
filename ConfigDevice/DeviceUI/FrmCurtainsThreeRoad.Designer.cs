@@ -80,7 +80,7 @@
             this.btSaveTime = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
+            this.frmSetting = new ConfigDevice.ViewBaseEdit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -685,7 +685,7 @@
         private System.Windows.Forms.ToolStrip tsDoorInput;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageJcsz;
-        private UCtrlBaseEdit frmSetting;
+        private ViewBaseEdit frmSetting;
         private System.Windows.Forms.ToolStripDropDownButton btSave;
         private System.Windows.Forms.ToolStripMenuItem btSaveTitle;
         private System.Windows.Forms.ToolStripMenuItem btSaveTime;

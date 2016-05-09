@@ -63,7 +63,7 @@ namespace ConfigDevice
             udpReply.PacketCode = udpDevice.PacketCode;
             udpReply.PacketKind[0] = PackegeSendReply.REPLY;
             udpReply.PacketProperty[0] = BroadcastKind.Broadcast;
-            udpReply.SendPort = SysConfig.LOCAL_PORT;
+            udpReply.SendPort = SysConfig.ByteLocalPort;
             udpReply.Protocol = UserProtocol.Device;
             udpReply.ProtocolData = new byte[] { REPLY_RESULT.CMD_TRUE };
             udpReply.CheckCodeAdd[0] = udpDevice.ProtocolData[1];

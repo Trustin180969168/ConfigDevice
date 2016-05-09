@@ -104,7 +104,7 @@ namespace ConfigDevice
 
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)------
             udp.PacketProperty[0] = BroadcastKind.Broadcast;//----包属性(单播/广播/组播)----
-            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
 
             byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PC, network.ByteNetworkID, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
@@ -259,7 +259,7 @@ namespace ConfigDevice
             udpReply.PacketCode = udpDevice.PacketCode;
             udpReply.PacketKind[0] = PackegeSendReply.REPLY;
             udpReply.PacketProperty[0] = BroadcastKind.Broadcast;
-            udpReply.SendPort = SysConfig.LOCAL_PORT;
+            udpReply.SendPort = SysConfig.ByteLocalPort;
             udpReply.Protocol = UserProtocol.Device;
             udpReply.ProtocolData = new byte[] { BroadcastKind.Unicast };
             udpReply.CheckCodeAdd[0] = udpDevice.ProtocolData[1];

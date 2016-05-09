@@ -17,8 +17,6 @@ namespace ConfigDevice
         public int Port;//对方的发送端口
         public List<Position> ListPosition; //设备位置列表
         private MySocket mySocket = MySocket.GetInstance();
-        private byte[] managerPassword;//管理员密码
-        private byte[] userPassword;//用户密码
         public string SoftwareVer = "";//软件版本
         public string HardwareVer = "";//硬件版本
 

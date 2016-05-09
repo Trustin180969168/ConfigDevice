@@ -97,11 +97,11 @@
     <Compile Include="Data\UdpData.cs" />
     <Compile Include="Config\PublicConfig.cs" />
     <Compile Include="Data\UserUdpData.cs" />
-    <Compile Include="DeviceUI\FrmFourInput.cs">
+    <Compile Include="DeviceUI\FrmDoorInput4.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeviceUI\FrmFourInput.designer.cs">
-      <DependentUpon>FrmFourInput.cs</DependentUpon>
+    <Compile Include="DeviceUI\FrmDoorInput4.designer.cs">
+      <DependentUpon>FrmDoorInput4.cs</DependentUpon>
     </Compile>
     <Compile Include="DeviceUI\FrmWeatherStation.cs">
       <SubType>Form</SubType>
@@ -111,8 +111,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DeviceUI\FrmFourInput.resx">
-      <DependentUpon>FrmFourInput.cs</DependentUpon>
+    <EmbeddedResource Include="DeviceUI\FrmDoorInput4.resx">
+      <DependentUpon>FrmDoorInput4.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\FrmCurtainsThreeRoad.resx">
@@ -123,8 +123,8 @@
       <DependentUpon>FrmWeatherStation.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\Base\UCtrlCommandEdit.resx">
-      <DependentUpon>UCtrlCommandEdit.cs</DependentUpon>
+    <EmbeddedResource Include="DeviceUI\Base\ViewCommandEdit.resx">
+      <DependentUpon>ViewCommandEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
@@ -144,8 +144,8 @@
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\Base\UCtrlBaseEdit.resx">
-      <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
+    <EmbeddedResource Include="DeviceUI\Base\ViewBaseEdit.resx">
+      <DependentUpon>ViewBaseEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\Base\FrmBaseDevice.resx">
@@ -223,11 +223,11 @@
     <Compile Include="SysUI\FrmChangePassword.Designer.cs">
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeviceUI\Base\UCtrlBaseEdit.cs">
+    <Compile Include="DeviceUI\Base\ViewBaseEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DeviceUI\Base\UCtrlBaseEdit.Designer.cs">
-      <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
+    <Compile Include="DeviceUI\Base\ViewBaseEdit.Designer.cs">
+      <DependentUpon>ViewBaseEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\UdpTools.cs" />
     <Compile Include="DeviceUI\Base\FrmBaseDevice.cs">
@@ -307,6 +307,7 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\Election11.png" />
     <None Include="Resources\Traces1.png" />
+    <Compile Include="Class\Devices\Command.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
     <Compile Include="Class\Devices\Road6FrontDimming.cs" />
     <Compile Include="Class\Devices\Road8FrontDimming.cs" />
@@ -341,12 +342,13 @@
     <Compile Include="Class\ControlObj\Timing.cs" />
     <Compile Include="Data\DeviceData.cs" />
     <Compile Include="Data\NetworkData.cs" />
-    <Compile Include="DeviceUI\Base\UCtrlCommandEdit.cs">
+    <Compile Include="DeviceUI\Base\ViewCommandEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DeviceUI\Base\UCtrlCommandEdit.Designer.cs">
-      <DependentUpon>UCtrlCommandEdit.cs</DependentUpon>
+    <Compile Include="DeviceUI\Base\ViewCommandEdit.Designer.cs">
+      <DependentUpon>ViewCommandEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\PortTools.cs" />
     <Compile Include="Tools\SelectDevice.cs">
       <SubType>Form</SubType>
     </Compile>

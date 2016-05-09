@@ -1,6 +1,6 @@
 ﻿namespace ConfigDevice.DeviceUI
 {
-    partial class UCtrlCommandEdit
+    partial class ViewCommandEdit
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -28,16 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCtrlCommandEdit));
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.btSyncEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.xscCommands = new DevExpress.XtraEditors.XtraScrollableControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
+            this.edtEndNum = new DevExpress.XtraEditors.SpinEdit();
             this.cbxGroup = new DevExpress.XtraEditors.ComboBoxEdit();
             this.lblGroupName = new DevExpress.XtraEditors.LabelControl();
             this.edtBeginNum = new DevExpress.XtraEditors.TextEdit();
@@ -46,7 +44,7 @@
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).BeginInit();
             this.SuspendLayout();
@@ -60,8 +58,7 @@
             this.btSyncEdit,
             this.toolStripSeparator1,
             this.btSaveCommands,
-            this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolStripButton1});
             this.toolStrip2.Location = new System.Drawing.Point(2, 61);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(744, 31);
@@ -100,16 +97,6 @@
             this.toolStripButton1.Size = new System.Drawing.Size(74, 28);
             this.toolStripButton1.Text = "刷新 ";
             // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton2.Text = "toolStripButton2";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click_1);
-            // 
             // xscCommands
             // 
             this.xscCommands.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -121,7 +108,7 @@
             // panelControl1
             // 
             this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.panelControl1.Controls.Add(this.spinEdit1);
+            this.panelControl1.Controls.Add(this.edtEndNum);
             this.panelControl1.Controls.Add(this.cbxGroup);
             this.panelControl1.Controls.Add(this.lblGroupName);
             this.panelControl1.Controls.Add(this.edtBeginNum);
@@ -134,37 +121,37 @@
             this.panelControl1.Size = new System.Drawing.Size(748, 94);
             this.panelControl1.TabIndex = 6;
             // 
-            // spinEdit1
+            // edtEndNum
             // 
-            this.spinEdit1.EditValue = new decimal(new int[] {
-            5,
+            this.edtEndNum.EditValue = new decimal(new int[] {
+            10,
             0,
             0,
             0});
-            this.spinEdit1.Location = new System.Drawing.Point(140, 19);
-            this.spinEdit1.Name = "spinEdit1";
-            this.spinEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.spinEdit1.Properties.Appearance.Options.UseFont = true;
-            this.spinEdit1.Properties.Appearance.Options.UseTextOptions = true;
-            this.spinEdit1.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.spinEdit1.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.spinEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.edtEndNum.Location = new System.Drawing.Point(140, 19);
+            this.edtEndNum.Name = "edtEndNum";
+            this.edtEndNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtEndNum.Properties.Appearance.Options.UseFont = true;
+            this.edtEndNum.Properties.Appearance.Options.UseTextOptions = true;
+            this.edtEndNum.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.edtEndNum.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.edtEndNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.spinEdit1.Properties.IsFloatValue = false;
-            this.spinEdit1.Properties.Mask.EditMask = "d";
-            this.spinEdit1.Properties.MaxValue = new decimal(new int[] {
+            this.edtEndNum.Properties.IsFloatValue = false;
+            this.edtEndNum.Properties.Mask.EditMask = "d";
+            this.edtEndNum.Properties.MaxValue = new decimal(new int[] {
             50,
             0,
             0,
             0});
-            this.spinEdit1.Properties.MinValue = new decimal(new int[] {
-            5,
+            this.edtEndNum.Properties.MinValue = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.spinEdit1.Size = new System.Drawing.Size(46, 26);
-            this.spinEdit1.TabIndex = 10;
-            this.spinEdit1.ValueChanged += new System.EventHandler(this.RequestCommandData);
+            this.edtEndNum.Size = new System.Drawing.Size(46, 26);
+            this.edtEndNum.TabIndex = 10;
+            this.edtEndNum.ValueChanged += new System.EventHandler(this.RequestCommandData);
             // 
             // cbxGroup
             // 
@@ -235,20 +222,20 @@
             this.labelControl1.TabIndex = 5;
             this.labelControl1.Text = "从";
             // 
-            // UCtrlCommandEdit
+            // ViewCommandEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.xscCommands);
             this.Controls.Add(this.panelControl1);
-            this.Name = "UCtrlCommandEdit";
+            this.Name = "ViewCommandEdit";
             this.Size = new System.Drawing.Size(748, 454);
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).EndInit();
             this.ResumeLayout(false);
@@ -269,7 +256,6 @@
         private System.Windows.Forms.ToolStripButton btSyncEdit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private DevExpress.XtraEditors.SpinEdit spinEdit1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private DevExpress.XtraEditors.SpinEdit edtEndNum;
     }
 }

@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public partial class UCtrlBaseEdit : UserControl
+    public partial class ViewBaseEdit : UserControl
     {
         public Device DeviceEdit;
-        public UCtrlBaseEdit()
+        public ViewBaseEdit()
         {
             InitializeComponent();
         }

@@ -160,15 +160,25 @@ namespace ConfigDevice
     public static class SysConfig
     {
 
+        static SysConfig()
+        {
+            LocalPort = (UInt16)PortTools.GetAvailablePort();//初始化本地端口
+        }
+
         public static DataTable DtNetwork = new DataTable("Network");//-----网络列表-----
         public static DataTable DtDevice = new DataTable("Device");//-----设备列表-----
         public static Dictionary<string, Network> ListNetworks = new Dictionary<string, Network>();//-----登记网络-----   
 
         public static StringBuilder sbTest = new StringBuilder();
-        public static readonly byte[] LOCAL_PORT = { 0x1D, 0x25 };//-----本地端口---
-        public static readonly byte[] REMOTE_PORT = { 0xCB, 0x2B };//----远程端口-----      
-        public static int LocalPort = BitConverter.ToInt16(LOCAL_PORT, 0);//本地端口
-        public static int RemotePort = BitConverter.ToInt16(REMOTE_PORT, 0);//远程端口
+
+        public static UInt16 LocalPort = 0;//本地端口
+        public static byte[] ByteLocalPort { get { return BitConverter.GetBytes(LocalPort); } }
+        public static readonly UInt16 RemotePort = 11211;//远程端口
+        public static byte[] ByteRemotePort { get { return BitConverter.GetBytes(RemotePort); } }
+      
+
+
+
         public const Int16 MAX_DATA_SIZE = 128;//若定最大128长度.
         public const Int16 MIN_DATA_SIZE = 30;//若定最小30长度.
         public static Dictionary<int, IPInfo> IPList = new Dictionary<int, IPInfo>();

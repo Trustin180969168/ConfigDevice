@@ -34,6 +34,10 @@ namespace ConfigDevice
         {
             cbxCommandKind.Items.Add(ServerControlObj.NAME_CMD_SEND_WEIXIN);
             dcWeiXinContent.Caption = "微信内容";
+            ViewSetting.Columns.ColumnByName("parameter2").Visible = false;
+            ViewSetting.Columns.ColumnByName("parameter3").Visible = false;
+            ViewSetting.Columns.ColumnByName("parameter4").Visible = false;
+            ViewSetting.Columns.ColumnByName("parameter5").Visible = false;
         }
 
         /// <summary>

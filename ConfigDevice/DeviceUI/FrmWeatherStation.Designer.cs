@@ -34,7 +34,7 @@
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
+            this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageActionList = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
@@ -146,7 +146,7 @@
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageJcsz;
-        private UCtrlBaseEdit frmSetting;
+        private ViewBaseEdit frmSetting;
         private DevExpress.XtraTab.XtraTabPage pageActionList;
     }
 }

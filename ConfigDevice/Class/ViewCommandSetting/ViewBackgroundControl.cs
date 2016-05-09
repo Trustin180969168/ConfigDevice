@@ -53,6 +53,12 @@ namespace ConfigDevice
             dcPlayNum.Visible = true;
             dcPlayTime.Visible = true;
 
+            ViewSetting.Columns.ColumnByName("parameter1").VisibleIndex = 6;
+            ViewSetting.Columns.ColumnByName("parameter2").VisibleIndex = 7;
+            ViewSetting.Columns.ColumnByName("parameter3").VisibleIndex = 8;
+            ViewSetting.Columns.ColumnByName("parameter4").VisibleIndex = 9;
+            ViewSetting.Columns.ColumnByName("parameter5").VisibleIndex = 10;
+
             cbxCommandKind.Items.Add(Background.NAME_CMD_SWIT_ALL_MUSIC);
             cbxCommandKind.Items.Add(Background.NAME_CMD_SWIT_OPEN_MUSIC);
             cbxCommandKind.Items.Add(Background.NAME_CMD_SWIT_CLOSE_MUSIC);

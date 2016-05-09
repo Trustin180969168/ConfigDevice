@@ -217,7 +217,7 @@ namespace ConfigDevice
         {
             UdpData udp = new UdpData(udpReply.GetUdpData());
             udp.PacketKind[0] =PackegeSendReply.REPLY;//---更新包标识----
-            udp.SendPort = SysConfig.LOCAL_PORT;//----发送端口---           
+            udp.SendPort = SysConfig.ByteLocalPort;//----发送端口---           
             Buffer.BlockCopy(udpReply.ProtocolData, 3, udp.ProtocolData, 0, 3);//----为接收udpReply的源----
             Buffer.BlockCopy(udpReply.ProtocolData, 0, udp.ProtocolData, 3, 3);//----为接收udpReply的目标----
             //-------计算校验码--------
@@ -240,7 +240,7 @@ namespace ConfigDevice
 
             udp.PacketKind[0]=0x01;//----包数据类------
             udp.PacketProperty[0] = BroadcastKind.Broadcast;//----包属性----
-            Buffer.BlockCopy(SysConfig.LOCAL_PORT, 0, udp.SendPort, 0, 2);//----发送端口----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
             //---------1复制到用户数据---------
             byte[] temp1 = new byte[] { 0xFF, 0xFF, 0xF0, 0xFF, 0xFF, 0xFE, 0x11 };

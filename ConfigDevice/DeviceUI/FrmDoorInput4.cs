@@ -10,10 +10,10 @@ using DevExpress.XtraEditors;
 
 namespace ConfigDevice
 {
-    public partial class FrmFourInput : FrmDevice
+    public partial class FrmDoorInput4 : FrmDevice
     {
         private DoorInput4 doorInput4;
-        public FrmFourInput(Device _device)
+        public FrmDoorInput4(Device _device)
             : base(_device)
         {
             InitializeComponent();
@@ -21,23 +21,21 @@ namespace ConfigDevice
             doorInput4 = this.Device as DoorInput4;
             doorInput4.OnCallbackUI_Action += this.callbackUI;
             doorInput4.OnCallbackUI_Action += frmSetting.CallBackUI;
-            frmSetting.DeviceEdit = doorInput4;
-
+            frmSetting.DeviceEdit = doorInput4;      
         }
 
         private void FrmFourInput_Load(object sender, EventArgs e)
         {
             base.InitSelectDevice();//初始化选择列表
             loadData();
-
-            uCtrlCommandEdit.CommandGroupName = "当前区域";
+            viewCommandEdit.CommandGroupName = "当前区域";
         }
 
         private void loadData()
         {
             doorInput4.SearchVer();//---获取版本号-----   
             doorInput4.ReadSettingInfo();//----读取配置信息-----
-            doorInput4.ReadRoadTitle();//---读取回路名称----
+            doorInput4.ReadRoadTitle();//---读取回路名称----          
         }
 
         /// <summary>
@@ -73,43 +71,48 @@ namespace ConfigDevice
                     edtNum2.Text = doorInput4.RoadMusicNum2.ToString();
                     edtNum3.Text = doorInput4.RoadMusicNum3.ToString();
                     edtNum4.Text = doorInput4.RoadMusicNum4.ToString();
-                      if (clbcAqjb.SelectedItems.Count == 15)
+                    if (clbcAqjb.SelectedItems.Count == 15)
                         cdtSelectAll.Checked = true;
-                    //---------初始化命令组-----------------
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Clear();
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第1路:门窗开-" + edtMcmc1.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第2路:门窗关-" + edtMcmc1.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第3路:警报-" + edtMcmc1.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第4路:撤防-" + edtMcmc1.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第1路:门窗开-" + edtMcmc2.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第2路:门窗关-" + edtMcmc2.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第3路:警报-" + edtMcmc2.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第4路:撤防-" + edtMcmc2.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第1路:门窗开-" + edtMcmc3.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第2路:门窗关-" + edtMcmc3.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第3路:警报-" + edtMcmc3.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第4路:撤防-" + edtMcmc3.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第1路:门窗开-" + edtMcmc4.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第2路:门窗关-" + edtMcmc4.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第3路:警报-" + edtMcmc4.Text);
-                    uCtrlCommandEdit.CbxCommandGroup.Properties.Items.Add("第4路:撤防-" + edtMcmc4.Text);
-                  
+
+                    //----------刷新命令组-----------------
+                    viewCommandEdit.CommmandGroups.Clear();
+                    viewCommandEdit.CommmandGroups.Add("第1路:门窗开-" + edtMcmc1.Text);
+                    viewCommandEdit.CommmandGroups.Add("第1路:门窗关-" + edtMcmc1.Text);
+                    viewCommandEdit.CommmandGroups.Add("第1路:警报-" + edtMcmc1.Text);
+                    viewCommandEdit.CommmandGroups.Add("第1路:撤防-" + edtMcmc1.Text);
+                    viewCommandEdit.CommmandGroups.Add("第2路:门窗开-" + edtMcmc2.Text);
+                    viewCommandEdit.CommmandGroups.Add("第2路:门窗关-" + edtMcmc2.Text);
+                    viewCommandEdit.CommmandGroups.Add("第2路:警报-" + edtMcmc2.Text);
+                    viewCommandEdit.CommmandGroups.Add("第2路:撤防-" + edtMcmc2.Text);
+                    viewCommandEdit.CommmandGroups.Add("第3路:门窗开-" + edtMcmc3.Text);
+                    viewCommandEdit.CommmandGroups.Add("第3路:门窗关-" + edtMcmc3.Text);
+                    viewCommandEdit.CommmandGroups.Add("第3路:警报-" + edtMcmc3.Text);
+                    viewCommandEdit.CommmandGroups.Add("第3路:撤防-" + edtMcmc3.Text);
+                    viewCommandEdit.CommmandGroups.Add("第4路:门窗开-" + edtMcmc4.Text);
+                    viewCommandEdit.CommmandGroups.Add("第4路:门窗关-" + edtMcmc4.Text);
+                    viewCommandEdit.CommmandGroups.Add("第4路:警报-" + edtMcmc4.Text);
+                    viewCommandEdit.CommmandGroups.Add("第4路:撤防-" + edtMcmc4.Text);
+                    if (viewCommandEdit.NeedInit && tctrlEdit.SelectedTabPageIndex == 2)
+                        viewCommandEdit.InitViewCommand(doorInput4);
+                    else
+                        viewCommandEdit.UpdateGroupName();
                 }
             }
             catch { }
         }
 
         /// <summary>
-        /// 选择事件
+        /// 更换设备事件
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {           
             DoorInput4 _doorInput4 = new DoorInput4(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
             if (doorInput4.MAC == _doorInput4.MAC) return;
-
+            
             _doorInput4.OnCallbackUI_Action += this.callbackUI;
             _doorInput4.OnCallbackUI_Action += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = _doorInput4;
+            viewCommandEdit.NeedInit = true;//----重新初始化,通过回调实现------
             doorInput4 = _doorInput4;
             this.Text = _doorInput4.Name;
             loadData();
@@ -172,6 +175,16 @@ namespace ConfigDevice
             byte[] byteName = Encoding.GetEncoding("GB2312").GetBytes(newName);
             if (byteName.Length > 30)
             { CommonTools.MessageShow("设备名称不能大于30字节!", 3, ""); edtName.Focus(); }
+        }
+
+        /// <summary>
+        /// 加载指令列表
+        /// </summary>
+        private void tctrlEdit_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            if (tctrlEdit.SelectedTabPageIndex == 2)
+                if (viewCommandEdit.NeedInit)
+                    viewCommandEdit.InitViewCommand(doorInput4);//初始化
         }
 
 

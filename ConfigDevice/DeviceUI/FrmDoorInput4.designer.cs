@@ -1,6 +1,6 @@
 ﻿namespace ConfigDevice
 {
-    partial class FrmFourInput
+    partial class FrmDoorInput4
     {
         /// <summary>
         /// Required designer variable.
@@ -65,9 +65,9 @@
             this.cdtSelectAll = new DevExpress.XtraEditors.CheckEdit();
             this.clbcAqjb = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
+            this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
-            this.uCtrlCommandEdit = new ConfigDevice.DeviceUI.UCtrlCommandEdit();
+            this.viewCommandEdit = new ConfigDevice.DeviceUI.ViewCommandEdit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -113,6 +113,7 @@
             this.pageJcsz,
             this.pageCommand});
             this.tctrlEdit.Text = "xtraTabControl1";
+            this.tctrlEdit.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.tctrlEdit_SelectedPageChanged);
             // 
             // pagePzjm
             // 
@@ -121,7 +122,7 @@
             this.pagePzjm.Controls.Add(this.groupControl2);
             this.pagePzjm.Controls.Add(this.groupControl1);
             this.pagePzjm.Name = "pagePzjm";
-            this.pagePzjm.Size = new System.Drawing.Size(785, 514);
+            this.pagePzjm.Size = new System.Drawing.Size(1009, 682);
             this.pagePzjm.Text = "配置界面";
             // 
             // tsDoorInput
@@ -133,7 +134,7 @@
             this.btRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
-            this.tsDoorInput.Size = new System.Drawing.Size(785, 31);
+            this.tsDoorInput.Size = new System.Drawing.Size(1009, 31);
             this.tsDoorInput.TabIndex = 1;
             this.tsDoorInput.Text = "toolStrip2";
             // 
@@ -483,7 +484,7 @@
             // 
             this.pageJcsz.Controls.Add(this.frmSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(785, 514);
+            this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
             this.pageJcsz.Text = "基础配置";
             // 
             // frmSetting
@@ -491,31 +492,31 @@
             this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frmSetting.Location = new System.Drawing.Point(0, 0);
             this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(785, 514);
+            this.frmSetting.Size = new System.Drawing.Size(1009, 682);
             this.frmSetting.TabIndex = 0;
             // 
             // pageCommand
             // 
-            this.pageCommand.Controls.Add(this.uCtrlCommandEdit);
+            this.pageCommand.Controls.Add(this.viewCommandEdit);
             this.pageCommand.Name = "pageCommand";
             this.pageCommand.Size = new System.Drawing.Size(1009, 682);
             this.pageCommand.Text = "指令配置";
             // 
             // uCtrlCommandEdit
             // 
-            this.uCtrlCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uCtrlCommandEdit.Location = new System.Drawing.Point(0, 0);
-            this.uCtrlCommandEdit.Name = "uCtrlCommandEdit";
-            this.uCtrlCommandEdit.Size = new System.Drawing.Size(1009, 682);
-            this.uCtrlCommandEdit.TabIndex = 0;
+            this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.viewCommandEdit.Location = new System.Drawing.Point(0, 0);
+            this.viewCommandEdit.Name = "uCtrlCommandEdit";
+            this.viewCommandEdit.Size = new System.Drawing.Size(1009, 682);
+            this.viewCommandEdit.TabIndex = 0;
             // 
-            // FrmFourInput
+            // FrmDoorInput4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 743);
             this.Controls.Add(this.tctrlEdit);
-            this.Name = "FrmFourInput";
+            this.Name = "FrmDoorInput4";
             this.Text = "门输入4配置";
             this.Load += new System.EventHandler(this.FrmFourInput_Load);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
@@ -559,7 +560,7 @@
 
         private DevExpress.XtraTab.XtraTabControl tctrlEdit;
         private DevExpress.XtraTab.XtraTabPage pageJcsz;
-        private UCtrlBaseEdit frmSetting;
+        private ViewBaseEdit frmSetting;
         private DevExpress.XtraTab.XtraTabPage pagePzjm;
         private System.Windows.Forms.ToolStrip tsDoorInput;
         private DevExpress.XtraEditors.GroupControl groupControl2;
@@ -596,7 +597,7 @@
         private DevExpress.XtraEditors.CheckEdit cdtSelectAll;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageCommand;
-        private ConfigDevice.DeviceUI.UCtrlCommandEdit uCtrlCommandEdit;
+        private ConfigDevice.DeviceUI.ViewCommandEdit viewCommandEdit;
 
 
     }

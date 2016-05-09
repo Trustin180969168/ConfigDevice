@@ -30,7 +30,7 @@
         {
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.frmSetting = new ConfigDevice.UCtrlBaseEdit();
+            this.frmSetting = new ConfigDevice.ViewBaseEdit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.pageJcsz.SuspendLayout();
@@ -87,7 +87,7 @@
 
         private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
         private DevExpress.XtraTab.XtraTabPage pageJcsz;
-        private UCtrlBaseEdit frmSetting;
+        private ViewBaseEdit frmSetting;
 
 
     }

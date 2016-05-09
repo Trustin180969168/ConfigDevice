@@ -207,20 +207,41 @@ namespace ConfigDevice
         /// <returns></returns>
         public static ViewCommandControl GetViewCommandControl(ControlObj controlObj, GridView gv)
         {
-            string typeName = controlObj.GetType().ToString();
-            switch (typeName)
-            {
-                case "ConfigDevice.Background": return new ViewBackgroundControl(controlObj, gv);
-                case "ConfigDevice.Circuit": return new ViewCircuitControl(controlObj, gv);
-                case "ConfigDevice.Messages": return new ViewMessagesControl(controlObj, gv);
-                case "ConfigDevice.Motor": return new ViewMotorControl(controlObj, gv);
-                case "ConfigDevice.Scene": return new ViewSceneControl(controlObj, gv);
-                case "ConfigDevice.Server": return new ViewServerControl(controlObj, gv);
-                case "ConfigDevice.Swit": return new ViewSwitControl(controlObj, gv);
-                case "ConfigDevice.Timing": return new ViewTimingControl(controlObj, gv);
+            //string typeName = controlObj.GetType().ToString();
+            //switch (typeName)
+            //{
+            //    case "ConfigDevice.Background": return new ViewBackgroundControl(controlObj, gv);
+            //    case "ConfigDevice.Circuit": return new ViewCircuitControl(controlObj, gv);
+            //    case "ConfigDevice.Messages": return new ViewMessagesControl(controlObj, gv);
+            //    case "ConfigDevice.Motor": return new ViewMotorControl(controlObj, gv);
+            //    case "ConfigDevice.Scene": return new ViewSceneControl(controlObj, gv);
+            //    case "ConfigDevice.Server": return new ViewServerControl(controlObj, gv);
+            //    case "ConfigDevice.Swit": return new ViewSwitControl(controlObj, gv);
+            //    case "ConfigDevice.Timing": return new ViewTimingControl(controlObj, gv);
 
-                default: return null;
-            }
+            //    default: return null;
+            //}
+
+            if (controlObj is ConfigDevice.Background)
+                return new ViewBackgroundControl(controlObj, gv);
+            else if (controlObj is ConfigDevice.Circuit)
+                return new ViewCircuitControl(controlObj, gv);
+            else if (controlObj is ConfigDevice.Messages)
+                return new ViewMessagesControl(controlObj, gv);
+            else if (controlObj is ConfigDevice.Motor)
+                return new ViewMotorControl(controlObj, gv);
+            else if (controlObj is ConfigDevice.Scene)
+                return new ViewSceneControl(controlObj, gv);
+            else if (controlObj is ConfigDevice.ServerControlObj)
+                return new ViewServerControl(controlObj, gv);
+            else if (controlObj is ConfigDevice.Swit)
+                return new ViewSwitControl(controlObj, gv);
+            else if (controlObj is ConfigDevice.Timing)
+                return new ViewTimingControl(controlObj, gv);
+            
+            
+            else return null;
+
         }
 
     }

@@ -10,18 +10,24 @@ using DevExpress.XtraEditors;
 namespace ConfigDevice.DeviceUI
 {
 
-    public partial class UCtrlCommandEdit : UserControl
+    public partial class ViewCommandEdit : UserControl
     {
         public string CommandGroupName { set { this.lblGroupName.Text = value; } }
         public ComboBoxEdit CbxCommandGroup { get { return cbxGroup; } }
+        public List<string> CommmandGroups = new List<string>();
+        public bool NeedInit = true;
         private bool syncEdit = false;
         private int commandCount = 0;
-        public UCtrlCommandEdit()
+        public int CommandCount
+        {
+            get { return commandCount; }
+        }
+        public Command CommandEdit; 
+
+        public ViewCommandEdit()
         {
             InitializeComponent();
-            int addCount = 5;
-            while (addCount-- > 0)
-                addViewCommandSetting();
+
         }
 
         /// <summary>
@@ -29,6 +35,7 @@ namespace ConfigDevice.DeviceUI
         /// </summary>
         private void RequestCommandData(object sender, EventArgs e)
         {
+            if (cbxGroup.SelectedIndex == -1) return;
             RequestCommandData();
         }
 
@@ -76,7 +83,7 @@ namespace ConfigDevice.DeviceUI
         /// 添加指令配置
         /// </summary>
         private ViewCommandTools addViewCommandSetting()
-        {            
+        {
             ViewCommandTools viewNew = new ViewCommandTools(++commandCount);
             xscCommands.Controls.Add(viewNew);
             viewNew.Dock = DockStyle.Top;
@@ -101,17 +108,68 @@ namespace ConfigDevice.DeviceUI
                 syncView.SyncCommandEdit += this.SyncCommandSetting;
             }
         }
+        
+        /// <summary>
+        /// 初始化指令配置
+        /// </summary>
+        public void InitViewCommand(Device device)
+        {       
+            cbxGroup.Properties.Items.Clear();
+            foreach (string groupStr in CommmandGroups)
+                cbxGroup.Properties.Items.Add(groupStr);
 
+            foreach (Control ctrl in xscCommands.Controls)
+                xscCommands.Controls.Remove(ctrl);
+            int addCount = (int)edtEndNum.Value;
+            while (addCount-- > 0)
+                addViewCommandSetting();
 
-        private void toolStripButton2_Click_1(object sender, EventArgs e)
-        {
-            addViewCommandSetting();
+            CommandEdit = new Command(device);
+            CommandEdit.OnCallbackUI_Action += this.callbackUI;
+
+            cbxGroup.SelectedIndex = 0;
+            NeedInit = false;
         }
 
 
+        /// <summary>
+        /// 更新组名
+        /// </summary>
+        public void UpdateGroupName()
+        {
+            int i = 0;
+            if (cbxGroup.Properties.Items.Count == CommmandGroups.Count)
+                foreach (string groupStr in CommmandGroups)
+                    cbxGroup.Properties.Items[i++] = groupStr;
+            else
+            {
+                cbxGroup.Properties.Items.Clear();
+                foreach (string groupStr in CommmandGroups)
+                    cbxGroup.Properties.Items.Add(groupStr);
+            }
+        }
 
 
+        /// <summary>
+        /// 回调
+        /// </summary>
+        private void callbackUI(object[] values)
+        {
 
+        }
 
+        /// <summary>
+        /// 获取指令
+        /// </summary>
+        public void ReadCommandData()
+        {
+            int count = (int)edtEndNum.Value;
+            while (count < commandCount)
+                addViewCommandSetting();
+            while (count > commandCount)
+                xscCommands.Controls.RemoveAt(--commandCount);
+            
+            CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, 1, (int)edtEndNum.Value);
+        }
     }
 }

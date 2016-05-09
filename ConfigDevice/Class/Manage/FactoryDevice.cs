@@ -36,7 +36,7 @@ namespace ConfigDevice
         FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
         {
             DoorInput4 input4 = new DoorInput4(data);
-            return new FrmFourInput(input4);
+            return new FrmDoorInput4(input4);
         }
         #endregion
     }
