@@ -29,15 +29,6 @@ namespace ConfigDevice.DeviceUI
             InitializeComponent();
         }
 
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        private void InitViewCommandSetting(Device DeviceEdit)
-        {
-            CommandEdit = new CommandCtrl(DeviceEdit);
-            CommandEdit.OnCallbackUI_Action += returnCommandData;
-        }
-
 
 
         /// <summary>
@@ -47,16 +38,24 @@ namespace ConfigDevice.DeviceUI
         /// <param name="values"></param>
         private void returnCommandData(object[] values)
         {
+
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CallbackUIAction(returnCommandData), new object[] { values });
+                return;
+            }
             CommandData commandData = (CommandData)values[0];
             foreach (Control ctrl in xscCommands.Controls)
             {
                 ViewCommandTools viewCommand = ctrl as ViewCommandTools;
-                if (viewCommand.Num + 1 == commandData.ucCmdNum)
+                if (viewCommand.Num - 1 == commandData.ucCmdNum)
                 {
                     viewCommand.SetCommandData(commandData);
                     return;
                 }
             }
+
+
         }
 
         /// <summary>
@@ -123,6 +122,7 @@ namespace ConfigDevice.DeviceUI
         /// </summary>
         public void InitViewCommand(Device device)
         {
+            cbxGroup.SelectedIndex = -1;
             cbxGroup.Properties.Items.Clear();
             foreach (string groupStr in CommmandGroups)
                 cbxGroup.Properties.Items.Add(groupStr);
@@ -130,11 +130,11 @@ namespace ConfigDevice.DeviceUI
             int addCount = (int)edtEndNum.Value;
 
             CommandEdit = new CommandCtrl(device);
-            CommandEdit.OnCallbackUI_Action += this.callbackUI;
-
-            cbxGroup.SelectedIndex = 0;//执行读取
-            cbxGroup.Text = CommmandGroups[0];
+            CommandEdit.OnCallbackUI_Action += this.returnCommandData;
             NeedInit = false;
+            cbxGroup.SelectedIndex = 0;//执行读取
+            cbxGroup.EditValue = CommmandGroups[0];
+            
         }
 
 
@@ -143,18 +143,23 @@ namespace ConfigDevice.DeviceUI
         /// </summary>
         public void UpdateGroupName()
         {
-            int i = 0;
+            NeedInit = true;//---更新名称,不用执行指令配置列表
+            int i = 0; int index = cbxGroup.SelectedIndex;
             if (cbxGroup.Properties.Items.Count == CommmandGroups.Count)
+            {             
                 foreach (string groupStr in CommmandGroups)
                     cbxGroup.Properties.Items[i++] = groupStr;
+                cbxGroup.EditValue = CommmandGroups[index];              
+            }
             else
             {
                 cbxGroup.Properties.Items.Clear();
                 foreach (string groupStr in CommmandGroups)
                     cbxGroup.Properties.Items.Add(groupStr);
                 cbxGroup.SelectedIndex = 0;//执行读取
-                cbxGroup.Text = CommmandGroups[0];
+                cbxGroup.EditValue = CommmandGroups[0];
             }
+            NeedInit = false;
         }
 
 
@@ -171,13 +176,16 @@ namespace ConfigDevice.DeviceUI
         /// </summary>
         public void ReadCommandData()
         {
-            int count = (int)edtEndNum.Value;
-            while (count > commandCount)
-                addViewCommandSetting();
-            while (count < commandCount)
-                removeViewCommandSetting();
+            if (!NeedInit)
+            {
+                int count = (int)edtEndNum.Value;
+                while (count > commandCount)
+                    addViewCommandSetting();
+                while (count < commandCount)
+                    removeViewCommandSetting();
 
-            CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, 0, (int)edtEndNum.Value-1);//序号从0开始
+                CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, 0, (int)edtEndNum.Value - 1);//序号从0开始
+            }
         }
 
 

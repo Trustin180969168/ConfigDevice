@@ -20,13 +20,22 @@ namespace ConfigDevice
         public const string NAME_ACTION_ROAD_BACK_2 = "2路反转";
         public const string NAME_ACTION_ROAD_FRONT_3 = "3路正转";
         public const string NAME_ACTION_ROAD_BACK_3 = "3路反转";
-
+        public Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public Motor(Device _deviceCtrl)
         {
             Name = "电机";
             deviceControled = _deviceCtrl;
+
+
+            NameAndCommand.Add(NAME_CMD_SWIT_LOOP, DeviceConfig.CMD_SW_SWIT_LOOP);
+            NameAndCommand.Add(NAME_CMD_SWIT_LOOP_OPEN, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN);
+            NameAndCommand.Add(NAME_CMD_SWIT_LOOP_CLOSE, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE);
+            NameAndCommand.Add(NAME_CMD_SWIT_LOOP_OPEN_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION);
+            NameAndCommand.Add(NAME_CMD_SWIT_LOOP_CLOSE_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION);
+
         }
 
+       
 
         /// <summary>
         /// 开关电机

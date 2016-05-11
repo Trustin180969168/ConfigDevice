@@ -91,8 +91,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             CommandData cmdData = new CommandData(userData);
 
-            CallbackUI(new object[]{cmdData});
-     
+            CallbackUI(new object[] { cmdData });//----界面回调------
         }
 
 

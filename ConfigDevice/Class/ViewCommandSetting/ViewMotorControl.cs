@@ -70,14 +70,6 @@ namespace ConfigDevice
             cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_BACK_3);
             dcMotorAction.ColumnEdit = cbxActionKind;
 
-        //            public static readonly byte[] CMD_SW_SWIT_LOOP = new byte[] { 0x20, CMD_TYPE_SWITCH };//回路开关
-        //public static readonly byte[] CMD_SW_SWIT_LOOP_OPEN = new byte[] { 0x21, CMD_TYPE_SWITCH };//回路开
-        //public static readonly byte[] CMD_SW_SWIT_LOOP_CLOSE = new byte[] { 0x22, CMD_TYPE_SWITCH };//回路关
-        //public static readonly byte[] CMD_SW_SWIT_LOOP_NOT = new byte[] { 0x23, CMD_TYPE_SWITCH };//回路取反
-        //public static readonly byte[] CMD_SW_SWIT_LOOP_OPEN_CONDITION = new byte[] { 0x30, CMD_TYPE_SWITCH };//回路带条件开
-        //public static readonly byte[] CMD_SW_SWIT_LOOP_CLOSE_CONDITION = new byte[] { 0x31, CMD_TYPE_SWITCH };//回路带条件关
-
-
             dcPercent.Caption = "程度";
             dcPercent.ColumnEdit = edtPercentNum;
             dcRunTime.Caption = "运行时间";
@@ -137,19 +129,38 @@ namespace ConfigDevice
         /// <param name="data"></param>
         public override void SetCommandData(CommandData data)
         {
-            
-            int cmdIndex = (int)data.Data[0];
+            //---找出对应的指令---------
+            string cmdName = "";
+            foreach (string key in motor.NameAndCommand.Keys)
+            {
+                if (CommonTools.BytesEuqals(data.Cmd, motor.NameAndCommand[key]))
+                { cmdName = key; break; }
+            }
+            ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
+
+            int cmdIndex = (int)data.Data[2];//---电机动作---
             ViewSetting.SetRowCellValue(0, dcMotorAction, cbxActionKind.Items[cmdIndex].ToString());//---电机动作---
             ViewSetting.SetRowCellValue(0, dcPercent, (int)data.Data[1]);//---程度----
 
             byte[] byteRunTime = CommonTools.CopyBytes(data.Data, 3, 2);
             byte[] byteOpenDelayTime = CommonTools.CopyBytes(data.Data, 5, 2);
             byte[] byteCloseDelayTime = CommonTools.CopyBytes(data.Data, 7, 2);
-            ViewSetting.SetRowCellValue(0, dcRunTime, BitConverter.ToInt16(byteRunTime,0));//---运行时间----   
-            ViewSetting.SetRowCellValue(0, dcOpenDelay, BitConverter.ToInt16(byteOpenDelayTime,0));//---开延时时间---- 
-            ViewSetting.SetRowCellValue(0, dcRunTime, BitConverter.ToInt16(byteCloseDelayTime,0));//---关延时间---- 
-        
+
+            int runTime = BitConverter.ToInt16(byteRunTime, 0);
+            int openDelayTime = BitConverter.ToInt16(byteOpenDelayTime, 0);
+            int closeDelayTime = BitConverter.ToInt16(byteCloseDelayTime, 0);
+
+
+
+            ViewSetting.SetRowCellValue(0, dcRunTime, DateTime.Parse("00:00:03"));//---运行时间----   
+            ViewSetting.SetRowCellValue(0, dcOpenDelay, openDelayTime);//---开延时时间---- 
+            ViewSetting.SetRowCellValue(0, dcRunTime, closeDelayTime);//---关延时间---- 
+
         }
+
+
+
+
 
     }
 }
