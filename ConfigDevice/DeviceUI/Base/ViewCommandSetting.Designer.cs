@@ -1,6 +1,6 @@
 ﻿namespace ConfigDevice.DeviceUI
 {
-    partial class ViewCommandEdit
+    partial class ViewCommandSetting
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -32,7 +32,7 @@
             this.btSyncEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.xscCommands = new DevExpress.XtraEditors.XtraScrollableControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.edtEndNum = new DevExpress.XtraEditors.SpinEdit();
@@ -58,7 +58,7 @@
             this.btSyncEdit,
             this.toolStripSeparator1,
             this.btSaveCommands,
-            this.toolStripButton1});
+            this.btRefresh});
             this.toolStrip2.Location = new System.Drawing.Point(2, 61);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(744, 31);
@@ -89,13 +89,14 @@
             this.btSaveCommands.Size = new System.Drawing.Size(106, 28);
             this.btSaveCommands.Text = "保存指令 ";
             // 
-            // toolStripButton1
+            // btRefresh
             // 
-            this.toolStripButton1.Image = global::ConfigDevice.Properties.Resources.refresh;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(74, 28);
-            this.toolStripButton1.Text = "刷新 ";
+            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(74, 28);
+            this.btRefresh.Text = "刷新 ";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // xscCommands
             // 
@@ -151,7 +152,7 @@
             0});
             this.edtEndNum.Size = new System.Drawing.Size(46, 26);
             this.edtEndNum.TabIndex = 10;
-            this.edtEndNum.ValueChanged += new System.EventHandler(this.RequestCommandData);
+            this.edtEndNum.ValueChanged += new System.EventHandler(this.edtEndNum_ValueChanged);
             // 
             // cbxGroup
             // 
@@ -174,7 +175,7 @@
             this.cbxGroup.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbxGroup.Size = new System.Drawing.Size(400, 26);
             this.cbxGroup.TabIndex = 9;
-            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.RequestCommandData);
+            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
             // 
             // lblGroupName
             // 
@@ -222,13 +223,13 @@
             this.labelControl1.TabIndex = 5;
             this.labelControl1.Text = "从";
             // 
-            // ViewCommandEdit
+            // ViewCommandSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.xscCommands);
             this.Controls.Add(this.panelControl1);
-            this.Name = "ViewCommandEdit";
+            this.Name = "ViewCommandSetting";
             this.Size = new System.Drawing.Size(748, 454);
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
@@ -255,7 +256,7 @@
         private DevExpress.XtraEditors.LabelControl lblGroupName;
         private System.Windows.Forms.ToolStripButton btSyncEdit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraEditors.SpinEdit edtEndNum;
     }
 }

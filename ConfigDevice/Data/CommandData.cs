@@ -36,11 +36,11 @@ namespace ConfigDevice
             ucCmdType = userData.Data[0];
             ucCmdKey = (int)userData.Data[1];
             ucCmdNum = (int)userData.Data[2];
-            TargetId = userData.Data[3];
-            TargetNet = userData.Data[4];
+            TargetId = userData.Data[3];            TargetNet = userData.Data[4];
             TargetType = userData.Data[5];
             Cmd = CommonTools.CopyBytes(userData.Data, 6, 2);
             Len = userData.Data[8];
+
             Buffer.BlockCopy(userData.Data, 9, Data, 0, (int)Len);
         }
 

@@ -115,5 +115,10 @@ namespace ConfigDevice
         }
 
 
+
+        public override void SetCommandData(CommandData data)
+        {
+           
+        }
     }
 }

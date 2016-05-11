@@ -10,50 +10,53 @@ using DevExpress.XtraEditors;
 namespace ConfigDevice.DeviceUI
 {
 
-    public partial class ViewCommandEdit : UserControl
+    public partial class ViewCommandSetting : UserControl
     {
         public string CommandGroupName { set { this.lblGroupName.Text = value; } }
         public ComboBoxEdit CbxCommandGroup { get { return cbxGroup; } }
         public List<string> CommmandGroups = new List<string>();
         public bool NeedInit = true;
         private bool syncEdit = false;
-        private int commandCount = 0;
+        private int commandCount = 0; 
         public int CommandCount
         {
             get { return commandCount; }
         }
-        public Command CommandEdit; 
+        public CommandCtrl CommandEdit;
 
-        public ViewCommandEdit()
+        public ViewCommandSetting()
         {
             InitializeComponent();
-
         }
 
         /// <summary>
-        /// 选择命令组,则刷新数据
+        /// 初始化
         /// </summary>
-        private void RequestCommandData(object sender, EventArgs e)
+        private void InitViewCommandSetting(Device DeviceEdit)
         {
-            if (cbxGroup.SelectedIndex == -1) return;
-            RequestCommandData();
+            CommandEdit = new CommandCtrl(DeviceEdit);
+            CommandEdit.OnCallbackUI_Action += returnCommandData;
         }
 
-        /// <summary>
-        /// 申请获取指令数据
-        /// </summary>
-        public void RequestCommandData()
-        {
 
-        }
+
         /// <summary>
         /// 获取指令数据
         /// </summary>
         /// <param name="udpResult"></param>
         /// <param name="values"></param>
-        private void returnCommandData(UdpData udpResult, object[] values)
+        private void returnCommandData(object[] values)
         {
-
+            CommandData commandData = (CommandData)values[0];
+            foreach (Control ctrl in xscCommands.Controls)
+            {
+                ViewCommandTools viewCommand = ctrl as ViewCommandTools;
+                if (viewCommand.Num + 1 == commandData.ucCmdNum)
+                {
+                    viewCommand.SetCommandData(commandData);
+                    return;
+                }
+            }
         }
 
         /// <summary>
@@ -91,7 +94,13 @@ namespace ConfigDevice.DeviceUI
             (viewNew as Control).BringToFront();
             return viewNew;
         }
-
+        /// <summary>
+        /// 移除指令配置
+        /// </summary>
+        private void removeViewCommandSetting()
+        {
+            xscCommands.Controls.RemoveAt(0); --commandCount;
+        }
 
         /// <summary>
         /// 同步编辑
@@ -101,33 +110,30 @@ namespace ConfigDevice.DeviceUI
             foreach (Control view in xscCommands.Controls)
             {
                 ViewCommandTools syncView = view as ViewCommandTools;
-                if (syncView.Num == value.Num) continue;      
+                if (syncView.Num == value.Num) continue;
                 if (!syncView.Checked) continue;
                 syncView.SyncCommandEdit -= this.SyncCommandSetting;//-----避免循环或者混乱回调,先退后订-----
                 syncView.SyncCommandSettingEdit(value);
                 syncView.SyncCommandEdit += this.SyncCommandSetting;
             }
         }
-        
+
         /// <summary>
         /// 初始化指令配置
         /// </summary>
         public void InitViewCommand(Device device)
-        {       
+        {
             cbxGroup.Properties.Items.Clear();
             foreach (string groupStr in CommmandGroups)
                 cbxGroup.Properties.Items.Add(groupStr);
 
-            foreach (Control ctrl in xscCommands.Controls)
-                xscCommands.Controls.Remove(ctrl);
             int addCount = (int)edtEndNum.Value;
-            while (addCount-- > 0)
-                addViewCommandSetting();
 
-            CommandEdit = new Command(device);
+            CommandEdit = new CommandCtrl(device);
             CommandEdit.OnCallbackUI_Action += this.callbackUI;
 
-            cbxGroup.SelectedIndex = 0;
+            cbxGroup.SelectedIndex = 0;//执行读取
+            cbxGroup.Text = CommmandGroups[0];
             NeedInit = false;
         }
 
@@ -146,6 +152,8 @@ namespace ConfigDevice.DeviceUI
                 cbxGroup.Properties.Items.Clear();
                 foreach (string groupStr in CommmandGroups)
                     cbxGroup.Properties.Items.Add(groupStr);
+                cbxGroup.SelectedIndex = 0;//执行读取
+                cbxGroup.Text = CommmandGroups[0];
             }
         }
 
@@ -164,12 +172,34 @@ namespace ConfigDevice.DeviceUI
         public void ReadCommandData()
         {
             int count = (int)edtEndNum.Value;
-            while (count < commandCount)
-                addViewCommandSetting();
             while (count > commandCount)
-                xscCommands.Controls.RemoveAt(--commandCount);
-            
-            CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, 1, (int)edtEndNum.Value);
+                addViewCommandSetting();
+            while (count < commandCount)
+                removeViewCommandSetting();
+
+            CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, 0, (int)edtEndNum.Value-1);//序号从0开始
         }
+
+
+        /// <summary>
+        /// 刷新指令
+        /// </summary>
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+            ReadCommandData();
+        }
+        private void cbxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxGroup.SelectedIndex == -1)
+            { cbxGroup.Text = CommmandGroups[0]; cbxGroup.SelectedIndex = 0; }//----由选择框获取指令---
+            else
+                ReadCommandData();
+        }
+
+        private void edtEndNum_ValueChanged(object sender, EventArgs e)
+        {
+            ReadCommandData();
+        }
+
     }
 }

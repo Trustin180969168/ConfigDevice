@@ -96,6 +96,13 @@ namespace ConfigDevice
             return null;
         }
 
-
+        /// <summary>
+        /// 设置命令数据
+        /// </summary>
+        /// <param name="data"></param>
+        public override void SetCommandData(CommandData data)
+        {
+     
+        }
     }
 }

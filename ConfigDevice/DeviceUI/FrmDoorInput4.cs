@@ -21,7 +21,9 @@ namespace ConfigDevice
             doorInput4 = this.Device as DoorInput4;
             doorInput4.OnCallbackUI_Action += this.callbackUI;
             doorInput4.OnCallbackUI_Action += frmSetting.CallBackUI;
-            frmSetting.DeviceEdit = doorInput4;      
+            frmSetting.DeviceEdit = doorInput4;
+
+            viewCommandEdit.InitViewCommand(doorInput4);//初始化指令配置
         }
 
         private void FrmFourInput_Load(object sender, EventArgs e)

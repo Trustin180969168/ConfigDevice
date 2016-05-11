@@ -21,12 +21,12 @@ namespace ConfigDevice
         public GridControl GridCommandView { get { return this.gcCommands; } }
         private bool allowSync = true;//是否允许同步
 
-       
+
         /// <summary>
         /// 序号
         /// </summary>
-        public int Num { set { cedtNum.Text = value.ToString(); } get { return Convert.ToInt16( cedtNum.Text); } }
-        public bool Checked { set { cedtNum.Checked = value; } get { return cedtNum.Checked; } }        
+        public int Num { set { cedtNum.Text = value.ToString(); } get { return Convert.ToInt16(cedtNum.Text); } }
+        public bool Checked { set { cedtNum.Checked = value; } get { return cedtNum.Checked; } }
 
         public ViewCommandTools()
         {
@@ -67,7 +67,8 @@ namespace ConfigDevice
             gcCommands.DataSource = DataCommandSetting;
 
         }
-        public ViewCommandTools(int num):this()
+        public ViewCommandTools(int num)
+            : this()
         {
             this.Num = num;
         }
@@ -92,7 +93,7 @@ namespace ConfigDevice
                 gvCommands.BestFitColumns();
 
                 cbxControlObj.Items.Clear();
-                foreach(string key in CurrentDevice.ContrlObjs.Keys)
+                foreach (string key in CurrentDevice.ContrlObjs.Keys)
                     cbxControlObj.Items.Add(key);
 
                 //-------默认第一个控制对象,涉及多个值的变动,采取手动同步------
@@ -175,7 +176,7 @@ namespace ConfigDevice
         /// <returns>CommandData</returns>
         public CommandData GetCommandData()
         {
-          return  ViewCommandControlObj.GetCommand();
+            return ViewCommandControlObj.GetCommand();
         }
 
         /// <summary>
@@ -183,7 +184,7 @@ namespace ConfigDevice
         /// </summary>
         private void gvCommands_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            refreshView(); 
+            refreshView();
             SyncCommandSetting();
         }
 
@@ -208,7 +209,7 @@ namespace ConfigDevice
             string myCtrlObjName = this.DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ].ToString();//空为删除操作
             if (this.CurrentDevice == null || this.CurrentDevice.KindID != value.CurrentDevice.KindID)
             {
-                this.CurrentDevice = SysCtrl.CreateDevice(value.CurrentDevice.ByteKindID).CreateDevice(value.CurrentDevice.GetDeviceInfo());                               
+                this.CurrentDevice = SysCtrl.CreateDevice(value.CurrentDevice.ByteKindID).CreateDevice(value.CurrentDevice.GetDeviceInfo());
                 this.DelCommandSetting();//----清空----
                 cbxControlObj.Items.Clear();
                 foreach (string key in CurrentDevice.ContrlObjs.Keys)
@@ -218,7 +219,7 @@ namespace ConfigDevice
             else if (valueCtrlObjName == "")
             { this.DelCommandSetting(); return; }//------相同设备且为删除操作,执行删除并退出-------
             //---------控制对象为空,或者不同,则创建
-            if (this.CurrentControlObj == null || this.CurrentControlObj.Name != value.CurrentControlObj.Name )
+            if (this.CurrentControlObj == null || this.CurrentControlObj.Name != value.CurrentControlObj.Name)
             {
                 CurrentControlObj = CurrentDevice.ContrlObjs[value.CurrentControlObj.Name];
                 ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
@@ -234,7 +235,130 @@ namespace ConfigDevice
             refreshView();
         }
 
+        /// <summary>
+        /// 设置命令行
+        /// </summary>
+        /// <param name="device">设备</param>
+        /// <param name="data">命令</param>
+        /// <returns></returns>
+        public void SetCommandData(CommandData data)
+        {
+            allowSync = false;
 
-            
+            DataRow dr = gvCommands.GetDataRow(0);
+            dr[DeviceConfig.DC_ID] = (int)data.TargetId;//-----设备ID---
+            dr[DeviceConfig.DC_NETWORK_ID] = DeviceConfig.EQUIPMENT_ID_NAME[data.TargetNet];//---网络ID---
+            dr[DeviceConfig.DC_KIND_ID] = (int)data.TargetType;//---设备类型----
+            dr[DeviceConfig.DC_NAME] = this.getDeviceName(((int)data.TargetId).ToString(), ((int)data.TargetNet).ToString());//---名称-----
+            dr.EndEdit();
+            this.CurrentDevice = SysCtrl.CreateDevice(data.TargetType).CreateDevice(new DeviceData(dr));//----获取当前设备对象---
+            //-----获取控制对象---------------
+            cbxControlObj.Items.Clear();
+            foreach (string key in CurrentDevice.ContrlObjs.Keys)
+                cbxControlObj.Items.Add(key);
+            string objName = this.getControlObj(data.TargetType, data.Cmd);
+            if (objName == "无效") return;
+            if (!CurrentDevice.ContrlObjs.ContainsKey(objName)) return;
+            DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = objName;//----判断设备是否含有相应的控制对象
+            CurrentControlObj = CurrentDevice.ContrlObjs[objName];//----获取当前控制对象
+            ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);//----创建视图控制对象
+            ViewCommandControlObj.SetCommandData(data);
+            refreshView();
+
+            allowSync = true;
+        }
+
+        /// <summary>
+        /// 获取被控制的设备名称
+        /// </summary>
+        /// <param name="deviceID">设备ID</param>
+        /// <param name="networkID">网络ID</param>
+        /// <returns>设备名称</returns>
+        private string getDeviceName(string deviceID, string networkID)
+        {
+            string temp = DeviceConfig.DC_ID + " = '" + deviceID + "' and " + DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "'";
+            DataRow[] rows = SysConfig.DtDevice.Select(temp);
+            if (rows.Length == 0) return "未知设备";
+            return rows[0][DeviceConfig.DC_NAME].ToString();
+
+        }
+
+        /// <summary>
+        /// 获取控制对象
+        /// </summary>
+        /// <param name="cmd">指令</param>
+        /// <returns></returns>
+        private string getControlObj(byte kind, byte[] cmd)
+        {
+            switch (kind)
+            {
+                case DeviceConfig.EQUIPMENT_CURTAIN_3CH:
+                case DeviceConfig.EQUIPMENT_CURTAIN_2CH: return "电机";
+                case DeviceConfig.EQUIPMENT_SERVER: return "服务器";
+                default: break;
+            }
+            if (CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LOOP) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LOOP_NOT) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LOOP)
+                )
+                return "回路";
+
+            if (CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_SCENE) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_SCENE_OPEN) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_SCENE_CLOSE) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_SCENE_NOT) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LOOP)
+                )
+                return "场景";
+
+            if (CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LIST) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LIST_OPEN) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LIST_CLOSE) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LIST_NOT) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_LOOP)
+                )
+                return "时序";
+
+            if (CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_ALL) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_ALL_OPEN) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_SW_SWIT_ALL_CLOSE)
+                )
+                return "全部";
+
+
+
+            if (CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_KEY) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_SONG) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_VOL_SONG) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_SRC) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_VOL) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_TRE) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_BAS) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_TUNE) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_PLAYMODE) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_RADIO_NOHZ)
+                )
+                return "背景";        
+
+            if (CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_MSN_TUNE) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_PPEMC) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_OUTMSN) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_PLAYMODE) ||
+                CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_RADIO_NOHZ)
+    )
+                return "消息";
+
+            return "无效";
+        }
+
+
+
+
+
+
     }
 }

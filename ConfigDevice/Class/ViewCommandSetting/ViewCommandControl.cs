@@ -70,5 +70,11 @@ namespace ConfigDevice
         /// <returns></returns>
         public abstract CommandData GetCommand();
 
+        /// <summary>
+        /// 配置指令数据
+        /// </summary>
+        /// <param name="data">指令数据</param>
+        public abstract void SetCommandData(CommandData data);
+
     }
 }

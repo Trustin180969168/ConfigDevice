@@ -67,7 +67,7 @@
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
-            this.viewCommandEdit = new ConfigDevice.DeviceUI.ViewCommandEdit();
+            this.viewCommandEdit = new ConfigDevice.DeviceUI.ViewCommandSetting();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -597,7 +597,7 @@
         private DevExpress.XtraEditors.CheckEdit cdtSelectAll;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageCommand;
-        private ConfigDevice.DeviceUI.ViewCommandEdit viewCommandEdit;
+        private ConfigDevice.DeviceUI.ViewCommandSetting viewCommandEdit;
 
 
     }

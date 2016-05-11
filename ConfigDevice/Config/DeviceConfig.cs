@@ -291,6 +291,25 @@ namespace ConfigDevice
 
         public static readonly byte[] CMD_SW_TEST_LOOP = new byte[] { 0x2f, CMD_TYPE_SWITCH };//回路测试
 
+    public static readonly byte[] CMD_AMP_SLWR_BGM_KEY = new byte[] { 0x20,CMD_TYPE_AMP};//主机：切换背景音源＋模拟按键控制音源
+	public static readonly byte[] CMD_AMP_SLWR_BGM_SONG = new byte[] { 0x21,CMD_TYPE_AMP };              //主机：切换背景音源＋指定音源及曲目播放
+	public static readonly byte[] CMD_AMP_SLWR_BGM_VOL_SONG    =   new byte[] {  0x22 ,CMD_TYPE_AMP };//主机：切换背景音源＋音量＋指定音源曲目播放
+	public static readonly byte[] CMD_AMP_SLWR_BGM_SRC = new byte[] {  0x23,CMD_TYPE_AMP };   //主机：切换背景音源     
+	public static readonly byte[] CMD_AMP_SLWR_BGM_VOL = new byte[] { 0x24,CMD_TYPE_AMP };   //主机：修改背景音量
+	public static readonly byte[] CMD_AMP_SLWR_BGM_TRE = new byte[] {  0x25,CMD_TYPE_AMP};   //主机：修改背景高音
+	public static readonly byte[] CMD_AMP_SLWR_BGM_BAS = new byte[] { 0x26,CMD_TYPE_AMP };   //主机：修改背景低音
+	public static readonly byte[] CMD_AMP_SLWR_BGM_TUNE = new byte[] {0x27,CMD_TYPE_AMP };   //主机：修改背景音量,高音,低音
+	public static readonly byte[] CMD_AMP_SLWR_MSN_TUNE = new byte[] {0x28,CMD_TYPE_AMP  };   //主机：修改紧急音量,高音,低音
+	
+	public static readonly byte[] CMD_AMP_SLWR_PPEMC   = new byte[] { 0x2a,CMD_TYPE_AMP  };   //主机：指定紧急消息播放模式
+	public static readonly byte[] CMD_AMP_SLWR_OUTMSN  = new byte[] {0x2b,CMD_TYPE_AMP };   //音响：退出消息播放，连续广播3次
+	public static readonly byte[] CMD_AMP_SLWR_BGM_PLAYMODE            = new byte[] { 0x2c,CMD_TYPE_AMP };   //播放模式  
+	public static readonly byte[] CMD_AMP_SLWR_BGM_RADIO_NOHZ          = new byte[] { 0x2d,CMD_TYPE_AMP};   //保存指令频率到指令的电台
+	
+	public static readonly byte[] CMD_AMP_WIFI_SET     = new byte[] { 0x2E,CMD_TYPE_AMP  };   //选择WIFI网络和设置连接密码(LIAO增加:2015-10-15)
+
+
+
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
         static DeviceConfig()//---静态构造函数------
         {

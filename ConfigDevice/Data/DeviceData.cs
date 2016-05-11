@@ -76,18 +76,30 @@ namespace ConfigDevice
         /// </summary>
         public DeviceData(DataRow dr)
         {
-            DeviceID = dr[DeviceConfig.DC_ID].ToString();
-            NetworkID = dr[DeviceConfig.DC_NETWORK_ID].ToString();
-            KindID = dr[DeviceConfig.DC_KIND_ID].ToString();
-            KindName = dr[DeviceConfig.DC_KIND_NAME].ToString();
-            Name = dr[DeviceConfig.DC_NAME].ToString();
-            MAC = dr[DeviceConfig.DC_MAC].ToString();
-            SoftwareVer = dr[DeviceConfig.DC_SOFTWARE_VER].ToString();
-            HardwareVer = dr[DeviceConfig.DC_HARDWARE_VER].ToString();
-            PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
-            NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
-            AddressName = dr[DeviceConfig.DC_ADDRESS].ToString();
-            State = dr[DeviceConfig.DC_STATE].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_ID))
+                DeviceID = dr[DeviceConfig.DC_ID].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_NETWORK_ID))
+                NetworkID = dr[DeviceConfig.DC_NETWORK_ID].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_KIND_ID))
+                KindID = dr[DeviceConfig.DC_KIND_ID].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_KIND_NAME))
+                KindName = dr[DeviceConfig.DC_KIND_NAME].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_NAME))
+                Name = dr[DeviceConfig.DC_NAME].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_MAC))
+                MAC = dr[DeviceConfig.DC_MAC].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_SOFTWARE_VER))
+                SoftwareVer = dr[DeviceConfig.DC_SOFTWARE_VER].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_HARDWARE_VER))
+                HardwareVer = dr[DeviceConfig.DC_HARDWARE_VER].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_PC_ADDRESS))
+                PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_NETWORK_IP))
+                NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_ADDRESS))
+                AddressName = dr[DeviceConfig.DC_ADDRESS].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_STATE))
+                State = dr[DeviceConfig.DC_STATE].ToString();
         }
 
         /// <summary>

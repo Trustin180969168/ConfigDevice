@@ -4,13 +4,13 @@ using System.Text;
 
 namespace ConfigDevice
 {
-    public class Command
+    public class CommandCtrl
     {
         private MySocket mySocket = MySocket.GetInstance();
         public Device device;//-----设备---
         public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
         public CallbackFromUDP callbackGetCommandData;//---回调获取指令----
-        public Command(Device value)
+        public CommandCtrl(Device value)
         {
             this.device = value;
             callbackGetCommandData = new CallbackFromUDP(getCommandData);
@@ -32,7 +32,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadCommandData(int groupNum, int startNum, int endNum)
         {
-            UdpData udpSend = createReadCommandsUdp(groupNum,startNum,endNum);
+            UdpData udpSend = createReadCommandsUdp(groupNum, startNum, endNum);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadCommands), new object[] { udpSend });
         }
         private void callbackReadCommands(UdpData udpReply, object[] values)
@@ -65,8 +65,10 @@ namespace ConfigDevice
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
-            crcData[10] = 0;//起始回路为第一回路
-            crcData[11] = 0xFF;//结束回路
+            crcData[10] = kind;
+            crcData[11] = groupNum;
+            crcData[12] = startNum;
+            crcData[13] = endNum;
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------

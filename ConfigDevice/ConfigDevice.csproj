@@ -123,8 +123,8 @@
       <DependentUpon>FrmWeatherStation.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\Base\ViewCommandEdit.resx">
-      <DependentUpon>ViewCommandEdit.cs</DependentUpon>
+    <EmbeddedResource Include="DeviceUI\Base\ViewCommandSetting.resx">
+      <DependentUpon>ViewCommandSetting.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
@@ -307,7 +307,7 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\Election11.png" />
     <None Include="Resources\Traces1.png" />
-    <Compile Include="Class\Devices\Command.cs" />
+    <Compile Include="Class\Manage\CommandCtrl.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
     <Compile Include="Class\Devices\Road6FrontDimming.cs" />
     <Compile Include="Class\Devices\Road8FrontDimming.cs" />
@@ -342,11 +342,11 @@
     <Compile Include="Class\ControlObj\Timing.cs" />
     <Compile Include="Data\DeviceData.cs" />
     <Compile Include="Data\NetworkData.cs" />
-    <Compile Include="DeviceUI\Base\ViewCommandEdit.cs">
+    <Compile Include="DeviceUI\Base\ViewCommandSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DeviceUI\Base\ViewCommandEdit.Designer.cs">
-      <DependentUpon>ViewCommandEdit.cs</DependentUpon>
+    <Compile Include="DeviceUI\Base\ViewCommandSetting.Designer.cs">
+      <DependentUpon>ViewCommandSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\PortTools.cs" />
     <Compile Include="Tools\SelectDevice.cs">
