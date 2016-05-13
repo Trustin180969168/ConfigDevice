@@ -20,6 +20,7 @@ namespace ConfigDevice
         public SyncCommandSetting SyncCommandEdit;//---同步编辑----
         public GridControl GridCommandView { get { return this.gcCommands; } }
         private bool allowSync = true;//是否允许同步
+        public event DeleteCommandData DelCommandData;//删除命令
 
 
         /// <summary>
@@ -27,6 +28,20 @@ namespace ConfigDevice
         /// </summary>
         public int Num { set { cedtNum.Text = value.ToString(); } get { return Convert.ToInt16(cedtNum.Text); } }
         public bool Checked { set { cedtNum.Checked = value; } get { return cedtNum.Checked; } }
+        public bool HasChanged  //------是否执行了更改------
+        {
+            get
+            {
+                gvCommands.PostEditor();
+                DataRow dr = gvCommands.GetDataRow(0);
+                dr.EndEdit();
+                DataTable dt = DataCommandSetting.GetChanges(DataRowState.Modified);
+                if (dt !=null && dt.Rows.Count > 0)
+                    return true;
+                else
+                    return false;
+            }
+        }
 
         public ViewCommandTools()
         {
@@ -63,7 +78,6 @@ namespace ConfigDevice
             parameter5.FieldName = DeviceConfig.DC_PARAMETER5;
 
             DataCommandSetting.Rows.Add();
-            DataCommandSetting.AcceptChanges();
             gcCommands.DataSource = DataCommandSetting;
 
         }
@@ -89,7 +103,6 @@ namespace ConfigDevice
                 dr[DeviceConfig.DC_KIND_NAME] = CurrentDevice.KindName;
                 dr[DeviceConfig.DC_NAME] = CurrentDevice.Name;
                 dr.EndEdit();
-                DataCommandSetting.AcceptChanges();
                 gvCommands.BestFitColumns();
 
                 cbxControlObj.Items.Clear();
@@ -118,7 +131,6 @@ namespace ConfigDevice
             CurrentControlObj = CurrentDevice.ContrlObjs[name];
             ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
             DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = name;
-            DataCommandSetting.AcceptChanges();
             SyncCommandSetting();
             refreshView();
             allowSync = true;
@@ -132,9 +144,8 @@ namespace ConfigDevice
         {
             gvCommands.PostEditor();
             gvCommands.BestFitColumns();
-            DataCommandSetting.AcceptChanges();
             foreach (GridColumn dc in gvCommands.Columns)
-                if (dc.VisibleIndex > 5) dc.Width += 15;
+                if (dc.VisibleIndex > 3) dc.Width += (int)(dc.Width * 0.5);
         }
 
         /// <summary>
@@ -142,23 +153,33 @@ namespace ConfigDevice
         /// </summary>
         private void linkEdit_Click(object sender, EventArgs e)
         {
-            DelCommandSetting();
-            SyncCommandSetting();
+            if (CommonTools.MessageShow("是否删除第" + this.Num.ToString() + "指令?", 4, "") == DialogResult.No)
+                return;
+            DelCommandData(this.Num-1);
+            DelCommandSetting();//清空界面
+            //SyncCommandSetting();----删除取消同步----
         }
+
         /// <summary>
         /// 清空指令配置
         /// </summary>
         private void DelCommandSetting()
         {
             DataRow dr = gvCommands.GetDataRow(0);
-
-            dr[DeviceConfig.DC_CONTROL_OBJ] = "";
-            dr[DeviceConfig.DC_COMMAND] = "";
-            dr[DeviceConfig.DC_PARAMETER1] = "";
-            dr[DeviceConfig.DC_PARAMETER2] = "";
-            dr[DeviceConfig.DC_PARAMETER3] = "";
-            dr[DeviceConfig.DC_PARAMETER4] = "";
-            dr[DeviceConfig.DC_PARAMETER5] = "";
+            dr.Delete();
+            DataCommandSetting.Rows.Add();
+            //dr[DeviceConfig.DC_ID] = "";
+            //dr[DeviceConfig.DC_NETWORK_ID] = "";
+            //dr[DeviceConfig.DC_KIND_ID] = "";
+            //dr[DeviceConfig.DC_KIND_NAME] = "";
+            //dr[DeviceConfig.DC_NAME] = "";
+            //dr[DeviceConfig.DC_CONTROL_OBJ] = "";
+            //dr[DeviceConfig.DC_COMMAND] = "";
+            //dr[DeviceConfig.DC_PARAMETER1] = "";
+            //dr[DeviceConfig.DC_PARAMETER2] = "";
+            //dr[DeviceConfig.DC_PARAMETER3] = "";
+            //dr[DeviceConfig.DC_PARAMETER4] = "";
+            //dr[DeviceConfig.DC_PARAMETER5] = "";
 
             parameter1.Visible = false;
             parameter2.Visible = false;
@@ -194,7 +215,6 @@ namespace ConfigDevice
         private void SyncCommandSetting()
         {
             gvCommands.PostEditor();
-            DataCommandSetting.AcceptChanges();
             if (SyncCommandEdit != null && this.Checked && allowSync)
                 SyncCommandEdit(this);
         }
@@ -218,7 +238,7 @@ namespace ConfigDevice
             }
             else if (valueCtrlObjName == "")
             { this.DelCommandSetting(); return; }//------相同设备且为删除操作,执行删除并退出-------
-            //---------控制对象为空,或者不同,则创建
+            //---------控制对象为空,或者不同,则创建------
             if (this.CurrentControlObj == null || this.CurrentControlObj.Name != value.CurrentControlObj.Name)
             {
                 CurrentControlObj = CurrentDevice.ContrlObjs[value.CurrentControlObj.Name];
@@ -247,8 +267,9 @@ namespace ConfigDevice
 
             DataRow dr = gvCommands.GetDataRow(0);
             dr[DeviceConfig.DC_ID] = (int)data.TargetId;//-----设备ID---
-            dr[DeviceConfig.DC_NETWORK_ID] = DeviceConfig.EQUIPMENT_ID_NAME[data.TargetNet];//---网络ID---
-            dr[DeviceConfig.DC_KIND_ID] = (int)data.TargetType;//---设备类型----
+            dr[DeviceConfig.DC_NETWORK_ID] = (int)data.TargetNet;//---网络ID---
+            dr[DeviceConfig.DC_KIND_ID] = (int)data.TargetType;//---设备ID----
+            dr[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[data.TargetType];//---设备类型----
             dr[DeviceConfig.DC_NAME] = this.getDeviceName(((int)data.TargetId).ToString(), ((int)data.TargetNet).ToString());//---名称-----
             dr.EndEdit();
             this.CurrentDevice = SysCtrl.CreateDevice(data.TargetType).CreateDevice(new DeviceData(dr));//----获取当前设备对象---
@@ -259,11 +280,13 @@ namespace ConfigDevice
             string objName = this.getControlObj(data.TargetType, data.Cmd);
             if (objName == "无效") return;
             if (!CurrentDevice.ContrlObjs.ContainsKey(objName)) return;
-            DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = objName;//----判断设备是否含有相应的控制对象
+            dr[DeviceConfig.DC_CONTROL_OBJ] = objName;//----判断设备是否含有相应的控制对象
+            dr.EndEdit();
             CurrentControlObj = CurrentDevice.ContrlObjs[objName];//----获取当前控制对象
             ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);//----创建视图控制对象
-            ViewCommandControlObj.SetCommandData(data);
+            ViewCommandControlObj.SetCommandData(data);//-----设置命令内容----
             refreshView();
+            DataCommandSetting.AcceptChanges();
 
             allowSync = true;
         }
@@ -280,7 +303,6 @@ namespace ConfigDevice
             DataRow[] rows = SysConfig.DtDevice.Select(temp);
             if (rows.Length == 0) return "未知设备";
             return rows[0][DeviceConfig.DC_NAME].ToString();
-
         }
 
         /// <summary>
@@ -342,18 +364,22 @@ namespace ConfigDevice
                 CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_PLAYMODE) ||
                 CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_RADIO_NOHZ)
                 )
-                return "背景";        
+                return "背景";
 
             if (CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_MSN_TUNE) ||
                 CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_PPEMC) ||
                 CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_OUTMSN) ||
                 CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_PLAYMODE) ||
                 CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_AMP_SLWR_BGM_RADIO_NOHZ)
-    )
+                )
                 return "消息";
 
             return "无效";
         }
+
+
+
+ 
 
 
 

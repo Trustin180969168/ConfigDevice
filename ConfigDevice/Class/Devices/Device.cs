@@ -359,13 +359,8 @@ namespace ConfigDevice
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_NAME;//----用户命令-----
-
-            //---------新名称-------------
-            byte[] value = Encoding.GetEncoding("GB2312").GetBytes(newName);
-            byte[] byteName = new byte[32];
-            Buffer.BlockCopy(value, 0, byteName, 0, value.Length);
-
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_NAME;//----用户命令-----      
+            byte[] byteName = Encoding.GetEncoding("GB2312").GetBytes(newName);      //---------新名称-------------
             byte len = (byte)(2 + byteName.Length + 4);//---数据长度 =地址长度2 + 名称长度30 + 校验码4--
             //--------添加到校验数据--------
             byte[] crcData = new byte[10 + 2 + byteName.Length];
@@ -399,7 +394,6 @@ namespace ConfigDevice
         }
         private void callbackRefreshDevice(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("刷新失败!", udpReply.ReplyByte);
         }
@@ -437,7 +431,7 @@ namespace ConfigDevice
         /// </summary>
         private void getRefreshDevice(UdpData data, object[] values)
         {
-            //-----获取数据-----
+            //------获取数据-----
             UserUdpData userData = new UserUdpData(data);
             Device device = new BaseDevice(userData);
             //------回复反馈的设备信息-------

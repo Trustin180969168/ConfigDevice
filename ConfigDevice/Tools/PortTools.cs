@@ -16,7 +16,7 @@ namespace ConfigDevice
         public static int GetAvailablePort()
         {
             int MAX_PORT = 65535; //系统tcp/udp端口数最大是65535 
-            int BEGIN_PORT = 9500;//从这个端口开始检测 
+            int BEGIN_PORT = 9501;//从这个端口开始检测 
 
             for (int i = BEGIN_PORT; i < MAX_PORT; i++)
             {

@@ -88,6 +88,7 @@
             this.btSaveCommands.Name = "btSaveCommands";
             this.btSaveCommands.Size = new System.Drawing.Size(106, 28);
             this.btSaveCommands.Text = "保存指令 ";
+            this.btSaveCommands.Click += new System.EventHandler(this.btSaveCommands_Click);
             // 
             // btRefresh
             // 
@@ -151,7 +152,7 @@
             0,
             0});
             this.edtEndNum.Size = new System.Drawing.Size(46, 26);
-            this.edtEndNum.TabIndex = 10;
+            this.edtEndNum.TabIndex = 1;
             this.edtEndNum.ValueChanged += new System.EventHandler(this.edtEndNum_ValueChanged);
             // 
             // cbxGroup

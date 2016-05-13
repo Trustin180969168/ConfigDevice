@@ -13,7 +13,7 @@ namespace ConfigDevice
         public const string AREAR_DOOR_ALARM_OPEN = "警报";
         public const string AREAR_DOOR_ALARM_CLOSE = "撤销警报";//区域-门窗关
         public string ControlGroupName = "";//控制组名称
-        
+        public event CallbackUIAction OnCallbackRoad_Action;   //----回调UI----
 
         private byte[] securityLevel;//----安全级别------
         private byte physicalShieldingPorts;//----物理端口屏蔽------
@@ -65,6 +65,17 @@ namespace ConfigDevice
             securityLevel = new byte[2];
             initCallback();
         }
+
+        /// <summary>
+        /// 是否完成回路的读取
+        /// </summary>
+        private bool finishReadRoads = false;
+        public bool FinishReadRoads
+        {
+            get { return finishReadRoads; }
+         
+        }
+
 
 
         /// <summary>
@@ -129,6 +140,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadRoadTitle()
         {
+            finishReadRoads = false;
             UdpData udpSend = createReadRoadTitleUdp();
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), new object[] { udpSend });
         }
@@ -207,9 +219,10 @@ namespace ConfigDevice
                 case 0: RoadTitle1 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
                 case 1: RoadTitle2 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
                 case 2: RoadTitle3 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
-                case 3: RoadTitle4 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
+                case 3: RoadTitle4 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); finishReadRoads = true; break;
             }
-            CallbackUI(null);//----回调界面-----
+            if(OnCallbackRoad_Action != null)
+                OnCallbackRoad_Action(null);
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
         }
 
@@ -346,7 +359,7 @@ namespace ConfigDevice
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] {  "保存回路3 " + RoadTitle3 + "失败!" });
 
             udpSend = createSaveRoadSettingUdp(3, RoadTitle4);
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] {  "保存回路4 " + RoadTitle4 + "失败!" });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { "保存回路4 " + RoadTitle4 + "失败!" });
         }
         private UdpData createSaveRoadSettingUdp(int roadNum,string roadName)
         {

@@ -101,7 +101,6 @@
             this.gvCommands.OptionsView.ShowIndicator = false;
             this.gvCommands.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
             this.gvCommands.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCommands_CellValueChanged);
-
             // 
             // deviceID
             // 
@@ -315,6 +314,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.timeTest.DisplayFormat.FormatString = "d";
             this.timeTest.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.timeTest.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             this.timeTest.Mask.UseMaskAsDisplayFormat = true;
             this.timeTest.Name = "timeTest";
             // 

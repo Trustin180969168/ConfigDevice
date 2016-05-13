@@ -96,22 +96,35 @@ namespace ConfigDevice
         /// <returns></returns>
         public override CommandData GetCommand()
         {
-            //string actionStr = (string)ViewSetting.GetRowCellValue(0, dcMotorAction);
-            //MotorAction action = MotorAction.Road1Front;
-            //switch (actionStr)
-            //{
-            //    case Motor.NAME_ACTION_ROAD_FRONT_1: action = MotorAction.Road1Front; break;
-            //    case Motor.NAME_ACTION_ROAD_BACK_1: action = MotorAction.Road1Back; break;
-            //    case Motor.NAME_ACTION_ROAD_FRONT_2: action = MotorAction.Road2Front; break;
-            //    case Motor.NAME_ACTION_ROAD_BACK_2: action = MotorAction.Road2Back; break;
-            //    case Motor.NAME_ACTION_ROAD_FRONT_3: action = MotorAction.Road3Front; break;
-            //    case Motor.NAME_ACTION_ROAD_BACK_3: action = MotorAction.Road3Back; break;
-            //    default: action = MotorAction.Road1Front; break;
-            //}
+            ViewSetting.PostEditor();
+            DataRow dr = ViewSetting.GetDataRow(0);
+            byte[] motorCommand = Motor.NameAndCommand[dr[dcCommand.FieldName].ToString()];//-----电机命令-----------------            
+            int percent = Convert.ToInt16(dr[dcPercent.FieldName].ToString());//-----百分比----
+            //----------电机动作-----------------
+            int actionIndex = 0;
+            string actionName = dr[dcMotorAction.FieldName].ToString();
+            if (actionName == Motor.NAME_ACTION_ROAD_FRONT_1)
+                actionIndex = 0;
+            else if (actionName == Motor.NAME_ACTION_ROAD_BACK_1)
+                actionIndex = 1;
+            else if (actionName == Motor.NAME_ACTION_ROAD_FRONT_2)
+                actionIndex = 2;
+            else if (actionName == Motor.NAME_ACTION_ROAD_BACK_2)
+                actionIndex = 3;
+            else if (actionName == Motor.NAME_ACTION_ROAD_FRONT_3)
+                actionIndex = 4;
+            else if (actionName == Motor.NAME_ACTION_ROAD_BACK_3)
+                actionIndex = 5;
+            //----------计算时间-------------------
+            DateTime dtRunTime = DateTime.Parse(dr[dcRunTime.FieldName].ToString());
+            DateTime dtOpenDelay = DateTime.Parse(dr[dcOpenDelay.FieldName].ToString());
+            DateTime dtCloseDelay = DateTime.Parse(dr[dcCloseDelay.FieldName].ToString());
 
-            //string cmdStr =(string)ViewSetting.GetRowCellValue(0, dcCommand);
+            int runTimeSeconds = dtRunTime.Hour * 60 * 60 + dtRunTime.Minute * 60 + dtRunTime.Second;//运行秒数
+            int openDelaySeconds = dtOpenDelay.Hour * 60 * 60 + dtOpenDelay.Minute * 60 + dtOpenDelay.Second;//开延迟秒数
+            int closeDelaySeconds = dtCloseDelay.Hour * 60 * 60 + dtCloseDelay.Minute * 60 + dtCloseDelay.Second;//关延迟秒数
 
-            return null;
+            return motor.GetCommandData(motorCommand, percent, actionIndex, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
         }
 
 
@@ -129,11 +142,12 @@ namespace ConfigDevice
         /// <param name="data"></param>
         public override void SetCommandData(CommandData data)
         {
+           
             //---找出对应的指令---------
             string cmdName = "";
-            foreach (string key in motor.NameAndCommand.Keys)
+            foreach (string key in Motor.NameAndCommand.Keys)
             {
-                if (CommonTools.BytesEuqals(data.Cmd, motor.NameAndCommand[key]))
+                if (CommonTools.BytesEuqals(data.Cmd, Motor.NameAndCommand[key]))
                 { cmdName = key; break; }
             }
             ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
@@ -150,11 +164,17 @@ namespace ConfigDevice
             int openDelayTime = BitConverter.ToInt16(byteOpenDelayTime, 0);
             int closeDelayTime = BitConverter.ToInt16(byteCloseDelayTime, 0);
 
+            string nowDateStr = DateTime.Now.ToShortDateString(); 
+            DataTable dt = ViewSetting.GridControl.DataSource as DataTable;
+            DataRow dr = dt.Rows[0];
 
+            dr[dcRunTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(runTime).ToLongTimeString();
+            dr[dcOpenDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(openDelayTime).ToLongTimeString();
+            dr[dcCloseDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(closeDelayTime).ToLongTimeString();
 
-            ViewSetting.SetRowCellValue(0, dcRunTime, DateTime.Parse("00:00:03"));//---运行时间----   
-            ViewSetting.SetRowCellValue(0, dcOpenDelay, openDelayTime);//---开延时时间---- 
-            ViewSetting.SetRowCellValue(0, dcRunTime, closeDelayTime);//---关延时间---- 
+            //ViewSetting.SetRowCellValue(0, dcRunTime, DateTime.Parse("00:00:03"));//---运行时间----   
+            //ViewSetting.SetRowCellValue(0, dcOpenDelay, openDelayTime);//---开延时时间---- 
+            //ViewSetting.SetRowCellValue(0, dcCloseDelay, closeDelayTime);//---关延时间---- 
 
         }
 

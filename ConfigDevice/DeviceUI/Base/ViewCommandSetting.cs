@@ -90,6 +90,7 @@ namespace ConfigDevice.DeviceUI
             xscCommands.Controls.Add(viewNew);
             viewNew.Dock = DockStyle.Top;
             viewNew.SyncCommandEdit += this.SyncCommandSetting;
+            viewNew.DelCommandData += this.DelCommandData;
             (viewNew as Control).BringToFront();
             return viewNew;
         }
@@ -208,6 +209,36 @@ namespace ConfigDevice.DeviceUI
         {
             ReadCommandData();
         }
+
+        /// <summary>
+        /// 保存指令
+        /// </summary>
+        private void btSaveCommands_Click(object sender, EventArgs e)
+        {
+            foreach (Control view in xscCommands.Controls)
+            {
+                ViewCommandTools commandView = view as ViewCommandTools;
+                if (!commandView.HasChanged) continue;
+                CommandData command =  commandView.GetCommandData();
+                if (command == null) continue;
+                command.ucCmdType=0;
+                command.ucCmdKey =  cbxGroup.SelectedIndex;
+                command.ucCmdNum = commandView.Num - 1;
+                CommandEdit.SaveCommandData(command);
+                commandView.DataCommandSetting.AcceptChanges();
+            }
+        }
+        
+        /// <summary>
+        /// 删除命令
+        /// </summary>
+        /// <param name="cmdNum">命令编号</param>
+        public void DelCommandData(int cmdNum)
+        {
+
+            CommandEdit.DelCommandData(cbxGroup.SelectedIndex, cmdNum, cmdNum);
+        }
+
 
     }
 }

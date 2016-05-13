@@ -21,9 +21,8 @@ namespace ConfigDevice
             doorInput4 = this.Device as DoorInput4;
             doorInput4.OnCallbackUI_Action += this.callbackUI;
             doorInput4.OnCallbackUI_Action += frmSetting.CallBackUI;
-            frmSetting.DeviceEdit = doorInput4;
-
-            viewCommandEdit.InitViewCommand(doorInput4);//初始化指令配置
+            doorInput4.OnCallbackRoad_Action += this.callbackRoadName;
+            frmSetting.DeviceEdit = doorInput4;         
         }
 
         private void FrmFourInput_Load(object sender, EventArgs e)
@@ -58,12 +57,7 @@ namespace ConfigDevice
                         clbcAqjb.Items[i].CheckState = doorInput4.SecurityLevelValue[i] == true ? CheckState.Checked : CheckState.Unchecked;
                     for (int i = 0; i < 4; i++)
                         clbcWldkpb.Items[i].CheckState = doorInput4.PhysicalShieldingPortsValue[i] == true ? CheckState.Checked : CheckState.Unchecked;
-
-                    edtMcmc1.Text = doorInput4.RoadTitle1;
-                    edtMcmc2.Text = doorInput4.RoadTitle2;
-                    edtMcmc3.Text = doorInput4.RoadTitle3;
-                    edtMcmc4.Text = doorInput4.RoadTitle4;
-
+                    
                     cedtAfpb1.Checked = doorInput4.RoadShield1;
                     cedtAfpb2.Checked = doorInput4.RoadShield2;
                     cedtAfpb3.Checked = doorInput4.RoadShield3;
@@ -73,34 +67,56 @@ namespace ConfigDevice
                     edtNum2.Text = doorInput4.RoadMusicNum2.ToString();
                     edtNum3.Text = doorInput4.RoadMusicNum3.ToString();
                     edtNum4.Text = doorInput4.RoadMusicNum4.ToString();
-                    if (clbcAqjb.SelectedItems.Count == 15)
+                    if (clbcAqjb.CheckedItems.Count == 15)
                         cdtSelectAll.Checked = true;
 
-                    //----------刷新命令组-----------------
-                    viewCommandEdit.CommmandGroups.Clear();
-                    viewCommandEdit.CommmandGroups.Add("第1路:门窗开-" + edtMcmc1.Text);
-                    viewCommandEdit.CommmandGroups.Add("第1路:门窗关-" + edtMcmc1.Text);
-                    viewCommandEdit.CommmandGroups.Add("第1路:警报-" + edtMcmc1.Text);
-                    viewCommandEdit.CommmandGroups.Add("第1路:撤防-" + edtMcmc1.Text);
-                    viewCommandEdit.CommmandGroups.Add("第2路:门窗开-" + edtMcmc2.Text);
-                    viewCommandEdit.CommmandGroups.Add("第2路:门窗关-" + edtMcmc2.Text);
-                    viewCommandEdit.CommmandGroups.Add("第2路:警报-" + edtMcmc2.Text);
-                    viewCommandEdit.CommmandGroups.Add("第2路:撤防-" + edtMcmc2.Text);
-                    viewCommandEdit.CommmandGroups.Add("第3路:门窗开-" + edtMcmc3.Text);
-                    viewCommandEdit.CommmandGroups.Add("第3路:门窗关-" + edtMcmc3.Text);
-                    viewCommandEdit.CommmandGroups.Add("第3路:警报-" + edtMcmc3.Text);
-                    viewCommandEdit.CommmandGroups.Add("第3路:撤防-" + edtMcmc3.Text);
-                    viewCommandEdit.CommmandGroups.Add("第4路:门窗开-" + edtMcmc4.Text);
-                    viewCommandEdit.CommmandGroups.Add("第4路:门窗关-" + edtMcmc4.Text);
-                    viewCommandEdit.CommmandGroups.Add("第4路:警报-" + edtMcmc4.Text);
-                    viewCommandEdit.CommmandGroups.Add("第4路:撤防-" + edtMcmc4.Text);
-                    if (viewCommandEdit.NeedInit && tctrlEdit.SelectedTabPageIndex == 2)
-                        viewCommandEdit.InitViewCommand(doorInput4);
-                    else
-                        viewCommandEdit.UpdateGroupName();
                 }
             }
             catch { }
+        }
+
+        /// <summary>
+        /// 获取回路名称
+        /// </summary>
+        /// <param name="values"></param>
+        private void callbackRoadName(object[] values)
+
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CallbackUIAction(callbackRoadName), new object[] { values });
+                return;
+            }
+            //----------刷新命令组-----------------
+            edtMcmc1.Text = doorInput4.RoadTitle1;
+            edtMcmc2.Text = doorInput4.RoadTitle2;
+            edtMcmc3.Text = doorInput4.RoadTitle3;
+            edtMcmc4.Text = doorInput4.RoadTitle4;
+
+            viewCommandEdit.CommmandGroups.Clear();
+            viewCommandEdit.CommmandGroups.Add("第1路:门窗开-" + edtMcmc1.Text);
+            viewCommandEdit.CommmandGroups.Add("第1路:门窗关-" + edtMcmc1.Text);
+            viewCommandEdit.CommmandGroups.Add("第1路:警报-" + edtMcmc1.Text);
+            viewCommandEdit.CommmandGroups.Add("第1路:撤防-" + edtMcmc1.Text);
+            viewCommandEdit.CommmandGroups.Add("第2路:门窗开-" + edtMcmc2.Text);
+            viewCommandEdit.CommmandGroups.Add("第2路:门窗关-" + edtMcmc2.Text);
+            viewCommandEdit.CommmandGroups.Add("第2路:警报-" + edtMcmc2.Text);
+            viewCommandEdit.CommmandGroups.Add("第2路:撤防-" + edtMcmc2.Text);
+            viewCommandEdit.CommmandGroups.Add("第3路:门窗开-" + edtMcmc3.Text);
+            viewCommandEdit.CommmandGroups.Add("第3路:门窗关-" + edtMcmc3.Text);
+            viewCommandEdit.CommmandGroups.Add("第3路:警报-" + edtMcmc3.Text);
+            viewCommandEdit.CommmandGroups.Add("第3路:撤防-" + edtMcmc3.Text);
+            viewCommandEdit.CommmandGroups.Add("第4路:门窗开-" + edtMcmc4.Text);
+            viewCommandEdit.CommmandGroups.Add("第4路:门窗关-" + edtMcmc4.Text);
+            viewCommandEdit.CommmandGroups.Add("第4路:警报-" + edtMcmc4.Text);
+            viewCommandEdit.CommmandGroups.Add("第4路:撤防-" + edtMcmc4.Text);
+            if (doorInput4.FinishReadRoads)
+            {
+                if (viewCommandEdit.NeedInit && tctrlEdit.SelectedTabPageIndex == 2)
+                    viewCommandEdit.InitViewCommand(doorInput4);
+                else if (!viewCommandEdit.NeedInit)
+                    viewCommandEdit.UpdateGroupName();
+            }
         }
 
         /// <summary>
@@ -113,6 +129,7 @@ namespace ConfigDevice
             
             _doorInput4.OnCallbackUI_Action += this.callbackUI;
             _doorInput4.OnCallbackUI_Action += frmSetting.CallBackUI;
+            _doorInput4.OnCallbackRoad_Action += this.callbackRoadName;
             frmSetting.DeviceEdit = _doorInput4;
             viewCommandEdit.NeedInit = true;//----重新初始化,通过回调实现------
             doorInput4 = _doorInput4;
@@ -127,8 +144,6 @@ namespace ConfigDevice
         {
             foreach (CheckedListBoxItem item in clbcAqjb.Items)
                 item.CheckState = cdtSelectAll.CheckState;
-            for (int i = 0; i < 15; i++)
-                doorInput4.SecurityLevelValue[i] = clbcAqjb.Items[i].CheckState == CheckState.Checked ? true : false;
         }
 
         /// <summary>
@@ -137,6 +152,7 @@ namespace ConfigDevice
         private void btRefresh_Click(object sender, EventArgs e)
         {
             doorInput4.RefreshData();
+            callbackRoadName(null);
         }
 
         /// <summary>
@@ -165,9 +181,9 @@ namespace ConfigDevice
         private void btSave_Click(object sender, EventArgs e)
         {
             updateDoorInput4Data();//同步数据结果
-
             doorInput4.SaveSetting();//保存门输入4
             doorInput4.SaveRoadSetting();//保存回路配置
+            callbackRoadName(null);//不管是否保存成功,同步到选择表;
         }
 
         private void edtMcmc_Leave(object sender, EventArgs e)

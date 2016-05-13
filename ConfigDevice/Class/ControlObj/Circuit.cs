@@ -38,7 +38,7 @@ namespace ConfigDevice
             cmdData.TargetType = deviceControled.ByteKindID;
 
             cmdData.Cmd = cmd;
-            cmdData.Len = 9;
+            cmdData.DataLen = 9;
 
             cmdData.Data[0] = BitConverter.GetBytes(ucFuncvol)[0];
             cmdData.Data[1] = BitConverter.GetBytes(ucStepVol)[0];

@@ -15,8 +15,11 @@ namespace ConfigDevice
         public byte TargetType;//目标类型
 
         public byte[] Cmd = new byte[2];//命令
-        public byte Len;//长度
+        public int DataLen;//数据长度
         public byte[] Data = new byte[30];//数据最长30字节
+        public int Len { get { return DataLen + 3 + 3 + 2 + 1; } }
+
+        public string ValueStr { get { return ConvertTools.ByteToHexStr(GetValue()); } }
 
         /// <summary>
         /// 构造函数
@@ -36,12 +39,21 @@ namespace ConfigDevice
             ucCmdType = userData.Data[0];
             ucCmdKey = (int)userData.Data[1];
             ucCmdNum = (int)userData.Data[2];
-            TargetId = userData.Data[3];            TargetNet = userData.Data[4];
+            TargetId = userData.Data[3];            
+            TargetNet = userData.Data[4];
             TargetType = userData.Data[5];
             Cmd = CommonTools.CopyBytes(userData.Data, 6, 2);
-            Len = userData.Data[8];
+            DataLen = (int)userData.Data[8];
 
-            Buffer.BlockCopy(userData.Data, 9, Data, 0, (int)Len);
+            Buffer.BlockCopy(userData.Data, 9, Data, 0, (int)DataLen);
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public CommandData()
+        {
+
         }
 
         /// <summary>
@@ -50,13 +62,18 @@ namespace ConfigDevice
         /// <returns></returns>
         public byte[] GetValue()
         {
-            byte[] All = new byte[36];
-            All[0] = TargetId;
-            All[1] = TargetNet;
-            All[2] = TargetType;
-            Buffer.BlockCopy(Cmd, 0, All, 3, 2);
-            All[5] = Len;
-            Buffer.BlockCopy(Data, 0, All, 6, 30);
+            byte[] All = new byte[9+DataLen];
+
+            All[0] = ucCmdType;
+            All[1] = (byte)ucCmdKey;
+            All[2] = (byte)ucCmdNum;
+
+            All[3] = TargetId;
+            All[4] = TargetNet;
+            All[5] = TargetType;
+            Buffer.BlockCopy(Cmd, 0, All, 6, 2);
+            All[8] = (byte)DataLen;
+            Buffer.BlockCopy(Data, 0, All, 9, DataLen);
 
             return All;
         }
