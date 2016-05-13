@@ -30,6 +30,9 @@ namespace ConfigDevice
       
             //----时间编辑控件
             tedtTime = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
+            tedtTime.DisplayFormat.FormatString = "d";
+            tedtTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            tedtTime.Mask.EditMask = "HH:mm:ss";
             tedtTime.Mask.UseMaskAsDisplayFormat = true;
 
             //----数字编辑控件-----------

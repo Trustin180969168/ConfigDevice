@@ -128,13 +128,12 @@ namespace ConfigDevice.DeviceUI
             foreach (string groupStr in CommmandGroups)
                 cbxGroup.Properties.Items.Add(groupStr);
 
-            int addCount = (int)edtEndNum.Value;
-
+            int addCount = (int)edtEndNum.Value;//----指令的加载个数
             CommandEdit = new CommandCtrl(device);
-            CommandEdit.OnCallbackUI_Action += this.returnCommandData;
-            NeedInit = false;
+            CommandEdit.OnCallbackUI_Action += this.returnCommandData;//命令的执行的界面回调
+            NeedInit = false;//---标记初始化完毕
             cbxGroup.SelectedIndex = 0;//执行读取
-            cbxGroup.EditValue = CommmandGroups[0];
+            cbxGroup.EditValue = CommmandGroups[0];//选择第一组/键
             
         }
 
@@ -184,7 +183,13 @@ namespace ConfigDevice.DeviceUI
                     addViewCommandSetting();
                 while (count < commandCount)
                     removeViewCommandSetting();
-
+                //------清空------
+                foreach (Control view in xscCommands.Controls)
+                {
+                    ViewCommandTools commandView = view as ViewCommandTools;
+                    if (commandView.Num > count) continue;
+                    commandView.DelCommandSetting();
+                }
                 CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, 0, (int)edtEndNum.Value - 1);//序号从0开始
             }
         }

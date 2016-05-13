@@ -117,11 +117,22 @@ namespace ConfigDevice
         /// <summary>
         /// 字节转10进制
         /// </summary>
-        /// <param name="b"></param>
+        /// <param name="b">4个字节</param>
         /// <returns></returns>
         public static int Bytes4ToInt(byte[] b)
         {            
            return System.BitConverter.ToInt32(b, 0); 
+        }
+
+        /// <summary>
+        /// 字节转10进制
+        /// </summary>
+        /// <param name="b">两个字节</param>
+        /// <returns></returns>
+        public static int Bytes2ToInt(byte[] b)
+        {
+            Array.Resize(ref b, 4);
+            return System.BitConverter.ToInt32(b, 0);
         }
 
         /// <summary>

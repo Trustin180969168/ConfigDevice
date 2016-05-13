@@ -5,6 +5,7 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Columns;
 using System.Reflection;
+using System.Data;
 
 namespace ConfigDevice
 {
@@ -58,9 +59,9 @@ namespace ConfigDevice
             ViewSetting.Columns.ColumnByName("parameter4").VisibleIndex = 9;
             ViewSetting.Columns.ColumnByName("parameter5").VisibleIndex = 10;
 
-            cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWITLOOP);
-            cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWITLOOP_OPEN);
-            cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWITLOOP_CLOSE);
+            cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWIT_LOOP);
+            cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWIT_LOOP_OPEN);
+            cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWIT_LOOP_CLOSE);
 
             dcCircuit.Caption = "回路";      
             Type type = controlObj.deviceControled.GetType(); //获取类型
@@ -103,14 +104,62 @@ namespace ConfigDevice
         /// <returns></returns>
         public override CommandData GetCommand()
         {
-            return null;
+            ViewSetting.PostEditor();
+            DataRow dr = ViewSetting.GetDataRow(0);
+            byte[] circuitCommand = Circuit.NameAndCommand[dr[dcCommand.FieldName].ToString()];//-----回路命令-----------------            
+            int percent = Convert.ToInt16(dr[dcPercent.FieldName].ToString());//-----亮度----           
+            int circuitIndex =Convert.ToInt16(dr[dcCircuit.FieldName])-1; //----------回路-----------------        
+            //----------计算时间-------------------
+            DateTime dtRunTime = DateTime.Parse(dr[dcRunTime.FieldName].ToString());
+            DateTime dtOpenDelay = DateTime.Parse(dr[dcOpenDelay.FieldName].ToString());
+            DateTime dtCloseDelay = DateTime.Parse(dr[dcCloseDelay.FieldName].ToString());
+
+            int runTimeSeconds = dtRunTime.Hour * 60 * 60 + dtRunTime.Minute * 60 + dtRunTime.Second;//运行秒数
+            int openDelaySeconds = dtOpenDelay.Hour * 60 * 60 + dtOpenDelay.Minute * 60 + dtOpenDelay.Second;//开延迟秒数
+            int closeDelaySeconds = dtCloseDelay.Hour * 60 * 60 + dtCloseDelay.Minute * 60 + dtCloseDelay.Second;//关延迟秒数
+
+            return circuit.GetCommandData(circuitCommand, percent, circuitIndex, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
         }
 
 
-
+        /// <summary>
+        /// 设置数据
+        /// </summary>
+        /// <param name="data">指令数据</param>
         public override void SetCommandData(CommandData data)
         {
+            string cmdName = "";
+            foreach (string key in Circuit.NameAndCommand.Keys)
+            {
+                if (CommonTools.BytesEuqals(data.Cmd, Circuit.NameAndCommand[key]))
+                { cmdName = key; break; }
+            }
+            ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
+
+            int cmdIndex = (int)data.Data[2];
+            ViewSetting.SetRowCellValue(0, dcCircuit, cbxCircuitNum.Items[cmdIndex].ToString());//--回路----
+            ViewSetting.SetRowCellValue(0, dcPercent, (int)data.Data[1]);//---亮度----
+
+            byte[] byteRunTime = CommonTools.CopyBytes(data.Data, 3, 2);
+            byte[] byteOpenDelayTime = CommonTools.CopyBytes(data.Data, 5, 2);
+            byte[] byteCloseDelayTime = CommonTools.CopyBytes(data.Data, 7, 2);
+
+            int runTime = ConvertTools.Bytes2ToInt(byteRunTime);
+            int openDelayTime = ConvertTools.Bytes2ToInt(byteOpenDelayTime);
+            int closeDelayTime = ConvertTools.Bytes2ToInt(byteCloseDelayTime);  
+
+            string nowDateStr = DateTime.Now.ToShortDateString();
+            DataTable dt = ViewSetting.GridControl.DataSource as DataTable;
+            DataRow dr = dt.Rows[0];
+
+            dr[dcRunTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(runTime).ToLongTimeString();//----运行时间---
+            dr[dcOpenDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(openDelayTime).ToLongTimeString();//----开延迟---
+            dr[dcCloseDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(closeDelayTime).ToLongTimeString();//----关延迟---
+
         
         }
+
+
+
     }
 }

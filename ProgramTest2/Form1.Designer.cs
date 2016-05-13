@@ -35,10 +35,13 @@
             this.dcTime1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.timeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
             this.dcTime2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // timeEdit1
@@ -122,11 +125,29 @@
             this.dcTime2.Visible = true;
             this.dcTime2.VisibleIndex = 1;
             // 
+            // simpleButton2
+            // 
+            this.simpleButton2.Location = new System.Drawing.Point(33, 100);
+            this.simpleButton2.Name = "simpleButton2";
+            this.simpleButton2.Size = new System.Drawing.Size(75, 23);
+            this.simpleButton2.TabIndex = 6;
+            this.simpleButton2.Text = "simpleButton2";
+            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            // 
+            // textEdit1
+            // 
+            this.textEdit1.Location = new System.Drawing.Point(139, 102);
+            this.textEdit1.Name = "textEdit1";
+            this.textEdit1.Size = new System.Drawing.Size(100, 21);
+            this.textEdit1.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 305);
+            this.Controls.Add(this.textEdit1);
+            this.Controls.Add(this.simpleButton2);
             this.Controls.Add(this.gcTime);
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.timeEdit1);
@@ -137,6 +158,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -150,6 +172,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn dcTime1;
         private DevExpress.XtraGrid.Columns.GridColumn dcTime2;
         private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit timeEdit;
+        private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private DevExpress.XtraEditors.TextEdit textEdit1;
     }
 }
 

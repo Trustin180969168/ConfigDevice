@@ -41,6 +41,15 @@ namespace ProgramTest2
             dt.Rows.Add(new object[]{"00:00:00","00:00:00"});
         }
 
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+         //   byte[] byteRunTime = System.BitConverter.GetBytes(40271);
+            byte[] byteRunTime = {0x4f ,0x9d};
+            Array.Resize(ref byteRunTime, 4);
+            int runTime = BitConverter.ToInt32(byteRunTime, 0);
+            textEdit1.Text = runTime.ToString();
+        }
+
 
 
 

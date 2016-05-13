@@ -163,7 +163,7 @@ namespace ConfigDevice
         /// <summary>
         /// 清空指令配置
         /// </summary>
-        private void DelCommandSetting()
+        public void DelCommandSetting()
         {
             DataRow dr = gvCommands.GetDataRow(0);
             dr.Delete();

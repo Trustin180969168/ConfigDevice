@@ -156,13 +156,13 @@ namespace ConfigDevice
             ViewSetting.SetRowCellValue(0, dcMotorAction, cbxActionKind.Items[cmdIndex].ToString());//---电机动作---
             ViewSetting.SetRowCellValue(0, dcPercent, (int)data.Data[1]);//---程度----
 
-            byte[] byteRunTime = CommonTools.CopyBytes(data.Data, 3, 2);
+            byte[] byteRunTime = CommonTools.CopyBytes(data.Data, 3, 2); 
             byte[] byteOpenDelayTime = CommonTools.CopyBytes(data.Data, 5, 2);
             byte[] byteCloseDelayTime = CommonTools.CopyBytes(data.Data, 7, 2);
 
-            int runTime = BitConverter.ToInt16(byteRunTime, 0);
-            int openDelayTime = BitConverter.ToInt16(byteOpenDelayTime, 0);
-            int closeDelayTime = BitConverter.ToInt16(byteCloseDelayTime, 0);
+            int runTime =   ConvertTools.Bytes2ToInt(byteRunTime);
+            int openDelayTime = ConvertTools.Bytes2ToInt(byteOpenDelayTime);  
+            int closeDelayTime = ConvertTools.Bytes2ToInt(byteCloseDelayTime);  
 
             string nowDateStr = DateTime.Now.ToShortDateString(); 
             DataTable dt = ViewSetting.GridControl.DataSource as DataTable;
@@ -172,9 +172,6 @@ namespace ConfigDevice
             dr[dcOpenDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(openDelayTime).ToLongTimeString();
             dr[dcCloseDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(closeDelayTime).ToLongTimeString();
 
-            //ViewSetting.SetRowCellValue(0, dcRunTime, DateTime.Parse("00:00:03"));//---运行时间----   
-            //ViewSetting.SetRowCellValue(0, dcOpenDelay, openDelayTime);//---开延时时间---- 
-            //ViewSetting.SetRowCellValue(0, dcCloseDelay, closeDelayTime);//---关延时间---- 
 
         }
 
