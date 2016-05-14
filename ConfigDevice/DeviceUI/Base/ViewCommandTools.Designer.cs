@@ -318,6 +318,7 @@
             this.timeTest.Mask.EditMask = "HH:mm:ss";
             this.timeTest.Mask.UseMaskAsDisplayFormat = true;
             this.timeTest.Name = "timeTest";
+            this.timeTest.Leave += new System.EventHandler(this.timeTest_Leave);
             // 
             // spinTest
             // 

@@ -92,6 +92,29 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 时间校验
+        /// </summary>
+        protected override void timeTest_Leave(object sender, EventArgs e)
+        {
+            //----------计算时间-------------------
+            DataRow dr = ViewSetting.GetDataRow(0);
+            DateTime dtRunTime = DateTime.Parse(dr[dcRunTime.FieldName].ToString());
+            DateTime dtOpenDelay = DateTime.Parse(dr[dcOpenDelay.FieldName].ToString());
+            DateTime dtCloseDelay = DateTime.Parse(dr[dcCloseDelay.FieldName].ToString());
+
+            int runTimeSeconds = dtRunTime.Hour * 60 * 60 + dtRunTime.Minute * 60 + dtRunTime.Second;//运行秒数
+            int openDelaySeconds = dtOpenDelay.Hour * 60 * 60 + dtOpenDelay.Minute * 60 + dtOpenDelay.Second;//开延迟秒数
+            int closeDelaySeconds = dtCloseDelay.Hour * 60 * 60 + dtCloseDelay.Minute * 60 + dtCloseDelay.Second;//关延迟秒数
+
+            if (runTimeSeconds > 64800)
+                CommonTools.MessageShow("运行时间不能大于18小时!", 2, "");
+            if (openDelaySeconds > 64800)
+                CommonTools.MessageShow("开延迟不能大于18小时!", 2, "");
+            if (closeDelaySeconds > 64800)
+                CommonTools.MessageShow("关延迟不能大于18小时!", 2, "");
+        }
+
+        /// <summary>
         /// 生成指令数据
         /// </summary>
         /// <returns></returns>

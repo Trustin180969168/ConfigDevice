@@ -98,6 +98,9 @@ namespace ConfigDevice
             ViewSetting.BestFitColumns();
         }
 
+
+
+
         /// <summary>
         /// 重置
         /// </summary>

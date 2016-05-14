@@ -367,6 +367,11 @@ namespace ConfigDevice
             return "无效";
         }
 
+        private void timeTest_Leave(object sender, EventArgs e)
+        {
+
+        }
+
 
 
  

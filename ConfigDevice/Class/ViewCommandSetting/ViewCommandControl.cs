@@ -34,6 +34,7 @@ namespace ConfigDevice
             tedtTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             tedtTime.Mask.EditMask = "HH:mm:ss";
             tedtTime.Mask.UseMaskAsDisplayFormat = true;
+            tedtTime.Leave += new System.EventHandler(this.timeTest_Leave);
 
             //----数字编辑控件-----------
             edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
@@ -54,6 +55,14 @@ namespace ConfigDevice
             controlObj = _controlObj;
             ViewSetting = gv;
             ViewSetting.Columns.ColumnByName("command").ColumnEdit = cbxCommandKind;
+        }
+
+        /// <summary>
+        /// 时间校验
+        /// </summary>
+        protected virtual void timeTest_Leave(object sender, EventArgs e)
+        {
+
         }
 
         /// <summary>
