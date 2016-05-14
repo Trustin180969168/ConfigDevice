@@ -39,6 +39,7 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
+            dcCommand.Visible = true;
             dcTimeNum.Visible = true;
             dcGroup.Visible = true;
             dcRunCount.Visible = true;

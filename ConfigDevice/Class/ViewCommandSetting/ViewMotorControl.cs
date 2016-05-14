@@ -44,6 +44,7 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
+            dcCommand.Visible = true;
             dcMotorAction.Visible = true;
             dcPercent.Visible = true;
             dcRunTime.Visible = true;
@@ -124,6 +125,13 @@ namespace ConfigDevice
             int openDelaySeconds = dtOpenDelay.Hour * 60 * 60 + dtOpenDelay.Minute * 60 + dtOpenDelay.Second;//开延迟秒数
             int closeDelaySeconds = dtCloseDelay.Hour * 60 * 60 + dtCloseDelay.Minute * 60 + dtCloseDelay.Second;//关延迟秒数
 
+            if (runTimeSeconds > 64800)
+            { CommonTools.MessageShow("运行时间不能大于18小时!", 2, ""); return null; }
+            if (openDelaySeconds > 64800)
+            { CommonTools.MessageShow("开延迟不能大于18小时!", 2, ""); return null; }
+            if (closeDelaySeconds > 64800)
+            { CommonTools.MessageShow("关延迟不能大于18小时!", 2, ""); return null; }
+
             return motor.GetCommandData(motorCommand, percent, actionIndex, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
         }
 
@@ -163,6 +171,8 @@ namespace ConfigDevice
             int runTime =   ConvertTools.Bytes2ToInt(byteRunTime);
             int openDelayTime = ConvertTools.Bytes2ToInt(byteOpenDelayTime);  
             int closeDelayTime = ConvertTools.Bytes2ToInt(byteCloseDelayTime);  
+
+          
 
             string nowDateStr = DateTime.Now.ToShortDateString(); 
             DataTable dt = ViewSetting.GridControl.DataSource as DataTable;

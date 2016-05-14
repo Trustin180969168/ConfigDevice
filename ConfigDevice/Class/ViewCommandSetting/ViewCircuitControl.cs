@@ -47,6 +47,7 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
+            dcCommand.Visible = true;
             dcCircuit.Visible = true;
             dcPercent.Visible = true;
             dcRunTime.Visible = true;
@@ -117,6 +118,13 @@ namespace ConfigDevice
             int runTimeSeconds = dtRunTime.Hour * 60 * 60 + dtRunTime.Minute * 60 + dtRunTime.Second;//运行秒数
             int openDelaySeconds = dtOpenDelay.Hour * 60 * 60 + dtOpenDelay.Minute * 60 + dtOpenDelay.Second;//开延迟秒数
             int closeDelaySeconds = dtCloseDelay.Hour * 60 * 60 + dtCloseDelay.Minute * 60 + dtCloseDelay.Second;//关延迟秒数
+
+            if (runTimeSeconds > 64800)
+            { CommonTools.MessageShow("运行时间不能大于18小时!", 2, ""); return null; }
+            if (openDelaySeconds > 64800)
+            { CommonTools.MessageShow("开延迟不能大于18小时!", 2, ""); return null; }
+            if (closeDelaySeconds > 64800)
+            { CommonTools.MessageShow("关延迟不能大于18小时!", 2, ""); return null; }
 
             return circuit.GetCommandData(circuitCommand, percent, circuitIndex, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
         }

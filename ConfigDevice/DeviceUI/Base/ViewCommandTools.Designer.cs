@@ -314,6 +314,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.timeTest.DisplayFormat.FormatString = "d";
             this.timeTest.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.timeTest.HideSelection = false;
             this.timeTest.Mask.EditMask = "HH:mm:ss";
             this.timeTest.Mask.UseMaskAsDisplayFormat = true;
             this.timeTest.Name = "timeTest";

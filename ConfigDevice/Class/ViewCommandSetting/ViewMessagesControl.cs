@@ -48,6 +48,7 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
+            dcCommand.Visible = true;
             dcSoundSource.Visible = true;
             dcVolume.Visible = true;
             dcPlayOrder.Visible = true;

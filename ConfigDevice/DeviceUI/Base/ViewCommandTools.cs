@@ -94,7 +94,7 @@ namespace ConfigDevice
             SelectDevice select = new SelectDevice();
             if (select.ShowDialog() == DialogResult.Yes)
             {
-                DelCommandSetting();
+                CleanCommandSetting();
                 CurrentDevice = select.ChooseDevice;
                 DataRow dr = DataCommandSetting.Rows[0];
                 dr[DeviceConfig.DC_NUM] = cedtNum.Text;
@@ -156,36 +156,26 @@ namespace ConfigDevice
             if (CommonTools.MessageShow("是否删除第" + this.Num.ToString() + "指令?", 4, "") == DialogResult.No)
                 return;
             DelCommandData(this.Num-1);
-            DelCommandSetting();//清空界面
+            CleanCommandSetting();//清空界面
             //SyncCommandSetting();----删除取消同步----
         }
 
         /// <summary>
         /// 清空指令配置
         /// </summary>
-        public void DelCommandSetting()
+        public void CleanCommandSetting()
         {
             DataRow dr = gvCommands.GetDataRow(0);
             dr.Delete();
             DataCommandSetting.Rows.Add();
-            //dr[DeviceConfig.DC_ID] = "";
-            //dr[DeviceConfig.DC_NETWORK_ID] = "";
-            //dr[DeviceConfig.DC_KIND_ID] = "";
-            //dr[DeviceConfig.DC_KIND_NAME] = "";
-            //dr[DeviceConfig.DC_NAME] = "";
-            //dr[DeviceConfig.DC_CONTROL_OBJ] = "";
-            //dr[DeviceConfig.DC_COMMAND] = "";
-            //dr[DeviceConfig.DC_PARAMETER1] = "";
-            //dr[DeviceConfig.DC_PARAMETER2] = "";
-            //dr[DeviceConfig.DC_PARAMETER3] = "";
-            //dr[DeviceConfig.DC_PARAMETER4] = "";
-            //dr[DeviceConfig.DC_PARAMETER5] = "";
-
+            
             parameter1.Visible = false;
             parameter2.Visible = false;
             parameter3.Visible = false;
             parameter4.Visible = false;
             parameter5.Visible = false;
+            cbxControlObj.Items.Clear();
+            command.Visible = false;
 
             DataCommandSetting.AcceptChanges();
             gvCommands.RefreshData();
@@ -230,14 +220,14 @@ namespace ConfigDevice
             if (this.CurrentDevice == null || this.CurrentDevice.KindID != value.CurrentDevice.KindID)
             {
                 this.CurrentDevice = SysCtrl.CreateDevice(value.CurrentDevice.ByteKindID).CreateDevice(value.CurrentDevice.GetDeviceInfo());
-                this.DelCommandSetting();//----清空----
+                this.CleanCommandSetting();//----清空----
                 cbxControlObj.Items.Clear();
                 foreach (string key in CurrentDevice.ContrlObjs.Keys)
                     cbxControlObj.Items.Add(key);
                 if (valueCtrlObjName == "") return;     //-----------不同设备,初始化后退出------------------
             }
             else if (valueCtrlObjName == "")
-            { this.DelCommandSetting(); return; }//------相同设备且为删除操作,执行删除并退出-------
+            { this.CleanCommandSetting(); return; }//------相同设备且为删除操作,执行删除并退出-------
             //---------控制对象为空,或者不同,则创建------
             if (this.CurrentControlObj == null || this.CurrentControlObj.Name != value.CurrentControlObj.Name)
             {

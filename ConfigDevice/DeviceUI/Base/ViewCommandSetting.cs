@@ -188,7 +188,7 @@ namespace ConfigDevice.DeviceUI
                 {
                     ViewCommandTools commandView = view as ViewCommandTools;
                     if (commandView.Num > count) continue;
-                    commandView.DelCommandSetting();
+                    commandView.CleanCommandSetting();
                 }
                 CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, 0, (int)edtEndNum.Value - 1);//序号从0开始
             }

@@ -35,6 +35,7 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
+            dcCommand.Visible = true;
             dcRunTime.Visible = true;
             ViewSetting.Columns.ColumnByName("parameter2").Visible = false;
             ViewSetting.Columns.ColumnByName("parameter3").Visible = false;

@@ -32,6 +32,7 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
+            dcCommand.Visible = true;
             cbxCommandKind.Items.Add(ServerControlObj.NAME_CMD_SEND_WEIXIN);
             dcWeiXinContent.Caption = "微信内容";
             ViewSetting.Columns.ColumnByName("parameter2").Visible = false;

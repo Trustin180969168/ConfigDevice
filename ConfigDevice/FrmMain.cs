@@ -222,7 +222,7 @@ namespace ConfigDevice
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             if (network.State == NetworkConfig.STATE_CONNECTED)
             {
-                FrmNetworkEdit frm = new FrmNetworkEdit();
+                FrmNetworkEdit frm = new FrmNetworkEdit();                          
                 frm.NetworkEdit = network;
                 frm.Show(this);
             }
@@ -266,6 +266,7 @@ namespace ConfigDevice
         private void btClearDevice_Click(object sender, EventArgs e)
         {
             deviceCtrl.ClearDevices();
+            if (cbxSelectNetwork.Items.Count == 0) initCbxSelectNetwork();
             cbxSelectNetwork.SelectedIndex = 0;
         }
 

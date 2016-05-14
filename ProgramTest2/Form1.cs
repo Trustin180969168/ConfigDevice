@@ -43,8 +43,9 @@ namespace ProgramTest2
 
         private void simpleButton2_Click(object sender, EventArgs e)
         {
-         //   byte[] byteRunTime = System.BitConverter.GetBytes(40271);
-            byte[] byteRunTime = {0x4f ,0x9d};
+            int test = 65535;
+            byte[] byteRunTime = System.BitConverter.GetBytes(test);
+      //      byte[] byteRunTime = {0xdc ,0x3f};
             Array.Resize(ref byteRunTime, 4);
             int runTime = BitConverter.ToInt32(byteRunTime, 0);
             textEdit1.Text = runTime.ToString();
