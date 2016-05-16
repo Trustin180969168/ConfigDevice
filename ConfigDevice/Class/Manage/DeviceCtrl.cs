@@ -56,7 +56,9 @@ namespace ConfigDevice
             string temp = DeviceConfig.DC_NETWORK_ID + " = '" + SearchingNetwork.NetworkID + "' ";
             DataRow[] rows = SysConfig.DtDevice.Select(temp);
             foreach (DataRow dr in rows)
+            {
                 dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
+            }
             SysConfig.DtDevice.AcceptChanges();//---初始化数据----
         }
 
@@ -161,8 +163,11 @@ namespace ConfigDevice
                 {
                     foreach (DataRow dr in rows)
                     {
-                        dr[DeviceConfig.DC_REMARK] = DeviceConfig.ERROR_SAME_DEVICE_ID;//其他标识冲突
-                        dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;//其他标识冲突
+                        if (!dr[DeviceConfig.DC_REMARK].ToString().Contains(DeviceConfig.ERROR_SAME_DEVICE_ID))
+                        {
+                            dr[DeviceConfig.DC_REMARK] = DeviceConfig.ERROR_SAME_DEVICE_ID;//其他标识冲突
+                            dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;//其他标识冲突
+                        }
                     }
                     device.State = DeviceConfig.STATE_ERROR;//自身标识冲突
                     device.Remark = DeviceConfig.ERROR_SAME_DEVICE_ID;//自身标识冲突
@@ -174,8 +179,11 @@ namespace ConfigDevice
                 {
                     foreach (DataRow dr in rows)
                     {
-                        dr[DeviceConfig.DC_REMARK] += DeviceConfig.ERROR_SAME_DEVICE_TITLE; ;
-                        dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
+                        if (!dr[DeviceConfig.DC_REMARK].ToString().Contains(DeviceConfig.ERROR_SAME_DEVICE_TITLE))
+                        {
+                            dr[DeviceConfig.DC_REMARK] += DeviceConfig.ERROR_SAME_DEVICE_TITLE;
+                            dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
+                        }
                     }
                     device.State = DeviceConfig.STATE_ERROR;
                     device.Remark += DeviceConfig.ERROR_SAME_DEVICE_TITLE;

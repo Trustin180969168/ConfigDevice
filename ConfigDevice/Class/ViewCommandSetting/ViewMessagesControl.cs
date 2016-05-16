@@ -81,6 +81,9 @@ namespace ConfigDevice
             cbxPlayOrder.Items.Add(Messages.CTRLP_PMD_MULTI_INVALID);
             dcPlayOrder.ColumnEdit = cbxPlayOrder;
 
+            edtNum.Mask.EditMask = "\\d+";
+            edtNum.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            edtNum.MaxValue = new decimal(new int[] { 255, 0, 0, 0 });
             dcPlayNum.Caption = "曲目";
             dcPlayNum.ColumnEdit = edtNum;
             dcPlayCount.Caption = "播放次数";
@@ -152,17 +155,18 @@ namespace ConfigDevice
                 { cmdName = key; break; }
             }
             ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
+            ViewSetting.SetRowCellValue(0, dcVolume, (int)data.Data[3]);//---音量---
             //---音源---
-            int sourceIndex = (int)data.Data[5];
+            int sourceIndex = (int)data.Data[4];
             ViewSetting.SetRowCellValue(0, dcSoundSource, cbxSoundSource.Items[sourceIndex]);
             //---播放方式---
-            int kindIndex = (int)data.Data[6];
+            int kindIndex = (int)data.Data[5];
             ViewSetting.SetRowCellValue(0, dcPlayOrder, cbxPlayOrder.Items[kindIndex]);
             //---曲目-----
-            int playNum = ConvertTools.Bytes2ToInt(new byte[] { data.Data[7], data.Data[8] });
+            int playNum = ConvertTools.Bytes2ToInt(new byte[] { data.Data[6], data.Data[7] });
             ViewSetting.SetRowCellValue(0, dcPlayNum, playNum.ToString());
             //---播放次数-----
-            int playCount = ConvertTools.Bytes2ToInt(new byte[] { data.Data[9], data.Data[10] });
+            int playCount = ConvertTools.Bytes2ToInt(new byte[] { data.Data[8], data.Data[9] });
             ViewSetting.SetRowCellValue(0, dcPlayCount, playCount.ToString());
         }
     }

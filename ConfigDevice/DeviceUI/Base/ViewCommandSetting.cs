@@ -9,7 +9,6 @@ using DevExpress.XtraEditors;
 
 namespace ConfigDevice.DeviceUI
 {
-
     public partial class ViewCommandSetting : UserControl
     {
         public string CommandGroupName { set { this.lblGroupName.Text = value; } }
@@ -29,8 +28,6 @@ namespace ConfigDevice.DeviceUI
             InitializeComponent();
         }
 
-
-
         /// <summary>
         /// 获取指令数据
         /// </summary>
@@ -38,7 +35,6 @@ namespace ConfigDevice.DeviceUI
         /// <param name="values"></param>
         private void returnCommandData(object[] values)
         {
-
             if (this.InvokeRequired)
             {
                 this.Invoke(new CallbackUIAction(returnCommandData), new object[] { values });
@@ -54,8 +50,6 @@ namespace ConfigDevice.DeviceUI
                     return;
                 }
             }
-
-
         }
 
         /// <summary>
@@ -79,8 +73,6 @@ namespace ConfigDevice.DeviceUI
             }
         }
 
-
-
         /// <summary>
         /// 添加指令配置
         /// </summary>
@@ -94,6 +86,7 @@ namespace ConfigDevice.DeviceUI
             (viewNew as Control).BringToFront();
             return viewNew;
         }
+
         /// <summary>
         /// 移除指令配置
         /// </summary>
@@ -132,11 +125,12 @@ namespace ConfigDevice.DeviceUI
             CommandEdit = new CommandCtrl(device);
             CommandEdit.OnCallbackUI_Action += this.returnCommandData;//命令的执行的界面回调
             NeedInit = false;//---标记初始化完毕
-            cbxGroup.SelectedIndex = 0;//执行读取
-            cbxGroup.EditValue = CommmandGroups[0];//选择第一组/键
-            
+            if (CommmandGroups.Count > 0)
+            {
+                cbxGroup.SelectedIndex = 0;//执行读取
+                cbxGroup.EditValue = CommmandGroups[0];//选择第一组/键      
+            }
         }
-
 
         /// <summary>
         /// 更新组名
@@ -161,7 +155,6 @@ namespace ConfigDevice.DeviceUI
             }
             NeedInit = false;
         }
-
 
         /// <summary>
         /// 回调
@@ -240,7 +233,6 @@ namespace ConfigDevice.DeviceUI
         /// <param name="cmdNum">命令编号</param>
         public void DelCommandData(int cmdNum)
         {
-
             CommandEdit.DelCommandData(cbxGroup.SelectedIndex, cmdNum, cmdNum);
         }
 

@@ -8,7 +8,7 @@ namespace ConfigDevice
     public class Messages : ControlObj
     {
         public const string NAME_CMD_SWIT_ALL_MUSIC = "开关音乐";
-        public const string NAME_CMD_SWIT_OPEN_MUSIC = "开关音乐";
+        public const string NAME_CMD_SWIT_OPEN_MUSIC = "开音乐";
         public const string NAME_CMD_SWIT_CLOSE_MUSIC = "关音乐";
 
         public const string CTRLP_MSSAGEST_EMC = "紧急";

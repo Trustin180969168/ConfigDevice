@@ -9,7 +9,7 @@ namespace ConfigDevice
     public class Background : ControlObj
     {
         public const string NAME_CMD_SWIT_ALL_MUSIC="开关音乐";
-        public const string NAME_CMD_SWIT_OPEN_MUSIC="开关音乐";
+        public const string NAME_CMD_SWIT_OPEN_MUSIC="开音乐";
         public const string NAME_CMD_SWIT_CLOSE_MUSIC = "关音乐";
 
         public const string CTRLP_BGMST_MP3 = "MP3";
@@ -23,9 +23,6 @@ namespace ConfigDevice
         public const string CTRLP_PMD_REP_ALL = "循环播放";
         public const string CTRLP_PMD_SHUFFLE = "随机播放";
         public const string CTRLP_PMD_INVALID = "无效";
-
-
-
 
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public Background(Device _deviceCtrl)

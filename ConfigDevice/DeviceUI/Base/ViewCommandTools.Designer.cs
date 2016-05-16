@@ -48,6 +48,7 @@
             this.cedtSelect = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.hyperLinkEdit1 = new DevExpress.XtraEditors.HyperLinkEdit();
             this.cedtNum = new DevExpress.XtraEditors.CheckEdit();
+            this.numEdit = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
@@ -57,6 +58,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cedtSelect)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // gcCommands
@@ -72,7 +74,8 @@
             this.linkEdit,
             this.timeTest,
             this.spinTest,
-            this.cedtSelect});
+            this.cedtSelect,
+            this.numEdit});
             this.gcCommands.Size = new System.Drawing.Size(923, 70);
             this.gcCommands.TabIndex = 8;
             this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -318,7 +321,6 @@
             this.timeTest.Mask.EditMask = "HH:mm:ss";
             this.timeTest.Mask.UseMaskAsDisplayFormat = true;
             this.timeTest.Name = "timeTest";
-            this.timeTest.Leave += new System.EventHandler(this.timeTest_Leave);
             // 
             // spinTest
             // 
@@ -376,6 +378,20 @@
             this.cedtNum.Size = new System.Drawing.Size(47, 70);
             this.cedtNum.TabIndex = 13;
             // 
+            // numEdit
+            // 
+            this.numEdit.AutoHeight = false;
+            this.numEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.numEdit.Mask.EditMask = "\\d+";
+            this.numEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            this.numEdit.MaxValue = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numEdit.Name = "numEdit";
+            // 
             // ViewCommandTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -394,6 +410,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cedtSelect)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -420,5 +437,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit cedtSelect;
         private DevExpress.XtraEditors.HyperLinkEdit hyperLinkEdit1;
         private DevExpress.XtraEditors.CheckEdit cedtNum;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit numEdit;
     }
 }

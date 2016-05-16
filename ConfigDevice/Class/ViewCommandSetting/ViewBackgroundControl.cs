@@ -84,6 +84,9 @@ namespace ConfigDevice
             cbxPlayOrder.Items.Add(Background.CTRLP_PMD_INVALID);
             dcPlayOrder.ColumnEdit = cbxPlayOrder;
 
+            edtNum.Mask.EditMask = "\\d+";
+            edtNum.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            edtNum.MaxValue = new decimal(new int[] { 255, 0, 0, 0 });
             dcPlayNum.Caption = "曲目";
             dcPlayNum.ColumnEdit = edtNum;
             dcPlayTime.Caption = "播放时间";
@@ -118,7 +121,7 @@ namespace ConfigDevice
         {
             ViewSetting.PostEditor();
             DataRow dr = ViewSetting.GetDataRow(0);
-            byte[]  command = Background.NameAndCommand[dr[dcCommand.FieldName].ToString()];//----播放命令--------            
+            byte[] command = Background.NameAndCommand[dr[dcCommand.FieldName].ToString()];//----播放命令--------            
             int volume = Convert.ToInt16(dr[dcVolume.FieldName].ToString());//-----音量----
             //----------音源-----------------
             int sourceIndex = 0;
@@ -170,17 +173,18 @@ namespace ConfigDevice
                 { cmdName = key; break; }
             }
             ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
+            ViewSetting.SetRowCellValue(0, dcVolume, (int)data.Data[3]);//---音量---
             //---音源---
-            int sourceIndex = (int)data.Data[5];
+            int sourceIndex = (int)data.Data[4];
             ViewSetting.SetRowCellValue(0, dcSoundSource, cbxSoundSource.Items[sourceIndex]);
             //---播放方式---
-            int kindIndex = (int)data.Data[6];
+            int kindIndex = (int)data.Data[5];
             ViewSetting.SetRowCellValue(0, dcPlayOrder, cbxPlayOrder.Items[kindIndex]);
             //---曲目-----
-            int playNum = ConvertTools.Bytes2ToInt(new byte[] { data.Data[7], data.Data[8] });
+            int playNum = ConvertTools.Bytes2ToInt(new byte[] { data.Data[6], data.Data[7] });
             ViewSetting.SetRowCellValue(0, dcPlayNum, playNum.ToString());
             //---播放时间-----
-            int playTime = ConvertTools.Bytes2ToInt(new byte[] { data.Data[9], data.Data[10] });
+            int playTime = ConvertTools.Bytes2ToInt(new byte[] { data.Data[8], data.Data[9] });
             DataRow dr = ViewSetting.GetDataRow(0);
             string nowDateStr = DateTime.Now.ToShortDateString();
             dr[dcPlayTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(playTime).ToLongTimeString();
