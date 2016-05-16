@@ -45,7 +45,6 @@ namespace ConfigDevice
             Buffer.BlockCopy(BitConverter.GetBytes(usRunTime), 0, cmdData.Data, 2, 4);//运行时间
 
             return cmdData;
-
         }
 
 

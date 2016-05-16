@@ -193,9 +193,7 @@ namespace ConfigDevice
 
             int runTime =   ConvertTools.Bytes2ToInt(byteRunTime);
             int openDelayTime = ConvertTools.Bytes2ToInt(byteOpenDelayTime);  
-            int closeDelayTime = ConvertTools.Bytes2ToInt(byteCloseDelayTime);  
-
-          
+            int closeDelayTime = ConvertTools.Bytes2ToInt(byteCloseDelayTime); 
 
             string nowDateStr = DateTime.Now.ToShortDateString(); 
             DataTable dt = ViewSetting.GridControl.DataSource as DataTable;

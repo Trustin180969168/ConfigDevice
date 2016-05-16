@@ -4,6 +4,7 @@ using System.Text;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Columns;
+using System.Data;
 
 namespace ConfigDevice
 {
@@ -65,22 +66,22 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(Background.NAME_CMD_SWIT_CLOSE_MUSIC);
 
             dcSoundSource.Caption = "音源";
-            cbxSoundSource.Items.Add(Background.NAME_SOURCE_MP3);
-            cbxSoundSource.Items.Add(Background.NAME_SOURCE_RADIO);
-            cbxSoundSource.Items.Add(Background.NAME_SOURCE_AUX1);
-            cbxSoundSource.Items.Add(Background.NAME_SOURCE_AUX2);
+            cbxSoundSource.Items.Add(Background.CTRLP_BGMST_MP3);
+            cbxSoundSource.Items.Add(Background.CTRLP_BGMST_RADIO);
+            cbxSoundSource.Items.Add(Background.CTRLP_BGMST_AUX1);
+            cbxSoundSource.Items.Add(Background.CTRLP_BGMST_AUX2);
             dcSoundSource.ColumnEdit = cbxSoundSource;
 
             dcVolume.Caption = "音量";
             dcVolume.ColumnEdit = edtPercentNum;
 
             dcPlayOrder.Caption = "播放方式";
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_ORDER_ONE);
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_ORDER_ONE_LOOP);
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_ORDER);
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_ORDER_LOOP);
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_ORDER_RANDOM);
-            cbxPlayOrder.Items.Add(Background.NAME_PLAY_INVALID);
+            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_PLY_ONE);
+            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_REP_ONE);
+            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_PLY_ALL);
+            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_REP_ALL);
+            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_SHUFFLE);
+            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_INVALID);
             dcPlayOrder.ColumnEdit = cbxPlayOrder;
 
             dcPlayNum.Caption = "曲目";
@@ -115,14 +116,74 @@ namespace ConfigDevice
         /// <returns></returns>
         public override CommandData GetCommand()
         {
-            return null;
+            ViewSetting.PostEditor();
+            DataRow dr = ViewSetting.GetDataRow(0);
+            byte[]  command = Background.NameAndCommand[dr[dcCommand.FieldName].ToString()];//----播放命令--------            
+            int volume = Convert.ToInt16(dr[dcVolume.FieldName].ToString());//-----音量----
+            //----------音源-----------------
+            int sourceIndex = 0;
+            string actionName = dr[dcSoundSource.FieldName].ToString();
+            if (actionName == Background.CTRLP_BGMST_MP3)
+                sourceIndex = 0;
+            else if (actionName == Background.CTRLP_BGMST_RADIO)
+                sourceIndex = 1;
+            else if (actionName == Background.CTRLP_BGMST_AUX1)
+                sourceIndex = 2;
+            else if (actionName == Background.CTRLP_BGMST_AUX2)
+                sourceIndex = 3;
+            //----------播放模式-----------------
+            int kindIndex = 0;
+            actionName = dr[dcPlayOrder.FieldName].ToString();
+            if (actionName == Background.CTRLP_PMD_PLY_ONE)
+                kindIndex = 0;
+            else if (actionName == Background.CTRLP_PMD_REP_ONE)
+                kindIndex = 1;
+            else if (actionName == Background.CTRLP_PMD_PLY_ALL)
+                kindIndex = 2;
+            else if (actionName == Background.CTRLP_PMD_REP_ALL)
+                kindIndex = 3;
+            else if (actionName == Background.CTRLP_PMD_SHUFFLE)
+                kindIndex = 4;
+            int playNum = Convert.ToInt16(dr[dcPlayNum.FieldName]);//----播放曲目-----
+            //----------计算时间-------------------
+            DateTime dtRunTime = DateTime.Parse(dr[dcPlayTime.FieldName].ToString());
+            int runTimeSeconds = dtRunTime.Hour * 60 * 60 + dtRunTime.Minute * 60 + dtRunTime.Second;//运行秒数
+            if (runTimeSeconds > 64800)
+            { CommonTools.MessageShow("运行时间不能大于18小时!", 2, ""); return null; }
+
+            return background.GetCommandData(command, volume, sourceIndex, kindIndex, playNum, runTimeSeconds);
+
         }
 
 
-
+        /// <summary>
+        /// 显示指令数据
+        /// </summary>
+        /// <param name="data"></param>
         public override void SetCommandData(CommandData data)
         {
-           
+            //---找出对应的指令---------
+            string cmdName = "";
+            foreach (string key in Background.NameAndCommand.Keys)
+            {
+                if (CommonTools.BytesEuqals(data.Cmd, Background.NameAndCommand[key]))
+                { cmdName = key; break; }
+            }
+            ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
+            //---音源---
+            int sourceIndex = (int)data.Data[5];
+            ViewSetting.SetRowCellValue(0, dcSoundSource, cbxSoundSource.Items[sourceIndex]);
+            //---播放方式---
+            int kindIndex = (int)data.Data[6];
+            ViewSetting.SetRowCellValue(0, dcPlayOrder, cbxPlayOrder.Items[kindIndex]);
+            //---曲目-----
+            int playNum = ConvertTools.Bytes2ToInt(new byte[] { data.Data[7], data.Data[8] });
+            ViewSetting.SetRowCellValue(0, dcPlayNum, playNum.ToString());
+            //---播放时间-----
+            int playTime = ConvertTools.Bytes2ToInt(new byte[] { data.Data[9], data.Data[10] });
+            DataRow dr = ViewSetting.GetDataRow(0);
+            string nowDateStr = DateTime.Now.ToShortDateString();
+            dr[dcPlayTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(playTime).ToLongTimeString();
         }
     }
 }

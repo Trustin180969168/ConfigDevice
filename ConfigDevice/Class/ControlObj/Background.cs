@@ -4,30 +4,71 @@ using System.Text;
 
 namespace ConfigDevice
 {
-    
+
+
     public class Background : ControlObj
     {
         public const string NAME_CMD_SWIT_ALL_MUSIC="开关音乐";
         public const string NAME_CMD_SWIT_OPEN_MUSIC="开关音乐";
         public const string NAME_CMD_SWIT_CLOSE_MUSIC = "关音乐";
 
-        public const string NAME_SOURCE_MP3 = "MP3";
-        public const string NAME_SOURCE_RADIO = "收音机";
-        public const string NAME_SOURCE_AUX1 = "AUX1";
-        public const string NAME_SOURCE_AUX2 = "AUX2";
+        public const string CTRLP_BGMST_MP3 = "MP3";
+        public const string CTRLP_BGMST_RADIO = "收音机";
+        public const string CTRLP_BGMST_AUX1 = "AUX1";
+        public const string CTRLP_BGMST_AUX2 = "AUX2";
 
-        public const string NAME_PLAY_ORDER_ONE = "单曲播放";
-        public const string NAME_PLAY_ORDER_ONE_LOOP = "单曲循环";
-        public const string NAME_PLAY_ORDER = "顺序播放";
-        public const string NAME_PLAY_ORDER_LOOP = "循环播放";
-        public const string NAME_PLAY_ORDER_RANDOM = "随机播放";
-        public const string NAME_PLAY_INVALID = "无效";
+        public const string CTRLP_PMD_PLY_ONE = "单曲播放";
+        public const string CTRLP_PMD_REP_ONE = "单曲循环";
+        public const string CTRLP_PMD_PLY_ALL = "顺序播放";
+        public const string CTRLP_PMD_REP_ALL = "循环播放";
+        public const string CTRLP_PMD_SHUFFLE = "随机播放";
+        public const string CTRLP_PMD_INVALID = "无效";
 
+
+
+
+        public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public Background(Device _deviceCtrl)
         {
             Name = "背景";
             deviceControled = _deviceCtrl;
+            if (NameAndCommand.Count == 0)
+            {
+                NameAndCommand.Add(NAME_CMD_SWIT_ALL_MUSIC, DeviceConfig.CMD_SW_SWIT_LOOP);
+                NameAndCommand.Add(NAME_CMD_SWIT_OPEN_MUSIC, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN);
+                NameAndCommand.Add(NAME_CMD_SWIT_CLOSE_MUSIC, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE);
+            }
         }
+
+
+        /// <summary>
+        /// 获取执行命令数据
+        /// </summary>
+        /// <param name="command">命令</param>
+        /// <param name="usRunTime">运行时间</param>
+        /// <returns>CommandData</returns>
+        public CommandData GetCommandData(byte[] command, int volume,int source,int playKind,int playNum,int palyTime)
+        {
+            CommandData cmdData = new CommandData("背景播放");
+            cmdData.TargetId = deviceControled.ByteDeviceID;
+            cmdData.TargetNet = deviceControled.ByteNetworkId;
+            cmdData.TargetType = deviceControled.ByteKindID;
+
+            cmdData.Cmd = command;
+            cmdData.DataLen = 10;
+
+            cmdData.Data[0] = 0;//0或者1，CMD_SW_SWIT_LOOP时 1表示开，0表示关闭CMD_SW_SWIT_LOOP_OPEN 时 与此值无关，打开音乐CMD_SW_SWIT_LOOP_CLOSE 时 与此值无关
+            cmdData.Data[1] = 0;//保留
+            cmdData.Data[2] = (byte)DeviceConfig.MUSIC_KIND.GENERAL_BGM;//类型
+            cmdData.Data[3] = (byte)volume;//音量
+            cmdData.Data[4] = (byte)source;//音源
+            cmdData.Data[5] = (byte)playKind;//播放方式
+            Buffer.BlockCopy(BitConverter.GetBytes(playNum), 0, cmdData.Data, 6, 2);//曲目
+            Buffer.BlockCopy(BitConverter.GetBytes(palyTime), 0, cmdData.Data, 8, 2);//播放时间
+
+            return cmdData;
+        }
+
 
     }
 

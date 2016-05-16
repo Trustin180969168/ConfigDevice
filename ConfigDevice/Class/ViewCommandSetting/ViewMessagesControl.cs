@@ -4,6 +4,7 @@ using System.Text;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Columns;
+using System.Data;
 
 namespace ConfigDevice
 {
@@ -65,19 +66,19 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(Messages.NAME_CMD_SWIT_CLOSE_MUSIC);
 
             dcSoundSource.Caption = "音源";
-            cbxSoundSource.Items.Add(Messages.NAME_SOURCE_URGENCY);
-            cbxSoundSource.Items.Add(Messages.NAME_SOURCE_DOOR_WINDOW);
+            cbxSoundSource.Items.Add(Messages.CTRLP_MSSAGEST_EMC);
+            cbxSoundSource.Items.Add(Messages.CTRLP_MESSAGEST_WINDOWS);
             dcSoundSource.ColumnEdit = cbxSoundSource;
 
             dcVolume.Caption = "音量";
             dcVolume.ColumnEdit = edtPercentNum;
 
             dcPlayOrder.Caption = "播放方式";
-            cbxPlayOrder.Items.Add(Messages.NAME_PLAY_ONE_COUNT);
-            cbxPlayOrder.Items.Add(Messages.NAME_PLAY_ONE_COUNT_TIME);
-            cbxPlayOrder.Items.Add(Messages.NAME_PLAY_MORE_COUNT);
-            cbxPlayOrder.Items.Add(Messages.NAME_PLAY_MORE_COUNT_TIME);
-            cbxPlayOrder.Items.Add(Messages.NAME_PLAY_INVALID);
+            cbxPlayOrder.Items.Add(Messages.CTRLP_PMD_SIMPLE_COUNT);
+            cbxPlayOrder.Items.Add(Messages.CTRLP_PMD_SIMPLE_TIME);
+            cbxPlayOrder.Items.Add(Messages.CTRLP_PMD_MULTI_COUNT);
+            cbxPlayOrder.Items.Add(Messages.CTRLP_PMD_MULTI_TIME);
+            cbxPlayOrder.Items.Add(Messages.CTRLP_PMD_MULTI_INVALID);
             dcPlayOrder.ColumnEdit = cbxPlayOrder;
 
             dcPlayNum.Caption = "曲目";
@@ -109,14 +110,60 @@ namespace ConfigDevice
         /// <returns></returns>
         public override CommandData GetCommand()
         {
-            return null;
+            ViewSetting.PostEditor();
+            DataRow dr = ViewSetting.GetDataRow(0);
+            byte[] command = Messages.NameAndCommand[dr[dcCommand.FieldName].ToString()];//----播放命令--------            
+            int volume = Convert.ToInt16(dr[dcVolume.FieldName].ToString());//-----音量----
+            //----------音源-----------------
+            int sourceIndex = 0;
+            string actionName = dr[dcSoundSource.FieldName].ToString();
+            if (actionName == Messages.CTRLP_MSSAGEST_EMC)
+                sourceIndex = 0;
+            else if (actionName == Messages.CTRLP_MESSAGEST_WINDOWS)
+                sourceIndex = 1;
+            //----------播放模式-----------------
+            int kindIndex = 0;
+            actionName = dr[dcPlayOrder.FieldName].ToString();
+            if (actionName == Messages.CTRLP_PMD_SIMPLE_COUNT)
+                kindIndex = 0;
+            else if (actionName == Messages.CTRLP_PMD_SIMPLE_TIME)
+                kindIndex = 1;
+            else if (actionName == Messages.CTRLP_PMD_MULTI_COUNT)
+                kindIndex = 2;
+            else if (actionName == Messages.CTRLP_PMD_MULTI_TIME)
+                kindIndex = 3;
+            int playNum = Convert.ToInt16(dr[dcPlayNum.FieldName]);//----播放曲目-----
+            int playCount = Convert.ToInt16(dr[dcPlayCount.FieldName]);//---------播放次数-------------------
+            return message.GetCommandData(command, volume, sourceIndex, kindIndex, playNum, playCount);
         }
 
 
-
+        /// <summary>
+        /// 显示指令数据
+        /// </summary>
+        /// <param name="data"></param>
         public override void SetCommandData(CommandData data)
         {
-           
+            //---找出对应的指令---------
+            string cmdName = "";
+            foreach (string key in Messages.NameAndCommand.Keys)
+            {
+                if (CommonTools.BytesEuqals(data.Cmd, Messages.NameAndCommand[key]))
+                { cmdName = key; break; }
+            }
+            ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
+            //---音源---
+            int sourceIndex = (int)data.Data[5];
+            ViewSetting.SetRowCellValue(0, dcSoundSource, cbxSoundSource.Items[sourceIndex]);
+            //---播放方式---
+            int kindIndex = (int)data.Data[6];
+            ViewSetting.SetRowCellValue(0, dcPlayOrder, cbxPlayOrder.Items[kindIndex]);
+            //---曲目-----
+            int playNum = ConvertTools.Bytes2ToInt(new byte[] { data.Data[7], data.Data[8] });
+            ViewSetting.SetRowCellValue(0, dcPlayNum, playNum.ToString());
+            //---播放次数-----
+            int playCount = ConvertTools.Bytes2ToInt(new byte[] { data.Data[9], data.Data[10] });
+            ViewSetting.SetRowCellValue(0, dcPlayCount, playCount.ToString());
         }
     }
 }
