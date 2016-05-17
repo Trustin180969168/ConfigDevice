@@ -120,9 +120,9 @@ namespace ConfigDevice
             byte[] source = new byte[] { device.BytePCAddress, device.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_COMMAND;//----用户命令-----
-            byte len = (byte)(1 + commandData.Len + 4);//---数据长度----
+            byte len = (byte)(commandData.Len + 4);//---数据长度----
 
-            byte[] crcData = new byte[10 + 1 + commandData.Len];
+            byte[] crcData = new byte[10 + commandData.Len];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;

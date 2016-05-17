@@ -303,6 +303,7 @@
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
     <Content Include="Config\SmartLight.h" />
+    <None Include="Resources\Add.png" />
     <None Include="Resources\uncheck.jpg" />
     <None Include="Resources\check.png" />
     <None Include="Resources\Election11.png" />
@@ -328,6 +329,7 @@
     <Compile Include="Class\ViewCommandSetting\ViewBackgroundControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewMessagesControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewServerControl.cs" />
+    <Compile Include="Config\AudioConfig.cs" />
     <Compile Include="Data\CommandData.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCommandControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewMotorControl.cs" />

@@ -701,7 +701,7 @@
             this.Controls.Add(this.panel2);
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "施工设备设置";
+            this.Text = "设备配置管理系统";
             this.Load += new System.EventHandler(this.FrmSocketClientTest_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmSocketClientTest_FormClosing);
             this.panel1.ResumeLayout(false);

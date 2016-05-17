@@ -66,27 +66,28 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(Background.NAME_CMD_SWIT_CLOSE_MUSIC);
 
             dcSoundSource.Caption = "音源";
-            cbxSoundSource.Items.Add(Background.CTRLP_BGMST_MP3);
-            cbxSoundSource.Items.Add(Background.CTRLP_BGMST_RADIO);
-            cbxSoundSource.Items.Add(Background.CTRLP_BGMST_AUX1);
-            cbxSoundSource.Items.Add(Background.CTRLP_BGMST_AUX2);
+            cbxSoundSource.Items.Add(AudioConfig.NAME_CTRLP_BGMST_MP3);
+            cbxSoundSource.Items.Add(AudioConfig.NAME_CTRLP_BGMST_RADIO);
+            cbxSoundSource.Items.Add(AudioConfig.NAME_CTRLP_BGMST_AUX1);
+            cbxSoundSource.Items.Add(AudioConfig.NAME_CTRLP_BGMST_AUX2);
             dcSoundSource.ColumnEdit = cbxSoundSource;
 
             dcVolume.Caption = "音量";
             dcVolume.ColumnEdit = edtPercentNum;
 
             dcPlayOrder.Caption = "播放方式";
-            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_PLY_ONE);
-            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_REP_ONE);
-            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_PLY_ALL);
-            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_REP_ALL);
-            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_SHUFFLE);
-            cbxPlayOrder.Items.Add(Background.CTRLP_PMD_INVALID);
+            cbxPlayOrder.Items.Add(AudioConfig.NAME_CTRLP_PMD_PLY_ONE);
+            cbxPlayOrder.Items.Add(AudioConfig.NAME_CTRLP_PMD_REP_ONE);
+            cbxPlayOrder.Items.Add(AudioConfig.NAME_CTRLP_PMD_PLY_ALL);
+            cbxPlayOrder.Items.Add(AudioConfig.NAME_CTRLP_PMD_REP_ALL);
+            cbxPlayOrder.Items.Add(AudioConfig.NAME_CTRLP_PMD_SHUFFLE);
+            cbxPlayOrder.Items.Add(AudioConfig.NAME_CTRLP_PMD_PLY_TOT);
             dcPlayOrder.ColumnEdit = cbxPlayOrder;
 
             edtNum.Mask.EditMask = "\\d+";
             edtNum.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
-            edtNum.MaxValue = new decimal(new int[] { 255, 0, 0, 0 });
+            edtNum.MaxValue = new decimal(new int[] { 255, 255, 0, 0 });
+            edtNum.MinValue = new decimal(new int[] { 1, 0, 0, 0 });
             dcPlayNum.Caption = "曲目";
             dcPlayNum.ColumnEdit = edtNum;
             dcPlayTime.Caption = "播放时间";
@@ -126,27 +127,11 @@ namespace ConfigDevice
             //----------音源-----------------
             int sourceIndex = 0;
             string actionName = dr[dcSoundSource.FieldName].ToString();
-            if (actionName == Background.CTRLP_BGMST_MP3)
-                sourceIndex = 0;
-            else if (actionName == Background.CTRLP_BGMST_RADIO)
-                sourceIndex = 1;
-            else if (actionName == Background.CTRLP_BGMST_AUX1)
-                sourceIndex = 2;
-            else if (actionName == Background.CTRLP_BGMST_AUX2)
-                sourceIndex = 3;
+            sourceIndex = AudioConfig.AudioSourceNameID[actionName];
             //----------播放模式-----------------
             int kindIndex = 0;
-            actionName = dr[dcPlayOrder.FieldName].ToString();
-            if (actionName == Background.CTRLP_PMD_PLY_ONE)
-                kindIndex = 0;
-            else if (actionName == Background.CTRLP_PMD_REP_ONE)
-                kindIndex = 1;
-            else if (actionName == Background.CTRLP_PMD_PLY_ALL)
-                kindIndex = 2;
-            else if (actionName == Background.CTRLP_PMD_REP_ALL)
-                kindIndex = 3;
-            else if (actionName == Background.CTRLP_PMD_SHUFFLE)
-                kindIndex = 4;
+            string kindName = dr[dcPlayOrder.FieldName].ToString();
+            kindIndex = AudioConfig.AudioPlayModeNameID[kindName];
             int playNum = Convert.ToInt16(dr[dcPlayNum.FieldName]);//----播放曲目-----
             //----------计算时间-------------------
             DateTime dtRunTime = DateTime.Parse(dr[dcPlayTime.FieldName].ToString());
@@ -176,10 +161,10 @@ namespace ConfigDevice
             ViewSetting.SetRowCellValue(0, dcVolume, (int)data.Data[3]);//---音量---
             //---音源---
             int sourceIndex = (int)data.Data[4];
-            ViewSetting.SetRowCellValue(0, dcSoundSource, cbxSoundSource.Items[sourceIndex]);
+            ViewSetting.SetRowCellValue(0, dcSoundSource,AudioConfig.AudioSourceIDName[sourceIndex]);
             //---播放方式---
             int kindIndex = (int)data.Data[5];
-            ViewSetting.SetRowCellValue(0, dcPlayOrder, cbxPlayOrder.Items[kindIndex]);
+            ViewSetting.SetRowCellValue(0, dcPlayOrder,AudioConfig.AudioPlayModeIDName[kindIndex]);
             //---曲目-----
             int playNum = ConvertTools.Bytes2ToInt(new byte[] { data.Data[6], data.Data[7] });
             ViewSetting.SetRowCellValue(0, dcPlayNum, playNum.ToString());

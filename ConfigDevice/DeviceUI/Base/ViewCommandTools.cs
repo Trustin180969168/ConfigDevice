@@ -144,6 +144,7 @@ namespace ConfigDevice
         {
             gvCommands.PostEditor();
             gvCommands.BestFitColumns();
+            gvCommands.RefreshData();
             foreach (GridColumn dc in gvCommands.Columns)
                 if (dc.VisibleIndex > 3) dc.Width += (int)(dc.Width * 0.5);
         }
@@ -209,6 +210,7 @@ namespace ConfigDevice
         private void SyncCommandSetting()
         {
             gvCommands.PostEditor();
+            gvCommands.GetDataRow(0).EndEdit();
             if (SyncCommandEdit != null && this.Checked && allowSync)
                 SyncCommandEdit(this);
         }
@@ -347,9 +349,9 @@ namespace ConfigDevice
                     } break;
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
                     {
-                        if (cmdData.Data[2] == (byte)DeviceConfig.MUSIC_KIND.GENERAL_BGM)
+                        if (cmdData.Data[2] == (byte)AudioKind.GENERAL_BGM)
                             return "背景";
-                        if (cmdData.Data[2] == (byte)DeviceConfig.MUSIC_KIND.TG_MESSAGE)
+                        if (cmdData.Data[2] == (byte)AudioKind.TG_MESSAGE)
                             return "消息";
                     } break;                    
                 case DeviceConfig.EQUIPMENT_SERVER: return "服务器";

@@ -12,18 +12,6 @@ namespace ConfigDevice
         public const string NAME_CMD_SWIT_OPEN_MUSIC="开音乐";
         public const string NAME_CMD_SWIT_CLOSE_MUSIC = "关音乐";
 
-        public const string CTRLP_BGMST_MP3 = "MP3";
-        public const string CTRLP_BGMST_RADIO = "收音机";
-        public const string CTRLP_BGMST_AUX1 = "AUX1";
-        public const string CTRLP_BGMST_AUX2 = "AUX2";
-
-        public const string CTRLP_PMD_PLY_ONE = "单曲播放";
-        public const string CTRLP_PMD_REP_ONE = "单曲循环";
-        public const string CTRLP_PMD_PLY_ALL = "顺序播放";
-        public const string CTRLP_PMD_REP_ALL = "循环播放";
-        public const string CTRLP_PMD_SHUFFLE = "随机播放";
-        public const string CTRLP_PMD_INVALID = "无效";
-
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public Background(Device _deviceCtrl)
         {
@@ -56,7 +44,7 @@ namespace ConfigDevice
 
             cmdData.Data[0] = 0;//0或者1，CMD_SW_SWIT_LOOP时 1表示开，0表示关闭CMD_SW_SWIT_LOOP_OPEN 时 与此值无关，打开音乐CMD_SW_SWIT_LOOP_CLOSE 时 与此值无关
             cmdData.Data[1] = 0;//保留
-            cmdData.Data[2] = (byte)DeviceConfig.MUSIC_KIND.GENERAL_BGM;//类型
+            cmdData.Data[2] = (byte)AudioKind.GENERAL_BGM;//类型
             cmdData.Data[3] = (byte)volume;//音量
             cmdData.Data[4] = (byte)source;//音源
             cmdData.Data[5] = (byte)playKind;//播放方式

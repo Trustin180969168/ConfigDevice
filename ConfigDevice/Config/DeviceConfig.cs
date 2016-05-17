@@ -308,39 +308,7 @@ namespace ConfigDevice
 
         public static readonly byte[] CMD_AMP_WIFI_SET = new byte[] { 0x2E, CMD_TYPE_AMP };   //选择WIFI网络和设置连接密码(LIAO增加:2015-10-15)
 
-        public enum  AUDIO
-        {
-            CTRLP_BGMST_CLOSE = 0,// 音源: 关闭
-            CTRLP_BGMST_MP3 = 1,// 音源: MP3
-            CTRLP_BGMST_BLUE = 2,// 音源: 蓝牙
-            CTRLP_BGMST_RADIO = 3,// 音源: 收音机
-            CTRLP_BGMST_AUX1 = 4,// 音源: AUX1
-            CTRLP_BGMST_AUX2 = 5,// 音源: AUX2
-            CTRLP_MESSAGEST_WINDOWN = 6,// 音源: 门窗消息
-            CTRLP_MESSAGEST_EMC = 7,// 音源: 紧急消息
-            CTRLP_BGMST_TOTAL = 8,// 背景音源总数
-        };
-
-        //音源播放模式
-        public enum PLAY
-        {
-            CTRLP_PMD_PLY_ONE                   = 0       ,// 单曲播放
-            CTRLP_PMD_REP_ONE                   = 1       ,// 单曲循环
-            CTRLP_PMD_PLY_ALL                   = 2       ,// 顺序播放
-            CTRLP_PMD_REP_ALL                   = 3       ,// 循环播放
-            CTRLP_PMD_SHUFFLE                   = 4       ,// 随机播放
-            CTRLP_PMD_SIMPLE_COUNT              = 5       ,// 单曲计次
-	        CTRLP_PMD_SIMPLE_TIME               = 6       ,// 单曲计时
-	        CTRLP_PMD_MULTI_COUNT               = 7       ,// 多曲计次(每曲都有独立播放次数计数器)
-	        CTRLP_PMD_MULTI_TIME                = 8       ,// 多曲计时
-            CTRLP_PMD_PLY_TOT                   = 9       ,// 错误,未知模式
-        };
-       
-public enum MUSIC_KIND
-{
-    GENERAL_BGM							= 0       ,//普通背景音源     
-	TG_MESSAGE							= 1       ,//触发信息音源
-};
+  
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
         static DeviceConfig()//---静态构造函数------
         {

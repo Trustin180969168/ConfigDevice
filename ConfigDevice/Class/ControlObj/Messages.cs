@@ -11,16 +11,6 @@ namespace ConfigDevice
         public const string NAME_CMD_SWIT_OPEN_MUSIC = "开音乐";
         public const string NAME_CMD_SWIT_CLOSE_MUSIC = "关音乐";
 
-        public const string CTRLP_MSSAGEST_EMC = "紧急";
-        public const string CTRLP_MESSAGEST_WINDOWS = "门窗";
-
-        public const string CTRLP_PMD_SIMPLE_COUNT = "单曲计次";
-        public const string CTRLP_PMD_SIMPLE_TIME = "单曲计时";
-        public const string CTRLP_PMD_MULTI_COUNT = "多曲计次";
-        public const string CTRLP_PMD_MULTI_TIME = "多曲计时";
-        public const string CTRLP_PMD_MULTI_INVALID = "无效";
-
-
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public Messages(Device _deviceCtrl)
         {
@@ -52,7 +42,7 @@ namespace ConfigDevice
 
             cmdData.Data[0] = 0;//0或者1，CMD_SW_SWIT_LOOP时 1表示开，0表示关闭CMD_SW_SWIT_LOOP_OPEN 时 与此值无关，打开音乐CMD_SW_SWIT_LOOP_CLOSE 时 与此值无关
             cmdData.Data[1] = 0;//保留
-            cmdData.Data[2] = (byte)DeviceConfig.MUSIC_KIND.TG_MESSAGE;//类型
+            cmdData.Data[2] = (byte)AudioKind.TG_MESSAGE;//类型
             cmdData.Data[3] = (byte)volume;//音量
             cmdData.Data[4] = (byte)source;//音源
             cmdData.Data[5] = (byte)playKind;//播放方式

@@ -41,6 +41,9 @@ namespace ConfigDevice.DeviceUI
                 return;
             }
             CommandData commandData = (CommandData)values[0];
+            //初始化界面,指令数大于控件数则添加控件
+            while (commandCount < commandData.ucCmdNum + 1)
+                addViewCommandSetting();
             foreach (Control ctrl in xscCommands.Controls)
             {
                 ViewCommandTools viewCommand = ctrl as ViewCommandTools;
@@ -172,8 +175,8 @@ namespace ConfigDevice.DeviceUI
             if (!NeedInit)
             {
                 int count = (int)edtEndNum.Value;
-                while (count > commandCount)
-                    addViewCommandSetting();
+                //while (count > commandCount)
+                //    addViewCommandSetting();
                 while (count < commandCount)
                     removeViewCommandSetting();
                 //------清空------
@@ -234,6 +237,14 @@ namespace ConfigDevice.DeviceUI
         public void DelCommandData(int cmdNum)
         {
             CommandEdit.DelCommandData(cbxGroup.SelectedIndex, cmdNum, cmdNum);
+        }
+
+        /// <summary>
+        /// 添加指令
+        /// </summary>
+        private void btAdd_Click(object sender, EventArgs e)
+        {
+            this.addViewCommandSetting();
         }
 
 
