@@ -74,6 +74,7 @@ namespace ConfigDevice
         private byte[] managerPassword;//管理员密码
         private byte[] userPassword;//用户密码
 
+        public byte ByteKindID { get { return BitConverter.GetBytes(Convert.ToInt16(KindID))[0]; } }
         public byte BytePCAddress { get { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; } }
         public byte ByteDeviceID { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }
         public byte ByteNetworkID { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } }
@@ -190,7 +191,7 @@ namespace ConfigDevice
             udp.SendPort = SysConfig.ByteLocalPort;//--发送端口---
             udp.Protocol = UserProtocol.RJ45;//---用户协议-------
 
-            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_READ_LOCALL_NAME;//----用户命令-----
@@ -279,7 +280,7 @@ namespace ConfigDevice
             udp.SendPort = SysConfig.ByteLocalPort;//--发送端口---
             udp.Protocol = UserProtocol.RJ45;//---用户协议-------
 
-            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//-----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_WRITE_LOCALL_NAME;//----用户命令-----
@@ -363,7 +364,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_VER;//----用户命令-----
@@ -420,7 +421,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, ByteKindID };//----目标信息--
             byte[] source = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_CHANGENAME;//----用户命令-----
@@ -523,7 +524,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { 0xFF, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_CONNECT;//----用户命令-----
@@ -612,7 +613,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_DISCONNECT;//----用户命令-----
@@ -669,7 +670,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, ByteKindID };//----目标信息--
             byte[] source = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_CHANGEPASSWORD;//----用户命令-----
@@ -744,7 +745,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = NetworkConfig.CMD_PC_CONNECTING;//----用户命令-----
@@ -802,7 +803,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
 
-            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, ByteKindID };//----目标信息--
             byte[] source = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PC };//----源信息----
                  
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
@@ -936,7 +937,7 @@ namespace ConfigDevice
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性----
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
-            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_RJ45 };//----目标信息--
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
 
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----

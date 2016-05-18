@@ -24,10 +24,9 @@ namespace ConfigDevice
             server = controlObj as ServerControlObj;
             dcCommand = ViewSetting.Columns.ColumnByName("command");
             dcEmailContent = ViewSetting.Columns.ColumnByName("parameter1");
-            dcEmailContent.ColumnEdit = meEdit;
-
+            
             InitViewSetting();
-        } 
+        }
 
         /// <summary>
         /// 初始化界面配置
@@ -35,12 +34,16 @@ namespace ConfigDevice
         public override void InitViewSetting()
         {
             dcCommand.Visible = true;
-            cbxCommandKind.Items.Add(ServerControlObj.NAME_CMD_SEND_WEIXIN);
+            dcEmailContent.Visible = true; 
+            ViewSetting.Columns.ColumnByName("parameter1").VisibleIndex = 6;
+            cbxCommandKind.Items.Add(ServerControlObj.NAME_CMD_SEND_EMAIL);
+
             dcEmailContent.Caption = "Email内容";
-            ViewSetting.Columns.ColumnByName("parameter2").Visible = false;
-            ViewSetting.Columns.ColumnByName("parameter3").Visible = false;
-            ViewSetting.Columns.ColumnByName("parameter4").Visible = false;
-            ViewSetting.Columns.ColumnByName("parameter5").Visible = false;
+            dcEmailContent.ColumnEdit = meEdit;
+            ViewSetting.RowHeight = 180;
+            ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
+
+            ViewSetting.BestFitColumns();
         }
 
         /// <summary>

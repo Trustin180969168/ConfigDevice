@@ -7,7 +7,7 @@ namespace ConfigDevice
 
     public class ServerControlObj : ControlObj
     {
-        public const string NAME_CMD_SEND_WEIXIN = "发Email";
+        public const string NAME_CMD_SEND_EMAIL = "发Email";
 
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public ServerControlObj(Device _deviceCtrl)
@@ -17,7 +17,7 @@ namespace ConfigDevice
 
             if (NameAndCommand.Count == 0)
             {
-                NameAndCommand.Add(NAME_CMD_SEND_WEIXIN, DeviceConfig.CMD_SERVER_EMAIL);
+                NameAndCommand.Add(NAME_CMD_SEND_EMAIL, DeviceConfig.CMD_SERVER_EMAIL);
             }
         }
 
