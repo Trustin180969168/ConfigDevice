@@ -19,6 +19,7 @@ namespace ProgramTest2
 
             dt.Columns.Add("time1", System.Type.GetType("System.String"));
             dt.Columns.Add("time2", System.Type.GetType("System.String"));
+            dt.Columns.Add("text", System.Type.GetType("System.String"));
             dcTime1.FieldName = "time1";
             dcTime2.FieldName = "time2";
 
@@ -39,6 +40,9 @@ namespace ProgramTest2
         {
             gcTime.DataSource = dt;
             dt.Rows.Add(new object[]{"00:00:00","00:00:00"});
+            dt.Rows.Add(new object[] { "00:00:00", "00:00:00" });
+            dt.Rows.Add(new object[] { "00:00:00", "00:00:00" });
+            dt.Rows.Add(new object[] { "00:00:00", "00:00:00" });
         }
 
         private void simpleButton2_Click(object sender, EventArgs e)

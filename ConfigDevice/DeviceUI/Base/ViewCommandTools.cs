@@ -127,6 +127,12 @@ namespace ConfigDevice
                 refreshView();
                 allowSync = true;
                 SyncCommandSetting();
+                
+                //------改变高度------
+                if (CurrentControlObj is ServerControlObj)
+                    this.Height = 200;
+                else
+                    this.Height = 70;
             }
         }
 
@@ -145,6 +151,12 @@ namespace ConfigDevice
             refreshView();
             allowSync = true;
             SyncCommandSetting();
+
+            //------改变高度------
+            if (CurrentControlObj is ServerControlObj)
+                this.Height = 200;
+            else
+                this.Height = 70;
         }
 
         /// <summary>

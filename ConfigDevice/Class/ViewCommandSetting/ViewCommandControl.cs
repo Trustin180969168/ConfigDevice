@@ -17,12 +17,14 @@ namespace ConfigDevice
         protected DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit tedtTime;//时间类型编辑
         protected DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNum;//数字编辑
         protected DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtPercentNum;//百分比
+        protected DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit meEdit;//下拉文本框
         
         //----配置界面列表------
         public GridView ViewSetting;
         public ViewCommandControl(ControlObj _controlObj, GridView gv)
         {    
-
+            //----长文本编辑控件------------------
+            this.meEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             //----命令编辑控件
             this.cbxCommandKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxCommandKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;

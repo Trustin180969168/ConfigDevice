@@ -33,14 +33,19 @@
             this.gcTime = new DevExpress.XtraGrid.GridControl();
             this.gvTime = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcTime1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.timeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
+            this.meEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.dcTime2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.timeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
+            this.text = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.meeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.meEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,7 +77,9 @@
             this.gcTime.MainView = this.gvTime;
             this.gcTime.Name = "gcTime";
             this.gcTime.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.timeEdit});
+            this.timeEdit,
+            this.meeEdit,
+            this.meEdit});
             this.gcTime.Size = new System.Drawing.Size(322, 305);
             this.gcTime.TabIndex = 5;
             this.gcTime.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -84,7 +91,8 @@
             this.gvTime.Appearance.HeaderPanel.Options.UseFont = true;
             this.gvTime.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.dcTime1,
-            this.dcTime2});
+            this.dcTime2,
+            this.text});
             this.gvTime.GridControl = this.gcTime;
             this.gvTime.Name = "gvTime";
             this.gvTime.OptionsView.RowAutoHeight = true;
@@ -97,12 +105,35 @@
             this.dcTime1.AppearanceCell.Options.UseFont = true;
             this.dcTime1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 12F);
             this.dcTime1.AppearanceHeader.Options.UseFont = true;
+            this.dcTime1.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcTime1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcTime1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcTime1.Caption = "时间1";
             this.dcTime1.ColumnEdit = this.timeEdit;
             this.dcTime1.FieldName = "time1";
             this.dcTime1.Name = "dcTime1";
             this.dcTime1.Visible = true;
             this.dcTime1.VisibleIndex = 0;
+            // 
+            // meEdit
+            // 
+            this.meEdit.Name = "meEdit";
+            // 
+            // dcTime2
+            // 
+            this.dcTime2.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.dcTime2.AppearanceCell.Options.UseFont = true;
+            this.dcTime2.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.dcTime2.AppearanceHeader.Options.UseFont = true;
+            this.dcTime2.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcTime2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcTime2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcTime2.Caption = "时间2";
+            this.dcTime2.ColumnEdit = this.timeEdit;
+            this.dcTime2.FieldName = "dcTime2";
+            this.dcTime2.Name = "dcTime2";
+            this.dcTime2.Visible = true;
+            this.dcTime2.VisibleIndex = 1;
             // 
             // timeEdit
             // 
@@ -112,18 +143,25 @@
             this.timeEdit.Mask.UseMaskAsDisplayFormat = true;
             this.timeEdit.Name = "timeEdit";
             // 
-            // dcTime2
+            // text
             // 
-            this.dcTime2.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.dcTime2.AppearanceCell.Options.UseFont = true;
-            this.dcTime2.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.dcTime2.AppearanceHeader.Options.UseFont = true;
-            this.dcTime2.Caption = "时间2";
-            this.dcTime2.ColumnEdit = this.timeEdit;
-            this.dcTime2.FieldName = "dcTime2";
-            this.dcTime2.Name = "dcTime2";
-            this.dcTime2.Visible = true;
-            this.dcTime2.VisibleIndex = 1;
+            this.text.AppearanceHeader.Options.UseTextOptions = true;
+            this.text.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.text.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.text.Caption = "长文本";
+            this.text.ColumnEdit = this.meEdit;
+            this.text.FieldName = "text";
+            this.text.Name = "text";
+            this.text.Visible = true;
+            this.text.VisibleIndex = 2;
+            // 
+            // meeEdit
+            // 
+            this.meeEdit.AutoHeight = false;
+            this.meeEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.meeEdit.ExportMode = DevExpress.XtraEditors.Repository.ExportMode.DisplayText;
+            this.meeEdit.Name = "meeEdit";
             // 
             // simpleButton2
             // 
@@ -157,7 +195,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.meEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
 
@@ -174,6 +214,9 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit timeEdit;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
         private DevExpress.XtraEditors.TextEdit textEdit1;
+        private DevExpress.XtraGrid.Columns.GridColumn text;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit meeEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit meEdit;
     }
 }
 

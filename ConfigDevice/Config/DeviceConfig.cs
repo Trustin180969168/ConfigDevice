@@ -240,11 +240,28 @@ namespace ConfigDevice
         public static readonly byte[] CMD_PUBLIC_WINDOWS_PLAY = new byte[] { 0x2a, EQUIPMENT_PUBLIC };//门窗播放指令
         public static readonly byte[] CMD_PUBLIC_SAFETY_STATE = new byte[] { 0xa0, EQUIPMENT_PUBLIC };//安防状态 
         public static readonly byte[] CMD_PUBLIC_RESET_HOST = new byte[] { 0xb2, EQUIPMENT_PUBLIC };       //复位与主机连接  
+        //-------------服务器指令--------------------
+        public static readonly byte[] CMD_SERVER_SEARCH = new byte[] { 0x30, CMD_TYPE_SERVER };//服务器搜索转换器
+        public static readonly byte[] CMD_SERVER_CONNECT = new byte[] { 0x31, CMD_TYPE_SERVER };//申请连接
+        public static readonly byte[] CMD_SERVER_RET_CONNECT = new byte[] { 0xb2, CMD_TYPE_SERVER };//回复连接
+        public static readonly byte[] CMD_SERVER_HEARTBEAT = new byte[] { 0x33, CMD_TYPE_SERVER };//心跳帧
+        public static readonly byte[] CMD_SERVER_RET_HEARTBEAT = new byte[] { 0xb3, CMD_TYPE_SERVER };//回复心跳帧
+        public static readonly byte[] CMD_SERVER_EMAIL = new byte[] { 0x20, CMD_TYPE_SERVER };//email指令
+        public static readonly byte[] CMD_MMSG_READ_VER = new byte[] { 0x61, CMD_TYPE_SERVER };//读设备软硬件版本
+        public static readonly byte[] CMD_MMSG_WRITE_VER = new byte[] { 0xE1, CMD_TYPE_SERVER };//写设备软硬件版本
+        public static readonly byte[] CMD_MMSG_READ_MEMU_NAME = new byte[] { 0x62, CMD_TYPE_SERVER };//读菜单名称
+        public static readonly byte[] CMD_MMSG_WRITE_MEMU_NAME = new byte[] { 0xE2, CMD_TYPE_SERVER };//写菜单名称
+        public static readonly byte[] CMD_MMSG_READ_COMMAND = new byte[] { 0x63, CMD_TYPE_SERVER };//读控制指令
+        public static readonly byte[] CMD_MMSG_WRITE_COMMAND = new byte[] { 0xE3, CMD_TYPE_SERVER };//写入控制指令
+        public static readonly byte[] CMD_MMSG_DEL_COMMAND = new byte[] { 0x64, CMD_TYPE_SERVER };//删除控制指令
+        public static readonly byte[] CMD_MMSG_READ_SECURITY_CFG = new byte[] { 0x65, CMD_TYPE_SERVER };//读布安防配置
+        public static readonly byte[] CMD_MMSG_WRITE_SECURITY_CFG = new byte[] { 0xE5, CMD_TYPE_SERVER };//写布安防配置
+        public static readonly byte[] CMD_MMSG_READ_KEY_CFG = new byte[] { 0x66, CMD_TYPE_SERVER };//读菜单按键类型配置
+        public static readonly byte[] CMD_MMSG_WRITE_KEY_CFG = new byte[] { 0xE6, CMD_TYPE_SERVER };//写菜单按键类型配置
+        public static readonly byte[] CMD_MMSG_READ_BDEV_CFG = new byte[] { 0x67, CMD_TYPE_SERVER };//读绑定的设备设置
+        public static readonly byte[] CMD_MMSG_WRITE_BDEV_CFG = new byte[] { 0xE7, CMD_TYPE_SERVER };//写绑定的设备设置
 
-
-
-        //继电器，调光器指令  CMD_TYPE_SWITCH,电机
-
+        //---------继电器，调光器指令  CMD_TYPE_SWITCH,电机--------------
         public static readonly byte[] CMD_SW_READ_GROUP_NAME = new byte[] { 0x01, CMD_TYPE_SWITCH };//读分组名称    
         public static readonly byte[] CMD_SW_WRITE_GROUP_NAME = new byte[] { 0x81, CMD_TYPE_SWITCH };//写分组名称     
         public static readonly byte[] CMD_SW_READ_SCENE_NAME = new byte[] { 0x02, CMD_TYPE_SWITCH };//读场景名称    
@@ -308,7 +325,7 @@ namespace ConfigDevice
 
         public static readonly byte[] CMD_AMP_WIFI_SET = new byte[] { 0x2E, CMD_TYPE_AMP };   //选择WIFI网络和设置连接密码(LIAO增加:2015-10-15)
 
-  
+
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
         static DeviceConfig()//---静态构造函数------
         {

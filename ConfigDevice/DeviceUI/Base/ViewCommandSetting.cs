@@ -43,7 +43,7 @@ namespace ConfigDevice.DeviceUI
             }
             CommandData commandData = (CommandData)values[0];
             //初始化界面,指令数大于控件数则添加控件
-            while (commandCount < commandData.ucCmdNum + 1)
+            while (commandCount < commandData.ucCmdNum + 2)
                 addViewCommandSetting();
             foreach (Control ctrl in xscCommands.Controls)
             {
@@ -54,7 +54,7 @@ namespace ConfigDevice.DeviceUI
                     break;
                 }
             }
-            AddDefaultNullCommand();//----默认保留一条空指令便于添加-----
+            //AddDefaultNullCommand();//----默认保留一条空指令便于添加-----
         }
 
         /// <summary>
@@ -200,12 +200,12 @@ namespace ConfigDevice.DeviceUI
         {
             if (!NeedInit)
             {
-                int count = (int)edtEndNum.Value;
+                //int count = (int)edtEndNum.Value;
                 //while (count > commandCount)
                 //    addViewCommandSetting();
                 //while (count < commandCount)
                 //    removeViewCommandSetting();
-                //------清空------
+                ////------清空------
                 //foreach (Control view in xscCommands.Controls)
                 //{
                 //    ViewCommandTools commandView = view as ViewCommandTools;

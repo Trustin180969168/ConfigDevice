@@ -49,6 +49,7 @@
             this.numEdit = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.hyperLinkEdit1 = new DevExpress.XtraEditors.HyperLinkEdit();
             this.cedtNum = new DevExpress.XtraEditors.CheckEdit();
+            this.meeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
@@ -59,6 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // gcCommands
@@ -75,7 +77,8 @@
             this.timeTest,
             this.spinTest,
             this.cedtSelect,
-            this.numEdit});
+            this.numEdit,
+            this.meeEdit});
             this.gcCommands.Size = new System.Drawing.Size(923, 70);
             this.gcCommands.TabIndex = 8;
             this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -390,6 +393,13 @@
             this.cedtNum.Size = new System.Drawing.Size(47, 70);
             this.cedtNum.TabIndex = 13;
             // 
+            // meeEdit
+            // 
+            this.meeEdit.AutoHeight = false;
+            this.meeEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.meeEdit.Name = "meeEdit";
+            // 
             // ViewCommandTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -409,6 +419,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -436,5 +447,6 @@
         private DevExpress.XtraEditors.HyperLinkEdit hyperLinkEdit1;
         private DevExpress.XtraEditors.CheckEdit cedtNum;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit numEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit meeEdit;
     }
 }
