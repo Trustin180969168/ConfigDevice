@@ -67,6 +67,8 @@ namespace ConfigDevice
                 cbxIPList.SelectedIndex = 0;
 
             btNetworkSearch_Click(sender, e);
+            deviceKind.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_KIND_ID + " != '" + (int)DeviceConfig.EQUIPMENT_RJ45 + "' and " +
+                DeviceConfig.DC_KIND_ID + " != '" + (int)DeviceConfig.EQUIPMENT_SERVER + "'");
         }
 
         /// <summary>
@@ -308,7 +310,10 @@ namespace ConfigDevice
             else
             {
                 string networkID = listNetworkNameID[cbxSelectNetwork.Text];
-                deviceNetworkID.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "'");
+                deviceNetworkID.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "' ");
+                //deviceNetworkID.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "' and " +
+                //    DeviceConfig.DC_KIND_ID + " != '" + (int)DeviceConfig.EQUIPMENT_RJ45 + "' and " +
+                //DeviceConfig.DC_KIND_ID + " != '" + (int)DeviceConfig.EQUIPMENT_SERVER + "'");
             }
         }
 

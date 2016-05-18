@@ -28,6 +28,16 @@ namespace ConfigDevice
         /// </summary>
         public int Num { set { cedtNum.Text = value.ToString(); } get { return Convert.ToInt16(cedtNum.Text); } }
         public bool Checked { set { cedtNum.Checked = value; } get { return cedtNum.Checked; } }
+        public bool IsNull //---是否为空-----
+        {
+            get
+            {
+                DataRow dr = gvCommands.GetDataRow(0); 
+                if (dr[DeviceConfig.DC_ID].ToString() == "") return true;
+                else
+                    return false;
+            }
+        }
         public bool HasChanged  //------是否执行了更改------
         {
             get
@@ -225,7 +235,7 @@ namespace ConfigDevice
             string myCtrlObjName = this.DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ].ToString();//空为删除操作
             if (this.CurrentDevice == null || this.CurrentDevice.KindID != value.CurrentDevice.KindID)
             {
-                this.CurrentDevice = SysCtrl.CreateDevice(value.CurrentDevice.ByteKindID).CreateDevice(value.CurrentDevice.GetDeviceInfo());
+                this.CurrentDevice = SysCtrl.CreateDevice(value.CurrentDevice.ByteKindID).CreateDevice(value.CurrentDevice.GetDeviceData());
                 this.CleanCommandSetting();//----清空----
                 cbxControlObj.Items.Clear();
                 foreach (string key in CurrentDevice.ContrlObjs.Keys)

@@ -119,6 +119,7 @@ namespace ConfigDevice
             NetworkIP = value.NetworkIP;
             AddressName = value.AddressName;
             State = value.State;
+            Remark = value.Remark;
         }
 
 

@@ -26,6 +26,7 @@ namespace ConfigDevice
             GetLocalIPList();
             if (SysConfig.IPList.Count > 0)
                 SysConfig.SetLocalIPInfo(0);
+            InitDtDevice();
         }
 
         /// <summary>
@@ -72,7 +73,6 @@ namespace ConfigDevice
             dr[DeviceConfig.DC_STATE] = device.State;
             dr[DeviceConfig.DC_ADDRESS] = device.AddressName;
             SysConfig.DtDevice.AcceptChanges();
-
         }
 
 
@@ -244,5 +244,95 @@ namespace ConfigDevice
 
         }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public static void InitDtDevice()
+        {
+            //----初始化表结构-------
+            if (SysConfig.DtDevice.Columns.Count == 0)
+            {
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NUM, System.Type.GetType("System.Int16"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NETWORK_ID, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_KIND_ID, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_MAC, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_STATE, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_REMARK, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_SOFTWARE_VER, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_HARDWARE_VER, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NETWORK_IP, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ADDRESS, System.Type.GetType("System.String"));
+            }
+        }
+
+        /// <summary>
+        /// 添加设备
+        /// </summary>
+        /// <param name="deviceData">设备数据</param>
+        public static void AddDeviceData(DeviceData device)
+        {             
+            int num = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID + 
+                " not in ('" + (int)DeviceConfig.EQUIPMENT_RJ45 + "', '"+ (int)DeviceConfig.EQUIPMENT_SERVER + "')" ).Length+1;
+            if (device.ByteKindID == DeviceConfig.EQUIPMENT_SERVER || device.ByteKindID == DeviceConfig.EQUIPMENT_RJ45)
+                num = 1000 + num;
+            SysConfig.DtDevice.Rows.Add(new object[] {num.ToString(),device.DeviceID,device.NetworkID,
+                            device.KindID, device.KindName,device.Name,device.MAC,device.State,device.Remark,"","",device.PCAddress,
+                            device.NetworkIP,device.AddressName});
+            SysConfig.DtDevice.AcceptChanges();
+        }
+
+        /// <summary>
+        /// 删除设备
+        /// </summary>
+        /// <param name="deviceData">设备数据</param>
+        public static void RemoveDeviceData(DeviceData device)
+        {
+            int delIndex = -1;
+            foreach (DataRow dr in SysConfig.DtDevice.Rows)
+            {
+                if (dr[DeviceConfig.DC_MAC].ToString() == device.MAC)
+                { delIndex = SysConfig.DtDevice.Rows.IndexOf(dr); break; }
+            }
+            if (delIndex != -1)
+                SysConfig.DtDevice.Rows.RemoveAt(delIndex);
+            SysConfig.DtDevice.AcceptChanges();
+        }
+
+        /// <summary>
+        /// 更新设备
+        /// </summary>
+        /// <param name="device">设备</param>
+        public static void UpdateDeviceData(DeviceData device)
+        {
+            string temp = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
+            DataRow[] rows = SysConfig.DtDevice.Select(temp);
+            foreach (DataRow dr in SysConfig.DtDevice.Rows)
+            {
+                if (dr[DeviceConfig.DC_MAC].ToString() == device.MAC)
+                {
+                    dr.BeginEdit();
+
+                    dr[DeviceConfig.DC_ID] = device.DeviceID;
+                    dr[DeviceConfig.DC_NETWORK_ID] = device.NetworkID;
+                    dr[DeviceConfig.DC_KIND_ID] = device.KindID;
+                    dr[DeviceConfig.DC_KIND_NAME] = device.KindName;
+                    dr[DeviceConfig.DC_NAME] = device.Name;
+                    dr[DeviceConfig.DC_STATE] = device.State;
+                    dr[DeviceConfig.DC_REMARK] = device.Remark;
+                    dr[DeviceConfig.DC_PC_ADDRESS] = device.PCAddress;
+                    dr[DeviceConfig.DC_NETWORK_IP] = device.NetworkIP;
+                    dr[DeviceConfig.DC_ADDRESS] = device.AddressName;
+
+                    dr.EndEdit();
+                    SysConfig.DtDevice.AcceptChanges();
+                    return;
+                }
+            }
+
+        }
     }
 }

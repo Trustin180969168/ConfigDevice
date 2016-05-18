@@ -46,9 +46,9 @@
             this.timeTest = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
             this.spinTest = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.cedtSelect = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.numEdit = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.hyperLinkEdit1 = new DevExpress.XtraEditors.HyperLinkEdit();
             this.cedtNum = new DevExpress.XtraEditors.CheckEdit();
-            this.numEdit = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
@@ -56,9 +56,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.timeTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtSelect)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // gcCommands
@@ -216,8 +216,6 @@
             this.command.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.command.Caption = "指令";
             this.command.Name = "command";
-            this.command.Visible = true;
-            this.command.VisibleIndex = 5;
             this.command.Width = 132;
             // 
             // parameter1
@@ -347,6 +345,20 @@
             this.cedtSelect.Name = "cedtSelect";
             this.cedtSelect.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
             // 
+            // numEdit
+            // 
+            this.numEdit.AutoHeight = false;
+            this.numEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.numEdit.Mask.EditMask = "\\d+";
+            this.numEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            this.numEdit.MaxValue = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numEdit.Name = "numEdit";
+            // 
             // hyperLinkEdit1
             // 
             this.hyperLinkEdit1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -378,20 +390,6 @@
             this.cedtNum.Size = new System.Drawing.Size(47, 70);
             this.cedtNum.TabIndex = 13;
             // 
-            // numEdit
-            // 
-            this.numEdit.AutoHeight = false;
-            this.numEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.numEdit.Mask.EditMask = "\\d+";
-            this.numEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
-            this.numEdit.MaxValue = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numEdit.Name = "numEdit";
-            // 
             // ViewCommandTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -408,9 +406,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.timeTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtSelect)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numEdit)).EndInit();
             this.ResumeLayout(false);
 
         }

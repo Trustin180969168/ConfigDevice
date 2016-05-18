@@ -16,7 +16,8 @@ namespace ConfigDevice.DeviceUI
         public List<string> CommmandGroups = new List<string>();
         public bool NeedInit = true;
         private bool syncEdit = false;
-        private int commandCount = 0; 
+        private int commandCount = 0;
+
         public int CommandCount
         {
             get { return commandCount; }
@@ -50,7 +51,30 @@ namespace ConfigDevice.DeviceUI
                 if (viewCommand.Num - 1 == commandData.ucCmdNum)
                 {
                     viewCommand.SetCommandData(commandData);
-                    return;
+                    break;
+                }
+            }
+            AddDefaultNullCommand();//----默认保留一条空指令便于添加-----
+        }
+
+        /// <summary>
+        /// 添加默认空指令
+        /// </summary>
+        private void AddDefaultNullCommand()
+        {
+            if (commandCount == 0)
+                addViewCommandSetting();
+            else
+            {
+                foreach (Control ctrl in xscCommands.Controls)
+                {
+                    ViewCommandTools viewCommand = ctrl as ViewCommandTools;
+                    if (viewCommand.Num == commandCount)
+                    {
+                        if (!viewCommand.IsNull)
+                            addViewCommandSetting();
+                        break;
+                    }
                 }
             }
         }
@@ -128,11 +152,13 @@ namespace ConfigDevice.DeviceUI
             CommandEdit = new CommandCtrl(device);
             CommandEdit.OnCallbackUI_Action += this.returnCommandData;//命令的执行的界面回调
             NeedInit = false;//---标记初始化完毕
+            AddDefaultNullCommand();//----默认保留一条空指令便于添加-----
             if (CommmandGroups.Count > 0)
             {
                 cbxGroup.SelectedIndex = 0;//执行读取
                 cbxGroup.EditValue = CommmandGroups[0];//选择第一组/键      
             }
+          
         }
 
         /// <summary>
@@ -177,15 +203,18 @@ namespace ConfigDevice.DeviceUI
                 int count = (int)edtEndNum.Value;
                 //while (count > commandCount)
                 //    addViewCommandSetting();
-                while (count < commandCount)
-                    removeViewCommandSetting();
+                //while (count < commandCount)
+                //    removeViewCommandSetting();
                 //------清空------
-                foreach (Control view in xscCommands.Controls)
-                {
-                    ViewCommandTools commandView = view as ViewCommandTools;
-                    if (commandView.Num > count) continue;
-                    commandView.CleanCommandSetting();
-                }
+                //foreach (Control view in xscCommands.Controls)
+                //{
+                //    ViewCommandTools commandView = view as ViewCommandTools;
+                //    if (commandView.Num > count) continue;
+                //    commandView.CleanCommandSetting();
+                //}
+                while (xscCommands.Controls.Count > 0)
+                    removeViewCommandSetting();
+                AddDefaultNullCommand();
                 CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, 0, (int)edtEndNum.Value - 1);//序号从0开始
             }
         }

@@ -91,7 +91,7 @@ namespace ConfigDevice
                 //------添加到数据表----------
                 SysConfig.DtNetwork.Rows.Add(new object[] { network.DeviceID, network.NetworkID, network.State, 
                 network.DeviceName, network.MacAddress,network.NetworkIP,network.Port.ToString(),network.Remark });
-                SysConfig.DtNetwork.AcceptChanges();
+                SysConfig.DtNetwork.AcceptChanges();  
 
                 if (!SysConfig.ListNetworks.ContainsKey(network.NetworkIP))
                     SysConfig.ListNetworks.Add(network.NetworkIP, network);
@@ -154,8 +154,11 @@ namespace ConfigDevice
                 {
                     if (network.State == NetworkConfig.STATE_CONNECTED)
                     {
-                        if (network.RefreshTime.AddSeconds(NetworkConfig.CONNECT_TIME_OUT) < DateTime.Now)   
+                        if (network.RefreshTime.AddSeconds(NetworkConfig.CONNECT_TIME_OUT) < DateTime.Now)
+                        {
                             setConnectState(network, NetworkConfig.STATE_NOT_CONNECTED);//---变更为未链接----   
+                            SysCtrl.RemoveDeviceData(network.GetDeviceData());//----移除设备数据-----
+                        }
                         else  //----PC主动刷新网络
                             network.RefreshConnection();
                     }

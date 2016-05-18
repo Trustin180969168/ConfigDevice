@@ -130,6 +130,7 @@
             this.gvDevices.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click;
             this.gvDevices.OptionsView.EnableAppearanceEvenRow = true;
             this.gvDevices.OptionsView.EnableAppearanceOddRow = true;
+            this.gvDevices.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.gvDevices.OptionsView.ShowGroupPanel = false;
             this.gvDevices.OptionsView.ShowIndicator = false;
             this.gvDevices.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {

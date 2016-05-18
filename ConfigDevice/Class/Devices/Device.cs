@@ -143,7 +143,7 @@ namespace ConfigDevice
         /// 获取设备信息
         /// </summary>
         /// <returns></returns>
-        public DeviceData GetDeviceInfo()
+        public DeviceData GetDeviceData()
         {
             DeviceData data = new DeviceData();
             data.DeviceID = DeviceID;
@@ -158,6 +158,7 @@ namespace ConfigDevice
             data.NetworkIP = NetworkIP;
             data.AddressName = AddressName;
             data.State = State;
+            data.Remark = Remark;
 
             return data;
         }

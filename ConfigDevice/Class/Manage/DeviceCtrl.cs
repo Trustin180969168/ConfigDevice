@@ -7,7 +7,6 @@ namespace ConfigDevice
 {
     public class DeviceCtrl
     {
-
         private Network SearchingNetwork;//---搜素的网络设备(RJ45)----
         private MySocket mySocket = MySocket.GetInstance();
         private int countNum = 0;
@@ -32,24 +31,7 @@ namespace ConfigDevice
         /// </summary>
         private void initDataTableDevices()
         {
-            //----初始化表结构-------
-            if (SysConfig.DtDevice.Columns.Count == 0)
-            {
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NUM, System.Type.GetType("System.Int16"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NETWORK_ID, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_KIND_ID, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_MAC, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_STATE, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_REMARK, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_SOFTWARE_VER, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_HARDWARE_VER, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NETWORK_IP, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ADDRESS, System.Type.GetType("System.String"));
-            }
+
             if (SysConfig.DtDevice.Rows.Count == 0)
                 countNum = 0;
             //----初始化状态--------------
@@ -196,48 +178,17 @@ namespace ConfigDevice
                 }
                 //------添加到数据表----------     
                 if (!find)
-                    SysConfig.DtDevice.Rows.Add(new object[] {num.ToString(),device.DeviceID,device.NetworkID,
-                            device.KindID, device.KindName,device.Name,device.MAC,device.State,device.Remark,"","",device.PCAddress,
-                            device.NetworkIP,device.AddressName});
+                    //SysConfig.DtDevice.Rows.Add(new object[] {num.ToString(),device.DeviceID,device.NetworkID,
+                    //        device.KindID, device.KindName,device.Name,device.MAC,device.State,device.Remark,"","",device.PCAddress,
+                    //        device.NetworkIP,device.AddressName});
+                    SysCtrl.AddDeviceData(device.GetDeviceData());
                 else
-                    updateDevice(device);
+                    SysCtrl.UpdateDeviceData(device.GetDeviceData());
 
-                SysConfig.DtDevice.AcceptChanges();
             }
         }
 
-        /// <summary>
-        /// 更新设备
-        /// </summary>
-        /// <param name="device">设备</param>
-        private void updateDevice(Device device)
-        {
-            string temp = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
-            DataRow[] rows = SysConfig.DtDevice.Select(temp);
-            foreach (DataRow dr in SysConfig.DtDevice.Rows)
-            {
-                if (dr[DeviceConfig.DC_MAC].ToString() == device.MAC)
-                {
-                    dr.BeginEdit();
 
-                    dr[DeviceConfig.DC_ID] = device.DeviceID;
-                    dr[DeviceConfig.DC_NETWORK_ID] = device.NetworkID;
-                    dr[DeviceConfig.DC_KIND_ID] = device.KindID;
-                    dr[DeviceConfig.DC_KIND_NAME] = device.KindName;
-                    dr[DeviceConfig.DC_NAME] = device.Name;
-                    dr[DeviceConfig.DC_STATE] = device.State;
-                    dr[DeviceConfig.DC_REMARK] = device.Remark;
-                    dr[DeviceConfig.DC_PC_ADDRESS] = device.PCAddress;
-                    dr[DeviceConfig.DC_NETWORK_IP] = device.NetworkIP;
-                    dr[DeviceConfig.DC_ADDRESS] = device.AddressName;
-
-                    dr.EndEdit();
-                    SysConfig.DtDevice.AcceptChanges();
-                    return;
-                }
-            }
-
-        }
 
 
         /// <summary>

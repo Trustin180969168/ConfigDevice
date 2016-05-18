@@ -63,6 +63,8 @@ namespace ConfigDevice
         public string State = "";//连接状态
         public string DeviceName = "";//设备名称
         public string MacAddress = "";//物理地址
+        public string KindID;//设备类型ID
+        public string KindName = "";//设备类型名称
         public string NetworkIP = "";//网络设备RJ45的IP
         public string PCAddress = "";//网络设备RJ45的PC通信地址
         public string Remark = "";//备注
@@ -111,6 +113,8 @@ namespace ConfigDevice
         {
             DeviceID = Convert.ToInt16(userUdpData.Source[0]).ToString();
             NetworkID = Convert.ToInt16(userUdpData.Source[1]).ToString();
+            KindID = Convert.ToInt16(userUdpData.Source[2]).ToString();
+            KindName = DeviceConfig.EQUIPMENT_ID_NAME[userUdpData.Source[2]];
             State = NetworkConfig.STATE_NOT_CONNECTED;
             //-------MAC地址---------
             byte[] byteMac = new Byte[12];
@@ -498,7 +502,7 @@ namespace ConfigDevice
                     NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
                     int i =SysConfig.ListNetworks.Count;
                     GetPositionList(); //----------获取位置列表---------
-
+                    SysCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
                     return;
                 }
                 else
@@ -586,6 +590,7 @@ namespace ConfigDevice
                     PCAddress = "";
                     State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
                     NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
+                    SysCtrl.RemoveDeviceData(GetDeviceData());//----移除设备数据-----
                     return;
                 }
                 else
@@ -954,6 +959,32 @@ namespace ConfigDevice
 
             mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { "同步数据失败!" });
 
+        }
+
+
+        /// <summary>
+        /// 获取设备信息
+        /// </summary>
+        /// <returns></returns>
+        public DeviceData GetDeviceData()
+        {
+            DeviceData data = new DeviceData();
+
+            data.DeviceID = DeviceID;
+            data.NetworkID = NetworkID;
+            data.KindID = KindID;
+            data.KindName = KindName;
+            data.Name = DeviceName;
+            data.MAC = MacAddress;
+            data.SoftwareVer = SoftwareVer;
+            data.HardwareVer = HardwareVer;
+            data.PCAddress = PCAddress;
+            data.NetworkIP = NetworkIP;
+            data.AddressName = "";
+            data.State = State;
+            data.Remark = Remark;
+
+            return data;
         }
 
 }
