@@ -19,7 +19,7 @@ namespace ConfigDevice
 
         public NetworkCtrl()
         {
-            initDataTableNetwork();
+            SysCtrl.InitDataTableNetwork();
             //-------------PC主动定时发送刷新包----------
             RefreshConnectState = new ThreadActionTimer(3000, new Action(RefreshNetwork));
             RefreshConnectState.Start();
@@ -42,7 +42,7 @@ namespace ConfigDevice
         public void SearchNetworks()
         {
             RefreshConnectState.Stop();//----先停止刷新----
-            initDataTableNetwork();//----初始化列表-----
+            SysCtrl.InitDataTableNetwork();//----初始化列表-----
             //listNetworks.Clear();//----清空---
             //-----------执行搜索网络------------            
             UdpData udp = this.createSendUdpData();
@@ -90,7 +90,7 @@ namespace ConfigDevice
                 }
                 //------添加到数据表----------
                 SysConfig.DtNetwork.Rows.Add(new object[] { network.DeviceID, network.NetworkID, network.State, 
-                network.DeviceName, network.MacAddress,network.NetworkIP,network.Port.ToString(),network.Remark });
+                network.DeviceName, network.MacAddress,network.NetworkIP,network.Port.ToString(),network.Remark,"",network.KindName });
                 SysConfig.DtNetwork.AcceptChanges();
 
                 if (!SysConfig.ListNetworks.ContainsKey(network.NetworkIP))
@@ -102,26 +102,7 @@ namespace ConfigDevice
                 CallBackUI(null);
             }
         }
-        /// <summary>
-        /// 初始化网络数据
-        /// </summary>
-        private static void initDataTableNetwork()
-        {
-            //----初始化表结构-------
-            if (SysConfig.DtNetwork.Columns.Count == 0)
-            {
-                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_DEVICE_ID, System.Type.GetType("System.String"));
-                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_NETWORK_ID, System.Type.GetType("System.String"));
-                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_STATE, System.Type.GetType("System.String"));
-                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_DEVICE_NAME, System.Type.GetType("System.String"));
-                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_MAC, System.Type.GetType("System.String"));
-                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_IP, System.Type.GetType("System.String"));
-                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_PORT, System.Type.GetType("System.String"));
-                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_REMARK, System.Type.GetType("System.String"));
-                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
-            }
-            SysConfig.DtNetwork.Clear(); SysConfig.DtNetwork.AcceptChanges();//---初始化数据----
-        }
+
 
         /// <summary>
         /// 刷新网络

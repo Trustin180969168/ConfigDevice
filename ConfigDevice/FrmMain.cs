@@ -43,6 +43,7 @@ namespace ConfigDevice
             networkDeviceMac.FieldName = NetworkConfig.DC_MAC;
             networkState.FieldName = NetworkConfig.DC_STATE;
             networkRemark.FieldName = NetworkConfig.DC_REMARK;
+            networkKindName.FieldName = NetworkConfig.DC_KINDNAME;
 
             xh.FieldName = DeviceConfig.DC_NUM;
             deviceID.FieldName = DeviceConfig.DC_ID;
@@ -387,12 +388,14 @@ namespace ConfigDevice
             if (OneNetworkShow)
             {
                 btQry.CheckState = CheckState.Checked;
+                btQry.ForeColor = Color.Red;
                 btQry.Text = "单网段显示";
                 //btQry.BackColor = Color.White; 
             }
             else
             {
                 btQry.CheckState = CheckState.Unchecked;
+                btQry.ForeColor = Color.Black;
                 //btQry.BackColor = toolStrip2.BackColor; 
             }
             gvNetwork_Click(sender, e);

@@ -32,6 +32,7 @@ namespace ConfigDevice
 
         //------定义全局对应--------
         public const string DC_DEVICE_ID = "DeviceID";//设备ID
+        public const string DC_KINDNAME = "KindName";//设备类型名称
         public const string DC_NETWORK_ID = "NetworkID";//网段ID
         public const string DC_STATE = "State";//连接状态
         public const string DC_DEVICE_NAME = "DeviceName";//设备名称

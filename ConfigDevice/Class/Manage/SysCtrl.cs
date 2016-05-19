@@ -27,6 +27,7 @@ namespace ConfigDevice
             if (SysConfig.IPList.Count > 0)
                 SysConfig.SetLocalIPInfo(0);
             InitDtDevice();
+            InitDataTableNetwork();
         }
 
         /// <summary>
@@ -198,7 +199,27 @@ namespace ConfigDevice
                 default: return new FactoryBaseDevice();
             }
         }
-
+        /// <summary>
+        /// 初始化网络数据
+        /// </summary>
+        public static void InitDataTableNetwork()
+        {
+            //----初始化表结构-------
+            if (SysConfig.DtNetwork.Columns.Count == 0)
+            {
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_DEVICE_ID, System.Type.GetType("System.String"));
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_NETWORK_ID, System.Type.GetType("System.String"));
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_STATE, System.Type.GetType("System.String"));
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_DEVICE_NAME, System.Type.GetType("System.String"));
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_MAC, System.Type.GetType("System.String"));
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_IP, System.Type.GetType("System.String"));
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_PORT, System.Type.GetType("System.String"));
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_REMARK, System.Type.GetType("System.String"));
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_KINDNAME, System.Type.GetType("System.String"));
+            }
+            SysConfig.DtNetwork.Clear(); SysConfig.DtNetwork.AcceptChanges();//---初始化数据----
+        }
 
         /// <summary>
         /// 获取指令配置
