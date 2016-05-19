@@ -41,43 +41,51 @@
             this.deviceMac = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceState = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceRemark = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.findDevice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btSearchDevices = new System.Windows.Forms.ToolStripButton();
             this.btClearDevice = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btQry = new System.Windows.Forms.ToolStripButton();
+            this.btSnycNetworkID = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripLabel();
             this.cbxSelectNetwork = new System.Windows.Forms.ToolStripComboBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel2 = new System.Windows.Forms.Panel();
             this.gcNetwork = new DevExpress.XtraGrid.GridControl();
             this.contextMenuStripNetwork = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btmiConnectNetwork = new System.Windows.Forms.ToolStripMenuItem();
+            this.btmiDisconnectNetwork = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiChangePassword = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiParameter = new System.Windows.Forms.ToolStripMenuItem();
             this.gvNetwork = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.networkDeviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkDeviceID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkState = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.networkDeviceName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.networkDeviceMac = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkRemark = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btSaveNetwork = new System.Windows.Forms.ToolStripButton();
             this.btNetworkSearch = new System.Windows.Forms.ToolStripButton();
             this.btConnectnetwork = new System.Windows.Forms.ToolStripButton();
             this.btDisconnectNetwork = new System.Windows.Forms.ToolStripButton();
             this.btGJ = new System.Windows.Forms.ToolStripDropDownButton();
             this.btClearRJ45 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btSyncID = new System.Windows.Forms.ToolStripMenuItem();
             this.btSyncTime = new System.Windows.Forms.ToolStripMenuItem();
             this.btSyncData = new System.Windows.Forms.ToolStripMenuItem();
+            this.btIPSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.btXtxx = new System.Windows.Forms.ToolStripSplitButton();
             this.btPCSend = new System.Windows.Forms.ToolStripMenuItem();
             this.btRJ45Send = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripLabel();
+            this.lblIPSelect = new System.Windows.Forms.ToolStripLabel();
             this.cbxIPList = new System.Windows.Forms.ToolStripComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).BeginInit();
@@ -87,6 +95,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcNetwork)).BeginInit();
             this.contextMenuStripNetwork.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvNetwork)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,10 +114,10 @@
             this.gcDevices.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcDevices.EmbeddedNavigator.Name = "";
             this.gcDevices.FormsUseDefaultLookAndFeel = false;
-            this.gcDevices.Location = new System.Drawing.Point(0, 32);
+            this.gcDevices.Location = new System.Drawing.Point(0, 31);
             this.gcDevices.MainView = this.gvDevices;
             this.gcDevices.Name = "gcDevices";
-            this.gcDevices.Size = new System.Drawing.Size(1016, 545);
+            this.gcDevices.Size = new System.Drawing.Size(1016, 546);
             this.gcDevices.TabIndex = 7;
             this.gcDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDevices});
@@ -124,8 +133,10 @@
             this.deviceMac,
             this.deviceState,
             this.deviceRemark,
-            this.gridColumn13});
+            this.findDevice});
+            this.gvDevices.DetailHeight = 50;
             this.gvDevices.GridControl = this.gcDevices;
+            this.gvDevices.GroupFormat = "";
             this.gvDevices.Name = "gvDevices";
             this.gvDevices.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click;
             this.gvDevices.OptionsView.EnableAppearanceEvenRow = true;
@@ -152,6 +163,7 @@
             this.xh.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
             this.xh.Visible = true;
             this.xh.VisibleIndex = 0;
+            this.xh.Width = 89;
             // 
             // deviceID
             // 
@@ -166,7 +178,8 @@
             this.deviceID.OptionsColumn.AllowEdit = false;
             this.deviceID.OptionsColumn.ReadOnly = true;
             this.deviceID.Visible = true;
-            this.deviceID.VisibleIndex = 1;
+            this.deviceID.VisibleIndex = 2;
+            this.deviceID.Width = 153;
             // 
             // deviceNetworkID
             // 
@@ -181,7 +194,8 @@
             this.deviceNetworkID.OptionsColumn.AllowEdit = false;
             this.deviceNetworkID.OptionsColumn.ReadOnly = true;
             this.deviceNetworkID.Visible = true;
-            this.deviceNetworkID.VisibleIndex = 2;
+            this.deviceNetworkID.VisibleIndex = 3;
+            this.deviceNetworkID.Width = 153;
             // 
             // deviceKind
             // 
@@ -196,7 +210,8 @@
             this.deviceKind.OptionsColumn.AllowEdit = false;
             this.deviceKind.OptionsColumn.ReadOnly = true;
             this.deviceKind.Visible = true;
-            this.deviceKind.VisibleIndex = 3;
+            this.deviceKind.VisibleIndex = 4;
+            this.deviceKind.Width = 153;
             // 
             // deviceName
             // 
@@ -211,7 +226,8 @@
             this.deviceName.OptionsColumn.AllowEdit = false;
             this.deviceName.OptionsColumn.ReadOnly = true;
             this.deviceName.Visible = true;
-            this.deviceName.VisibleIndex = 4;
+            this.deviceName.VisibleIndex = 1;
+            this.deviceName.Width = 153;
             // 
             // deviceMac
             // 
@@ -225,8 +241,6 @@
             this.deviceMac.Name = "deviceMac";
             this.deviceMac.OptionsColumn.AllowEdit = false;
             this.deviceMac.OptionsColumn.ReadOnly = true;
-            this.deviceMac.Visible = true;
-            this.deviceMac.VisibleIndex = 5;
             // 
             // deviceState
             // 
@@ -241,7 +255,8 @@
             this.deviceState.OptionsColumn.AllowEdit = false;
             this.deviceState.OptionsColumn.ReadOnly = true;
             this.deviceState.Visible = true;
-            this.deviceState.VisibleIndex = 6;
+            this.deviceState.VisibleIndex = 5;
+            this.deviceState.Width = 153;
             // 
             // deviceRemark
             // 
@@ -258,20 +273,23 @@
             this.deviceRemark.OptionsColumn.AllowEdit = false;
             this.deviceRemark.OptionsColumn.ReadOnly = true;
             this.deviceRemark.Visible = true;
-            this.deviceRemark.VisibleIndex = 7;
+            this.deviceRemark.VisibleIndex = 6;
+            this.deviceRemark.Width = 158;
             // 
-            // gridColumn13
+            // findDevice
             // 
-            this.gridColumn13.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn13.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn13.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn13.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn13.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn13.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn13.Caption = "gridColumn4";
-            this.gridColumn13.Name = "gridColumn13";
-            this.gridColumn13.OptionsColumn.AllowEdit = false;
-            this.gridColumn13.OptionsColumn.ReadOnly = true;
+            this.findDevice.AppearanceCell.Options.UseTextOptions = true;
+            this.findDevice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.findDevice.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.findDevice.AppearanceHeader.Options.UseTextOptions = true;
+            this.findDevice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.findDevice.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.findDevice.Caption = "发现设备";
+            this.findDevice.FieldName = "xh";
+            this.findDevice.Name = "findDevice";
+            this.findDevice.OptionsColumn.ReadOnly = true;
+            this.findDevice.Visible = true;
+            this.findDevice.VisibleIndex = 7;
             // 
             // toolStrip2
             // 
@@ -280,40 +298,81 @@
             this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btSave,
             this.btSearchDevices,
             this.btClearDevice,
             this.toolStripSeparator1,
+            this.btQry,
+            this.btSnycNetworkID,
+            this.toolStripSeparator2,
             this.toolStripButton3,
             this.cbxSelectNetwork});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1016, 32);
+            this.toolStrip2.Size = new System.Drawing.Size(1016, 31);
             this.toolStrip2.TabIndex = 6;
             this.toolStrip2.Text = "toolStrip2";
             // 
+            // btSave
+            // 
+            this.btSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btSave.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSave.Name = "btSave";
+            this.btSave.Size = new System.Drawing.Size(73, 28);
+            this.btSave.Text = "保存 ";
+            // 
             // btSearchDevices
             // 
+            this.btSearchDevices.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btSearchDevices.Image = global::ConfigDevice.Properties.Resources.View;
             this.btSearchDevices.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSearchDevices.Name = "btSearchDevices";
-            this.btSearchDevices.Size = new System.Drawing.Size(92, 29);
-            this.btSearchDevices.Text = "设备搜索";
+            this.btSearchDevices.Size = new System.Drawing.Size(109, 28);
+            this.btSearchDevices.Text = "设备搜索  ";
             this.btSearchDevices.Click += new System.EventHandler(this.btSearchDevices_Click);
             // 
             // btClearDevice
             // 
+            this.btClearDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btClearDevice.Image = global::ConfigDevice.Properties.Resources.Clear;
             this.btClearDevice.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClearDevice.Name = "btClearDevice";
-            this.btClearDevice.Size = new System.Drawing.Size(96, 29);
+            this.btClearDevice.Size = new System.Drawing.Size(105, 28);
             this.btClearDevice.Text = "清空设备 ";
             this.btClearDevice.Click += new System.EventHandler(this.btClearDevice_Click);
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(100, 0, 0, 0);
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 32);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            // 
+            // btQry
+            // 
+            this.btQry.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btQry.Image = global::ConfigDevice.Properties.Resources.Traces1;
+            this.btQry.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btQry.Name = "btQry";
+            this.btQry.Size = new System.Drawing.Size(121, 28);
+            this.btQry.Text = "单网段显示 ";
+            this.btQry.Click += new System.EventHandler(this.btQry_Click);
+            // 
+            // btSnycNetworkID
+            // 
+            this.btSnycNetworkID.Image = global::ConfigDevice.Properties.Resources.exchange;
+            this.btSnycNetworkID.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSnycNetworkID.Name = "btSnycNetworkID";
+            this.btSnycNetworkID.Size = new System.Drawing.Size(109, 28);
+            this.btSnycNetworkID.Text = "同步网段ID ";
+            this.btSnycNetworkID.Click += new System.EventHandler(this.btSyncID_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Margin = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 36);
+            this.toolStripSeparator2.Visible = false;
             // 
             // toolStripButton3
             // 
@@ -322,8 +381,9 @@
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(41, 29);
+            this.toolStripButton3.Size = new System.Drawing.Size(41, 33);
             this.toolStripButton3.Text = "网络";
+            this.toolStripButton3.Visible = false;
             // 
             // cbxSelectNetwork
             // 
@@ -335,6 +395,7 @@
             this.cbxSelectNetwork.MaxDropDownItems = 16;
             this.cbxSelectNetwork.Name = "cbxSelectNetwork";
             this.cbxSelectNetwork.Size = new System.Drawing.Size(300, 32);
+            this.cbxSelectNetwork.Visible = false;
             this.cbxSelectNetwork.SelectedIndexChanged += new System.EventHandler(this.cbxSelectNetwork_SelectedIndexChanged);
             this.cbxSelectNetwork.Click += new System.EventHandler(this.cbxSelectNetwork_Click);
             // 
@@ -365,10 +426,12 @@
             this.gcNetwork.EmbeddedNavigator.Name = "";
             this.gcNetwork.FormsUseDefaultLookAndFeel = false;
             this.gcNetwork.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.gcNetwork.Location = new System.Drawing.Point(0, 32);
+            this.gcNetwork.Location = new System.Drawing.Point(0, 31);
             this.gcNetwork.MainView = this.gvNetwork;
             this.gcNetwork.Name = "gcNetwork";
-            this.gcNetwork.Size = new System.Drawing.Size(1016, 128);
+            this.gcNetwork.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.linkEdit});
+            this.gcNetwork.Size = new System.Drawing.Size(1016, 129);
             this.gcNetwork.TabIndex = 6;
             this.gcNetwork.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvNetwork});
@@ -376,16 +439,34 @@
             // contextMenuStripNetwork
             // 
             this.contextMenuStripNetwork.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btmiConnectNetwork,
+            this.btmiDisconnectNetwork,
             this.tsmiChangePassword,
             this.tsmiParameter});
             this.contextMenuStripNetwork.Name = "contextMenuStripNetwork";
-            this.contextMenuStripNetwork.Size = new System.Drawing.Size(119, 48);
+            this.contextMenuStripNetwork.Size = new System.Drawing.Size(119, 92);
+            // 
+            // btmiConnectNetwork
+            // 
+            this.btmiConnectNetwork.Image = global::ConfigDevice.Properties.Resources.connect1;
+            this.btmiConnectNetwork.Name = "btmiConnectNetwork";
+            this.btmiConnectNetwork.Size = new System.Drawing.Size(152, 22);
+            this.btmiConnectNetwork.Text = "连接网络";
+            this.btmiConnectNetwork.Click += new System.EventHandler(this.btConnectnetwork_Click);
+            // 
+            // btmiDisconnectNetwork
+            // 
+            this.btmiDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect1;
+            this.btmiDisconnectNetwork.Name = "btmiDisconnectNetwork";
+            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(118, 22);
+            this.btmiDisconnectNetwork.Text = "断开网络";
+            this.btmiDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
             // 
             // tsmiChangePassword
             // 
             this.tsmiChangePassword.Image = global::ConfigDevice.Properties.Resources.client;
             this.tsmiChangePassword.Name = "tsmiChangePassword";
-            this.tsmiChangePassword.Size = new System.Drawing.Size(118, 22);
+            this.tsmiChangePassword.Size = new System.Drawing.Size(152, 22);
             this.tsmiChangePassword.Text = "修改密码";
             this.tsmiChangePassword.Click += new System.EventHandler(this.tsmiChangePassword_Click);
             // 
@@ -393,17 +474,17 @@
             // 
             this.tsmiParameter.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.tsmiParameter.Name = "tsmiParameter";
-            this.tsmiParameter.Size = new System.Drawing.Size(118, 22);
+            this.tsmiParameter.Size = new System.Drawing.Size(152, 22);
             this.tsmiParameter.Text = "网络参数";
-            this.tsmiParameter.Click += new System.EventHandler(this.gvNetwork_DoubleClick);
+            this.tsmiParameter.Click += new System.EventHandler(this.gvNetwork_LinkEdit);
             // 
             // gvNetwork
             // 
             this.gvNetwork.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.networkDeviceName,
             this.networkDeviceID,
             this.networkID,
             this.networkState,
-            this.networkDeviceName,
             this.networkDeviceMac,
             this.networkRemark,
             this.gridColumn5,
@@ -411,55 +492,10 @@
             this.gridColumn4});
             this.gvNetwork.GridControl = this.gcNetwork;
             this.gvNetwork.Name = "gvNetwork";
-            this.gvNetwork.OptionsView.EnableAppearanceEvenRow = true;
             this.gvNetwork.OptionsView.ShowGroupPanel = false;
             this.gvNetwork.OptionsView.ShowIndicator = false;
-            this.gvNetwork.DoubleClick += new System.EventHandler(this.gvNetwork_DoubleClick);
-            // 
-            // networkDeviceID
-            // 
-            this.networkDeviceID.AppearanceCell.Options.UseTextOptions = true;
-            this.networkDeviceID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.networkDeviceID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.networkDeviceID.AppearanceHeader.Options.UseTextOptions = true;
-            this.networkDeviceID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.networkDeviceID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.networkDeviceID.Caption = "设备ID";
-            this.networkDeviceID.Name = "networkDeviceID";
-            this.networkDeviceID.OptionsColumn.AllowEdit = false;
-            this.networkDeviceID.OptionsColumn.ReadOnly = true;
-            this.networkDeviceID.Visible = true;
-            this.networkDeviceID.VisibleIndex = 0;
-            // 
-            // networkID
-            // 
-            this.networkID.AppearanceCell.Options.UseTextOptions = true;
-            this.networkID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.networkID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.networkID.AppearanceHeader.Options.UseTextOptions = true;
-            this.networkID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.networkID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.networkID.Caption = "网段ID";
-            this.networkID.Name = "networkID";
-            this.networkID.OptionsColumn.AllowEdit = false;
-            this.networkID.OptionsColumn.ReadOnly = true;
-            this.networkID.Visible = true;
-            this.networkID.VisibleIndex = 1;
-            // 
-            // networkState
-            // 
-            this.networkState.AppearanceCell.Options.UseTextOptions = true;
-            this.networkState.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.networkState.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.networkState.AppearanceHeader.Options.UseTextOptions = true;
-            this.networkState.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.networkState.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.networkState.Caption = "状态";
-            this.networkState.Name = "networkState";
-            this.networkState.OptionsColumn.AllowEdit = false;
-            this.networkState.OptionsColumn.ReadOnly = true;
-            this.networkState.Visible = true;
-            this.networkState.VisibleIndex = 2;
+            this.gvNetwork.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvNetwork_FocusedRowChanged);
+            this.gvNetwork.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gvNetwork_RowStyle);
             // 
             // networkDeviceName
             // 
@@ -471,10 +507,55 @@
             this.networkDeviceName.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.networkDeviceName.Caption = "设备名称";
             this.networkDeviceName.Name = "networkDeviceName";
-            this.networkDeviceName.OptionsColumn.AllowEdit = false;
-            this.networkDeviceName.OptionsColumn.ReadOnly = true;
             this.networkDeviceName.Visible = true;
-            this.networkDeviceName.VisibleIndex = 3;
+            this.networkDeviceName.VisibleIndex = 1;
+            // 
+            // networkDeviceID
+            // 
+            this.networkDeviceID.AppearanceCell.Options.UseTextOptions = true;
+            this.networkDeviceID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.networkDeviceID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.networkDeviceID.AppearanceHeader.Options.UseTextOptions = true;
+            this.networkDeviceID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.networkDeviceID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.networkDeviceID.Caption = "设备ID";
+            this.networkDeviceID.Name = "networkDeviceID";
+            this.networkDeviceID.Visible = true;
+            this.networkDeviceID.VisibleIndex = 2;
+            // 
+            // networkID
+            // 
+            this.networkID.AppearanceCell.Options.UseTextOptions = true;
+            this.networkID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.networkID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.networkID.AppearanceHeader.Options.UseTextOptions = true;
+            this.networkID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.networkID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.networkID.Caption = "网段ID";
+            this.networkID.Name = "networkID";
+            this.networkID.Visible = true;
+            this.networkID.VisibleIndex = 3;
+            // 
+            // networkState
+            // 
+            this.networkState.AppearanceCell.Options.UseTextOptions = true;
+            this.networkState.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.networkState.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.networkState.AppearanceHeader.Options.UseTextOptions = true;
+            this.networkState.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.networkState.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.networkState.Caption = "状态";
+            this.networkState.ColumnEdit = this.linkEdit;
+            this.networkState.Name = "networkState";
+            this.networkState.OptionsColumn.ReadOnly = true;
+            this.networkState.Visible = true;
+            this.networkState.VisibleIndex = 0;
+            // 
+            // linkEdit
+            // 
+            this.linkEdit.AutoHeight = false;
+            this.linkEdit.Name = "linkEdit";
+            this.linkEdit.Click += new System.EventHandler(this.gvNetwork_LinkEdit);
             // 
             // networkDeviceMac
             // 
@@ -488,8 +569,6 @@
             this.networkDeviceMac.Name = "networkDeviceMac";
             this.networkDeviceMac.OptionsColumn.AllowEdit = false;
             this.networkDeviceMac.OptionsColumn.ReadOnly = true;
-            this.networkDeviceMac.Visible = true;
-            this.networkDeviceMac.VisibleIndex = 4;
             // 
             // networkRemark
             // 
@@ -505,7 +584,7 @@
             this.networkRemark.Name = "networkRemark";
             this.networkRemark.OptionsColumn.ReadOnly = true;
             this.networkRemark.Visible = true;
-            this.networkRemark.VisibleIndex = 5;
+            this.networkRemark.VisibleIndex = 4;
             // 
             // gridColumn5
             // 
@@ -550,44 +629,54 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btSaveNetwork,
             this.btNetworkSearch,
             this.btConnectnetwork,
             this.btDisconnectNetwork,
             this.btGJ,
             this.btXtxx,
             this.toolStripButton1,
-            this.toolStripButton2,
+            this.lblIPSelect,
             this.cbxIPList});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1016, 32);
+            this.toolStrip1.Size = new System.Drawing.Size(1016, 31);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // btSaveNetwork
+            // 
+            this.btSaveNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btSaveNetwork.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSaveNetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSaveNetwork.Name = "btSaveNetwork";
+            this.btSaveNetwork.Size = new System.Drawing.Size(73, 28);
+            this.btSaveNetwork.Text = "保存 ";
             // 
             // btNetworkSearch
             // 
             this.btNetworkSearch.Image = global::ConfigDevice.Properties.Resources.View;
             this.btNetworkSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btNetworkSearch.Name = "btNetworkSearch";
-            this.btNetworkSearch.Size = new System.Drawing.Size(96, 29);
+            this.btNetworkSearch.Size = new System.Drawing.Size(96, 28);
             this.btNetworkSearch.Text = "网络搜索 ";
             this.btNetworkSearch.Click += new System.EventHandler(this.btNetworkSearch_Click);
             // 
             // btConnectnetwork
             // 
-            this.btConnectnetwork.Image = global::ConfigDevice.Properties.Resources.connect;
+            this.btConnectnetwork.Image = global::ConfigDevice.Properties.Resources.connect1;
             this.btConnectnetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btConnectnetwork.Name = "btConnectnetwork";
-            this.btConnectnetwork.Size = new System.Drawing.Size(96, 29);
+            this.btConnectnetwork.Size = new System.Drawing.Size(96, 28);
             this.btConnectnetwork.Text = "连接网络 ";
             this.btConnectnetwork.Click += new System.EventHandler(this.btConnectnetwork_Click);
             // 
             // btDisconnectNetwork
             // 
-            this.btDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect;
+            this.btDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect1;
             this.btDisconnectNetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btDisconnectNetwork.Name = "btDisconnectNetwork";
-            this.btDisconnectNetwork.Size = new System.Drawing.Size(96, 29);
+            this.btDisconnectNetwork.Size = new System.Drawing.Size(96, 28);
             this.btDisconnectNetwork.Text = "断开网络 ";
             this.btDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
             // 
@@ -595,14 +684,14 @@
             // 
             this.btGJ.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btClearRJ45,
-            this.btSyncID,
             this.btSyncTime,
-            this.btSyncData});
+            this.btSyncData,
+            this.btIPSelect});
             this.btGJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btGJ.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.btGJ.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btGJ.Name = "btGJ";
-            this.btGJ.Size = new System.Drawing.Size(82, 29);
+            this.btGJ.Size = new System.Drawing.Size(82, 28);
             this.btGJ.Text = "高级 ";
             this.btGJ.MouseHover += new System.EventHandler(this.btGJ_MouseHover);
             // 
@@ -610,23 +699,15 @@
             // 
             this.btClearRJ45.Image = global::ConfigDevice.Properties.Resources.Clear;
             this.btClearRJ45.Name = "btClearRJ45";
-            this.btClearRJ45.Size = new System.Drawing.Size(148, 24);
+            this.btClearRJ45.Size = new System.Drawing.Size(157, 24);
             this.btClearRJ45.Text = "清空RJ45";
             this.btClearRJ45.Click += new System.EventHandler(this.btClearNetwork_Click);
-            // 
-            // btSyncID
-            // 
-            this.btSyncID.Image = global::ConfigDevice.Properties.Resources.exchange;
-            this.btSyncID.Name = "btSyncID";
-            this.btSyncID.Size = new System.Drawing.Size(148, 24);
-            this.btSyncID.Text = "同步ID";
-            this.btSyncID.Click += new System.EventHandler(this.btSyncID_Click);
             // 
             // btSyncTime
             // 
             this.btSyncTime.Image = global::ConfigDevice.Properties.Resources.checkWork;
             this.btSyncTime.Name = "btSyncTime";
-            this.btSyncTime.Size = new System.Drawing.Size(148, 24);
+            this.btSyncTime.Size = new System.Drawing.Size(157, 24);
             this.btSyncTime.Text = "同步时间";
             this.btSyncTime.Click += new System.EventHandler(this.btSyncTime_Click);
             // 
@@ -634,9 +715,17 @@
             // 
             this.btSyncData.Image = global::ConfigDevice.Properties.Resources.snyc;
             this.btSyncData.Name = "btSyncData";
-            this.btSyncData.Size = new System.Drawing.Size(148, 24);
+            this.btSyncData.Size = new System.Drawing.Size(157, 24);
             this.btSyncData.Text = "同步数据";
             this.btSyncData.Click += new System.EventHandler(this.btSyncData_Click);
+            // 
+            // btIPSelect
+            // 
+            this.btIPSelect.Image = global::ConfigDevice.Properties.Resources.goyi;
+            this.btIPSelect.Name = "btIPSelect";
+            this.btIPSelect.Size = new System.Drawing.Size(157, 24);
+            this.btIPSelect.Text = "显示IP选择";
+            this.btIPSelect.Click += new System.EventHandler(this.btIPSelect_Click);
             // 
             // btXtxx
             // 
@@ -647,7 +736,7 @@
             this.btXtxx.Image = global::ConfigDevice.Properties.Resources.fact;
             this.btXtxx.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btXtxx.Name = "btXtxx";
-            this.btXtxx.Size = new System.Drawing.Size(104, 29);
+            this.btXtxx.Size = new System.Drawing.Size(104, 28);
             this.btXtxx.Text = "系统信息";
             this.btXtxx.MouseHover += new System.EventHandler(this.btXtxx_MouseHover);
             // 
@@ -672,16 +761,18 @@
             this.toolStripButton1.Margin = new System.Windows.Forms.Padding(60, 0, 0, 0);
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(6, 32);
+            this.toolStripButton1.Visible = false;
             // 
-            // toolStripButton2
+            // lblIPSelect
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(60, 29);
-            this.toolStripButton2.Text = "IP地址:";
+            this.lblIPSelect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.lblIPSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIPSelect.Image = ((System.Drawing.Image)(resources.GetObject("lblIPSelect.Image")));
+            this.lblIPSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.lblIPSelect.Name = "lblIPSelect";
+            this.lblIPSelect.Size = new System.Drawing.Size(60, 29);
+            this.lblIPSelect.Text = "IP地址:";
+            this.lblIPSelect.Visible = false;
             // 
             // cbxIPList
             // 
@@ -690,6 +781,7 @@
             this.cbxIPList.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.cbxIPList.Name = "cbxIPList";
             this.cbxIPList.Size = new System.Drawing.Size(200, 32);
+            this.cbxIPList.Visible = false;
             this.cbxIPList.SelectedIndexChanged += new System.EventHandler(this.cbxIPList_SelectedIndexChanged);
             // 
             // FrmMain
@@ -716,6 +808,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcNetwork)).EndInit();
             this.contextMenuStripNetwork.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvNetwork)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -737,7 +830,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn deviceMac;
         private DevExpress.XtraGrid.Columns.GridColumn deviceState;
         private DevExpress.XtraGrid.Columns.GridColumn deviceRemark;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn13;
+        private DevExpress.XtraGrid.Columns.GridColumn findDevice;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Panel panel2;
         private DevExpress.XtraGrid.GridControl gcNetwork;
@@ -763,15 +856,23 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiParameter;
         private System.Windows.Forms.ToolStripComboBox cbxIPList;
         private System.Windows.Forms.ToolStripSeparator toolStripButton1;
-        private System.Windows.Forms.ToolStripLabel toolStripButton2;
+        private System.Windows.Forms.ToolStripLabel lblIPSelect;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripComboBox cbxSelectNetwork;
         private System.Windows.Forms.ToolStripButton btClearDevice;
         private System.Windows.Forms.ToolStripDropDownButton btGJ;
         private System.Windows.Forms.ToolStripMenuItem btClearRJ45;
-        private System.Windows.Forms.ToolStripMenuItem btSyncID;
         private System.Windows.Forms.ToolStripMenuItem btSyncTime;
         private System.Windows.Forms.ToolStripMenuItem btSyncData;
         private System.Windows.Forms.ToolStripLabel toolStripButton3;
+        private System.Windows.Forms.ToolStripMenuItem btIPSelect;
+        private System.Windows.Forms.ToolStripButton btSave;
+        private System.Windows.Forms.ToolStripButton btQry;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton btSaveNetwork;
+        private System.Windows.Forms.ToolStripButton btSnycNetworkID;
+        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkEdit;
+        private System.Windows.Forms.ToolStripMenuItem btmiConnectNetwork;
+        private System.Windows.Forms.ToolStripMenuItem btmiDisconnectNetwork;
     }
 }

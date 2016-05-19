@@ -105,12 +105,12 @@
             this.tctrlEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
-            this.tctrlEdit.SelectedTabPage = this.pagePzjm;
+            this.tctrlEdit.SelectedTabPage = this.pageJcsz;
             this.tctrlEdit.Size = new System.Drawing.Size(1018, 719);
             this.tctrlEdit.TabIndex = 1;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.pagePzjm,
             this.pageJcsz,
+            this.pagePzjm,
             this.pageCommand});
             this.tctrlEdit.Text = "xtraTabControl1";
             this.tctrlEdit.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.tctrlEdit_SelectedPageChanged);
@@ -502,11 +502,11 @@
             this.pageCommand.Size = new System.Drawing.Size(1009, 682);
             this.pageCommand.Text = "指令配置";
             // 
-            // uCtrlCommandEdit
+            // viewCommandEdit
             // 
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandEdit.Location = new System.Drawing.Point(0, 0);
-            this.viewCommandEdit.Name = "uCtrlCommandEdit";
+            this.viewCommandEdit.Name = "viewCommandEdit";
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 682);
             this.viewCommandEdit.TabIndex = 0;
             // 

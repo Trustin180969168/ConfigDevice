@@ -91,10 +91,13 @@ namespace ConfigDevice
                 //------添加到数据表----------
                 SysConfig.DtNetwork.Rows.Add(new object[] { network.DeviceID, network.NetworkID, network.State, 
                 network.DeviceName, network.MacAddress,network.NetworkIP,network.Port.ToString(),network.Remark });
-                SysConfig.DtNetwork.AcceptChanges();  
+                SysConfig.DtNetwork.AcceptChanges();
 
                 if (!SysConfig.ListNetworks.ContainsKey(network.NetworkIP))
+                {
                     SysConfig.ListNetworks.Add(network.NetworkIP, network);
+                    network.CallbackUI += this.callbackUI;
+                }
                 
                 CallBackUI(null);
             }

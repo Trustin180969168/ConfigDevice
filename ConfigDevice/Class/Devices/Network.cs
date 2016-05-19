@@ -504,6 +504,7 @@ namespace ConfigDevice
                     int i =SysConfig.ListNetworks.Count;
                     GetPositionList(); //----------获取位置列表---------
                     SysCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
+                    callbackUI(new object[] { ActionKind.ConnectNetowrk });
                     return;
                 }
                 else

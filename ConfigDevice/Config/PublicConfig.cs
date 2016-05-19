@@ -59,6 +59,7 @@ namespace ConfigDevice
     {
         SearchDevice,
         SearchNetwork,
+        ConnectNetowrk,
         SyncNetworkID
         
     }

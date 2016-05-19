@@ -7,7 +7,7 @@ namespace ConfigDevice
 
     public class ServerControlObj : ControlObj
     {
-        public const string NAME_CMD_SEND_EMAIL = "发Email";
+        public const string NAME_CMD_SEND_WEIXIN = "发微信";
 
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public ServerControlObj(Device _deviceCtrl)
@@ -17,7 +17,7 @@ namespace ConfigDevice
 
             if (NameAndCommand.Count == 0)
             {
-                NameAndCommand.Add(NAME_CMD_SEND_EMAIL, DeviceConfig.CMD_SERVER_EMAIL);
+                NameAndCommand.Add(NAME_CMD_SEND_WEIXIN, DeviceConfig.CMD_SERVER_WEIXIN);
             }
         }
 
@@ -29,14 +29,19 @@ namespace ConfigDevice
         /// <returns>CommandData</returns>
         private CommandData ControlAction(byte[] cmd, string content)
         {
-            CommandData cmdData = new CommandData("发Email");
+            CommandData cmdData = new CommandData("发微信");
             cmdData.TargetId = deviceControled.ByteDeviceID;
             cmdData.TargetNet = deviceControled.ByteNetworkId;
             cmdData.TargetType = deviceControled.ByteKindID;
 
             cmdData.Cmd = cmd;
             cmdData.Data = Encoding.Unicode.GetBytes(content);
-            cmdData.DataLen = cmdData.Data.Length; 
+            if (cmdData.DataLen > 30)
+            { 
+                CommonTools.MessageShow("数据长度不能大于30字节!", 2, "");
+                return null;
+            }
+            cmdData.DataLen = cmdData.Data.Length;
             return cmdData;
         }
 

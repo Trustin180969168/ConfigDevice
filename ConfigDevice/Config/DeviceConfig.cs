@@ -246,7 +246,7 @@ namespace ConfigDevice
         public static readonly byte[] CMD_SERVER_RET_CONNECT = new byte[] { 0xb2, CMD_TYPE_SERVER };//回复连接
         public static readonly byte[] CMD_SERVER_HEARTBEAT = new byte[] { 0x33, CMD_TYPE_SERVER };//心跳帧
         public static readonly byte[] CMD_SERVER_RET_HEARTBEAT = new byte[] { 0xb3, CMD_TYPE_SERVER };//回复心跳帧
-        public static readonly byte[] CMD_SERVER_EMAIL = new byte[] { 0x20, CMD_TYPE_SERVER };//email指令
+        public static readonly byte[] CMD_SERVER_WEIXIN = new byte[] { 0x20, CMD_TYPE_SERVER };//微信指令
         public static readonly byte[] CMD_MMSG_READ_VER = new byte[] { 0x61, CMD_TYPE_SERVER };//读设备软硬件版本
         public static readonly byte[] CMD_MMSG_WRITE_VER = new byte[] { 0xE1, CMD_TYPE_SERVER };//写设备软硬件版本
         public static readonly byte[] CMD_MMSG_READ_MEMU_NAME = new byte[] { 0x62, CMD_TYPE_SERVER };//读菜单名称

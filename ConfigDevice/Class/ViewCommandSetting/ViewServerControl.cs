@@ -34,14 +34,13 @@ namespace ConfigDevice
         public override void InitViewSetting()
         {
             dcCommand.Visible = true;
-            dcEmailContent.Visible = true; 
+            dcEmailContent.Visible = true;
             ViewSetting.Columns.ColumnByName("parameter1").VisibleIndex = 6;
-            cbxCommandKind.Items.Add(ServerControlObj.NAME_CMD_SEND_EMAIL);
+            cbxCommandKind.Items.Add(ServerControlObj.NAME_CMD_SEND_WEIXIN);
 
             dcEmailContent.Caption = "Email内容";
-            dcEmailContent.ColumnEdit = meEdit;
-            ViewSetting.RowHeight = 180;
             ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
+            dcEmailContent.Width = 200;
 
             ViewSetting.BestFitColumns();
         }
@@ -75,9 +74,9 @@ namespace ConfigDevice
         {
             //---找出对应的指令---------
             string cmdName = "";
-            foreach (string key in Motor.NameAndCommand.Keys)
+            foreach (string key in ServerControlObj.NameAndCommand.Keys)
             {
-                if (CommonTools.BytesEuqals(data.Cmd, Motor.NameAndCommand[key]))
+                if (CommonTools.BytesEuqals(data.Cmd, ServerControlObj.NameAndCommand[key]))
                 { cmdName = key; break; }
             }
             ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---

@@ -109,6 +109,13 @@ namespace ConfigDevice.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap connect1 {
+            get {
+                object obj = ResourceManager.GetObject("connect1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap del1 {
             get {
                 object obj = ResourceManager.GetObject("del1", resourceCulture);
@@ -119,6 +126,13 @@ namespace ConfigDevice.Properties {
         internal static System.Drawing.Bitmap disconnect {
             get {
                 object obj = ResourceManager.GetObject("disconnect", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap disconnect1 {
+            get {
+                object obj = ResourceManager.GetObject("disconnect1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -161,6 +175,13 @@ namespace ConfigDevice.Properties {
         internal static System.Drawing.Bitmap load {
             get {
                 object obj = ResourceManager.GetObject("load", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap open_found {
+            get {
+                object obj = ResourceManager.GetObject("open_found", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

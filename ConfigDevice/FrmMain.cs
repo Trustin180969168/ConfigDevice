@@ -21,7 +21,7 @@ namespace ConfigDevice
         private NetworkCtrl networkCtrl;//----网络控制-----
         private DeviceCtrl deviceCtrl;//----设备控制-----
         private PleaseWait pw;//---等待窗体
-
+        private bool OneNetworkShow = false;//是否单网段显示
         public FrmMain()
         {
             SysCtrl.Init();//初始化配置
@@ -99,9 +99,11 @@ namespace ConfigDevice
                     else if ((ActionKind)values[0] == ActionKind.SyncNetworkID)
                     {
                         Network network = (Network)(values[1]);
-                        network.CallbackUI -= this.CallBackUI;//----返回后退订-----
+                        //network.CallbackUI -= this.CallBackUI;//----返回后退订-----
                         deviceCtrl.SearchDevices(network);
                     }
+                    else if ((ActionKind)values[0] == ActionKind.ConnectNetowrk)
+                    { gvNetwork.PostEditor(); gvNetwork.RefreshData(); btSearchDevices_Click(null, null); }
                 }
             }
             catch (Exception e1) { e1.ToString(); }
@@ -130,6 +132,7 @@ namespace ConfigDevice
             { CommonTools.MessageShow("你已经连接了" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             network.ConnectNetwork();
+
         }
 
         /// <summary>
@@ -159,9 +162,9 @@ namespace ConfigDevice
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
             }
-         
+
             deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);
-       
+
         }
 
         public void closePw(IAsyncResult asyncResult)
@@ -216,7 +219,7 @@ namespace ConfigDevice
         /// <summary>
         /// 双击链接或打开网络
         /// </summary>
-        private void gvNetwork_DoubleClick(object sender, EventArgs e)
+        private void gvNetwork_LinkEdit(object sender, EventArgs e)
         {
             if (gvNetwork.FocusedRowHandle == -1) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
@@ -224,7 +227,7 @@ namespace ConfigDevice
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             if (network.State == NetworkConfig.STATE_CONNECTED)
             {
-                FrmNetworkEdit frm = new FrmNetworkEdit();                          
+                FrmNetworkEdit frm = new FrmNetworkEdit();
                 frm.NetworkEdit = network;
                 frm.Show(this);
             }
@@ -291,9 +294,9 @@ namespace ConfigDevice
             cbxSelectNetwork.Items.Add("");
             //-----网络列表------------------
             foreach (Network network in SysConfig.ListNetworks.Values)
-            {                
+            {
                 cbxSelectNetwork.Items.Add(network.DeviceName);
-                listNetworkNameID.Add(network.DeviceName, network.NetworkID);                
+                listNetworkNameID.Add(network.DeviceName, network.NetworkID);
             }
             cbxSelectNetwork.SelectedIndexChanged -= cbxSelectNetwork_SelectedIndexChanged;
             cbxSelectNetwork.Text = oldSelect;
@@ -363,6 +366,92 @@ namespace ConfigDevice
             { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             network.SnycData();
+        }
+
+        /// <summary>
+        /// 显示IP选择
+        /// </summary>
+        private void btIPSelect_Click(object sender, EventArgs e)
+        {
+            toolStripButton1.Visible = true;
+            lblIPSelect.Visible = true;
+            cbxIPList.Visible = true;
+        }
+
+        /// <summary>
+        /// 单网段显示
+        /// </summary>
+        private void btQry_Click(object sender, EventArgs e)
+        {
+            OneNetworkShow = !OneNetworkShow;
+            if (OneNetworkShow)
+            {
+                btQry.CheckState = CheckState.Checked;
+                btQry.Text = "单网段显示";
+                //btQry.BackColor = Color.White; 
+            }
+            else
+            {
+                btQry.CheckState = CheckState.Unchecked;
+                //btQry.BackColor = toolStrip2.BackColor; 
+            }
+            gvNetwork_Click(sender, e);
+        }
+
+        /// <summary>
+        /// 选择网络
+        /// </summary>
+        private void gvNetwork_Click(object sender, EventArgs e)
+        {
+            if (gvNetwork.FocusedRowHandle == -1) return;
+            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            if (!OneNetworkShow)
+                deviceNetworkID.ClearFilter();
+            else
+            {
+                string networkID = dr[deviceNetworkID.FieldName].ToString();
+                deviceNetworkID.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "' ");
+            }
+
+        }
+
+        /// <summary>
+        /// 连接后改变颜色
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gvNetwork_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            if (e.RowHandle >= 0)
+            {
+                string state = gvNetwork.GetRowCellDisplayText(e.RowHandle, networkState);
+                if (state == NetworkConfig.STATE_CONNECTED)
+                {
+                    e.Appearance.ForeColor = Color.Blue;
+                    e.Appearance.BackColor = Color.Orange;
+
+                }
+                else
+                {
+                    e.Appearance.ForeColor = Color.Black;
+                    e.Appearance.BackColor = Color.White;
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// 网络选择
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gvNetwork_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+            gvNetwork_Click(sender, e);
+        }
+        private void gvNetwork_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
+        {
+            gvNetwork_Click(sender, e);
         }
 
 
