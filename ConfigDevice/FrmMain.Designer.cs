@@ -165,6 +165,7 @@
             this.xh.Caption = "序号";
             this.xh.FieldName = "xh";
             this.xh.Name = "xh";
+            this.xh.OptionsColumn.AllowEdit = false;
             this.xh.OptionsColumn.ReadOnly = true;
             this.xh.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
             this.xh.Visible = true;
@@ -195,6 +196,7 @@
             this.deviceNetworkID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.deviceNetworkID.Caption = "网段ID";
             this.deviceNetworkID.Name = "deviceNetworkID";
+            this.deviceNetworkID.OptionsColumn.AllowEdit = false;
             this.deviceNetworkID.OptionsColumn.ReadOnly = true;
             this.deviceNetworkID.Visible = true;
             this.deviceNetworkID.VisibleIndex = 3;
@@ -210,6 +212,7 @@
             this.deviceKind.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.deviceKind.Caption = "设备类型";
             this.deviceKind.Name = "deviceKind";
+            this.deviceKind.OptionsColumn.AllowEdit = false;
             this.deviceKind.OptionsColumn.ReadOnly = true;
             this.deviceKind.Visible = true;
             this.deviceKind.VisibleIndex = 4;
@@ -239,6 +242,7 @@
             this.deviceMac.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.deviceMac.Caption = "设备机身码";
             this.deviceMac.Name = "deviceMac";
+            this.deviceMac.OptionsColumn.AllowEdit = false;
             this.deviceMac.OptionsColumn.ReadOnly = true;
             // 
             // deviceState
@@ -251,6 +255,7 @@
             this.deviceState.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.deviceState.Caption = "状态";
             this.deviceState.Name = "deviceState";
+            this.deviceState.OptionsColumn.AllowEdit = false;
             this.deviceState.OptionsColumn.ReadOnly = true;
             this.deviceState.Visible = true;
             this.deviceState.VisibleIndex = 5;
@@ -268,6 +273,7 @@
             this.deviceRemark.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.deviceRemark.Caption = "提示";
             this.deviceRemark.Name = "deviceRemark";
+            this.deviceRemark.OptionsColumn.AllowEdit = false;
             this.deviceRemark.OptionsColumn.ReadOnly = true;
             this.deviceRemark.Visible = true;
             this.deviceRemark.VisibleIndex = 6;

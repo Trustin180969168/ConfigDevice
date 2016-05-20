@@ -535,6 +535,11 @@ namespace ConfigDevice
             gvDevices.RefreshData();
         }
 
+        private void gcDevices_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            gvDevices_DoubleClick(sender, e);
+        }
+
 
 
 

@@ -40,7 +40,7 @@ namespace ConfigDevice
 
             dcEmailContent.Caption = "Email内容";
             ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
-            dcEmailContent.Width = 400;
+ 
 
            // ViewSetting.BestFitColumns();
         }

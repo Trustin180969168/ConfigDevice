@@ -35,8 +35,7 @@ namespace ConfigDevice
         private void loadData()
         {
             doorInput4.SearchVer();//---获取版本号-----   
-            doorInput4.ReadSettingInfo();//----读取配置信息-----
-            doorInput4.ReadRoadTitle();//---读取回路名称----          
+
         }
 
         /// <summary>
@@ -201,8 +200,15 @@ namespace ConfigDevice
         private void tctrlEdit_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
         {
             if (tctrlEdit.SelectedTabPageIndex == 2)
+            {
                 if (viewCommandEdit.NeedInit)
                     viewCommandEdit.InitViewCommand(doorInput4);//初始化
+            }
+            else if (tctrlEdit.SelectedTabPageIndex == 1)
+            {
+                doorInput4.ReadSettingInfo();//----读取配置信息-----
+                doorInput4.ReadRoadTitle();//---读取回路名称----        
+            }
         }
 
 

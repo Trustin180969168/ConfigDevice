@@ -128,11 +128,7 @@ namespace ConfigDevice
                 allowSync = true;
                 SyncCommandSetting();
                 
-                //------改变高度------
-                if (CurrentControlObj is ServerControlObj)
-                    this.Height = 200;
-                else
-                    this.Height = 70;
+
             }
         }
 
@@ -148,7 +144,7 @@ namespace ConfigDevice
             ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
             DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = name;
             SyncCommandSetting();
-            //refreshView();取消自适应宽度
+            refreshView();
             allowSync = true;
             SyncCommandSetting();
 
@@ -159,11 +155,15 @@ namespace ConfigDevice
         /// </summary>
         private void refreshView()
         {
-            //gvCommands.PostEditor();
+            //gvCommands.PostEditor();取消自适应宽度
             //gvCommands.BestFitColumns();
             //gvCommands.RefreshData();
             //foreach (GridColumn dc in gvCommands.Columns)
             //    if (dc.VisibleIndex > 3) dc.Width += (int)(dc.Width * 0.5);
+            if (this.ViewCommandControlObj is ViewServerControl)
+                parameter1.Width = 400;
+            else
+                parameter1.Width = 80;
         }
 
         /// <summary>
