@@ -37,14 +37,15 @@ namespace ConfigDevice
         public const string DC_PARAMETER3 = "Parameter3";//参数3
         public const string DC_PARAMETER4 = "Parameter4";//参数4
         public const string DC_PARAMETER5 = "Parameter5";//参数5
-
+        public const string DC_IMAGE1 = "Image1";//图片
 
         public const string ERROR_SAME_DEVICE_ID = "设备ID冲突!";//设备ID冲突
         public const string ERROR_SAME_DEVICE_TITLE = "设备名称冲突!";//设备名称冲突
         public const string ERROR_SAME_DEVICE_NETWORK_ID = "非法网络ID!";
         public const string STATE_RIGHT = "√";//正常状态
         public const string STATE_ERROR = "×";//错误状态
-
+        public const string STATE_OPEN_LIGHT = "0";//开灯
+        public const string STATE_CLOSE_LIGHT = "1";//关灯
         //-------------------设备类型----------------------------
         //设备类型   如果以下无设备的类型则新增
         public const byte EQUIPMENT_KEY = 0x0;          //代表所有的键盘

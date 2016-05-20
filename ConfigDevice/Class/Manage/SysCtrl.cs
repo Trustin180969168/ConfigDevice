@@ -217,6 +217,7 @@ namespace ConfigDevice
                 SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_REMARK, System.Type.GetType("System.String"));
                 SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
                 SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_KINDNAME, System.Type.GetType("System.String"));
+
             }
             SysConfig.DtNetwork.Clear(); SysConfig.DtNetwork.AcceptChanges();//---初始化数据----
         }
@@ -287,6 +288,14 @@ namespace ConfigDevice
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NETWORK_IP, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ADDRESS, System.Type.GetType("System.String"));
+
+
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PARAMETER1, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PARAMETER2, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PARAMETER3, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PARAMETER4, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PARAMETER5, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_IMAGE1, System.Type.GetType("System.Byte[]"));
             }
         }
 
@@ -300,9 +309,12 @@ namespace ConfigDevice
                 " not in ('" + (int)DeviceConfig.EQUIPMENT_RJ45 + "', '"+ (int)DeviceConfig.EQUIPMENT_SERVER + "')" ).Length+1;
             if (device.ByteKindID == DeviceConfig.EQUIPMENT_SERVER || device.ByteKindID == DeviceConfig.EQUIPMENT_RJ45)
                 num = 1000 + num;
-            SysConfig.DtDevice.Rows.Add(new object[] {num.ToString(),device.DeviceID,device.NetworkID,
+            DataRow drInsert = SysConfig.DtDevice.Rows.Add(new object[] {num.ToString(),device.DeviceID,device.NetworkID,
                             device.KindID, device.KindName,device.Name,device.MAC,device.State,device.Remark,"","",device.PCAddress,
                             device.NetworkIP,device.AddressName});
+            drInsert[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_OPEN_LIGHT;
+            drInsert[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.on);
+
             SysConfig.DtDevice.AcceptChanges();
         }
 

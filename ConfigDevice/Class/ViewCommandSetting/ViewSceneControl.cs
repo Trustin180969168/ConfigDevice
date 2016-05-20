@@ -77,7 +77,7 @@ namespace ConfigDevice
             ViewSetting.SetRowCellValue(0, dcGroup, "1");
             ViewSetting.SetRowCellValue(0, dcRunTime, "00:00:00");
 
-            ViewSetting.BestFitColumns();
+            //ViewSetting.BestFitColumns();
         }
 
         /// <summary>

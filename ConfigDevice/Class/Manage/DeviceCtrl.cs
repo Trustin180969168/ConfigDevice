@@ -13,7 +13,7 @@ namespace ConfigDevice
         public event CallbackUIAction CallBackUI = null;//返回
         private CallbackFromUDP callbackGetSearchDevices;
         private CallbackFromUDP callbackGetStopSearchDevices;
-
+        private static object objLock = new object();
         public DeviceCtrl()
         {
             callbackGetSearchDevices = new CallbackFromUDP();
@@ -121,7 +121,7 @@ namespace ConfigDevice
         /// </summary>
         private void getDevices(UdpData data, object[] values)
         {
-            lock (this)
+            lock (objLock)
             {
                 int num = 0; bool find = false;
                 //-----获取数据-----
@@ -155,7 +155,8 @@ namespace ConfigDevice
                     device.Remark = DeviceConfig.ERROR_SAME_DEVICE_ID;//自身标识冲突
                 }
                 //-----排查名称冲突------------------
-                temp = DeviceConfig.DC_NAME + "='" + device.Name + "'"  + " and " + DeviceConfig.DC_MAC + " <> '" + device.MAC + "' ";;
+                temp = DeviceConfig.DC_NAME + "='" + device.Name + "'"  + " and " + DeviceConfig.DC_MAC + " <> '" + device.MAC + "' "
+                    +" and " + DeviceConfig.DC_NETWORK_ID + " = '" + device.NetworkID + "' ";
                 rows = SysConfig.DtDevice.Select(temp);
                 if (rows.Length > 0)
                 {
@@ -199,7 +200,8 @@ namespace ConfigDevice
             //------回复停止搜索-------               
             UdpData udpReply = createReplyUdp(data);
             mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
-            CallBackUI(new object[] { ActionKind.SearchDevice });
+            if (CallBackUI != null) 
+                CallBackUI(new object[] { ActionKind.SearchDevice,SearchingNetwork });
         }
 
 

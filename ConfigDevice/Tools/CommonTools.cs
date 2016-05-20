@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace ConfigDevice
 {
@@ -79,7 +80,7 @@ namespace ConfigDevice
                 content = "\n" + remark;
             switch (flag)
             {
-                case 1: return AutoCloseShow(content, "提示!", 3);//MessageBox.Show(content, "提示!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                case 1: return AutoCloseShow(content, "提示!", 1);//MessageBox.Show(content, "提示!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 case 2: return MessageBox.Show(content, "错误!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 case 3: return MessageBox.Show(content, "停止!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 case 4: return MessageBox.Show(content, "询问?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -119,5 +120,8 @@ namespace ConfigDevice
             Buffer.BlockCopy(src, start, value, 0, len);
             return value;
         }
+
+
+
     }
 }

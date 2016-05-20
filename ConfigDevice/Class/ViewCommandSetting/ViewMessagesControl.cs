@@ -98,7 +98,7 @@ namespace ConfigDevice
             ViewSetting.SetRowCellValue(0, dcPlayNum, "1");
             ViewSetting.SetRowCellValue(0, dcPlayCount, "1");
 
-            ViewSetting.BestFitColumns();
+            //ViewSetting.BestFitColumns();
         }
 
         /// <summary>

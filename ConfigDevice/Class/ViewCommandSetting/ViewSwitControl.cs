@@ -53,7 +53,7 @@ namespace ConfigDevice
             ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
             ViewSetting.SetRowCellValue(0, dcRunTime, "00:00:00");
 
-            ViewSetting.BestFitColumns();
+           // ViewSetting.BestFitColumns();
         }
 
         /// <summary>

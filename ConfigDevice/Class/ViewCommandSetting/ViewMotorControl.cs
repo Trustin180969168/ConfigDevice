@@ -87,7 +87,7 @@ namespace ConfigDevice
             ViewSetting.SetRowCellValue(0, dcOpenDelay, "00:00:00");
             ViewSetting.SetRowCellValue(0, dcCloseDelay, "00:00:00");
 
-            ViewSetting.BestFitColumns();
+           // ViewSetting.BestFitColumns();
 
         }
 

@@ -199,6 +199,7 @@
             this.edtName.Name = "edtName";
             this.edtName.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtName.Properties.Appearance.Options.UseFont = true;
+            this.edtName.Properties.MaxLength = 30;
             this.edtName.Size = new System.Drawing.Size(447, 26);
             this.edtName.TabIndex = 41;
             this.edtName.Leave += new System.EventHandler(this.edtName_Leave);
@@ -369,13 +370,13 @@
             this.label2.Text = "网段ID";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // UCtrlBaseEdit
+            // ViewBaseEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStrip1);
-            this.Name = "UCtrlBaseEdit";
+            this.Name = "ViewBaseEdit";
             this.Size = new System.Drawing.Size(779, 364);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.btSyncEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
+            this.btAdd = new System.Windows.Forms.ToolStripButton();
+            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.xscCommands = new DevExpress.XtraEditors.XtraScrollableControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.edtEndNum = new DevExpress.XtraEditors.SpinEdit();
             this.cbxGroup = new DevExpress.XtraEditors.ComboBoxEdit();
             this.lblGroupName = new DevExpress.XtraEditors.LabelControl();
-            this.edtBeginNum = new DevExpress.XtraEditors.TextEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.btSyncEdit = new System.Windows.Forms.ToolStripButton();
-            this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
-            this.btAdd = new System.Windows.Forms.ToolStripButton();
-            this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.edtBeginNum = new DevExpress.XtraEditors.SpinEdit();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -67,11 +67,48 @@
             this.toolStrip2.TabIndex = 3;
             this.toolStrip2.Text = "toolStrip2";
             // 
+            // btSyncEdit
+            // 
+            this.btSyncEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btSyncEdit.Image = global::ConfigDevice.Properties.Resources.uncheck;
+            this.btSyncEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSyncEdit.Name = "btSyncEdit";
+            this.btSyncEdit.Size = new System.Drawing.Size(28, 28);
+            this.btSyncEdit.Text = "同步编辑 ";
+            this.btSyncEdit.Click += new System.EventHandler(this.btSyncEdit_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(6, 0, 20, 0);
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            // 
+            // btSaveCommands
+            // 
+            this.btSaveCommands.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSaveCommands.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSaveCommands.Name = "btSaveCommands";
+            this.btSaveCommands.Size = new System.Drawing.Size(106, 28);
+            this.btSaveCommands.Text = "保存指令 ";
+            this.btSaveCommands.Click += new System.EventHandler(this.btSaveCommands_Click);
+            // 
+            // btAdd
+            // 
+            this.btAdd.Image = global::ConfigDevice.Properties.Resources.Add;
+            this.btAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(106, 28);
+            this.btAdd.Text = "添加指令 ";
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // btRefresh
+            // 
+            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(74, 28);
+            this.btRefresh.Text = "刷新 ";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // xscCommands
             // 
@@ -84,10 +121,10 @@
             // panelControl1
             // 
             this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl1.Controls.Add(this.edtBeginNum);
             this.panelControl1.Controls.Add(this.edtEndNum);
             this.panelControl1.Controls.Add(this.cbxGroup);
             this.panelControl1.Controls.Add(this.lblGroupName);
-            this.panelControl1.Controls.Add(this.edtBeginNum);
             this.panelControl1.Controls.Add(this.labelControl2);
             this.panelControl1.Controls.Add(this.labelControl1);
             this.panelControl1.Controls.Add(this.toolStrip2);
@@ -162,22 +199,6 @@
             this.lblGroupName.TabIndex = 8;
             this.lblGroupName.Text = "当前按键";
             // 
-            // edtBeginNum
-            // 
-            this.edtBeginNum.EditValue = "1";
-            this.edtBeginNum.Location = new System.Drawing.Point(87, 19);
-            this.edtBeginNum.Name = "edtBeginNum";
-            this.edtBeginNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.edtBeginNum.Properties.Appearance.Options.UseFont = true;
-            this.edtBeginNum.Properties.Appearance.Options.UseTextOptions = true;
-            this.edtBeginNum.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.edtBeginNum.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.edtBeginNum.Properties.Mask.EditMask = "d";
-            this.edtBeginNum.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.edtBeginNum.Properties.ReadOnly = true;
-            this.edtBeginNum.Size = new System.Drawing.Size(25, 26);
-            this.edtBeginNum.TabIndex = 6;
-            // 
             // labelControl2
             // 
             this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
@@ -192,48 +213,43 @@
             // 
             this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(65, 22);
+            this.labelControl1.Location = new System.Drawing.Point(44, 22);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(16, 19);
             this.labelControl1.TabIndex = 5;
             this.labelControl1.Text = "从";
             // 
-            // btSyncEdit
+            // edtBeginNum
             // 
-            this.btSyncEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btSyncEdit.Image = global::ConfigDevice.Properties.Resources.uncheck;
-            this.btSyncEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSyncEdit.Name = "btSyncEdit";
-            this.btSyncEdit.Size = new System.Drawing.Size(28, 28);
-            this.btSyncEdit.Text = "同步编辑 ";
-            this.btSyncEdit.Click += new System.EventHandler(this.btSyncEdit_Click);
-            // 
-            // btSaveCommands
-            // 
-            this.btSaveCommands.Image = global::ConfigDevice.Properties.Resources.save;
-            this.btSaveCommands.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSaveCommands.Name = "btSaveCommands";
-            this.btSaveCommands.Size = new System.Drawing.Size(106, 28);
-            this.btSaveCommands.Text = "保存指令 ";
-            this.btSaveCommands.Click += new System.EventHandler(this.btSaveCommands_Click);
-            // 
-            // btAdd
-            // 
-            this.btAdd.Image = global::ConfigDevice.Properties.Resources.Add;
-            this.btAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(106, 28);
-            this.btAdd.Text = "添加指令 ";
-            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
-            // 
-            // btRefresh
-            // 
-            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
-            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(74, 28);
-            this.btRefresh.Text = "刷新 ";
-            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            this.edtBeginNum.EditValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.edtBeginNum.Location = new System.Drawing.Point(66, 19);
+            this.edtBeginNum.Name = "edtBeginNum";
+            this.edtBeginNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtBeginNum.Properties.Appearance.Options.UseFont = true;
+            this.edtBeginNum.Properties.Appearance.Options.UseTextOptions = true;
+            this.edtBeginNum.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.edtBeginNum.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.edtBeginNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtBeginNum.Properties.IsFloatValue = false;
+            this.edtBeginNum.Properties.Mask.EditMask = "d";
+            this.edtBeginNum.Properties.MaxValue = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.edtBeginNum.Properties.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.edtBeginNum.Size = new System.Drawing.Size(46, 26);
+            this.edtBeginNum.TabIndex = 1;
+            this.edtBeginNum.ValueChanged += new System.EventHandler(this.edtEndNum_ValueChanged);
             // 
             // ViewCommandSetting
             // 
@@ -261,7 +277,6 @@
         private System.Windows.Forms.ToolStripButton btSaveCommands;
         private DevExpress.XtraEditors.XtraScrollableControl xscCommands;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraEditors.TextEdit edtBeginNum;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.ComboBoxEdit cbxGroup;
@@ -271,5 +286,6 @@
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraEditors.SpinEdit edtEndNum;
         private System.Windows.Forms.ToolStripButton btAdd;
+        private DevExpress.XtraEditors.SpinEdit edtBeginNum;
     }
 }

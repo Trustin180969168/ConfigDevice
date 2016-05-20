@@ -47,9 +47,9 @@
             this.spinTest = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.cedtSelect = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.numEdit = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
+            this.meeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             this.hyperLinkEdit1 = new DevExpress.XtraEditors.HyperLinkEdit();
             this.cedtNum = new DevExpress.XtraEditors.CheckEdit();
-            this.meeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
@@ -58,9 +58,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtSelect)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // gcCommands
@@ -123,7 +123,7 @@
             this.deviceID.OptionsColumn.ReadOnly = true;
             this.deviceID.Visible = true;
             this.deviceID.VisibleIndex = 0;
-            this.deviceID.Width = 58;
+            this.deviceID.Width = 60;
             // 
             // deviceNetworkID
             // 
@@ -140,7 +140,7 @@
             this.deviceNetworkID.OptionsColumn.ReadOnly = true;
             this.deviceNetworkID.Visible = true;
             this.deviceNetworkID.VisibleIndex = 1;
-            this.deviceNetworkID.Width = 58;
+            this.deviceNetworkID.Width = 60;
             // 
             // deviceKind
             // 
@@ -157,7 +157,7 @@
             this.deviceKind.OptionsColumn.ReadOnly = true;
             this.deviceKind.Visible = true;
             this.deviceKind.VisibleIndex = 2;
-            this.deviceKind.Width = 70;
+            this.deviceKind.Width = 80;
             // 
             // deviceName
             // 
@@ -174,7 +174,7 @@
             this.deviceName.OptionsColumn.ReadOnly = true;
             this.deviceName.Visible = true;
             this.deviceName.VisibleIndex = 3;
-            this.deviceName.Width = 70;
+            this.deviceName.Width = 120;
             // 
             // deviceCtrlObj
             // 
@@ -193,7 +193,7 @@
             this.deviceCtrlObj.Name = "deviceCtrlObj";
             this.deviceCtrlObj.Visible = true;
             this.deviceCtrlObj.VisibleIndex = 4;
-            this.deviceCtrlObj.Width = 70;
+            this.deviceCtrlObj.Width = 80;
             // 
             // cbxControlObj
             // 
@@ -219,7 +219,7 @@
             this.command.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.command.Caption = "指令";
             this.command.Name = "command";
-            this.command.Width = 132;
+            this.command.Width = 80;
             // 
             // parameter1
             // 
@@ -235,7 +235,7 @@
             this.parameter1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter1.Caption = "参数1";
             this.parameter1.Name = "parameter1";
-            this.parameter1.Width = 93;
+            this.parameter1.Width = 80;
             // 
             // parameter2
             // 
@@ -251,7 +251,7 @@
             this.parameter2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter2.Caption = "参数2";
             this.parameter2.Name = "parameter2";
-            this.parameter2.Width = 103;
+            this.parameter2.Width = 80;
             // 
             // parameter3
             // 
@@ -267,7 +267,7 @@
             this.parameter3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter3.Caption = "参数3";
             this.parameter3.Name = "parameter3";
-            this.parameter3.Width = 96;
+            this.parameter3.Width = 80;
             // 
             // parameter4
             // 
@@ -283,7 +283,7 @@
             this.parameter4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter4.Caption = "参数4";
             this.parameter4.Name = "parameter4";
-            this.parameter4.Width = 105;
+            this.parameter4.Width = 80;
             // 
             // parameter5
             // 
@@ -299,7 +299,7 @@
             this.parameter5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter5.Caption = "参数5";
             this.parameter5.Name = "parameter5";
-            this.parameter5.Width = 85;
+            this.parameter5.Width = 80;
             // 
             // linkEdit
             // 
@@ -362,6 +362,13 @@
             0});
             this.numEdit.Name = "numEdit";
             // 
+            // meeEdit
+            // 
+            this.meeEdit.AutoHeight = false;
+            this.meeEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.meeEdit.Name = "meeEdit";
+            // 
             // hyperLinkEdit1
             // 
             this.hyperLinkEdit1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -393,13 +400,6 @@
             this.cedtNum.Size = new System.Drawing.Size(47, 70);
             this.cedtNum.TabIndex = 13;
             // 
-            // meeEdit
-            // 
-            this.meeEdit.AutoHeight = false;
-            this.meeEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.meeEdit.Name = "meeEdit";
-            // 
             // ViewCommandTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -417,9 +417,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtSelect)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).EndInit();
             this.ResumeLayout(false);
 
         }

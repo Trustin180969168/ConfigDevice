@@ -303,6 +303,8 @@
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
     <Content Include="Config\SmartLight.h" />
+    <None Include="Resources\off.png" />
+    <None Include="Resources\on1.png" />
     <None Include="Resources\disconnect1.png" />
     <None Include="Resources\connect1.png" />
     <None Include="Resources\open_found.png" />
@@ -353,6 +355,7 @@
     <Compile Include="DeviceUI\Base\ViewCommandSetting.Designer.cs">
       <DependentUpon>ViewCommandSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Tools\PortTools.cs" />
     <Compile Include="Tools\SelectDevice.cs">
       <SubType>Form</SubType>

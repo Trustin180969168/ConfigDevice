@@ -12,6 +12,7 @@ using System.Timers;
 using System.IO;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace ConfigDevice
 {
@@ -22,6 +23,8 @@ namespace ConfigDevice
         private DeviceCtrl deviceCtrl;//----设备控制-----
         private PleaseWait pw;//---等待窗体
         private bool OneNetworkShow = false;//是否单网段显示
+        private Dictionary<string, Network> listSnycNetworks = new Dictionary<string, Network>();//-----同步网络ID列表--
+
         public FrmMain()
         {
             SysCtrl.Init();//初始化配置
@@ -53,7 +56,9 @@ namespace ConfigDevice
             deviceMac.FieldName = DeviceConfig.DC_MAC;
             deviceState.FieldName = DeviceConfig.DC_STATE;
             deviceRemark.FieldName = DeviceConfig.DC_REMARK;
-
+            image1.FieldName = DeviceConfig.DC_IMAGE1;
+            
+            
         }
 
         /// <summary>
@@ -84,6 +89,7 @@ namespace ConfigDevice
         }
         public void CallBackUI(object[] values)
         {
+
             try
             {
                 if (this.InvokeRequired)
@@ -93,21 +99,41 @@ namespace ConfigDevice
                     if (values == null)
                     {
                         gvNetwork.BestFitColumns();
-                        //     initCbxSelectNetwork();
                     }
-                    else if ((ActionKind)values[0] == ActionKind.SearchDevice)
-                        gvDevices.BestFitColumns();
-                    else if ((ActionKind)values[0] == ActionKind.SyncNetworkID)
+                    else if ((ActionKind)values[0] == ActionKind.SearchDevice)//-----搜索完设备----
                     {
                         Network network = (Network)(values[1]);
-                        //network.CallbackUI -= this.CallBackUI;//----返回后退订-----
-                        deviceCtrl.SearchDevices(network);
+                        SyncNextNetworkID();//---执行一下同步
+                        gvDevices.BestFitColumns();
+
                     }
-                    else if ((ActionKind)values[0] == ActionKind.ConnectNetowrk)
+                    else if ((ActionKind)values[0] == ActionKind.SyncNetworkID)//----同步网络ID完毕刷新---
+                    {
+                        Network network = (Network)(values[1]);
+                        listSnycNetworks.Remove(network.MacAddress);//--移除需要同步ID的网络---     
+                        deviceCtrl.SearchDevices(network);      //----同步后重新搜索----                  
+                    }
+                    else if ((ActionKind)values[0] == ActionKind.ConnectNetowrk)//---连接完网络----
                     { gvNetwork.PostEditor(); gvNetwork.RefreshData(); btSearchDevices_Click(null, null); }
                 }
             }
             catch (Exception e1) { e1.ToString(); }
+        }
+
+        /// <summary>
+        /// 同步下一个网络ID
+        /// </summary>
+        private void SyncNextNetworkID()
+        {
+            //----执行下一个同步网络ID----
+            if (listSnycNetworks.Count > 0)
+            {
+                foreach (Network network1 in listSnycNetworks.Values)
+                {
+                    network1.SnycNetworkID();
+                    break;//---执行一条退出,剩下的回调执行.
+                }
+            }
         }
 
 
@@ -163,7 +189,6 @@ namespace ConfigDevice
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
             }
-
             deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);
 
         }
@@ -327,7 +352,7 @@ namespace ConfigDevice
         private void btGJ_MouseHover(object sender, EventArgs e)
         {
             btGJ.ShowDropDown();
-        }
+        } 
 
         /// <summary>
         /// 同步网络ID
@@ -339,8 +364,14 @@ namespace ConfigDevice
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
             { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
-            network.CallbackUI += this.CallBackUI;//---同步ID需要刷新结果----
             network.SnycNetworkID();
+            //listSnycNetworks.Clear();//----清空同步网络列表----
+            //foreach (Network network in SysConfig.ListNetworks.Values)
+            //{
+            //    if(network.State == NetworkConfig.STATE_CONNECTED)
+            //        listSnycNetworks.Add(network.MacAddress, network);
+            //}
+            //SyncNextNetworkID();
         }
 
         /// <summary>
@@ -430,8 +461,8 @@ namespace ConfigDevice
                 string state = gvNetwork.GetRowCellDisplayText(e.RowHandle, networkState);
                 if (state == NetworkConfig.STATE_CONNECTED)
                 {
-                    e.Appearance.ForeColor = Color.Blue;
-                    e.Appearance.BackColor = Color.Orange;
+                    e.Appearance.ForeColor = Color.Red;
+                    e.Appearance.BackColor = Color.LemonChiffon;
 
                 }
                 else
@@ -455,6 +486,53 @@ namespace ConfigDevice
         private void gvNetwork_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
         {
             gvNetwork_Click(sender, e);
+        }
+
+        
+        /// <summary>
+        /// 显示发现设备
+        /// </summary>
+        private void gvDevices_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+
+            //if (e.RowHandle >= 0)
+            //{
+            //    //DataRow dr = gvDevices.GetDataRow(e.RowHandle);
+            //    //if (dr[DeviceConfig.DC_PARAMETER1].ToString() == "" || dr[DeviceConfig.DC_PARAMETER1].ToString() == "0")
+            //    //    this.linkSwit.Image = global::ConfigDevice.Properties.Resources.on;
+            //    //else
+            //    //    this.linkSwit.Image = global::ConfigDevice.Properties.Resources.off;
+            //    //if (value == 1)
+            //    //    e.Appearance.BackColor = Color.LightBlue;
+            //    //else
+            //    //    e.Appearance.BackColor = Color.White;
+            //    gvDevices.SetRowCellValue(e.RowHandle,image1,imageCollectionDevices.Images[0]);
+            //}
+        }
+
+
+
+        private void pictureEdit_Click(object sender, EventArgs e)
+        {
+            if (gvDevices.FocusedRowHandle == -1) return;
+            DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
+            if (dr[DeviceConfig.DC_PARAMETER1].ToString() == DeviceConfig.STATE_OPEN_LIGHT)
+            {
+                Device device = new BaseDevice(dr);
+                device.OpenLight();
+                dr[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.off);
+                dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_CLOSE_LIGHT;
+
+            }
+            else if (dr[DeviceConfig.DC_PARAMETER1].ToString() == DeviceConfig.STATE_CLOSE_LIGHT)
+            {
+                Device device = new BaseDevice(dr);
+                device.CloseLight();
+                dr[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.on);
+                dr[DeviceConfig.DC_PARAMETER1] =DeviceConfig.STATE_OPEN_LIGHT;
+            }
+            gvDevices.PostEditor();
+            gvDevices.RefreshData();
         }
 
 

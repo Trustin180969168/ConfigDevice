@@ -42,8 +42,10 @@ namespace ConfigDevice.DeviceUI
                 return;
             }
             CommandData commandData = (CommandData)values[0];
-            //初始化界面,指令数大于控件数则添加控件
-            while (commandCount < commandData.ucCmdNum + 2)
+            //----暂时不用多一条的情况
+            //while (commandCount < commandData.ucCmdNum + 2)
+            //    addViewCommandSetting();
+            while (commandCount < commandData.ucCmdNum + 1)
                 addViewCommandSetting();
             foreach (Control ctrl in xscCommands.Controls)
             {
@@ -54,7 +56,6 @@ namespace ConfigDevice.DeviceUI
                     break;
                 }
             }
-            //AddDefaultNullCommand();//----默认保留一条空指令便于添加-----
         }
 
         /// <summary>
@@ -200,22 +201,23 @@ namespace ConfigDevice.DeviceUI
         {
             if (!NeedInit)
             {
-                //int count = (int)edtEndNum.Value;
-                //while (count > commandCount)
-                //    addViewCommandSetting();
-                //while (count < commandCount)
-                //    removeViewCommandSetting();
-                ////------清空------
-                //foreach (Control view in xscCommands.Controls)
-                //{
-                //    ViewCommandTools commandView = view as ViewCommandTools;
-                //    if (commandView.Num > count) continue;
-                //    commandView.CleanCommandSetting();
-                //}
-                while (xscCommands.Controls.Count > 0)
+                if (edtBeginNum.Value > edtEndNum.Value) return;
+                int count = (int)edtEndNum.Value;
+                while (count > commandCount)
+                    addViewCommandSetting();
+                while (count < commandCount)
                     removeViewCommandSetting();
-                AddDefaultNullCommand();
-                CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, 0, (int)edtEndNum.Value - 1);//序号从0开始
+                //------清空------
+                foreach (Control view in xscCommands.Controls)
+                {
+                    ViewCommandTools commandView = view as ViewCommandTools;
+                    if (commandView.Num > count) continue;
+                    commandView.CleanCommandSetting();
+                }
+                //while (xscCommands.Controls.Count > 0)
+                //    removeViewCommandSetting();
+                AddDefaultNullCommand();//----默认添加一条空指令
+                CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, (int)edtBeginNum.Value - 1, (int)edtEndNum.Value - 1);//序号从0开始
             }
         }
 
