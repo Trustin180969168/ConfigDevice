@@ -30,7 +30,7 @@
         {
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.frmSetting = new ConfigDevice.ViewBaseEdit();
+            this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.pageJcsz.SuspendLayout();
@@ -52,18 +52,18 @@
             // 
             // pageJcsz
             // 
-            this.pageJcsz.Controls.Add(this.frmSetting);
+            this.pageJcsz.Controls.Add(this.viewBaseSetting);
             this.pageJcsz.Name = "pageJcsz";
             this.pageJcsz.Size = new System.Drawing.Size(783, 512);
             this.pageJcsz.Text = "基础配置";
             // 
-            // frmSetting
+            // viewBaseSetting
             // 
-            this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmSetting.Location = new System.Drawing.Point(0, 0);
-            this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(783, 512);
-            this.frmSetting.TabIndex = 0;
+            this.viewBaseSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.viewBaseSetting.Location = new System.Drawing.Point(0, 0);
+            this.viewBaseSetting.Name = "viewBaseSetting";
+            this.viewBaseSetting.Size = new System.Drawing.Size(783, 512);
+            this.viewBaseSetting.TabIndex = 0;
             // 
             // FrmBaseDevice
             // 
@@ -87,7 +87,7 @@
 
         private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
         private DevExpress.XtraTab.XtraTabPage pageJcsz;
-        private ViewBaseEdit frmSetting;
+        private ViewBaseEdit viewBaseSetting;
 
 
     }

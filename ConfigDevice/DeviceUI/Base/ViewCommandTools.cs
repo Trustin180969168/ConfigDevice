@@ -286,6 +286,7 @@ namespace ConfigDevice
             dr[DeviceConfig.DC_NAME] = this.getDeviceName(((int)data.TargetId).ToString(), ((int)data.TargetNet).ToString());//---名称-----
             dr.EndEdit();
             this.CurrentDevice = SysCtrl.CreateDevice(data.TargetType).CreateDevice(new DeviceData(dr));//----获取当前设备对象---
+
             //-----获取控制对象---------------
             cbxControlObj.Items.Clear();
             foreach (string key in CurrentDevice.ContrlObjs.Keys)
@@ -298,9 +299,9 @@ namespace ConfigDevice
             CurrentControlObj = CurrentDevice.ContrlObjs[objName];//----获取当前控制对象
             ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);//----创建视图控制对象
             ViewCommandControlObj.SetCommandData(data);//-----设置命令内容----
+
             refreshView();
             DataCommandSetting.AcceptChanges();
-
             allowSync = true;
         }
 
@@ -336,32 +337,28 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_SWIT_12:
                     {
                         if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP) ||
-                          CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN) ||
-                          CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE) ||
-                          CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_NOT) ||
-                          CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION) ||
-                          CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION) ||
-                          CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP)
-                          )
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_NOT) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP) )
                             return "回路";
                         if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE) ||
-                            CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_OPEN) ||
-                            CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_CLOSE) ||
-                            CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_NOT) ||
-                            CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP)
-                            )
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_OPEN) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_CLOSE) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_NOT) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP))
                             return "场景";
                         if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST) ||
-                            CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_OPEN) ||
-                            CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_CLOSE) ||
-                            CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_NOT) ||
-                            CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP)
-                            )
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_OPEN) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_CLOSE) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_NOT) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP) )
                             return "时序";
                         if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL) ||
-                            CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_OPEN) ||
-                            CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_CLOSE)
-                            )
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_OPEN) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_CLOSE) )
                             return "全部";
                     } break;
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
@@ -370,12 +367,12 @@ namespace ConfigDevice
                             return "背景";
                         if (cmdData.Data[2] == (byte)AudioKind.TG_MESSAGE)
                             return "消息";
-                    } break;                    
+                    } break;
                 case DeviceConfig.EQUIPMENT_SERVER: return "服务器";
                 default: return "无效";
             }
             return "无效";
-            
+
         }
 
  

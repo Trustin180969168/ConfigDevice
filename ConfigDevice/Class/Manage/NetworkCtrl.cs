@@ -141,7 +141,7 @@ namespace ConfigDevice
                         if (network.RefreshTime.AddSeconds(NetworkConfig.CONNECT_TIME_OUT) < DateTime.Now)
                         {
                             setConnectState(network, NetworkConfig.STATE_NOT_CONNECTED);//---变更为未链接----   
-                            SysCtrl.RemoveDeviceData(network.GetDeviceData());//----移除设备数据-----
+                            SysCtrl.RemoveNetworkDeviceData(network );//----移除设备数据-----
                         }
                         else  //----PC主动刷新网络
                             network.RefreshConnection();

@@ -123,6 +123,13 @@ namespace ConfigDevice.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap del12 {
+            get {
+                object obj = ResourceManager.GetObject("del12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap disconnect {
             get {
                 object obj = ResourceManager.GetObject("disconnect", resourceCulture);
@@ -175,6 +182,13 @@ namespace ConfigDevice.Properties {
         internal static System.Drawing.Bitmap load {
             get {
                 object obj = ResourceManager.GetObject("load", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap logo_connect {
+            get {
+                object obj = ResourceManager.GetObject("logo_connect", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

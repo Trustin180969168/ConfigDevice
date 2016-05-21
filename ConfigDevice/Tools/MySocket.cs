@@ -266,7 +266,7 @@ namespace ConfigDevice
                         else//----错误重发----
                         {
                             RemovePCCallbackList(udpReceive.PacketCodeStr);
-                            SendData(state.Udp, state.RemotePoint, state.getCallBackAction, state.Values);
+                            SendData(state.Udp, state.RemotePoint, state.GetCallBackAction, state.Values);
                         }
                     }
                     else if (udpReceive.PacketKind[0] == PackegeSendReply.SEND)//-------添加到RJ45设备发送表---------

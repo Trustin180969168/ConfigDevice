@@ -16,7 +16,7 @@ namespace ConfigDevice
 
         public FrmDevice(Device _device)
         {
-            this.Device = _device;
+            this.Device = _device;      
             InitializeComponent();
       
         }

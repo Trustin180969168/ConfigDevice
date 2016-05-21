@@ -27,7 +27,7 @@ namespace ConfigDevice
         private void FrmNetworkPW_Load(object sender, EventArgs e)
         {
             tbxPw.Text = "1234";
-            lblNetwork.Text = NetworkName;
+            lblNetwork.Text ="  "+ NetworkName+"  ";
             BytePassWord = new byte[4];
         }
 

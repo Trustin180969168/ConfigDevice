@@ -303,6 +303,8 @@
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
     <Content Include="Config\SmartLight.h" />
+    <None Include="Resources\del12.png" />
+    <None Include="Resources\logo_connect.png" />
     <None Include="Resources\off.png" />
     <None Include="Resources\on1.png" />
     <None Include="Resources\disconnect1.png" />

@@ -57,8 +57,8 @@ namespace ConfigDevice
             deviceState.FieldName = DeviceConfig.DC_STATE;
             deviceRemark.FieldName = DeviceConfig.DC_REMARK;
             image1.FieldName = DeviceConfig.DC_IMAGE1;
-            
-            
+
+
         }
 
         /// <summary>
@@ -114,7 +114,14 @@ namespace ConfigDevice
                         deviceCtrl.SearchDevices(network);      //----同步后重新搜索----                  
                     }
                     else if ((ActionKind)values[0] == ActionKind.ConnectNetowrk)//---连接完网络----
-                    { gvNetwork.PostEditor(); gvNetwork.RefreshData(); btSearchDevices_Click(null, null); }
+                    {
+                        gvNetwork.PostEditor(); gvNetwork.RefreshData();
+                        btSearchDevices_Click(null, null);//---自动搜索设备
+                    }
+                    else if ((ActionKind)values[0] == ActionKind.DisConnectNetwork)//---断开连接----
+                    {
+                        gcDevices.DataSource = SysConfig.DtDevice;
+                    }
                 }
             }
             catch (Exception e1) { e1.ToString(); }
@@ -190,7 +197,6 @@ namespace ConfigDevice
                 return;
             }
             deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);
-
         }
 
         public void closePw(IAsyncResult asyncResult)
@@ -228,7 +234,7 @@ namespace ConfigDevice
         /// </summary>
         private void gvDevices_DoubleClick(object sender, EventArgs e)
         {
-            if (gvDevices.FocusedRowHandle == -1) return;
+            if (gvDevices.FocusedRowHandle < 0) return;
             DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
             Device device = new BaseDevice(dr);
             if (SysConfig.ListNetworks.ContainsKey(device.NetworkIP) &&
@@ -352,19 +358,20 @@ namespace ConfigDevice
         private void btGJ_MouseHover(object sender, EventArgs e)
         {
             btGJ.ShowDropDown();
-        } 
+        }
 
         /// <summary>
         /// 同步网络ID
         /// </summary>
         private void btSyncID_Click(object sender, EventArgs e)
         {
-            if (gvNetwork.FocusedRowHandle == -1) return;
-            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
-            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
-            { CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
-            network.SnycNetworkID();
+            if (gvDevices.FocusedRowHandle < 0) return;
+            DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
+            Network network = SysConfig.ListNetworks[dr[DeviceConfig.DC_NETWORK_IP].ToString()];
+            if (network.State == NetworkConfig.STATE_CONNECTED)
+                network.SnycNetworkID();
+            else
+                CommonTools.MessageShow("请先连接网络"+network.DeviceName,3,"");
             //listSnycNetworks.Clear();//----清空同步网络列表----
             //foreach (Network network in SysConfig.ListNetworks.Values)
             //{
@@ -452,8 +459,6 @@ namespace ConfigDevice
         /// <summary>
         /// 连接后改变颜色
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void gvNetwork_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
         {
             if (e.RowHandle >= 0)
@@ -463,7 +468,6 @@ namespace ConfigDevice
                 {
                     e.Appearance.ForeColor = Color.Red;
                     e.Appearance.BackColor = Color.LemonChiffon;
-
                 }
                 else
                 {
@@ -473,6 +477,7 @@ namespace ConfigDevice
                 }
             }
         }
+
 
         /// <summary>
         /// 网络选择
@@ -488,13 +493,12 @@ namespace ConfigDevice
             gvNetwork_Click(sender, e);
         }
 
-        
+
         /// <summary>
         /// 显示发现设备
         /// </summary>
         private void gvDevices_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
         {
-
             //if (e.RowHandle >= 0)
             //{
             //    //DataRow dr = gvDevices.GetDataRow(e.RowHandle);
@@ -511,26 +515,35 @@ namespace ConfigDevice
         }
 
 
-
+        /// <summary>
+        /// 图片编辑
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureEdit_Click(object sender, EventArgs e)
         {
             if (gvDevices.FocusedRowHandle == -1) return;
             DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
+            DataRowState stateSave = dr.RowState;
             if (dr[DeviceConfig.DC_PARAMETER1].ToString() == DeviceConfig.STATE_OPEN_LIGHT)
             {
+                
                 Device device = new BaseDevice(dr);
                 device.OpenLight();
                 dr[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.off);
                 dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_CLOSE_LIGHT;
-
+                
             }
             else if (dr[DeviceConfig.DC_PARAMETER1].ToString() == DeviceConfig.STATE_CLOSE_LIGHT)
             {
                 Device device = new BaseDevice(dr);
                 device.CloseLight();
                 dr[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.on);
-                dr[DeviceConfig.DC_PARAMETER1] =DeviceConfig.STATE_OPEN_LIGHT;
+                dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_OPEN_LIGHT;
+                
             }
+            if (stateSave != DataRowState.Modified)//----开关不作为修改标记,其它项目修改,正常保存----
+                dr.AcceptChanges();
             gvDevices.PostEditor();
             gvDevices.RefreshData();
         }
@@ -538,6 +551,86 @@ namespace ConfigDevice
         private void gcDevices_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             gvDevices_DoubleClick(sender, e);
+        }
+
+        /// <summary>
+        /// 保存网络名称
+        /// </summary>
+        private void btSaveNetwork_Click(object sender, EventArgs e)
+        {
+            if (gvNetwork.RowCount == 0) return;
+            gvNetwork.PostEditor();
+            if (gvNetwork.FocusedRowHandle >= 0)
+            {
+                DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+                dr.EndEdit();
+            }
+            DataTable dtUpdate = SysConfig.DtNetwork.GetChanges(DataRowState.Modified);
+            if (dtUpdate == null || dtUpdate.Rows.Count == 0) return;
+            bool updated = false;
+            foreach (DataRow drUpdate in dtUpdate.Rows)
+            {
+                Network network = SysConfig.ListNetworks[drUpdate[NetworkConfig.DC_IP].ToString()];
+                if (network.State == NetworkConfig.STATE_CONNECTED)
+                {
+                    network.SaveNetworkName(drUpdate[NetworkConfig.DC_DEVICE_NAME].ToString());
+                    updated = true;
+                }
+                else
+                    CommonTools.MessageShow("请先连接网络设备" + network.DeviceName + "!", 3, "");
+            }
+            if (updated)
+                networkCtrl.SearchNetworks();
+        }
+
+        /// <summary>
+        /// 保存设备名称及ID
+        /// </summary>
+        private void btSave_Click(object sender, EventArgs e)
+        {
+            if (gvNetwork.RowCount == 0) return;
+            if (gvDevices.RowCount == 0) return;
+            gvDevices.PostEditor();
+            if (gvDevices.FocusedRowHandle >= 0)
+            {
+                DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
+                dr.EndEdit();
+            }
+            //----先修改ID,后修改名称----
+            DataTable dtUpdate = SysConfig.DtDevice.GetChanges(DataRowState.Modified);
+            if (dtUpdate == null || dtUpdate.Rows.Count == 0) return;
+            foreach (DataRow drUpdate in dtUpdate.Rows)
+            {
+                Network network = SysConfig.ListNetworks[drUpdate[DeviceConfig.DC_NETWORK_IP].ToString()];
+                if (network.State == NetworkConfig.STATE_CONNECTED)
+                {
+                    Device device = new BaseDevice(drUpdate);
+                    device.SaveDeviceID(drUpdate[DeviceConfig.DC_ID].ToString());
+                    device.SaveDeviceName(drUpdate[DeviceConfig.DC_NAME].ToString(),device.ByteAddressID,device.AddressName);
+                    drUpdate.AcceptChanges();
+                    SysCtrl.UpdateDeviceData(device.GetDeviceData());
+                }
+                else
+                {
+                    CommonTools.MessageShow("请先连接网络设备" + network.DeviceName + "!", 3, "");
+                    continue;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 刷新设备列表
+        /// </summary>
+        private void btRefreshDevices_Click(object sender, EventArgs e)
+        {
+            if (gvDevices.FocusedRowHandle < 0) return;
+            DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
+            Network network = SysConfig.ListNetworks[dr[DeviceConfig.DC_NETWORK_IP].ToString()];
+            if (network.State == NetworkConfig.STATE_CONNECTED)
+                deviceCtrl.SearchDevices(network);
+            else
+                CommonTools.MessageShow("请先连接网络" + network.DeviceName, 3, "");
+         
         }
 
 

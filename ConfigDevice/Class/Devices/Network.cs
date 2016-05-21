@@ -592,7 +592,8 @@ namespace ConfigDevice
                     PCAddress = "";
                     State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
                     NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
-                    SysCtrl.RemoveDeviceData(GetDeviceData());//----移除设备数据-----
+                    SysCtrl.RemoveNetworkDeviceData(this);//----移除设备数据-----
+                    callbackUI(new object[] { ActionKind.DisConnectNetwork,this });
                     return;
                 }
                 else

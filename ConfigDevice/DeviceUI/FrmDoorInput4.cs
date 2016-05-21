@@ -16,19 +16,22 @@ namespace ConfigDevice
         public FrmDoorInput4(Device _device)
             : base(_device)
         {
-            InitializeComponent();
+            InitializeComponent();           
 
             doorInput4 = this.Device as DoorInput4;
             doorInput4.OnCallbackUI_Action += this.callbackUI;
             doorInput4.OnCallbackUI_Action += frmSetting.CallBackUI;
-            doorInput4.OnCallbackRoad_Action += this.callbackRoadName;
-            frmSetting.DeviceEdit = doorInput4;         
+            doorInput4.OnCallbackRoad_Action += this.callbackRoadName;       
+
+            frmSetting.DeviceEdit = doorInput4;
+  
         }
 
         private void FrmFourInput_Load(object sender, EventArgs e)
         {
             base.InitSelectDevice();//初始化选择列表
             loadData();
+            doorInput4.ReadRoadTitle();//---读取回路名称----     
             viewCommandEdit.CommandGroupName = "当前区域";
         }
 
@@ -207,7 +210,7 @@ namespace ConfigDevice
             else if (tctrlEdit.SelectedTabPageIndex == 1)
             {
                 doorInput4.ReadSettingInfo();//----读取配置信息-----
-                doorInput4.ReadRoadTitle();//---读取回路名称----        
+                  
             }
         }
 

@@ -60,6 +60,7 @@ namespace ConfigDevice
         SearchDevice,
         SearchNetwork,
         ConnectNetowrk,
+        DisConnectNetwork,
         SyncNetworkID
         
     }
@@ -231,6 +232,7 @@ namespace ConfigDevice
             else
             {
                 RJ45CallBackList[keyStr] = callback;  //----暂时只用于单个事件订阅,所以直接覆盖------
+               
             }
         }
 
@@ -246,7 +248,7 @@ namespace ConfigDevice
         public EndPoint RemotePoint;//---标识网络地址---
         public object[] Values;
 
-        public CallbackUdpAction getCallBackAction
+        public CallbackUdpAction GetCallBackAction
         {
             get { return CallBackAction; }
         }
@@ -276,8 +278,9 @@ namespace ConfigDevice
         /// <param name="objs">参数组</param>
         public void ActionCallback(UdpData udpReply,object[] objs)
         {
-            if(CallBackAction != null)
+            if (CallBackAction != null)
                 CallBackAction.BeginInvoke(udpReply, objs, null, null);//---异步调用-----
+
         }
 
     }

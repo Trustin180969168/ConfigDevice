@@ -15,8 +15,8 @@ namespace ConfigDevice
         {          
             InitializeComponent();
             this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
-            this.Device.OnCallbackUI_Action += frmSetting.CallBackUI;//----注册回调事件
-            frmSetting.DeviceEdit = this.Device;
+            this.Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
+            viewBaseSetting.DeviceEdit = this.Device;
         }
 
         public FrmBaseDevice()
@@ -26,7 +26,7 @@ namespace ConfigDevice
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {
-            frmSetting.DeviceEdit.SearchVer();//---获取版本号-----   
+            viewBaseSetting.DeviceEdit.SearchVer();//---获取版本号-----   
             InitSelectDevice();
         }
 
@@ -63,8 +63,8 @@ namespace ConfigDevice
             //frm.Show();
 
             DeviceSelect.OnCallbackUI_Action += this.callbackUI;
-            DeviceSelect.OnCallbackUI_Action += frmSetting.CallBackUI;
-            frmSetting.DeviceEdit = DeviceSelect;
+            DeviceSelect.OnCallbackUI_Action += viewBaseSetting.CallBackUI;
+            viewBaseSetting.DeviceEdit = DeviceSelect;
             Device = DeviceSelect;
             this.Text = Device.Name;
             Device.SearchVer();

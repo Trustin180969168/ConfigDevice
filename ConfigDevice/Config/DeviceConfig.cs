@@ -29,7 +29,8 @@ namespace ConfigDevice
         public const string DC_HARDWARE_VER = "HardwareVer";//硬件版本
         public const string DC_PC_ADDRESS = "PCAddress";//PC地址
         public const string DC_NETWORK_IP = "NetworkIP";//网络IP
-        public const string DC_ADDRESS = "Address";//设备地址
+        public const string DC_ADDRESS_NAME = "AddressName";//设备地址 
+        public const string DC_ADDRESS_ID = "AddressID";//设备地址ID 
         public const string DC_CONTROL_OBJ = "ControlObj";//设备地址
         public const string DC_COMMAND = "Command";//设备指令
         public const string DC_PARAMETER1 = "Parameter1";//参数1

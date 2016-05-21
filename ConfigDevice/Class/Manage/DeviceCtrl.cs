@@ -21,8 +21,7 @@ namespace ConfigDevice
             callbackGetSearchDevices.CallBackAction += new CallbackUdpAction(this.getDevices);
             callbackGetStopSearchDevices.CallBackAction += new CallbackUdpAction(this.callbackStopSearch);
 
-            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackGetSearchDevices);//---回调设备-----
-            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_STOP_SEARCH, callbackGetStopSearchDevices);//---回调停止搜索----
+ 
 
         }
 
@@ -31,7 +30,6 @@ namespace ConfigDevice
         /// </summary>
         private void initDataTableDevices()
         {
-
             if (SysConfig.DtDevice.Rows.Count == 0)
                 countNum = 0;
             //----初始化状态--------------
@@ -58,7 +56,9 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="network">搜索设备</param>
         public void SearchDevices(Network network)
-        { 
+        {
+            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackGetSearchDevices);//---回调设备-----
+            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_STOP_SEARCH, callbackGetStopSearchDevices);//---回调停止搜索----
             this.SearchingNetwork = network;
             initDataTableDevices();//----初始化列表-----
             //-----------执行搜索设备------------            

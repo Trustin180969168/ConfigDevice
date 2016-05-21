@@ -20,8 +20,9 @@ namespace ConfigDevice
         public string HardwareVer = "";//硬件版本
         public string PCAddress = "";//PC通讯地址
         public string NetworkIP = "";//设备通讯IP地址
-        public string AddressName = "";//设备地址
-        public byte[] AddressID;//设备地址ID
+        public string AddressName = "";//设备地址        
+        public byte[] ByteAddressID;//字节设备地址ID
+        public string AddressID;//设备地址ID
 
         public byte BytePCAddress { get { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; } }
         public byte ByteDeviceID { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }
@@ -39,9 +40,9 @@ namespace ConfigDevice
             NetworkID = Convert.ToInt16(userUdpData.Source[1]).ToString();
             PCAddress = Convert.ToInt16(userUdpData.Target[0]).ToString();
             NetworkIP = userUdpData.IP;
-            AddressID = CommonTools.CopyBytes(userUdpData.Data, 12, 2);//-------设备位置---------
+            ByteAddressID = CommonTools.CopyBytes(userUdpData.Data, 12, 2);//-------设备位置---------
             //-------计算位置名称-------
-            byte byteNum = AddressID[0];
+            byte byteNum = ByteAddressID[0];
             int num = 0x7F & byteNum; //序号          
             Network network = SysConfig.ListNetworks[userUdpData.IP];
             if (num <= network.ListPosition.Count - 1)
@@ -96,10 +97,14 @@ namespace ConfigDevice
                 PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
             if (dr.Table.Columns.Contains(DeviceConfig.DC_NETWORK_IP))
                 NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
-            if (dr.Table.Columns.Contains(DeviceConfig.DC_ADDRESS))
-                AddressName = dr[DeviceConfig.DC_ADDRESS].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_ADDRESS_NAME))
+                AddressName = dr[DeviceConfig.DC_ADDRESS_NAME].ToString();
             if (dr.Table.Columns.Contains(DeviceConfig.DC_STATE))
                 State = dr[DeviceConfig.DC_STATE].ToString();
+            if (dr.Table.Columns.Contains(DeviceConfig.DC_ADDRESS_ID))
+                AddressID = dr[DeviceConfig.DC_ADDRESS_ID].ToString();
+            else
+                AddressID = "";
         }
 
         /// <summary>
@@ -118,6 +123,7 @@ namespace ConfigDevice
             PCAddress = value.PCAddress;
             NetworkIP = value.NetworkIP;
             AddressName = value.AddressName;
+            AddressID = value.AddressID;
             State = value.State;
             Remark = value.Remark;
         }

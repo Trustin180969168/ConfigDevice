@@ -32,6 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.panel1 = new System.Windows.Forms.Panel();
             this.gcDevices = new DevExpress.XtraGrid.GridControl();
+            this.contextMenuStripDevice = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btOpenDevice = new System.Windows.Forms.ToolStripMenuItem();
+            this.btQryDevice = new System.Windows.Forms.ToolStripMenuItem();
+            this.btCleanDevices = new System.Windows.Forms.ToolStripMenuItem();
+            this.msiSyncNetworkID = new System.Windows.Forms.ToolStripMenuItem();
             this.gvDevices = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.xh = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -45,11 +50,9 @@
             this.pictureEdit = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
-            this.btSearchDevices = new System.Windows.Forms.ToolStripButton();
             this.btClearDevice = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btQry = new System.Windows.Forms.ToolStripButton();
-            this.btSnycNetworkID = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripLabel();
             this.cbxSelectNetwork = new System.Windows.Forms.ToolStripComboBox();
@@ -60,6 +63,7 @@
             this.contextMenuStripNetwork = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btmiConnectNetwork = new System.Windows.Forms.ToolStripMenuItem();
             this.btmiDisconnectNetwork = new System.Windows.Forms.ToolStripMenuItem();
+            this.btSearchDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiChangePassword = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiParameter = new System.Windows.Forms.ToolStripMenuItem();
             this.gvNetwork = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -76,10 +80,8 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btSaveNetwork = new System.Windows.Forms.ToolStripButton();
             this.btNetworkSearch = new System.Windows.Forms.ToolStripButton();
-            this.btConnectnetwork = new System.Windows.Forms.ToolStripButton();
-            this.btDisconnectNetwork = new System.Windows.Forms.ToolStripButton();
+            this.btClean = new System.Windows.Forms.ToolStripButton();
             this.btGJ = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btClearRJ45 = new System.Windows.Forms.ToolStripMenuItem();
             this.btSyncTime = new System.Windows.Forms.ToolStripMenuItem();
             this.btSyncData = new System.Windows.Forms.ToolStripMenuItem();
             this.btIPSelect = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,6 +93,7 @@
             this.cbxIPList = new System.Windows.Forms.ToolStripComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).BeginInit();
+            this.contextMenuStripDevice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit)).BeginInit();
             this.toolStrip2.SuspendLayout();
@@ -115,6 +118,7 @@
             // 
             // gcDevices
             // 
+            this.gcDevices.ContextMenuStrip = this.contextMenuStripDevice;
             this.gcDevices.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcDevices.EmbeddedNavigator.Name = "";
             this.gcDevices.FormsUseDefaultLookAndFeel = false;
@@ -128,6 +132,48 @@
             this.gcDevices.TabIndex = 7;
             this.gcDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDevices});
+            // 
+            // contextMenuStripDevice
+            // 
+            this.contextMenuStripDevice.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btOpenDevice,
+            this.btQryDevice,
+            this.btCleanDevices,
+            this.msiSyncNetworkID});
+            this.contextMenuStripDevice.Name = "contextMenuStripNetwork";
+            this.contextMenuStripDevice.Size = new System.Drawing.Size(131, 92);
+            // 
+            // btOpenDevice
+            // 
+            this.btOpenDevice.Image = global::ConfigDevice.Properties.Resources.section;
+            this.btOpenDevice.Name = "btOpenDevice";
+            this.btOpenDevice.Size = new System.Drawing.Size(130, 22);
+            this.btOpenDevice.Text = "打开设备";
+            this.btOpenDevice.Click += new System.EventHandler(this.gvDevices_DoubleClick);
+            // 
+            // btQryDevice
+            // 
+            this.btQryDevice.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btQryDevice.Name = "btQryDevice";
+            this.btQryDevice.Size = new System.Drawing.Size(130, 22);
+            this.btQryDevice.Text = "刷新";
+            this.btQryDevice.Click += new System.EventHandler(this.btRefreshDevices_Click);
+            // 
+            // btCleanDevices
+            // 
+            this.btCleanDevices.Image = global::ConfigDevice.Properties.Resources.Clear;
+            this.btCleanDevices.Name = "btCleanDevices";
+            this.btCleanDevices.Size = new System.Drawing.Size(130, 22);
+            this.btCleanDevices.Text = "清空设备";
+            this.btCleanDevices.Click += new System.EventHandler(this.btClearDevice_Click);
+            // 
+            // msiSyncNetworkID
+            // 
+            this.msiSyncNetworkID.Image = global::ConfigDevice.Properties.Resources.exchange;
+            this.msiSyncNetworkID.Name = "msiSyncNetworkID";
+            this.msiSyncNetworkID.Size = new System.Drawing.Size(130, 22);
+            this.msiSyncNetworkID.Text = "同步网络ID";
+            this.msiSyncNetworkID.Click += new System.EventHandler(this.btSyncID_Click);
             // 
             // gvDevices
             // 
@@ -304,16 +350,14 @@
             // toolStrip2
             // 
             this.toolStrip2.BackColor = System.Drawing.Color.Lavender;
-            this.toolStrip2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.toolStrip2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
-            this.btSearchDevices,
             this.btClearDevice,
             this.toolStripSeparator1,
             this.btQry,
-            this.btSnycNetworkID,
             this.toolStripSeparator2,
             this.toolStripButton3,
             this.cbxSelectNetwork});
@@ -325,31 +369,22 @@
             // 
             // btSave
             // 
-            this.btSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btSave.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btSave.Image = global::ConfigDevice.Properties.Resources.save;
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(73, 28);
+            this.btSave.Size = new System.Drawing.Size(74, 28);
             this.btSave.Text = "保存 ";
-            // 
-            // btSearchDevices
-            // 
-            this.btSearchDevices.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btSearchDevices.Image = global::ConfigDevice.Properties.Resources.View;
-            this.btSearchDevices.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSearchDevices.Name = "btSearchDevices";
-            this.btSearchDevices.Size = new System.Drawing.Size(109, 28);
-            this.btSearchDevices.Text = "设备搜索  ";
-            this.btSearchDevices.Click += new System.EventHandler(this.btSearchDevices_Click);
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btClearDevice
             // 
-            this.btClearDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btClearDevice.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btClearDevice.Image = global::ConfigDevice.Properties.Resources.Clear;
             this.btClearDevice.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClearDevice.Name = "btClearDevice";
-            this.btClearDevice.Size = new System.Drawing.Size(105, 28);
-            this.btClearDevice.Text = "清空设备 ";
+            this.btClearDevice.Size = new System.Drawing.Size(74, 28);
+            this.btClearDevice.Text = "清空 ";
             this.btClearDevice.Click += new System.EventHandler(this.btClearDevice_Click);
             // 
             // toolStripSeparator1
@@ -360,38 +395,28 @@
             // 
             // btQry
             // 
-            this.btQry.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btQry.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btQry.Image = global::ConfigDevice.Properties.Resources.Traces1;
             this.btQry.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btQry.Name = "btQry";
-            this.btQry.Size = new System.Drawing.Size(121, 28);
+            this.btQry.Size = new System.Drawing.Size(122, 28);
             this.btQry.Text = "单网段显示 ";
             this.btQry.Click += new System.EventHandler(this.btQry_Click);
-            // 
-            // btSnycNetworkID
-            // 
-            this.btSnycNetworkID.BackColor = System.Drawing.Color.Transparent;
-            this.btSnycNetworkID.Image = global::ConfigDevice.Properties.Resources.exchange;
-            this.btSnycNetworkID.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSnycNetworkID.Name = "btSnycNetworkID";
-            this.btSnycNetworkID.Size = new System.Drawing.Size(109, 28);
-            this.btSnycNetworkID.Text = "同步网段ID ";
-            this.btSnycNetworkID.Click += new System.EventHandler(this.btSyncID_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Margin = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 36);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
             this.toolStripSeparator2.Visible = false;
             // 
             // toolStripButton3
             // 
             this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.toolStripButton3.Font = new System.Drawing.Font("Tahoma", 12F);
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(41, 33);
+            this.toolStripButton3.Size = new System.Drawing.Size(41, 28);
             this.toolStripButton3.Text = "网络";
             this.toolStripButton3.Visible = false;
             // 
@@ -400,11 +425,11 @@
             this.cbxSelectNetwork.BackColor = System.Drawing.SystemColors.Info;
             this.cbxSelectNetwork.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSelectNetwork.DropDownWidth = 300;
-            this.cbxSelectNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.cbxSelectNetwork.Font = new System.Drawing.Font("Tahoma", 12F);
             this.cbxSelectNetwork.ForeColor = System.Drawing.Color.DarkViolet;
             this.cbxSelectNetwork.MaxDropDownItems = 16;
             this.cbxSelectNetwork.Name = "cbxSelectNetwork";
-            this.cbxSelectNetwork.Size = new System.Drawing.Size(300, 32);
+            this.cbxSelectNetwork.Size = new System.Drawing.Size(300, 31);
             this.cbxSelectNetwork.Visible = false;
             this.cbxSelectNetwork.SelectedIndexChanged += new System.EventHandler(this.cbxSelectNetwork_SelectedIndexChanged);
             this.cbxSelectNetwork.Click += new System.EventHandler(this.cbxSelectNetwork_Click);
@@ -456,16 +481,17 @@
             this.contextMenuStripNetwork.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btmiConnectNetwork,
             this.btmiDisconnectNetwork,
+            this.btSearchDevice,
             this.tsmiChangePassword,
             this.tsmiParameter});
             this.contextMenuStripNetwork.Name = "contextMenuStripNetwork";
-            this.contextMenuStripNetwork.Size = new System.Drawing.Size(119, 92);
+            this.contextMenuStripNetwork.Size = new System.Drawing.Size(153, 136);
             // 
             // btmiConnectNetwork
             // 
             this.btmiConnectNetwork.Image = global::ConfigDevice.Properties.Resources.connect1;
             this.btmiConnectNetwork.Name = "btmiConnectNetwork";
-            this.btmiConnectNetwork.Size = new System.Drawing.Size(118, 22);
+            this.btmiConnectNetwork.Size = new System.Drawing.Size(152, 22);
             this.btmiConnectNetwork.Text = "连接网络";
             this.btmiConnectNetwork.Click += new System.EventHandler(this.btConnectnetwork_Click);
             // 
@@ -473,15 +499,23 @@
             // 
             this.btmiDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect1;
             this.btmiDisconnectNetwork.Name = "btmiDisconnectNetwork";
-            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(118, 22);
+            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(152, 22);
             this.btmiDisconnectNetwork.Text = "断开网络";
             this.btmiDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
+            // 
+            // btSearchDevice
+            // 
+            this.btSearchDevice.Image = global::ConfigDevice.Properties.Resources.View;
+            this.btSearchDevice.Name = "btSearchDevice";
+            this.btSearchDevice.Size = new System.Drawing.Size(152, 22);
+            this.btSearchDevice.Text = "设备搜索";
+            this.btSearchDevice.Click += new System.EventHandler(this.btSearchDevices_Click);
             // 
             // tsmiChangePassword
             // 
             this.tsmiChangePassword.Image = global::ConfigDevice.Properties.Resources.client;
             this.tsmiChangePassword.Name = "tsmiChangePassword";
-            this.tsmiChangePassword.Size = new System.Drawing.Size(118, 22);
+            this.tsmiChangePassword.Size = new System.Drawing.Size(152, 22);
             this.tsmiChangePassword.Text = "修改密码";
             this.tsmiChangePassword.Click += new System.EventHandler(this.tsmiChangePassword_Click);
             // 
@@ -489,7 +523,7 @@
             // 
             this.tsmiParameter.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.tsmiParameter.Name = "tsmiParameter";
-            this.tsmiParameter.Size = new System.Drawing.Size(118, 22);
+            this.tsmiParameter.Size = new System.Drawing.Size(152, 22);
             this.tsmiParameter.Text = "网络参数";
             this.tsmiParameter.Click += new System.EventHandler(this.gvNetwork_LinkEdit);
             // 
@@ -639,14 +673,13 @@
             // toolStrip1
             // 
             this.toolStrip1.BackColor = System.Drawing.Color.OldLace;
-            this.toolStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.toolStrip1.Font = new System.Drawing.Font("Tahoma", 12F);
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSaveNetwork,
             this.btNetworkSearch,
-            this.btConnectnetwork,
-            this.btDisconnectNetwork,
+            this.btClean,
             this.btGJ,
             this.btXtxx,
             this.toolStripButton1,
@@ -660,62 +693,45 @@
             // 
             // btSaveNetwork
             // 
-            this.btSaveNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btSaveNetwork.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btSaveNetwork.Image = global::ConfigDevice.Properties.Resources.save;
             this.btSaveNetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSaveNetwork.Name = "btSaveNetwork";
-            this.btSaveNetwork.Size = new System.Drawing.Size(73, 28);
+            this.btSaveNetwork.Size = new System.Drawing.Size(74, 28);
             this.btSaveNetwork.Text = "保存 ";
+            this.btSaveNetwork.Click += new System.EventHandler(this.btSaveNetwork_Click);
             // 
             // btNetworkSearch
             // 
             this.btNetworkSearch.Image = global::ConfigDevice.Properties.Resources.View;
             this.btNetworkSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btNetworkSearch.Name = "btNetworkSearch";
-            this.btNetworkSearch.Size = new System.Drawing.Size(96, 28);
+            this.btNetworkSearch.Size = new System.Drawing.Size(106, 28);
             this.btNetworkSearch.Text = "网络搜索 ";
             this.btNetworkSearch.Click += new System.EventHandler(this.btNetworkSearch_Click);
             // 
-            // btConnectnetwork
+            // btClean
             // 
-            this.btConnectnetwork.Image = global::ConfigDevice.Properties.Resources.connect1;
-            this.btConnectnetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btConnectnetwork.Name = "btConnectnetwork";
-            this.btConnectnetwork.Size = new System.Drawing.Size(96, 28);
-            this.btConnectnetwork.Text = "连接网络 ";
-            this.btConnectnetwork.Click += new System.EventHandler(this.btConnectnetwork_Click);
-            // 
-            // btDisconnectNetwork
-            // 
-            this.btDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect1;
-            this.btDisconnectNetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btDisconnectNetwork.Name = "btDisconnectNetwork";
-            this.btDisconnectNetwork.Size = new System.Drawing.Size(96, 28);
-            this.btDisconnectNetwork.Text = "断开网络 ";
-            this.btDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
+            this.btClean.Image = global::ConfigDevice.Properties.Resources.Clear;
+            this.btClean.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btClean.Name = "btClean";
+            this.btClean.Size = new System.Drawing.Size(74, 28);
+            this.btClean.Text = "清空 ";
+            this.btClean.Click += new System.EventHandler(this.btClearNetwork_Click);
             // 
             // btGJ
             // 
             this.btGJ.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btClearRJ45,
             this.btSyncTime,
             this.btSyncData,
             this.btIPSelect});
-            this.btGJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btGJ.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btGJ.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.btGJ.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btGJ.Name = "btGJ";
-            this.btGJ.Size = new System.Drawing.Size(82, 28);
+            this.btGJ.Size = new System.Drawing.Size(83, 28);
             this.btGJ.Text = "高级 ";
             this.btGJ.MouseHover += new System.EventHandler(this.btGJ_MouseHover);
-            // 
-            // btClearRJ45
-            // 
-            this.btClearRJ45.Image = global::ConfigDevice.Properties.Resources.Clear;
-            this.btClearRJ45.Name = "btClearRJ45";
-            this.btClearRJ45.Size = new System.Drawing.Size(157, 24);
-            this.btClearRJ45.Text = "清空RJ45";
-            this.btClearRJ45.Click += new System.EventHandler(this.btClearNetwork_Click);
             // 
             // btSyncTime
             // 
@@ -747,10 +763,11 @@
             this.btXtxx.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btPCSend,
             this.btRJ45Send});
+            this.btXtxx.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btXtxx.Image = global::ConfigDevice.Properties.Resources.fact;
             this.btXtxx.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btXtxx.Name = "btXtxx";
-            this.btXtxx.Size = new System.Drawing.Size(104, 28);
+            this.btXtxx.Size = new System.Drawing.Size(113, 28);
             this.btXtxx.Text = "系统信息";
             this.btXtxx.MouseHover += new System.EventHandler(this.btXtxx_MouseHover);
             // 
@@ -758,7 +775,7 @@
             // 
             this.btPCSend.Image = global::ConfigDevice.Properties.Resources.work;
             this.btPCSend.Name = "btPCSend";
-            this.btPCSend.Size = new System.Drawing.Size(159, 30);
+            this.btPCSend.Size = new System.Drawing.Size(161, 24);
             this.btPCSend.Text = "PC发送包";
             this.btPCSend.Click += new System.EventHandler(this.btPCSend_Click);
             // 
@@ -766,7 +783,7 @@
             // 
             this.btRJ45Send.Image = global::ConfigDevice.Properties.Resources.work;
             this.btRJ45Send.Name = "btRJ45Send";
-            this.btRJ45Send.Size = new System.Drawing.Size(159, 30);
+            this.btRJ45Send.Size = new System.Drawing.Size(161, 24);
             this.btRJ45Send.Text = "RJ45发送包";
             this.btRJ45Send.Click += new System.EventHandler(this.btRJ45Send_Click);
             // 
@@ -774,17 +791,17 @@
             // 
             this.toolStripButton1.Margin = new System.Windows.Forms.Padding(60, 0, 0, 0);
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(6, 32);
+            this.toolStripButton1.Size = new System.Drawing.Size(6, 31);
             this.toolStripButton1.Visible = false;
             // 
             // lblIPSelect
             // 
             this.lblIPSelect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.lblIPSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIPSelect.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblIPSelect.Image = ((System.Drawing.Image)(resources.GetObject("lblIPSelect.Image")));
             this.lblIPSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lblIPSelect.Name = "lblIPSelect";
-            this.lblIPSelect.Size = new System.Drawing.Size(60, 29);
+            this.lblIPSelect.Size = new System.Drawing.Size(62, 28);
             this.lblIPSelect.Text = "IP地址:";
             this.lblIPSelect.Visible = false;
             // 
@@ -792,9 +809,9 @@
             // 
             this.cbxIPList.BackColor = System.Drawing.SystemColors.Info;
             this.cbxIPList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxIPList.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.cbxIPList.Font = new System.Drawing.Font("Tahoma", 12F);
             this.cbxIPList.Name = "cbxIPList";
-            this.cbxIPList.Size = new System.Drawing.Size(200, 32);
+            this.cbxIPList.Size = new System.Drawing.Size(200, 31);
             this.cbxIPList.Visible = false;
             this.cbxIPList.SelectedIndexChanged += new System.EventHandler(this.cbxIPList_SelectedIndexChanged);
             // 
@@ -814,6 +831,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).EndInit();
+            this.contextMenuStripDevice.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit)).EndInit();
             this.toolStrip2.ResumeLayout(false);
@@ -835,7 +853,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripButton btSearchDevices;
         private DevExpress.XtraGrid.GridControl gcDevices;
         private DevExpress.XtraGrid.Views.Grid.GridView gvDevices;
         private DevExpress.XtraGrid.Columns.GridColumn xh;
@@ -862,8 +879,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btNetworkSearch;
-        private System.Windows.Forms.ToolStripButton btConnectnetwork;
-        private System.Windows.Forms.ToolStripButton btDisconnectNetwork;
         private System.Windows.Forms.ToolStripSplitButton btXtxx;
         private System.Windows.Forms.ToolStripMenuItem btRJ45Send;
         private System.Windows.Forms.ToolStripMenuItem btPCSend;
@@ -877,7 +892,6 @@
         private System.Windows.Forms.ToolStripComboBox cbxSelectNetwork;
         private System.Windows.Forms.ToolStripButton btClearDevice;
         private System.Windows.Forms.ToolStripDropDownButton btGJ;
-        private System.Windows.Forms.ToolStripMenuItem btClearRJ45;
         private System.Windows.Forms.ToolStripMenuItem btSyncTime;
         private System.Windows.Forms.ToolStripMenuItem btSyncData;
         private System.Windows.Forms.ToolStripLabel toolStripButton3;
@@ -886,11 +900,17 @@
         private System.Windows.Forms.ToolStripButton btQry;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btSaveNetwork;
-        private System.Windows.Forms.ToolStripButton btSnycNetworkID;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkEdit;
         private System.Windows.Forms.ToolStripMenuItem btmiConnectNetwork;
         private System.Windows.Forms.ToolStripMenuItem btmiDisconnectNetwork;
         private DevExpress.Utils.ImageCollection imageCollectionDevices;
         private DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit pictureEdit;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripDevice;
+        private System.Windows.Forms.ToolStripMenuItem btOpenDevice;
+        private System.Windows.Forms.ToolStripMenuItem btCleanDevices;
+        private System.Windows.Forms.ToolStripMenuItem btQryDevice;
+        private System.Windows.Forms.ToolStripMenuItem btSearchDevice;
+        private System.Windows.Forms.ToolStripMenuItem msiSyncNetworkID;
+        private System.Windows.Forms.ToolStripButton btClean;
     }
 }

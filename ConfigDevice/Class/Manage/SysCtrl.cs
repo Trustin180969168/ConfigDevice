@@ -72,8 +72,8 @@ namespace ConfigDevice
             dr[DeviceConfig.DC_KIND_NAME] = device.KindName;
             dr[DeviceConfig.DC_NAME] = device.Name;
             dr[DeviceConfig.DC_STATE] = device.State;
-            dr[DeviceConfig.DC_ADDRESS] = device.AddressName;
-            SysConfig.DtDevice.AcceptChanges();
+            dr[DeviceConfig.DC_ADDRESS_NAME] = device.AddressName;
+            dr.AcceptChanges();
         }
 
 
@@ -287,8 +287,8 @@ namespace ConfigDevice
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_HARDWARE_VER, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_NETWORK_IP, System.Type.GetType("System.String"));
-                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ADDRESS, System.Type.GetType("System.String"));
-
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ADDRESS_NAME, System.Type.GetType("System.String"));
+                SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_ADDRESS_ID, System.Type.GetType("System.String"));
 
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PARAMETER1, System.Type.GetType("System.String"));
                 SysConfig.DtDevice.Columns.Add(DeviceConfig.DC_PARAMETER2, System.Type.GetType("System.String"));
@@ -311,28 +311,37 @@ namespace ConfigDevice
                 num = 1000 + num;
             DataRow drInsert = SysConfig.DtDevice.Rows.Add(new object[] {num.ToString(),device.DeviceID,device.NetworkID,
                             device.KindID, device.KindName,device.Name,device.MAC,device.State,device.Remark,"","",device.PCAddress,
-                            device.NetworkIP,device.AddressName});
+                            device.NetworkIP,device.AddressName,device.AddressID});
             drInsert[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_OPEN_LIGHT;
             drInsert[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.on);
 
-            SysConfig.DtDevice.AcceptChanges();
+            drInsert.AcceptChanges();
         }
 
         /// <summary>
         /// 删除设备
         /// </summary>
         /// <param name="deviceData">设备数据</param>
-        public static void RemoveDeviceData(DeviceData device)
+        public static void RemoveNetworkDeviceData(Network network)
         {
-            int delIndex = -1;
-            foreach (DataRow dr in SysConfig.DtDevice.Rows)
+            DataTable temp = SysConfig.DtDevice.Copy();
+            foreach (DataRow dr in temp.Rows)
             {
-                if (dr[DeviceConfig.DC_MAC].ToString() == device.MAC)
-                { delIndex = SysConfig.DtDevice.Rows.IndexOf(dr); break; }
+                if (dr[DeviceConfig.DC_NETWORK_IP].ToString() == network.NetworkIP)
+                    dr.Delete();
             }
-            if (delIndex != -1)
-                SysConfig.DtDevice.Rows.RemoveAt(delIndex);
-            SysConfig.DtDevice.AcceptChanges();
+            temp.AcceptChanges();
+            SysConfig.DtDevice = temp;
+            //temp.AcceptChanges();
+            //SysConfig.DtDevice = temp.Copy();
+            //int delIndex = -1;
+            //foreach (DataRow dr in SysConfig.DtDevice.Rows)
+            //{
+            //    if (dr[DeviceConfig.DC_MAC].ToString() == network.MAC)
+            //    { delIndex = SysConfig.DtDevice.Rows.IndexOf(dr); break; }
+            //}
+            //if (delIndex != -1)
+            //    SysConfig.DtDevice.Rows.RemoveAt(delIndex);
         }
 
         /// <summary>
@@ -358,10 +367,10 @@ namespace ConfigDevice
                     dr[DeviceConfig.DC_REMARK] = device.Remark;
                     dr[DeviceConfig.DC_PC_ADDRESS] = device.PCAddress;
                     dr[DeviceConfig.DC_NETWORK_IP] = device.NetworkIP;
-                    dr[DeviceConfig.DC_ADDRESS] = device.AddressName;
+                    dr[DeviceConfig.DC_ADDRESS_NAME] = device.AddressName;
 
                     dr.EndEdit();
-                    SysConfig.DtDevice.AcceptChanges();
+                    dr.AcceptChanges();
                     return;
                 }
             }
