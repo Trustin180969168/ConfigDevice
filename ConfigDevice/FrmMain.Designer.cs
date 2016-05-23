@@ -40,6 +40,7 @@
             this.gvDevices = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.xh = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.deviceNetworkID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceKind = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -75,7 +76,8 @@
             this.networkDeviceMac = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkRemark = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkKindName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.networkSearchDevices = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.linkSearch = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btSaveNetwork = new System.Windows.Forms.ToolStripButton();
@@ -95,6 +97,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).BeginInit();
             this.contextMenuStripDevice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit)).BeginInit();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollectionDevices)).BeginInit();
@@ -103,6 +106,7 @@
             this.contextMenuStripNetwork.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvNetwork)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkSearch)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,7 +131,8 @@
             this.gcDevices.MainView = this.gvDevices;
             this.gcDevices.Name = "gcDevices";
             this.gcDevices.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.pictureEdit});
+            this.pictureEdit,
+            this.edtNum});
             this.gcDevices.Size = new System.Drawing.Size(1016, 546);
             this.gcDevices.TabIndex = 7;
             this.gcDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -227,10 +232,25 @@
             this.deviceID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.deviceID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.deviceID.Caption = "设备ID";
+            this.deviceID.ColumnEdit = this.edtNum;
             this.deviceID.Name = "deviceID";
             this.deviceID.Visible = true;
             this.deviceID.VisibleIndex = 2;
             this.deviceID.Width = 147;
+            // 
+            // edtNum
+            // 
+            this.edtNum.AutoHeight = false;
+            this.edtNum.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtNum.Mask.EditMask = "d";
+            this.edtNum.MaxValue = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.edtNum.Name = "edtNum";
+            this.edtNum.Leave += new System.EventHandler(this.edtNum_Leave);
             // 
             // deviceNetworkID
             // 
@@ -470,7 +490,8 @@
             this.gcNetwork.MainView = this.gvNetwork;
             this.gcNetwork.Name = "gcNetwork";
             this.gcNetwork.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.linkEdit});
+            this.linkEdit,
+            this.linkSearch});
             this.gcNetwork.Size = new System.Drawing.Size(1016, 129);
             this.gcNetwork.TabIndex = 6;
             this.gcNetwork.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -485,13 +506,13 @@
             this.tsmiChangePassword,
             this.tsmiParameter});
             this.contextMenuStripNetwork.Name = "contextMenuStripNetwork";
-            this.contextMenuStripNetwork.Size = new System.Drawing.Size(153, 136);
+            this.contextMenuStripNetwork.Size = new System.Drawing.Size(119, 114);
             // 
             // btmiConnectNetwork
             // 
             this.btmiConnectNetwork.Image = global::ConfigDevice.Properties.Resources.connect1;
             this.btmiConnectNetwork.Name = "btmiConnectNetwork";
-            this.btmiConnectNetwork.Size = new System.Drawing.Size(152, 22);
+            this.btmiConnectNetwork.Size = new System.Drawing.Size(118, 22);
             this.btmiConnectNetwork.Text = "连接网络";
             this.btmiConnectNetwork.Click += new System.EventHandler(this.btConnectnetwork_Click);
             // 
@@ -499,7 +520,7 @@
             // 
             this.btmiDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect1;
             this.btmiDisconnectNetwork.Name = "btmiDisconnectNetwork";
-            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(152, 22);
+            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(118, 22);
             this.btmiDisconnectNetwork.Text = "断开网络";
             this.btmiDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
             // 
@@ -507,7 +528,7 @@
             // 
             this.btSearchDevice.Image = global::ConfigDevice.Properties.Resources.View;
             this.btSearchDevice.Name = "btSearchDevice";
-            this.btSearchDevice.Size = new System.Drawing.Size(152, 22);
+            this.btSearchDevice.Size = new System.Drawing.Size(118, 22);
             this.btSearchDevice.Text = "设备搜索";
             this.btSearchDevice.Click += new System.EventHandler(this.btSearchDevices_Click);
             // 
@@ -515,7 +536,7 @@
             // 
             this.tsmiChangePassword.Image = global::ConfigDevice.Properties.Resources.client;
             this.tsmiChangePassword.Name = "tsmiChangePassword";
-            this.tsmiChangePassword.Size = new System.Drawing.Size(152, 22);
+            this.tsmiChangePassword.Size = new System.Drawing.Size(118, 22);
             this.tsmiChangePassword.Text = "修改密码";
             this.tsmiChangePassword.Click += new System.EventHandler(this.tsmiChangePassword_Click);
             // 
@@ -523,7 +544,7 @@
             // 
             this.tsmiParameter.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.tsmiParameter.Name = "tsmiParameter";
-            this.tsmiParameter.Size = new System.Drawing.Size(152, 22);
+            this.tsmiParameter.Size = new System.Drawing.Size(118, 22);
             this.tsmiParameter.Text = "网络参数";
             this.tsmiParameter.Click += new System.EventHandler(this.gvNetwork_LinkEdit);
             // 
@@ -537,7 +558,7 @@
             this.networkDeviceMac,
             this.networkRemark,
             this.networkKindName,
-            this.gridColumn3,
+            this.networkSearchDevices,
             this.gridColumn4});
             this.gvNetwork.GridControl = this.gcNetwork;
             this.gvNetwork.Name = "gvNetwork";
@@ -558,6 +579,7 @@
             this.networkDeviceName.Name = "networkDeviceName";
             this.networkDeviceName.Visible = true;
             this.networkDeviceName.VisibleIndex = 0;
+            this.networkDeviceName.Width = 173;
             // 
             // networkDeviceID
             // 
@@ -582,6 +604,7 @@
             this.networkID.Name = "networkID";
             this.networkID.Visible = true;
             this.networkID.VisibleIndex = 1;
+            this.networkID.Width = 173;
             // 
             // networkState
             // 
@@ -597,6 +620,7 @@
             this.networkState.OptionsColumn.ReadOnly = true;
             this.networkState.Visible = true;
             this.networkState.VisibleIndex = 2;
+            this.networkState.Width = 173;
             // 
             // linkEdit
             // 
@@ -630,7 +654,8 @@
             this.networkRemark.Name = "networkRemark";
             this.networkRemark.OptionsColumn.ReadOnly = true;
             this.networkRemark.Visible = true;
-            this.networkRemark.VisibleIndex = 4;
+            this.networkRemark.VisibleIndex = 5;
+            this.networkRemark.Width = 131;
             // 
             // networkKindName
             // 
@@ -644,19 +669,31 @@
             this.networkKindName.Name = "networkKindName";
             this.networkKindName.OptionsColumn.ReadOnly = true;
             this.networkKindName.Visible = true;
-            this.networkKindName.VisibleIndex = 3;
+            this.networkKindName.VisibleIndex = 4;
+            this.networkKindName.Width = 320;
             // 
-            // gridColumn3
+            // networkSearchDevices
             // 
-            this.gridColumn3.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn3.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn3.Caption = "gridColumn3";
-            this.gridColumn3.Name = "gridColumn3";
-            this.gridColumn3.OptionsColumn.ReadOnly = true;
+            this.networkSearchDevices.AppearanceCell.Options.UseTextOptions = true;
+            this.networkSearchDevices.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.networkSearchDevices.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.networkSearchDevices.AppearanceHeader.Options.UseTextOptions = true;
+            this.networkSearchDevices.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.networkSearchDevices.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.networkSearchDevices.ColumnEdit = this.linkSearch;
+            this.networkSearchDevices.Name = "networkSearchDevices";
+            this.networkSearchDevices.OptionsColumn.ReadOnly = true;
+            this.networkSearchDevices.Visible = true;
+            this.networkSearchDevices.VisibleIndex = 3;
+            this.networkSearchDevices.Width = 42;
+            // 
+            // linkSearch
+            // 
+            this.linkSearch.AutoHeight = false;
+            this.linkSearch.Image = global::ConfigDevice.Properties.Resources.View;
+            this.linkSearch.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.linkSearch.Name = "linkSearch";
+            this.linkSearch.Click += new System.EventHandler(this.btSearchDevices_Click);
             // 
             // gridColumn4
             // 
@@ -833,6 +870,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).EndInit();
             this.contextMenuStripDevice.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvDevices)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit)).EndInit();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
@@ -843,6 +881,7 @@
             this.contextMenuStripNetwork.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvNetwork)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkSearch)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -875,7 +914,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn networkDeviceMac;
         private DevExpress.XtraGrid.Columns.GridColumn networkRemark;
         private DevExpress.XtraGrid.Columns.GridColumn networkKindName;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn networkSearchDevices;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btNetworkSearch;
@@ -912,5 +951,7 @@
         private System.Windows.Forms.ToolStripMenuItem btSearchDevice;
         private System.Windows.Forms.ToolStripMenuItem msiSyncNetworkID;
         private System.Windows.Forms.ToolStripButton btClean;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNum;
+        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkSearch;
     }
 }

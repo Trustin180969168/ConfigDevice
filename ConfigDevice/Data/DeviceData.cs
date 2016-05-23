@@ -41,6 +41,7 @@ namespace ConfigDevice
             PCAddress = Convert.ToInt16(userUdpData.Target[0]).ToString();
             NetworkIP = userUdpData.IP;
             ByteAddressID = CommonTools.CopyBytes(userUdpData.Data, 12, 2);//-------设备位置---------
+            AddressID = ConvertTools.ByteToHexStr(ByteAddressID);//---设备ID----
             //-------计算位置名称-------
             byte byteNum = ByteAddressID[0];
             int num = 0x7F & byteNum; //序号          
@@ -49,6 +50,7 @@ namespace ConfigDevice
                 AddressName = network.ListPosition[num].Name;
             //-------设备名称---------
             byte[] byteName = new Byte[32];
+            if (userUdpData.DataOfLength > 16)
             Buffer.BlockCopy(userUdpData.Data, 14, byteName, 0, userUdpData.DataOfLength - 12 - 2 - 4);//12:MAC,2:位置,4:校验码
             int i = 0;
             foreach (byte b in byteName)
@@ -102,7 +104,7 @@ namespace ConfigDevice
             if (dr.Table.Columns.Contains(DeviceConfig.DC_STATE))
                 State = dr[DeviceConfig.DC_STATE].ToString();
             if (dr.Table.Columns.Contains(DeviceConfig.DC_ADDRESS_ID))
-                AddressID = dr[DeviceConfig.DC_ADDRESS_ID].ToString();
+            { AddressID = dr[DeviceConfig.DC_ADDRESS_ID].ToString(); ByteAddressID = ConvertTools.StrToToHexByte(AddressID); }
             else
                 AddressID = "";
         }

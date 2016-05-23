@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btSaveAll = new System.Windows.Forms.ToolStripButton();
+            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripDropDownButton();
             this.btSaveID = new System.Windows.Forms.ToolStripMenuItem();
             this.btSaveNamePosition = new System.Windows.Forms.ToolStripMenuItem();
-            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.btOpenLight = new System.Windows.Forms.ToolStripButton();
             this.btCloseLight = new System.Windows.Forms.ToolStripButton();
             this.btFindOn = new System.Windows.Forms.ToolStripButton();
@@ -74,8 +75,9 @@
             this.toolStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btSave,
+            this.btSaveAll,
             this.btRefresh,
+            this.btSave,
             this.btOpenLight,
             this.btCloseLight,
             this.btFindOn,
@@ -86,23 +88,45 @@
             this.toolStrip1.TabIndex = 15;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // btSaveAll
+            // 
+            this.btSaveAll.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btSaveAll.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSaveAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSaveAll.Name = "btSaveAll";
+            this.btSaveAll.Size = new System.Drawing.Size(74, 28);
+            this.btSaveAll.Text = "保存 ";
+            this.btSaveAll.Click += new System.EventHandler(this.btSaveAll_Click);
+            // 
+            // btRefresh
+            // 
+            this.btRefresh.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(106, 28);
+            this.btRefresh.Text = "刷新数据 ";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            // 
             // btSave
             // 
             this.btSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSaveID,
             this.btSaveNamePosition});
+            this.btSave.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btSave.Image = global::ConfigDevice.Properties.Resources.Point1;
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(129, 28);
+            this.btSave.Size = new System.Drawing.Size(142, 28);
             this.btSave.Text = "保存基础配置";
+            this.btSave.Visible = false;
             this.btSave.MouseHover += new System.EventHandler(this.btSave_MouseHover);
             // 
             // btSaveID
             // 
             this.btSaveID.Image = global::ConfigDevice.Properties.Resources.save;
             this.btSaveID.Name = "btSaveID";
-            this.btSaveID.Size = new System.Drawing.Size(182, 30);
+            this.btSaveID.Size = new System.Drawing.Size(198, 30);
             this.btSaveID.Text = "保存设备ID";
             this.btSaveID.Click += new System.EventHandler(this.btSaveID_Click);
             // 
@@ -110,49 +134,43 @@
             // 
             this.btSaveNamePosition.Image = global::ConfigDevice.Properties.Resources.save;
             this.btSaveNamePosition.Name = "btSaveNamePosition";
-            this.btSaveNamePosition.Size = new System.Drawing.Size(182, 30);
+            this.btSaveNamePosition.Size = new System.Drawing.Size(198, 30);
             this.btSaveNamePosition.Text = "保存名称及位置";
             this.btSaveNamePosition.Click += new System.EventHandler(this.btSaveNamePosition_Click);
             // 
-            // btRefresh
-            // 
-            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.Point1;
-            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(96, 28);
-            this.btRefresh.Text = "刷新数据 ";
-            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
-            // 
             // btOpenLight
             // 
-            this.btOpenLight.Image = global::ConfigDevice.Properties.Resources.Point1;
+            this.btOpenLight.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btOpenLight.Image = global::ConfigDevice.Properties.Resources.open_light;
             this.btOpenLight.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btOpenLight.Name = "btOpenLight";
-            this.btOpenLight.Size = new System.Drawing.Size(124, 28);
+            this.btOpenLight.Size = new System.Drawing.Size(138, 28);
             this.btOpenLight.Text = "通信指示灯开 ";
             this.btOpenLight.Click += new System.EventHandler(this.btOpenLight_Click);
             // 
             // btCloseLight
             // 
-            this.btCloseLight.Image = global::ConfigDevice.Properties.Resources.Point1;
+            this.btCloseLight.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btCloseLight.Image = global::ConfigDevice.Properties.Resources.close_light;
             this.btCloseLight.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btCloseLight.Name = "btCloseLight";
-            this.btCloseLight.Size = new System.Drawing.Size(124, 28);
+            this.btCloseLight.Size = new System.Drawing.Size(138, 28);
             this.btCloseLight.Text = "通讯指示灯关 ";
             this.btCloseLight.Click += new System.EventHandler(this.btCloseLight_Click);
             // 
             // btFindOn
             // 
-            this.btFindOn.Image = global::ConfigDevice.Properties.Resources.Point1;
+            this.btFindOn.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btFindOn.Image = global::ConfigDevice.Properties.Resources.on;
             this.btFindOn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btFindOn.Name = "btFindOn";
-            this.btFindOn.Size = new System.Drawing.Size(110, 28);
+            this.btFindOn.Size = new System.Drawing.Size(122, 28);
             this.btFindOn.Text = "发现设备开 ";
             this.btFindOn.Click += new System.EventHandler(this.btFindOn_Click);
             // 
             // btFindOff
             // 
-            this.btFindOff.Image = global::ConfigDevice.Properties.Resources.Point1;
+            this.btFindOff.Image = global::ConfigDevice.Properties.Resources.off;
             this.btFindOff.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btFindOff.Name = "btFindOff";
             this.btFindOff.Size = new System.Drawing.Size(110, 28);
@@ -428,5 +446,6 @@
         private System.Windows.Forms.ToolStripDropDownButton btSave;
         private System.Windows.Forms.ToolStripMenuItem btSaveID;
         private System.Windows.Forms.ToolStripMenuItem btSaveNamePosition;
+        private System.Windows.Forms.ToolStripButton btSaveAll;
     }
 }

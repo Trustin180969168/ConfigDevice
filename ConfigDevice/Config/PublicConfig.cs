@@ -61,7 +61,9 @@ namespace ConfigDevice
         SearchNetwork,
         ConnectNetowrk,
         DisConnectNetwork,
-        SyncNetworkID
+        SyncNetworkID,
+        SaveDeviceID,
+        SaveDeviceName
         
     }
 
@@ -220,21 +222,7 @@ namespace ConfigDevice
         public static Dictionary<string, CallbackFromUDP> RJ45CallBackList = new Dictionary<string, CallbackFromUDP>();//----RJ45回调表-----  
 
         /// <summary>
-        /// 添加到回调表
-        /// </summary>
-        /// <param name="key">命令</param>
-        /// <param name="callback">回调对象</param>
-        public static void AddRJ45CallBackList(byte[] key,CallbackFromUDP callback)
-        {
-            string keyStr = ConvertTools.ByteToHexStr(key);
-            if (!RJ45CallBackList.ContainsKey(keyStr))
-                RJ45CallBackList.Add(keyStr, callback);
-            else
-            {
-                RJ45CallBackList[keyStr] = callback;  //----暂时只用于单个事件订阅,所以直接覆盖------
-               
-            }
-        }
+
 
     }
 
@@ -247,7 +235,7 @@ namespace ConfigDevice
         public event CallbackUdpAction CallBackAction;//----委托操作----    
         public EndPoint RemotePoint;//---标识网络地址---
         public object[] Values;
-
+        public long ActionCount = System.Int64.MaxValue;//执行次数
         public CallbackUdpAction GetCallBackAction
         {
             get { return CallBackAction; }

@@ -25,7 +25,7 @@ namespace ConfigDevice
             RefreshConnectState.Start();
             //-------------RJ45主动刷新网络包的回调----------------
             callbackRefreshNetwork = new CallbackFromUDP(callbackRefreshNetworkData);
-            SysConfig.AddRJ45CallBackList(NetworkConfig.CMD_PC_CONNECTING, callbackRefreshNetwork);
+            SysCtrl.AddRJ45CallBackList(NetworkConfig.CMD_PC_CONNECTING, callbackRefreshNetwork);
         }
 
         private void callbackUI(object[] values)

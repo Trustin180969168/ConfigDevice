@@ -47,6 +47,7 @@ namespace ConfigDevice
             networkState.FieldName = NetworkConfig.DC_STATE;
             networkRemark.FieldName = NetworkConfig.DC_REMARK;
             networkKindName.FieldName = NetworkConfig.DC_KINDNAME;
+           // networkSearchDevices.FieldName = NetworkConfig.DC_MAC;
 
             xh.FieldName = DeviceConfig.DC_NUM;
             deviceID.FieldName = DeviceConfig.DC_ID;
@@ -98,14 +99,14 @@ namespace ConfigDevice
                 {
                     if (values == null)
                     {
-                        gvNetwork.BestFitColumns();
+                        gvNetwork.BestFitColumns(); networkSearchDevices.Width = 50;
                     }
                     else if ((ActionKind)values[0] == ActionKind.SearchDevice)//-----搜索完设备----
                     {
                         Network network = (Network)(values[1]);
                         SyncNextNetworkID();//---执行一下同步
                         gvDevices.BestFitColumns();
-
+                        networkSearchDevices.Width = 50;
                     }
                     else if ((ActionKind)values[0] == ActionKind.SyncNetworkID)//----同步网络ID完毕刷新---
                     {
@@ -122,6 +123,19 @@ namespace ConfigDevice
                     {
                         gcDevices.DataSource = SysConfig.DtDevice;
                     }
+                    else if ((ActionKind)values[0] == ActionKind.SaveDeviceID)//---保存设备ID后,保存设备名称----
+                    {
+                        //Device device = values[1] as Device;
+                        //DataRow drUpdate = SysConfig.DtDevice.Select(DeviceConfig.DC_ID + " = '" + device.DeviceID + "'")[0];
+                        //string name = drUpdate[DeviceConfig.DC_NAME].ToString();
+                        //device.SaveDeviceName(name, device.ByteAddressID, device.AddressName);
+                    }
+                    else if ((ActionKind)values[0] == ActionKind.SaveDeviceName)//---保存设备名称后刷新列表----
+                    {
+                        Device device = values[1] as Device;
+                        SysCtrl.UpdateDeviceData(device.GetDeviceData());
+                    } 
+                 
                 }
             }
             catch (Exception e1) { e1.ToString(); }
@@ -294,7 +308,7 @@ namespace ConfigDevice
         private void btClearNetwork_Click(object sender, EventArgs e)
         {
             this.networkCtrl.ClearNetwork();
-            cbxSelectNetwork.SelectedIndex = 0;
+            cbxSelectNetwork.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -604,11 +618,17 @@ namespace ConfigDevice
                 Network network = SysConfig.ListNetworks[drUpdate[DeviceConfig.DC_NETWORK_IP].ToString()];
                 if (network.State == NetworkConfig.STATE_CONNECTED)
                 {
+                    object[] temp = drUpdate.ItemArray;
+                    DeviceData data = new DeviceData(drUpdate);    //---新设备数据
+
+                    drUpdate.RejectChanges();//----根据旧数据创建对象------                    
                     Device device = new BaseDevice(drUpdate);
-                    device.SaveDeviceID(drUpdate[DeviceConfig.DC_ID].ToString());
-                    device.SaveDeviceName(drUpdate[DeviceConfig.DC_NAME].ToString(),device.ByteAddressID,device.AddressName);
-                    drUpdate.AcceptChanges();
-                    SysCtrl.UpdateDeviceData(device.GetDeviceData());
+                    device.OnCallbackUI_Action += this.CallBackUI;
+                    device.SaveDeviceIDAndName(data); //---保存设备名称及ID-----
+
+                    drUpdate.ItemArray = temp;               
+                    drUpdate.AcceptChanges();   //----根据新数据创建新设备数据-----
+                                    
                 }
                 else
                 {
@@ -631,6 +651,44 @@ namespace ConfigDevice
             else
                 CommonTools.MessageShow("请先连接网络" + network.DeviceName, 3, "");
          
+        }
+
+        /// <summary>
+        /// 校验ID冲突
+        /// </summary>
+        private void edtNum_Leave(object sender, EventArgs e)
+        {
+            if (gvDevices.FocusedRowHandle < 0) return;
+            DataRow drCheck = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
+            drCheck.EndEdit();
+            DeviceData deviceData = new DeviceData(drCheck);
+            string temp = DeviceConfig.DC_ID + " = '" + deviceData.DeviceID + "' and " + DeviceConfig.DC_NETWORK_ID + " = '" + deviceData.NetworkID + "' ";
+            DataRow[] rows = SysConfig.DtDevice.Select(temp);
+            if (rows.Length > 1)
+            {
+                foreach (DataRow dr in rows)
+                {
+                    if (!dr[DeviceConfig.DC_REMARK].ToString().Contains(DeviceConfig.ERROR_SAME_DEVICE_ID))
+                    {
+                        dr[DeviceConfig.DC_REMARK] += DeviceConfig.ERROR_SAME_DEVICE_ID;//其他标识冲突
+                        dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;//其他标识冲突
+                        dr.EndEdit();
+                    }
+                }
+            }
+            else
+            {
+                foreach (DataRow dr in SysConfig.DtDevice.Rows)
+                {
+                    if (dr[DeviceConfig.DC_REMARK].ToString().Contains(DeviceConfig.ERROR_SAME_DEVICE_ID))
+                    {
+                        dr[DeviceConfig.DC_REMARK] = dr[DeviceConfig.DC_REMARK].ToString().Replace(DeviceConfig.ERROR_SAME_DEVICE_ID, "");
+                        if (dr[DeviceConfig.DC_REMARK].ToString() == "")
+                            dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_RIGHT;
+                        dr.EndEdit();                        
+                    }
+                }
+            }
         }
 
 

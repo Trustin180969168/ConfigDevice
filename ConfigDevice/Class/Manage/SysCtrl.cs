@@ -57,24 +57,6 @@ namespace ConfigDevice
 
 
 
-        /// <summary>
-        /// 刷新设备列表
-        /// </summary>
-        /// <param name="device">设备</param>
-        public static void RefreshDevices(Device device)
-        {
-            string cdnStr = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
-            DataRow[] rows = SysConfig.DtDevice.Select(cdnStr);
-            if (rows.Length == 0) return;
-            DataRow dr = rows[0];
-            dr[DeviceConfig.DC_ID] = device.DeviceID;
-            dr[DeviceConfig.DC_NETWORK_ID] = device.NetworkID;
-            dr[DeviceConfig.DC_KIND_NAME] = device.KindName;
-            dr[DeviceConfig.DC_NAME] = device.Name;
-            dr[DeviceConfig.DC_STATE] = device.State;
-            dr[DeviceConfig.DC_ADDRESS_NAME] = device.AddressName;
-            dr.AcceptChanges();
-        }
 
 
         /// <summary>
@@ -375,6 +357,27 @@ namespace ConfigDevice
                 }
             }
 
+        }
+
+        /// 添加到回调表
+        /// </summary>
+        /// <param name="key">命令</param>
+        /// <param name="callback">回调对象</param>
+        public static void AddRJ45CallBackList(byte[] key, CallbackFromUDP callback)
+        {
+            lock (SysConfig.RJ45CallBackList)
+            {
+                string uuid = Guid.NewGuid().ToString();//---因一个命令对应多种操作,所以加上uuid进行区分,实现准确回调-----
+                string keyStr = ConvertTools.ByteToHexStr(key) + "_" +uuid;
+                SysConfig.RJ45CallBackList.Add(keyStr, callback);
+                //if (!RJ45CallBackList.ContainsKey(keyStr))
+                //    RJ45CallBackList.Add(keyStr, callback);
+                //else
+                //{
+                //    RJ45CallBackList[keyStr] = callback;  //----暂时只用于单个事件订阅,所以直接覆盖------
+
+                //}
+            }
         }
     }
 }

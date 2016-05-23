@@ -85,8 +85,8 @@ namespace ConfigDevice
         {
             getSettingInfo = new CallbackFromUDP(getSettingInfoData);
             getRoadTitles = new CallbackFromUDP(getRoadTitlesData);
-            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, getSettingInfo);
-            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, getRoadTitles);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, getSettingInfo);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, getRoadTitles);
         }
 
 

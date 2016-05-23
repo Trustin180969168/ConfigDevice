@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
+            this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
+            this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
@@ -64,12 +66,11 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.cdtSelectAll = new DevExpress.XtraEditors.CheckEdit();
             this.clbcAqjb = new DevExpress.XtraEditors.CheckedListBoxControl();
-            this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.DeviceUI.ViewCommandSetting();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
+            this.pageJcsz.SuspendLayout();
             this.pagePzjm.SuspendLayout();
             this.tsDoorInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
@@ -94,7 +95,6 @@
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).BeginInit();
-            this.pageJcsz.SuspendLayout();
             this.pageCommand.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,6 +114,21 @@
             this.pageCommand});
             this.tctrlEdit.Text = "xtraTabControl1";
             this.tctrlEdit.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.tctrlEdit_SelectedPageChanged);
+            // 
+            // pageJcsz
+            // 
+            this.pageJcsz.Controls.Add(this.frmSetting);
+            this.pageJcsz.Name = "pageJcsz";
+            this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
+            this.pageJcsz.Text = "基础配置";
+            // 
+            // frmSetting
+            // 
+            this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.frmSetting.Location = new System.Drawing.Point(0, 0);
+            this.frmSetting.Name = "frmSetting";
+            this.frmSetting.Size = new System.Drawing.Size(1009, 682);
+            this.frmSetting.TabIndex = 0;
             // 
             // pagePzjm
             // 
@@ -480,21 +495,6 @@
             this.clbcAqjb.Size = new System.Drawing.Size(457, 45);
             this.clbcAqjb.TabIndex = 1;
             // 
-            // pageJcsz
-            // 
-            this.pageJcsz.Controls.Add(this.frmSetting);
-            this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
-            this.pageJcsz.Text = "基础配置";
-            // 
-            // frmSetting
-            // 
-            this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmSetting.Location = new System.Drawing.Point(0, 0);
-            this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(1009, 682);
-            this.frmSetting.TabIndex = 0;
-            // 
             // pageCommand
             // 
             this.pageCommand.Controls.Add(this.viewCommandEdit);
@@ -522,6 +522,7 @@
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);
+            this.pageJcsz.ResumeLayout(false);
             this.pagePzjm.ResumeLayout(false);
             this.pagePzjm.PerformLayout();
             this.tsDoorInput.ResumeLayout(false);
@@ -549,7 +550,6 @@
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).EndInit();
-            this.pageJcsz.ResumeLayout(false);
             this.pageCommand.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

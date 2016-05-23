@@ -24,16 +24,21 @@ namespace ConfigDevice
                     this.Invoke(new CallbackUIAction(this.CallBackUI),new object[]{values}); 
                 else
                 {
-                    edtHardwareVer.Text = DeviceEdit.HardwareVer;
-                    edtSoftwareVer.Text = DeviceEdit.SoftwareVer;
+                    if (values == null)
+                    {
+                        edtHardwareVer.Text = DeviceEdit.HardwareVer;
+                        edtSoftwareVer.Text = DeviceEdit.SoftwareVer;
 
-                    edtName.Text = DeviceEdit.Name;
-                    edtDeviceID.Text = DeviceEdit.DeviceID;
-                    edtNetworkID.Text = DeviceEdit.NetworkID;
-                    cbxDeviceKind.Text = DeviceEdit.KindName;
+                        edtName.Text = DeviceEdit.Name;
+                        edtDeviceID.Text = DeviceEdit.DeviceID;
+                        edtNetworkID.Text = DeviceEdit.NetworkID;
+                        cbxDeviceKind.Text = DeviceEdit.KindName;
 
-                    getPosition();
-                    cbxPosition.Text = DeviceEdit.AddressName;
+                        getPosition();
+                        cbxPosition.Text = DeviceEdit.AddressName;
+                    }
+                    else if ((ActionKind)values[0] == ActionKind.SaveDeviceID)
+                        SysCtrl.UpdateDeviceData(DeviceEdit.GetDeviceData());
                 }
             }
             catch { }
@@ -64,8 +69,7 @@ namespace ConfigDevice
         /// </summary>
         private void btSaveID_Click(object sender, EventArgs e)
         {
-            DeviceEdit.SaveDeviceID(edtDeviceID.Text);
-           
+            DeviceEdit.SaveDeviceID(edtDeviceID.Text);           
         }
 
         /// <summary>
@@ -127,6 +131,24 @@ namespace ConfigDevice
         private void btFindOff_Click(object sender, EventArgs e)
         {
             DeviceEdit.CloseDiscover();
+        }
+
+        /// <summary>
+        /// 保存所有
+        /// </summary> 
+        private void btSaveAll_Click(object sender, EventArgs e)
+        {
+            int pos = cbxPosition.SelectedIndex;
+            byte[] bytePos = ConvertTools.GetByteFrom16BitInt(pos);
+            string newPos = cbxPosition.Text;
+
+            DeviceData data = DeviceEdit.GetDeviceData();
+            data.Name = edtName.Text;
+            data.DeviceID = edtDeviceID.Text;
+            data.ByteAddressID = bytePos;
+            data.AddressName = newPos;
+
+            DeviceEdit.SaveDeviceIDAndName(data);
         }
 
 

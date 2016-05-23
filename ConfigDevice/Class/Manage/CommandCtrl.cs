@@ -14,7 +14,7 @@ namespace ConfigDevice
         {
             this.device = value;
             callbackGetCommandData = new CallbackFromUDP(getCommandData);
-            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_COMMAND, callbackGetCommandData);//---注册回调----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_COMMAND, callbackGetCommandData);//---注册回调----
         }
 
         /// <summary>

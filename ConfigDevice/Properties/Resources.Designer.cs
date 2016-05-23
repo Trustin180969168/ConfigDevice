@@ -95,6 +95,20 @@ namespace ConfigDevice.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap close_found {
+            get {
+                object obj = ResourceManager.GetObject("close_found", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap close_light {
+            get {
+                object obj = ResourceManager.GetObject("close_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap confirm {
             get {
                 object obj = ResourceManager.GetObject("confirm", resourceCulture);
@@ -210,6 +224,20 @@ namespace ConfigDevice.Properties {
         internal static System.Drawing.Bitmap open_found {
             get {
                 object obj = ResourceManager.GetObject("open_found", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap open_found1 {
+            get {
+                object obj = ResourceManager.GetObject("open_found1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap open_light {
+            get {
+                object obj = ResourceManager.GetObject("open_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

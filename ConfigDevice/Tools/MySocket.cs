@@ -238,8 +238,8 @@ namespace ConfigDevice
         /// </summary>
         private void receiveHandle()
         {
-            //lock (pcCallBackList)
-            //{
+            lock (lockReceive)
+            {
                 IPEndPoint ipep = new IPEndPoint(IPAddress.Any, SysConfig.RemotePort);//获取所有地址为自远程端口的值
                 EndPoint remotePoint = (EndPoint)(ipep);
                 CallbackFromUDP state;//回调对象
@@ -272,19 +272,55 @@ namespace ConfigDevice
                     else if (udpReceive.PacketKind[0] == PackegeSendReply.SEND)//-------添加到RJ45设备发送表---------
                     {
                         UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据-----
-                        AddRJ45SendList(udpReceive.PacketCodeStr, udpReceive);//包标识和命令作为键
+                        //AddRJ45SendList(udpReceive.PacketCodeStr, udpReceive);//包标识和命令作为键
 
-                        string keyStr = userData.CommandStr;
-                        if (SysConfig.RJ45CallBackList.ContainsKey(keyStr))//------是否存在被动回调列表----
-                        {
-                            state = SysConfig.RJ45CallBackList[keyStr];  
-                            if(state != null)
-                                state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----        
-                        }
+                        rj45CallBack(userData.CommandStr,udpReceive);//--找到回调并执行
+                        //string keyStr = userData.CommandStr;
+                        //if (SysConfig.RJ45CallBackList.ContainsKey(keyStr))//------是否存在被动回调列表----
+                        //{
+                        //    state = SysConfig.RJ45CallBackList[keyStr];  
+                        //    if(state != null)
+                        //        state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----        
+                        //}
                     }
                 }
-            //}
+            }
         }
+
+        /// <summary>
+        /// 找到RJ45相应的回调,并执行
+        /// </summary>
+        /// <param name="commandStr"></param>
+        /// <param name="udpReceive"></param>
+        private void rj45CallBack(string commandStr,UdpData udpReceive)
+        {
+            lock (SysConfig.RJ45CallBackList)
+            {
+                CallbackFromUDP state;//回调对象
+                List<string> delList = new List<string>();
+                foreach (string key in SysConfig.RJ45CallBackList.Keys)
+                {
+                    if (key.StartsWith(commandStr))
+                    {
+                        state = SysConfig.RJ45CallBackList[key];
+                        if (state != null)
+                        {
+                            if (state.ActionCount > 0)
+                            {
+                                state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----  
+                                state.ActionCount--;//修改执行次数
+                            }
+                        }
+                        else
+                            delList.Add(key);
+                    }
+                }
+                foreach (string key in delList)
+                    SysConfig.RJ45CallBackList.Remove(key);
+            }
+            
+        }
+
         /// <summary>
         /// 判断是否广播包
         /// </summary>

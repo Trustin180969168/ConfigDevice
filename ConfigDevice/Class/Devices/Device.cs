@@ -96,7 +96,16 @@ namespace ConfigDevice
         {
             callbackVer = new CallbackFromUDP(getVer);
             callbackRefresh = new CallbackFromUDP(getRefreshDevice);
-            callbackSaveID = new CallbackFromUDP(getResultDevice);  //涉及同命令多事件,执行前绑定,避免冲突异常
+            callbackSaveID = new CallbackFromUDP(getResultDevice);  
+
+             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackRefresh);//回调刷新结果
+             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackVer);//注册返回版本号
+             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackSaveID);//回调返回的一个设备结果
+
+             //----初始化执行次数-------
+             callbackRefresh.ActionCount = 0;
+             callbackSaveID.ActionCount = 0;
+
         }
 
         /// <summary>
@@ -177,8 +186,7 @@ namespace ConfigDevice
         /// 获取版本号
         /// </summary>
         public void SearchVer()
-        {
-            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackVer);
+        {            
             UdpData udpSearch = createSearchVerUdp();
             MySocket.GetInstance().SendData(udpSearch, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchVer), new object[] { udpSearch });
         }
@@ -202,14 +210,10 @@ namespace ConfigDevice
                 SoftwareVer = Encoding.GetEncoding("ASCII").GetString(temp1).TrimEnd('\0');
                 Buffer.BlockCopy(userData.Data, 20, temp2, 0, 20);
                 HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0');
-
+            }
                 //------回复反馈的设备信息-------
                 UdpTools.ReplyDeviceDataUdp(data);
-            }
-            else
-            {   //------回复反馈的设备信息-------
-                UdpTools.ReplyDeviceDataUdp(data);
-            }
+   
             CallbackUI(null);
         }
         /// <summary>
@@ -247,28 +251,33 @@ namespace ConfigDevice
             return udp;
         }
 
-
-        private string tempNewID = "";//-----新的设备ID------
+    
         /// <summary>
-        /// 修改设备ID,时间较长,取消检测反馈设备结果,用户通过刷新实现
+        /// 保存设备ID以及设备名称
+        /// </summary>
+        /// <param name="DeviceData">新设备数据</param> 
+        public void SaveDeviceIDAndName(DeviceData data)
+        {
+            callbackSaveID.ActionCount = 1;//---只允许回调一次---
+            callbackSaveID.Values = new object[] { data };//---保存回调参数----
+            UdpData udp = createSaveDeviceIDUdp(data.DeviceID);
+            MySocket.GetInstance().SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceID), new object[] { udp });
+        }
+        /// <summary>
+        /// 修改设备ID
         /// </summary>
         /// <param name="ID">设备ID</param>
         public void SaveDeviceID(string newID)
-        {
-            //if (newID == this.DeviceID) return;
-            tempNewID = newID;
-           
+        { 
+            callbackSaveID.ActionCount = 1;//---只允许回调一次---
             UdpData udp = createSaveDeviceIDUdp(newID);
-            MySocket.GetInstance().SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceID), new object[] { udp, newID });
-            
+            MySocket.GetInstance().SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceID), new object[] { udp });            
         }
         private void callbackSaveDeviceID(UdpData udp, object[] values)
         {
             UdpData sendUdp = (UdpData)values[0];
             if (udp.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                CommonTools.ShowReplyInfo("修改设备ID失败!", udp.ReplyByte);
-            else
-                SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackSaveID);//回调刷新结果
+                CommonTools.ShowReplyInfo("修改设备ID失败!", udp.ReplyByte);          
         }
         /// <summary>
         /// 创建修改设备ID的UDP包
@@ -310,32 +319,30 @@ namespace ConfigDevice
 
             return udp;
         }
-
         /// <summary>
         /// 获取修改结果
         /// </summary>
         /// <param name="data"></param>
-        /// <param name="values"></param>
+        /// <param name="values">回调参数</param>
         private void getResultDevice(UdpData data, object[] values)
         {
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);
-            Device resultDevice = new BaseDevice(userData);
-            //-----获取版本号------
+            Device resultDevice = new BaseDevice(userData);//----获取返回的设备信息----
+            DeviceData deviceData = values[0] as DeviceData;//---收回需要修改的设备信息---
             if (resultDevice.MAC == this.MAC)
             {
-                if (resultDevice.DeviceID == tempNewID)
+                if (resultDevice.DeviceID == deviceData.DeviceID)//---相同则成功----
                 {
-                    DeviceID = tempNewID;
-                    //------回复反馈的设备信息-------
-                    UdpTools.ReplyDeviceDataUdp(data);
-                    tempNewID = "";
-                    SysCtrl.RefreshDevices(this);
+                    this.DeviceID = resultDevice.DeviceID;//---新ID-----                   
+                    UdpTools.ReplyDeviceDataUdp(data); //------回复反馈的设备信息-------
+                    SaveDeviceName(deviceData.Name, deviceData.ByteAddressID, deviceData.AddressName);//---保存设备名称------                  
                 }
                 else
+                {
+                    this.DeviceID = resultDevice.DeviceID;//---恢复原来的设备ID---
                     CommonTools.MessageShow("设备ID修改失败!", 2, "");
-
-                CallbackUI(null);
+                }
             }
 
         }
@@ -360,7 +367,8 @@ namespace ConfigDevice
             if (udpReply.ReplyByte == REPLY_RESULT.CMD_TRUE)
             {
                 this.Name = newName; this.AddressName = newPos; this.ByteAddressID = newBytePostion;
-                //SysCtrl.RefreshDevices(this); CommonTools.MessageShow("保存名称成功!", 1, "");
+                SysCtrl.UpdateDeviceData(this.GetDeviceData());
+                CallbackUI(new object[] { ActionKind.SaveDeviceName, this });
             }
             else
                 CommonTools.ShowReplyInfo("保存名称失败!", udpReply.ReplyByte);
@@ -382,7 +390,9 @@ namespace ConfigDevice
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_NAME;//----用户命令-----      
-            byte[] byteName = Encoding.GetEncoding("GB2312").GetBytes(newName);      //---------新名称-------------
+            byte[] byteName = new byte[30];
+            byte[] temp = Encoding.GetEncoding("GB2312").GetBytes(newName);      //---------新名称-------------
+            Buffer.BlockCopy(temp, 0, byteName, 0, temp.Length);
             byte len = (byte)(2 + byteName.Length + 4);//---数据长度 =地址长度2 + 名称长度30 + 校验码4--
             //--------添加到校验数据--------
             byte[] crcData = new byte[10 + 2 + byteName.Length];
@@ -411,7 +421,7 @@ namespace ConfigDevice
         public void RefreshData()
         {
             UdpData udpSend = createRefreshUdp();
-            SysConfig.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackRefresh);//回调刷新结果
+            callbackRefresh.ActionCount = 1;
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackRefreshDevice), new object[] { udpSend });
         }
         private void callbackRefreshDevice(UdpData udpReply, object[] values)
@@ -457,7 +467,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             Device device = new BaseDevice(userData);
             //------回复反馈的设备信息-------
-            UdpTools.ReplyDeviceDataUdp(data);
+            UdpTools.ReplyDeviceDataUdp(data);//----跟主界面刷新冲突----
 
             if (device.MAC == this.MAC)
             {
@@ -472,7 +482,7 @@ namespace ConfigDevice
                 this.AddressName = device.AddressName;
 
                 CallbackUI(null);//---返回UI----
-                SysCtrl.RefreshDevices(this);//--刷新----
+                SysCtrl.UpdateDeviceData(this.GetDeviceData());//--刷新----
             }
         }
 
