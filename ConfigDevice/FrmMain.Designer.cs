@@ -579,7 +579,7 @@
             this.networkDeviceName.Name = "networkDeviceName";
             this.networkDeviceName.Visible = true;
             this.networkDeviceName.VisibleIndex = 0;
-            this.networkDeviceName.Width = 173;
+            this.networkDeviceName.Width = 288;
             // 
             // networkDeviceID
             // 
@@ -604,7 +604,7 @@
             this.networkID.Name = "networkID";
             this.networkID.Visible = true;
             this.networkID.VisibleIndex = 1;
-            this.networkID.Width = 173;
+            this.networkID.Width = 180;
             // 
             // networkState
             // 
@@ -616,15 +616,17 @@
             this.networkState.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.networkState.Caption = "状态";
             this.networkState.ColumnEdit = this.linkEdit;
+            this.networkState.ImageAlignment = System.Drawing.StringAlignment.Center;
             this.networkState.Name = "networkState";
             this.networkState.OptionsColumn.ReadOnly = true;
             this.networkState.Visible = true;
             this.networkState.VisibleIndex = 2;
-            this.networkState.Width = 173;
+            this.networkState.Width = 232;
             // 
             // linkEdit
             // 
             this.linkEdit.AutoHeight = false;
+            this.linkEdit.ImageAlignment = DevExpress.Utils.HorzAlignment.Default;
             this.linkEdit.Name = "linkEdit";
             this.linkEdit.Click += new System.EventHandler(this.gvNetwork_LinkEdit);
             // 
@@ -654,8 +656,8 @@
             this.networkRemark.Name = "networkRemark";
             this.networkRemark.OptionsColumn.ReadOnly = true;
             this.networkRemark.Visible = true;
-            this.networkRemark.VisibleIndex = 5;
-            this.networkRemark.Width = 131;
+            this.networkRemark.VisibleIndex = 4;
+            this.networkRemark.Width = 93;
             // 
             // networkKindName
             // 
@@ -669,8 +671,8 @@
             this.networkKindName.Name = "networkKindName";
             this.networkKindName.OptionsColumn.ReadOnly = true;
             this.networkKindName.Visible = true;
-            this.networkKindName.VisibleIndex = 4;
-            this.networkKindName.Width = 320;
+            this.networkKindName.VisibleIndex = 3;
+            this.networkKindName.Width = 219;
             // 
             // networkSearchDevices
             // 
@@ -683,8 +685,6 @@
             this.networkSearchDevices.ColumnEdit = this.linkSearch;
             this.networkSearchDevices.Name = "networkSearchDevices";
             this.networkSearchDevices.OptionsColumn.ReadOnly = true;
-            this.networkSearchDevices.Visible = true;
-            this.networkSearchDevices.VisibleIndex = 3;
             this.networkSearchDevices.Width = 42;
             // 
             // linkSearch

@@ -120,6 +120,7 @@
             this.deviceID.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.deviceID.Name = "deviceID";
             this.deviceID.OptionsColumn.AllowEdit = false;
+            this.deviceID.OptionsColumn.FixedWidth = true;
             this.deviceID.OptionsColumn.ReadOnly = true;
             this.deviceID.Visible = true;
             this.deviceID.VisibleIndex = 0;
@@ -137,6 +138,7 @@
             this.deviceNetworkID.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.deviceNetworkID.Name = "deviceNetworkID";
             this.deviceNetworkID.OptionsColumn.AllowEdit = false;
+            this.deviceNetworkID.OptionsColumn.FixedWidth = true;
             this.deviceNetworkID.OptionsColumn.ReadOnly = true;
             this.deviceNetworkID.Visible = true;
             this.deviceNetworkID.VisibleIndex = 1;
@@ -154,6 +156,7 @@
             this.deviceKind.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.deviceKind.Name = "deviceKind";
             this.deviceKind.OptionsColumn.AllowEdit = false;
+            this.deviceKind.OptionsColumn.FixedWidth = true;
             this.deviceKind.OptionsColumn.ReadOnly = true;
             this.deviceKind.Visible = true;
             this.deviceKind.VisibleIndex = 2;
@@ -171,6 +174,7 @@
             this.deviceName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.deviceName.Name = "deviceName";
             this.deviceName.OptionsColumn.AllowEdit = false;
+            this.deviceName.OptionsColumn.FixedWidth = true;
             this.deviceName.OptionsColumn.ReadOnly = true;
             this.deviceName.Visible = true;
             this.deviceName.VisibleIndex = 3;
@@ -191,6 +195,7 @@
             this.deviceCtrlObj.Caption = "控制对象";
             this.deviceCtrlObj.ColumnEdit = this.cbxControlObj;
             this.deviceCtrlObj.Name = "deviceCtrlObj";
+            this.deviceCtrlObj.OptionsColumn.FixedWidth = true;
             this.deviceCtrlObj.Visible = true;
             this.deviceCtrlObj.VisibleIndex = 4;
             this.deviceCtrlObj.Width = 80;
@@ -219,6 +224,7 @@
             this.command.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.command.Caption = "指令";
             this.command.Name = "command";
+            this.command.OptionsColumn.FixedWidth = true;
             this.command.Width = 80;
             // 
             // parameter1
@@ -235,6 +241,7 @@
             this.parameter1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter1.Caption = "参数1";
             this.parameter1.Name = "parameter1";
+            this.parameter1.OptionsColumn.FixedWidth = true;
             this.parameter1.Width = 80;
             // 
             // parameter2
@@ -251,6 +258,7 @@
             this.parameter2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter2.Caption = "参数2";
             this.parameter2.Name = "parameter2";
+            this.parameter2.OptionsColumn.FixedWidth = true;
             this.parameter2.Width = 80;
             // 
             // parameter3
@@ -267,6 +275,7 @@
             this.parameter3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter3.Caption = "参数3";
             this.parameter3.Name = "parameter3";
+            this.parameter3.OptionsColumn.FixedWidth = true;
             this.parameter3.Width = 80;
             // 
             // parameter4
@@ -283,6 +292,7 @@
             this.parameter4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter4.Caption = "参数4";
             this.parameter4.Name = "parameter4";
+            this.parameter4.OptionsColumn.FixedWidth = true;
             this.parameter4.Width = 80;
             // 
             // parameter5
@@ -299,6 +309,7 @@
             this.parameter5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter5.Caption = "参数5";
             this.parameter5.Name = "parameter5";
+            this.parameter5.OptionsColumn.FixedWidth = true;
             this.parameter5.Width = 80;
             // 
             // linkEdit

@@ -89,9 +89,7 @@ namespace ConfigDevice
         {
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
-            CommandData cmdData = new CommandData(userData);
-
-            CallbackUI(new object[] { cmdData });//----界面回调------
+            CallbackUI(new object[] { userData });//----界面回调------
         }
 
 

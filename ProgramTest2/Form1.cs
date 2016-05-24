@@ -13,6 +13,7 @@ namespace ProgramTest2
     {
 
         DataTable dt = new DataTable();
+        DataTable dtSelect = new DataTable();
         public Form1()
         {
             InitializeComponent();
@@ -20,13 +21,25 @@ namespace ProgramTest2
             dt.Columns.Add("time1", System.Type.GetType("System.String"));
             dt.Columns.Add("time2", System.Type.GetType("System.String"));
             dt.Columns.Add("text", System.Type.GetType("System.String"));
+            dt.Columns.Add("select", System.Type.GetType("System.String"));
             dcTime1.FieldName = "time1";
             dcTime2.FieldName = "time2";
+            text.FieldName = "text";
+            dcSelect.FieldName = "select";
 
+            dtSelect.Columns.Add("ID", System.Type.GetType("System.String"));
+            dtSelect.Columns.Add("NAME", System.Type.GetType("System.String"));
+            dtSelect.Rows.Add( "1","名称1");
+            dtSelect.Rows.Add("2", "名称2");
+            dtSelect.Rows.Add("3", "名称3");
+            dtSelect.Rows.Add("4", "名称4");
+            dtSelect.Rows.Add("5", "名称5");
 
-            
+            lookupEdit.DataSource = dtSelect;
+            lookupEdit.DisplayMember = "ID";
+            lookupEdit.ValueMember = "ID";
         }
- int i = 1;
+        int i = 1;
         private void simpleButton1_Click(object sender, EventArgs e)
         {
             DataRow dr = dt.Rows[0];

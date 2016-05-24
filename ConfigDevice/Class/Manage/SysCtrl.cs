@@ -367,16 +367,17 @@ namespace ConfigDevice
         {
             lock (SysConfig.RJ45CallBackList)
             {
-                string uuid = Guid.NewGuid().ToString();//---因一个命令对应多种操作,所以加上uuid进行区分,实现准确回调-----
-                string keyStr = ConvertTools.ByteToHexStr(key) + "_" +uuid;
-                SysConfig.RJ45CallBackList.Add(keyStr, callback);
-                //if (!RJ45CallBackList.ContainsKey(keyStr))
-                //    RJ45CallBackList.Add(keyStr, callback);
-                //else
-                //{
-                //    RJ45CallBackList[keyStr] = callback;  //----暂时只用于单个事件订阅,所以直接覆盖------
+                //string uuid = Guid.NewGuid().ToString();//---因一个命令对应多种操作,所以加上uuid进行区分,实现准确回调-----
+                //string keyStr = ConvertTools.ByteToHexStr(key) + "_" +uuid;
+                //SysConfig.RJ45CallBackList.Add(keyStr, callback);
 
-                //}
+                string keyStr = ConvertTools.ByteToHexStr(key);
+                if (!SysConfig.RJ45CallBackList.ContainsKey(keyStr))
+                    SysConfig.RJ45CallBackList.Add(keyStr, callback);
+                else
+                {
+                    SysConfig.RJ45CallBackList[keyStr] = callback;  //----暂时只用于单个事件订阅,所以直接覆盖------
+                }
             }
         }
     }

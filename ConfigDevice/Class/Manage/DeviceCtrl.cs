@@ -19,10 +19,10 @@ namespace ConfigDevice
         {
             callbackGetSearchDevices = new CallbackFromUDP(this.getDevices);
             callbackGetStopSearchDevices = new CallbackFromUDP(this.callbackStopSearch);
-
+            callbackGetSearchDevices.ActionCount = long.MaxValue;//--回调次数--
+            callbackGetStopSearchDevices.ActionCount = long.MaxValue;//--回调次数--
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackGetSearchDevices);//---回调设备-----
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_STOP_SEARCH, callbackGetStopSearchDevices);//---回调停止搜索----
-
 
         }
 

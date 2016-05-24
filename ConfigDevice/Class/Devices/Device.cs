@@ -22,7 +22,7 @@ namespace ConfigDevice
         public string NetworkIP = "";//设备通讯IP地址
         public string AddressName = "";//设备地址
         public byte[] ByteAddressID;//字节设备地址ID
-        public string AddressID = "";//设备地址ID
+        public string AddressID = "";//设备地址ID 
     
         public Dictionary<string, ControlObj> ContrlObjs = new Dictionary<string, ControlObj>();//控制对象列表
 
@@ -98,14 +98,15 @@ namespace ConfigDevice
             callbackRefresh = new CallbackFromUDP(getRefreshDevice);
             callbackSaveID = new CallbackFromUDP(getResultDevice);  
 
-             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackRefresh);//回调刷新结果
-             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackVer);//注册返回版本号
-             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackSaveID);//回调返回的一个设备结果
 
-             //----初始化执行次数-------
+
+             callbackVer.ActionCount = 0;
              callbackRefresh.ActionCount = 0;
              callbackSaveID.ActionCount = 0;
 
+             //SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackRefresh);//回调刷新结果
+             //SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackVer);//注册返回版本号
+             //SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackSaveID);//回调返回的一个设备结果
         }
 
         /// <summary>
@@ -335,7 +336,7 @@ namespace ConfigDevice
                 if (resultDevice.DeviceID == deviceData.DeviceID)//---相同则成功----
                 {
                     this.DeviceID = resultDevice.DeviceID;//---新ID-----                   
-                    UdpTools.ReplyDeviceDataUdp(data); //------回复反馈的设备信息-------
+                    //UdpTools.ReplyDeviceDataUdp(data); //------由首页列表回复-------
                     SaveDeviceName(deviceData.Name, deviceData.ByteAddressID, deviceData.AddressName);//---保存设备名称------                  
                 }
                 else
@@ -343,7 +344,8 @@ namespace ConfigDevice
                     this.DeviceID = resultDevice.DeviceID;//---恢复原来的设备ID---
                     CommonTools.MessageShow("设备ID修改失败!", 2, "");
                 }
-            }
+            }else//-----RJ45的数据会执行多个回调,若mac地址未匹配,要继续接收回调,直到回调成功.
+                callbackSaveID.ActionCount = 1;//--继续接收回调数据----
 
         }
 
@@ -467,7 +469,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             Device device = new BaseDevice(userData);
             //------回复反馈的设备信息-------
-            UdpTools.ReplyDeviceDataUdp(data);//----跟主界面刷新冲突----
+            //UdpTools.ReplyDeviceDataUdp(data);//----由主界面接收反馈----
 
             if (device.MAC == this.MAC)
             {

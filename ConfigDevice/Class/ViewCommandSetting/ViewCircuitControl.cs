@@ -6,6 +6,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Columns;
 using System.Reflection;
 using System.Data;
+using System.Threading;
 
 namespace ConfigDevice
 {
@@ -23,8 +24,9 @@ namespace ConfigDevice
         GridColumn dcOpenDelay;//开延迟
         GridColumn dcCloseDelay;//关延迟
         Circuit circuit;//回路
-        DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxCircuitNum;//选择回路编辑   
-
+        DataTable dtCircuit = new DataTable("回路列表选择");
+        //DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxCircuitNum;//选择回路编辑   
+        DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit lookupEdit;//回路选择
         public ViewCircuitControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
         {
@@ -36,8 +38,25 @@ namespace ConfigDevice
             dcOpenDelay = ViewSetting.Columns.ColumnByName("parameter4");
             dcCloseDelay = ViewSetting.Columns.ColumnByName("parameter5");
 
-            cbxCircuitNum = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            cbxCircuitNum.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            circuit.ReadRoadTitle();//----获取回路数据-----
+
+            //------列表选择--------
+            //cbxCircuitNum = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            //cbxCircuitNum.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            //------初始化回路列表选择-------
+            lookupEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.lookupEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, "回路", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NAME, "回路名称", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None)});
+            lookupEdit.Name = "lookupEdit";
+            lookupEdit.DisplayMember = DeviceConfig.DC_ID;
+            lookupEdit.ValueMember = DeviceConfig.DC_ID;
+            lookupEdit.ShowFooter = false;
+            lookupEdit.ShowHeader = false;
+            //-----初始化回路选择----
+            dtCircuit.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.Int16"));
+            dtCircuit.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
+            lookupEdit.DataSource = dtCircuit;
 
             InitViewSetting();
         }
@@ -92,9 +111,15 @@ namespace ConfigDevice
             Type type = controlObj.deviceControled.GetType(); //获取类型
             System.Reflection.PropertyInfo propertyInfo = type.GetProperty("CircuitCount"); //获取指定名称的属性
             int count = (int)propertyInfo.GetValue(controlObj.deviceControled, null); //获取属性值
-            for (int i = 1; i <= count; i++)
-                cbxCircuitNum.Items.Add(i.ToString());
-            dcCircuit.ColumnEdit = cbxCircuitNum;
+            //for (int i = 1; i <= count; i++)
+            //    cbxCircuitNum.Items.Add(i.ToString());
+            //dcCircuit.ColumnEdit = cbxCircuitNum;
+            Thread.Sleep(500);//等待回路数据接收
+            foreach (int key in circuit.ListCircuitIDAndName.Keys)
+                dtCircuit.Rows.Add(key, circuit.ListCircuitIDAndName[key]);
+            dtCircuit.AcceptChanges();
+            lookupEdit.DataSource = dtCircuit;
+            dcCircuit.ColumnEdit = lookupEdit;
 
             dcPercent.Caption = "亮度";
             dcPercent.ColumnEdit = edtPercentNum;
@@ -106,13 +131,14 @@ namespace ConfigDevice
             dcCloseDelay.ColumnEdit = tedtTime;
 
             ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
-            ViewSetting.SetRowCellValue(0, dcCircuit, cbxCircuitNum.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcCircuit, "1");
             ViewSetting.SetRowCellValue(0, dcPercent, "0");
             ViewSetting.SetRowCellValue(0, dcRunTime, "00:00:00");
             ViewSetting.SetRowCellValue(0, dcOpenDelay, "00:00:00");
             ViewSetting.SetRowCellValue(0, dcCloseDelay, "00:00:00");
 
            // ViewSetting.BestFitColumns();
+
         }
 
         /// <summary>
@@ -169,7 +195,8 @@ namespace ConfigDevice
             ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
 
             int cmdIndex = (int)data.Data[2];
-            ViewSetting.SetRowCellValue(0, dcCircuit, cbxCircuitNum.Items[cmdIndex].ToString());//--回路----
+            //ViewSetting.SetRowCellValue(0, dcCircuit, cbxCircuitNum.Items[cmdIndex].ToString());//--回路----
+            ViewSetting.SetRowCellValue(0, dcCircuit, cmdIndex+1);//--回路----
             ViewSetting.SetRowCellValue(0, dcPercent, (int)data.Data[1]);//---亮度----
 
             byte[] byteRunTime = CommonTools.CopyBytes(data.Data, 3, 2);

@@ -32,7 +32,7 @@ namespace ConfigDevice
         {
             get
             {
-                DataRow dr = gvCommands.GetDataRow(0); 
+                DataRow dr = gvCommands.GetDataRow(0);
                 if (dr[DeviceConfig.DC_ID].ToString() == "") return true;
                 else
                     return false;
@@ -46,7 +46,7 @@ namespace ConfigDevice
                 DataRow dr = gvCommands.GetDataRow(0);
                 dr.EndEdit();
                 DataTable dt = DataCommandSetting.GetChanges(DataRowState.Modified);
-                if (dt !=null && dt.Rows.Count > 0)
+                if (dt != null && dt.Rows.Count > 0)
                     return true;
                 else
                     return false;
@@ -127,7 +127,7 @@ namespace ConfigDevice
                 refreshView();
                 allowSync = true;
                 SyncCommandSetting();
-                
+
 
             }
         }
@@ -173,7 +173,7 @@ namespace ConfigDevice
         {
             if (CommonTools.MessageShow("是否删除第" + this.Num.ToString() + "指令?", 4, "") == DialogResult.No)
                 return;
-            DelCommandData(this.Num-1);
+            DelCommandData(this.Num - 1);
             CleanCommandSetting();//清空界面
             //SyncCommandSetting();----删除取消同步----
         }
@@ -186,7 +186,7 @@ namespace ConfigDevice
             DataRow dr = gvCommands.GetDataRow(0);
             dr.Delete();
             DataCommandSetting.Rows.Add();
-            
+
             parameter1.Visible = false;
             parameter2.Visible = false;
             parameter3.Visible = false;
@@ -274,16 +274,19 @@ namespace ConfigDevice
         /// <param name="device">设备</param>
         /// <param name="data">命令</param>
         /// <returns></returns>
-        public void SetCommandData(CommandData data)
-        {
+        public void SetCommandData(UserUdpData userData)
+        {            
             allowSync = false;
 
+            CommandData data = new CommandData(userData);
             DataRow dr = gvCommands.GetDataRow(0);
             dr[DeviceConfig.DC_ID] = (int)data.TargetId;//-----设备ID---
             dr[DeviceConfig.DC_NETWORK_ID] = (int)data.TargetNet;//---网络ID---
             dr[DeviceConfig.DC_KIND_ID] = (int)data.TargetType;//---设备ID----
             dr[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[data.TargetType];//---设备类型----
             dr[DeviceConfig.DC_NAME] = this.getDeviceName(((int)data.TargetId).ToString(), ((int)data.TargetNet).ToString());//---名称-----
+            dr[DeviceConfig.DC_PC_ADDRESS] = (int)userData.Target[0];//-----PC地址---
+            dr[DeviceConfig.DC_NETWORK_IP] = userData.IP;//----IP地址----
             dr.EndEdit();
             this.CurrentDevice = SysCtrl.CreateDevice(data.TargetType).CreateDevice(new DeviceData(dr));//----获取当前设备对象---
 
@@ -334,7 +337,12 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_SWIT_4:
                 case DeviceConfig.EQUIPMENT_SWIT_6:
                 case DeviceConfig.EQUIPMENT_SWIT_8:
-                case DeviceConfig.EQUIPMENT_SWIT_12:
+                case DeviceConfig.EQUIPMENT_TRAILING_2:
+                case DeviceConfig.EQUIPMENT_TRAILING_4:
+                case DeviceConfig.EQUIPMENT_TRAILING_6:
+                case DeviceConfig.EQUIPMENT_TRAILING_8:
+
+                case DeviceConfig.EQUIPMENT_TRAILING_12:
                     {
                         if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN) ||
@@ -342,7 +350,7 @@ namespace ConfigDevice
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_NOT) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION) ||
-                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP) )
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP))
                             return "回路";
                         if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_OPEN) ||
@@ -354,11 +362,11 @@ namespace ConfigDevice
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_OPEN) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_CLOSE) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_NOT) ||
-                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP) )
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP))
                             return "时序";
                         if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_OPEN) ||
-                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_CLOSE) )
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_CLOSE))
                             return "全部";
                     } break;
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
@@ -375,7 +383,7 @@ namespace ConfigDevice
 
         }
 
- 
+
 
     }
 }

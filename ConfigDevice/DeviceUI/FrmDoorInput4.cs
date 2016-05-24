@@ -154,7 +154,9 @@ namespace ConfigDevice
         private void btRefresh_Click(object sender, EventArgs e)
         {
             doorInput4.RefreshData();
-            callbackRoadName(null);
+            loadData();
+            doorInput4.ReadRoadTitle();//---读取回路名称----     
+ 
         }
 
         /// <summary>

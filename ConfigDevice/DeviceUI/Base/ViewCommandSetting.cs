@@ -41,7 +41,8 @@ namespace ConfigDevice.DeviceUI
                 this.Invoke(new CallbackUIAction(returnCommandData), new object[] { values });
                 return;
             }
-            CommandData commandData = (CommandData)values[0];
+            UserUdpData userData = (UserUdpData)values[0];
+            CommandData commandData = new CommandData(userData);
             //----暂时不用多一条的情况
             //while (commandCount < commandData.ucCmdNum + 2)
             //    addViewCommandSetting();
@@ -52,7 +53,7 @@ namespace ConfigDevice.DeviceUI
                 ViewCommandTools viewCommand = ctrl as ViewCommandTools;
                 if (viewCommand.Num - 1 == commandData.ucCmdNum)
                 {
-                    viewCommand.SetCommandData(commandData);
+                    viewCommand.SetCommandData(userData);
                     break;
                 }
             }

@@ -116,26 +116,19 @@ namespace ConfigDevice
                     }
                     else if ((ActionKind)values[0] == ActionKind.ConnectNetowrk)//---连接完网络----
                     {
+                        Network network = (Network)(values[1]);
                         gvNetwork.PostEditor(); gvNetwork.RefreshData();
-                        btSearchDevices_Click(null, null);//---自动搜索设备
+                        deviceCtrl.SearchDevices(network);//---自动搜索设备
                     }
                     else if ((ActionKind)values[0] == ActionKind.DisConnectNetwork)//---断开连接----
                     {
                         gcDevices.DataSource = SysConfig.DtDevice;
                     }
-                    else if ((ActionKind)values[0] == ActionKind.SaveDeviceID)//---保存设备ID后,保存设备名称----
-                    {
-                        //Device device = values[1] as Device;
-                        //DataRow drUpdate = SysConfig.DtDevice.Select(DeviceConfig.DC_ID + " = '" + device.DeviceID + "'")[0];
-                        //string name = drUpdate[DeviceConfig.DC_NAME].ToString();
-                        //device.SaveDeviceName(name, device.ByteAddressID, device.AddressName);
-                    }
                     else if ((ActionKind)values[0] == ActionKind.SaveDeviceName)//---保存设备名称后刷新列表----
                     {
                         Device device = values[1] as Device;
                         SysCtrl.UpdateDeviceData(device.GetDeviceData());
-                    } 
-                 
+                    }                 
                 }
             }
             catch (Exception e1) { e1.ToString(); }
@@ -540,21 +533,18 @@ namespace ConfigDevice
             DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
             DataRowState stateSave = dr.RowState;
             if (dr[DeviceConfig.DC_PARAMETER1].ToString() == DeviceConfig.STATE_OPEN_LIGHT)
-            {
-                
+            {                
                 Device device = new BaseDevice(dr);
-                device.OpenLight();
+                device.OpenDiscover();
                 dr[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.off);
-                dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_CLOSE_LIGHT;
-                
+                dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_CLOSE_LIGHT;                
             }
             else if (dr[DeviceConfig.DC_PARAMETER1].ToString() == DeviceConfig.STATE_CLOSE_LIGHT)
             {
                 Device device = new BaseDevice(dr);
-                device.CloseLight();
+                device.CloseDiscover();
                 dr[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.on);
-                dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_OPEN_LIGHT;
-                
+                dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_OPEN_LIGHT;                
             }
             if (stateSave != DataRowState.Modified)//----开关不作为修改标记,其它项目修改,正常保存----
                 dr.AcceptChanges();
@@ -602,6 +592,9 @@ namespace ConfigDevice
         /// </summary>
         private void btSave_Click(object sender, EventArgs e)
         {
+            pw = new PleaseWait(1);
+            pw.labelmsg = "保存中...";
+            pw.Show(this);
             if (gvNetwork.RowCount == 0) return;
             if (gvDevices.RowCount == 0) return;
             gvDevices.PostEditor();
@@ -636,6 +629,7 @@ namespace ConfigDevice
                     continue;
                 }
             }
+
         }
 
         /// <summary>

@@ -72,11 +72,9 @@ namespace ConfigDevice
         private bool finishReadRoads = false;
         public bool FinishReadRoads
         {
-            get { return finishReadRoads; }
-         
+            get { return finishReadRoads; }         
         }
-
-
+        
 
         /// <summary>
         /// 注册RJ45回调
@@ -133,7 +131,24 @@ namespace ConfigDevice
 
             return udp;
         }
-
+        /// <summary>
+        /// 获取配置信息
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="values"></param>
+        public void getSettingInfoData(UdpData data, object[] values)
+        {
+            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            UserUdpData userData = new UserUdpData(data);
+            securityLevel = CommonTools.CopyBytes(userData.Data, 0, 2);//安防级别
+            physicalShieldingPorts = userData.Data[2];  //----屏蔽物理端口
+            Road1 = userData.Data[3];//----第1路----
+            Road2 = userData.Data[4];//----第2路----
+            Road3 = userData.Data[5];//----第3路----
+            Road4 = userData.Data[6];//----第4路----         
+            TranslateValue();//----翻译数据----
+            CallbackUI(null);//----回调界面----
+        }
 
         /// <summary>
         /// 申请读取回路名称
@@ -182,26 +197,6 @@ namespace ConfigDevice
 
             return udp;
         }
-
-        /// <summary>
-        /// 获取配置信息
-        /// </summary>
-        /// <param name="data"></param>
-        /// <param name="values"></param>
-        public void getSettingInfoData(UdpData data, object[] values)
-        {
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
-            UserUdpData userData = new UserUdpData(data);
-            securityLevel = CommonTools.CopyBytes(userData.Data, 0, 2);//安防级别
-            physicalShieldingPorts = userData.Data[2];  //----屏蔽物理端口
-            Road1 = userData.Data[3];//----第1路----
-            Road2 = userData.Data[4];//----第2路----
-            Road3 = userData.Data[5];//----第3路----
-            Road4 = userData.Data[6];//----第4路----         
-            TranslateValue();//----翻译数据----
-            CallbackUI(null);//----回调界面----
-        }
-
         /// <summary>
         /// 获取每路门窗名称
         /// </summary>
@@ -209,7 +204,7 @@ namespace ConfigDevice
         /// <param name="values"></param>
         public void getRoadTitlesData(UdpData data, object[] values)
         {
-           
+            if (finishReadRoads == true) return;
             UserUdpData userData = new UserUdpData(data);         
             byte[] byteName = CommonTools.CopyBytes(userData.Data, 4, userData.DataOfLength - 4 - 4);
             

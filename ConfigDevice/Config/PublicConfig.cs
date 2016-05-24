@@ -235,7 +235,7 @@ namespace ConfigDevice
         public event CallbackUdpAction CallBackAction;//----委托操作----    
         public EndPoint RemotePoint;//---标识网络地址---
         public object[] Values;
-        public long ActionCount = System.Int64.MaxValue;//执行次数
+        public long ActionCount = long.MaxValue; 
         public CallbackUdpAction GetCallBackAction
         {
             get { return CallBackAction; }

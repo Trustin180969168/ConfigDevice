@@ -47,6 +47,7 @@ namespace ConfigDevice
 
         int IComparable<Position>.CompareTo(Position other)
         {
+            if (other == null) return -1;
             if (this.Num < other.Num)
                 return -1;
             else
@@ -158,6 +159,7 @@ namespace ConfigDevice
         {
             callbackGetPosition = new CallbackFromUDP(callbackGetPositions);
             callbackGetVer = new CallbackFromUDP(getVer);
+
             SysCtrl.AddRJ45CallBackList(NetworkConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackGetVer);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----  
         }
@@ -505,7 +507,7 @@ namespace ConfigDevice
                     int i =SysConfig.ListNetworks.Count;
                     GetPositionList(); //----------获取位置列表---------
                     SysCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
-                    callbackUI(new object[] { ActionKind.ConnectNetowrk });
+                    callbackUI(new object[] { ActionKind.ConnectNetowrk,this });
                     return;
                 }
                 else
