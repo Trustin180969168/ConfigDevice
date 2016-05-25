@@ -104,9 +104,10 @@ namespace ConfigDevice
              callbackRefresh.ActionCount = 0;
              callbackSaveID.ActionCount = 0;
 
-             //SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackRefresh);//回调刷新结果
-             //SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackVer);//注册返回版本号
-             //SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackSaveID);//回调返回的一个设备结果
+             
+             
+            
+
         }
 
         /// <summary>
@@ -187,7 +188,8 @@ namespace ConfigDevice
         /// 获取版本号
         /// </summary>
         public void SearchVer()
-        {            
+        {
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackVer);//注册返回版本号
             UdpData udpSearch = createSearchVerUdp();
             MySocket.GetInstance().SendData(udpSearch, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchVer), new object[] { udpSearch });
         }
@@ -259,7 +261,7 @@ namespace ConfigDevice
         /// <param name="DeviceData">新设备数据</param> 
         public void SaveDeviceIDAndName(DeviceData data)
         {
-            callbackSaveID.ActionCount = 1;//---只允许回调一次---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF,MAC, callbackSaveID,1);//回调返回的一个设备结果
             callbackSaveID.Values = new object[] { data };//---保存回调参数----
             UdpData udp = createSaveDeviceIDUdp(data.DeviceID);
             MySocket.GetInstance().SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceID), new object[] { udp });
@@ -336,7 +338,6 @@ namespace ConfigDevice
                 if (resultDevice.DeviceID == deviceData.DeviceID)//---相同则成功----
                 {
                     this.DeviceID = resultDevice.DeviceID;//---新ID-----                   
-                    //UdpTools.ReplyDeviceDataUdp(data); //------由首页列表回复-------
                     SaveDeviceName(deviceData.Name, deviceData.ByteAddressID, deviceData.AddressName);//---保存设备名称------                  
                 }
                 else
@@ -422,8 +423,8 @@ namespace ConfigDevice
         /// </summary>
         public void RefreshData()
         {
-            UdpData udpSend = createRefreshUdp();
-            callbackRefresh.ActionCount = 1;
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF,callbackRefresh);//回调刷新结果
+            UdpData udpSend = createRefreshUdp(); 
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackRefreshDevice), new object[] { udpSend });
         }
         private void callbackRefreshDevice(UdpData udpReply, object[] values)

@@ -38,7 +38,7 @@ namespace ConfigDevice
             dcOpenDelay = ViewSetting.Columns.ColumnByName("parameter4");
             dcCloseDelay = ViewSetting.Columns.ColumnByName("parameter5");
 
-            circuit.ReadRoadTitle();//----获取回路数据-----
+           // circuit.ReadRoadTitle();//----获取回路数据-----
 
             //------列表选择--------
             //cbxCircuitNum = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
@@ -114,7 +114,7 @@ namespace ConfigDevice
             //for (int i = 1; i <= count; i++)
             //    cbxCircuitNum.Items.Add(i.ToString());
             //dcCircuit.ColumnEdit = cbxCircuitNum;
-            Thread.Sleep(500);//等待回路数据接收
+          //  Thread.Sleep(500);//等待回路数据接收
             foreach (int key in circuit.ListCircuitIDAndName.Keys)
                 dtCircuit.Rows.Add(key, circuit.ListCircuitIDAndName[key]);
             dtCircuit.AcceptChanges();

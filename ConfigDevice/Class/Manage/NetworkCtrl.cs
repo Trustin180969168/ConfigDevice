@@ -122,7 +122,7 @@ namespace ConfigDevice
                 if (udpReply.IP == network.NetworkIP && network.State == NetworkConfig.STATE_CONNECTED )
                 {
                     network.RefreshTime = DateTime.Now;//----更新时间-----     
-                    mySocket.RemoveRJ45SendList(udpReply.PacketCodeStr);//-----回复后删除RJ45主动发送列表----
+                    mySocket.RemoveRJ45SendList(udpReply.PacketCodeStr);//-----(PC不用回复,所以手动删除)回复后删除RJ45主动发送列表----
                     break;
                 }
             }

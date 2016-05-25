@@ -160,8 +160,8 @@ namespace ConfigDevice
             callbackGetPosition = new CallbackFromUDP(callbackGetPositions);
             callbackGetVer = new CallbackFromUDP(getVer);
 
-            SysCtrl.AddRJ45CallBackList(NetworkConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackGetVer);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----  
+        
+          
         }
 
 
@@ -170,6 +170,7 @@ namespace ConfigDevice
         /// </summary>
         public void GetPositionList()
         {
+            SysCtrl.AddRJ45CallBackList(NetworkConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
             ListPosition.Clear();
             UdpData udpSend = createGetPositionListUdp();
             callbackGetPosition.Udp = udpSend;         
@@ -320,7 +321,7 @@ namespace ConfigDevice
         /// </summary>
         public void SearchVer()
         {
- 
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackGetVer);//-----避免回调被覆盖或冲突,执行时先重新绑定一次---- 
             UdpData udpSearch = createSearchVerUdp();
             MySocket.GetInstance().SendData(udpSearch, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchVer), new object[] { udpSearch });
         }

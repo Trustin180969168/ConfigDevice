@@ -90,6 +90,7 @@ namespace ConfigDevice
         private void btRefresh_Click(object sender, EventArgs e)
         {
             DeviceEdit.RefreshData();   
+            DeviceEdit.SearchVer();
         }
 
 

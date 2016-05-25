@@ -29,15 +29,16 @@ namespace ConfigDevice
 
         private void FrmFourInput_Load(object sender, EventArgs e)
         {
-            base.InitSelectDevice();//初始化选择列表
+            base.InitSelectDevice();//初始化选择列表       
             loadData();
-            doorInput4.ReadRoadTitle();//---读取回路名称----     
             viewCommandEdit.CommandGroupName = "当前区域";
         }
 
         private void loadData()
         {
             doorInput4.SearchVer();//---获取版本号-----   
+            doorInput4.ReadRoadTitle();//---读取回路名称----           
+            doorInput4.ReadSettingInfo();//----读取配置信息-----
 
         }
 
@@ -153,10 +154,8 @@ namespace ConfigDevice
         /// </summary>
         private void btRefresh_Click(object sender, EventArgs e)
         {
-            doorInput4.RefreshData();
-            loadData();
-            doorInput4.ReadRoadTitle();//---读取回路名称----     
- 
+            //doorInput4.ReadRoadTitle();//---读取回路名称----           
+            doorInput4.ReadSettingInfo();//----读取配置信息-----
         }
 
         /// <summary>
@@ -211,7 +210,7 @@ namespace ConfigDevice
             }
             else if (tctrlEdit.SelectedTabPageIndex == 1)
             {
-                doorInput4.ReadSettingInfo();//----读取配置信息-----
+                
                   
             }
         }

@@ -123,7 +123,8 @@ namespace ConfigDevice
         {
             lock (objLock)
             {
-                if (!searching) return;
+                if (!searching)
+                    return;
                 int num = 0; bool find = false;
                 //-----获取数据-----
                 UserUdpData userData = new UserUdpData(data);

@@ -204,21 +204,26 @@ namespace ConfigDevice
         /// <param name="values"></param>
         public void getRoadTitlesData(UdpData data, object[] values)
         {
-            if (finishReadRoads == true) return;
+            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            if (finishReadRoads == true) 
+                return;
             UserUdpData userData = new UserUdpData(data);         
             byte[] byteName = CommonTools.CopyBytes(userData.Data, 4, userData.DataOfLength - 4 - 4);
             
             int num = userData.Data[0];
             switch (num)
             {
-                case 0: RoadTitle1 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
-                case 1: RoadTitle2 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
-                case 2: RoadTitle3 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); break;
-                case 3: RoadTitle4 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); finishReadRoads = true; break;
+                case 0: RoadTitle1 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); 
+                    break;
+                case 1: RoadTitle2 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); 
+                    break;
+                case 2: RoadTitle3 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); 
+                    break;
+                case 3: RoadTitle4 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); 
+                    finishReadRoads = true; break;
             }
             if(OnCallbackRoad_Action != null)
                 OnCallbackRoad_Action(null);
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
         }
 
         /// <summary>
