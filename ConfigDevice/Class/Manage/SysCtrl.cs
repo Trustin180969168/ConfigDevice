@@ -359,26 +359,7 @@ namespace ConfigDevice
 
         }
 
-        /// <summary>
-        /// 注册接收RJ45回调数据
-        /// </summary>
-        /// <param name="key">回调键</param>
-        /// <param name="callback">回调函数</param>
-        /// <param name="actionCount">回调次数</param>
-        //public static void AddRJ45CallBackList(byte[] _key, CallbackFromUDP callback, long actionCount)
-        //{
-        //    lock (SysConfig.RJ45CallBackList)
-        //    {
-        //        callback.ActionCount = actionCount;
-        //        string key = ConvertTools.ByteToHexStr(_key);
-        //        if (!SysConfig.RJ45CallBackList.ContainsKey(key))
-        //            SysConfig.RJ45CallBackList.Add(key, callback);
-        //        else
-        //        {
-        //            SysConfig.RJ45CallBackList[key] = callback;  //----暂时只用于单个事件订阅,所以直接覆盖------
-        //        }
-        //    }
-        //}
+
         /// <summary>
         /// 注册接收RJ45回调数据
         /// </summary>
@@ -401,24 +382,44 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 注册接收RJ45回调数据
+        /// </summary>
+        /// <param name="key">回调键</param>
+        /// <param name="callback">回调函数</param>
+        /// <param name="actionCount">回调次数</param>
+        public static void AddRJ45CallBackList(byte[] _key, string uuid, CallbackFromUDP callback)
+        {
+            lock (SysConfig.RJ45CallBackList)
+            {
+                string key = ConvertTools.ByteToHexStr(_key) + "_" + uuid;
+                if (!SysConfig.RJ45CallBackList.ContainsKey(key))
+                    SysConfig.RJ45CallBackList.Add(key, callback);
+                else
+                {
+                    SysConfig.RJ45CallBackList[key] = callback;  //----暂时只用于单个事件订阅,所以直接覆盖------
+                }
+            }
+        }
+
+        /// <summary>
         /// 移除回调列表,所有指令类型的回调对象
         /// </summary>
         /// <param name="_key">指令头</param>
-        //public static void RemoveRJ45CallBackList(byte[] _key)
-        //{
-        //    lock (SysConfig.RJ45CallBackList)
-        //    {
-        //        string key = ConvertTools.ByteToHexStr(_key);
-        //        List<string> delList = new List<string>();
-        //        foreach (string keyStr in SysConfig.RJ45CallBackList.Keys)
-        //        {
-        //            if (keyStr.StartsWith(key))
-        //                delList.Add(keyStr);
-        //        }
-        //        foreach (string delKey in delList)
-        //            SysConfig.RJ45CallBackList.Remove(delKey);
-        //    }
-        //}
+        public static void RemoveRJ45CallBackList(byte[] _key)
+        {
+            lock (SysConfig.RJ45CallBackList)
+            {
+                string key = ConvertTools.ByteToHexStr(_key);
+                List<string> delList = new List<string>();
+                foreach (string keyStr in SysConfig.RJ45CallBackList.Keys)
+                {
+                    if (keyStr.StartsWith(key) && keyStr.Length>_key.Length)
+                        delList.Add(keyStr);
+                }
+                foreach (string delKey in delList)
+                    SysConfig.RJ45CallBackList.Remove(delKey);
+            }
+        }
 
         /// <summary>
         /// 添加到回调表

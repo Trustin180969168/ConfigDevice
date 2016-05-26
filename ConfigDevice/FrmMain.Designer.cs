@@ -512,7 +512,7 @@
             // 
             this.btmiConnectNetwork.Image = global::ConfigDevice.Properties.Resources.connect1;
             this.btmiConnectNetwork.Name = "btmiConnectNetwork";
-            this.btmiConnectNetwork.Size = new System.Drawing.Size(118, 22);
+            this.btmiConnectNetwork.Size = new System.Drawing.Size(152, 22);
             this.btmiConnectNetwork.Text = "连接网络";
             this.btmiConnectNetwork.Click += new System.EventHandler(this.btConnectnetwork_Click);
             // 
@@ -520,7 +520,7 @@
             // 
             this.btmiDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect1;
             this.btmiDisconnectNetwork.Name = "btmiDisconnectNetwork";
-            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(118, 22);
+            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(152, 22);
             this.btmiDisconnectNetwork.Text = "断开网络";
             this.btmiDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
             // 
@@ -528,7 +528,7 @@
             // 
             this.btSearchDevice.Image = global::ConfigDevice.Properties.Resources.View;
             this.btSearchDevice.Name = "btSearchDevice";
-            this.btSearchDevice.Size = new System.Drawing.Size(118, 22);
+            this.btSearchDevice.Size = new System.Drawing.Size(152, 22);
             this.btSearchDevice.Text = "设备搜索";
             this.btSearchDevice.Click += new System.EventHandler(this.btSearchDevices_Click);
             // 
@@ -536,7 +536,7 @@
             // 
             this.tsmiChangePassword.Image = global::ConfigDevice.Properties.Resources.client;
             this.tsmiChangePassword.Name = "tsmiChangePassword";
-            this.tsmiChangePassword.Size = new System.Drawing.Size(118, 22);
+            this.tsmiChangePassword.Size = new System.Drawing.Size(152, 22);
             this.tsmiChangePassword.Text = "修改密码";
             this.tsmiChangePassword.Click += new System.EventHandler(this.tsmiChangePassword_Click);
             // 
@@ -544,9 +544,9 @@
             // 
             this.tsmiParameter.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.tsmiParameter.Name = "tsmiParameter";
-            this.tsmiParameter.Size = new System.Drawing.Size(118, 22);
+            this.tsmiParameter.Size = new System.Drawing.Size(152, 22);
             this.tsmiParameter.Text = "网络参数";
-            this.tsmiParameter.Click += new System.EventHandler(this.gvNetwork_LinkEdit);
+            this.tsmiParameter.Click += new System.EventHandler(this.tsmiParameter_Click);
             // 
             // gvNetwork
             // 
@@ -690,7 +690,6 @@
             // linkSearch
             // 
             this.linkSearch.AutoHeight = false;
-            this.linkSearch.Image = global::ConfigDevice.Properties.Resources.View;
             this.linkSearch.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.linkSearch.Name = "linkSearch";
             this.linkSearch.Click += new System.EventHandler(this.btSearchDevices_Click);

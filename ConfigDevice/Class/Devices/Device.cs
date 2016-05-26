@@ -49,13 +49,16 @@ namespace ConfigDevice
             AddressID = ConvertTools.ByteToHexStr(ByteAddressID);//设备ID
             //-------计算位置名称-------
             byte byteNum = ByteAddressID[0];
-            int num = 0x7F & byteNum; //序号          
-            Network network = SysConfig.ListNetworks[userUdpData.IP];
-            if (num <= network.ListPosition.Count - 1)
-                AddressName = network.ListPosition[num].Name;
+            int num = 0x7F & byteNum; //序号       
+            if (userUdpData.Source[2] != DeviceConfig.EQUIPMENT_RJ45 && userUdpData.Source[2] != DeviceConfig.EQUIPMENT_SERVER)
+            {
+                Network network = SysConfig.ListNetworks[userUdpData.IP];
+                if (num <= network.ListPosition.Count - 1)
+                    AddressName = network.ListPosition[num].Name;
+            }
             //-------设备名称---------
-            byte[] byteName = new Byte[32];
-            if(userUdpData.DataOfLength > 16)
+            byte[] byteName = new Byte[userUdpData.DataOfLength - 12 - 2 - 4];
+            if (userUdpData.DataOfLength > 16)
                 Buffer.BlockCopy(userUdpData.Data, 14, byteName, 0, userUdpData.DataOfLength - 12 - 2 - 4);//12:MAC,2:位置,4:校验码
             int i = 0;
             foreach (byte b in byteName)
@@ -96,18 +99,7 @@ namespace ConfigDevice
         {
             callbackVer = new CallbackFromUDP(getVer);
             callbackRefresh = new CallbackFromUDP(getRefreshDevice);
-            callbackSaveID = new CallbackFromUDP(getResultDevice);  
-
-
-
-             callbackVer.ActionCount = 0;
-             callbackRefresh.ActionCount = 0;
-             callbackSaveID.ActionCount = 0;
-
-             
-             
-            
-
+            callbackSaveID = new CallbackFromUDP(getResultDevice); 
         }
 
         /// <summary>
@@ -337,7 +329,8 @@ namespace ConfigDevice
             {
                 if (resultDevice.DeviceID == deviceData.DeviceID)//---相同则成功----
                 {
-                    this.DeviceID = resultDevice.DeviceID;//---新ID-----                   
+                    this.DeviceID = resultDevice.DeviceID;//---新ID-----    
+                    UdpTools.ReplyDeviceDataUdp(data);//---回复UDP----
                     SaveDeviceName(deviceData.Name, deviceData.ByteAddressID, deviceData.AddressName);//---保存设备名称------                  
                 }
                 else
@@ -502,7 +495,10 @@ namespace ConfigDevice
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
-            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+            if (this.ByteKindID == DeviceConfig.EQUIPMENT_SERVER || this.ByteKindID == DeviceConfig.EQUIPMENT_RJ45)
+                Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议----
+            else
+                Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
 
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----

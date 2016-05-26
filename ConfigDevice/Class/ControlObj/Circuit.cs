@@ -13,6 +13,8 @@ namespace ConfigDevice
         private MySocket mySocket = MySocket.GetInstance();
         public event CallbackUIAction OnCallbackRoad_Action;   //----回调UI----
         public Dictionary<int, string> ListCircuitIDAndName = new Dictionary<int, string>();//回路ID和名称对应表用于指令配置
+        private CallbackFromUDP getRoadTitles;//-------每回路名称----
+        private CallbackFromUDP finishGetRoadTitles;//-------完成读取回路名称----
 
         /// <summary>
         /// 是否完成回路的读取
@@ -47,6 +49,8 @@ namespace ConfigDevice
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_OPEN, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN);
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_CLOSE, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE);
             }
+            getRoadTitles = new CallbackFromUDP(getRoadTitlesData);
+            finishGetRoadTitles = new CallbackFromUDP(finishGetRoadTitlesData);
         }
 
         /// <summary>
@@ -130,8 +134,10 @@ namespace ConfigDevice
         /// 申请读取回路名称
         /// </summary>
         public void ReadRoadTitle()
-        {            
+        {
             finishReadRoads = false;
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, deviceControled.DeviceID, getRoadTitles);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, deviceControled.DeviceID, finishGetRoadTitles);//----注册回调---
             UdpData udpSend = createReadRoadTitleUdp();
             mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), new object[] { udpSend });
         }
@@ -178,21 +184,34 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="data">数据包</param>
         /// <param name="values"></param>
-        public void getRoadTitlesData(UdpData data, object[] values)
+        private void getRoadTitlesData(UdpData data, object[] values)
         {
-            if (finishReadRoads == true) return;
             UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
+
+            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            if (finishReadRoads == true) return;
+           
             byte[] byteName = CommonTools.CopyBytes(userData.Data, 4, userData.DataOfLength - 4 - 4);
 
             int num = userData.Data[0];
             string roadName = Encoding.GetEncoding("GB2312").GetString(byteName);
             if (ListCircuitIDAndName.ContainsKey(num + 1)) ListCircuitIDAndName[num + 1] = roadName;
-            if (OnCallbackRoad_Action != null)
-                OnCallbackRoad_Action(null);
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+
         }
 
-
+        /// <summary>
+        /// 完成读取每路门窗名称
+        /// </summary>
+        /// <param name="data">数据包</param>
+        /// <param name="values"></param>
+        private void finishGetRoadTitlesData(UdpData data, object[] values)
+        {
+            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            finishReadRoads = true;
+            if (OnCallbackRoad_Action != null)
+                OnCallbackRoad_Action(null);
+        }
     }
 
 

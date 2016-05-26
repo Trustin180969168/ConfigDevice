@@ -48,6 +48,8 @@ namespace ConfigDevice
         public string CommandStr { get { return ConvertTools.ByteToHexStr(Command); } }
         public int DataOfLength { get { return Convert.ToInt16(DataLength); } }
         public string UdpInfo { get { return this.GetUdpInfo(); } }
+        public string TargetID {get{return Convert.ToInt16(Target[0]).ToString();}}
+        public string SourceID { get { return Convert.ToInt16(Source[0]).ToString(); } }
 
         public UserUdpData(UdpData udp)
         {

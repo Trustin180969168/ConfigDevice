@@ -272,15 +272,16 @@ namespace ConfigDevice
                     else if (udpReceive.PacketKind[0] == PackegeSendReply.SEND)//-------添加到RJ45设备发送表---------
                     {
                         AddRJ45SendList(udpReceive.PacketCodeStr, udpReceive);
-                        UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据-----                 
-                        //rj45CallBack(userData.CommandStr, udpReceive);//--找到回调并执行
-                        string keyStr = userData.CommandStr;
-                        if (SysConfig.RJ45CallBackList.ContainsKey(keyStr))//------是否存在被动回调列表----
-                        {
-                            state = SysConfig.RJ45CallBackList[keyStr];
-                            if (state != null)
-                                state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----        
-                        }
+                        UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据----- 
+                
+                        rj45CallBack(userData.CommandStr, udpReceive);//--找到回调并执行
+                        //string keyStr = userData.CommandStr;
+                        //if (SysConfig.RJ45CallBackList.ContainsKey(keyStr))//------是否存在被动回调列表----
+                        //{
+                        //    state = SysConfig.RJ45CallBackList[keyStr];
+                        //    if (state != null)
+                        //        state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----        
+                        //}
                     }
                 }
             }
@@ -300,14 +301,14 @@ namespace ConfigDevice
                 foreach (string key in SysConfig.RJ45CallBackList.Keys)
                 {
                     if (key.StartsWith(commandStr))
-                    {
+                    {           
                         state = SysConfig.RJ45CallBackList[key];
                         if (state != null)
                         {
                             if (state.ActionCount > 0)
                             {
-                                state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----  
                                 state.ActionCount--;//修改执行次数
+                                state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----                                  
                             }
                         }
                         else

@@ -38,7 +38,13 @@ namespace ConfigDevice
             dcOpenDelay = ViewSetting.Columns.ColumnByName("parameter4");
             dcCloseDelay = ViewSetting.Columns.ColumnByName("parameter5");
 
-           // circuit.ReadRoadTitle();//----获取回路数据-----
+            //-----初始化回路选择----
+            dtCircuit.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.Int16"));
+            dtCircuit.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
+            foreach (int key in circuit.ListCircuitIDAndName.Keys)
+                dtCircuit.Rows.Add(key, circuit.ListCircuitIDAndName[key]);
+            circuit.OnCallbackRoad_Action += this.CallBackUI;
+            circuit.ReadRoadTitle();//----获取回路数据-----
 
             //------列表选择--------
             //cbxCircuitNum = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
@@ -53,13 +59,12 @@ namespace ConfigDevice
             lookupEdit.ValueMember = DeviceConfig.DC_ID;
             lookupEdit.ShowFooter = false;
             lookupEdit.ShowHeader = false;
-            //-----初始化回路选择----
-            dtCircuit.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.Int16"));
-            dtCircuit.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
-            lookupEdit.DataSource = dtCircuit;
+
+
 
             InitViewSetting();
         }
+
 
 
         /// <summary>
@@ -110,16 +115,10 @@ namespace ConfigDevice
             dcCircuit.Caption = "回路";      
             Type type = controlObj.deviceControled.GetType(); //获取类型
             System.Reflection.PropertyInfo propertyInfo = type.GetProperty("CircuitCount"); //获取指定名称的属性
-            int count = (int)propertyInfo.GetValue(controlObj.deviceControled, null); //获取属性值
-            //for (int i = 1; i <= count; i++)
-            //    cbxCircuitNum.Items.Add(i.ToString());
-            //dcCircuit.ColumnEdit = cbxCircuitNum;
-          //  Thread.Sleep(500);//等待回路数据接收
-            foreach (int key in circuit.ListCircuitIDAndName.Keys)
-                dtCircuit.Rows.Add(key, circuit.ListCircuitIDAndName[key]);
-            dtCircuit.AcceptChanges();
             lookupEdit.DataSource = dtCircuit;
+          //  Thread.Sleep(500);//等待回路数据接收
             dcCircuit.ColumnEdit = lookupEdit;
+            
 
             dcPercent.Caption = "亮度";
             dcPercent.ColumnEdit = edtPercentNum;
@@ -139,6 +138,24 @@ namespace ConfigDevice
 
            // ViewSetting.BestFitColumns();
 
+        }
+
+        /// <summary>
+        /// 读取后返回结果
+        /// </summary>
+        /// <param name="values"></param>
+        public void CallBackUI(object[] values)
+        {
+            try
+            {
+                dtCircuit.Rows.Clear();
+                foreach (int key in circuit.ListCircuitIDAndName.Keys)
+                    dtCircuit.Rows.Add(key, circuit.ListCircuitIDAndName[key]);
+                dtCircuit.AcceptChanges();
+                lookupEdit.DataSource = dtCircuit;
+                dcCircuit.ColumnEdit = lookupEdit;
+            }
+            catch (Exception e1) { e1.ToString(); }
         }
 
         /// <summary>

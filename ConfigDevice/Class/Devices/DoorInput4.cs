@@ -84,7 +84,7 @@ namespace ConfigDevice
             getSettingInfo = new CallbackFromUDP(getSettingInfoData);
             getRoadTitles = new CallbackFromUDP(getRoadTitlesData);
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, getSettingInfo);
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, getRoadTitles);
+     
         }
 
 
@@ -156,6 +156,7 @@ namespace ConfigDevice
         public void ReadRoadTitle()
         {
             finishReadRoads = false;
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, getRoadTitles);
             UdpData udpSend = createReadRoadTitleUdp();
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), new object[] { udpSend });
         }

@@ -64,6 +64,8 @@
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.btFindOn = new System.Windows.Forms.ToolStripButton();
+            this.btFindOff = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSoftwareVer.Properties)).BeginInit();
@@ -93,6 +95,8 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSaveInfo,
             this.btSavePosition,
+            this.btFindOn,
+            this.btFindOff,
             this.toolStripButton1,
             this.toolStripButton2,
             this.cbxNetwork});
@@ -119,7 +123,7 @@
             // 
             this.btSaveName.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.btSaveName.Name = "btSaveName";
-            this.btSaveName.Size = new System.Drawing.Size(140, 30);
+            this.btSaveName.Size = new System.Drawing.Size(160, 30);
             this.btSaveName.Text = "保存名称";
             this.btSaveName.Click += new System.EventHandler(this.btSaveName_Click);
             // 
@@ -127,7 +131,7 @@
             // 
             this.btSavePagameter.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.btSavePagameter.Name = "btSavePagameter";
-            this.btSavePagameter.Size = new System.Drawing.Size(140, 30);
+            this.btSavePagameter.Size = new System.Drawing.Size(160, 30);
             this.btSavePagameter.Text = "保存参数";
             this.btSavePagameter.Click += new System.EventHandler(this.btSavePagameter_Click);
             // 
@@ -136,8 +140,8 @@
             this.btSavePosition.Image = global::ConfigDevice.Properties.Resources.relation;
             this.btSavePosition.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSavePosition.Name = "btSavePosition";
-            this.btSavePosition.Size = new System.Drawing.Size(92, 28);
-            this.btSavePosition.Text = "保存位置";
+            this.btSavePosition.Size = new System.Drawing.Size(96, 28);
+            this.btSavePosition.Text = "保存位置 ";
             this.btSavePosition.Click += new System.EventHandler(this.btSavePosition_Click);
             // 
             // toolStripButton1
@@ -459,6 +463,25 @@
             this.panelControl1.Size = new System.Drawing.Size(792, 167);
             this.panelControl1.TabIndex = 21;
             // 
+            // btFindOn
+            // 
+            this.btFindOn.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btFindOn.Image = global::ConfigDevice.Properties.Resources.on;
+            this.btFindOn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btFindOn.Name = "btFindOn";
+            this.btFindOn.Size = new System.Drawing.Size(122, 28);
+            this.btFindOn.Text = "发现设备开 ";
+            this.btFindOn.Click += new System.EventHandler(this.btFindOn_Click);
+            // 
+            // btFindOff
+            // 
+            this.btFindOff.Image = global::ConfigDevice.Properties.Resources.off;
+            this.btFindOff.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btFindOff.Name = "btFindOff";
+            this.btFindOff.Size = new System.Drawing.Size(110, 28);
+            this.btFindOff.Text = "发现设备关 ";
+            this.btFindOff.Click += new System.EventHandler(this.btFindOff_Click);
+            // 
             // FrmNetworkEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -530,5 +553,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripButton1;
         private System.Windows.Forms.ToolStripLabel toolStripButton2;
         private System.Windows.Forms.ToolStripComboBox cbxNetwork;
+        private System.Windows.Forms.ToolStripButton btFindOn;
+        private System.Windows.Forms.ToolStripButton btFindOff;
     }
 }

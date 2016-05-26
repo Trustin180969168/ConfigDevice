@@ -57,7 +57,7 @@ namespace ConfigDevice
         #endregion
     }
 
-    public class Network
+    public class Network:Device
     {
         public string DeviceID = "";//设备ID
         public string NetworkID = "";//网络ID
@@ -111,7 +111,7 @@ namespace ConfigDevice
         /// <summary>
         /// 构造函数
         /// </summary>
-        public Network(UserUdpData userUdpData)
+        public Network(UserUdpData userUdpData):base(userUdpData)
         {
             DeviceID = Convert.ToInt16(userUdpData.Source[0]).ToString();
             NetworkID = Convert.ToInt16(userUdpData.Source[1]).ToString();
@@ -239,13 +239,19 @@ namespace ConfigDevice
             byte[] byteName = CommonTools.CopyBytes(userData.Data, 1, 12);//---名称---
             string PositionName = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0');
             Position pos = new Position(num, PositionName, numHas);
+
             if (ListPosition.Count < num + 1)//----有则修改,无则添加
-            { ListPosition.Add(pos); ListPosition.Sort(); }
+            {
+                ListPosition.Add(pos);
+                try  { ListPosition.Sort(); }     catch { }
+            }
             else
             {
                 ListPosition[pos.Num].Name = pos.Name;
                 ListPosition[pos.Num].HasPassword = pos.HasPassword;
-            }            
+            }
+
+
         }
 
         /// <summary>

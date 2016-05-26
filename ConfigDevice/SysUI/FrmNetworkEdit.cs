@@ -179,6 +179,16 @@ namespace ConfigDevice
             initData();
         }
 
+        private void btFindOn_Click(object sender, EventArgs e)
+        {
+            NetworkEdit.OpenDiscover();
+        }
+
+        private void btFindOff_Click(object sender, EventArgs e)
+        {
+            NetworkEdit.CloseDiscover();
+        }
+
 
 
     }

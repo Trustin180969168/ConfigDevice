@@ -256,7 +256,7 @@ namespace ConfigDevice
 
 
         /// <summary>
-        /// 双击链接或打开网络
+        /// 链接或打开网络
         /// </summary>
         private void gvNetwork_LinkEdit(object sender, EventArgs e)
         {
@@ -265,11 +265,7 @@ namespace ConfigDevice
 
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             if (network.State == NetworkConfig.STATE_CONNECTED)
-            {
-                FrmNetworkEdit frm = new FrmNetworkEdit();
-                frm.NetworkEdit = network;
-                frm.Show(this);
-            }
+                deviceCtrl.SearchDevices(network);
             else
                 network.ConnectNetwork();
         }
@@ -683,6 +679,22 @@ namespace ConfigDevice
                     }
                 }
             }
+        }
+
+        private void tsmiParameter_Click(object sender, EventArgs e)
+        {
+            if (gvNetwork.FocusedRowHandle < 0) return;
+            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            if (network.State == NetworkConfig.STATE_CONNECTED)
+            {
+                FrmNetworkEdit frm = new FrmNetworkEdit();
+                frm.NetworkEdit = network;
+                frm.Show(this);
+            }
+            else
+                CommonTools.MessageShow("请先连接网络" + network.DeviceName, 3, "");
+
         }
 
 
