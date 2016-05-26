@@ -59,7 +59,7 @@ namespace ConfigDevice
             lookupEdit.ValueMember = DeviceConfig.DC_ID;
             lookupEdit.ShowFooter = false;
             lookupEdit.ShowHeader = false;
-
+          
 
 
             InitViewSetting();
@@ -152,8 +152,11 @@ namespace ConfigDevice
                 foreach (int key in circuit.ListCircuitIDAndName.Keys)
                     dtCircuit.Rows.Add(key, circuit.ListCircuitIDAndName[key]);
                 dtCircuit.AcceptChanges();
+                lookupEdit.DropDownRows = dtCircuit.Rows.Count;
                 lookupEdit.DataSource = dtCircuit;
-                dcCircuit.ColumnEdit = lookupEdit;
+                lookupEdit.BestFit();
+                dcCircuit.ColumnEdit = lookupEdit;             
+                circuit.OnCallbackRoad_Action -= this.CallBackUI;
             }
             catch (Exception e1) { e1.ToString(); }
         }

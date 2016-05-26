@@ -79,7 +79,8 @@ namespace ConfigDevice
         {
             lock (rj45SendList)
             {
-                rj45SendList.Add(key, udp);
+                if(!rj45SendList.ContainsKey(key))
+                    rj45SendList.Add(key, udp);
             }
         }
 

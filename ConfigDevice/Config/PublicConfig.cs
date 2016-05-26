@@ -29,6 +29,11 @@ namespace ConfigDevice
         public const byte CMD_UNSAME = 0x11;     //不相符
         public const byte CMD_BUSY = 0x22;     //忙 
         public const byte CMD_ERR = 0x33;    //包号出错 
+
+        public const byte PC_CHANGENET_ACK_TRUE = 0;          // 修改网络正确
+        public const byte PC_CHANGENET_ACK_PAS_ER = 0x1;          // 输入密码错误
+        public const byte PC_CHANGENET_ACK_NET_ER = 0x2;         // 网络参数错误
+        public const byte PC_CHANGENET_ACK_TOTAL = 0x3;          // 总数
     }
 
     /// <summary>

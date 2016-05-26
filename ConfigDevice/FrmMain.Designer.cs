@@ -71,6 +71,7 @@
             this.networkDeviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkDeviceID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.edtNetworkID = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.networkState = new DevExpress.XtraGrid.Columns.GridColumn();
             this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.networkDeviceMac = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -105,6 +106,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcNetwork)).BeginInit();
             this.contextMenuStripNetwork.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvNetwork)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkSearch)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -491,7 +493,8 @@
             this.gcNetwork.Name = "gcNetwork";
             this.gcNetwork.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.linkEdit,
-            this.linkSearch});
+            this.linkSearch,
+            this.edtNetworkID});
             this.gcNetwork.Size = new System.Drawing.Size(1016, 129);
             this.gcNetwork.TabIndex = 6;
             this.gcNetwork.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -512,7 +515,7 @@
             // 
             this.btmiConnectNetwork.Image = global::ConfigDevice.Properties.Resources.connect1;
             this.btmiConnectNetwork.Name = "btmiConnectNetwork";
-            this.btmiConnectNetwork.Size = new System.Drawing.Size(152, 22);
+            this.btmiConnectNetwork.Size = new System.Drawing.Size(118, 22);
             this.btmiConnectNetwork.Text = "连接网络";
             this.btmiConnectNetwork.Click += new System.EventHandler(this.btConnectnetwork_Click);
             // 
@@ -520,7 +523,7 @@
             // 
             this.btmiDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect1;
             this.btmiDisconnectNetwork.Name = "btmiDisconnectNetwork";
-            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(152, 22);
+            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(118, 22);
             this.btmiDisconnectNetwork.Text = "断开网络";
             this.btmiDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
             // 
@@ -528,7 +531,7 @@
             // 
             this.btSearchDevice.Image = global::ConfigDevice.Properties.Resources.View;
             this.btSearchDevice.Name = "btSearchDevice";
-            this.btSearchDevice.Size = new System.Drawing.Size(152, 22);
+            this.btSearchDevice.Size = new System.Drawing.Size(118, 22);
             this.btSearchDevice.Text = "设备搜索";
             this.btSearchDevice.Click += new System.EventHandler(this.btSearchDevices_Click);
             // 
@@ -536,7 +539,7 @@
             // 
             this.tsmiChangePassword.Image = global::ConfigDevice.Properties.Resources.client;
             this.tsmiChangePassword.Name = "tsmiChangePassword";
-            this.tsmiChangePassword.Size = new System.Drawing.Size(152, 22);
+            this.tsmiChangePassword.Size = new System.Drawing.Size(118, 22);
             this.tsmiChangePassword.Text = "修改密码";
             this.tsmiChangePassword.Click += new System.EventHandler(this.tsmiChangePassword_Click);
             // 
@@ -544,7 +547,7 @@
             // 
             this.tsmiParameter.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.tsmiParameter.Name = "tsmiParameter";
-            this.tsmiParameter.Size = new System.Drawing.Size(152, 22);
+            this.tsmiParameter.Size = new System.Drawing.Size(118, 22);
             this.tsmiParameter.Text = "网络参数";
             this.tsmiParameter.Click += new System.EventHandler(this.tsmiParameter_Click);
             // 
@@ -601,10 +604,24 @@
             this.networkID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.networkID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.networkID.Caption = "网段ID";
+            this.networkID.ColumnEdit = this.edtNetworkID;
             this.networkID.Name = "networkID";
             this.networkID.Visible = true;
             this.networkID.VisibleIndex = 1;
             this.networkID.Width = 180;
+            // 
+            // edtNetworkID
+            // 
+            this.edtNetworkID.AutoHeight = false;
+            this.edtNetworkID.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtNetworkID.Mask.EditMask = "d";
+            this.edtNetworkID.MaxValue = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.edtNetworkID.Name = "edtNetworkID";
             // 
             // networkState
             // 
@@ -879,6 +896,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcNetwork)).EndInit();
             this.contextMenuStripNetwork.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvNetwork)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkSearch)).EndInit();
             this.toolStrip1.ResumeLayout(false);
@@ -952,5 +970,6 @@
         private System.Windows.Forms.ToolStripButton btClean;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNum;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkSearch;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNetworkID;
     }
 }

@@ -57,18 +57,20 @@ namespace ConfigDevice
                     AddressName = network.ListPosition[num].Name;
             }
             //-------设备名称---------
-            byte[] byteName = new Byte[userUdpData.DataOfLength - 12 - 2 - 4];
             if (userUdpData.DataOfLength > 16)
-                Buffer.BlockCopy(userUdpData.Data, 14, byteName, 0, userUdpData.DataOfLength - 12 - 2 - 4);//12:MAC,2:位置,4:校验码
-            int i = 0;
-            foreach (byte b in byteName)
             {
-                if (Convert.ToInt16(b) == 0)
-                    break;
-                else i++;
+                byte[] byteName = new Byte[userUdpData.DataOfLength - 12 - 2 - 4];
+                Buffer.BlockCopy(userUdpData.Data, 14, byteName, 0, userUdpData.DataOfLength - 12 - 2 - 4);//12:MAC,2:位置,4:校验码      
+                int i = 0;
+                foreach (byte b in byteName)
+                {
+                    if (Convert.ToInt16(b) == 0)
+                        break;
+                    else i++;
+                }
+                Array.Resize(ref byteName, i);//重新设定长度
+                Name = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0');
             }
-            Array.Resize(ref byteName, i);//重新设定长度
-            Name = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0');
             //-------MAC地址---------
             byte[] byteMac = new Byte[12];
             Buffer.BlockCopy(userUdpData.Data, 0, byteMac, 0, 12);

@@ -327,6 +327,31 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 根据数据更新网络设备表
+        /// </summary>
+        /// <param name="network">RJ45</param>
+        public static void UpdateNetworkDataTable(Network network)
+        {
+            foreach (DataRow dr in SysConfig.DtNetwork.Rows)
+            {
+                if (dr[NetworkConfig.DC_MAC].ToString() == network.MacAddress)
+                {
+                    dr[NetworkConfig.DC_DEVICE_ID] = network.DeviceID;
+                    dr[NetworkConfig.DC_NETWORK_ID] = network.NetworkID;
+                    dr[NetworkConfig.DC_STATE] = network.State;
+                    dr[NetworkConfig.DC_DEVICE_NAME] = network.DeviceName;
+                    dr[NetworkConfig.DC_PORT] = network.Port;
+                    dr[NetworkConfig.DC_IP] = network.NetworkIP;
+                    dr[NetworkConfig.DC_PC_ADDRESS] = network.PCAddress;
+
+                    dr.AcceptChanges();
+                    break;
+                }
+            }
+        }
+
+
+        /// <summary>
         /// 更新设备
         /// </summary>
         /// <param name="device">设备</param>

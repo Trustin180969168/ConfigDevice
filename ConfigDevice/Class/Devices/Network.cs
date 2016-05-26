@@ -125,7 +125,7 @@ namespace ConfigDevice
             //-------设备名称---------
             byte[] byteName = new Byte[30];
             Buffer.BlockCopy(userUdpData.Data, 20, byteName, 0, 30);
-            DeviceName = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0');//.Replace("网关:","");
+            DeviceName = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Replace(" ","").Replace("","");
             ListPosition = new List<Position>();
 
             regeditRJ45Callback();
@@ -397,6 +397,20 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 保存网络信息
+        /// </summary>
+        /// <param name="newName"></param>
+        /// <param name="newIP"></param>
+        /// <param name="gateWay"></param>
+        /// <param name="mask"></param>
+        /// <param name="_networkID"></param>
+        public void SaveNetworkInfo(string newName, byte[] newIP, byte[] gateWay, byte[] mask, byte _networkID)
+        {
+            
+        }
+
+
+        /// <summary>
         /// 修改名称
         /// </summary>
         /// <param name="newName"></param>
@@ -414,8 +428,9 @@ namespace ConfigDevice
             else
             {
                 this.DeviceName = newName;
-                NetworkCtrl.UpdateNetworkDataTable(this);
-                CommonTools.MessageShow("保存成功!", 1, "");
+                SysConfig.ListNetworks[this.NetworkIP].DeviceName = newName;
+                SysCtrl.UpdateNetworkDataTable(this);
+                //CommonTools.MessageShow("保存成功!", 1, "");
             }
         }
         /// <summary>
@@ -510,7 +525,7 @@ namespace ConfigDevice
                     State = NetworkConfig.STATE_CONNECTED;
                     managerPassword = (byte[])(values[0]);
                     userPassword = (byte[])(values[1]);
-                    NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
+                    SysCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
                     int i =SysConfig.ListNetworks.Count;
                     GetPositionList(); //----------获取位置列表---------
                     SysCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
@@ -601,7 +616,7 @@ namespace ConfigDevice
                 {
                     PCAddress = "";
                     State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
-                    NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
+                    SysCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
                     SysCtrl.RemoveNetworkDeviceData(this);//----移除设备数据-----
                     callbackUI(new object[] { ActionKind.DisConnectNetwork,this });
                     return;
@@ -787,19 +802,35 @@ namespace ConfigDevice
         public void SaveNetworkParameter(byte[] newIP, byte[] gateWay, byte[] mask, byte _networkID)
         {
             UdpData udpSend = createSaveNetworkParameter(newIP, gateWay, mask, _networkID);
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangeParameter), new object[] { udpSend });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangeParameter), 
+                new object[] { udpSend, newIP, _networkID  });
         }
         private void callbackChangeParameter(UdpData udpReply, object[] values)
         {
-            byte[] mac = CommonTools.CopyBytes(udpReply.ProtocolData, 11, 12);
-            if (CommonTools.BytesEuqals(mac, ByteMacAddress))
+            //  byte[] mac = CommonTools.CopyBytes(udpReply.ProtocolData, 11, 12);
+            if (udpReply.ProtocolData[10] == REPLY_RESULT.PC_CHANGENET_ACK_TRUE)
             {
-                int result = (int)udpReply.ProtocolData[10];
-                if (result == 0)
-                    CommonTools.MessageShow("参数修改成功!", 1, "");
-                else
-                    CommonTools.MessageShow("参数修改失败!", 1, "");
+                string newNetworkID = Convert.ToInt16(values[2]).ToString();
+                IPAddress newIP = new IPAddress(values[1] as byte[]);
+                //-----同步网络ID------
+                if (NetworkID != newNetworkID)
+                {
+                    this.NetworkID = newNetworkID;
+                    this.SnycNetworkID();
+                }
+                //-----同步网络IP-----
+                if (this.NetworkIP != newIP.ToString())
+                {
+                    SysConfig.ListNetworks.Remove(this.NetworkIP);//---删除旧网络对象---      
+                    this.NetworkIP = newIP.ToString();
+                    SysConfig.ListNetworks.Add(this.NetworkIP, this);//---重新添加到对象列表-- 
+                }     
+                SysCtrl.UpdateNetworkDataTable(this);//---更新网络列表--
+                
+                //CommonTools.MessageShow("参数修改成功!", 1, "");
             }
+            else
+                CommonTools.MessageShow("参数修改失败!", 1, "");
         }
         /// <summary>
         /// 创建申请连接网络申请的UDP

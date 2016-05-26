@@ -15,6 +15,11 @@ namespace ConfigDevice
         private CallbackFromUDP callbackGetStopSearchDevices;
         private static object objLock = new object();
         private bool searching = false;//是否正在搜索设备,避免与其它界面冲突
+
+        public bool Searching
+        {
+            get { return searching; } 
+        }
         public DeviceCtrl()
         {
             callbackGetSearchDevices = new CallbackFromUDP(this.getDevices);
@@ -58,16 +63,17 @@ namespace ConfigDevice
         /// <param name="network">搜索设备</param>
         public void SearchDevices(Network network)
         {
-
-            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF);//----清空所有获取设备回调----
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackGetSearchDevices);//---回调设备-----
-            searching = true;
-            this.SearchingNetwork = network;
-            initDataTableDevices();//----初始化列表-----
-            //-----------执行搜索设备------------            
-            UdpData udp = this.createSearchDevices(network);
-            callbackGetSearchDevices.Udp = udp;
-            MySocket.GetInstance().SendData(udp, network.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchDevices), null);
+           
+                SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF);//----清空所有获取设备回调----
+                SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackGetSearchDevices);//---回调设备-----
+                searching = true;
+                this.SearchingNetwork = network;
+                initDataTableDevices();//----初始化列表-----
+                //-----------执行搜索设备------------            
+                UdpData udp = this.createSearchDevices(network);
+                callbackGetSearchDevices.Udp = udp;
+                MySocket.GetInstance().SendData(udp, network.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchDevices), null);
+            
         }
         /// <summary>
         /// 回调设备搜索

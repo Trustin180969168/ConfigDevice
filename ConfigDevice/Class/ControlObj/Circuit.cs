@@ -207,10 +207,15 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void finishGetRoadTitlesData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
+            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----        
+            if (!finishReadRoads)
+            {
+                if (OnCallbackRoad_Action != null)
+                    OnCallbackRoad_Action(null);
+            }
             finishReadRoads = true;
-            if (OnCallbackRoad_Action != null)
-                OnCallbackRoad_Action(null);
         }
     }
 

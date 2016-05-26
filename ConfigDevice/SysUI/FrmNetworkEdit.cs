@@ -165,10 +165,7 @@ namespace ConfigDevice
                          ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text));
         }
 
-        private void btSaveInfo_MouseHover(object sender, EventArgs e)
-        {
-            btSaveInfo.ShowDropDown();
-        }
+
 
         private void cbxNetwork_SelectedIndexChanged(object sender, EventArgs e)
         {
