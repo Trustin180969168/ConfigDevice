@@ -75,8 +75,8 @@ namespace ConfigDevice
             DataCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER4, System.Type.GetType("System.String"));
             DataCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER5, System.Type.GetType("System.String"));
 
-            deviceID.FieldName = DeviceConfig.DC_ID;
-            deviceNetworkID.FieldName = DeviceConfig.DC_NETWORK_ID;
+            ID.FieldName = DeviceConfig.DC_ID;
+            deviceNetwork.FieldName = DeviceConfig.DC_NETWORK_ID;
             deviceKind.FieldName = DeviceConfig.DC_KIND_NAME;
             deviceName.FieldName = DeviceConfig.DC_NAME;
             deviceCtrlObj.FieldName = DeviceConfig.DC_CONTROL_OBJ;

@@ -56,6 +56,8 @@ namespace ProgramTest2
             dt.Rows.Add(new object[] { "00:00:00", "00:00:00" });
             dt.Rows.Add(new object[] { "00:00:00", "00:00:00" });
             dt.Rows.Add(new object[] { "00:00:00", "00:00:00" });
+
+            (spinEdit1.Controls[0] as DevExpress.XtraEditors.TextBoxMaskBox).MouseWheel += new System.Windows.Forms.MouseEventHandler(this.edtNetworkID_MouseWheel);
         }
 
         private void simpleButton2_Click(object sender, EventArgs e)
@@ -68,6 +70,16 @@ namespace ProgramTest2
             textEdit1.Text = runTime.ToString();
         }
 
+        /// <summary>
+        /// 禁止鼠标滚动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void edtNetworkID_MouseWheel(object sender, MouseEventArgs e)
+        { 
+                if (e.Delta != 0)
+                    DevExpress.Utils.DXMouseEventArgs.GetMouseArgs(e).Handled = true;
+        }
 
 
 

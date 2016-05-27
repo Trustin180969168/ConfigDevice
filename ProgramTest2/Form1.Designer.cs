@@ -42,6 +42,7 @@
             this.meeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
@@ -50,6 +51,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // timeEdit1
@@ -186,7 +188,6 @@
             // 
             // lookupEdit
             // 
-
             this.lookupEdit.AutoHeight = false;
             this.lookupEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -221,11 +222,26 @@
             this.textEdit1.Size = new System.Drawing.Size(100, 21);
             this.textEdit1.TabIndex = 7;
             // 
+            // spinEdit1
+            // 
+            this.spinEdit1.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spinEdit1.Location = new System.Drawing.Point(49, 188);
+            this.spinEdit1.Name = "spinEdit1";
+            this.spinEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spinEdit1.Size = new System.Drawing.Size(100, 21);
+            this.spinEdit1.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 305);
+            this.Controls.Add(this.spinEdit1);
             this.Controls.Add(this.textEdit1);
             this.Controls.Add(this.simpleButton2);
             this.Controls.Add(this.gcTime);
@@ -242,6 +258,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -262,6 +279,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit meEdit;
         private DevExpress.XtraGrid.Columns.GridColumn dcSelect;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit lookupEdit;
+        private DevExpress.XtraEditors.SpinEdit spinEdit1;
     }
 }
 

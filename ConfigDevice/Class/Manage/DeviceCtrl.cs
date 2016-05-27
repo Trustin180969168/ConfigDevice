@@ -164,22 +164,22 @@ namespace ConfigDevice
                     deviceData.Remark = DeviceConfig.ERROR_SAME_DEVICE_ID;//自身标识冲突
                 }
                 //-----排查名称冲突------------------
-                temp = DeviceConfig.DC_NAME + "='" + deviceData.Name + "'" + " and " + DeviceConfig.DC_MAC + " <> '" + deviceData.MAC + "' "
-                    + " and " + DeviceConfig.DC_NETWORK_ID + " = '" + deviceData.NetworkID + "' ";
-                rows = SysConfig.DtDevice.Select(temp);
-                if (rows.Length > 0)
-                {
-                    foreach (DataRow dr in rows)
-                    {
-                        if (!dr[DeviceConfig.DC_REMARK].ToString().Contains(DeviceConfig.ERROR_SAME_DEVICE_TITLE))
-                        {
-                            dr[DeviceConfig.DC_REMARK] += DeviceConfig.ERROR_SAME_DEVICE_TITLE;
-                            dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
-                        }
-                    }
-                    deviceData.State = DeviceConfig.STATE_ERROR;
-                    deviceData.Remark += DeviceConfig.ERROR_SAME_DEVICE_TITLE;
-                }
+                //temp = DeviceConfig.DC_NAME + "='" + deviceData.Name + "'" + " and " + DeviceConfig.DC_MAC + " <> '" + deviceData.MAC + "' "
+                //    + " and " + DeviceConfig.DC_NETWORK_ID + " = '" + deviceData.NetworkID + "' ";
+                //rows = SysConfig.DtDevice.Select(temp);
+                //if (rows.Length > 0)
+                //{
+                //    foreach (DataRow dr in rows)
+                //    {
+                //        if (!dr[DeviceConfig.DC_REMARK].ToString().Contains(DeviceConfig.ERROR_SAME_DEVICE_TITLE))
+                //        {
+                //            dr[DeviceConfig.DC_REMARK] += DeviceConfig.ERROR_SAME_DEVICE_TITLE;
+                //            dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
+                //        }
+                //    }
+                //    deviceData.State = DeviceConfig.STATE_ERROR;
+                //    deviceData.Remark += DeviceConfig.ERROR_SAME_DEVICE_TITLE;
+                //}
                 //-----排查网络ID异常-----------------
                 if (deviceData.NetworkID != SearchingNetwork.NetworkID)
                 {

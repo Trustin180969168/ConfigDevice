@@ -41,7 +41,7 @@
             this.xh = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
-            this.deviceNetworkID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.deviceNetwork = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceKind = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceMac = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -72,7 +72,7 @@
             this.gvNetwork = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.networkDeviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkDeviceID = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.networkID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.network = new DevExpress.XtraGrid.Columns.GridColumn();
             this.edtNetworkID = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.networkState = new DevExpress.XtraGrid.Columns.GridColumn();
             this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
@@ -189,7 +189,7 @@
             this.gvDevices.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.xh,
             this.deviceID,
-            this.deviceNetworkID,
+            this.deviceNetwork,
             this.deviceKind,
             this.deviceName,
             this.deviceMac,
@@ -256,21 +256,21 @@
             this.edtNum.Name = "edtNum";
             this.edtNum.Leave += new System.EventHandler(this.edtNum_Leave);
             // 
-            // deviceNetworkID
+            // deviceNetwork
             // 
-            this.deviceNetworkID.AppearanceCell.Options.UseTextOptions = true;
-            this.deviceNetworkID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.deviceNetworkID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.deviceNetworkID.AppearanceHeader.Options.UseTextOptions = true;
-            this.deviceNetworkID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.deviceNetworkID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.deviceNetworkID.Caption = "网段ID";
-            this.deviceNetworkID.Name = "deviceNetworkID";
-            this.deviceNetworkID.OptionsColumn.AllowEdit = false;
-            this.deviceNetworkID.OptionsColumn.ReadOnly = true;
-            this.deviceNetworkID.Visible = true;
-            this.deviceNetworkID.VisibleIndex = 3;
-            this.deviceNetworkID.Width = 147;
+            this.deviceNetwork.AppearanceCell.Options.UseTextOptions = true;
+            this.deviceNetwork.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.deviceNetwork.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.deviceNetwork.AppearanceHeader.Options.UseTextOptions = true;
+            this.deviceNetwork.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.deviceNetwork.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.deviceNetwork.Caption = "网段";
+            this.deviceNetwork.Name = "deviceNetwork";
+            this.deviceNetwork.OptionsColumn.AllowEdit = false;
+            this.deviceNetwork.OptionsColumn.ReadOnly = true;
+            this.deviceNetwork.Visible = true;
+            this.deviceNetwork.VisibleIndex = 3;
+            this.deviceNetwork.Width = 147;
             // 
             // deviceKind
             // 
@@ -576,7 +576,7 @@
             this.gvNetwork.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.networkDeviceName,
             this.networkDeviceID,
-            this.networkID,
+            this.network,
             this.networkState,
             this.networkDeviceMac,
             this.networkRemark,
@@ -600,6 +600,7 @@
             this.networkDeviceName.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.networkDeviceName.Caption = "设备名称";
             this.networkDeviceName.Name = "networkDeviceName";
+            this.networkDeviceName.OptionsColumn.ReadOnly = true;
             this.networkDeviceName.Visible = true;
             this.networkDeviceName.VisibleIndex = 0;
             this.networkDeviceName.Width = 288;
@@ -615,20 +616,21 @@
             this.networkDeviceID.Caption = "设备ID";
             this.networkDeviceID.Name = "networkDeviceID";
             // 
-            // networkID
+            // network
             // 
-            this.networkID.AppearanceCell.Options.UseTextOptions = true;
-            this.networkID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.networkID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.networkID.AppearanceHeader.Options.UseTextOptions = true;
-            this.networkID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.networkID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.networkID.Caption = "网段ID";
-            this.networkID.ColumnEdit = this.edtNetworkID;
-            this.networkID.Name = "networkID";
-            this.networkID.Visible = true;
-            this.networkID.VisibleIndex = 1;
-            this.networkID.Width = 180;
+            this.network.AppearanceCell.Options.UseTextOptions = true;
+            this.network.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.network.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.network.AppearanceHeader.Options.UseTextOptions = true;
+            this.network.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.network.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.network.Caption = "网段";
+            this.network.ColumnEdit = this.edtNetworkID;
+            this.network.Name = "network";
+            this.network.OptionsColumn.ReadOnly = true;
+            this.network.Visible = true;
+            this.network.VisibleIndex = 1;
+            this.network.Width = 180;
             // 
             // edtNetworkID
             // 
@@ -933,7 +935,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gvDevices;
         private DevExpress.XtraGrid.Columns.GridColumn xh;
         private DevExpress.XtraGrid.Columns.GridColumn deviceID;
-        private DevExpress.XtraGrid.Columns.GridColumn deviceNetworkID;
+        private DevExpress.XtraGrid.Columns.GridColumn deviceNetwork;
         private DevExpress.XtraGrid.Columns.GridColumn deviceKind;
         private DevExpress.XtraGrid.Columns.GridColumn deviceName;
         private DevExpress.XtraGrid.Columns.GridColumn deviceMac;
@@ -945,7 +947,7 @@
         private DevExpress.XtraGrid.GridControl gcNetwork;
         private DevExpress.XtraGrid.Views.Grid.GridView gvNetwork;
         private DevExpress.XtraGrid.Columns.GridColumn networkDeviceID;
-        private DevExpress.XtraGrid.Columns.GridColumn networkID;
+        private DevExpress.XtraGrid.Columns.GridColumn network;
         private DevExpress.XtraGrid.Columns.GridColumn networkState;
         private DevExpress.XtraGrid.Columns.GridColumn networkDeviceName;
         private DevExpress.XtraGrid.Columns.GridColumn networkDeviceMac;

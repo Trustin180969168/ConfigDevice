@@ -580,9 +580,7 @@ namespace ConfigDevice
             if (udpSend.PacketCodeStr == udpReply.PacketCodeStr)
             {
                 if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                { CommonTools.ShowReplyInfo(error, udpReply.ReplyByte); return; }
-                else
-                    CommonTools.MessageShow(success, 1, "");
+                { CommonTools.ShowReplyInfo(error, udpReply.ReplyByte); return; } 
             }
         }
 

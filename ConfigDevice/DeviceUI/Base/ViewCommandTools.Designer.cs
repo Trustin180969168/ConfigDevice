@@ -30,8 +30,8 @@
         {
             this.gcCommands = new DevExpress.XtraGrid.GridControl();
             this.gvCommands = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.deviceID = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.deviceNetworkID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.deviceNetwork = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceKind = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.deviceCtrlObj = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -87,8 +87,8 @@
             // gvCommands
             // 
             this.gvCommands.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.deviceID,
-            this.deviceNetworkID,
+            this.ID,
+            this.deviceNetwork,
             this.deviceKind,
             this.deviceName,
             this.deviceCtrlObj,
@@ -108,41 +108,41 @@
             this.gvCommands.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
             this.gvCommands.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCommands_CellValueChanged);
             // 
-            // deviceID
+            // ID
             // 
-            this.deviceID.AppearanceCell.Options.UseTextOptions = true;
-            this.deviceID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.deviceID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.deviceID.AppearanceHeader.Options.UseTextOptions = true;
-            this.deviceID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.deviceID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.deviceID.Caption = "设备ID";
-            this.deviceID.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.deviceID.Name = "deviceID";
-            this.deviceID.OptionsColumn.AllowEdit = false;
-            this.deviceID.OptionsColumn.FixedWidth = true;
-            this.deviceID.OptionsColumn.ReadOnly = true;
-            this.deviceID.Visible = true;
-            this.deviceID.VisibleIndex = 0;
-            this.deviceID.Width = 60;
+            this.ID.AppearanceCell.Options.UseTextOptions = true;
+            this.ID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.ID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.ID.AppearanceHeader.Options.UseTextOptions = true;
+            this.ID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.ID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.ID.Caption = "ID";
+            this.ID.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.ID.Name = "ID";
+            this.ID.OptionsColumn.AllowEdit = false;
+            this.ID.OptionsColumn.FixedWidth = true;
+            this.ID.OptionsColumn.ReadOnly = true;
+            this.ID.Visible = true;
+            this.ID.VisibleIndex = 0;
+            this.ID.Width = 50;
             // 
-            // deviceNetworkID
+            // deviceNetwork
             // 
-            this.deviceNetworkID.AppearanceCell.Options.UseTextOptions = true;
-            this.deviceNetworkID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.deviceNetworkID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.deviceNetworkID.AppearanceHeader.Options.UseTextOptions = true;
-            this.deviceNetworkID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.deviceNetworkID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.deviceNetworkID.Caption = "网段ID";
-            this.deviceNetworkID.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.deviceNetworkID.Name = "deviceNetworkID";
-            this.deviceNetworkID.OptionsColumn.AllowEdit = false;
-            this.deviceNetworkID.OptionsColumn.FixedWidth = true;
-            this.deviceNetworkID.OptionsColumn.ReadOnly = true;
-            this.deviceNetworkID.Visible = true;
-            this.deviceNetworkID.VisibleIndex = 1;
-            this.deviceNetworkID.Width = 60;
+            this.deviceNetwork.AppearanceCell.Options.UseTextOptions = true;
+            this.deviceNetwork.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.deviceNetwork.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.deviceNetwork.AppearanceHeader.Options.UseTextOptions = true;
+            this.deviceNetwork.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.deviceNetwork.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.deviceNetwork.Caption = "网段";
+            this.deviceNetwork.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.deviceNetwork.Name = "deviceNetwork";
+            this.deviceNetwork.OptionsColumn.AllowEdit = false;
+            this.deviceNetwork.OptionsColumn.FixedWidth = true;
+            this.deviceNetwork.OptionsColumn.ReadOnly = true;
+            this.deviceNetwork.Visible = true;
+            this.deviceNetwork.VisibleIndex = 1;
+            this.deviceNetwork.Width = 50;
             // 
             // deviceKind
             // 
@@ -178,7 +178,7 @@
             this.deviceName.OptionsColumn.ReadOnly = true;
             this.deviceName.Visible = true;
             this.deviceName.VisibleIndex = 3;
-            this.deviceName.Width = 120;
+            this.deviceName.Width = 140;
             // 
             // deviceCtrlObj
             // 
@@ -439,8 +439,8 @@
 
         private DevExpress.XtraGrid.GridControl gcCommands;
         private DevExpress.XtraGrid.Views.Grid.GridView gvCommands;
-        private DevExpress.XtraGrid.Columns.GridColumn deviceID;
-        private DevExpress.XtraGrid.Columns.GridColumn deviceNetworkID;
+        private DevExpress.XtraGrid.Columns.GridColumn ID;
+        private DevExpress.XtraGrid.Columns.GridColumn deviceNetwork;
         private DevExpress.XtraGrid.Columns.GridColumn deviceKind;
         private DevExpress.XtraGrid.Columns.GridColumn deviceName;
         private DevExpress.XtraGrid.Columns.GridColumn deviceCtrlObj;

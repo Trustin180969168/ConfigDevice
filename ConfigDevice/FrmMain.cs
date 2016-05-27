@@ -16,7 +16,7 @@ using DevExpress.XtraGrid.Views.Grid;
 
 namespace ConfigDevice
 {
-    public partial class FrmMain : Form
+    public partial class FrmMain : Form,IMessageFilter   
     {
         private MySocket socket;//---通讯对象-----
         private NetworkCtrl networkCtrl;//----网络控制-----
@@ -34,6 +34,7 @@ namespace ConfigDevice
             socket = MySocket.GetInstance();
 
             InitializeComponent();
+            edtNetworkID.MouseWheel += new MouseEventHandler(this.Num_DiscountAmount_MouseWheel);
 
             gcNetwork.DataSource = SysConfig.DtNetwork;
             gcDevices.DataSource = SysConfig.DtDevice;
@@ -43,16 +44,16 @@ namespace ConfigDevice
             //-------初始化列表字段名-------
             networkDeviceID.FieldName = NetworkConfig.DC_DEVICE_ID;
             networkDeviceName.FieldName = NetworkConfig.DC_DEVICE_NAME;
-            networkID.FieldName = NetworkConfig.DC_NETWORK_ID;
+            network.FieldName = NetworkConfig.DC_NETWORK_ID;
             networkDeviceMac.FieldName = NetworkConfig.DC_MAC;
             networkState.FieldName = NetworkConfig.DC_STATE;
             networkRemark.FieldName = NetworkConfig.DC_REMARK;
             networkKindName.FieldName = NetworkConfig.DC_KINDNAME;
-           // networkSearchDevices.FieldName = NetworkConfig.DC_MAC;
+            // networkSearchDevices.FieldName = NetworkConfig.DC_MAC;
 
             xh.FieldName = DeviceConfig.DC_NUM;
             deviceID.FieldName = DeviceConfig.DC_ID;
-            deviceNetworkID.FieldName = DeviceConfig.DC_NETWORK_ID;
+            deviceNetwork.FieldName = DeviceConfig.DC_NETWORK_ID;
             deviceKind.FieldName = DeviceConfig.DC_KIND_NAME;
             deviceName.FieldName = DeviceConfig.DC_NAME;
             deviceMac.FieldName = DeviceConfig.DC_MAC;
@@ -77,6 +78,7 @@ namespace ConfigDevice
             btNetworkSearch_Click(sender, e);
             deviceKind.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_KIND_ID + " != '" + (int)DeviceConfig.EQUIPMENT_RJ45 + "' and " +
                 DeviceConfig.DC_KIND_ID + " != '" + (int)DeviceConfig.EQUIPMENT_SERVER + "'");
+            Application.AddMessageFilter(this);   
         }
 
         /// <summary>
@@ -85,7 +87,7 @@ namespace ConfigDevice
         private void btNetworkSearch_Click(object sender, EventArgs e)
         {
             pw.ShowWaittingInfo(1, "正在加载...");
-         
+
             Action searchAction = new Action(networkCtrl.SearchNetworks);
             searchAction.BeginInvoke(null, null);
         }
@@ -104,12 +106,12 @@ namespace ConfigDevice
                     else if ((ActionKind)values[0] == ActionKind.SearchDevice)//-----搜索完设备----
                     {
                         searchingDevice = false;
-                       
+
                         listRrefreshDevices.Remove((values[1] as Network).MAC);
 
                         gvDevices.BestFitColumns();
-                        networkSearchDevices.Width = 50; 
-                        if(listRrefreshDevices.Count > 0 )
+                        networkSearchDevices.Width = 50;
+                        if (listRrefreshDevices.Count > 0)
                             SearchNextNetworkDevices();
                         else
                             pw.Hide();
@@ -119,7 +121,7 @@ namespace ConfigDevice
                         Network network = (Network)(values[1]);
                         if (searchingDevice)
                         {
-                            listRrefreshDevices.Add(network.MAC, network);              
+                            listRrefreshDevices.Add(network.MAC, network);
                         }
                         else
                         {
@@ -145,7 +147,7 @@ namespace ConfigDevice
                     {
                         Device device = values[1] as Device;
                         SysCtrl.UpdateDeviceData(device.GetDeviceData());
-                    }                 
+                    }
                 }
             }
             catch (Exception e1) { e1.ToString(); }
@@ -370,11 +372,11 @@ namespace ConfigDevice
         private void cbxSelectNetwork_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbxSelectNetwork.Text == "")
-                deviceNetworkID.ClearFilter();
+                deviceNetwork.ClearFilter();
             else
             {
                 string networkID = listNetworkNameID[cbxSelectNetwork.Text];
-                deviceNetworkID.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "' ");
+                deviceNetwork.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "' ");
                 //deviceNetworkID.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "' and " +
                 //    DeviceConfig.DC_KIND_ID + " != '" + (int)DeviceConfig.EQUIPMENT_RJ45 + "' and " +
                 //DeviceConfig.DC_KIND_ID + " != '" + (int)DeviceConfig.EQUIPMENT_SERVER + "'");
@@ -400,7 +402,7 @@ namespace ConfigDevice
             if (network.State == NetworkConfig.STATE_CONNECTED)
                 network.SnycNetworkID();
             else
-                CommonTools.MessageShow("请先连接网络"+network.DeviceName,3,"");
+                CommonTools.MessageShow("请先连接网络" + network.DeviceName, 3, "");
             //listSnycNetworks.Clear();//----清空同步网络列表----
             //foreach (Network network in SysConfig.ListNetworks.Values)
             //{
@@ -483,21 +485,21 @@ namespace ConfigDevice
             //----限制只读-----
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_CONNECTED)
             {
-                this.networkID.OptionsColumn.ReadOnly = false;
+                this.network.OptionsColumn.ReadOnly = false;
                 this.networkDeviceName.OptionsColumn.ReadOnly = false;
             }
             else
             {
-                networkID.OptionsColumn.ReadOnly = true;
+                network.OptionsColumn.ReadOnly = true;
                 networkDeviceName.OptionsColumn.ReadOnly = true;
             }
             //----筛选网络设备-----
             if (!OneNetworkShow)
-                deviceNetworkID.ClearFilter();
+                deviceNetwork.ClearFilter();
             else
             {
-                string networkID = dr[deviceNetworkID.FieldName].ToString();
-                deviceNetworkID.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "' ");
+                string networkID = dr[deviceNetwork.FieldName].ToString();
+                deviceNetwork.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "' ");
             }
         }
 
@@ -571,18 +573,18 @@ namespace ConfigDevice
             DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
             DataRowState stateSave = dr.RowState;
             if (dr[DeviceConfig.DC_PARAMETER1].ToString() == DeviceConfig.STATE_OPEN_LIGHT)
-            {                
+            {
                 Device device = new BaseDevice(dr);
                 device.OpenDiscover();
                 dr[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.off);
-                dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_CLOSE_LIGHT;                
+                dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_CLOSE_LIGHT;
             }
             else if (dr[DeviceConfig.DC_PARAMETER1].ToString() == DeviceConfig.STATE_CLOSE_LIGHT)
             {
                 Device device = new BaseDevice(dr);
                 device.CloseDiscover();
                 dr[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.on);
-                dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_OPEN_LIGHT;                
+                dr[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_OPEN_LIGHT;
             }
             if (stateSave != DataRowState.Modified)//----开关不作为修改标记,其它项目修改,正常保存----
                 dr.AcceptChanges();
@@ -627,14 +629,14 @@ namespace ConfigDevice
                 {
                     CommonTools.MessageShow("请先连接网络设备" + network.DeviceName + "!", 3, "");
                 }
-            } 
+            }
         }
 
         /// <summary>
         /// 保存设备名称及ID
         /// </summary>
         private void btSave_Click(object sender, EventArgs e)
-        {             
+        {
             pw.ShowWaittingInfo(0, "保存中...");
             if (gvNetwork.RowCount == 0) return;
             if (gvDevices.RowCount == 0) return;
@@ -660,16 +662,16 @@ namespace ConfigDevice
                     device.OnCallbackUI_Action += this.CallBackUI;
                     device.SaveDeviceIDAndName(data); //---保存设备名称及ID-----
 
-                    drUpdate.ItemArray = temp;               
+                    drUpdate.ItemArray = temp;
                     drUpdate.AcceptChanges();   //----根据新数据创建新设备数据-----
-                                    
+
                 }
                 else
                 {
                     CommonTools.MessageShow("请先连接网络设备" + network.DeviceName + "!", 3, "");
                     continue;
                 }
-               
+
             }
 
         }
@@ -690,7 +692,7 @@ namespace ConfigDevice
             }
             else
                 CommonTools.MessageShow("请先连接网络" + network.DeviceName, 3, "");
-         
+
         }
 
         /// <summary>
@@ -725,7 +727,7 @@ namespace ConfigDevice
                         dr[DeviceConfig.DC_REMARK] = dr[DeviceConfig.DC_REMARK].ToString().Replace(DeviceConfig.ERROR_SAME_DEVICE_ID, "");
                         if (dr[DeviceConfig.DC_REMARK].ToString() == "")
                             dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_RIGHT;
-                        dr.EndEdit();                        
+                        dr.EndEdit();
                     }
                 }
             }
@@ -748,7 +750,34 @@ namespace ConfigDevice
         }
 
 
+        private void Num_DiscountAmount_MouseWheel(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs h = e as HandledMouseEventArgs;
+            if (h != null)
+            {
+                h.Handled = true;
+            }
+        }
 
+ 
+        #region IMessageFilter 成员
+        /// <summary>
+        /// 禁止鼠标滚动
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public bool PreFilterMessage(ref Message m)
+        {
+            if (m.Msg == 522)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }   
+        }
 
+        #endregion
     }
 }

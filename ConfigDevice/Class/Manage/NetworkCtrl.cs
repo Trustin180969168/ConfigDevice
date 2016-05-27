@@ -77,14 +77,14 @@ namespace ConfigDevice
                     network.Remark = NetworkConfig.ERROR_SAME_NETWORKID;
                 }
                 //-----排查网段名称冲突------------------
-                temp = NetworkConfig.DC_DEVICE_NAME + "='" + network.DeviceName + "'";
-                rows = SysConfig.DtNetwork.Select(temp);
-                if (rows.Length > 0)
-                {
-                    foreach (DataRow dr in rows)
-                        dr[NetworkConfig.DC_REMARK] += NetworkConfig.ERROR_SAME_NETWORKNAME;
-                    network.Remark += NetworkConfig.ERROR_SAME_NETWORKNAME;
-                }
+                //temp = NetworkConfig.DC_DEVICE_NAME + "='" + network.DeviceName + "'";
+                //rows = SysConfig.DtNetwork.Select(temp);
+                //if (rows.Length > 0)
+                //{
+                //    foreach (DataRow dr in rows)
+                //        dr[NetworkConfig.DC_REMARK] += NetworkConfig.ERROR_SAME_NETWORKNAME;
+                //    network.Remark += NetworkConfig.ERROR_SAME_NETWORKNAME;
+                //}
                 //------添加到数据表----------
                 SysConfig.DtNetwork.Rows.Add(new object[] { network.DeviceID, network.NetworkID, network.State, 
                 network.DeviceName, network.MAC,network.NetworkIP,network.Port.ToString(),network.Remark,"",network.KindName });
