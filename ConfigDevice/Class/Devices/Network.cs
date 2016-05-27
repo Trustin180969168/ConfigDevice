@@ -59,19 +59,12 @@ namespace ConfigDevice
 
     public class Network:Device
     {
-        public string DeviceID = "";//设备ID
-        public string NetworkID = "";//网络ID
-        public string State = "";//连接状态
+
         public string DeviceName = "";//设备名称
         public string MacAddress = "";//物理地址
-        public string KindID;//设备类型ID
-        public string KindName = "";//设备类型名称
-        public string NetworkIP = "";//网络设备RJ45的IP
-        public string PCAddress = "";//网络设备RJ45的PC通信地址
-        public string Remark = "";//备注
+
         public int Port;//对方的发送端口
         public List<Position> ListPosition; //设备位置列表
-        private MySocket mySocket = MySocket.GetInstance();
         private byte[] managerPassword;//管理员密码
         private byte[] userPassword;//用户密码
 
@@ -84,8 +77,6 @@ namespace ConfigDevice
         public DateTime RefreshTime;
         private CallbackFromUDP callbackGetPosition;
         private CallbackFromUDP callbackGetVer;
-        public string SoftwareVer = "";//软件版本
-        public string HardwareVer = "";//硬件版本
         public event CallbackUIAction CallbackUI;
         /// <summary>
         /// 获取终端点
@@ -111,7 +102,7 @@ namespace ConfigDevice
         /// <summary>
         /// 构造函数
         /// </summary>
-        public Network(UserUdpData userUdpData):base(userUdpData)
+        public Network(UserUdpData userUdpData) 
         {
             DeviceID = Convert.ToInt16(userUdpData.Source[0]).ToString();
             NetworkID = Convert.ToInt16(userUdpData.Source[1]).ToString();

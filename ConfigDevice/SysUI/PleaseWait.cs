@@ -14,7 +14,7 @@ namespace ConfigDevice
     {
         public string labelmsg = "";
         private int seconds = 1;
-        public int ShowSeconds = -1;
+        public int ShowSeconds = -1;//--显示秒数
         public PleaseWait()
         {
             InitializeComponent();
@@ -64,7 +64,7 @@ namespace ConfigDevice
         {
             if (labelmsg != "")
             {
-                this.label1.Text = labelmsg;
+                this.lblMsg.Text = labelmsg;
             }
             Application.DoEvents();
             Win32.AnimateWindow(this.Handle, 100, Win32.AW_BLEND);
@@ -87,10 +87,17 @@ namespace ConfigDevice
             Win32.AnimateWindow(this.Handle, 1000, Win32.AW_SLIDE | Win32.AW_HIDE | Win32.AW_BLEND);
         }
 
+        
+
         private void timer_Tick(object sender, EventArgs e)
         {
-
-            if (ShowSeconds < seconds++) this.Close();
+            if (ShowSeconds < seconds++)
+            {
+                Win32.AnimateWindow(this.Handle, 1000, Win32.AW_SLIDE | Win32.AW_HIDE | Win32.AW_BLEND);
+                seconds = 0;
+                timer.Stop();
+                this.Hide();
+            }
         }
 
         private void PleaseWait_Shown(object sender, EventArgs e)
@@ -103,6 +110,32 @@ namespace ConfigDevice
             if (this.InvokeRequired)
             { this.Invoke(new Action(CloseWaiting)); return; }
             this.Close();
+        }
+
+        /// <summary>
+        /// 显示秒数
+        /// </summary>
+        /// <param name="seconds"></param>
+        public void ShowWaittingInfo(int _seconds)
+        {
+            timer.Stop();
+            seconds = 0;
+            ShowSeconds = _seconds;
+            this.Show();
+            timer.Start();
+        }
+        /// <summary>
+        /// 显示秒数
+        /// </summary>
+        /// <param name="seconds"></param>
+        public void ShowWaittingInfo(int _seconds,string msg)
+        {
+            timer.Stop();
+            seconds = 0;
+            ShowSeconds = _seconds;
+            lblMsg.Text = msg;          
+            this.Show();
+            timer.Start();
         }
 
     }

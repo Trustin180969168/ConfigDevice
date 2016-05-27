@@ -17,7 +17,7 @@ namespace ConfigDevice
     //     用于保存系统的基本配置信息,包括公共常量,本地IP,端口,初始化工作等
     public class SysCtrl
     {
-
+        private static object lockUpdateObj = new object();
         /// <summary>
         /// 初始化系统配置
         /// </summary>
@@ -286,18 +286,21 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="deviceData">设备数据</param>
         public static void AddDeviceData(DeviceData device)
-        {             
-            int num = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID + 
-                " not in ('" + (int)DeviceConfig.EQUIPMENT_RJ45 + "', '"+ (int)DeviceConfig.EQUIPMENT_SERVER + "')" ).Length+1;
-            if (device.ByteKindID == DeviceConfig.EQUIPMENT_SERVER || device.ByteKindID == DeviceConfig.EQUIPMENT_RJ45)
-                num = 1000 + num;
-            DataRow drInsert = SysConfig.DtDevice.Rows.Add(new object[] {num.ToString(),device.DeviceID,device.NetworkID,
+        {
+            lock (lockUpdateObj)
+            {
+                int num = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID +
+                    " not in ('" + (int)DeviceConfig.EQUIPMENT_RJ45 + "', '" + (int)DeviceConfig.EQUIPMENT_SERVER + "')").Length + 1;
+                if (device.ByteKindID == DeviceConfig.EQUIPMENT_SERVER || device.ByteKindID == DeviceConfig.EQUIPMENT_RJ45)
+                    num = 1000 + num;
+                DataRow drInsert = SysConfig.DtDevice.Rows.Add(new object[] {num.ToString(),device.DeviceID,device.NetworkID,
                             device.KindID, device.KindName,device.Name,device.MAC,device.State,device.Remark,"","",device.PCAddress,
                             device.NetworkIP,device.AddressName,device.AddressID});
-            drInsert[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_OPEN_LIGHT;
-            drInsert[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.on);
+                drInsert[DeviceConfig.DC_PARAMETER1] = DeviceConfig.STATE_OPEN_LIGHT;
+                drInsert[DeviceConfig.DC_IMAGE1] = ImageHelper.ImageToBytes(global::ConfigDevice.Properties.Resources.on);
 
-            drInsert.AcceptChanges();
+                drInsert.AcceptChanges();
+            }
         }
 
         /// <summary>
@@ -332,20 +335,23 @@ namespace ConfigDevice
         /// <param name="network">RJ45</param>
         public static void UpdateNetworkDataTable(Network network)
         {
-            foreach (DataRow dr in SysConfig.DtNetwork.Rows)
+            lock (lockUpdateObj)
             {
-                if (dr[NetworkConfig.DC_MAC].ToString() == network.MacAddress)
+                foreach (DataRow dr in SysConfig.DtNetwork.Rows)
                 {
-                    dr[NetworkConfig.DC_DEVICE_ID] = network.DeviceID;
-                    dr[NetworkConfig.DC_NETWORK_ID] = network.NetworkID;
-                    dr[NetworkConfig.DC_STATE] = network.State;
-                    dr[NetworkConfig.DC_DEVICE_NAME] = network.DeviceName;
-                    dr[NetworkConfig.DC_PORT] = network.Port;
-                    dr[NetworkConfig.DC_IP] = network.NetworkIP;
-                    dr[NetworkConfig.DC_PC_ADDRESS] = network.PCAddress;
+                    if (dr[NetworkConfig.DC_MAC].ToString() == network.MacAddress)
+                    {
+                        dr[NetworkConfig.DC_DEVICE_ID] = network.DeviceID;
+                        dr[NetworkConfig.DC_NETWORK_ID] = network.NetworkID;
+                        dr[NetworkConfig.DC_STATE] = network.State;
+                        dr[NetworkConfig.DC_DEVICE_NAME] = network.DeviceName;
+                        dr[NetworkConfig.DC_PORT] = network.Port;
+                        dr[NetworkConfig.DC_IP] = network.NetworkIP;
+                        dr[NetworkConfig.DC_PC_ADDRESS] = network.PCAddress;
 
-                    dr.AcceptChanges();
-                    break;
+                        dr.AcceptChanges();
+                        break;
+                    }
                 }
             }
         }
@@ -357,31 +363,33 @@ namespace ConfigDevice
         /// <param name="device">设备</param>
         public static void UpdateDeviceData(DeviceData device)
         {
-            string temp = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
-            DataRow[] rows = SysConfig.DtDevice.Select(temp);
-            foreach (DataRow dr in SysConfig.DtDevice.Rows)
+            lock (lockUpdateObj)
             {
-                if (dr[DeviceConfig.DC_MAC].ToString() == device.MAC)
+                string temp = DeviceConfig.DC_MAC + "='" + device.MAC + "'";
+                DataRow[] rows = SysConfig.DtDevice.Select(temp);
+                foreach (DataRow dr in SysConfig.DtDevice.Rows)
                 {
-                    dr.BeginEdit();
+                    if (dr[DeviceConfig.DC_MAC].ToString() == device.MAC)
+                    {
+                        dr.BeginEdit();
 
-                    dr[DeviceConfig.DC_ID] = device.DeviceID;
-                    dr[DeviceConfig.DC_NETWORK_ID] = device.NetworkID;
-                    dr[DeviceConfig.DC_KIND_ID] = device.KindID;
-                    dr[DeviceConfig.DC_KIND_NAME] = device.KindName;
-                    dr[DeviceConfig.DC_NAME] = device.Name;
-                    dr[DeviceConfig.DC_STATE] = device.State;
-                    dr[DeviceConfig.DC_REMARK] = device.Remark;
-                    dr[DeviceConfig.DC_PC_ADDRESS] = device.PCAddress;
-                    dr[DeviceConfig.DC_NETWORK_IP] = device.NetworkIP;
-                    dr[DeviceConfig.DC_ADDRESS_NAME] = device.AddressName;
+                        dr[DeviceConfig.DC_ID] = device.DeviceID;
+                        dr[DeviceConfig.DC_NETWORK_ID] = device.NetworkID;
+                        dr[DeviceConfig.DC_KIND_ID] = device.KindID;
+                        dr[DeviceConfig.DC_KIND_NAME] = device.KindName;
+                        dr[DeviceConfig.DC_NAME] = device.Name;
+                        dr[DeviceConfig.DC_STATE] = device.State;
+                        dr[DeviceConfig.DC_REMARK] = device.Remark;
+                        dr[DeviceConfig.DC_PC_ADDRESS] = device.PCAddress;
+                        dr[DeviceConfig.DC_NETWORK_IP] = device.NetworkIP;
+                        dr[DeviceConfig.DC_ADDRESS_NAME] = device.AddressName;
 
-                    dr.EndEdit();
-                    dr.AcceptChanges();
-                    return;
+                        dr.EndEdit();
+                        dr.AcceptChanges();
+                        return;
+                    }
                 }
             }
-
         }
 
 

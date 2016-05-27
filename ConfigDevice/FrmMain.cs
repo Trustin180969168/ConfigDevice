@@ -21,9 +21,9 @@ namespace ConfigDevice
         private MySocket socket;//---通讯对象-----
         private NetworkCtrl networkCtrl;//----网络控制-----
         private DeviceCtrl deviceCtrl;//----设备控制-----
-        private PleaseWait pw;//---等待窗体
+        private PleaseWait pw = new PleaseWait();//---等待窗体
         private bool OneNetworkShow = false;//是否单网段显示
-        private Dictionary<string, Network> listSnycNetworks = new Dictionary<string, Network>();//-----同步网络ID列表--
+        private Dictionary<string, Network> listRrefreshDevices = new Dictionary<string, Network>();//-----刷新设备列表--
         private bool searchingDevice = false;//是否正在搜索设备,需要加锁限制
 
         public FrmMain()
@@ -84,8 +84,8 @@ namespace ConfigDevice
         /// </summary>
         private void btNetworkSearch_Click(object sender, EventArgs e)
         {
-            pw = new PleaseWait(0);//---时间不可控,显示1秒---
-            pw.Show(this);
+            pw.ShowWaittingInfo(1, "正在加载...");
+         
             Action searchAction = new Action(networkCtrl.SearchNetworks);
             searchAction.BeginInvoke(null, null);
         }
@@ -104,22 +104,36 @@ namespace ConfigDevice
                     else if ((ActionKind)values[0] == ActionKind.SearchDevice)//-----搜索完设备----
                     {
                         searchingDevice = false;
-                        Network network = (Network)(values[1]);
-                        listSnycNetworks.Remove(network.MAC); 
-                        SearchNextNetworkDevices();
+                       
+                        listRrefreshDevices.Remove((values[1] as Network).MacAddress);
+
                         gvDevices.BestFitColumns();
-                        networkSearchDevices.Width = 50;
+                        networkSearchDevices.Width = 50; 
+                        SearchNextNetworkDevices();
+
+                        pw.Hide();
                     }
                     else if ((ActionKind)values[0] == ActionKind.SyncNetworkID)//----同步网络ID完毕刷新---
                     {
                         Network network = (Network)(values[1]);
-                        if (!searchingDevice)
-                            SearchNextNetworkDevices();               
+                        if (searchingDevice)
+                        {
+                            listRrefreshDevices.Add(network.MacAddress, network);              
+                        }
+                        else
+                        {
+                            searchingDevice = true;
+                            pw.ShowWaittingInfo(5, "正在加载...");
+                            deviceCtrl.SearchDevices(network);
+                        }
                     }
                     else if ((ActionKind)values[0] == ActionKind.ConnectNetowrk)//---连接完网络----
                     {
                         Network network = (Network)(values[1]);
                         gvNetwork.PostEditor(); gvNetwork.RefreshData();
+                        searchingDevice = true;
+                        SetDevicesFilter();//---设置筛选---
+                        pw.ShowWaittingInfo(5, "正在加载...");
                         deviceCtrl.SearchDevices(network);//---自动搜索设备
                     }
                     else if ((ActionKind)values[0] == ActionKind.DisConnectNetwork)//---断开连接----
@@ -140,20 +154,20 @@ namespace ConfigDevice
         /// 查询下一个网络ID
         /// </summary>
         private void SearchNextNetworkDevices()
-        { 
-            
+        {
+            if (searchingDevice == true) return;
             //----执行下一个同步网络ID----
-            if (listSnycNetworks.Count > 0)
+            if (listRrefreshDevices.Count > 0)
             {
-                foreach (Network network1 in listSnycNetworks.Values)
+                foreach (Network network1 in listRrefreshDevices.Values)
                 {
+                    Thread.Sleep(1000);
                     searchingDevice = true;
+                    pw.ShowWaittingInfo(5, "正在加载...");
                     deviceCtrl.SearchDevices(network1);
                     break;//---执行一条退出,剩下的回调执行.
                 }
             }
-            else
-                searchingDevice = false;
         }
 
 
@@ -209,7 +223,8 @@ namespace ConfigDevice
             {
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
-            } 
+            }
+            pw.ShowWaittingInfo(5, "正在加载...");
             deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);
         }
 
@@ -272,7 +287,10 @@ namespace ConfigDevice
 
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             if (network.State == NetworkConfig.STATE_CONNECTED)
+            {
+                pw.ShowWaittingInfo(5, "正在加载...");
                 deviceCtrl.SearchDevices(network);
+            }
             else
                 network.ConnectNetwork();
         }
@@ -454,8 +472,25 @@ namespace ConfigDevice
         /// </summary>
         private void gvNetwork_Click(object sender, EventArgs e)
         {
+            SetDevicesFilter();
+
+        }
+        private void SetDevicesFilter()
+        {
             if (gvNetwork.FocusedRowHandle == -1) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            //----限制只读-----
+            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_CONNECTED)
+            {
+                this.networkID.OptionsColumn.ReadOnly = false;
+                this.networkDeviceName.OptionsColumn.ReadOnly = false;
+            }
+            else
+            {
+                networkID.OptionsColumn.ReadOnly = true;
+                networkDeviceName.OptionsColumn.ReadOnly = true;
+            }
+            //----筛选网络设备-----
             if (!OneNetworkShow)
                 deviceNetworkID.ClearFilter();
             else
@@ -463,7 +498,6 @@ namespace ConfigDevice
                 string networkID = dr[deviceNetworkID.FieldName].ToString();
                 deviceNetworkID.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "' ");
             }
-
         }
 
         /// <summary>
@@ -565,7 +599,7 @@ namespace ConfigDevice
         /// </summary>
         private void btSaveNetwork_Click(object sender, EventArgs e)
         {
-            listSnycNetworks.Clear();
+            listRrefreshDevices.Clear();
             if (gvNetwork.RowCount == 0) return;
             gvNetwork.PostEditor();
             if (gvNetwork.FocusedRowHandle >= 0)
@@ -574,7 +608,8 @@ namespace ConfigDevice
                 dr.EndEdit();
             }
             DataTable dtUpdate = SysConfig.DtNetwork.GetChanges(DataRowState.Modified);
-            if (dtUpdate == null || dtUpdate.Rows.Count == 0) return; 
+            if (dtUpdate == null || dtUpdate.Rows.Count == 0) return;
+            dtUpdate = SysConfig.DtNetwork.GetChanges(DataRowState.Modified).Copy();//界面数据自动变化,需要复制
             foreach (DataRow drUpdate in dtUpdate.Rows)
             {
                 Network network = SysConfig.ListNetworks[drUpdate[NetworkConfig.DC_IP].ToString()];
@@ -587,11 +622,13 @@ namespace ConfigDevice
                     network.SaveNetworkParameter(ip.GetAddressBytes(),
                         SysConfig.DefaultIPGateway.GetAddressBytes(), SysConfig.SubnetMask.GetAddressBytes(), ConvertTools.GetByteFrom8BitNumStr(id));
                     //--------添加到刷新列表------
-                    if(!listSnycNetworks.ContainsKey(network.MAC))
-                        listSnycNetworks.Add(network.MAC, network);
+                    //if(!listRrefreshDevices.ContainsKey(network.MacAddress))
+                    //    listRrefreshDevices.Add(network.MacAddress, network);
                 }
                 else
+                {
                     CommonTools.MessageShow("请先连接网络设备" + network.DeviceName + "!", 3, "");
+                }
             } 
         }
 
@@ -602,7 +639,7 @@ namespace ConfigDevice
         {
             pw = new PleaseWait(1);
             pw.labelmsg = "保存中...";
-            pw.Show(this);
+            pw.ShowWaittingInfo(5, "正在加载...");
             if (gvNetwork.RowCount == 0) return;
             if (gvDevices.RowCount == 0) return;
             gvDevices.PostEditor();
@@ -650,7 +687,10 @@ namespace ConfigDevice
             DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
             Network network = SysConfig.ListNetworks[dr[DeviceConfig.DC_NETWORK_IP].ToString()];
             if (network.State == NetworkConfig.STATE_CONNECTED)
+            {
+                pw.ShowWaittingInfo(5, "正在加载...");
                 deviceCtrl.SearchDevices(network);
+            }
             else
                 CommonTools.MessageShow("请先连接网络" + network.DeviceName, 3, "");
          
