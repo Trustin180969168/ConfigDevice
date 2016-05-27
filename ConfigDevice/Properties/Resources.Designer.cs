@@ -95,13 +95,6 @@ namespace ConfigDevice.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap close_found {
-            get {
-                object obj = ResourceManager.GetObject("close_found", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap close_light {
             get {
                 object obj = ResourceManager.GetObject("close_light", resourceCulture);
