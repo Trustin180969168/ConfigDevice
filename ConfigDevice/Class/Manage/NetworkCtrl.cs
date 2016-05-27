@@ -29,11 +29,7 @@ namespace ConfigDevice
             SysCtrl.AddRJ45CallBackList(NetworkConfig.CMD_PC_CONNECTING, callbackRefreshNetwork);
         }
 
-        private void callbackUI(object[] values)
-        {
-            if (CallBackUI != null)
-                CallBackUI(values);
-        }
+ 
 
 
         /// <summary>
@@ -91,13 +87,13 @@ namespace ConfigDevice
                 }
                 //------添加到数据表----------
                 SysConfig.DtNetwork.Rows.Add(new object[] { network.DeviceID, network.NetworkID, network.State, 
-                network.DeviceName, network.MacAddress,network.NetworkIP,network.Port.ToString(),network.Remark,"",network.KindName });
+                network.DeviceName, network.MAC,network.NetworkIP,network.Port.ToString(),network.Remark,"",network.KindName });
                 SysConfig.DtNetwork.AcceptChanges();
 
                 if (!SysConfig.ListNetworks.ContainsKey(network.NetworkIP))
                 {
                     SysConfig.ListNetworks.Add(network.NetworkIP, network);
-                    network.CallbackUI += this.callbackUI;
+                    network.OnCallbackUI_Action += this.CallBackUI;
                 }
                 else //----更新网络列表---
                 {
@@ -165,7 +161,7 @@ namespace ConfigDevice
             network.State = state;//标记状态         
             foreach (DataRow dr in SysConfig.DtNetwork.Rows)
             {
-                if (dr[NetworkConfig.DC_MAC].ToString() == network.MacAddress)
+                if (dr[NetworkConfig.DC_MAC].ToString() == network.MAC)
                 {
                     dr[NetworkConfig.DC_STATE] = state;
                     dr.AcceptChanges();

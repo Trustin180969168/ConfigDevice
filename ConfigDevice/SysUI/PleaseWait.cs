@@ -96,7 +96,7 @@ namespace ConfigDevice
                 Win32.AnimateWindow(this.Handle, 1000, Win32.AW_SLIDE | Win32.AW_HIDE | Win32.AW_BLEND);
                 seconds = 0;
                 timer.Stop();
-                this.Hide();
+                this.Visible = false;
             }
         }
 
@@ -136,6 +136,19 @@ namespace ConfigDevice
             lblMsg.Text = msg;          
             this.Show();
             timer.Start();
+        }
+
+        /// <summary>
+        /// 隐藏
+        /// </summary>
+        public new void Hide()
+        {
+            this.Show();
+            timer.Stop();
+            Win32.AnimateWindow(this.Handle, 1000, Win32.AW_SLIDE | Win32.AW_HIDE | Win32.AW_BLEND);
+            seconds = 0;
+
+            this.Visible = false;
         }
 
     }

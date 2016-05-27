@@ -67,6 +67,8 @@
             this.btSearchDevice = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiChangePassword = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiParameter = new System.Windows.Forms.ToolStripMenuItem();
+            this.btSnycTime = new System.Windows.Forms.ToolStripMenuItem();
+            this.btSnycData = new System.Windows.Forms.ToolStripMenuItem();
             this.gvNetwork = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.networkDeviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.networkDeviceID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -507,9 +509,11 @@
             this.btmiDisconnectNetwork,
             this.btSearchDevice,
             this.tsmiChangePassword,
-            this.tsmiParameter});
+            this.tsmiParameter,
+            this.btSnycTime,
+            this.btSnycData});
             this.contextMenuStripNetwork.Name = "contextMenuStripNetwork";
-            this.contextMenuStripNetwork.Size = new System.Drawing.Size(119, 114);
+            this.contextMenuStripNetwork.Size = new System.Drawing.Size(119, 158);
             // 
             // btmiConnectNetwork
             // 
@@ -550,6 +554,22 @@
             this.tsmiParameter.Size = new System.Drawing.Size(118, 22);
             this.tsmiParameter.Text = "网络参数";
             this.tsmiParameter.Click += new System.EventHandler(this.tsmiParameter_Click);
+            // 
+            // btSnycTime
+            // 
+            this.btSnycTime.Image = global::ConfigDevice.Properties.Resources.checkWork;
+            this.btSnycTime.Name = "btSnycTime";
+            this.btSnycTime.Size = new System.Drawing.Size(118, 22);
+            this.btSnycTime.Text = "同步时间";
+            this.btSnycTime.Click += new System.EventHandler(this.btSyncTime_Click);
+            // 
+            // btSnycData
+            // 
+            this.btSnycData.Image = global::ConfigDevice.Properties.Resources.exchange;
+            this.btSnycData.Name = "btSnycData";
+            this.btSnycData.Size = new System.Drawing.Size(118, 22);
+            this.btSnycData.Text = "同步数据";
+            this.btSnycData.Click += new System.EventHandler(this.btSyncData_Click);
             // 
             // gvNetwork
             // 
@@ -971,5 +991,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNum;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkSearch;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNetworkID;
+        private System.Windows.Forms.ToolStripMenuItem btSnycTime;
+        private System.Windows.Forms.ToolStripMenuItem btSnycData;
     }
 }

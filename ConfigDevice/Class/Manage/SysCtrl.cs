@@ -339,7 +339,7 @@ namespace ConfigDevice
             {
                 foreach (DataRow dr in SysConfig.DtNetwork.Rows)
                 {
-                    if (dr[NetworkConfig.DC_MAC].ToString() == network.MacAddress)
+                    if (dr[NetworkConfig.DC_MAC].ToString() == network.MAC)
                     {
                         dr[NetworkConfig.DC_DEVICE_ID] = network.DeviceID;
                         dr[NetworkConfig.DC_NETWORK_ID] = network.NetworkID;

@@ -61,23 +61,19 @@ namespace ConfigDevice
     {
 
         public string DeviceName = "";//设备名称
-        public string MacAddress = "";//物理地址
 
         public int Port;//对方的发送端口
         public List<Position> ListPosition; //设备位置列表
         private byte[] managerPassword;//管理员密码
         private byte[] userPassword;//用户密码
 
-        public byte ByteKindID { get { return BitConverter.GetBytes(Convert.ToInt16(KindID))[0]; } }
-        public byte BytePCAddress { get { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; } }
-        public byte ByteDeviceID { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }
         public byte ByteNetworkID { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } }
-        public byte[] ByteMacAddress { get { return ConvertTools.StrToToHexByte(MacAddress); } }
+  
 
         public DateTime RefreshTime;
         private CallbackFromUDP callbackGetPosition;
-        private CallbackFromUDP callbackGetVer;
-        public event CallbackUIAction CallbackUI;
+        private CallbackFromUDP callbackGetVer; 
+
         /// <summary>
         /// 获取终端点
         /// </summary>
@@ -89,15 +85,7 @@ namespace ConfigDevice
             return remotePoint;
         }
 
-        /// <summary>
-        /// 回调UI
-        /// </summary>
-        /// <param name="values"></param>
-        private void callbackUI(object[] values)
-        {
-            if (this.CallbackUI != null)
-                CallbackUI(values);
-        }
+  
 
         /// <summary>
         /// 构造函数
@@ -112,7 +100,7 @@ namespace ConfigDevice
             //-------MAC地址---------
             byte[] byteMac = new Byte[12];
             Buffer.BlockCopy(userUdpData.Data, 6, byteMac, 0, 12);
-            MacAddress = ConvertTools.ByteToHexStr(byteMac);
+            MAC = ConvertTools.ByteToHexStr(byteMac);
             //-------设备名称---------
             byte[] byteName = new Byte[30];
             Buffer.BlockCopy(userUdpData.Data, 20, byteName, 0, 30);
@@ -349,7 +337,7 @@ namespace ConfigDevice
             {     //------回复反馈的设备信息-------
                 UdpTools.ReplyDeviceDataUdp(data);
             }
-            callbackUI(null);
+            CallbackUI(null);
 
         }
         /// <summary>
@@ -520,7 +508,7 @@ namespace ConfigDevice
                     int i =SysConfig.ListNetworks.Count;
                     GetPositionList(); //----------获取位置列表---------
                     SysCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
-                    callbackUI(new object[] { ActionKind.ConnectNetowrk,this });
+                    CallbackUI(new object[] { ActionKind.ConnectNetowrk, this });
                     return;
                 }
                 else
@@ -609,7 +597,7 @@ namespace ConfigDevice
                     State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
                     SysCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
                     SysCtrl.RemoveNetworkDeviceData(this);//----移除设备数据-----
-                    callbackUI(new object[] { ActionKind.DisConnectNetwork,this });
+                    CallbackUI(new object[] { ActionKind.DisConnectNetwork, this });
                     return;
                 }
                 else
@@ -911,7 +899,7 @@ namespace ConfigDevice
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("同步网络ID失败!", udpReply.ReplyByte);
             else
-                callbackUI(new object[] { ActionKind.SyncNetworkID, this });
+                CallbackUI(new object[] { ActionKind.SyncNetworkID, this });
         }
 
 
@@ -1010,7 +998,7 @@ namespace ConfigDevice
             data.KindID = KindID;
             data.KindName = KindName;
             data.Name = DeviceName;
-            data.MAC = MacAddress;
+            data.MAC = MAC;
             data.SoftwareVer = SoftwareVer;
             data.HardwareVer = HardwareVer;
             data.PCAddress = PCAddress;

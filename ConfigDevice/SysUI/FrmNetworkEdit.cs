@@ -30,7 +30,7 @@ namespace ConfigDevice
 
         private void FrmNetworkEdit_Load(object sender, EventArgs e)
         {
-            NetworkEdit.CallbackUI += this.callbackUI;
+            NetworkEdit.OnCallbackUI_Action += this.callbackUI;
             initCbxNetwork();
             initData();          
         }

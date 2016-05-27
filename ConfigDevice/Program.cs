@@ -16,7 +16,7 @@ namespace ConfigDevice
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
           
-            new FrmTest().Show(); 
+           // new FrmTest().Show(); 
             
             Application.Run(new FrmMain());
         

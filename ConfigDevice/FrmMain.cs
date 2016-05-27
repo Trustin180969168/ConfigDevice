@@ -105,20 +105,21 @@ namespace ConfigDevice
                     {
                         searchingDevice = false;
                        
-                        listRrefreshDevices.Remove((values[1] as Network).MacAddress);
+                        listRrefreshDevices.Remove((values[1] as Network).MAC);
 
                         gvDevices.BestFitColumns();
                         networkSearchDevices.Width = 50; 
-                        SearchNextNetworkDevices();
-
-                        pw.Hide();
+                        if(listRrefreshDevices.Count > 0 )
+                            SearchNextNetworkDevices();
+                        else
+                            pw.Hide();
                     }
                     else if ((ActionKind)values[0] == ActionKind.SyncNetworkID)//----同步网络ID完毕刷新---
                     {
                         Network network = (Network)(values[1]);
                         if (searchingDevice)
                         {
-                            listRrefreshDevices.Add(network.MacAddress, network);              
+                            listRrefreshDevices.Add(network.MAC, network);              
                         }
                         else
                         {
@@ -621,9 +622,6 @@ namespace ConfigDevice
                     string id = drUpdate[NetworkConfig.DC_NETWORK_ID].ToString();
                     network.SaveNetworkParameter(ip.GetAddressBytes(),
                         SysConfig.DefaultIPGateway.GetAddressBytes(), SysConfig.SubnetMask.GetAddressBytes(), ConvertTools.GetByteFrom8BitNumStr(id));
-                    //--------添加到刷新列表------
-                    //if(!listRrefreshDevices.ContainsKey(network.MacAddress))
-                    //    listRrefreshDevices.Add(network.MacAddress, network);
                 }
                 else
                 {
@@ -636,10 +634,8 @@ namespace ConfigDevice
         /// 保存设备名称及ID
         /// </summary>
         private void btSave_Click(object sender, EventArgs e)
-        {
-            pw = new PleaseWait(1);
-            pw.labelmsg = "保存中...";
-            pw.ShowWaittingInfo(5, "正在加载...");
+        {             
+            pw.ShowWaittingInfo(0, "保存中...");
             if (gvNetwork.RowCount == 0) return;
             if (gvDevices.RowCount == 0) return;
             gvDevices.PostEditor();
@@ -673,6 +669,7 @@ namespace ConfigDevice
                     CommonTools.MessageShow("请先连接网络设备" + network.DeviceName + "!", 3, "");
                     continue;
                 }
+               
             }
 
         }
