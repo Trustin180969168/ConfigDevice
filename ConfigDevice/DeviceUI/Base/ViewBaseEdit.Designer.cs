@@ -126,7 +126,7 @@
             // 
             this.btSaveID.Image = global::ConfigDevice.Properties.Resources.save;
             this.btSaveID.Name = "btSaveID";
-            this.btSaveID.Size = new System.Drawing.Size(198, 30);
+            this.btSaveID.Size = new System.Drawing.Size(190, 24);
             this.btSaveID.Text = "保存设备ID";
             this.btSaveID.Click += new System.EventHandler(this.btSaveID_Click);
             // 
@@ -134,7 +134,7 @@
             // 
             this.btSaveNamePosition.Image = global::ConfigDevice.Properties.Resources.save;
             this.btSaveNamePosition.Name = "btSaveNamePosition";
-            this.btSaveNamePosition.Size = new System.Drawing.Size(198, 30);
+            this.btSaveNamePosition.Size = new System.Drawing.Size(190, 24);
             this.btSaveNamePosition.Text = "保存名称及位置";
             this.btSaveNamePosition.Click += new System.EventHandler(this.btSaveNamePosition_Click);
             // 

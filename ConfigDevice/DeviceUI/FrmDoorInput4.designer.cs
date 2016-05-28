@@ -177,7 +177,7 @@
             this.groupControl3.Controls.Add(this.tableLayoutPanel1);
             this.groupControl3.Location = new System.Drawing.Point(46, 262);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(692, 194);
+            this.groupControl3.Size = new System.Drawing.Size(684, 194);
             this.groupControl3.TabIndex = 5;
             this.groupControl3.Text = "提示音配置:第1曲为专用提示音：“已关锁好门窗”;第0曲表示不播放提示音;(注:功放：SD卡./WINDOW)";
             // 
@@ -424,7 +424,7 @@
             this.groupControl2.Controls.Add(this.clbcWldkpb);
             this.groupControl2.Location = new System.Drawing.Point(46, 156);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(500, 100);
+            this.groupControl2.Size = new System.Drawing.Size(487, 100);
             this.groupControl2.TabIndex = 5;
             this.groupControl2.Text = "物理端口屏蔽";
             // 
@@ -453,7 +453,7 @@
             this.groupControl1.Controls.Add(this.clbcAqjb);
             this.groupControl1.Location = new System.Drawing.Point(46, 50);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(500, 100);
+            this.groupControl1.Size = new System.Drawing.Size(487, 100);
             this.groupControl1.TabIndex = 4;
             this.groupControl1.Text = "安防级别";
             // 

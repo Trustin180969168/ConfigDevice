@@ -37,13 +37,14 @@ namespace ConfigDevice
             if (SysConfig.DtDevice.Rows.Count == 0)
                 countNum = 0;
             //----初始化状态--------------
-            string temp = DeviceConfig.DC_NETWORK_ID + " = '" + SearchingNetwork.NetworkID + "' ";
+            string temp = DeviceConfig.DC_NETWORK_IP + " = '" + SearchingNetwork.NetworkIP + "' ";
             DataRow[] rows = SysConfig.DtDevice.Select(temp);
             foreach (DataRow dr in rows)
             {
                 dr[DeviceConfig.DC_STATE] = DeviceConfig.STATE_ERROR;
-            }
-            SysConfig.DtDevice.AcceptChanges();//---初始化数据----
+                dr.EndEdit();
+                dr.AcceptChanges();
+            } 
         }
 
         /// <summary>
@@ -60,8 +61,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="network">搜索设备</param>
         public void SearchDevices(Network network)
-        {
-         
+        {         
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF);//----清空所有获取设备回调----
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackGetSearchDevices);//---回调设备-----
             searching = true;

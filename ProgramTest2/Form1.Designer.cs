@@ -38,8 +38,8 @@
             this.text = new DevExpress.XtraGrid.Columns.GridColumn();
             this.meEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.dcSelect = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.lookupEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.meeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
+            this.lookupEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
@@ -48,8 +48,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.meEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
             this.SuspendLayout();
@@ -78,7 +78,7 @@
             this.gcTime.Dock = System.Windows.Forms.DockStyle.Right;
             this.gcTime.EmbeddedNavigator.Name = "";
             this.gcTime.FormsUseDefaultLookAndFeel = false;
-            this.gcTime.Location = new System.Drawing.Point(346, 0);
+            this.gcTime.Location = new System.Drawing.Point(245, 0);
             this.gcTime.MainView = this.gvTime;
             this.gcTime.Name = "gcTime";
             this.gcTime.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -86,7 +86,7 @@
             this.meeEdit,
             this.meEdit,
             this.lookupEdit});
-            this.gcTime.Size = new System.Drawing.Size(322, 305);
+            this.gcTime.Size = new System.Drawing.Size(423, 305);
             this.gcTime.TabIndex = 5;
             this.gcTime.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvTime});
@@ -102,6 +102,8 @@
             this.dcSelect});
             this.gvTime.GridControl = this.gcTime;
             this.gvTime.Name = "gvTime";
+            this.gvTime.OptionsBehavior.AutoSelectAllInEditor = false;
+            this.gvTime.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click;
             this.gvTime.OptionsView.RowAutoHeight = true;
             this.gvTime.OptionsView.ShowGroupPanel = false;
             this.gvTime.RowHeight = 30;
@@ -180,11 +182,18 @@
             this.dcSelect.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcSelect.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcSelect.Caption = "选择";
-            this.dcSelect.ColumnEdit = this.lookupEdit;
             this.dcSelect.FieldName = "select";
             this.dcSelect.Name = "dcSelect";
             this.dcSelect.Visible = true;
             this.dcSelect.VisibleIndex = 3;
+            // 
+            // meeEdit
+            // 
+            this.meeEdit.AutoHeight = false;
+            this.meeEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.meeEdit.ExportMode = DevExpress.XtraEditors.Repository.ExportMode.DisplayText;
+            this.meeEdit.Name = "meeEdit";
             // 
             // lookupEdit
             // 
@@ -197,14 +206,6 @@
             this.lookupEdit.Name = "lookupEdit";
             this.lookupEdit.ShowFooter = false;
             this.lookupEdit.ShowHeader = false;
-            // 
-            // meeEdit
-            // 
-            this.meeEdit.AutoHeight = false;
-            this.meeEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.meeEdit.ExportMode = DevExpress.XtraEditors.Repository.ExportMode.DisplayText;
-            this.meeEdit.Name = "meeEdit";
             // 
             // simpleButton2
             // 
@@ -255,8 +256,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.meEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
             this.ResumeLayout(false);

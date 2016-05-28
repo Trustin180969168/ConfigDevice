@@ -15,6 +15,7 @@ namespace ConfigDevice
         public string labelmsg = "";
         private int seconds = 1;
         public int ShowSeconds = -1;//--显示秒数
+        private Form openForm;
         public PleaseWait()
         {
             InitializeComponent();
@@ -25,11 +26,12 @@ namespace ConfigDevice
         /// 等待窗体
         /// </summary>
         /// <param name="showSeconds">等待最长秒数</param>
-        public PleaseWait(int showSeconds)
+        public PleaseWait(int showSeconds, Form _openForm)
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.Opaque, false);
             ShowSeconds = showSeconds;
+            openForm = _openForm;
         }
 
         public bool ShowTitle {
@@ -96,7 +98,8 @@ namespace ConfigDevice
                 Win32.AnimateWindow(this.Handle, 1000, Win32.AW_SLIDE | Win32.AW_HIDE | Win32.AW_BLEND);
                 seconds = 0;
                 timer.Stop();
-                this.Visible = false;
+                this.Visible = false; 
+                openForm.Focus();
             }
         }
 
@@ -143,12 +146,14 @@ namespace ConfigDevice
         /// </summary>
         public new void Hide()
         {
+          
             this.Show();
             timer.Stop();
             Win32.AnimateWindow(this.Handle, 1000, Win32.AW_SLIDE | Win32.AW_HIDE | Win32.AW_BLEND);
             seconds = 0;
-
+            
             this.Visible = false;
+            openForm.Focus();
         }
 
     }

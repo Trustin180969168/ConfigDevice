@@ -29,7 +29,7 @@ namespace ProgramTest2
 
             dtSelect.Columns.Add("ID", System.Type.GetType("System.String"));
             dtSelect.Columns.Add("NAME", System.Type.GetType("System.String"));
-            dtSelect.Rows.Add( "1","名称1");
+            dtSelect.Rows.Add("1", "名称1");
             dtSelect.Rows.Add("2", "名称2");
             dtSelect.Rows.Add("3", "名称3");
             dtSelect.Rows.Add("4", "名称4");
@@ -52,12 +52,15 @@ namespace ProgramTest2
         private void Form1_Load(object sender, EventArgs e)
         {
             gcTime.DataSource = dt;
-            dt.Rows.Add(new object[]{"00:00:00","00:00:00"});
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00" });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00" });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00" });
+
 
             (spinEdit1.Controls[0] as DevExpress.XtraEditors.TextBoxMaskBox).MouseWheel += new System.Windows.Forms.MouseEventHandler(this.edtNetworkID_MouseWheel);
+            dcSelect.ColumnEdit = lookupEdit;
+
+            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", ""  });
+            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", ""  });
+            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "" });
+            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "" });
         }
 
         private void simpleButton2_Click(object sender, EventArgs e)

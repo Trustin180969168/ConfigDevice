@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace ConfigDevice
 {
@@ -101,35 +102,33 @@ namespace ConfigDevice
         /// </summary>
         private void gvDevices_DoubleClick(object sender, EventArgs e)
         {
-            SelectDevice select = new SelectDevice();
-            if (select.ShowDialog() == DialogResult.Yes)
-            {
-                CleanCommandSetting();
-                CurrentDevice = select.ChooseDevice;
-                DataRow dr = DataCommandSetting.Rows[0];
-                dr[DeviceConfig.DC_NUM] = cedtNum.Text;
-                dr[DeviceConfig.DC_ID] = CurrentDevice.DeviceID;
-                dr[DeviceConfig.DC_NETWORK_ID] = CurrentDevice.NetworkID;
-                dr[DeviceConfig.DC_KIND_NAME] = CurrentDevice.KindName;
-                dr[DeviceConfig.DC_NAME] = CurrentDevice.Name;
-                dr.EndEdit();
-                gvCommands.BestFitColumns();
+            //SelectDevice select = new SelectDevice();
+            //if (select.ShowDialog() == DialogResult.Yes)
+            //{
+            //    CleanCommandSetting();
+            //    CurrentDevice = select.ChooseDevice;
+            //    DataRow dr = DataCommandSetting.Rows[0];
+            //    dr[DeviceConfig.DC_NUM] = cedtNum.Text;
+            //    dr[DeviceConfig.DC_ID] = CurrentDevice.DeviceID;
+            //    dr[DeviceConfig.DC_NETWORK_ID] = CurrentDevice.NetworkID;
+            //    dr[DeviceConfig.DC_KIND_NAME] = CurrentDevice.KindName;
+            //    dr[DeviceConfig.DC_NAME] = CurrentDevice.Name;
+            //    dr.EndEdit();
+            //    gvCommands.BestFitColumns();
 
-                cbxControlObj.Items.Clear();
-                foreach (string key in CurrentDevice.ContrlObjs.Keys)
-                    cbxControlObj.Items.Add(key);
+            //    cbxControlObj.Items.Clear();
+            //    foreach (string key in CurrentDevice.ContrlObjs.Keys)
+            //        cbxControlObj.Items.Add(key);
 
-                //-------默认第一个控制对象,涉及多个值的变动,采取手动同步------
-                allowSync = false;
-                DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
-                CurrentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
-                ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
-                refreshView();
-                allowSync = true;
-                SyncCommandSetting();
-
-
-            }
+            //    //-------默认第一个控制对象,涉及多个值的变动,采取手动同步------
+            //    allowSync = false;
+            //    DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
+            //    CurrentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
+            //    ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
+            //    refreshView();
+            //    allowSync = true;
+            //    SyncCommandSetting();
+            //}
         }
 
         /// <summary>
@@ -207,6 +206,12 @@ namespace ConfigDevice
         {
             try
             {
+                //----保存设备的网络ID和设备ID-----
+                gvCommands.PostEditor();
+                DataRow dr = gvCommands.GetDataRow(0);
+                dr.EndEdit();
+                CurrentDevice.DeviceID = dr[DeviceConfig.DC_ID].ToString();
+                CurrentDevice.NetworkID = dr[DeviceConfig.DC_NETWORK_ID].ToString();
                 return ViewCommandControlObj.GetCommand();
             }
             catch { return null; }
@@ -383,6 +388,69 @@ namespace ConfigDevice
 
         }
 
+        /// <summary>
+        /// 鼠标双击编辑
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gcCommands_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            GridHitInfo HitInfo = this.gvCommands.CalcHitInfo(e.Location);//获取鼠标点击的位置
+            if (HitInfo.InRowCell && HitInfo.Column != null)
+            {
+                if (HitInfo.Column.FieldName == DeviceConfig.DC_KIND_NAME || HitInfo.Column.FieldName == DeviceConfig.DC_NAME)
+                {
+                    SelectDevice select = new SelectDevice();
+                    if (select.ShowDialog() == DialogResult.Yes)
+                    {
+                        CleanCommandSetting();
+                        CurrentDevice = select.ChooseDevice;
+                        DataRow dr = DataCommandSetting.Rows[0];
+                        dr[DeviceConfig.DC_NUM] = cedtNum.Text;
+                        dr[DeviceConfig.DC_ID] = CurrentDevice.DeviceID;
+                        dr[DeviceConfig.DC_NETWORK_ID] = CurrentDevice.NetworkID;
+                        dr[DeviceConfig.DC_KIND_NAME] = CurrentDevice.KindName;
+                        dr[DeviceConfig.DC_NAME] = CurrentDevice.Name;
+                        dr.EndEdit();
+                        gvCommands.BestFitColumns();
+
+                        cbxControlObj.Items.Clear();
+                        foreach (string key in CurrentDevice.ContrlObjs.Keys)
+                            cbxControlObj.Items.Add(key);
+
+                        //-------默认第一个控制对象,涉及多个值的变动,采取手动同步------
+                        allowSync = false;
+                        DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
+                        CurrentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
+                        ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
+                        refreshView();
+                        allowSync = true;
+                        SyncCommandSetting();
+                    }
+                }
+                    
+            }
+        }
+        /// <summary>
+        /// 单击编辑
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gvCommands_MouseDown(object sender, MouseEventArgs e)
+        {
+            //GridHitInfo HitInfo = this.gvCommands.CalcHitInfo(e.Location);//获取鼠标点击的位置
+            //if (HitInfo.InRowCell && HitInfo.Column != null)
+            //{
+            //    if (HitInfo.Column.FieldName != DeviceConfig.DC_NETWORK_ID && HitInfo.Column.FieldName != DeviceConfig.DC_ID)
+            //    {
+            //        gvCommands.FocusedColumn = HitInfo.Column;
+            //        gvCommands.FocusedRowHandle = 0;
+            //        gvCommands.ShowEditor();
+            //    }
+            //}
+        }
+
+ 
 
 
     }

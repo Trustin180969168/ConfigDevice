@@ -86,6 +86,7 @@ namespace ConfigDevice
 
         public Device()
         {
+            callbackVer = new CallbackFromUDP(getVer);
         }
 
         /// <summary>
@@ -159,7 +160,7 @@ namespace ConfigDevice
         /// 获取设备信息
         /// </summary>
         /// <returns></returns>
-        public DeviceData GetDeviceData()
+        public virtual DeviceData GetDeviceData()
         {
             DeviceData data = new DeviceData();
             data.DeviceID = DeviceID;
@@ -199,6 +200,8 @@ namespace ConfigDevice
         }
         private void getVer(UdpData data, object[] values)
         {
+            //------回复反馈的设备信息-------
+            UdpTools.ReplyDeviceDataUdp(data);
             string name = this.Name;
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);
@@ -212,8 +215,6 @@ namespace ConfigDevice
                 Buffer.BlockCopy(userData.Data, 20, temp2, 0, 20);
                 HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0');
             }
-                //------回复反馈的设备信息-------
-                UdpTools.ReplyDeviceDataUdp(data);
    
             CallbackUI(null);
         }
@@ -228,7 +229,7 @@ namespace ConfigDevice
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)------
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
-            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
 
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
@@ -250,6 +251,35 @@ namespace ConfigDevice
             udp.Length = 28 + 14 + 1;
 
             return udp;
+
+
+            //    UdpData udp = new UdpData();
+
+            //    udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)------
+            //    udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            //    Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            //    Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
+
+            //    byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
+            //    byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            //    byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            //    byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_VER;//----用户命令-----
+            //    byte len = 0x04;//---数据长度---
+            //    //--------添加到用户数据--------
+            //    byte[] userData = new byte[10];
+            //    Buffer.BlockCopy(target, 0, userData, 0, 3);
+            //    Buffer.BlockCopy(source, 0, userData, 3, 3);
+            //    userData[6] = page;
+            //    Buffer.BlockCopy(cmd, 0, userData, 7, 2);
+            //    userData[9] = len;
+            //    byte[] crc = CRC32.GetCheckValue(userData);     //---------获取CRC校验码--------
+            //    //---------拼接到包中------
+            //    Buffer.BlockCopy(userData, 0, udp.ProtocolData, 0, 10);
+            //    Buffer.BlockCopy(crc, 0, udp.ProtocolData, 10, 4);
+            //    Array.Resize(ref udp.ProtocolData, 14);//重新设定长度    
+            //    udp.Length = 28 + 14 + 1;
+
+            //    return udp;
         }
 
     

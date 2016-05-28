@@ -55,7 +55,6 @@ namespace ConfigDevice
                 foreach (Position p in network.ListPosition)
                     if (p.Name.Trim() != "")
                         cbxPosition.Properties.Items.Add(p.Name);
-      ;
             }
         }
 

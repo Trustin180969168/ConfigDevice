@@ -83,6 +83,7 @@
             this.gcCommands.TabIndex = 8;
             this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvCommands});
+            this.gcCommands.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gcCommands_MouseDoubleClick);
             // 
             // gvCommands
             // 
@@ -100,6 +101,7 @@
             this.parameter5});
             this.gvCommands.GridControl = this.gcCommands;
             this.gvCommands.Name = "gvCommands";
+            this.gvCommands.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click;
             this.gvCommands.OptionsSelection.EnableAppearanceFocusedRow = false;
             this.gvCommands.OptionsSelection.InvertSelection = true;
             this.gvCommands.OptionsView.ColumnAutoWidth = false;
@@ -107,9 +109,14 @@
             this.gvCommands.OptionsView.ShowIndicator = false;
             this.gvCommands.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
             this.gvCommands.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCommands_CellValueChanged);
+            this.gvCommands.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gvCommands_MouseDown);
             // 
             // ID
             // 
+            this.ID.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.ID.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.ID.AppearanceCell.Options.UseBackColor = true;
+            this.ID.AppearanceCell.Options.UseForeColor = true;
             this.ID.AppearanceCell.Options.UseTextOptions = true;
             this.ID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.ID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -119,15 +126,17 @@
             this.ID.Caption = "ID";
             this.ID.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.ID.Name = "ID";
-            this.ID.OptionsColumn.AllowEdit = false;
             this.ID.OptionsColumn.FixedWidth = true;
-            this.ID.OptionsColumn.ReadOnly = true;
             this.ID.Visible = true;
             this.ID.VisibleIndex = 0;
             this.ID.Width = 50;
             // 
             // deviceNetwork
             // 
+            this.deviceNetwork.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.deviceNetwork.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.deviceNetwork.AppearanceCell.Options.UseBackColor = true;
+            this.deviceNetwork.AppearanceCell.Options.UseForeColor = true;
             this.deviceNetwork.AppearanceCell.Options.UseTextOptions = true;
             this.deviceNetwork.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.deviceNetwork.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -137,9 +146,7 @@
             this.deviceNetwork.Caption = "网段";
             this.deviceNetwork.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.deviceNetwork.Name = "deviceNetwork";
-            this.deviceNetwork.OptionsColumn.AllowEdit = false;
             this.deviceNetwork.OptionsColumn.FixedWidth = true;
-            this.deviceNetwork.OptionsColumn.ReadOnly = true;
             this.deviceNetwork.Visible = true;
             this.deviceNetwork.VisibleIndex = 1;
             this.deviceNetwork.Width = 50;

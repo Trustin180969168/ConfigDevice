@@ -13,6 +13,7 @@ using System.IO;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace ConfigDevice
 {
@@ -21,7 +22,7 @@ namespace ConfigDevice
         private MySocket socket;//---通讯对象-----
         private NetworkCtrl networkCtrl;//----网络控制-----
         private DeviceCtrl deviceCtrl;//----设备控制-----
-        private PleaseWait pw = new PleaseWait();//---等待窗体
+        private PleaseWait pw;//---等待窗体
         private bool OneNetworkShow = false;//是否单网段显示
         private Dictionary<string, Network> listRrefreshDevices = new Dictionary<string, Network>();//-----刷新设备列表--
         private bool searchingDevice = false;//是否正在搜索设备,需要加锁限制
@@ -32,9 +33,8 @@ namespace ConfigDevice
             networkCtrl = new NetworkCtrl();
             deviceCtrl = new DeviceCtrl();
             socket = MySocket.GetInstance();
-
+            pw = new PleaseWait(1,this as Form);
             InitializeComponent();
-            edtNetworkID.MouseWheel += new MouseEventHandler(this.Num_DiscountAmount_MouseWheel);
 
             gcNetwork.DataSource = SysConfig.DtNetwork;
             gcDevices.DataSource = SysConfig.DtDevice;
@@ -101,7 +101,7 @@ namespace ConfigDevice
                 {
                     if (values == null)
                     {
-                        gvNetwork.BestFitColumns(); networkSearchDevices.Width = 50;
+                        networkSearchDevices.Width = 50;
                     }
                     else if ((ActionKind)values[0] == ActionKind.SearchDevice)//-----搜索完设备----
                     {
@@ -114,7 +114,7 @@ namespace ConfigDevice
                         if (listRrefreshDevices.Count > 0)
                             SearchNextNetworkDevices();
                         else
-                            pw.Hide();
+                        { pw.Hide(); this.Focus(); }
                     }
                     else if ((ActionKind)values[0] == ActionKind.SyncNetworkID)//----同步网络ID完毕刷新---
                     {
@@ -480,7 +480,7 @@ namespace ConfigDevice
         }
         private void SetDevicesFilter()
         {
-            if (gvNetwork.FocusedRowHandle == -1) return;
+            if (gvNetwork.FocusedRowHandle < 0) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             //----限制只读-----
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_CONNECTED)
@@ -512,15 +512,13 @@ namespace ConfigDevice
             {
                 string state = gvNetwork.GetRowCellDisplayText(e.RowHandle, networkState);
                 if (state == NetworkConfig.STATE_CONNECTED)
-                {
-                    e.Appearance.ForeColor = Color.Red;
-                    e.Appearance.BackColor = Color.LemonChiffon;
+                { 
+                    e.Appearance.BackColor = Color.Pink;
                 }
                 else
                 {
                     e.Appearance.ForeColor = Color.Black;
                     e.Appearance.BackColor = Color.White;
-
                 }
             }
         }
@@ -541,25 +539,6 @@ namespace ConfigDevice
         }
 
 
-        /// <summary>
-        /// 显示发现设备
-        /// </summary>
-        private void gvDevices_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
-        {
-            //if (e.RowHandle >= 0)
-            //{
-            //    //DataRow dr = gvDevices.GetDataRow(e.RowHandle);
-            //    //if (dr[DeviceConfig.DC_PARAMETER1].ToString() == "" || dr[DeviceConfig.DC_PARAMETER1].ToString() == "0")
-            //    //    this.linkSwit.Image = global::ConfigDevice.Properties.Resources.on;
-            //    //else
-            //    //    this.linkSwit.Image = global::ConfigDevice.Properties.Resources.off;
-            //    //if (value == 1)
-            //    //    e.Appearance.BackColor = Color.LightBlue;
-            //    //else
-            //    //    e.Appearance.BackColor = Color.White;
-            //    gvDevices.SetRowCellValue(e.RowHandle,image1,imageCollectionDevices.Images[0]);
-            //}
-        }
 
 
         /// <summary>
@@ -750,14 +729,7 @@ namespace ConfigDevice
         }
 
 
-        private void Num_DiscountAmount_MouseWheel(object sender, MouseEventArgs e)
-        {
-            HandledMouseEventArgs h = e as HandledMouseEventArgs;
-            if (h != null)
-            {
-                h.Handled = true;
-            }
-        }
+
 
  
         #region IMessageFilter 成员
@@ -779,5 +751,44 @@ namespace ConfigDevice
         }
 
         #endregion
+
+
+        /// <summary>
+        /// 根据鼠标位置执行对应的点击事件
+        /// </summary>
+        private void gvNetwork_MouseDown(object sender, MouseEventArgs e)
+        {
+            GridHitInfo HitInfo = this.gvNetwork.CalcHitInfo(e.Location);//获取鼠标点击的位置
+            if (HitInfo.InRowCell && HitInfo.Column != null)
+            {  
+                if (HitInfo.Column.FieldName == NetworkConfig.DC_STATE)
+                    gvNetwork_LinkEdit(sender, e);
+
+            }
+        }
+        /// <summary>
+        /// 根据鼠标位置执行对应的点击事件
+        /// </summary>
+        private void gvDevices_MouseDown(object sender, MouseEventArgs e)
+        {
+            GridHitInfo HitInfo = this.gvDevices.CalcHitInfo(e.Location);//获取鼠标点击的位置
+            if (HitInfo.InRowCell && HitInfo.Column != null)
+            {
+                if (HitInfo.Column.FieldName == DeviceConfig.DC_IMAGE1)
+                    pictureEdit_Click(sender, e);
+            }
+        }
+        private void gvDevices_MouseMove(object sender, MouseEventArgs e)
+        {
+            GridHitInfo HitInfo = this.gvDevices.CalcHitInfo(e.Location);//获取鼠标点击的位置
+            if (HitInfo.InRowCell && HitInfo.Column != null)
+            {
+                if (HitInfo.Column.FieldName == DeviceConfig.DC_IMAGE1)
+                    this.Cursor = Cursors.Hand;
+                else
+                    this.Cursor = Cursors.Default;
+            }
+        }
+ 
     }
 }

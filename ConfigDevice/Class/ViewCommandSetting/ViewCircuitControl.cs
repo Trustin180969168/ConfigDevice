@@ -39,7 +39,7 @@ namespace ConfigDevice
             dcCloseDelay = ViewSetting.Columns.ColumnByName("parameter5");
 
             //-----初始化回路选择----
-            dtCircuit.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.Int16"));
+            dtCircuit.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.String"));
             dtCircuit.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
             foreach (int key in circuit.ListCircuitIDAndName.Keys)
                 dtCircuit.Rows.Add(key, circuit.ListCircuitIDAndName[key]);
