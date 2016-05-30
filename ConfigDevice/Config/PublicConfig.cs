@@ -168,13 +168,21 @@ namespace ConfigDevice
         public static byte[] ByteLocalPort { get { return BitConverter.GetBytes(LocalPort); } }
         public static readonly UInt16 RemotePort = 11211;//远程端口
         public static byte[] ByteRemotePort { get { return BitConverter.GetBytes(RemotePort); } }
-      
+       
 
 
 
         public const Int16 MAX_DATA_SIZE = 128;//若定最大128长度.
         public const Int16 MIN_DATA_SIZE = 30;//若定最小30长度.
         public static Dictionary<int, IPInfo> IPList = new Dictionary<int, IPInfo>();
+
+        private static bool limitMouseWheel = false;//是否允许鼠标滚动
+        public static bool LimitMouseWheel
+        {
+            get { return SysConfig.limitMouseWheel; }
+            set { SysConfig.limitMouseWheel = value; }
+        }
+
 
         private static IPAddress defaultIPGateway;
         /// <summary>
@@ -228,6 +236,14 @@ namespace ConfigDevice
 
         /// <summary>
 
+        public static void Edit_Enter(object sender, EventArgs e)
+        {
+            LimitMouseWheel = true;
+        }
+        public static void Edit_Leave(object sender, EventArgs e)
+        {
+            LimitMouseWheel = false;
+        }
 
     }
 

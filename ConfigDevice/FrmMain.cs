@@ -27,6 +27,7 @@ namespace ConfigDevice
         private Dictionary<string, Network> listRrefreshDevices = new Dictionary<string, Network>();//-----刷新设备列表--
         private bool searchingDevice = false;//是否正在搜索设备,需要加锁限制
 
+
         public FrmMain()
         {
             SysCtrl.Init();//初始化配置
@@ -581,6 +582,8 @@ namespace ConfigDevice
         /// </summary>
         private void btSaveNetwork_Click(object sender, EventArgs e)
         {
+
+
             listRrefreshDevices.Clear();
             if (gvNetwork.RowCount == 0) return;
             gvNetwork.PostEditor();
@@ -679,6 +682,7 @@ namespace ConfigDevice
         /// </summary>
         private void edtNum_Leave(object sender, EventArgs e)
         {
+            SysConfig.LimitMouseWheel = false;
             if (gvDevices.FocusedRowHandle < 0) return;
             DataRow drCheck = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
             drCheck.EndEdit();
@@ -730,11 +734,9 @@ namespace ConfigDevice
 
 
 
-
  
-        #region IMessageFilter 成员
         /// <summary>
-        /// 禁止鼠标滚动
+        /// 控制鼠标滚动
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
@@ -742,15 +744,11 @@ namespace ConfigDevice
         {
             if (m.Msg == 522)
             {
-                return true;
+                if (SysConfig.LimitMouseWheel)
+                    return true;
             }
-            else
-            {
-                return false;
-            }   
-        }
-
-        #endregion
+            return false;
+        } 
 
 
         /// <summary>

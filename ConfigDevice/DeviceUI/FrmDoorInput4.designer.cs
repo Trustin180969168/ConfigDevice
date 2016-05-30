@@ -28,13 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.edtName = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.cedtSecurity = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
+            this.gccSecurity = new DevExpress.XtraEditors.GroupControl();
+            this.gcSecurity = new DevExpress.XtraGrid.GridControl();
+            this.gvSecurity = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.num = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.hide = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.clbcWldkpb = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cedtAfpb1 = new DevExpress.XtraEditors.CheckEdit();
@@ -61,18 +74,22 @@
             this.edtMcmc2 = new DevExpress.XtraEditors.TextEdit();
             this.edtMcmc3 = new DevExpress.XtraEditors.TextEdit();
             this.edtMcmc4 = new DevExpress.XtraEditors.TextEdit();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.clbcWldkpb = new DevExpress.XtraEditors.CheckedListBoxControl();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.cdtSelectAll = new DevExpress.XtraEditors.CheckEdit();
-            this.clbcAqjb = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.DeviceUI.ViewCommandSetting();
+            ((System.ComponentModel.ISupportInitialize)(this.edtName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cedtSecurity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pageJcsz.SuspendLayout();
             this.pagePzjm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gccSecurity)).BeginInit();
+            this.gccSecurity.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcSecurity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvSecurity)).BeginInit();
             this.tsDoorInput.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.clbcWldkpb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -88,15 +105,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc4.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.clbcWldkpb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
-            this.groupControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).BeginInit();
             this.pageCommand.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // edtName
+            // 
+            this.edtName.AutoHeight = false;
+            this.edtName.Name = "edtName";
+            // 
+            // cedtSecurity
+            // 
+            this.cedtSecurity.AutoHeight = false;
+            this.cedtSecurity.Name = "cedtSecurity";
+            this.cedtSecurity.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
             // 
             // tctrlEdit
             // 
@@ -132,13 +153,132 @@
             // 
             // pagePzjm
             // 
+            this.pagePzjm.Controls.Add(this.gccSecurity);
             this.pagePzjm.Controls.Add(this.tsDoorInput);
-            this.pagePzjm.Controls.Add(this.groupControl3);
             this.pagePzjm.Controls.Add(this.groupControl2);
-            this.pagePzjm.Controls.Add(this.groupControl1);
+            this.pagePzjm.Controls.Add(this.groupControl3);
             this.pagePzjm.Name = "pagePzjm";
             this.pagePzjm.Size = new System.Drawing.Size(1009, 682);
             this.pagePzjm.Text = "配置界面";
+            // 
+            // gccSecurity
+            // 
+            this.gccSecurity.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.gccSecurity.Controls.Add(this.gcSecurity);
+            this.gccSecurity.Location = new System.Drawing.Point(46, 50);
+            this.gccSecurity.Name = "gccSecurity";
+            this.gccSecurity.Size = new System.Drawing.Size(523, 206);
+            this.gccSecurity.TabIndex = 5;
+            this.gccSecurity.Text = "安防级别";
+            // 
+            // gcSecurity
+            // 
+            this.gcSecurity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcSecurity.EmbeddedNavigator.Name = "";
+            this.gcSecurity.FormsUseDefaultLookAndFeel = false;
+            this.gcSecurity.Location = new System.Drawing.Point(2, 21);
+            this.gcSecurity.MainView = this.gvSecurity;
+            this.gcSecurity.Name = "gcSecurity";
+            this.gcSecurity.Size = new System.Drawing.Size(519, 183);
+            this.gcSecurity.TabIndex = 21;
+            this.gcSecurity.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvSecurity});
+            // 
+            // gvSecurity
+            // 
+            this.gvSecurity.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.num,
+            this.name,
+            this.hide,
+            this.gridColumn5,
+            this.gridColumn3,
+            this.gridColumn4});
+            this.gvSecurity.GridControl = this.gcSecurity;
+            this.gvSecurity.Name = "gvSecurity";
+            this.gvSecurity.OptionsView.ShowGroupPanel = false;
+            this.gvSecurity.OptionsView.ShowIndicator = false;
+            // 
+            // num
+            // 
+            this.num.AppearanceCell.Options.UseTextOptions = true;
+            this.num.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.num.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.num.AppearanceHeader.Options.UseTextOptions = true;
+            this.num.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.num.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.num.Caption = "编号";
+            this.num.Name = "num";
+            this.num.OptionsColumn.ReadOnly = true;
+            this.num.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
+            this.num.Visible = true;
+            this.num.VisibleIndex = 0;
+            this.num.Width = 50;
+            // 
+            // name
+            // 
+            this.name.AppearanceCell.Options.UseTextOptions = true;
+            this.name.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.name.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.name.AppearanceHeader.Options.UseTextOptions = true;
+            this.name.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.name.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.name.Caption = "区域名称";
+            this.name.ColumnEdit = this.edtName;
+            this.name.Name = "name";
+            this.name.Visible = true;
+            this.name.VisibleIndex = 1;
+            this.name.Width = 213;
+            // 
+            // hide
+            // 
+            this.hide.AppearanceCell.Options.UseTextOptions = true;
+            this.hide.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.hide.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.hide.AppearanceHeader.Options.UseTextOptions = true;
+            this.hide.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.hide.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.hide.Caption = "屏蔽";
+            this.hide.ColumnEdit = this.cedtSecurity;
+            this.hide.Name = "hide";
+            this.hide.Visible = true;
+            this.hide.VisibleIndex = 2;
+            this.hide.Width = 50;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn5.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn5.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn5.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn5.Caption = "gridColumn5";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.OptionsColumn.ReadOnly = true;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn3.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn3.Caption = "gridColumn3";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.OptionsColumn.ReadOnly = true;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn4.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn4.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn4.Caption = "gridColumn4";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.OptionsColumn.ReadOnly = true;
             // 
             // tsDoorInput
             // 
@@ -171,13 +311,41 @@
             this.btRefresh.Text = "刷新数据";
             this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
+            // groupControl2
+            // 
+            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl2.Controls.Add(this.clbcWldkpb);
+            this.groupControl2.Location = new System.Drawing.Point(575, 50);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(296, 204);
+            this.groupControl2.TabIndex = 5;
+            this.groupControl2.Text = "物理端口屏蔽";
+            // 
+            // clbcWldkpb
+            // 
+            this.clbcWldkpb.CheckOnClick = true;
+            this.clbcWldkpb.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
+            this.clbcWldkpb.HotTrackSelectMode = DevExpress.XtraEditors.HotTrackSelectMode.SelectItemOnClick;
+            this.clbcWldkpb.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口1"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口2"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口3"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口4")});
+            this.clbcWldkpb.LeftCoord = 0;
+            this.clbcWldkpb.Location = new System.Drawing.Point(15, 30);
+            this.clbcWldkpb.MultiColumn = true;
+            this.clbcWldkpb.Name = "clbcWldkpb";
+            this.clbcWldkpb.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.clbcWldkpb.Size = new System.Drawing.Size(268, 30);
+            this.clbcWldkpb.TabIndex = 1;
+            // 
             // groupControl3
             // 
             this.groupControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.groupControl3.Controls.Add(this.tableLayoutPanel1);
             this.groupControl3.Location = new System.Drawing.Point(46, 262);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(684, 194);
+            this.groupControl3.Size = new System.Drawing.Size(825, 194);
             this.groupControl3.TabIndex = 5;
             this.groupControl3.Text = "提示音配置:第1曲为专用提示音：“已关锁好门窗”;第0曲表示不播放提示音;(注:功放：SD卡./WINDOW)";
             // 
@@ -221,7 +389,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(703, 135);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(792, 135);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // cedtAfpb1
@@ -390,7 +558,7 @@
             // 
             this.edtMcmc1.Location = new System.Drawing.Point(307, 3);
             this.edtMcmc1.Name = "edtMcmc1";
-            this.edtMcmc1.Size = new System.Drawing.Size(350, 21);
+            this.edtMcmc1.Size = new System.Drawing.Size(476, 21);
             this.edtMcmc1.TabIndex = 5;
             this.edtMcmc1.Leave += new System.EventHandler(this.edtMcmc_Leave);
             // 
@@ -398,7 +566,7 @@
             // 
             this.edtMcmc2.Location = new System.Drawing.Point(307, 36);
             this.edtMcmc2.Name = "edtMcmc2";
-            this.edtMcmc2.Size = new System.Drawing.Size(350, 21);
+            this.edtMcmc2.Size = new System.Drawing.Size(476, 21);
             this.edtMcmc2.TabIndex = 5;
             this.edtMcmc2.Leave += new System.EventHandler(this.edtMcmc_Leave);
             // 
@@ -406,7 +574,7 @@
             // 
             this.edtMcmc3.Location = new System.Drawing.Point(307, 69);
             this.edtMcmc3.Name = "edtMcmc3";
-            this.edtMcmc3.Size = new System.Drawing.Size(350, 21);
+            this.edtMcmc3.Size = new System.Drawing.Size(476, 21);
             this.edtMcmc3.TabIndex = 5;
             this.edtMcmc3.Leave += new System.EventHandler(this.edtMcmc_Leave);
             // 
@@ -414,86 +582,9 @@
             // 
             this.edtMcmc4.Location = new System.Drawing.Point(307, 102);
             this.edtMcmc4.Name = "edtMcmc4";
-            this.edtMcmc4.Size = new System.Drawing.Size(350, 21);
+            this.edtMcmc4.Size = new System.Drawing.Size(476, 21);
             this.edtMcmc4.TabIndex = 5;
             this.edtMcmc4.Leave += new System.EventHandler(this.edtMcmc_Leave);
-            // 
-            // groupControl2
-            // 
-            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.clbcWldkpb);
-            this.groupControl2.Location = new System.Drawing.Point(46, 156);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(487, 100);
-            this.groupControl2.TabIndex = 5;
-            this.groupControl2.Text = "物理端口屏蔽";
-            // 
-            // clbcWldkpb
-            // 
-            this.clbcWldkpb.CheckOnClick = true;
-            this.clbcWldkpb.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
-            this.clbcWldkpb.HotTrackSelectMode = DevExpress.XtraEditors.HotTrackSelectMode.SelectItemOnClick;
-            this.clbcWldkpb.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口1"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口2"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口3"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("端口4")});
-            this.clbcWldkpb.LeftCoord = 0;
-            this.clbcWldkpb.Location = new System.Drawing.Point(15, 30);
-            this.clbcWldkpb.MultiColumn = true;
-            this.clbcWldkpb.Name = "clbcWldkpb";
-            this.clbcWldkpb.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.clbcWldkpb.Size = new System.Drawing.Size(268, 30);
-            this.clbcWldkpb.TabIndex = 1;
-            // 
-            // groupControl1
-            // 
-            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl1.Controls.Add(this.cdtSelectAll);
-            this.groupControl1.Controls.Add(this.clbcAqjb);
-            this.groupControl1.Location = new System.Drawing.Point(46, 50);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(487, 100);
-            this.groupControl1.TabIndex = 4;
-            this.groupControl1.Text = "安防级别";
-            // 
-            // cdtSelectAll
-            // 
-            this.cdtSelectAll.Location = new System.Drawing.Point(13, 26);
-            this.cdtSelectAll.Name = "cdtSelectAll";
-            this.cdtSelectAll.Properties.Caption = "全选";
-            this.cdtSelectAll.Size = new System.Drawing.Size(75, 19);
-            this.cdtSelectAll.TabIndex = 2;
-            this.cdtSelectAll.CheckedChanged += new System.EventHandler(this.cdtSelectAll_CheckedChanged);
-            // 
-            // clbcAqjb
-            // 
-            this.clbcAqjb.CheckOnClick = true;
-            this.clbcAqjb.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
-            this.clbcAqjb.HotTrackSelectMode = DevExpress.XtraEditors.HotTrackSelectMode.SelectItemOnClick;
-            this.clbcAqjb.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("1"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("2"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("3"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("4"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("5"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("6"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("7"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("8"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("9"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("10"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("11"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("12"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("13"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("14"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("15")});
-            this.clbcAqjb.LeftCoord = 0;
-            this.clbcAqjb.Location = new System.Drawing.Point(15, 50);
-            this.clbcAqjb.MultiColumn = true;
-            this.clbcAqjb.Name = "clbcAqjb";
-            this.clbcAqjb.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.clbcAqjb.Size = new System.Drawing.Size(457, 45);
-            this.clbcAqjb.TabIndex = 1;
             // 
             // pageCommand
             // 
@@ -520,13 +611,22 @@
             this.Text = "门输入4配置";
             this.Load += new System.EventHandler(this.FrmFourInput_Load);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.edtName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cedtSecurity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);
             this.pageJcsz.ResumeLayout(false);
             this.pagePzjm.ResumeLayout(false);
             this.pagePzjm.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gccSecurity)).EndInit();
+            this.gccSecurity.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcSecurity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvSecurity)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.clbcWldkpb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -543,13 +643,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc4.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.clbcWldkpb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
-            this.groupControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cdtSelectAll.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.clbcAqjb)).EndInit();
             this.pageCommand.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -564,8 +657,6 @@
         private DevExpress.XtraTab.XtraTabPage pagePzjm;
         private System.Windows.Forms.ToolStrip tsDoorInput;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private DevExpress.XtraEditors.GroupControl groupControl1;
-        private DevExpress.XtraEditors.CheckedListBoxControl clbcAqjb;
         private DevExpress.XtraEditors.CheckedListBoxControl clbcWldkpb;
         private System.Windows.Forms.ToolStripButton btSave;
         private DevExpress.XtraEditors.GroupControl groupControl3;
@@ -594,10 +685,20 @@
         private DevExpress.XtraEditors.TextEdit edtMcmc2;
         private DevExpress.XtraEditors.TextEdit edtMcmc3;
         private DevExpress.XtraEditors.TextEdit edtMcmc4;
-        private DevExpress.XtraEditors.CheckEdit cdtSelectAll;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageCommand;
         private ConfigDevice.DeviceUI.ViewCommandSetting viewCommandEdit;
+        private DevExpress.XtraEditors.GroupControl gccSecurity;
+        private DevExpress.XtraGrid.GridControl gcSecurity;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvSecurity;
+        private DevExpress.XtraGrid.Columns.GridColumn num;
+        private DevExpress.XtraGrid.Columns.GridColumn name;
+        private DevExpress.XtraGrid.Columns.GridColumn hide;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtName;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit cedtSecurity;
 
 
     }

@@ -36,18 +36,18 @@
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.xscCommands = new DevExpress.XtraEditors.XtraScrollableControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.edtBeginNum = new DevExpress.XtraEditors.SpinEdit();
             this.edtEndNum = new DevExpress.XtraEditors.SpinEdit();
             this.cbxGroup = new DevExpress.XtraEditors.ComboBoxEdit();
             this.lblGroupName = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.edtBeginNum = new DevExpress.XtraEditors.SpinEdit();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip2
@@ -99,6 +99,7 @@
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(106, 28);
             this.btAdd.Text = "添加指令 ";
+            this.btAdd.Visible = false;
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // btRefresh
@@ -133,6 +134,38 @@
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(748, 94);
             this.panelControl1.TabIndex = 6;
+            // 
+            // edtBeginNum
+            // 
+            this.edtBeginNum.EditValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.edtBeginNum.Location = new System.Drawing.Point(66, 19);
+            this.edtBeginNum.Name = "edtBeginNum";
+            this.edtBeginNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtBeginNum.Properties.Appearance.Options.UseFont = true;
+            this.edtBeginNum.Properties.Appearance.Options.UseTextOptions = true;
+            this.edtBeginNum.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.edtBeginNum.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.edtBeginNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtBeginNum.Properties.IsFloatValue = false;
+            this.edtBeginNum.Properties.Mask.EditMask = "d";
+            this.edtBeginNum.Properties.MaxValue = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.edtBeginNum.Properties.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.edtBeginNum.Size = new System.Drawing.Size(46, 26);
+            this.edtBeginNum.TabIndex = 1;
+            this.edtBeginNum.ValueChanged += new System.EventHandler(this.edtEndNum_ValueChanged);
             // 
             // edtEndNum
             // 
@@ -219,38 +252,6 @@
             this.labelControl1.TabIndex = 5;
             this.labelControl1.Text = "从";
             // 
-            // edtBeginNum
-            // 
-            this.edtBeginNum.EditValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.edtBeginNum.Location = new System.Drawing.Point(66, 19);
-            this.edtBeginNum.Name = "edtBeginNum";
-            this.edtBeginNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.edtBeginNum.Properties.Appearance.Options.UseFont = true;
-            this.edtBeginNum.Properties.Appearance.Options.UseTextOptions = true;
-            this.edtBeginNum.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.edtBeginNum.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.edtBeginNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.edtBeginNum.Properties.IsFloatValue = false;
-            this.edtBeginNum.Properties.Mask.EditMask = "d";
-            this.edtBeginNum.Properties.MaxValue = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.edtBeginNum.Properties.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.edtBeginNum.Size = new System.Drawing.Size(46, 26);
-            this.edtBeginNum.TabIndex = 1;
-            this.edtBeginNum.ValueChanged += new System.EventHandler(this.edtEndNum_ValueChanged);
-            // 
             // ViewCommandSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -264,9 +265,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }

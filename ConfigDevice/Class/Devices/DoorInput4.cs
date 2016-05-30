@@ -138,16 +138,19 @@ namespace ConfigDevice
         /// <param name="values"></param>
         public void getSettingInfoData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
-            UserUdpData userData = new UserUdpData(data);
-            securityLevel = CommonTools.CopyBytes(userData.Data, 0, 2);//安防级别
-            physicalShieldingPorts = userData.Data[2];  //----屏蔽物理端口
-            Road1 = userData.Data[3];//----第1路----
-            Road2 = userData.Data[4];//----第2路----
-            Road3 = userData.Data[5];//----第3路----
-            Road4 = userData.Data[6];//----第4路----         
-            TranslateValue();//----翻译数据----
-            CallbackUI(null);//----回调界面----
+            lock (this.DeviceID)
+            {
+                UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+                UserUdpData userData = new UserUdpData(data);
+                securityLevel = CommonTools.CopyBytes(userData.Data, 0, 2);//安防级别
+                physicalShieldingPorts = userData.Data[2];  //----屏蔽物理端口
+                Road1 = userData.Data[3];//----第1路----
+                Road2 = userData.Data[4];//----第2路----
+                Road3 = userData.Data[5];//----第3路----
+                Road4 = userData.Data[6];//----第4路----         
+                TranslateValue();//----翻译数据----
+                CallbackUI(null);//----回调界面----
+            }
         }
 
         /// <summary>
@@ -156,7 +159,7 @@ namespace ConfigDevice
         public void ReadRoadTitle()
         {
             finishReadRoads = false;
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, getRoadTitles);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME,this.DeviceID, getRoadTitles);
             UdpData udpSend = createReadRoadTitleUdp();
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), new object[] { udpSend });
         }
@@ -205,10 +208,12 @@ namespace ConfigDevice
         /// <param name="values"></param>
         public void getRoadTitlesData(UdpData data, object[] values)
         {
+            UserUdpData userData = new UserUdpData(data);   
+            if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             if (finishReadRoads == true) 
                 return;
-            UserUdpData userData = new UserUdpData(data);         
+            
             byte[] byteName = CommonTools.CopyBytes(userData.Data, 4, userData.DataOfLength - 4 - 4);
             
             int num = userData.Data[0];

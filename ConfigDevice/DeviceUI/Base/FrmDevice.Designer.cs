@@ -48,7 +48,7 @@
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(645, 24);
+            this.toolStrip1.Size = new System.Drawing.Size(645, 47);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -72,8 +72,9 @@
             this.cbxSelectDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSelectDevice.Font = new System.Drawing.Font("宋体", 12F);
             this.cbxSelectDevice.Name = "cbxSelectDevice";
-            this.cbxSelectDevice.Size = new System.Drawing.Size(400, 24);
-            this.cbxSelectDevice.SelectedIndexChanged += new System.EventHandler(this.cbxSelectDevice_SelectedIndexChanged);
+            this.cbxSelectDevice.Size = new System.Drawing.Size(600, 24);
+   //         this.cbxSelectDevice.SelectedIndexChanged += new System.EventHandler(this.cbxSelectDevice_SelectedIndexChanged);
+            this.cbxSelectDevice.Click += new System.EventHandler(this.cbxSelectDevice_Click);
             // 
             // FrmDevice
             // 

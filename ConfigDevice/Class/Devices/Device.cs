@@ -572,6 +572,7 @@ namespace ConfigDevice
         /// </summary>
         public void CloseLight()
         {
+            if (CommonTools.MessageShow("是否关闭通信指示灯?", 4, "") == System.Windows.Forms.DialogResult.No) return;
             UdpData udpSend = createCommandUdp(DeviceConfig.CMD_PUBLIC_UART_LED_DISABLE);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult),
                 new object[] { udpSend, "关闭通信设备灯失败!", "关闭通信设备灯!" });

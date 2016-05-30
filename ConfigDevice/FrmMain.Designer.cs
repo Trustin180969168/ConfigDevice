@@ -156,13 +156,13 @@
             this.btCleanDevices,
             this.msiSyncNetworkID});
             this.contextMenuStripDevice.Name = "contextMenuStripNetwork";
-            this.contextMenuStripDevice.Size = new System.Drawing.Size(153, 114);
+            this.contextMenuStripDevice.Size = new System.Drawing.Size(131, 92);
             // 
             // btOpenDevice
             // 
             this.btOpenDevice.Image = global::ConfigDevice.Properties.Resources.section;
             this.btOpenDevice.Name = "btOpenDevice";
-            this.btOpenDevice.Size = new System.Drawing.Size(152, 22);
+            this.btOpenDevice.Size = new System.Drawing.Size(130, 22);
             this.btOpenDevice.Text = "打开设备";
             this.btOpenDevice.Click += new System.EventHandler(this.gvDevices_DoubleClick);
             // 
@@ -170,7 +170,7 @@
             // 
             this.btQryDevice.Image = global::ConfigDevice.Properties.Resources.refresh;
             this.btQryDevice.Name = "btQryDevice";
-            this.btQryDevice.Size = new System.Drawing.Size(152, 22);
+            this.btQryDevice.Size = new System.Drawing.Size(130, 22);
             this.btQryDevice.Text = "刷新";
             this.btQryDevice.Click += new System.EventHandler(this.btRefreshDevices_Click);
             // 
@@ -178,7 +178,7 @@
             // 
             this.btCleanDevices.Image = global::ConfigDevice.Properties.Resources.Clear;
             this.btCleanDevices.Name = "btCleanDevices";
-            this.btCleanDevices.Size = new System.Drawing.Size(152, 22);
+            this.btCleanDevices.Size = new System.Drawing.Size(130, 22);
             this.btCleanDevices.Text = "清空设备";
             this.btCleanDevices.Click += new System.EventHandler(this.btClearDevice_Click);
             // 
@@ -186,7 +186,7 @@
             // 
             this.msiSyncNetworkID.Image = global::ConfigDevice.Properties.Resources.exchange;
             this.msiSyncNetworkID.Name = "msiSyncNetworkID";
-            this.msiSyncNetworkID.Size = new System.Drawing.Size(152, 22);
+            this.msiSyncNetworkID.Size = new System.Drawing.Size(130, 22);
             this.msiSyncNetworkID.Text = "同步网络ID";
             this.msiSyncNetworkID.Click += new System.EventHandler(this.btSyncID_Click);
             // 
@@ -263,7 +263,6 @@
             0,
             0});
             this.edtNum.Name = "edtNum";
-            this.edtNum.Leave += new System.EventHandler(this.edtNum_Leave);
             // 
             // deviceName
             // 

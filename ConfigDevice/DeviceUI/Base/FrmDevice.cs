@@ -8,11 +8,12 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public partial class FrmDevice : Form
+    public partial class FrmDevice : Form,IMessageFilter   
     {
         public Device Device;
         public ToolStripComboBox CbxSelectDevice { get { return (cbxSelectDevice as ToolStripComboBox); } }
         public Dictionary<int, DataRow> SelectDeviceList = new Dictionary<int, DataRow>();//---列表---
+        public bool loaded = false;//是否加载完毕
 
         public FrmDevice(Device _device)
         {
@@ -24,6 +25,7 @@ namespace ConfigDevice
         public FrmDevice()
         {
             InitializeComponent();
+            Application.AddMessageFilter(this);
         }
 
         /// <summary>
@@ -56,7 +58,48 @@ namespace ConfigDevice
             
         }
 
+        /// <summary>
+        /// 设置选择列表
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="id"></param>
+        public void SetSelectDevice( )
+        {
+            for (int i = 0; i < CbxSelectDevice.Items.Count; i++)
+            {
+                if (CbxSelectDevice.Items[0].ToString().Contains(this.Device.Name) &&
+                    CbxSelectDevice.Items[0].ToString().Contains(this.Device.DeviceID))
+                { CbxSelectDevice.SelectedIndex = i; break; }
+            }
+        }
 
 
+        #region IMessageFilter 成员
+
+        public bool PreFilterMessage(ref Message m)
+        {
+            if (m.Msg == 522)
+            {
+                if (SysConfig.LimitMouseWheel)
+                    return true;
+            }
+            return false;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 单击后启动事件订阅
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbxSelectDevice_Click(object sender, EventArgs e)
+        {
+            if (!loaded)
+            {
+                loaded = true;
+                cbxSelectDevice.SelectedIndexChanged += new EventHandler(cbxSelectDevice_SelectedIndexChanged);
+            }
+        }
     }
 }

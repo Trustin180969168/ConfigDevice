@@ -89,6 +89,7 @@ namespace ConfigDevice
         /// </summary>
         public void Stop()
         {
+            myTimer.Close();
             myTimer.Stop();
             countTimer.Stop();
         }

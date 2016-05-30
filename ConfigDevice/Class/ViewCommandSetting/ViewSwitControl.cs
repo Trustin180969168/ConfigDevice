@@ -67,7 +67,7 @@ namespace ConfigDevice
         /// <summary>
         /// 时间校验
         /// </summary>
-        protected override void timeTest_Leave(object sender, EventArgs e)
+        protected override void time_Leave(object sender, EventArgs e)
         {
             //----------计算时间-------------------
             DataRow dr = ViewSetting.GetDataRow(0);

@@ -25,7 +25,6 @@ namespace ConfigDevice
         GridColumn dcCloseDelay;//关延迟
         Circuit circuit;//回路
         DataTable dtCircuit = new DataTable("回路列表选择");
-        //DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxCircuitNum;//选择回路编辑   
         DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit lookupEdit;//回路选择
         public ViewCircuitControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
@@ -46,9 +45,7 @@ namespace ConfigDevice
             circuit.OnCallbackRoad_Action += this.CallBackUI;
             circuit.ReadRoadTitle();//----获取回路数据-----
 
-            //------列表选择--------
-            //cbxCircuitNum = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            //cbxCircuitNum.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+
             //------初始化回路列表选择-------
             lookupEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.lookupEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
@@ -70,7 +67,7 @@ namespace ConfigDevice
         /// <summary>
         /// 时间校验
         /// </summary>
-        protected override void timeTest_Leave(object sender, EventArgs e)
+        protected override void time_Leave(object sender, EventArgs e)
         {
             //----------计算时间-------------------
             DataRow dr = ViewSetting.GetDataRow(0);

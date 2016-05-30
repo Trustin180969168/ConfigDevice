@@ -110,7 +110,7 @@ namespace ConfigDevice
                         ConvertTools.ByteToHexStr(udp.CheckCodeAdd)});
                     }
                 }
-                dtPackage.AcceptChanges();
+                dtPackage.AcceptChanges(); 
                 this.Invoke(new Action(callbackUI));
             }
 

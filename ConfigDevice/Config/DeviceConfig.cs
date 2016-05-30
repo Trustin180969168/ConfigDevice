@@ -332,7 +332,7 @@ namespace ConfigDevice
         static DeviceConfig()//---静态构造函数------
         {
             //  EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_4,"4路继电器");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_RJ45, "RJ45");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_RJ45, "网关处理器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_LCD, "液晶按键");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_TFT_LCD, "彩色液晶按键");
@@ -381,7 +381,7 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_ENV_SENSOR_D, "环境传感器D");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_ENV_SENSOR_E, "环境传感器E");
 
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_WEATHER, "气象站");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_WEATHER, "智能气象");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PRI_1, "人体感应1个方向");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PRI_2, "人体感应2个方向");
@@ -391,9 +391,9 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SHORT_IN_4, "短路输入4");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SHORT_IN_8, "短路输入8");
 
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_1, "门输入1");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_2, "门输入2");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_4, "门输入4");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_1, "SCDW01（008：安全信号处理器，最多1路）");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_2, "SCDW02（008：安全信号处理器，最多2路）");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_4, "SCDW04（008：安全信号处理器，最多4路）");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_WINDOWS_2, "2路门窗");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_WINDOWS_3, "3路门窗");
@@ -408,7 +408,7 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SHORT_OUT_4, "短路输出4");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SHORT_OUT_8, "短路输出8");
 
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_AMP_MP3, "功放");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_AMP_MP3, "蓝牙功放");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_GSM, "GSM模块");
 
@@ -416,7 +416,7 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_IR_CEIL, "天花型红外");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_IR_86, "86型红外");
 
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_SERVER, "服务器");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_SERVER, "云平台主机");
 
             EQUIPMENT_ID_NAME.Add(0, "无效类型");
 

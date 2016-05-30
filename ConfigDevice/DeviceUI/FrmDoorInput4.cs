@@ -13,10 +13,25 @@ namespace ConfigDevice
     public partial class FrmDoorInput4 : FrmDevice
     {
         private DoorInput4 doorInput4;
+        public const string DC_NUM = "NUM";
+        public const string DC_NAME = "NAME";
+        public const string DC_HIDE = "HIDE";
+        public DataTable dtSecurity = new DataTable("security");
+       
+
         public FrmDoorInput4(Device _device)
             : base(_device)
-        {
-            InitializeComponent();           
+        { 
+            InitializeComponent();
+
+            num.FieldName = DC_NUM;
+            name.FieldName = DC_NAME;
+            hide.FieldName = DC_HIDE;
+
+            dtSecurity.Columns.Add(DC_NUM, System.Type.GetType("System.Int16"));
+            dtSecurity.Columns.Add(DC_NAME, System.Type.GetType("System.String"));
+            dtSecurity.Columns.Add(DC_HIDE, System.Type.GetType("System.Boolean"));
+            gcSecurity.DataSource = dtSecurity;
 
             doorInput4 = this.Device as DoorInput4;
             doorInput4.OnCallbackUI_Action += this.callbackUI;
@@ -24,14 +39,27 @@ namespace ConfigDevice
             doorInput4.OnCallbackRoad_Action += this.callbackRoadName;       
 
             frmSetting.DeviceEdit = doorInput4;
-  
+            
         }
 
         private void FrmFourInput_Load(object sender, EventArgs e)
         {
             base.InitSelectDevice();//初始化选择列表       
+            initDtSecurity();//初始化列表
+
             loadData();
             viewCommandEdit.CommandGroupName = "当前区域";
+        }
+
+        /// <summary>
+        /// 初始化列表
+        /// </summary>
+        private void initDtSecurity()
+        {
+            dtSecurity.Rows.Clear();
+            for (int i = 0; i < 15; i++)
+                dtSecurity.Rows.Add(new object[] { i + 1, "", false });
+            dtSecurity.AcceptChanges();
         }
 
         private void loadData()
@@ -57,9 +85,13 @@ namespace ConfigDevice
                 else
                 {
                     for (int i = 0; i < 15; i++)
-                        clbcAqjb.Items[i].CheckState = doorInput4.SecurityLevelValue[i] == true ? CheckState.Checked : CheckState.Unchecked;
+                    {
+                        dtSecurity.Rows[i][DC_HIDE] = doorInput4.SecurityLevelValue[i];
+                    }
                     for (int i = 0; i < 4; i++)
                         clbcWldkpb.Items[i].CheckState = doorInput4.PhysicalShieldingPortsValue[i] == true ? CheckState.Checked : CheckState.Unchecked;
+
+
                     
                     cedtAfpb1.Checked = doorInput4.RoadShield1;
                     cedtAfpb2.Checked = doorInput4.RoadShield2;
@@ -70,8 +102,7 @@ namespace ConfigDevice
                     edtNum2.Text = doorInput4.RoadMusicNum2.ToString();
                     edtNum3.Text = doorInput4.RoadMusicNum3.ToString();
                     edtNum4.Text = doorInput4.RoadMusicNum4.ToString();
-                    if (clbcAqjb.CheckedItems.Count == 15)
-                        cdtSelectAll.Checked = true;
+ 
 
                 }
             }
@@ -115,7 +146,7 @@ namespace ConfigDevice
             viewCommandEdit.CommmandGroups.Add("第4路:撤防-" + edtMcmc4.Text);
             if (doorInput4.FinishReadRoads)
             {
-                if (viewCommandEdit.NeedInit && tctrlEdit.SelectedTabPageIndex == 2)
+                if (viewCommandEdit.NeedInit && tctrlEdit.SelectedTabPageIndex == 2 )
                     viewCommandEdit.InitViewCommand(doorInput4);
                 else if (!viewCommandEdit.NeedInit)
                     viewCommandEdit.UpdateGroupName();
@@ -127,6 +158,7 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {           
+            
             DoorInput4 _doorInput4 = new DoorInput4(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
             if (doorInput4.MAC == _doorInput4.MAC) return;
             
@@ -145,8 +177,7 @@ namespace ConfigDevice
         /// </summary>
         private void cdtSelectAll_CheckedChanged(object sender, EventArgs e)
         {
-            foreach (CheckedListBoxItem item in clbcAqjb.Items)
-                item.CheckState = cdtSelectAll.CheckState;
+ 
         }
 
         /// <summary>
@@ -154,7 +185,8 @@ namespace ConfigDevice
         /// </summary>
         private void btRefresh_Click(object sender, EventArgs e)
         {
-            //doorInput4.ReadRoadTitle();//---读取回路名称----           
+            this.initDtSecurity();//--初始化安全列表
+            doorInput4.ReadRoadTitle();//---读取回路名称----             
             doorInput4.ReadSettingInfo();//----读取配置信息-----
         }
 
@@ -163,8 +195,20 @@ namespace ConfigDevice
         /// </summary>
         private void updateDoorInput4Data()
         {
-            for (int i = 0; i < 15; i++)
-                doorInput4.SecurityLevelValue[i] = clbcAqjb.Items[i].CheckState == CheckState.Checked ? true : false;
+            //for (int i = 0; i < 15; i++)
+            //    clbcAqjb.Items[i].CheckState == CheckState.Checked ? true : false;
+            gvSecurity.PostEditor();
+            if (gvSecurity.FocusedRowHandle >= 0)
+            {
+                DataRow dr = gvSecurity.GetDataRow(gvSecurity.FocusedRowHandle);
+                dr.EndEdit();
+            }
+            foreach (DataRow dr in dtSecurity.Rows)
+            {
+                int i = Convert.ToInt16(dr[DC_NUM]) - 1;
+                doorInput4.SecurityLevelValue[i] = Convert.ToBoolean(dr[DC_HIDE]);
+            }
+
             for (int i = 0; i < 4; i++)
                 doorInput4.PhysicalShieldingPortsValue[i] = clbcWldkpb.Items[i].CheckState == CheckState.Checked ? true : false;
             doorInput4.RoadShield1 = cedtAfpb1.Checked;

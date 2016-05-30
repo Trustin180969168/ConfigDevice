@@ -21,24 +21,27 @@ namespace ConfigDevice
             try
             {
                 if (this.InvokeRequired)
-                    this.Invoke(new CallbackUIAction(this.CallBackUI),new object[]{values}); 
+                    this.Invoke(new CallbackUIAction(this.CallBackUI), new object[] { values });
                 else
                 {
-                    if (values == null)
-                    {
-                        edtHardwareVer.Text = DeviceEdit.HardwareVer;
-                        edtSoftwareVer.Text = DeviceEdit.SoftwareVer;
 
-                        edtName.Text = DeviceEdit.Name;
-                        edtDeviceID.Text = DeviceEdit.DeviceID;
-                        edtNetworkID.Text = DeviceEdit.NetworkID;
-                        cbxDeviceKind.Text = DeviceEdit.KindName;
+                    edtHardwareVer.Text = DeviceEdit.HardwareVer;
+                    edtSoftwareVer.Text = DeviceEdit.SoftwareVer;
 
-                        getPosition();
-                        cbxPosition.Text = DeviceEdit.AddressName;
-                    }
-                    else if ((ActionKind)values[0] == ActionKind.SaveDeviceID)
+                    edtName.Text = DeviceEdit.Name;
+                    edtDeviceID.Text = DeviceEdit.DeviceID;
+                    edtNetworkID.Text = DeviceEdit.NetworkID;
+                    cbxDeviceKind.Text = DeviceEdit.KindName;
+
+                    getPosition();
+                    cbxPosition.Text = DeviceEdit.AddressName;
+
+                    (this.ParentForm as FrmDevice).SetSelectDevice();//----设置选择列表----
+
+
+                    if ((ActionKind)values[0] == ActionKind.SaveDeviceName)
                         SysCtrl.UpdateDeviceData(DeviceEdit.GetDeviceData());
+
                 }
             }
             catch { }

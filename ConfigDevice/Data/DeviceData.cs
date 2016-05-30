@@ -72,6 +72,8 @@ namespace ConfigDevice
             KindID = Convert.ToInt16(userUdpData.Source[2]).ToString();
             if (DeviceConfig.EQUIPMENT_ID_NAME.ContainsKey(userUdpData.Source[2]))
                 KindName = DeviceConfig.EQUIPMENT_ID_NAME[userUdpData.Source[2]];
+            else
+                KindName = "未知设备";
             State = DeviceConfig.STATE_RIGHT;
 
         }

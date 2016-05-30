@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Net;
+using System.Threading;
 
 namespace ConfigDevice
 {
@@ -826,8 +827,8 @@ namespace ConfigDevice
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("同步网络ID失败!", udpReply.ReplyByte);
-            else
-                CallbackUI(new object[] { ActionKind.SyncNetworkID, this });
+            else              
+                CallbackUI(new object[] { ActionKind.SyncNetworkID, this }); 
         }
 
 

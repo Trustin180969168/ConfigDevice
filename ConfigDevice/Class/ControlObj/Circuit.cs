@@ -209,6 +209,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
+
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----        
             if (!finishReadRoads)
             {

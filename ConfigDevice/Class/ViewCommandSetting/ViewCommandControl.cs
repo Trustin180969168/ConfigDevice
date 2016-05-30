@@ -36,13 +36,17 @@ namespace ConfigDevice
             tedtTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             tedtTime.Mask.EditMask = "HH:mm:ss";
             tedtTime.Mask.UseMaskAsDisplayFormat = true;
-            tedtTime.Leave += new System.EventHandler(this.timeTest_Leave);
+            tedtTime.Leave += new System.EventHandler(this.time_Leave);
+            tedtTime.Leave += new System.EventHandler(SysConfig.Edit_Leave);
+            tedtTime.Enter += new System.EventHandler(SysConfig.Edit_Enter);
 
             //----数字编辑控件-----------
             edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             edtNum.AutoHeight = false;
             edtNum.Mask.EditMask = "d";
             edtNum.Name = "edtNum";
+            edtNum.Leave += new System.EventHandler(SysConfig.Edit_Leave);
+            edtNum.Enter += new System.EventHandler(SysConfig.Edit_Enter);
 
             //----百分比编辑控件-------
             edtPercentNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
@@ -52,6 +56,8 @@ namespace ConfigDevice
             edtPercentNum.MaxValue = new decimal(new int[] { 100, 0, 0, 0 });
             edtPercentNum.MinValue = new decimal(new int[] { 0, 0, 0, 0 });
             edtPercentNum.Name = "edtPercentNum";
+            edtPercentNum.Leave += new System.EventHandler(SysConfig.Edit_Leave);
+            edtPercentNum.Enter += new System.EventHandler(SysConfig.Edit_Enter);
 
             controlObj = _controlObj;
             ViewSetting = gv;
@@ -61,7 +67,7 @@ namespace ConfigDevice
         /// <summary>
         /// 时间校验
         /// </summary>
-        protected virtual void timeTest_Leave(object sender, EventArgs e)
+        protected virtual void time_Leave(object sender, EventArgs e)
         {
 
         }
