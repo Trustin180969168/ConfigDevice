@@ -1,16 +1,16 @@
-﻿namespace ProgramTest2
+﻿namespace ConfigDevice
 {
-    partial class Form2
+    partial class ViewLogicTools
     {
-        /// <summary>
-        /// Required designer variable.
+        /// <summary> 
+        /// 必需的设计器变量。
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
+        /// <summary> 
+        /// 清理所有正在使用的资源。
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,23 +20,22 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region 组件设计器生成的代码
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// <summary> 
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
-            this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewLogicTools));
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gcLogic = new DevExpress.XtraGrid.GridControl();
+            this.gvLogic = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcTriggerCondition = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcInputCondition = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcRangeStart = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -46,23 +45,19 @@
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.imageComboBoxEdit1 = new DevExpress.XtraEditors.ImageComboBoxEdit();
-            ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
+            this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcLogic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvLogic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // imageCollection1
-            // 
-            this.imageCollection1.ImageSize = new System.Drawing.Size(168, 100);
-            this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
             // 
             // groupControl1
             // 
@@ -77,62 +72,63 @@
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(792, 152);
-            this.groupControl1.TabIndex = 3;
+            this.groupControl1.Size = new System.Drawing.Size(800, 152);
+            this.groupControl1.TabIndex = 4;
             this.groupControl1.Text = "触发列表";
             // 
             // panelControl1
             // 
             this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Controls.Add(this.gridControl1);
+            this.panelControl1.Controls.Add(this.gcLogic);
             this.panelControl1.Controls.Add(this.groupControl2);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(2, 26);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(788, 124);
+            this.panelControl1.Size = new System.Drawing.Size(796, 124);
             this.panelControl1.TabIndex = 5;
             // 
-            // gridControl1
+            // gcLogic
             // 
-            this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.EmbeddedNavigator.Name = "";
-            this.gridControl1.FormsUseDefaultLookAndFeel = false;
+            this.gcLogic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcLogic.EmbeddedNavigator.Name = "";
+            this.gcLogic.FormsUseDefaultLookAndFeel = false;
             gridLevelNode1.RelationName = "Level1";
             gridLevelNode2.RelationName = "Level2";
-            this.gridControl1.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            this.gcLogic.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode1,
             gridLevelNode2});
-            this.gridControl1.Location = new System.Drawing.Point(0, 0);
-            this.gridControl1.MainView = this.gridView1;
-            this.gridControl1.Name = "gridControl1";
-            this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.gcLogic.Location = new System.Drawing.Point(0, 0);
+            this.gcLogic.MainView = this.gvLogic;
+            this.gcLogic.Name = "gcLogic";
+            this.gcLogic.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(612, 124);
-            this.gridControl1.TabIndex = 13;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
+            this.gcLogic.Size = new System.Drawing.Size(620, 124);
+            this.gcLogic.TabIndex = 13;
+            this.gcLogic.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvLogic});
             // 
-            // gridView1
+            // gvLogic
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gvLogic.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.dcTriggerCondition,
             this.dcInputCondition,
             this.dcRangeStart,
             this.dcRangeEnd,
             this.dcContinue,
             this.dcEnd});
-            this.gridView1.GridControl = this.gridControl1;
-            this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsView.EnableAppearanceEvenRow = true;
-            this.gridView1.OptionsView.EnableAppearanceOddRow = true;
-            this.gridView1.OptionsView.ShowGroupPanel = false;
-            this.gridView1.OptionsView.ShowIndicator = false;
-            this.gridView1.RowSeparatorHeight = 4;
+            this.gvLogic.GridControl = this.gcLogic;
+            this.gvLogic.Name = "gvLogic";
+            this.gvLogic.OptionsView.EnableAppearanceEvenRow = true;
+            this.gvLogic.OptionsView.EnableAppearanceOddRow = true;
+            this.gvLogic.OptionsView.ShowGroupPanel = false;
+            this.gvLogic.OptionsView.ShowIndicator = false;
+            this.gvLogic.RowSeparatorHeight = 4;
             // 
             // dcTriggerCondition
             // 
             this.dcTriggerCondition.AppearanceCell.Options.UseTextOptions = true;
+            this.dcTriggerCondition.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcTriggerCondition.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcTriggerCondition.AppearanceHeader.Options.UseTextOptions = true;
             this.dcTriggerCondition.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -146,6 +142,7 @@
             // dcInputCondition
             // 
             this.dcInputCondition.AppearanceCell.Options.UseTextOptions = true;
+            this.dcInputCondition.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcInputCondition.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcInputCondition.AppearanceHeader.Options.UseTextOptions = true;
             this.dcInputCondition.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -159,6 +156,7 @@
             // dcRangeStart
             // 
             this.dcRangeStart.AppearanceCell.Options.UseTextOptions = true;
+            this.dcRangeStart.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcRangeStart.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcRangeStart.AppearanceHeader.Options.UseTextOptions = true;
             this.dcRangeStart.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -172,6 +170,7 @@
             // dcRangeEnd
             // 
             this.dcRangeEnd.AppearanceCell.Options.UseTextOptions = true;
+            this.dcRangeEnd.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcRangeEnd.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcRangeEnd.AppearanceHeader.Options.UseTextOptions = true;
             this.dcRangeEnd.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -185,6 +184,7 @@
             // dcContinue
             // 
             this.dcContinue.AppearanceCell.Options.UseTextOptions = true;
+            this.dcContinue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcContinue.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcContinue.AppearanceHeader.Options.UseTextOptions = true;
             this.dcContinue.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -198,11 +198,12 @@
             // dcEnd
             // 
             this.dcEnd.AppearanceCell.Options.UseTextOptions = true;
+            this.dcEnd.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcEnd.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcEnd.AppearanceHeader.Options.UseTextOptions = true;
             this.dcEnd.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcEnd.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcEnd.Caption = "无效持续(S)";
+            this.dcEnd.Caption = "无效持续(秒)";
             this.dcEnd.Name = "dcEnd";
             this.dcEnd.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcEnd.Visible = true;
@@ -225,7 +226,7 @@
             this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.groupControl2.Controls.Add(this.imageComboBoxEdit1);
             this.groupControl2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupControl2.Location = new System.Drawing.Point(612, 0);
+            this.groupControl2.Location = new System.Drawing.Point(620, 0);
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(176, 124);
             this.groupControl2.TabIndex = 15;
@@ -250,27 +251,30 @@
             this.imageComboBoxEdit1.Size = new System.Drawing.Size(172, 102);
             this.imageComboBoxEdit1.TabIndex = 15;
             // 
-            // Form2
+            // imageCollection1
+            // 
+            this.imageCollection1.ImageSize = new System.Drawing.Size(168, 100);
+            this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
+            // 
+            // ViewLogicTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 487);
             this.Controls.Add(this.groupControl1);
-            this.Name = "Form2";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form2";
-            ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
+            this.Name = "ViewLogicTools";
+            this.Size = new System.Drawing.Size(800, 152);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcLogic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvLogic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,19 +282,21 @@
 
         #endregion
 
-        private DevExpress.Utils.ImageCollection imageCollection1;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraGrid.GridControl gridControl1;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraGrid.GridControl gcLogic;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvLogic;
         private DevExpress.XtraGrid.Columns.GridColumn dcTriggerCondition;
         private DevExpress.XtraGrid.Columns.GridColumn dcInputCondition;
         private DevExpress.XtraGrid.Columns.GridColumn dcRangeStart;
         private DevExpress.XtraGrid.Columns.GridColumn dcRangeEnd;
         private DevExpress.XtraGrid.Columns.GridColumn dcContinue;
         private DevExpress.XtraGrid.Columns.GridColumn dcEnd;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private DevExpress.XtraEditors.ImageComboBoxEdit imageComboBoxEdit1;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
+        private DevExpress.Utils.ImageCollection imageCollection1;
+
+
     }
 }

@@ -45,10 +45,10 @@
             this.lookupEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
-            this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             this.imageComboBoxEdit1 = new DevExpress.XtraEditors.ImageComboBoxEdit();
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
+            this.lookUpEdit1 = new DevExpress.XtraEditors.LookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
@@ -58,9 +58,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.meEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // timeEdit1
@@ -247,26 +247,9 @@
             this.textEdit1.TabIndex = 7;
             this.textEdit1.EditValueChanged += new System.EventHandler(this.textEdit1_EditValueChanged);
             // 
-            // spinEdit1
-            // 
-            this.spinEdit1.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.spinEdit1.Location = new System.Drawing.Point(114, 90);
-            this.spinEdit1.Name = "spinEdit1";
-            this.spinEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.spinEdit1.Properties.Mask.EditMask = "d";
-            this.spinEdit1.Size = new System.Drawing.Size(75, 21);
-            this.spinEdit1.TabIndex = 8;
-            this.spinEdit1.Leave += new System.EventHandler(this.Edit_Leave);
-            this.spinEdit1.Enter += new System.EventHandler(this.Edit_Enter);
-            // 
             // simpleButton3
             // 
-            this.simpleButton3.Location = new System.Drawing.Point(33, 270);
+            this.simpleButton3.Location = new System.Drawing.Point(33, 99);
             this.simpleButton3.Name = "simpleButton3";
             this.simpleButton3.Size = new System.Drawing.Size(167, 23);
             this.simpleButton3.TabIndex = 9;
@@ -275,7 +258,7 @@
             // 
             // imageComboBoxEdit1
             // 
-            this.imageComboBoxEdit1.Location = new System.Drawing.Point(254, 159);
+            this.imageComboBoxEdit1.Location = new System.Drawing.Point(364, 12);
             this.imageComboBoxEdit1.Name = "imageComboBoxEdit1";
             this.imageComboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -290,7 +273,7 @@
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 6, -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 7, -1)});
             this.imageComboBoxEdit1.Properties.LargeImages = this.imageCollection1;
-            this.imageComboBoxEdit1.Size = new System.Drawing.Size(168, 98);
+            this.imageComboBoxEdit1.Size = new System.Drawing.Size(122, 98);
             this.imageComboBoxEdit1.TabIndex = 11;
             // 
             // imageCollection1
@@ -298,14 +281,23 @@
             this.imageCollection1.ImageSize = new System.Drawing.Size(96, 96);
             this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
             // 
+            // lookUpEdit1
+            // 
+            this.lookUpEdit1.Location = new System.Drawing.Point(33, 149);
+            this.lookUpEdit1.Name = "lookUpEdit1";
+            this.lookUpEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit1.Size = new System.Drawing.Size(181, 21);
+            this.lookUpEdit1.TabIndex = 12;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 466);
+            this.Controls.Add(this.lookUpEdit1);
             this.Controls.Add(this.imageComboBoxEdit1);
             this.Controls.Add(this.simpleButton3);
-            this.Controls.Add(this.spinEdit1);
             this.Controls.Add(this.textEdit1);
             this.Controls.Add(this.simpleButton2);
             this.Controls.Add(this.gcTime);
@@ -323,9 +315,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.meEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -346,11 +338,11 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit meEdit;
         private DevExpress.XtraGrid.Columns.GridColumn dcSelect;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit lookupEdit;
-        private DevExpress.XtraEditors.SpinEdit spinEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNum;
         private DevExpress.XtraEditors.SimpleButton simpleButton3;
         private DevExpress.XtraEditors.ImageComboBoxEdit imageComboBoxEdit1;
         private DevExpress.Utils.ImageCollection imageCollection1;
+        private DevExpress.XtraEditors.LookUpEdit lookUpEdit1;
     }
 }
 

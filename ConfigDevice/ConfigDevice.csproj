@@ -111,6 +111,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DeviceUI\Base\ViewLogicTools.resx">
+      <DependentUpon>ViewLogicTools.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FlammableGasProbe.resx">
+      <DependentUpon>FlammableGasProbe.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\FrmDoorInput4.resx">
       <DependentUpon>FrmDoorInput4.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -303,6 +311,11 @@
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
     <Content Include="Config\SmartLight.h" />
+    <None Include="Resources\power_off.png" />
+    <None Include="Resources\power_on.png" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\refresh2.png" />
+    <None Include="Resources\refresh1.png" />
     <None Include="Resources\close_light.png" />
     <None Include="Resources\open_light.png" />
     <None Include="Resources\open_found1.png" />
@@ -359,6 +372,18 @@
     </Compile>
     <Compile Include="DeviceUI\Base\ViewCommandSetting.Designer.cs">
       <DependentUpon>ViewCommandSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\Base\ViewLogicTools.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\Base\ViewLogicTools.Designer.cs">
+      <DependentUpon>ViewLogicTools.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FlammableGasProbe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FlammableGasProbe.Designer.cs">
+      <DependentUpon>FlammableGasProbe.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Tools\PortTools.cs" />

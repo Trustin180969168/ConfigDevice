@@ -249,9 +249,37 @@ namespace ConfigDevice.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap power_off {
+            get {
+                object obj = ResourceManager.GetObject("power_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap power_on {
+            get {
+                object obj = ResourceManager.GetObject("power_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap refresh {
             get {
                 object obj = ResourceManager.GetObject("refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap refresh1 {
+            get {
+                object obj = ResourceManager.GetObject("refresh1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap refresh2 {
+            get {
+                object obj = ResourceManager.GetObject("refresh2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -280,6 +308,13 @@ namespace ConfigDevice.Properties {
         internal static System.Drawing.Bitmap snyc {
             get {
                 object obj = ResourceManager.GetObject("snyc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap stop {
+            get {
+                object obj = ResourceManager.GetObject("stop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

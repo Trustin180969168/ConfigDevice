@@ -26,37 +26,20 @@ namespace ProgramTest2
             dt.Columns.Add("field8", System.Type.GetType("System.String"));
 
 
-            gcField1.FieldName = "field1";
-            gcField2.FieldName = "field2";
-            gcField3.FieldName = "field3";
-            gcField4.FieldName = "field4";
-            gcField5.FieldName = "field5";
-            gcField6.FieldName = "field6";
-            byte[] byteImage1 = ImageHelper.ImageToBytes(imageCollection1.Images[0]);
-            byte[] byteImage2 = ImageHelper.ImageToBytes(imageCollection1.Images[1]);
+            this.dcTriggerCondition.FieldName = "field1";
+            this.dcInputCondition.FieldName = "field2";
+            this.dcRangeStart.FieldName = "field3";
+            this.dcRangeEnd.FieldName = "field4";
+            this.dcContinue.FieldName = "field5";
+            this.dcEnd.FieldName = "field6"; 
             dt.Rows.Add(new object[] { "text1", "row1", "row1" });
             dt.Rows.Add(new object[] { "text1", "row2", "row2" });
             dt.Rows.Add(new object[] { "text1", "row3", "row3" });
-            dt.Rows.Add(new object[] { "text1", "row4", "row4" });
-            dt.Rows.Add(new object[] { "text1", "row5", "row5" });
-            dt.Rows.Add(new object[] { "text1", "row6", "row6" });
-            dt.Rows.Add(new object[] { "text1", "row7", "row7" });
-            dt.Rows.Add(new object[] { "text1", "row8", "row8" });
+            dt.Rows.Add(new object[] { "text1", "row4", "row4" }); 
 
             gridControl1.DataSource = dt;
         }
 
-        private void checkEdit1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void checkEdit1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkEdit1.Checked)
-                gcField1.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
-            else
-                gcField1.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
-        }
     }
 }

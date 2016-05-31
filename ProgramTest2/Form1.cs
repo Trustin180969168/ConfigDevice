@@ -35,12 +35,15 @@ namespace ProgramTest2
             dtSelect.Rows.Add("3", "名称3");
             dtSelect.Rows.Add("4", "名称4");
  
-
             lookupEdit.DataSource = dtSelect;
             lookupEdit.DisplayMember = "ID";
             lookupEdit.ValueMember = "ID";
 
+
+
+
             Application.AddMessageFilter(this);   
+            
             
         }
         int i = 1;
