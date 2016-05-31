@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.gcTime = new DevExpress.XtraGrid.GridControl();
@@ -44,6 +46,9 @@
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
+            this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
+            this.imageComboBoxEdit1 = new DevExpress.XtraEditors.ImageComboBoxEdit();
+            this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
@@ -54,6 +59,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             this.SuspendLayout();
             // 
             // timeEdit1
@@ -80,7 +87,7 @@
             this.gcTime.Dock = System.Windows.Forms.DockStyle.Right;
             this.gcTime.EmbeddedNavigator.Name = "";
             this.gcTime.FormsUseDefaultLookAndFeel = false;
-            this.gcTime.Location = new System.Drawing.Point(245, 0);
+            this.gcTime.Location = new System.Drawing.Point(528, 0);
             this.gcTime.MainView = this.gvTime;
             this.gcTime.Name = "gcTime";
             this.gcTime.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -89,7 +96,7 @@
             this.meEdit,
             this.lookupEdit,
             this.edtNum});
-            this.gcTime.Size = new System.Drawing.Size(423, 305);
+            this.gcTime.Size = new System.Drawing.Size(423, 466);
             this.gcTime.TabIndex = 5;
             this.gcTime.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvTime});
@@ -225,7 +232,7 @@
             // 
             // simpleButton2
             // 
-            this.simpleButton2.Location = new System.Drawing.Point(33, 100);
+            this.simpleButton2.Location = new System.Drawing.Point(33, 61);
             this.simpleButton2.Name = "simpleButton2";
             this.simpleButton2.Size = new System.Drawing.Size(75, 23);
             this.simpleButton2.TabIndex = 6;
@@ -234,10 +241,11 @@
             // 
             // textEdit1
             // 
-            this.textEdit1.Location = new System.Drawing.Point(114, 102);
+            this.textEdit1.Location = new System.Drawing.Point(114, 63);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Size = new System.Drawing.Size(100, 21);
             this.textEdit1.TabIndex = 7;
+            this.textEdit1.EditValueChanged += new System.EventHandler(this.textEdit1_EditValueChanged);
             // 
             // spinEdit1
             // 
@@ -246,7 +254,7 @@
             0,
             0,
             0});
-            this.spinEdit1.Location = new System.Drawing.Point(33, 141);
+            this.spinEdit1.Location = new System.Drawing.Point(114, 90);
             this.spinEdit1.Name = "spinEdit1";
             this.spinEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -256,11 +264,47 @@
             this.spinEdit1.Leave += new System.EventHandler(this.Edit_Leave);
             this.spinEdit1.Enter += new System.EventHandler(this.Edit_Enter);
             // 
+            // simpleButton3
+            // 
+            this.simpleButton3.Location = new System.Drawing.Point(33, 270);
+            this.simpleButton3.Name = "simpleButton3";
+            this.simpleButton3.Size = new System.Drawing.Size(167, 23);
+            this.simpleButton3.TabIndex = 9;
+            this.simpleButton3.Text = "打开界面测试2";
+            this.simpleButton3.Click += new System.EventHandler(this.simpleButton3_Click);
+            // 
+            // imageComboBoxEdit1
+            // 
+            this.imageComboBoxEdit1.Location = new System.Drawing.Point(254, 159);
+            this.imageComboBoxEdit1.Name = "imageComboBoxEdit1";
+            this.imageComboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.imageComboBoxEdit1.Properties.DropDownRows = 4;
+            this.imageComboBoxEdit1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 0, 0),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 1, 1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 2, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 3, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 4, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 5, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 6, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 7, -1)});
+            this.imageComboBoxEdit1.Properties.LargeImages = this.imageCollection1;
+            this.imageComboBoxEdit1.Size = new System.Drawing.Size(168, 98);
+            this.imageComboBoxEdit1.TabIndex = 11;
+            // 
+            // imageCollection1
+            // 
+            this.imageCollection1.ImageSize = new System.Drawing.Size(96, 96);
+            this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(668, 305);
+            this.ClientSize = new System.Drawing.Size(951, 466);
+            this.Controls.Add(this.imageComboBoxEdit1);
+            this.Controls.Add(this.simpleButton3);
             this.Controls.Add(this.spinEdit1);
             this.Controls.Add(this.textEdit1);
             this.Controls.Add(this.simpleButton2);
@@ -280,6 +324,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -302,6 +348,9 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit lookupEdit;
         private DevExpress.XtraEditors.SpinEdit spinEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNum;
+        private DevExpress.XtraEditors.SimpleButton simpleButton3;
+        private DevExpress.XtraEditors.ImageComboBoxEdit imageComboBoxEdit1;
+        private DevExpress.Utils.ImageCollection imageCollection1;
     }
 }
 

@@ -24,6 +24,7 @@ namespace ConfigDevice
         { 
             InitializeComponent();
 
+
             num.FieldName = DC_NUM;
             name.FieldName = DC_NAME;
             hide.FieldName = DC_HIDE;

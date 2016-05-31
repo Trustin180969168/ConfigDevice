@@ -50,6 +50,7 @@
             this.clbcWldkpb = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.edtNum1 = new DevExpress.XtraEditors.SpinEdit();
             this.cedtAfpb1 = new DevExpress.XtraEditors.CheckEdit();
             this.cedtAfpb2 = new DevExpress.XtraEditors.CheckEdit();
             this.cedtAfpb3 = new DevExpress.XtraEditors.CheckEdit();
@@ -58,10 +59,6 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            this.edtNum1 = new DevExpress.XtraEditors.TextEdit();
-            this.edtNum2 = new DevExpress.XtraEditors.TextEdit();
-            this.edtNum3 = new DevExpress.XtraEditors.TextEdit();
-            this.edtNum4 = new DevExpress.XtraEditors.TextEdit();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
@@ -74,6 +71,9 @@
             this.edtMcmc2 = new DevExpress.XtraEditors.TextEdit();
             this.edtMcmc3 = new DevExpress.XtraEditors.TextEdit();
             this.edtMcmc4 = new DevExpress.XtraEditors.TextEdit();
+            this.edtNum2 = new DevExpress.XtraEditors.SpinEdit();
+            this.edtNum3 = new DevExpress.XtraEditors.SpinEdit();
+            this.edtNum4 = new DevExpress.XtraEditors.SpinEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.DeviceUI.ViewCommandSetting();
             ((System.ComponentModel.ISupportInitialize)(this.edtName)).BeginInit();
@@ -93,18 +93,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb4.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtNum1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtNum2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtNum3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtNum4.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc4.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum4.Properties)).BeginInit();
             this.pageCommand.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -237,7 +237,7 @@
             this.hide.AppearanceHeader.Options.UseTextOptions = true;
             this.hide.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.hide.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.hide.Caption = "屏蔽";
+            this.hide.Caption = "启用";
             this.hide.ColumnEdit = this.cedtSecurity;
             this.hide.Name = "hide";
             this.hide.Visible = true;
@@ -358,6 +358,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.edtNum1, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.cedtAfpb1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cedtAfpb2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.cedtAfpb3, 0, 2);
@@ -366,10 +367,6 @@
             this.tableLayoutPanel1.Controls.Add(this.labelControl2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelControl3, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.labelControl4, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.edtNum1, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.edtNum2, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.edtNum3, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.edtNum4, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.labelControl5, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelControl6, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelControl7, 3, 2);
@@ -382,6 +379,9 @@
             this.tableLayoutPanel1.Controls.Add(this.edtMcmc2, 5, 1);
             this.tableLayoutPanel1.Controls.Add(this.edtMcmc3, 5, 2);
             this.tableLayoutPanel1.Controls.Add(this.edtMcmc4, 5, 3);
+            this.tableLayoutPanel1.Controls.Add(this.edtNum2, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.edtNum3, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.edtNum4, 2, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 34);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
@@ -391,6 +391,28 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(792, 135);
             this.tableLayoutPanel1.TabIndex = 4;
+            // 
+            // edtNum1
+            // 
+            this.edtNum1.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.edtNum1.Location = new System.Drawing.Point(142, 3);
+            this.edtNum1.Name = "edtNum1";
+            this.edtNum1.Properties.Appearance.Options.UseTextOptions = true;
+            this.edtNum1.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.edtNum1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtNum1.Properties.Mask.EditMask = "d";
+            this.edtNum1.Properties.MaxValue = new decimal(new int[] {
+            127,
+            0,
+            0,
+            0});
+            this.edtNum1.Size = new System.Drawing.Size(52, 21);
+            this.edtNum1.TabIndex = 6;
             // 
             // cedtAfpb1
             // 
@@ -462,37 +484,9 @@
             this.labelControl4.TabIndex = 4;
             this.labelControl4.Text = "  第";
             // 
-            // edtNum1
-            // 
-            this.edtNum1.Location = new System.Drawing.Point(142, 3);
-            this.edtNum1.Name = "edtNum1";
-            this.edtNum1.Size = new System.Drawing.Size(40, 21);
-            this.edtNum1.TabIndex = 5;
-            // 
-            // edtNum2
-            // 
-            this.edtNum2.Location = new System.Drawing.Point(142, 36);
-            this.edtNum2.Name = "edtNum2";
-            this.edtNum2.Size = new System.Drawing.Size(40, 21);
-            this.edtNum2.TabIndex = 5;
-            // 
-            // edtNum3
-            // 
-            this.edtNum3.Location = new System.Drawing.Point(142, 69);
-            this.edtNum3.Name = "edtNum3";
-            this.edtNum3.Size = new System.Drawing.Size(40, 21);
-            this.edtNum3.TabIndex = 5;
-            // 
-            // edtNum4
-            // 
-            this.edtNum4.Location = new System.Drawing.Point(142, 102);
-            this.edtNum4.Name = "edtNum4";
-            this.edtNum4.Size = new System.Drawing.Size(40, 21);
-            this.edtNum4.TabIndex = 5;
-            // 
             // labelControl5
             // 
-            this.labelControl5.Location = new System.Drawing.Point(188, 3);
+            this.labelControl5.Location = new System.Drawing.Point(200, 3);
             this.labelControl5.Name = "labelControl5";
             this.labelControl5.Size = new System.Drawing.Size(28, 14);
             this.labelControl5.TabIndex = 4;
@@ -500,7 +494,7 @@
             // 
             // labelControl6
             // 
-            this.labelControl6.Location = new System.Drawing.Point(188, 36);
+            this.labelControl6.Location = new System.Drawing.Point(200, 36);
             this.labelControl6.Name = "labelControl6";
             this.labelControl6.Size = new System.Drawing.Size(24, 14);
             this.labelControl6.TabIndex = 4;
@@ -508,7 +502,7 @@
             // 
             // labelControl7
             // 
-            this.labelControl7.Location = new System.Drawing.Point(188, 69);
+            this.labelControl7.Location = new System.Drawing.Point(200, 69);
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(28, 14);
             this.labelControl7.TabIndex = 4;
@@ -516,7 +510,7 @@
             // 
             // labelControl8
             // 
-            this.labelControl8.Location = new System.Drawing.Point(188, 102);
+            this.labelControl8.Location = new System.Drawing.Point(200, 102);
             this.labelControl8.Name = "labelControl8";
             this.labelControl8.Size = new System.Drawing.Size(28, 14);
             this.labelControl8.TabIndex = 4;
@@ -524,7 +518,7 @@
             // 
             // labelControl9
             // 
-            this.labelControl9.Location = new System.Drawing.Point(222, 3);
+            this.labelControl9.Location = new System.Drawing.Point(234, 3);
             this.labelControl9.Name = "labelControl9";
             this.labelControl9.Size = new System.Drawing.Size(79, 14);
             this.labelControl9.TabIndex = 4;
@@ -532,7 +526,7 @@
             // 
             // labelControl10
             // 
-            this.labelControl10.Location = new System.Drawing.Point(222, 36);
+            this.labelControl10.Location = new System.Drawing.Point(234, 36);
             this.labelControl10.Name = "labelControl10";
             this.labelControl10.Size = new System.Drawing.Size(79, 14);
             this.labelControl10.TabIndex = 4;
@@ -540,7 +534,7 @@
             // 
             // labelControl11
             // 
-            this.labelControl11.Location = new System.Drawing.Point(222, 102);
+            this.labelControl11.Location = new System.Drawing.Point(234, 102);
             this.labelControl11.Name = "labelControl11";
             this.labelControl11.Size = new System.Drawing.Size(79, 14);
             this.labelControl11.TabIndex = 4;
@@ -548,7 +542,7 @@
             // 
             // labelControl12
             // 
-            this.labelControl12.Location = new System.Drawing.Point(222, 69);
+            this.labelControl12.Location = new System.Drawing.Point(234, 69);
             this.labelControl12.Name = "labelControl12";
             this.labelControl12.Size = new System.Drawing.Size(79, 14);
             this.labelControl12.TabIndex = 4;
@@ -556,7 +550,7 @@
             // 
             // edtMcmc1
             // 
-            this.edtMcmc1.Location = new System.Drawing.Point(307, 3);
+            this.edtMcmc1.Location = new System.Drawing.Point(319, 3);
             this.edtMcmc1.Name = "edtMcmc1";
             this.edtMcmc1.Size = new System.Drawing.Size(476, 21);
             this.edtMcmc1.TabIndex = 5;
@@ -564,7 +558,7 @@
             // 
             // edtMcmc2
             // 
-            this.edtMcmc2.Location = new System.Drawing.Point(307, 36);
+            this.edtMcmc2.Location = new System.Drawing.Point(319, 36);
             this.edtMcmc2.Name = "edtMcmc2";
             this.edtMcmc2.Size = new System.Drawing.Size(476, 21);
             this.edtMcmc2.TabIndex = 5;
@@ -572,7 +566,7 @@
             // 
             // edtMcmc3
             // 
-            this.edtMcmc3.Location = new System.Drawing.Point(307, 69);
+            this.edtMcmc3.Location = new System.Drawing.Point(319, 69);
             this.edtMcmc3.Name = "edtMcmc3";
             this.edtMcmc3.Size = new System.Drawing.Size(476, 21);
             this.edtMcmc3.TabIndex = 5;
@@ -580,11 +574,77 @@
             // 
             // edtMcmc4
             // 
-            this.edtMcmc4.Location = new System.Drawing.Point(307, 102);
+            this.edtMcmc4.Location = new System.Drawing.Point(319, 102);
             this.edtMcmc4.Name = "edtMcmc4";
             this.edtMcmc4.Size = new System.Drawing.Size(476, 21);
             this.edtMcmc4.TabIndex = 5;
             this.edtMcmc4.Leave += new System.EventHandler(this.edtMcmc_Leave);
+            // 
+            // edtNum2
+            // 
+            this.edtNum2.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.edtNum2.Location = new System.Drawing.Point(142, 36);
+            this.edtNum2.Name = "edtNum2";
+            this.edtNum2.Properties.Appearance.Options.UseTextOptions = true;
+            this.edtNum2.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.edtNum2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtNum2.Properties.Mask.EditMask = "d";
+            this.edtNum2.Properties.MaxValue = new decimal(new int[] {
+            127,
+            0,
+            0,
+            0});
+            this.edtNum2.Size = new System.Drawing.Size(52, 21);
+            this.edtNum2.TabIndex = 6;
+            // 
+            // edtNum3
+            // 
+            this.edtNum3.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.edtNum3.Location = new System.Drawing.Point(142, 69);
+            this.edtNum3.Name = "edtNum3";
+            this.edtNum3.Properties.Appearance.Options.UseTextOptions = true;
+            this.edtNum3.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.edtNum3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtNum3.Properties.Mask.EditMask = "d";
+            this.edtNum3.Properties.MaxValue = new decimal(new int[] {
+            127,
+            0,
+            0,
+            0});
+            this.edtNum3.Size = new System.Drawing.Size(52, 21);
+            this.edtNum3.TabIndex = 6;
+            // 
+            // edtNum4
+            // 
+            this.edtNum4.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.edtNum4.Location = new System.Drawing.Point(142, 102);
+            this.edtNum4.Name = "edtNum4";
+            this.edtNum4.Properties.Appearance.Options.UseTextOptions = true;
+            this.edtNum4.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.edtNum4.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtNum4.Properties.Mask.EditMask = "d";
+            this.edtNum4.Properties.MaxValue = new decimal(new int[] {
+            127,
+            0,
+            0,
+            0});
+            this.edtNum4.Size = new System.Drawing.Size(52, 21);
+            this.edtNum4.TabIndex = 6;
             // 
             // pageCommand
             // 
@@ -631,21 +691,31 @@
             this.groupControl3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtAfpb4.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtNum1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtNum2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtNum3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtNum4.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtMcmc4.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtNum4.Properties)).EndInit();
             this.pageCommand.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+
+
+            edtNum1.Enter += SysConfig.Edit_Enter;
+            edtNum1.Leave += SysConfig.Edit_Leave;
+            edtNum2.Enter += SysConfig.Edit_Enter;
+            edtNum2.Leave += SysConfig.Edit_Leave;
+            edtNum3.Enter += SysConfig.Edit_Enter;
+            edtNum3.Leave += SysConfig.Edit_Leave;
+            edtNum4.Enter += SysConfig.Edit_Enter;
+            edtNum4.Leave += SysConfig.Edit_Leave;
 
         }
 
@@ -669,10 +739,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.LabelControl labelControl4;
-        private DevExpress.XtraEditors.TextEdit edtNum1;
-        private DevExpress.XtraEditors.TextEdit edtNum2;
-        private DevExpress.XtraEditors.TextEdit edtNum3;
-        private DevExpress.XtraEditors.TextEdit edtNum4;
         private DevExpress.XtraEditors.LabelControl labelControl5;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.LabelControl labelControl7;
@@ -699,6 +765,10 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtName;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit cedtSecurity;
+        private DevExpress.XtraEditors.SpinEdit edtNum1;
+        private DevExpress.XtraEditors.SpinEdit edtNum2;
+        private DevExpress.XtraEditors.SpinEdit edtNum3;
+        private DevExpress.XtraEditors.SpinEdit edtNum4;
 
 
     }

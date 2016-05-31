@@ -147,5 +147,16 @@ namespace ProgramTest2
         {
             limitedMouseWheel = false;
         }
+
+        private void simpleButton3_Click(object sender, EventArgs e)
+        {
+            Form2 frm = new Form2();
+            frm.Show();
+        }
+
+        private void textEdit1_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
