@@ -249,6 +249,7 @@ namespace ConfigDevice
                     if (mySocket == null || mySocket.Available < 1)//----等待数据接收-----
                     { Thread.Sleep(20); continue; }
                     UdpData udpReceive = ReceiveData(remotePoint);//-----接收UDP数据------
+                   
                     if (udpReceive.PacketKind[0] == PackegeSendReply.REPLY)//------回复的UDP-----
                     {
                         if (pcCallBackList.ContainsKey(udpReceive.PacketCodeStr))//----找出对应的回复----
@@ -258,13 +259,13 @@ namespace ConfigDevice
                             RemovePCCallbackList(udpReceive.PacketCodeStr);//---删除无用的回复包-----
                             continue;//----没有对应请求,获取下一个udp -------                         
                         }
-                        if (crcUdpData(udpReceive)) //---校验是否是错误的包(目前只判断回复包)-------- 
+                        if (crcUdpData(udpReceive)) //---校验是否是错误的包 -------- 
                         {                           
                             state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----                               
                             if (!isBroadCastData(state.Udp)) //-----如果发送的是广播包,不能删除-----
                                 RemovePCCallbackList(udpReceive.PacketCodeStr);//---删除已经回调的----------
                         }
-                        else//----错误重发----
+                        else//----CRC错误,则重发----
                         {
                             RemovePCCallbackList(udpReceive.PacketCodeStr);
                             SendData(state.Udp, state.RemotePoint, state.GetCallBackAction, state.Values);
