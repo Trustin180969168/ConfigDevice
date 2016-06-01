@@ -8,6 +8,7 @@ namespace ConfigDevice
     public class Motor : ControlObj
     {
 
+
         public const string NAME_CMD_SWIT_LOOP = "开关电机";
         public const string NAME_CMD_SWIT_LOOP_OPEN = "开电机";
         public const string NAME_CMD_SWIT_LOOP_CLOSE = "关电机";
@@ -35,9 +36,7 @@ namespace ConfigDevice
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_CLOSE_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION);
             }
 
-        }
-
-
+        } 
 
         /// <summary>
         /// 开关电机
@@ -143,6 +142,9 @@ namespace ConfigDevice
 
         }
 
+     
+
+    
     }
 
 

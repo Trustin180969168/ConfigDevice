@@ -129,10 +129,10 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="b">两个字节</param>
         /// <returns></returns>
-        public static int Bytes2ToInt(byte[] b)
+        public static short Bytes2ToInt(byte[] b)
         {
             Array.Resize(ref b, 4);
-            return System.BitConverter.ToInt32(b, 0);
+            return System.BitConverter.ToInt16(b, 0);
         }
 
         /// <summary>
@@ -179,6 +179,28 @@ namespace ConfigDevice
         public static byte[] GetByteFrom16BitInt(int num)
         {
             byte[] value = BitConverter.GetBytes(Convert.ToInt16(num));
+            return value;
+        }
+
+        /// <summary>
+        /// 根据一个32位的整数,翻译成两个字节的数组
+        /// </summary>
+        /// <param name="num">16位整数</param>
+        /// <returns>两个字节</returns>
+        public static byte[] GetByteFrom32BitInt(int num)
+        {
+            byte[] value = BitConverter.GetBytes(Convert.ToInt32(num));
+            return value;
+        }
+
+        /// <summary>
+        /// 根据一个32位的整数,翻译成两个字节的数组
+        /// </summary>
+        /// <param name="num">16位整数</param>
+        /// <returns>两个字节</returns>
+        public static byte[] GetByteFrom32BitUInt(uint num)
+        {
+            byte[] value = BitConverter.GetBytes(Convert.ToUInt32(num));
             return value;
         }
 

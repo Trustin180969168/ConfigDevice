@@ -57,6 +57,14 @@ namespace ProgramTest2
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            textEdit1.Properties.DisplayFormat.FormatString = "#0.00%";
+            textEdit1.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            textEdit1.Properties.Mask.EditMask = "#0.00%";
+            textEdit1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            textEdit1.Properties.Mask.UseMaskAsDisplayFormat = true;
+            textEdit1.Name = "TextEdit";  
+
             gcTime.DataSource = dt;
 
  

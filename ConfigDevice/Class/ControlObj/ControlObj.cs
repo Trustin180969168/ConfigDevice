@@ -9,6 +9,7 @@ namespace ConfigDevice
         public string Name = "";//控制对象名称    
         public Device deviceControled;//被控制设备
 
+
     }
   
 

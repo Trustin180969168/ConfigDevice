@@ -5,27 +5,48 @@ using System.Data;
 
 namespace ConfigDevice
 {
-
+ 
     public class FlammableGasProbe:Device
     {
-        //private CallbackFromUDP getStateInfo;//----获取设置信息----
+
+
+        public string ValveState = "";//---阀门状态---
+        public short ElectricCurrent = 0;//---电流---
+        public string ProbeState = "";//---探头状态---
+        public short Templatetrue = 0;//---温度----
+        public Valve Valve;//电机对象,用于阀门控制
+        private CallbackFromUDP getStateInfo;//----获取设置信息----
 
         public FlammableGasProbe(UserUdpData userUdpData)
             : base(userUdpData)
         { 
             initCallback();
+            initControlObjs();
         }
 
         public FlammableGasProbe(DeviceData data)
             : base(data)
         { 
             initCallback();
+            initControlObjs();
         }
 
         public FlammableGasProbe(DataRow dr)
             : base(dr)
         { 
             initCallback();
+            initControlObjs();
+        }
+
+        /// <summary>
+        /// 初始化控制对象
+        /// </summary>
+        private void initControlObjs()
+        {
+            Valve = new Valve(this);
+            ContrlObjs.Add("阀门", Valve); 
+
+ 
         }
 
         /// <summary>
@@ -33,15 +54,15 @@ namespace ConfigDevice
         /// </summary>
         private void initCallback()
         {
- 
-
+            getStateInfo = new CallbackFromUDP(this.getStateInfoData); 
         }
 
         /// <summary>
         /// 申请探头状态
         /// </summary>
         public void ReadState()
-        { 
+        {
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE, getStateInfo);
             UdpData udpSend = createReadStateUdp();
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadState), new object[] { udpSend });
         }
@@ -63,16 +84,14 @@ namespace ConfigDevice
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_LOOP_NAME;//----用户命令-----
-            byte len = 0x06;//---数据长度----
-            byte[] crcData = new byte[12];
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_STATE;//----用户命令-----
+            byte len = 0x04;//---数据长度----
+            byte[] crcData = new byte[10];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
-            crcData[10] = 0;//起始回路为第一回路
-            crcData[11] = 0xFF;//结束回路
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
@@ -82,6 +101,35 @@ namespace ConfigDevice
             udp.Length = 28 + crcData.Length + 4 + 1;
 
             return udp;
+        }
+
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="values"></param>
+        private void getStateInfoData(UdpData data, object[] values)
+        {
+            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            UserUdpData userData = new UserUdpData(data);
+            //------获取状态-----
+            int temp = (int)userData.Data[0];
+            switch (temp)
+            {
+                case 0: this.ValveState = Valve.STATE_STOP; break;
+                case 1: this.ValveState = Valve.STATE_CLOSE; break;
+                case 2: this.ValveState = Valve.STATE_OPEN; break;
+                case 3: this.ValveState = Valve.STATE_TOTAL; break;
+                default: this.ValveState = ""; break;
+            }
+            this.ElectricCurrent = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[1], userData.Data[2] });
+            if ((int)userData.Data[3] == 0)
+                this.ProbeState = "正常";
+            else
+                this.ProbeState = "触发";
+            this.Templatetrue = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[4],userData.Data[5]});
+
+            CallbackUI(new CallbackParameter( this.GetType().ToString()));//----回调界面----
         }
 
     }

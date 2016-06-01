@@ -201,7 +201,7 @@
             // 
             // cbxGroup
             // 
-            this.cbxGroup.Location = new System.Drawing.Point(296, 19);
+            this.cbxGroup.Location = new System.Drawing.Point(319, 19);
             this.cbxGroup.Name = "cbxGroup";
             this.cbxGroup.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.cbxGroup.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
@@ -226,11 +226,14 @@
             // 
             this.lblGroupName.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.lblGroupName.Appearance.Options.UseFont = true;
-            this.lblGroupName.Location = new System.Drawing.Point(226, 22);
+            this.lblGroupName.Appearance.Options.UseTextOptions = true;
+            this.lblGroupName.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.lblGroupName.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblGroupName.Location = new System.Drawing.Point(192, 22);
             this.lblGroupName.Name = "lblGroupName";
-            this.lblGroupName.Size = new System.Drawing.Size(64, 19);
+            this.lblGroupName.Size = new System.Drawing.Size(121, 19);
             this.lblGroupName.TabIndex = 8;
-            this.lblGroupName.Text = "当前按键";
+            this.lblGroupName.Text = "组名";
             // 
             // labelControl2
             // 

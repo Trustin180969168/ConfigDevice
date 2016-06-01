@@ -86,7 +86,7 @@
     <Compile Include="Class\Manage\NetworkCtrl.cs" />
     <Compile Include="Class\Devices\BaseDevice.cs" />
     <Compile Include="Class\Devices\Device.cs" />
-    <Compile Include="Common\ThreadActionTimer.cs">
+    <Compile Include="Tools\ThreadActionTimer.cs">
     </Compile>
     <Compile Include="Config\DeviceConfig.cs" />
     <Compile Include="Class\Manage\DeviceCtrl.cs" />
@@ -331,6 +331,7 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\Election11.png" />
     <None Include="Resources\Traces1.png" />
+    <Compile Include="Class\ControlObj\Valve.cs" />
     <Compile Include="Class\Devices\FlammableGasProbe.cs" />
     <Compile Include="Class\Manage\CommandCtrl.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
@@ -414,6 +415,9 @@
     <None Include="Resources\goyi.png" />
     <None Include="Resources\client.png" />
     <None Include="Resources\Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

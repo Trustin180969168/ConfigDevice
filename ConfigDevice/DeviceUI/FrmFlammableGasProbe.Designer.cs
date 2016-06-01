@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFlammableGasProbe));
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
-            this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.chkClearLoudly = new DevExpress.XtraEditors.CheckEdit();
@@ -43,7 +41,7 @@
             this.btOpenValve = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.spePreTime = new DevExpress.XtraEditors.SpinEdit();
-            this.speGasParam1 = new DevExpress.XtraEditors.SpinEdit();
+            this.speProbeEC = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
@@ -61,6 +59,8 @@
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
+            this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
             this.viewLogicTools = new ConfigDevice.ViewLogicTools();
@@ -69,7 +69,6 @@
             this.lblGroupName = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
-            this.pageJcsz.SuspendLayout();
             this.pagePzjm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
@@ -81,7 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spePreTime.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speGasParam1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speProbeEC.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtT.Properties)).BeginInit();
@@ -89,6 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.edtGasProbe.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtValveState.Properties)).BeginInit();
             this.tsDoorInput.SuspendLayout();
+            this.pageJcsz.SuspendLayout();
             this.pageCommand.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -102,7 +102,7 @@
             this.tctrlEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
-            this.tctrlEdit.SelectedTabPage = this.pageJcsz;
+            this.tctrlEdit.SelectedTabPage = this.pagePzjm;
             this.tctrlEdit.Size = new System.Drawing.Size(994, 651);
             this.tctrlEdit.TabIndex = 2;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
@@ -110,21 +110,6 @@
             this.pagePzjm,
             this.pageCommand});
             this.tctrlEdit.Text = "xtraTabControl1";
-            // 
-            // pageJcsz
-            // 
-            this.pageJcsz.Controls.Add(this.frmSetting);
-            this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(985, 614);
-            this.pageJcsz.Text = "基础配置";
-            // 
-            // frmSetting
-            // 
-            this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmSetting.Location = new System.Drawing.Point(0, 0);
-            this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(985, 614);
-            this.frmSetting.TabIndex = 0;
             // 
             // pagePzjm
             // 
@@ -193,6 +178,7 @@
             this.btStopValve.Size = new System.Drawing.Size(88, 32);
             this.btStopValve.TabIndex = 0;
             this.btStopValve.Text = "停止动作";
+            this.btStopValve.Click += new System.EventHandler(this.btStopValve_Click);
             // 
             // btCloseValve
             // 
@@ -202,6 +188,7 @@
             this.btCloseValve.Size = new System.Drawing.Size(88, 32);
             this.btCloseValve.TabIndex = 0;
             this.btCloseValve.Text = "关阀门";
+            this.btCloseValve.Click += new System.EventHandler(this.btCloseValve_Click);
             // 
             // btOpenValve
             // 
@@ -211,12 +198,13 @@
             this.btOpenValve.Size = new System.Drawing.Size(88, 32);
             this.btOpenValve.TabIndex = 0;
             this.btOpenValve.Text = "开阀门";
+            this.btOpenValve.Click += new System.EventHandler(this.btOpenValve_Click);
             // 
             // groupControl2
             // 
             this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.groupControl2.Controls.Add(this.spePreTime);
-            this.groupControl2.Controls.Add(this.speGasParam1);
+            this.groupControl2.Controls.Add(this.speProbeEC);
             this.groupControl2.Controls.Add(this.labelControl8);
             this.groupControl2.Controls.Add(this.labelControl6);
             this.groupControl2.Controls.Add(this.labelControl7);
@@ -241,19 +229,19 @@
             this.spePreTime.Size = new System.Drawing.Size(100, 21);
             this.spePreTime.TabIndex = 1;
             // 
-            // speGasParam1
+            // speProbeEC
             // 
-            this.speGasParam1.EditValue = new decimal(new int[] {
+            this.speProbeEC.EditValue = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.speGasParam1.Location = new System.Drawing.Point(91, 35);
-            this.speGasParam1.Name = "speGasParam1";
-            this.speGasParam1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.speProbeEC.Location = new System.Drawing.Point(91, 35);
+            this.speProbeEC.Name = "speProbeEC";
+            this.speProbeEC.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.speGasParam1.Size = new System.Drawing.Size(100, 21);
-            this.speGasParam1.TabIndex = 1;
+            this.speProbeEC.Size = new System.Drawing.Size(100, 21);
+            this.speProbeEC.TabIndex = 1;
             // 
             // labelControl8
             // 
@@ -408,6 +396,21 @@
             this.btRefresh.Size = new System.Drawing.Size(100, 28);
             this.btRefresh.Text = "刷新数据";
             // 
+            // pageJcsz
+            // 
+            this.pageJcsz.Controls.Add(this.frmSetting);
+            this.pageJcsz.Name = "pageJcsz";
+            this.pageJcsz.Size = new System.Drawing.Size(985, 614);
+            this.pageJcsz.Text = "基础配置";
+            // 
+            // frmSetting
+            // 
+            this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.frmSetting.Location = new System.Drawing.Point(0, 0);
+            this.frmSetting.Name = "frmSetting";
+            this.frmSetting.Size = new System.Drawing.Size(985, 614);
+            this.frmSetting.TabIndex = 0;
+            // 
             // pageCommand
             // 
             this.pageCommand.Controls.Add(this.viewCommandEdit);
@@ -477,16 +480,16 @@
             this.lblGroupName.TabIndex = 10;
             this.lblGroupName.Text = "触发动作";
             // 
-            // FlammableGasProbe
+            // FrmFlammableGasProbe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(994, 675);
             this.Controls.Add(this.tctrlEdit);
-            this.Name = "FlammableGasProbe";
+            this.Name = "FrmFlammableGasProbe";
+            this.Load += new System.EventHandler(this.FrmFlammableGasProbe_Load);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);
-            this.pageJcsz.ResumeLayout(false);
             this.pagePzjm.ResumeLayout(false);
             this.pagePzjm.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
@@ -500,7 +503,7 @@
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spePreTime.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speGasParam1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speProbeEC.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
@@ -510,6 +513,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.edtValveState.Properties)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
+            this.pageJcsz.ResumeLayout(false);
             this.pageCommand.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
@@ -546,7 +550,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private DevExpress.XtraEditors.SpinEdit spePreTime;
-        private DevExpress.XtraEditors.SpinEdit speGasParam1;
+        private DevExpress.XtraEditors.SpinEdit speProbeEC;
         private DevExpress.XtraEditors.LabelControl labelControl8;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.LabelControl labelControl7;
