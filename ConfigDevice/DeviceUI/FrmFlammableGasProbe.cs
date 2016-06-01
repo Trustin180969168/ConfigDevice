@@ -6,14 +6,15 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ConfigDevice.DeviceUI
+namespace ConfigDevice
 {
-    public partial class FlammableGasProbe : ConfigDevice.FrmDevice
+    public partial class FrmFlammableGasProbe : ConfigDevice.FrmDevice
     {
         private bool autoRefresh = false;
 
-        public FlammableGasProbe()
-        {
+        public FrmFlammableGasProbe(Device _device)
+            : base(_device)
+        { 
             InitializeComponent();
             viewCommandEdit.CbxCommandGroup.Visible = false;
 

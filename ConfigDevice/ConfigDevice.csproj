@@ -115,8 +115,8 @@
       <DependentUpon>ViewLogicTools.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\FlammableGasProbe.resx">
-      <DependentUpon>FlammableGasProbe.cs</DependentUpon>
+    <EmbeddedResource Include="DeviceUI\FrmFlammableGasProbe.resx">
+      <DependentUpon>FrmFlammableGasProbe.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\FrmDoorInput4.resx">
@@ -331,6 +331,7 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\Election11.png" />
     <None Include="Resources\Traces1.png" />
+    <Compile Include="Class\Devices\FlammableGasProbe.cs" />
     <Compile Include="Class\Manage\CommandCtrl.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
     <Compile Include="Class\Devices\Road6FrontDimming.cs" />
@@ -379,11 +380,11 @@
     <Compile Include="DeviceUI\Base\ViewLogicTools.Designer.cs">
       <DependentUpon>ViewLogicTools.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeviceUI\FlammableGasProbe.cs">
+    <Compile Include="DeviceUI\FrmFlammableGasProbe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeviceUI\FlammableGasProbe.Designer.cs">
-      <DependentUpon>FlammableGasProbe.cs</DependentUpon>
+    <Compile Include="DeviceUI\FrmFlammableGasProbe.Designer.cs">
+      <DependentUpon>FrmFlammableGasProbe.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Tools\PortTools.cs" />

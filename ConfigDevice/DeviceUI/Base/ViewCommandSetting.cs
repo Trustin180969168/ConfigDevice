@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
-namespace ConfigDevice.DeviceUI
+namespace ConfigDevice
 {
     public partial class ViewCommandSetting : UserControl
     {

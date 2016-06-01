@@ -1,4 +1,4 @@
-﻿namespace ConfigDevice.DeviceUI
+﻿namespace ConfigDevice
 {
     partial class ViewCommandSetting
     {

@@ -1,6 +1,6 @@
-﻿namespace ConfigDevice.DeviceUI
+﻿namespace ConfigDevice
 {
-    partial class FlammableGasProbe
+    partial class FrmFlammableGasProbe
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,41 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlammableGasProbe));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFlammableGasProbe));
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.checkEdit3 = new DevExpress.XtraEditors.CheckEdit();
-            this.checkEdit2 = new DevExpress.XtraEditors.CheckEdit();
-            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
+            this.chkClearLoudly = new DevExpress.XtraEditors.CheckEdit();
+            this.chkClearLight = new DevExpress.XtraEditors.CheckEdit();
+            this.chkOpenProbe = new DevExpress.XtraEditors.CheckEdit();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
-            this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.btStopValve = new DevExpress.XtraEditors.SimpleButton();
+            this.btCloseValve = new DevExpress.XtraEditors.SimpleButton();
+            this.btOpenValve = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.spinEdit2 = new DevExpress.XtraEditors.SpinEdit();
-            this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
+            this.spePreTime = new DevExpress.XtraEditors.SpinEdit();
+            this.speGasParam1 = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.btAutoRefresh = new DevExpress.XtraEditors.CheckButton();
-            this.textEdit4 = new DevExpress.XtraEditors.TextEdit();
+            this.edtT = new DevExpress.XtraEditors.TextEdit();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
+            this.edtEC = new DevExpress.XtraEditors.TextEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
+            this.edtGasProbe = new DevExpress.XtraEditors.TextEdit();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.edtValveState = new DevExpress.XtraEditors.TextEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
-            this.viewCommandEdit = new ConfigDevice.DeviceUI.ViewCommandSetting();
+            this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
             this.viewLogicTools = new ConfigDevice.ViewLogicTools();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.cbxGroup = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -73,21 +73,21 @@
             this.pagePzjm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkClearLoudly.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkClearLight.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkOpenProbe.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spePreTime.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speGasParam1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit4.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtT.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtEC.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtGasProbe.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtValveState.Properties)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             this.pageCommand.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
@@ -140,83 +140,83 @@
             // groupControl3
             // 
             this.groupControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl3.Controls.Add(this.checkEdit3);
-            this.groupControl3.Controls.Add(this.checkEdit2);
-            this.groupControl3.Controls.Add(this.checkEdit1);
+            this.groupControl3.Controls.Add(this.chkClearLoudly);
+            this.groupControl3.Controls.Add(this.chkClearLight);
+            this.groupControl3.Controls.Add(this.chkOpenProbe);
             this.groupControl3.Location = new System.Drawing.Point(29, 293);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.Size = new System.Drawing.Size(543, 71);
             this.groupControl3.TabIndex = 3;
             this.groupControl3.Text = "警报清除键动作配置";
             // 
-            // checkEdit3
+            // chkClearLoudly
             // 
-            this.checkEdit3.Location = new System.Drawing.Point(259, 36);
-            this.checkEdit3.Name = "checkEdit3";
-            this.checkEdit3.Properties.Caption = "清除蜂鸣器";
-            this.checkEdit3.Size = new System.Drawing.Size(112, 19);
-            this.checkEdit3.TabIndex = 0;
+            this.chkClearLoudly.Location = new System.Drawing.Point(259, 36);
+            this.chkClearLoudly.Name = "chkClearLoudly";
+            this.chkClearLoudly.Properties.Caption = "清除蜂鸣器";
+            this.chkClearLoudly.Size = new System.Drawing.Size(112, 19);
+            this.chkClearLoudly.TabIndex = 0;
             // 
-            // checkEdit2
+            // chkClearLight
             // 
-            this.checkEdit2.Location = new System.Drawing.Point(128, 36);
-            this.checkEdit2.Name = "checkEdit2";
-            this.checkEdit2.Properties.Caption = "清除指示灯";
-            this.checkEdit2.Size = new System.Drawing.Size(88, 19);
-            this.checkEdit2.TabIndex = 0;
+            this.chkClearLight.Location = new System.Drawing.Point(128, 36);
+            this.chkClearLight.Name = "chkClearLight";
+            this.chkClearLight.Properties.Caption = "清除指示灯";
+            this.chkClearLight.Size = new System.Drawing.Size(115, 19);
+            this.chkClearLight.TabIndex = 0;
             // 
-            // checkEdit1
+            // chkOpenProbe
             // 
-            this.checkEdit1.Location = new System.Drawing.Point(21, 36);
-            this.checkEdit1.Name = "checkEdit1";
-            this.checkEdit1.Properties.Caption = "开阀门";
-            this.checkEdit1.Size = new System.Drawing.Size(75, 19);
-            this.checkEdit1.TabIndex = 0;
+            this.chkOpenProbe.Location = new System.Drawing.Point(21, 36);
+            this.chkOpenProbe.Name = "chkOpenProbe";
+            this.chkOpenProbe.Properties.Caption = "开阀门";
+            this.chkOpenProbe.Size = new System.Drawing.Size(75, 19);
+            this.chkOpenProbe.TabIndex = 0;
             // 
             // groupControl4
             // 
             this.groupControl4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl4.Controls.Add(this.simpleButton3);
-            this.groupControl4.Controls.Add(this.simpleButton2);
-            this.groupControl4.Controls.Add(this.simpleButton1);
+            this.groupControl4.Controls.Add(this.btStopValve);
+            this.groupControl4.Controls.Add(this.btCloseValve);
+            this.groupControl4.Controls.Add(this.btOpenValve);
             this.groupControl4.Location = new System.Drawing.Point(29, 131);
             this.groupControl4.Name = "groupControl4";
             this.groupControl4.Size = new System.Drawing.Size(543, 79);
             this.groupControl4.TabIndex = 3;
             this.groupControl4.Text = "阀门测试";
             // 
-            // simpleButton3
+            // btStopValve
             // 
-            this.simpleButton3.Image = global::ConfigDevice.Properties.Resources.stop;
-            this.simpleButton3.Location = new System.Drawing.Point(283, 33);
-            this.simpleButton3.Name = "simpleButton3";
-            this.simpleButton3.Size = new System.Drawing.Size(88, 32);
-            this.simpleButton3.TabIndex = 0;
-            this.simpleButton3.Text = "停止动作";
+            this.btStopValve.Image = global::ConfigDevice.Properties.Resources.stop;
+            this.btStopValve.Location = new System.Drawing.Point(283, 33);
+            this.btStopValve.Name = "btStopValve";
+            this.btStopValve.Size = new System.Drawing.Size(88, 32);
+            this.btStopValve.TabIndex = 0;
+            this.btStopValve.Text = "停止动作";
             // 
-            // simpleButton2
+            // btCloseValve
             // 
-            this.simpleButton2.Image = global::ConfigDevice.Properties.Resources.power_off;
-            this.simpleButton2.Location = new System.Drawing.Point(153, 33);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(88, 32);
-            this.simpleButton2.TabIndex = 0;
-            this.simpleButton2.Text = "关阀门";
+            this.btCloseValve.Image = global::ConfigDevice.Properties.Resources.power_off;
+            this.btCloseValve.Location = new System.Drawing.Point(155, 33);
+            this.btCloseValve.Name = "btCloseValve";
+            this.btCloseValve.Size = new System.Drawing.Size(88, 32);
+            this.btCloseValve.TabIndex = 0;
+            this.btCloseValve.Text = "关阀门";
             // 
-            // simpleButton1
+            // btOpenValve
             // 
-            this.simpleButton1.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.Image")));
-            this.simpleButton1.Location = new System.Drawing.Point(28, 33);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(88, 32);
-            this.simpleButton1.TabIndex = 0;
-            this.simpleButton1.Text = "开阀门";
+            this.btOpenValve.Image = ((System.Drawing.Image)(resources.GetObject("btOpenValve.Image")));
+            this.btOpenValve.Location = new System.Drawing.Point(28, 33);
+            this.btOpenValve.Name = "btOpenValve";
+            this.btOpenValve.Size = new System.Drawing.Size(88, 32);
+            this.btOpenValve.TabIndex = 0;
+            this.btOpenValve.Text = "开阀门";
             // 
             // groupControl2
             // 
             this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.spinEdit2);
-            this.groupControl2.Controls.Add(this.spinEdit1);
+            this.groupControl2.Controls.Add(this.spePreTime);
+            this.groupControl2.Controls.Add(this.speGasParam1);
             this.groupControl2.Controls.Add(this.labelControl8);
             this.groupControl2.Controls.Add(this.labelControl6);
             this.groupControl2.Controls.Add(this.labelControl7);
@@ -227,33 +227,33 @@
             this.groupControl2.TabIndex = 3;
             this.groupControl2.Text = "阀门电气参数测试";
             // 
-            // spinEdit2
+            // spePreTime
             // 
-            this.spinEdit2.EditValue = new decimal(new int[] {
+            this.spePreTime.EditValue = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.spinEdit2.Location = new System.Drawing.Point(366, 35);
-            this.spinEdit2.Name = "spinEdit2";
-            this.spinEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.spePreTime.Location = new System.Drawing.Point(366, 35);
+            this.spePreTime.Name = "spePreTime";
+            this.spePreTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.spinEdit2.Size = new System.Drawing.Size(100, 21);
-            this.spinEdit2.TabIndex = 1;
+            this.spePreTime.Size = new System.Drawing.Size(100, 21);
+            this.spePreTime.TabIndex = 1;
             // 
-            // spinEdit1
+            // speGasParam1
             // 
-            this.spinEdit1.EditValue = new decimal(new int[] {
+            this.speGasParam1.EditValue = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.spinEdit1.Location = new System.Drawing.Point(94, 35);
-            this.spinEdit1.Name = "spinEdit1";
-            this.spinEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.speGasParam1.Location = new System.Drawing.Point(91, 35);
+            this.speGasParam1.Name = "speGasParam1";
+            this.speGasParam1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.spinEdit1.Size = new System.Drawing.Size(100, 21);
-            this.spinEdit1.TabIndex = 1;
+            this.speGasParam1.Size = new System.Drawing.Size(100, 21);
+            this.speGasParam1.TabIndex = 1;
             // 
             // labelControl8
             // 
@@ -265,7 +265,7 @@
             // 
             // labelControl6
             // 
-            this.labelControl6.Location = new System.Drawing.Point(198, 38);
+            this.labelControl6.Location = new System.Drawing.Point(197, 38);
             this.labelControl6.Name = "labelControl6";
             this.labelControl6.Size = new System.Drawing.Size(18, 14);
             this.labelControl6.TabIndex = 0;
@@ -281,7 +281,7 @@
             // 
             // labelControl5
             // 
-            this.labelControl5.Location = new System.Drawing.Point(28, 38);
+            this.labelControl5.Location = new System.Drawing.Point(23, 38);
             this.labelControl5.Name = "labelControl5";
             this.labelControl5.Size = new System.Drawing.Size(60, 14);
             this.labelControl5.TabIndex = 0;
@@ -291,13 +291,13 @@
             // 
             this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.groupControl1.Controls.Add(this.btAutoRefresh);
-            this.groupControl1.Controls.Add(this.textEdit4);
+            this.groupControl1.Controls.Add(this.edtT);
             this.groupControl1.Controls.Add(this.labelControl4);
-            this.groupControl1.Controls.Add(this.textEdit2);
+            this.groupControl1.Controls.Add(this.edtEC);
             this.groupControl1.Controls.Add(this.labelControl2);
-            this.groupControl1.Controls.Add(this.textEdit3);
+            this.groupControl1.Controls.Add(this.edtGasProbe);
             this.groupControl1.Controls.Add(this.labelControl3);
-            this.groupControl1.Controls.Add(this.textEdit1);
+            this.groupControl1.Controls.Add(this.edtValveState);
             this.groupControl1.Controls.Add(this.labelControl1);
             this.groupControl1.Location = new System.Drawing.Point(29, 43);
             this.groupControl1.Name = "groupControl1";
@@ -315,13 +315,13 @@
             this.btAutoRefresh.Text = "自动刷新";
             this.btAutoRefresh.CheckedChanged += new System.EventHandler(this.btAutoRefresh_CheckedChanged);
             // 
-            // textEdit4
+            // edtT
             // 
-            this.textEdit4.Location = new System.Drawing.Point(261, 51);
-            this.textEdit4.Name = "textEdit4";
-            this.textEdit4.Properties.ReadOnly = true;
-            this.textEdit4.Size = new System.Drawing.Size(100, 21);
-            this.textEdit4.TabIndex = 1;
+            this.edtT.Location = new System.Drawing.Point(261, 51);
+            this.edtT.Name = "edtT";
+            this.edtT.Properties.ReadOnly = true;
+            this.edtT.Size = new System.Drawing.Size(100, 21);
+            this.edtT.TabIndex = 1;
             // 
             // labelControl4
             // 
@@ -331,13 +331,13 @@
             this.labelControl4.TabIndex = 0;
             this.labelControl4.Text = "温    度";
             // 
-            // textEdit2
+            // edtEC
             // 
-            this.textEdit2.Location = new System.Drawing.Point(261, 24);
-            this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Properties.ReadOnly = true;
-            this.textEdit2.Size = new System.Drawing.Size(100, 21);
-            this.textEdit2.TabIndex = 1;
+            this.edtEC.Location = new System.Drawing.Point(261, 24);
+            this.edtEC.Name = "edtEC";
+            this.edtEC.Properties.ReadOnly = true;
+            this.edtEC.Size = new System.Drawing.Size(100, 21);
+            this.edtEC.TabIndex = 1;
             // 
             // labelControl2
             // 
@@ -347,29 +347,29 @@
             this.labelControl2.TabIndex = 0;
             this.labelControl2.Text = "电    流";
             // 
-            // textEdit3
+            // edtGasProbe
             // 
-            this.textEdit3.Location = new System.Drawing.Point(91, 51);
-            this.textEdit3.Name = "textEdit3";
-            this.textEdit3.Properties.ReadOnly = true;
-            this.textEdit3.Size = new System.Drawing.Size(100, 21);
-            this.textEdit3.TabIndex = 1;
+            this.edtGasProbe.Location = new System.Drawing.Point(91, 51);
+            this.edtGasProbe.Name = "edtGasProbe";
+            this.edtGasProbe.Properties.ReadOnly = true;
+            this.edtGasProbe.Size = new System.Drawing.Size(100, 21);
+            this.edtGasProbe.TabIndex = 1;
             // 
             // labelControl3
             // 
-            this.labelControl3.Location = new System.Drawing.Point(23, 54);
+            this.labelControl3.Location = new System.Drawing.Point(25, 54);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(60, 14);
             this.labelControl3.TabIndex = 0;
             this.labelControl3.Text = "可燃气探头";
             // 
-            // textEdit1
+            // edtValveState
             // 
-            this.textEdit1.Location = new System.Drawing.Point(91, 24);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.ReadOnly = true;
-            this.textEdit1.Size = new System.Drawing.Size(100, 21);
-            this.textEdit1.TabIndex = 1;
+            this.edtValveState.Location = new System.Drawing.Point(91, 24);
+            this.edtValveState.Name = "edtValveState";
+            this.edtValveState.Properties.ReadOnly = true;
+            this.edtValveState.Size = new System.Drawing.Size(100, 21);
+            this.edtValveState.TabIndex = 1;
             // 
             // labelControl1
             // 
@@ -491,23 +491,23 @@
             this.pagePzjm.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkClearLoudly.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkClearLight.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkOpenProbe.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spePreTime.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speGasParam1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit4.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtT.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtEC.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtGasProbe.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtValveState.Properties)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
             this.pageCommand.ResumeLayout(false);
@@ -536,29 +536,29 @@
         private DevExpress.XtraEditors.ComboBoxEdit cbxGroup;
         private DevExpress.XtraEditors.LabelControl lblGroupName;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private DevExpress.XtraEditors.TextEdit textEdit4;
+        private DevExpress.XtraEditors.TextEdit edtT;
         private DevExpress.XtraEditors.LabelControl labelControl4;
-        private DevExpress.XtraEditors.TextEdit textEdit2;
+        private DevExpress.XtraEditors.TextEdit edtEC;
         private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.TextEdit textEdit3;
+        private DevExpress.XtraEditors.TextEdit edtGasProbe;
         private DevExpress.XtraEditors.LabelControl labelControl3;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
+        private DevExpress.XtraEditors.TextEdit edtValveState;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private DevExpress.XtraEditors.SpinEdit spinEdit2;
-        private DevExpress.XtraEditors.SpinEdit spinEdit1;
+        private DevExpress.XtraEditors.SpinEdit spePreTime;
+        private DevExpress.XtraEditors.SpinEdit speGasParam1;
         private DevExpress.XtraEditors.LabelControl labelControl8;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl5;
         private DevExpress.XtraEditors.GroupControl groupControl3;
-        private DevExpress.XtraEditors.CheckEdit checkEdit3;
-        private DevExpress.XtraEditors.CheckEdit checkEdit2;
-        private DevExpress.XtraEditors.CheckEdit checkEdit1;
+        private DevExpress.XtraEditors.CheckEdit chkClearLoudly;
+        private DevExpress.XtraEditors.CheckEdit chkClearLight;
+        private DevExpress.XtraEditors.CheckEdit chkOpenProbe;
         private DevExpress.XtraEditors.CheckButton btAutoRefresh;
         private DevExpress.XtraEditors.GroupControl groupControl4;
-        private DevExpress.XtraEditors.SimpleButton simpleButton3;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton btStopValve;
+        private DevExpress.XtraEditors.SimpleButton btCloseValve;
+        private DevExpress.XtraEditors.SimpleButton btOpenValve;
     }
 }

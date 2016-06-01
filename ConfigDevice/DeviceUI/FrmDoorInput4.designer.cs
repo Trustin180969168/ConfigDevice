@@ -75,7 +75,7 @@
             this.edtNum3 = new DevExpress.XtraEditors.SpinEdit();
             this.edtNum4 = new DevExpress.XtraEditors.SpinEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
-            this.viewCommandEdit = new ConfigDevice.DeviceUI.ViewCommandSetting();
+            this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
             ((System.ComponentModel.ISupportInitialize)(this.edtName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtSecurity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
@@ -753,7 +753,7 @@
         private DevExpress.XtraEditors.TextEdit edtMcmc4;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageCommand;
-        private ConfigDevice.DeviceUI.ViewCommandSetting viewCommandEdit;
+        private ConfigDevice.ViewCommandSetting viewCommandEdit;
         private DevExpress.XtraEditors.GroupControl gccSecurity;
         private DevExpress.XtraGrid.GridControl gcSecurity;
         private DevExpress.XtraGrid.Views.Grid.GridView gvSecurity;

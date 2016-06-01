@@ -41,6 +41,20 @@ namespace ConfigDevice
         #endregion
     }
 
+    /// <summary>
+    /// 可燃气体探头
+    /// </summary>
+    public class FactoryFlammableGasProbeEdit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            FlammableGasProbe flammableGasProbe = new FlammableGasProbe(data);
+            return new FrmFlammableGasProbe(flammableGasProbe);
+        }
+        #endregion
+    }
+
 
     //**********************设备***************************
 

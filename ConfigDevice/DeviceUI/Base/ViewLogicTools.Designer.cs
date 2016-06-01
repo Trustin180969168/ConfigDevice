@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewLogicTools));
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
@@ -93,11 +91,6 @@
             this.gcLogic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcLogic.EmbeddedNavigator.Name = "";
             this.gcLogic.FormsUseDefaultLookAndFeel = false;
-            gridLevelNode1.RelationName = "Level1";
-            gridLevelNode2.RelationName = "Level2";
-            this.gcLogic.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1,
-            gridLevelNode2});
             this.gcLogic.Location = new System.Drawing.Point(0, 0);
             this.gcLogic.MainView = this.gvLogic;
             this.gcLogic.Name = "gcLogic";
@@ -110,6 +103,7 @@
             // 
             // gvLogic
             // 
+            this.gvLogic.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.gvLogic.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.dcTriggerCondition,
             this.dcInputCondition,
@@ -119,6 +113,7 @@
             this.dcEnd});
             this.gvLogic.GridControl = this.gcLogic;
             this.gvLogic.Name = "gvLogic";
+            this.gvLogic.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
             this.gvLogic.OptionsView.EnableAppearanceEvenRow = true;
             this.gvLogic.OptionsView.EnableAppearanceOddRow = true;
             this.gvLogic.OptionsView.ShowGroupPanel = false;

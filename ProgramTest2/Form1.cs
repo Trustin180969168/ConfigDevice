@@ -59,9 +59,7 @@ namespace ProgramTest2
         {
             gcTime.DataSource = dt;
 
-
-            (spinEdit1.Controls[0] as DevExpress.XtraEditors.TextBoxMaskBox).MouseWheel += new System.Windows.Forms.MouseEventHandler(this.edt_MouseWheel);
-            dcSelect.ColumnEdit = lookupEdit;
+ 
 
             dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "1", 1 });
             dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "2", 2 });
