@@ -152,6 +152,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
                 case DeviceConfig.EQUIPMENT_RJ45: return new FactoryBaseDeviceEdit();
                 case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryDoor4InputEdit();
+                case DeviceConfig.EQUIPMENT_FUEL_GAS: return new FactoryFlammableGasProbeEdit();
                 default: return new FactoryBaseDeviceEdit();
             }
         }

@@ -92,23 +92,23 @@ namespace ConfigDevice
             Action searchAction = new Action(networkCtrl.SearchNetworks);
             searchAction.BeginInvoke(null, null);
         }
-        public void CallBackUI(object[] values)
+        public void CallBackUI(CallbackParameter callbackParameter)
         {
             try
             {
                 if (this.InvokeRequired)
-                { this.Invoke(new CallbackUIAction(CallBackUI), new object[] { values }); }
+                { this.Invoke(new CallbackParameterUIAction(CallBackUI), callbackParameter); }
                 else
                 {
-                    if (values == null)
+                    if (callbackParameter.Action == ActionKind.None)
                     {
                         networkSearchDevices.Width = 50;
                     }
-                    else if ((ActionKind)values[0] == ActionKind.SearchDevice)//-----搜索完设备----
+                    else if (callbackParameter.Action == ActionKind.SearchDevice)//-----搜索完设备----
                     {
                         searchingDevice = false;
 
-                        listRrefreshDevices.Remove((values[1] as Network).MAC);
+                        listRrefreshDevices.Remove((callbackParameter.Parameters[0] as Network).MAC);
 
                         gvDevices.BestFitColumns();
                         networkSearchDevices.Width = 50;
@@ -117,9 +117,9 @@ namespace ConfigDevice
                         else
                         { pw.Hide(); this.Focus(); }
                     }
-                    else if ((ActionKind)values[0] == ActionKind.SyncNetworkID)//----同步网络ID完毕刷新---
+                    else if (callbackParameter.Action == ActionKind.SyncNetworkID)//----同步网络ID完毕刷新---
                     {
-                        Network network = (Network)(values[1]);
+                        Network network = (Network)(callbackParameter.Parameters[0]);
                         if (searchingDevice)
                         {
                             listRrefreshDevices.Add(network.MAC, network);
@@ -131,22 +131,22 @@ namespace ConfigDevice
                             deviceCtrl.SearchDevices(network);
                         }
                     }
-                    else if ((ActionKind)values[0] == ActionKind.ConnectNetowrk)//---连接完网络----
+                    else if ((callbackParameter.Action == ActionKind.ConnectNetowrk))//---连接完网络----
                     {
-                        Network network = (Network)(values[1]);
+                        Network network = (Network)(callbackParameter.Parameters[0]);
                         gvNetwork.PostEditor(); gvNetwork.RefreshData();
                         searchingDevice = true;
                         SetDevicesFilter();//---设置筛选---
                         pw.ShowWaittingInfo(5, "正在加载...");
                         deviceCtrl.SearchDevices(network);//---自动搜索设备
                     }
-                    else if ((ActionKind)values[0] == ActionKind.DisConnectNetwork)//---断开连接----
+                    else if ((callbackParameter.Action == ActionKind.DisConnectNetwork))//---断开连接----
                     {
                         gcDevices.DataSource = SysConfig.DtDevice;
                     }
-                    else if ((ActionKind)values[0] == ActionKind.SaveDeviceName)//---保存设备名称后刷新列表----
+                    else if ((callbackParameter.Action == ActionKind.SaveDeviceName))//---保存设备名称后刷新列表----
                     {
-                        Device device = values[1] as Device;
+                        Device device = callbackParameter.Parameters[0] as Device;
                         SysCtrl.UpdateDeviceData(device.GetDeviceData());
                     }
                 }

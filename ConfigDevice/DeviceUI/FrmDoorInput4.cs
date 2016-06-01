@@ -74,13 +74,13 @@ namespace ConfigDevice
         /// <summary>
         /// 回调
         /// </summary>
-        private void callbackUI(object[] values)
+        private void callbackUI(CallbackParameter callbackParameter)
         {
             try
             {
                 if (this.InvokeRequired)
                 {
-                    this.Invoke(new CallbackUIAction(callbackUI), new object[] { values });
+                    this.Invoke(new CallbackParameterUIAction(callbackUI), callbackParameter);
                     return;
                 }
                 else
@@ -114,12 +114,12 @@ namespace ConfigDevice
         /// 获取回路名称
         /// </summary>
         /// <param name="values"></param>
-        private void callbackRoadName(object[] values)
+        private void callbackRoadName(CallbackParameter callbackParameter)
 
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CallbackUIAction(callbackRoadName), new object[] { values });
+                this.Invoke(new CallbackParameterUIAction(callbackRoadName), callbackParameter);
                 return;
             }
             //----------刷新命令组-----------------

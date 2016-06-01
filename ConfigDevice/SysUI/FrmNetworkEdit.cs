@@ -86,7 +86,7 @@ namespace ConfigDevice
             foreach (DataRow dr in dtModify.Rows)
             {
                 Position pos = new Position(Convert.ToInt16(dr[Position.DC_NUM]), dr[Position.DC_NAME].ToString(), Convert.ToBoolean(dr[Position.DC_HAS_PASSWORD]));
-                NetworkEdit.SavePositionList(pos, this.callBackSavePosition);
+                NetworkEdit.SavePositionList(pos);
             }
         }
 
@@ -96,25 +96,26 @@ namespace ConfigDevice
         /// <param name="pos">保存位置</param>
         private void callBackSavePosition(object[] values)
         {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new CallbackUIAction(this.callBackSavePosition), new object[] { values });
-                return;
-            }
-            Position pos = values[0] as Position;
-            dtPosition.Rows[pos.Num - 1].AcceptChanges();
+ 
+
 
         }
 
-        private void callbackUI(object[] values)
+        private void callbackUI(CallbackParameter callbackParameter)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CallbackUIAction(this.callbackUI), new object[] { values });
+                this.Invoke(new CallbackParameterUIAction(this.callbackUI), callbackParameter);
                 return;
             }
             edtSoftwareVer.Text = NetworkEdit.SoftwareVer;
             edtHarewareVer.Text = NetworkEdit.HardwareVer;
+
+            if (callbackParameter.Action == ActionKind.SaveNetworkPosition)
+            {
+                Position pos = callbackParameter.Parameters[0] as Position;
+                dtPosition.Rows[pos.Num - 1].AcceptChanges();
+            }
         }
 
         /// <summary>

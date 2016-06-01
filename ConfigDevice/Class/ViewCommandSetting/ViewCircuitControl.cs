@@ -141,7 +141,7 @@ namespace ConfigDevice
         /// 读取后返回结果
         /// </summary>
         /// <param name="values"></param>
-        public void CallBackUI(object[] values)
+        public void CallBackUI(CallbackParameter callbackParameter)
         {
             try
             {

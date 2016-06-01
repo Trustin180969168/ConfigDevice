@@ -14,7 +14,7 @@ namespace ConfigDevice
         public ThreadActionTimer RefreshConnectState;//计时器执行
         private long RefreshCount = 0;
         private MySocket mySocket = MySocket.GetInstance();
-        public event CallbackUIAction CallBackUI = null;//返回UI
+        public event CallbackParameterUIAction CallBackUI = null;//返回UI
         private CallbackFromUDP callbackRefreshNetwork;//回调类
 
         public NetworkCtrl()
@@ -101,7 +101,7 @@ namespace ConfigDevice
                 }
 
                 
-                CallBackUI(null);
+            //    CallBackUI(new CallbackParameter(null));
             }
         }
 

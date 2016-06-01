@@ -8,7 +8,7 @@ namespace ConfigDevice
     {
         private MySocket mySocket = MySocket.GetInstance();
         public Device device;//-----设备---
-        public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
+        public event CallbackParameterUIAction OnCallbackUI_Action;   //----回调UI----
         public CallbackFromUDP callbackGetCommandData;//---回调获取指令----
         public CommandCtrl(Device value)
         {
@@ -21,10 +21,10 @@ namespace ConfigDevice
         /// 回调UI
         /// </summary>
         /// <param name="values"></param>
-        private void CallbackUI(object[] values)
+        private void CallbackUI(CallbackParameter callbackParameter)
         {
             if (this.OnCallbackUI_Action != null)
-                OnCallbackUI_Action(values);
+                OnCallbackUI_Action(callbackParameter);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace ConfigDevice
         {
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
-            CallbackUI(new object[] { userData });//----界面回调------
+            CallbackUI(new CallbackParameter( new object[] { userData }));//----界面回调------
         }
 
 

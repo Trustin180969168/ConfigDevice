@@ -10,7 +10,7 @@ namespace ConfigDevice
     public class Road4Relay : Device
     {
         private const int circuitCount = 4;//回路数
-        public event CallbackUIAction OnCallbackRoad_Action;   //----回调UI----
+        public event CallbackParameterUIAction OnCallbackRoad_Action;   //----回调UI----
         public Circuit circuit
         {
             get { return ContrlObjs["回路"] as Circuit; }

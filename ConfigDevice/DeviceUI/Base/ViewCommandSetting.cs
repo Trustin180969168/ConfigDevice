@@ -34,14 +34,14 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="udpResult"></param>
         /// <param name="values"></param>
-        private void returnCommandData(object[] values)
+        private void returnCommandData(CallbackParameter parameter)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CallbackUIAction(returnCommandData), new object[] { values });
+                this.Invoke(new CallbackParameterUIAction(returnCommandData), parameter);
                 return;
             }
-            UserUdpData userData = (UserUdpData)values[0];
+            UserUdpData userData = (UserUdpData)parameter.Parameters[0];
             CommandData commandData = new CommandData(userData);
             //----暂时不用多一条的情况
             //while (commandCount < commandData.ucCmdNum + 2)

@@ -11,7 +11,7 @@ namespace ConfigDevice
         public const string NAME_CMD_SWIT_LOOP_CLOSE = "关回路";
         private int circuitCount = 1;
         private MySocket mySocket = MySocket.GetInstance();
-        public event CallbackUIAction OnCallbackRoad_Action;   //----回调UI----
+        public event CallbackParameterUIAction OnCallbackRoad_Action;   //----回调UI----
         public Dictionary<int, string> ListCircuitIDAndName = new Dictionary<int, string>();//回路ID和名称对应表用于指令配置
         private CallbackFromUDP getRoadTitles;//-------每回路名称----
         private CallbackFromUDP finishGetRoadTitles;//-------完成读取回路名称----

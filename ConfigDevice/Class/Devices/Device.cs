@@ -23,17 +23,17 @@ namespace ConfigDevice
         public string AddressName = "";//设备地址
         public byte[] ByteAddressID;//字节设备地址ID
         public string AddressID = "";//设备地址ID 
-    
+
         public Dictionary<string, ControlObj> ContrlObjs = new Dictionary<string, ControlObj>();//控制对象列表
 
         public byte BytePCAddress { get { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; } }
         public byte ByteDeviceID { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }
         public byte ByteKindID { get { return BitConverter.GetBytes(Convert.ToInt16(KindID))[0]; } }
         public byte[] ByteMacAddress { get { return ConvertTools.StrToToHexByte(MAC); } }
-        public byte ByteNetworkId { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } } 
+        public byte ByteNetworkId { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } }
 
         protected MySocket mySocket = MySocket.GetInstance();
-        public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
+        public event CallbackParameterUIAction OnCallbackUI_Action;   //----回调UI----
         public CallbackFromUDP callbackVer;//----回调版本号----
         public CallbackFromUDP callbackSaveID;//----回调保存ID号-----
         public CallbackFromUDP callbackSaveName;//--回调保存名称-----
@@ -93,10 +93,10 @@ namespace ConfigDevice
         /// 回调UI
         /// </summary>
         /// <param name="values"></param>
-        public void CallbackUI(object[] values)
+        public void CallbackUI(CallbackParameter callbackParameter)
         {
             if (this.OnCallbackUI_Action != null)
-                OnCallbackUI_Action(values);
+                OnCallbackUI_Action(callbackParameter);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace ConfigDevice
         {
             callbackVer = new CallbackFromUDP(getVer);
             callbackRefresh = new CallbackFromUDP(getRefreshDevice);
-            callbackSaveID = new CallbackFromUDP(getResultDevice); 
+            callbackSaveID = new CallbackFromUDP(getResultDevice);
         }
 
         /// <summary>
@@ -125,8 +125,8 @@ namespace ConfigDevice
             PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
             NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
             AddressName = dr[DeviceConfig.DC_ADDRESS_NAME].ToString();
-            AddressID = dr[DeviceConfig.DC_ADDRESS_ID].ToString();            
-            ByteAddressID =ConvertTools.StrToToHexByte( dr[DeviceConfig.DC_ADDRESS_ID].ToString());
+            AddressID = dr[DeviceConfig.DC_ADDRESS_ID].ToString();
+            ByteAddressID = ConvertTools.StrToToHexByte(dr[DeviceConfig.DC_ADDRESS_ID].ToString());
             State = dr[DeviceConfig.DC_STATE].ToString();
 
             InitCallback();
@@ -149,7 +149,7 @@ namespace ConfigDevice
             NetworkIP = data.NetworkIP;
             AddressName = data.AddressName;
             AddressID = data.AddressID;
-            if(AddressID != "")
+            if (AddressID != "")
                 ByteAddressID = ConvertTools.StrToToHexByte(data.AddressID);
             State = data.State;
 
@@ -178,7 +178,7 @@ namespace ConfigDevice
             data.AddressName = AddressName;
             data.State = State;
             data.Remark = Remark;
-       
+
 
             return data;
         }
@@ -215,7 +215,7 @@ namespace ConfigDevice
                 Buffer.BlockCopy(userData.Data, 20, temp2, 0, 20);
                 HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0');
             }
-   
+
             CallbackUI(null);
         }
         /// <summary>
@@ -282,14 +282,14 @@ namespace ConfigDevice
             //    return udp;
         }
 
-    
+
         /// <summary>
         /// 保存设备ID以及设备名称
         /// </summary>
         /// <param name="DeviceData">新设备数据</param> 
         public void SaveDeviceIDAndName(DeviceData data)
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF,MAC, callbackSaveID,1);//回调返回的一个设备结果
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, MAC, callbackSaveID, 1);//回调返回的一个设备结果
             callbackSaveID.Values = new object[] { data };//---保存回调参数----
             UdpData udp = createSaveDeviceIDUdp(data.DeviceID);
             MySocket.GetInstance().SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceID), new object[] { udp });
@@ -299,16 +299,16 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="ID">设备ID</param>
         public void SaveDeviceID(string newID)
-        { 
+        {
             callbackSaveID.ActionCount = 1;//---只允许回调一次---
             UdpData udp = createSaveDeviceIDUdp(newID);
-            MySocket.GetInstance().SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceID), new object[] { udp });            
+            MySocket.GetInstance().SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceID), new object[] { udp });
         }
         private void callbackSaveDeviceID(UdpData udp, object[] values)
         {
             UdpData sendUdp = (UdpData)values[0];
             if (udp.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                CommonTools.ShowReplyInfo("修改设备ID失败!", udp.ReplyByte);          
+                CommonTools.ShowReplyInfo("修改设备ID失败!", udp.ReplyByte);
         }
         /// <summary>
         /// 创建修改设备ID的UDP包
@@ -374,7 +374,8 @@ namespace ConfigDevice
                     this.DeviceID = resultDevice.DeviceID;//---恢复原来的设备ID---
                     CommonTools.MessageShow("设备ID修改失败!", 2, "");
                 }
-            }else//-----RJ45的数据会执行多个回调,若mac地址未匹配,要继续接收回调,直到回调成功.
+            }
+            else//-----RJ45的数据会执行多个回调,若mac地址未匹配,要继续接收回调,直到回调成功.
                 callbackSaveID.ActionCount = 1;//--继续接收回调数据----
 
         }
@@ -400,7 +401,7 @@ namespace ConfigDevice
             {
                 this.Name = newName; this.AddressName = newPos; this.ByteAddressID = newBytePostion;
                 SysCtrl.UpdateDeviceData(this.GetDeviceData());
-                CallbackUI(new object[] { ActionKind.SaveDeviceName, this });
+                CallbackUI(new CallbackParameter(ActionKind.SaveDeviceName,  this ));
             }
             else
                 CommonTools.ShowReplyInfo("保存名称失败!", udpReply.ReplyByte);
@@ -452,8 +453,8 @@ namespace ConfigDevice
         /// </summary>
         public void RefreshData()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF,callbackRefresh);//回调刷新结果
-            UdpData udpSend = createRefreshUdp(); 
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackRefresh);//回调刷新结果
+            UdpData udpSend = createRefreshUdp();
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackRefreshDevice), new object[] { udpSend });
         }
         private void callbackRefreshDevice(UdpData udpReply, object[] values)
@@ -611,7 +612,7 @@ namespace ConfigDevice
             if (udpSend.PacketCodeStr == udpReply.PacketCodeStr)
             {
                 if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                { CommonTools.ShowReplyInfo(error, udpReply.ReplyByte); return; } 
+                { CommonTools.ShowReplyInfo(error, udpReply.ReplyByte); return; }
             }
         }
 

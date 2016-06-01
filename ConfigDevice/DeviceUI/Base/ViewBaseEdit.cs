@@ -16,12 +16,12 @@ namespace ConfigDevice
             InitializeComponent();
         }
 
-        public void CallBackUI(object[] values)
+        public void CallBackUI(CallbackParameter callbackParameter)
         {
             try
             {
                 if (this.InvokeRequired)
-                    this.Invoke(new CallbackUIAction(this.CallBackUI), new object[] { values });
+                    this.Invoke(new CallbackParameterUIAction(this.CallBackUI), callbackParameter);
                 else
                 {
 
@@ -39,7 +39,7 @@ namespace ConfigDevice
                     (this.ParentForm as FrmDevice).SetSelectDevice();//----设置选择列表----
 
 
-                    if ((ActionKind)values[0] == ActionKind.SaveDeviceName)
+                    if (callbackParameter.Action == ActionKind.SaveDeviceName)
                         SysCtrl.UpdateDeviceData(DeviceEdit.GetDeviceData());
 
                 }

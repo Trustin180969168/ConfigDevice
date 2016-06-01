@@ -239,22 +239,21 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="_position">位置</param>
         /// <param name="_name">名称</param>
-        public void SavePositionList(Position pos, CallbackUIAction callbackUI)
+        public void SavePositionList(Position pos)
         {
             UdpData udpSend = createSavePositionUdp(pos);
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackGetSavePositionReply), new object[] { udpSend, pos, callbackUI });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackGetSavePositionReply), new object[] { udpSend, pos });
         }
         private void callbackGetSavePositionReply(UdpData udpReply, object[] values)
         {
             UdpData udpSend = (UdpData)values[0];
-            Position pos = (Position)values[1];
-            CallbackUIAction callbackUI = (CallbackUIAction)values[2];
+            Position pos = (Position)values[1]; 
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("保存位置- " + pos.Name + " 失败!", udpReply.ReplyByte);//----错误则提示---- 
             else
             {
                 ListPosition[pos.Num - 1] = pos;
-                callbackUI(new object[] { pos });//----返回界面结果----
+                this.CallbackUI(new CallbackParameter(ActionKind.SaveNetworkPosition, pos));//----返回界面结果----
             }
         }
         /// <summary>
@@ -437,7 +436,7 @@ namespace ConfigDevice
                     int i =SysConfig.ListNetworks.Count;
                     GetPositionList(); //----------获取位置列表---------
                     SysCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
-                    CallbackUI(new object[] { ActionKind.ConnectNetowrk, this });
+                    CallbackUI(new CallbackParameter(  ActionKind.ConnectNetowrk, this ));
                     return;
                 }
                 else
@@ -526,7 +525,7 @@ namespace ConfigDevice
                     State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
                     SysCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
                     SysCtrl.RemoveNetworkDeviceData(this);//----移除设备数据-----
-                    CallbackUI(new object[] { ActionKind.DisConnectNetwork, this });
+                    CallbackUI(new CallbackParameter( ActionKind.DisConnectNetwork, this ));
                     return;
                 }
                 else
@@ -827,8 +826,8 @@ namespace ConfigDevice
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("同步网络ID失败!", udpReply.ReplyByte);
-            else              
-                CallbackUI(new object[] { ActionKind.SyncNetworkID, this }); 
+            else
+                CallbackUI(new CallbackParameter(ActionKind.SyncNetworkID, this ));
         }
 
 

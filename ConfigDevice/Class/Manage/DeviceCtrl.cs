@@ -10,7 +10,7 @@ namespace ConfigDevice
         private Network SearchingNetwork;//---搜素的网络设备(RJ45)----
         private MySocket mySocket = MySocket.GetInstance();
         private int countNum = 0;
-        public event CallbackUIAction CallBackUI = null;//返回
+        public event CallbackParameterUIAction CallBackUI = null;//返回
         private CallbackFromUDP callbackGetSearchDevices;
         private CallbackFromUDP callbackGetStopSearchDevices;
         private object objLock = new object();
@@ -50,10 +50,10 @@ namespace ConfigDevice
         /// <summary>
         /// 回调界面
         /// </summary>
-        private void callbackUI(object[] values)
+        private void callbackUI(CallbackParameter callbackParameter)
         {
             if (CallBackUI != null)
-                CallBackUI(values);
+                CallBackUI(callbackParameter);
         }
 
         /// <summary>
@@ -211,8 +211,8 @@ namespace ConfigDevice
             UdpData udpReply = createReplyUdp(data);
             mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
             if (CallBackUI != null) 
-                CallBackUI(new object[] { ActionKind.SearchDevice,SearchingNetwork });
-     
+               // CallBackUI(new CallbackParameter(ActionKind.SearchDevice,new object[]{ SearchingNetwork}));
+                CallBackUI(new CallbackParameter(ActionKind.SearchDevice,   SearchingNetwork  ));
         }
 
 

@@ -960,6 +960,11 @@
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
+            edtNetworkID.Enter += SysConfig.Edit_Enter;
+            edtNetworkID.Leave += SysConfig.Edit_Leave;
+            edtNum.Enter += SysConfig.Edit_Enter;
+            edtNum.Leave += SysConfig.Edit_Leave;
+
         }
 
         #endregion

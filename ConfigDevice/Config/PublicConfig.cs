@@ -11,12 +11,9 @@ namespace ConfigDevice
 
     public delegate void Action();//用于公共委托类型,陆续添加带参数的
     public delegate void CallbackUdpAction(UdpData udpData,object[] values);//----回调执行UDP包----
-    public delegate void CallbackUIAction(object[] values);//----回调UI界面----
+    public delegate void CallbackParameterUIAction(CallbackParameter callbackParameter);//----回调UI界面---- 
     public delegate void SyncCommandSetting(ViewCommandTools viewCommandTools);//---同步指令设置
     public delegate void DeleteCommandData(int cmdNum);//----删除命令-----
-    //public delegate void SyncCommandSetting_Device(DeviceData device);//---同步指令设置的设备----
-    //public delegate void SyncCommandSetting_ViewCommandObj(ViewCommandControl viewCommandControl);//---同步指令设置的视图控制----
-    //public delegate void SyncCommandSetting_Data(DataTable dataSetting);//---同步指令设置的数据----
 
 
     /// <summary>
@@ -68,10 +65,52 @@ namespace ConfigDevice
         DisConnectNetwork,
         SyncNetworkID,
         SaveDeviceID,
-        SaveDeviceName
+        SaveDeviceName,
+        SaveNetworkPosition,
+        None
         
     }
 
+    public class CallbackParameter
+    {
+        public ActionKind Action  = ActionKind.None;
+        public object[] Parameters;
+
+        /// <summary>
+        /// 回调构造参数
+        /// </summary>
+        /// <param name="_ActionName">动作</param>
+        /// <param name="_Parameters">回调参数</param>
+        public CallbackParameter(ActionKind _ActionName, params object[] _Parameters)
+        {
+            Action = _ActionName;
+            Parameters = _Parameters;
+        }
+        //public CallbackParameter(ActionKind _ActionName, object[] _Parameters)
+        //{
+        //    Action = _ActionName;
+        //    Parameters = _Parameters;
+        //}
+
+        /// <summary>
+        /// 回调构造参数
+        /// </summary> 
+        /// <param name="_Parameters">回调参数</param>
+        //public CallbackParameter(object[] _Parameters)
+        //{
+        //    Action = ActionKind.None;
+        //    Parameters = _Parameters;
+        //}
+
+        /// <summary>
+        /// 回调构造参数
+        /// </summary> 
+        /// <param name="_Parameters">回调参数</param>
+        public CallbackParameter(params object[] _Parameters)
+        {
+            Parameters = _Parameters;
+        }
+    }
 
     /// <summary>
     /// 发送类型

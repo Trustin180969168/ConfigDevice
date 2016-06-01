@@ -33,13 +33,13 @@ namespace ConfigDevice
         /// <summary>
         /// 回调
         /// </summary>
-        private void callbackUI(object[] values)
+        private void callbackUI(CallbackParameter callbackParameter)
         {
             try
             {
                 if (this.InvokeRequired)
                 {
-                    this.Invoke(new CallbackUIAction(callbackUI),new object[]{values});                  
+                    this.Invoke(new CallbackParameterUIAction(callbackUI), callbackParameter);                  
                 }
                 else
                 {

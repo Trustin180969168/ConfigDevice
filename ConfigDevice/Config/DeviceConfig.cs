@@ -418,6 +418,8 @@ namespace ConfigDevice
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SERVER, "云平台主机");
 
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_FUEL_GAS, "可燃气体报警器");
+
             EQUIPMENT_ID_NAME.Add(0, "无效类型");
 
 
