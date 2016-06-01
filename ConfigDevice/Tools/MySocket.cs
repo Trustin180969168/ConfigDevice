@@ -272,6 +272,7 @@ namespace ConfigDevice
                     }
                     else if (udpReceive.PacketKind[0] == PackegeSendReply.SEND)//-------添加到RJ45设备发送表---------
                     {
+                        if (!crcUdpData(udpReceive)) continue; //---crc校验失败则忽略----
                         AddRJ45SendList(udpReceive.PacketCodeStr, udpReceive);
                         UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据----- 
                 
