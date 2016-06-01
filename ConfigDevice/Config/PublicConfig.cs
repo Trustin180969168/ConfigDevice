@@ -11,7 +11,8 @@ namespace ConfigDevice
 
     public delegate void Action();//用于公共委托类型,陆续添加带参数的
     public delegate void CallbackUdpAction(UdpData udpData,object[] values);//----回调执行UDP包----
-    public delegate void CallbackParameterUIAction(CallbackParameter callbackParameter);//----回调UI界面---- 
+   // public delegate void CallbackUdpAction(UdpData udpData, CallbackParameter callbackParameter);//----回调执行UDP包----
+    public delegate void CallbackUIAction(CallbackParameter callbackParameter);//----回调UI界面---- 
     public delegate void SyncCommandSetting(ViewCommandTools viewCommandTools);//---同步指令设置
     public delegate void DeleteCommandData(int cmdNum);//----删除命令-----
 

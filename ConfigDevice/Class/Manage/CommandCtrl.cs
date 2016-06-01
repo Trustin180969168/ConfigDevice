@@ -8,7 +8,7 @@ namespace ConfigDevice
     {
         private MySocket mySocket = MySocket.GetInstance();
         public Device device;//-----设备---
-        public event CallbackParameterUIAction OnCallbackUI_Action;   //----回调UI----
+        public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
         public CallbackFromUDP callbackGetCommandData;//---回调获取指令----
         public CommandCtrl(Device value)
         {

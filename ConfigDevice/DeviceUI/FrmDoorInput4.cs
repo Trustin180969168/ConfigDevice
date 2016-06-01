@@ -80,7 +80,7 @@ namespace ConfigDevice
             {
                 if (this.InvokeRequired)
                 {
-                    this.Invoke(new CallbackParameterUIAction(callbackUI), callbackParameter);
+                    this.Invoke(new CallbackUIAction(callbackUI), callbackParameter);
                     return;
                 }
                 else
@@ -119,7 +119,7 @@ namespace ConfigDevice
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CallbackParameterUIAction(callbackRoadName), callbackParameter);
+                this.Invoke(new CallbackUIAction(callbackRoadName), callbackParameter);
                 return;
             }
             //----------刷新命令组-----------------

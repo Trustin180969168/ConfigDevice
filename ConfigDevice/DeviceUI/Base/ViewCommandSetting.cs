@@ -38,7 +38,7 @@ namespace ConfigDevice
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CallbackParameterUIAction(returnCommandData), parameter);
+                this.Invoke(new CallbackUIAction(returnCommandData), parameter);
                 return;
             }
             UserUdpData userData = (UserUdpData)parameter.Parameters[0];

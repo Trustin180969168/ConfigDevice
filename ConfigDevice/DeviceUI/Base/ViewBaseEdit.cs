@@ -21,7 +21,7 @@ namespace ConfigDevice
             try
             {
                 if (this.InvokeRequired)
-                    this.Invoke(new CallbackParameterUIAction(this.CallBackUI), callbackParameter);
+                    this.Invoke(new CallbackUIAction(this.CallBackUI), callbackParameter);
                 else
                 {
 

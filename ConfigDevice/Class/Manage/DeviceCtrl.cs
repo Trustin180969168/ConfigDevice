@@ -10,7 +10,7 @@ namespace ConfigDevice
         private Network SearchingNetwork;//---搜素的网络设备(RJ45)----
         private MySocket mySocket = MySocket.GetInstance();
         private int countNum = 0;
-        public event CallbackParameterUIAction CallBackUI = null;//返回
+        public event CallbackUIAction CallBackUI = null;//返回
         private CallbackFromUDP callbackGetSearchDevices;
         private CallbackFromUDP callbackGetStopSearchDevices;
         private object objLock = new object();

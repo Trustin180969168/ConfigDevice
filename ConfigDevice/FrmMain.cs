@@ -97,7 +97,7 @@ namespace ConfigDevice
             try
             {
                 if (this.InvokeRequired)
-                { this.Invoke(new CallbackParameterUIAction(CallBackUI), callbackParameter); }
+                { this.Invoke(new CallbackUIAction(CallBackUI), callbackParameter); }
                 else
                 {
                     if (callbackParameter.Action == ActionKind.None)

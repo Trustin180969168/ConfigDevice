@@ -105,7 +105,7 @@ namespace ConfigDevice
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CallbackParameterUIAction(this.callbackUI), callbackParameter);
+                this.Invoke(new CallbackUIAction(this.callbackUI), callbackParameter);
                 return;
             }
             edtSoftwareVer.Text = NetworkEdit.SoftwareVer;

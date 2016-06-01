@@ -33,7 +33,7 @@ namespace ConfigDevice
         public byte ByteNetworkId { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } }
 
         protected MySocket mySocket = MySocket.GetInstance();
-        public event CallbackParameterUIAction OnCallbackUI_Action;   //----回调UI----
+        public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
         public CallbackFromUDP callbackVer;//----回调版本号----
         public CallbackFromUDP callbackSaveID;//----回调保存ID号-----
         public CallbackFromUDP callbackSaveName;//--回调保存名称-----
@@ -190,11 +190,10 @@ namespace ConfigDevice
         {
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackVer);//注册返回版本号
             UdpData udpSearch = createSearchVerUdp();
-            MySocket.GetInstance().SendData(udpSearch, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchVer), new object[] { udpSearch });
+            MySocket.GetInstance().SendData(udpSearch, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchVer), null);
         }
         private void callbackSearchVer(UdpData udpReply, object[] values)
-        {
-            UdpData sendUdp = (UdpData)values[0];
+        { 
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("获取版本号失败!", udpReply.ReplyByte);
         }
