@@ -49,6 +49,7 @@
             this.imageComboBoxEdit1 = new DevExpress.XtraEditors.ImageComboBoxEdit();
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             this.lookUpEdit1 = new DevExpress.XtraEditors.LookUpEdit();
+            this.dateEdit = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
@@ -61,6 +62,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dateEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dateEdit.VistaTimeProperties)).BeginInit();
             this.SuspendLayout();
             // 
             // timeEdit1
@@ -95,7 +98,8 @@
             this.meeEdit,
             this.meEdit,
             this.lookupEdit,
-            this.edtNum});
+            this.edtNum,
+            this.dateEdit});
             this.gcTime.Size = new System.Drawing.Size(423, 466);
             this.gcTime.TabIndex = 5;
             this.gcTime.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -161,7 +165,7 @@
             this.dcTime2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcTime2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcTime2.Caption = "时间2";
-            this.dcTime2.ColumnEdit = this.timeEdit;
+            this.dcTime2.ColumnEdit = this.dateEdit;
             this.dcTime2.FieldName = "dcTime2";
             this.dcTime2.Name = "dcTime2";
             this.dcTime2.Visible = true;
@@ -290,6 +294,15 @@
             this.lookUpEdit1.Size = new System.Drawing.Size(181, 21);
             this.lookUpEdit1.TabIndex = 12;
             // 
+            // dateEdit
+            // 
+            this.dateEdit.AutoHeight = false;
+            this.dateEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dateEdit.Name = "dateEdit";
+            this.dateEdit.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -318,6 +331,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dateEdit.VistaTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dateEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -343,6 +358,7 @@
         private DevExpress.XtraEditors.ImageComboBoxEdit imageComboBoxEdit1;
         private DevExpress.Utils.ImageCollection imageCollection1;
         private DevExpress.XtraEditors.LookUpEdit lookUpEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit dateEdit;
     }
 }
 

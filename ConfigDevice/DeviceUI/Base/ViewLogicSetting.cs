@@ -8,11 +8,16 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public partial class ViewLogicTools2 : UserControl
+    public partial class ViewLogicSetting : UserControl
     {
-        public ViewLogicTools2()
+
+
+        public ViewLogicSetting()
         {
             InitializeComponent();
+
         }
+       
+
     }
 }

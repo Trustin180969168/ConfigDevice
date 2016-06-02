@@ -39,6 +39,13 @@ namespace ConfigDevice
         public const string DC_PARAMETER4 = "Parameter4";//参数4
         public const string DC_PARAMETER5 = "Parameter5";//参数5
         public const string DC_IMAGE1 = "Image1";//图片
+        //---逻辑列表-----
+        public const string DC_OBJECT = "Object";//触发对象
+        public const string DC_OPERATION = "Operation";//运算操作
+        public const string DC_START_VALUE = "StartValue";//开始值
+        public const string DC_END_VALUE = "EndValue";//结束值
+        public const string DC_VALID_TIME= "ValidTime";//有效就
+        public const string DC_INVALID_TIME = "InvalidTime";//无效时间
 
         public const string ERROR_SAME_DEVICE_ID = "设备ID冲突!";//设备ID冲突
         public const string ERROR_SAME_DEVICE_TITLE = "设备名称冲突!";//设备名称冲突

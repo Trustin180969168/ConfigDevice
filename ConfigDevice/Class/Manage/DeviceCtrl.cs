@@ -187,10 +187,7 @@ namespace ConfigDevice
                     deviceData.Remark += DeviceConfig.ERROR_SAME_DEVICE_NETWORK_ID;
                 }
                 //------添加到数据表----------     
-                if (!find)
-                    //SysConfig.DtDevice.Rows.Add(new object[] {num.ToString(),device.DeviceID,device.NetworkID,
-                    //        device.KindID, device.KindName,device.Name,device.MAC,device.State,device.Remark,"","",device.PCAddress,
-                    //        device.NetworkIP,device.AddressName});
+                if (!find)     
                     SysCtrl.AddDeviceData(deviceData);
                 else
                     SysCtrl.UpdateDeviceData(deviceData);

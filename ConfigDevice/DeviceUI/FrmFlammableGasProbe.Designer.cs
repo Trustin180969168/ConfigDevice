@@ -63,7 +63,7 @@
             this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
-            this.viewLogicTools = new ConfigDevice.ViewLogicTools();
+            this.viewLogicSetting = new ConfigDevice.ViewLogicSetting();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.cbxGroup = new DevExpress.XtraEditors.ComboBoxEdit();
             this.lblGroupName = new DevExpress.XtraEditors.LabelControl();
@@ -128,7 +128,7 @@
             this.groupControl3.Controls.Add(this.chkClearLoudly);
             this.groupControl3.Controls.Add(this.chkClearLight);
             this.groupControl3.Controls.Add(this.chkOpenValve);
-            this.groupControl3.Location = new System.Drawing.Point(29, 293);
+            this.groupControl3.Location = new System.Drawing.Point(29, 300);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.Size = new System.Drawing.Size(543, 71);
             this.groupControl3.TabIndex = 3;
@@ -136,7 +136,7 @@
             // 
             // chkClearLoudly
             // 
-            this.chkClearLoudly.Location = new System.Drawing.Point(259, 36);
+            this.chkClearLoudly.Location = new System.Drawing.Point(264, 36);
             this.chkClearLoudly.Name = "chkClearLoudly";
             this.chkClearLoudly.Properties.Caption = "清除蜂鸣器";
             this.chkClearLoudly.Size = new System.Drawing.Size(85, 19);
@@ -144,7 +144,7 @@
             // 
             // chkClearLight
             // 
-            this.chkClearLight.Location = new System.Drawing.Point(128, 36);
+            this.chkClearLight.Location = new System.Drawing.Point(133, 36);
             this.chkClearLight.Name = "chkClearLight";
             this.chkClearLight.Properties.Caption = "清除指示灯";
             this.chkClearLight.Size = new System.Drawing.Size(87, 19);
@@ -152,7 +152,7 @@
             // 
             // chkOpenValve
             // 
-            this.chkOpenValve.Location = new System.Drawing.Point(21, 36);
+            this.chkOpenValve.Location = new System.Drawing.Point(26, 36);
             this.chkOpenValve.Name = "chkOpenValve";
             this.chkOpenValve.Properties.Caption = "开阀门";
             this.chkOpenValve.Size = new System.Drawing.Size(64, 19);
@@ -164,7 +164,7 @@
             this.groupControl4.Controls.Add(this.btStopValve);
             this.groupControl4.Controls.Add(this.btCloseValve);
             this.groupControl4.Controls.Add(this.btOpenValve);
-            this.groupControl4.Location = new System.Drawing.Point(29, 131);
+            this.groupControl4.Location = new System.Drawing.Point(29, 138);
             this.groupControl4.Name = "groupControl4";
             this.groupControl4.Size = new System.Drawing.Size(543, 79);
             this.groupControl4.TabIndex = 3;
@@ -209,7 +209,7 @@
             this.groupControl2.Controls.Add(this.labelControl6);
             this.groupControl2.Controls.Add(this.labelControl7);
             this.groupControl2.Controls.Add(this.labelControl5);
-            this.groupControl2.Location = new System.Drawing.Point(29, 216);
+            this.groupControl2.Location = new System.Drawing.Point(29, 223);
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(543, 71);
             this.groupControl2.TabIndex = 3;
@@ -218,7 +218,7 @@
             // spePreTime
             // 
             this.spePreTime.EditValue = new decimal(new int[] {
-            0,
+            5,
             0,
             0,
             0});
@@ -227,13 +227,23 @@
             this.spePreTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.spePreTime.Properties.Mask.EditMask = "d";
+            this.spePreTime.Properties.MaxValue = new decimal(new int[] {
+            2700,
+            0,
+            0,
+            0});
+            this.spePreTime.Properties.MinValue = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.spePreTime.Size = new System.Drawing.Size(100, 21);
             this.spePreTime.TabIndex = 1;
             // 
             // speProbeEC
             // 
             this.speProbeEC.EditValue = new decimal(new int[] {
-            0,
+            10,
             0,
             0,
             0});
@@ -242,6 +252,16 @@
             this.speProbeEC.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.speProbeEC.Properties.Mask.EditMask = "d";
+            this.speProbeEC.Properties.MaxValue = new decimal(new int[] {
+            1500,
+            0,
+            0,
+            0});
+            this.speProbeEC.Properties.MinValue = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.speProbeEC.Size = new System.Drawing.Size(100, 21);
             this.speProbeEC.TabIndex = 1;
             // 
@@ -255,7 +275,7 @@
             // 
             // labelControl6
             // 
-            this.labelControl6.Location = new System.Drawing.Point(197, 38);
+            this.labelControl6.Location = new System.Drawing.Point(196, 38);
             this.labelControl6.Name = "labelControl6";
             this.labelControl6.Size = new System.Drawing.Size(18, 14);
             this.labelControl6.TabIndex = 0;
@@ -267,7 +287,7 @@
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(96, 14);
             this.labelControl7.TabIndex = 0;
-            this.labelControl7.Text = "最长时间动作间隔";
+            this.labelControl7.Text = "最长动作时间间隔";
             // 
             // labelControl5
             // 
@@ -291,14 +311,14 @@
             this.groupControl1.Controls.Add(this.labelControl1);
             this.groupControl1.Location = new System.Drawing.Point(29, 43);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(543, 82);
+            this.groupControl1.Size = new System.Drawing.Size(543, 89);
             this.groupControl1.TabIndex = 2;
             this.groupControl1.Text = "设备状态";
             // 
             // btAutoRefresh
             // 
             this.btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh2;
-            this.btAutoRefresh.Location = new System.Drawing.Point(388, 29);
+            this.btAutoRefresh.Location = new System.Drawing.Point(400, 36);
             this.btAutoRefresh.Name = "btAutoRefresh";
             this.btAutoRefresh.Size = new System.Drawing.Size(100, 39);
             this.btAutoRefresh.TabIndex = 3;
@@ -307,7 +327,7 @@
             // 
             // edtT
             // 
-            this.edtT.Location = new System.Drawing.Point(261, 51);
+            this.edtT.Location = new System.Drawing.Point(271, 58);
             this.edtT.Name = "edtT";
             this.edtT.Properties.ReadOnly = true;
             this.edtT.Size = new System.Drawing.Size(100, 21);
@@ -315,15 +335,15 @@
             // 
             // labelControl4
             // 
-            this.labelControl4.Location = new System.Drawing.Point(215, 54);
+            this.labelControl4.Location = new System.Drawing.Point(217, 61);
             this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Size = new System.Drawing.Size(40, 14);
+            this.labelControl4.Size = new System.Drawing.Size(48, 14);
             this.labelControl4.TabIndex = 0;
-            this.labelControl4.Text = "温    度";
+            this.labelControl4.Text = "温      度";
             // 
             // edtEC
             // 
-            this.edtEC.Location = new System.Drawing.Point(261, 24);
+            this.edtEC.Location = new System.Drawing.Point(271, 31);
             this.edtEC.Name = "edtEC";
             this.edtEC.Properties.ReadOnly = true;
             this.edtEC.Size = new System.Drawing.Size(100, 21);
@@ -331,15 +351,15 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(215, 27);
+            this.labelControl2.Location = new System.Drawing.Point(217, 34);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(40, 14);
+            this.labelControl2.Size = new System.Drawing.Size(48, 14);
             this.labelControl2.TabIndex = 0;
-            this.labelControl2.Text = "电    流";
+            this.labelControl2.Text = "阀门电流";
             // 
             // edtGasProbe
             // 
-            this.edtGasProbe.Location = new System.Drawing.Point(91, 51);
+            this.edtGasProbe.Location = new System.Drawing.Point(91, 58);
             this.edtGasProbe.Name = "edtGasProbe";
             this.edtGasProbe.Properties.ReadOnly = true;
             this.edtGasProbe.Size = new System.Drawing.Size(100, 21);
@@ -347,7 +367,7 @@
             // 
             // labelControl3
             // 
-            this.labelControl3.Location = new System.Drawing.Point(25, 54);
+            this.labelControl3.Location = new System.Drawing.Point(25, 61);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(60, 14);
             this.labelControl3.TabIndex = 0;
@@ -355,7 +375,7 @@
             // 
             // edtValveState
             // 
-            this.edtValveState.Location = new System.Drawing.Point(91, 24);
+            this.edtValveState.Location = new System.Drawing.Point(91, 31);
             this.edtValveState.Name = "edtValveState";
             this.edtValveState.Properties.ReadOnly = true;
             this.edtValveState.Size = new System.Drawing.Size(100, 21);
@@ -363,7 +383,7 @@
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(37, 27);
+            this.labelControl1.Location = new System.Drawing.Point(37, 34);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(48, 14);
             this.labelControl1.TabIndex = 0;
@@ -417,7 +437,7 @@
             // pageCommand
             // 
             this.pageCommand.Controls.Add(this.viewCommandEdit);
-            this.pageCommand.Controls.Add(this.viewLogicTools);
+            this.pageCommand.Controls.Add(this.viewLogicSetting);
             this.pageCommand.Controls.Add(this.panelControl1);
             this.pageCommand.Name = "pageCommand";
             this.pageCommand.Size = new System.Drawing.Size(985, 614);
@@ -426,18 +446,18 @@
             // viewCommandEdit
             // 
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandEdit.Location = new System.Drawing.Point(0, 201);
+            this.viewCommandEdit.Location = new System.Drawing.Point(0, 198);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.Size = new System.Drawing.Size(985, 413);
+            this.viewCommandEdit.Size = new System.Drawing.Size(985, 416);
             this.viewCommandEdit.TabIndex = 0;
             // 
-            // viewLogicTools
+            // viewLogicSetting
             // 
-            this.viewLogicTools.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewLogicTools.Location = new System.Drawing.Point(0, 49);
-            this.viewLogicTools.Name = "viewLogicTools";
-            this.viewLogicTools.Size = new System.Drawing.Size(985, 152);
-            this.viewLogicTools.TabIndex = 1;
+            this.viewLogicSetting.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicSetting.Location = new System.Drawing.Point(0, 49);
+            this.viewLogicSetting.Name = "viewLogicSetting";
+            this.viewLogicSetting.Size = new System.Drawing.Size(985, 149);
+            this.viewLogicSetting.TabIndex = 3;
             // 
             // panelControl1
             // 
@@ -538,7 +558,6 @@
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageCommand;
         private ViewCommandSetting viewCommandEdit;
-        private ViewLogicTools viewLogicTools;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.ComboBoxEdit cbxGroup;
         private DevExpress.XtraEditors.LabelControl lblGroupName;
@@ -567,5 +586,6 @@
         private DevExpress.XtraEditors.SimpleButton btStopValve;
         private DevExpress.XtraEditors.SimpleButton btCloseValve;
         private DevExpress.XtraEditors.SimpleButton btOpenValve;
+        private ViewLogicSetting viewLogicSetting;
     }
 }

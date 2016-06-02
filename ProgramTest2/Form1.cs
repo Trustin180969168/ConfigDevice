@@ -39,7 +39,12 @@ namespace ProgramTest2
             lookupEdit.DisplayMember = "ID";
             lookupEdit.ValueMember = "ID";
 
-
+         
+            //----时间编辑控件            
+            dateEdit.DisplayFormat.FormatString = "d";
+            dateEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            dateEdit.Mask.EditMask = "yyyy-MM-dd";
+            dateEdit.Mask.UseMaskAsDisplayFormat = true; 
 
 
             Application.AddMessageFilter(this);   
@@ -69,34 +74,19 @@ namespace ProgramTest2
 
  
 
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "1", 1 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "2", 2 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "3", 3 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "4", 4 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "1", 1 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "2", 2 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "3", 3 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "4", 4 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "1", 1 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "2", 2 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "3", 3 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "4", 4 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "1", 1 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "2", 2 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "3", 3 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "4", 4 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "1", 1 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "2", 2 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "3", 3 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "4", 4 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "1", 1 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "2", 2 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "3", 3 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "4", 4 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "1", 1 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "2", 2 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "3", 3 });
-            dt.Rows.Add(new object[] { "00:00:00", "00:00:00", "4", 4 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "1", 1 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "2", 2 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "3", 3 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "4", 4 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "1", 1 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "2", 2 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "3", 3 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "4", 4 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "1", 1 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "2", 2 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "3", 3 });
+            dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "4", 4 });
+      
         }
 
         private void simpleButton2_Click(object sender, EventArgs e)

@@ -42,6 +42,9 @@
    (19) V3.3版本, 增加[CMD_AMP_WIFI_SET]音响WIFI指令               (廖超庭 2015年10月15日)
    (20) V3.4版本, 修改[EQUIPMENT_DOOR_IN_3]为[EQUIPMENT_DOOR_IN_4] (廖超庭 2015年10月24日)
    (21) V3.5版本, 增加[CMD_PUBLIC_RESET_HOST]                      (廖超庭 2016年01月13日)
+   (22) V3.6版本, 增加[CMD_LOGIC_READ_CONFIG]等指令                (廖超庭 2016年04月12日)
+   (23) V3.7版本, 增加[CMD_PUBLIC_TEST_KEY_CMD]指令                (廖超庭 2016年05月04日)
+   (24) V3.8版本, 增加[EQUIPMENT_RSP]设备类型                      (廖超庭 2016年05月12日)
 **======================================================================================================*/
 
 
@@ -217,6 +220,8 @@ enum
 #define EQUIPMENT_ENV_SENSOR_D       0x84        //环境传感器D
 #define EQUIPMENT_ENV_SENSOR_E       0x85        //环境传感器E
 
+#define EQUIPMENT_RSP                0x90        //RSP雷达
+
 #define EQUIPMENT_PANEL              0xE0        //通用控制面板
 
 #define EQUIPMENT_RJ45       	     0xf0        //RJ45类型
@@ -368,7 +373,9 @@ enum    //公共指令    _PUBLIC
 	CMD_PUBLIC_READ_VER                 = ((CMD_TYPE_PUBLIC << 8) | 0xb0)       ,//读设备软硬件版本 
 	CMD_PUBLIC_WRITE_VER                = ((CMD_TYPE_PUBLIC << 8) | 0xb1)       ,//写设备软硬件版本 
 	
-	CMD_PUBLIC_RESET_HOST               = ((CMD_TYPE_PUBLIC << 8) | 0xb2)        //复位与主机连接  
+	CMD_PUBLIC_RESET_HOST               = ((CMD_TYPE_PUBLIC << 8) | 0xb2)       ,//复位网关与主机连接 
+	
+	CMD_PUBLIC_TEST_KEY_CMD             = ((CMD_TYPE_PUBLIC << 8) | 0xb2)        //(按键)控制指令测试
 };
 
 
@@ -552,6 +559,14 @@ enum  // LOGIC 指令	 EQUIPMENT_LOGIC
 	
 	CMD_LOGIC_WRITE_CMD                 = ((CMD_TYPE_LOGIC << 8) | 0x06) 			,//写控制指令        
 	CMD_LOGIC_READ_CMD                  = ((CMD_TYPE_LOGIC << 8) | 0x86) 			,//读控制指令
+	
+	CMD_LOGIC_READ_CONFIG               = ((CMD_TYPE_LOGIC << 8) | 0x41)        ,//读参数设置 (条件与逻辑)
+	CMD_LOGIC_WRITE_CONFIG              = ((CMD_TYPE_LOGIC << 8) | 0xC1)        ,//写参数设置 (条件与逻辑)
+	CMD_LOGIC_READ_EXACTION             = ((CMD_TYPE_LOGIC << 8) | 0x42)        ,//读逻辑附加动作
+	CMD_LOGIC_WRITE_EXACTION            = ((CMD_TYPE_LOGIC << 8) | 0xC2)        ,//写逻辑附加动作   (不同设备各不一样)
+	CMD_LOGIC_WRITE_SYSLKID             = ((CMD_TYPE_LOGIC << 8) | 0x43)        ,//写逻辑系统联动号 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+	CMD_LOGIC_READ_SECURITY             = ((CMD_TYPE_LOGIC << 8) | 0x44)        ,//读逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
+	CMD_LOGIC_WRITE_SECURITY            = ((CMD_TYPE_LOGIC << 8) | 0xC4)        ,//写逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
 }; 
 
 enum // 空调指令  	CMD_TYPE_AC
