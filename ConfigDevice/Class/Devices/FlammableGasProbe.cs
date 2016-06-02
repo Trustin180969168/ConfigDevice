@@ -16,7 +16,7 @@ namespace ConfigDevice
         public short Templatetrue = 0;//---温度----
         public Valve Valve;//电机对象,用于阀门控制
         private CallbackFromUDP getStateInfo;//----获取设置信息----
-
+        private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
         public bool OpenValve = false;//是否开阀门
         public bool ClearLight = false;//是否关闭指示灯
         public bool ClearBuzzer = false;//是否关闭蜂鸣器
@@ -58,7 +58,8 @@ namespace ConfigDevice
         /// </summary>
         private void initCallback()
         {
-            getStateInfo = new CallbackFromUDP(this.getStateInfoData); 
+            getStateInfo = new CallbackFromUDP(this.getStateInfoData);
+            getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
         }
 
         /// <summary>
@@ -67,6 +68,7 @@ namespace ConfigDevice
         public void ReadState()
         {
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE, getStateInfo);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END,getWriteEnd);
             UdpData udpSend = createReadStateUdp();
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadState), null);
         }
@@ -135,6 +137,18 @@ namespace ConfigDevice
             CallbackUI(new CallbackParameter( this.GetType().ToString()));//----回调界面----
         }
 
+
+                /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="values"></param>
+        private void getWriteEndData(UdpData data, object[] values)
+        {
+            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE); 
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END);
+        }
     }
 
 }

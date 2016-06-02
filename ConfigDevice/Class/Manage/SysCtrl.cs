@@ -447,7 +447,7 @@ namespace ConfigDevice
                 List<string> delList = new List<string>();
                 foreach (string keyStr in SysConfig.RJ45CallBackList.Keys)
                 {
-                    if (keyStr.StartsWith(key) && keyStr.Length>_key.Length)
+                    if (keyStr.StartsWith(key))// && keyStr.Length>_key.Length)
                         delList.Add(keyStr);
                 }
                 foreach (string delKey in delList)
