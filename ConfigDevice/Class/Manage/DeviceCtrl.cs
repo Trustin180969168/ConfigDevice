@@ -211,7 +211,6 @@ namespace ConfigDevice
             UdpData udpReply = createReplyUdp(data);
             mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
             if (CallBackUI != null) 
-               // CallBackUI(new CallbackParameter(ActionKind.SearchDevice,new object[]{ SearchingNetwork}));
                 CallBackUI(new CallbackParameter(ActionKind.SearchDevice,   SearchingNetwork  ));
         }
 

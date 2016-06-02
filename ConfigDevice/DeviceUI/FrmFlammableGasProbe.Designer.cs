@@ -34,7 +34,7 @@
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.chkClearLoudly = new DevExpress.XtraEditors.CheckEdit();
             this.chkClearLight = new DevExpress.XtraEditors.CheckEdit();
-            this.chkOpenProbe = new DevExpress.XtraEditors.CheckEdit();
+            this.chkOpenValve = new DevExpress.XtraEditors.CheckEdit();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.btStopValve = new DevExpress.XtraEditors.SimpleButton();
             this.btCloseValve = new DevExpress.XtraEditors.SimpleButton();
@@ -74,7 +74,7 @@
             this.groupControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkClearLoudly.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkClearLight.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkOpenProbe.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkOpenValve.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
@@ -127,7 +127,7 @@
             this.groupControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.groupControl3.Controls.Add(this.chkClearLoudly);
             this.groupControl3.Controls.Add(this.chkClearLight);
-            this.groupControl3.Controls.Add(this.chkOpenProbe);
+            this.groupControl3.Controls.Add(this.chkOpenValve);
             this.groupControl3.Location = new System.Drawing.Point(29, 293);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.Size = new System.Drawing.Size(543, 71);
@@ -139,7 +139,7 @@
             this.chkClearLoudly.Location = new System.Drawing.Point(259, 36);
             this.chkClearLoudly.Name = "chkClearLoudly";
             this.chkClearLoudly.Properties.Caption = "清除蜂鸣器";
-            this.chkClearLoudly.Size = new System.Drawing.Size(112, 19);
+            this.chkClearLoudly.Size = new System.Drawing.Size(85, 19);
             this.chkClearLoudly.TabIndex = 0;
             // 
             // chkClearLight
@@ -147,16 +147,16 @@
             this.chkClearLight.Location = new System.Drawing.Point(128, 36);
             this.chkClearLight.Name = "chkClearLight";
             this.chkClearLight.Properties.Caption = "清除指示灯";
-            this.chkClearLight.Size = new System.Drawing.Size(115, 19);
+            this.chkClearLight.Size = new System.Drawing.Size(87, 19);
             this.chkClearLight.TabIndex = 0;
             // 
-            // chkOpenProbe
+            // chkOpenValve
             // 
-            this.chkOpenProbe.Location = new System.Drawing.Point(21, 36);
-            this.chkOpenProbe.Name = "chkOpenProbe";
-            this.chkOpenProbe.Properties.Caption = "开阀门";
-            this.chkOpenProbe.Size = new System.Drawing.Size(75, 19);
-            this.chkOpenProbe.TabIndex = 0;
+            this.chkOpenValve.Location = new System.Drawing.Point(21, 36);
+            this.chkOpenValve.Name = "chkOpenValve";
+            this.chkOpenValve.Properties.Caption = "开阀门";
+            this.chkOpenValve.Size = new System.Drawing.Size(64, 19);
+            this.chkOpenValve.TabIndex = 0;
             // 
             // groupControl4
             // 
@@ -226,6 +226,7 @@
             this.spePreTime.Name = "spePreTime";
             this.spePreTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spePreTime.Properties.Mask.EditMask = "d";
             this.spePreTime.Size = new System.Drawing.Size(100, 21);
             this.spePreTime.TabIndex = 1;
             // 
@@ -240,6 +241,7 @@
             this.speProbeEC.Name = "speProbeEC";
             this.speProbeEC.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.speProbeEC.Properties.Mask.EditMask = "d";
             this.speProbeEC.Size = new System.Drawing.Size(100, 21);
             this.speProbeEC.TabIndex = 1;
             // 
@@ -247,9 +249,9 @@
             // 
             this.labelControl8.Location = new System.Drawing.Point(470, 38);
             this.labelControl8.Name = "labelControl8";
-            this.labelControl8.Size = new System.Drawing.Size(18, 14);
+            this.labelControl8.Size = new System.Drawing.Size(12, 14);
             this.labelControl8.TabIndex = 0;
-            this.labelControl8.Text = "mA";
+            this.labelControl8.Text = "秒";
             // 
             // labelControl6
             // 
@@ -269,7 +271,7 @@
             // 
             // labelControl5
             // 
-            this.labelControl5.Location = new System.Drawing.Point(23, 38);
+            this.labelControl5.Location = new System.Drawing.Point(28, 38);
             this.labelControl5.Name = "labelControl5";
             this.labelControl5.Size = new System.Drawing.Size(60, 14);
             this.labelControl5.TabIndex = 0;
@@ -387,6 +389,7 @@
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(76, 28);
             this.btSave.Text = "保存 ";
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btRefresh
             // 
@@ -496,7 +499,7 @@
             this.groupControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chkClearLoudly.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkClearLight.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkOpenProbe.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkOpenValve.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
@@ -558,7 +561,7 @@
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private DevExpress.XtraEditors.CheckEdit chkClearLoudly;
         private DevExpress.XtraEditors.CheckEdit chkClearLight;
-        private DevExpress.XtraEditors.CheckEdit chkOpenProbe;
+        private DevExpress.XtraEditors.CheckEdit chkOpenValve;
         private DevExpress.XtraEditors.CheckButton btAutoRefresh;
         private DevExpress.XtraEditors.GroupControl groupControl4;
         private DevExpress.XtraEditors.SimpleButton btStopValve;

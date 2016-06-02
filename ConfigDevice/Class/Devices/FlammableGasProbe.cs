@@ -17,6 +17,10 @@ namespace ConfigDevice
         public Valve Valve;//电机对象,用于阀门控制
         private CallbackFromUDP getStateInfo;//----获取设置信息----
 
+        public bool OpenValve = false;//是否开阀门
+        public bool ClearLight = false;//是否关闭指示灯
+        public bool ClearBuzzer = false;//是否关闭蜂鸣器
+
         public FlammableGasProbe(UserUdpData userUdpData)
             : base(userUdpData)
         { 
@@ -64,11 +68,10 @@ namespace ConfigDevice
         {
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE, getStateInfo);
             UdpData udpSend = createReadStateUdp();
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadState), new object[] { udpSend });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadState), null);
         }
         private void callbackReadState(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("申请读取探头状态失败!", udpReply.ReplyByte);
         }

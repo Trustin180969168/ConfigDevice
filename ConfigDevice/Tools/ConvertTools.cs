@@ -200,7 +200,7 @@ namespace ConfigDevice
         /// <returns>两个字节</returns>
         public static byte[] GetByteFrom32BitUInt(uint num)
         {
-            byte[] value = BitConverter.GetBytes(Convert.ToUInt32(num));
+            byte[] value = BitConverter.GetBytes(num);
             return value;
         }
 

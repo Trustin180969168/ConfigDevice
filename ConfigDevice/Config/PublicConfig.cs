@@ -67,6 +67,7 @@ namespace ConfigDevice
         SyncNetworkID,
         SaveDeviceID,
         SaveDeviceName,
+        GetVer,
         SaveNetworkPosition,
         None
         

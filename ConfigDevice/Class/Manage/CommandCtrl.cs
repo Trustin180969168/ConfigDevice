@@ -33,11 +33,11 @@ namespace ConfigDevice
         public void ReadCommandData(int groupNum, int startNum, int endNum)
         {
             UdpData udpSend = createReadCommandsUdp(groupNum, startNum, endNum);
-            mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadCommands), new object[] { udpSend });
+            mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadCommands), null);
         }
         private void callbackReadCommands(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
+          
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("申请读取指令失败!", udpReply.ReplyByte);
         }

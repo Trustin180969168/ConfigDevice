@@ -24,23 +24,23 @@ namespace ConfigDevice
                     this.Invoke(new CallbackUIAction(this.CallBackUI), callbackParameter);
                 else
                 {
+                    if (callbackParameter.Action == ActionKind.GetVer)
+                    {
+                        edtHardwareVer.Text = DeviceEdit.HardwareVer;
+                        edtSoftwareVer.Text = DeviceEdit.SoftwareVer;
 
-                    edtHardwareVer.Text = DeviceEdit.HardwareVer;
-                    edtSoftwareVer.Text = DeviceEdit.SoftwareVer;
+                        //---获取位置-----
+                        getPosition();
+                        cbxPosition.Text = DeviceEdit.AddressName;
+                        (this.ParentForm as FrmDevice).SetSelectDevice();//----设置选择列表----
+                    }else  if (callbackParameter.Action == ActionKind.SaveDeviceName)//----保存名称---
+                        SysCtrl.UpdateDeviceData(DeviceEdit.GetDeviceData());
+
 
                     edtName.Text = DeviceEdit.Name;
                     edtDeviceID.Text = DeviceEdit.DeviceID;
                     edtNetworkID.Text = DeviceEdit.NetworkID;
                     cbxDeviceKind.Text = DeviceEdit.KindName;
-
-                    getPosition();
-                    cbxPosition.Text = DeviceEdit.AddressName;
-
-                    (this.ParentForm as FrmDevice).SetSelectDevice();//----设置选择列表----
-
-
-                    if (callbackParameter.Action == ActionKind.SaveDeviceName)
-                        SysCtrl.UpdateDeviceData(DeviceEdit.GetDeviceData());
 
                 }
             }

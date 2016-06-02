@@ -47,7 +47,7 @@ namespace ConfigDevice
 
         public Int16 MaxStopCE = 0;//卡停电流
         public Int16 MaxRunTime = 0;//最大运行秒数
-        public UInt32 Flag = 0;//动作标记
+ 
 
         public Valve(Device _deviceCtrl)
         {
@@ -179,11 +179,10 @@ namespace ConfigDevice
         public void MotorAction(int goDirection, int stop )
         {
             UdpData udpSend = createMotorActionUdp(goDirection,stop);
-            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), new object[] { udpSend });
+            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), null);
         }
         private void callbackReadRoadTitle(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("执行运转操作失败!", udpReply.ReplyByte);
         }
@@ -231,15 +230,19 @@ namespace ConfigDevice
                 new CallbackUdpAction(callbackWriteParameterUdp), new object[] { second, ec, flag });
         }
         private void callbackWriteParameterUdp(UdpData udpReply, object[] values)
-        {
-            UdpData udpSend = (UdpData)values[0];
+        {            
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("设置参数失败!", udpReply.ReplyByte);
             else
             {
                 MaxRunTime = (Int16)values[0];
                 MaxStopCE = (Int16)values[1];
-                Flag =(UInt32)values[2];
+                UInt32 flag = (UInt32)values[2];
+
+                (this.deviceControled as FlammableGasProbe).OpenValve = (int)(flag & 1) == 1 ? true : false;//---是否开阀门
+                (this.deviceControled as FlammableGasProbe).ClearLight = (int)(flag & 2) == 2 ? true : false;//---是否关闭指示灯
+                (this.deviceControled as FlammableGasProbe).ClearBuzzer = (int)(flag & 4) == 4 ? true : false;//---是否关闭蜂鸣器
+
             }
         }
         private UdpData createWriteParameterUdp(Int16 second, Int16 ec, UInt32 flag)
@@ -293,10 +296,8 @@ namespace ConfigDevice
         }
         private void callbackReadParameterUdp(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                CommonTools.ShowReplyInfo("设置参数失败!", udpReply.ReplyByte);
- 
+                CommonTools.ShowReplyInfo("读取参数失败!", udpReply.ReplyByte); 
         }
         private UdpData createReadParameterUdp( )
         {
@@ -333,7 +334,7 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 获取每路门窗名称
+        /// 获取阀门参数
         /// </summary>
         /// <param name="data">数据包</param>
         /// <param name="values"></param>
@@ -344,10 +345,15 @@ namespace ConfigDevice
 
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             //----翻译数据------------
+            this.MaxRunTime = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[1], userData.Data[2] });//---最大运行时间---
+            this.MaxStopCE = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[3], userData.Data[4] });//----最大停止电流---
             
+            (this.deviceControled as FlammableGasProbe).OpenValve = (int)(userData.Data[5] & 1) == 1 ? true : false;//---是否开阀门
+            (this.deviceControled as FlammableGasProbe).ClearLight = (int)(userData.Data[5] & 2) == 2 ? true : false;//---是否关闭指示灯
+            (this.deviceControled as FlammableGasProbe).ClearBuzzer = (int)(userData.Data[5] & 4) == 4 ? true : false;//---是否关闭蜂鸣器
 
-
-
+            this.deviceControled.CallbackUI(new CallbackParameter(this.deviceControled.GetType().ToString()));//---回调UI---
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG);//取消订阅
         }
 
 

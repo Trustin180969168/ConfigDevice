@@ -193,7 +193,7 @@ namespace ConfigDevice
             MySocket.GetInstance().SendData(udpSearch, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchVer), null);
         }
         private void callbackSearchVer(UdpData udpReply, object[] values)
-        { 
+        {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("获取版本号失败!", udpReply.ReplyByte);
         }
@@ -215,7 +215,7 @@ namespace ConfigDevice
                 HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0');
             }
 
-            CallbackUI(null);
+            CallbackUI(new CallbackParameter(ActionKind.GetVer, null));
         }
         /// <summary>
         /// 创建读取VER的UDP包
@@ -388,19 +388,18 @@ namespace ConfigDevice
         {
             UdpData saveNameUdp = createSaveDeviceNameUdp(newName, position);
             MySocket.GetInstance().SendData(saveNameUdp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceName),
-                new object[] { saveNameUdp, newName, newPos, position });
+                new object[] { newName, newPos, position });
         }
         private void callbackSaveDeviceName(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
-            string newName = (string)values[1];
-            string newPos = (string)values[2];
-            byte[] newBytePostion = (byte[])values[3];
+            string newName = (string)values[0];
+            string newPos = (string)values[1];
+            byte[] newBytePostion = (byte[])values[2];
             if (udpReply.ReplyByte == REPLY_RESULT.CMD_TRUE)
             {
                 this.Name = newName; this.AddressName = newPos; this.ByteAddressID = newBytePostion;
                 SysCtrl.UpdateDeviceData(this.GetDeviceData());
-                CallbackUI(new CallbackParameter(ActionKind.SaveDeviceName,  this ));
+                CallbackUI(new CallbackParameter(ActionKind.SaveDeviceName, this));
             }
             else
                 CommonTools.ShowReplyInfo("保存名称失败!", udpReply.ReplyByte);
@@ -454,7 +453,7 @@ namespace ConfigDevice
         {
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackRefresh);//回调刷新结果
             UdpData udpSend = createRefreshUdp();
-            MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackRefreshDevice), new object[] { udpSend });
+            MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackRefreshDevice), null);
         }
         private void callbackRefreshDevice(UdpData udpReply, object[] values)
         {
@@ -564,7 +563,7 @@ namespace ConfigDevice
         {
             UdpData udpSend = createCommandUdp(DeviceConfig.CMD_PUBLIC_UART_LED_ENABLE);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult),
-                new object[] { udpSend, "打开通信设备灯失败!", "打开通信设备灯!" });
+                new object[] { "打开通信设备灯失败!", "打开通信设备灯!" });
         }
 
         /// <summary>
@@ -575,7 +574,7 @@ namespace ConfigDevice
             if (CommonTools.MessageShow("是否关闭通信指示灯?", 4, "") == System.Windows.Forms.DialogResult.No) return;
             UdpData udpSend = createCommandUdp(DeviceConfig.CMD_PUBLIC_UART_LED_DISABLE);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult),
-                new object[] { udpSend, "关闭通信设备灯失败!", "关闭通信设备灯!" });
+                new object[] { "关闭通信设备灯失败!", "关闭通信设备灯!" });
         }
 
         /// <summary>
@@ -585,7 +584,7 @@ namespace ConfigDevice
         {
             UdpData udpSend = createCommandUdp(DeviceConfig.CMD_PUBLIC_DISCOVER_ENABLE);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult),
-                new object[] { udpSend, "开启发现设备失败!", "开启发现设备!" });
+                new object[] { "开启发现设备失败!", "开启发现设备!" });
         }
 
         /// <summary>
@@ -595,7 +594,7 @@ namespace ConfigDevice
         {
             UdpData udpSend = createCommandUdp(DeviceConfig.CMD_PUBLIC_DISCOVER_DISABLE);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult),
-                new object[] { udpSend, "关闭发现设备失败!", "关闭发现设备!" });
+                new object[] { "关闭发现设备失败!", "关闭发现设备!" });
         }
 
         /// <summary>
@@ -605,14 +604,10 @@ namespace ConfigDevice
         /// <param name="values">参数组</param>
         private void callbackResult(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
-            string error = (string)values[1];
-            string success = (string)values[2];
-            if (udpSend.PacketCodeStr == udpReply.PacketCodeStr)
-            {
-                if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                { CommonTools.ShowReplyInfo(error, udpReply.ReplyByte); return; }
-            }
+            string error = (string)values[0];
+            string success = (string)values[1];
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+            { CommonTools.ShowReplyInfo(error, udpReply.ReplyByte); return; }
         }
 
 

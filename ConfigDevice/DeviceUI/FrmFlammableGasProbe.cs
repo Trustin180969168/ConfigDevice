@@ -17,15 +17,15 @@ namespace ConfigDevice
             : base(_device)
         { 
             InitializeComponent();
-            edtT.Properties.DisplayFormat.FormatString = "#0.0℃";
+            edtT.Properties.DisplayFormat.FormatString = "#0.0 ℃";
             edtT.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            edtT.Properties.Mask.EditMask = "#0.0℃";
+            edtT.Properties.Mask.EditMask = "#0.0 ℃";
             edtT.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             edtT.Properties.Mask.UseMaskAsDisplayFormat = true;
 
-            edtEC.Properties.DisplayFormat.FormatString = "#0mA";
+            edtEC.Properties.DisplayFormat.FormatString = "#0 mA";
             edtEC.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            edtEC.Properties.Mask.EditMask = "#0mA";
+            edtEC.Properties.Mask.EditMask = "#0 mA";
             edtEC.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             edtEC.Properties.Mask.UseMaskAsDisplayFormat = true;
 
@@ -43,7 +43,7 @@ namespace ConfigDevice
             frmSetting.DeviceEdit = flammableGasProbe;
 
 
-            refreshSateTimer = new ThreadActionTimer(2000, new Action(flammableGasProbe.ReadState));
+            refreshSateTimer = new ThreadActionTimer(2000, new Action(flammableGasProbe.ReadState));//---自动刷新----
         }
 
         /// <summary>
@@ -56,12 +56,23 @@ namespace ConfigDevice
                 this.Invoke(new CallbackUIAction(callbackUI), callbackParameter);
                 return;
             }
+            //-----刷新内容-------
             edtValveState.Text = flammableGasProbe.ValveState;
             edtEC.Text = flammableGasProbe.ElectricCurrent.ToString();
             edtGasProbe.Text = flammableGasProbe.ProbeState;
             edtT.Text = flammableGasProbe.Templatetrue.ToString();
-        }
 
+            speProbeEC.Text = flammableGasProbe.Valve.MaxStopCE.ToString();
+            spePreTime.Text = flammableGasProbe.Valve.MaxRunTime.ToString();
+
+            chkOpenValve.Checked = flammableGasProbe.OpenValve;
+            chkClearLight.Checked = flammableGasProbe.ClearLight;
+            chkClearLoudly.Checked = flammableGasProbe.ClearBuzzer;
+
+        }
+        /// <summary>
+        /// 自动刷新
+        /// </summary> 
         private void btAutoRefresh_CheckedChanged(object sender, EventArgs e)
         {
             autoRefresh = !autoRefresh;
@@ -70,12 +81,14 @@ namespace ConfigDevice
                 btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh1;
                 refreshSateTimer.Start();
                 btAutoRefresh.Checked = true;
+                CommonTools.MessageShow("自动 2秒 刷新一次!", 1, "");
             }
             else
             {
                 btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh2;
                 btAutoRefresh.Checked = false;
                 refreshSateTimer.Stop();
+                CommonTools.MessageShow("退出自动刷新!", 1, "");
             }
         }
 
@@ -90,6 +103,7 @@ namespace ConfigDevice
         {
             flammableGasProbe.SearchVer();//---获取版本号-----   
             flammableGasProbe.ReadState();//---读取状态----     
+            flammableGasProbe.Valve.ReadParameter();//---读取参数----
         }
 
         /// <summary>
@@ -113,6 +127,18 @@ namespace ConfigDevice
         private void btStopValve_Click(object sender, EventArgs e)
         {
             flammableGasProbe.Valve.MotorAction(Valve.ACTION_ROAD_BACK_1, Valve.ACTION_STOP);
+        }
+
+        /// <summary>
+        /// 保存参数
+        /// </summary> 
+        private void btSave_Click(object sender, EventArgs e)
+        {
+            UInt32 flag = 0;
+            if (chkOpenValve.Checked) flag = flag | 1;
+            if (chkClearLight.Checked) flag = flag | 2;
+            if (chkClearLoudly.Checked) flag = flag | 4;
+            flammableGasProbe.Valve.WriteParameter((short)spePreTime.Value, (short)speProbeEC.Value, flag);
         }
     }
 }

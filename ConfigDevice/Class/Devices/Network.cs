@@ -154,12 +154,11 @@ namespace ConfigDevice
             ListPosition.Clear();
             UdpData udpSend = createGetPositionListUdp();
             callbackGetPosition.Udp = udpSend;         
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackGetReply), new object[] { udpSend });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackGetReply), null);
         }
         private void callbackGetReply(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
-            if (udpSend.PacketCodeStr == udpReply.PacketCodeStr && udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+            if ( udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("获取设备列表失败!", udpReply.ReplyByte);//----错误则提示----
         }
         /// <summary>
@@ -242,12 +241,11 @@ namespace ConfigDevice
         public void SavePositionList(Position pos)
         {
             UdpData udpSend = createSavePositionUdp(pos);
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackGetSavePositionReply), new object[] { udpSend, pos });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackGetSavePositionReply), new object[] {  pos });
         }
         private void callbackGetSavePositionReply(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
-            Position pos = (Position)values[1]; 
+            Position pos = (Position)values[0]; 
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("保存位置- " + pos.Name + " 失败!", udpReply.ReplyByte);//----错误则提示---- 
             else
@@ -580,7 +578,7 @@ namespace ConfigDevice
         {
             //-----------执行链接网络------------
             UdpData udpSend = createChangePasswordUdpData(newPassword,kind);
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangePassword), new object[] { udpSend });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangePassword), null);
         }
         private void callbackChangePassword(UdpData udpReply, object[] values)
         {

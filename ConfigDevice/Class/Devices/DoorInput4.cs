@@ -94,11 +94,10 @@ namespace ConfigDevice
         public void ReadSettingInfo()
         {
             UdpData udpSend = createReadSettingUdp();
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadSettingInfo), new object[] { udpSend });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadSettingInfo), null);
         }
         private void callbackReadSettingInfo(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("申请读取配置失败!", udpReply.ReplyByte);
         }
@@ -161,11 +160,10 @@ namespace ConfigDevice
             finishReadRoads = false;
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME,this.DeviceID, getRoadTitles);
             UdpData udpSend = createReadRoadTitleUdp();
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), new object[] { udpSend });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), null);
         }
         private void callbackReadRoadTitle(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("申请读取回路名称失败!", udpReply.ReplyByte);
         }

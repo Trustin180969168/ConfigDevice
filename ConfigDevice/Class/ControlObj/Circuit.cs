@@ -139,11 +139,10 @@ namespace ConfigDevice
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, deviceControled.DeviceID, getRoadTitles);//----注册回调---
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, deviceControled.DeviceID, finishGetRoadTitles);//----注册回调---
             UdpData udpSend = createReadRoadTitleUdp();
-            mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), new object[] { udpSend });
+            mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), null);
         }
         private void callbackReadRoadTitle(UdpData udpReply, object[] values)
         {
-            UdpData udpSend = (UdpData)values[0];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("申请读取回路名称失败!", udpReply.ReplyByte);
         }
