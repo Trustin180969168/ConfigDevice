@@ -10,14 +10,19 @@ namespace ConfigDevice
 {
     public partial class ViewLogicSetting : UserControl
     {
+        
 
-
+        private bool Inited = false;
         public ViewLogicSetting()
         {
             InitializeComponent();
-
         }
-       
 
+
+        public void InitLogicList()
+        {
+            plLogicList.Controls.Add(new ViewLogicTools(1));
+            Inited = true;
+        }
     }
 }

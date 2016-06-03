@@ -21,19 +21,20 @@ namespace ConfigDevice
             InitializeComponent();
 
             DataLogicSetting = new DataTable("逻辑配置");
-            DataLogicSetting.Columns.Add(DeviceConfig.DC_OBJECT, System.Type.GetType("System.String"));
-            DataLogicSetting.Columns.Add(DeviceConfig.DC_OPERATION, System.Type.GetType("System.String"));
-            DataLogicSetting.Columns.Add(DeviceConfig.DC_START_VALUE, System.Type.GetType("System.String"));
-            DataLogicSetting.Columns.Add(DeviceConfig.DC_END_VALUE, System.Type.GetType("System.String"));
-            DataLogicSetting.Columns.Add(DeviceConfig.DC_VALID_TIME, System.Type.GetType("System.String"));
-            DataLogicSetting.Columns.Add(DeviceConfig.DC_INVALID_TIME, System.Type.GetType("System.String"));
+            DataLogicSetting.Columns.Add(ViewConfig.DC_OBJECT, System.Type.GetType("System.String"));
+            DataLogicSetting.Columns.Add(ViewConfig.DC_OPERATION, System.Type.GetType("System.String"));
+            DataLogicSetting.Columns.Add(ViewConfig.DC_START_VALUE, System.Type.GetType("System.String"));
+            DataLogicSetting.Columns.Add(ViewConfig.DC_END_VALUE, System.Type.GetType("System.String"));
+            DataLogicSetting.Columns.Add(ViewConfig.DC_VALID_TIME, System.Type.GetType("System.String"));
+            DataLogicSetting.Columns.Add(ViewConfig.DC_INVALID_TIME, System.Type.GetType("System.String"));
 
-            dcObject.FieldName = DeviceConfig.DC_OBJECT;
-            dcOperate.FieldName = DeviceConfig.DC_OPERATION;
-            dcRangeStart.FieldName = DeviceConfig.DC_START_VALUE;
-            dcRangeEnd.FieldName = DeviceConfig.DC_END_VALUE;
-            dcValid.FieldName = DeviceConfig.DC_VALID_TIME;
-            dcInvalid.FieldName = DeviceConfig.DC_INVALID_TIME;
+            dcObject.FieldName = ViewConfig.DC_OBJECT;
+            dcOperate.FieldName = ViewConfig.DC_OPERATION;
+            dcRangeStart.FieldName = ViewConfig.DC_START_VALUE;
+            dcRangeEnd.FieldName = ViewConfig.DC_END_VALUE;
+            dcValid.FieldName = ViewConfig.DC_VALID_TIME;
+            dcInvalid.FieldName = ViewConfig.DC_INVALID_TIME; 
+
 
             DataLogicSetting.Rows.Add();
             this.gcLogic.DataSource = DataLogicSetting;

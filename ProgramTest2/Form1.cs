@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DevExpress.XtraGrid.Columns;
 
 namespace ProgramTest2
 {
@@ -156,6 +157,17 @@ namespace ProgramTest2
         private void textEdit1_EditValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            setGridColumnValid(dcTime2, dcTime1.ColumnEdit);
+        }
+        protected void setGridColumnValid(GridColumn gc, DevExpress.XtraEditors.Repository.RepositoryItem editor)
+        {
+            gc.ColumnEdit = editor;
+            gc.AppearanceCell.BackColor = Color.LightYellow;//灰色
+            gc.AppearanceCell.ForeColor = Color.Blue;
         }
     }
 }

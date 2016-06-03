@@ -18,7 +18,7 @@ namespace ConfigDevice
 
 
     /// <summary>
-    /// 回复结果
+    /// 回复结果码
     /// </summary>
     public class REPLY_RESULT
     {

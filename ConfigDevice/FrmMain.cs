@@ -20,8 +20,8 @@ namespace ConfigDevice
     public partial class FrmMain : Form,IMessageFilter   
     {
         private MySocket socket;//---通讯对象-----
-        private NetworkCtrl networkCtrl;//----网络控制-----
-        private DeviceCtrl deviceCtrl;//----设备控制-----
+        private NetworkList networkCtrl;//----网络控制-----
+        private DeviceList deviceCtrl;//----设备控制-----
         private PleaseWait pw;//---等待窗体
         private bool OneNetworkShow = false;//是否单网段显示
         private Dictionary<string, Network> listRrefreshDevices = new Dictionary<string, Network>();//-----刷新设备列表--
@@ -31,8 +31,8 @@ namespace ConfigDevice
         public FrmMain()
         {
             SysCtrl.Init();//初始化配置
-            networkCtrl = new NetworkCtrl();
-            deviceCtrl = new DeviceCtrl();
+            networkCtrl = new NetworkList();
+            deviceCtrl = new DeviceList();
             socket = MySocket.GetInstance();
             pw = new PleaseWait(1,this as Form);
             InitializeComponent();
@@ -147,7 +147,7 @@ namespace ConfigDevice
                     else if ((callbackParameter.Action == ActionKind.SaveDeviceName))//---保存设备名称后刷新列表----
                     {
                         Device device = callbackParameter.Parameters[0] as Device;
-                        SysCtrl.UpdateDeviceData(device.GetDeviceData());
+                        DeviceCtrl.UpdateDeviceData(device.GetDeviceData());
                     }
                 }
             }
@@ -273,7 +273,7 @@ namespace ConfigDevice
             if (SysConfig.ListNetworks.ContainsKey(device.NetworkIP) &&
                 SysConfig.ListNetworks[device.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
             {
-                FrmDevice frm = SysCtrl.GetFactoryDeviceEdit(device.ByteKindID).CreateDevice(dr);
+                FrmDevice frm = FactoryDevice.GetFactoryDeviceEdit(device.ByteKindID).CreateDevice(dr);
                 frm.Text = device.Name;
                 frm.Show(this);
             }

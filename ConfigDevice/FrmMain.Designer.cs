@@ -883,7 +883,7 @@
             // 
             this.btPCSend.Image = global::ConfigDevice.Properties.Resources.work;
             this.btPCSend.Name = "btPCSend";
-            this.btPCSend.Size = new System.Drawing.Size(233, 30);
+            this.btPCSend.Size = new System.Drawing.Size(225, 24);
             this.btPCSend.Text = "PC发送包";
             this.btPCSend.Click += new System.EventHandler(this.btPCSend_Click);
             // 
@@ -891,7 +891,7 @@
             // 
             this.btRJ45Send.Image = global::ConfigDevice.Properties.Resources.work;
             this.btRJ45Send.Name = "btRJ45Send";
-            this.btRJ45Send.Size = new System.Drawing.Size(233, 30);
+            this.btRJ45Send.Size = new System.Drawing.Size(225, 24);
             this.btRJ45Send.Text = "未处理的RJ45主动包";
             this.btRJ45Send.Click += new System.EventHandler(this.btRJ45Send_Click);
             // 

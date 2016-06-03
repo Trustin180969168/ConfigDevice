@@ -34,7 +34,7 @@ namespace ConfigDevice
                         cbxPosition.Text = DeviceEdit.AddressName;
                         (this.ParentForm as FrmDevice).SetSelectDevice();//----设置选择列表----
                     }else  if (callbackParameter.Action == ActionKind.SaveDeviceName)//----保存名称---
-                        SysCtrl.UpdateDeviceData(DeviceEdit.GetDeviceData());
+                        DeviceCtrl.UpdateDeviceData(DeviceEdit.GetDeviceData());
 
 
                     edtName.Text = DeviceEdit.Name;

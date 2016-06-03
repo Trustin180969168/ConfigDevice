@@ -140,7 +140,7 @@ namespace ConfigDevice
             allowSync = false;
             string name = (string)cbxControlObj.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
             CurrentControlObj = CurrentDevice.ContrlObjs[name];
-            ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
+            ViewCommandControlObj = ViewEditCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
             DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = name;
             SyncCommandSetting();
             refreshView();
@@ -247,7 +247,7 @@ namespace ConfigDevice
             string myCtrlObjName = this.DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ].ToString();//空为删除操作
             if (this.CurrentDevice == null || this.CurrentDevice.KindID != value.CurrentDevice.KindID)
             {
-                this.CurrentDevice = SysCtrl.CreateDevice(value.CurrentDevice.ByteKindID).CreateDevice(value.CurrentDevice.GetDeviceData());
+                this.CurrentDevice = FactoryDevice.CreateDevice(value.CurrentDevice.ByteKindID).CreateDevice(value.CurrentDevice.GetDeviceData());
                 this.CleanCommandSetting();//----清空----
                 cbxControlObj.Items.Clear();
                 foreach (string key in CurrentDevice.ContrlObjs.Keys)
@@ -260,12 +260,12 @@ namespace ConfigDevice
             if (this.CurrentControlObj == null || this.CurrentControlObj.Name != value.CurrentControlObj.Name)
             {
                 CurrentControlObj = CurrentDevice.ContrlObjs[value.CurrentControlObj.Name];
-                ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
+                ViewCommandControlObj = ViewEditCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
             }//--------本地删除后,需要重新初始化----
             else if (this.CurrentControlObj.Name == value.CurrentControlObj.Name && myCtrlObjName == "")
             {
                 CurrentControlObj = CurrentDevice.ContrlObjs[value.CurrentControlObj.Name];
-                ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
+                ViewCommandControlObj = ViewEditCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
             }
 
             this.DataCommandSetting = value.DataCommandSetting.Copy();
@@ -293,7 +293,7 @@ namespace ConfigDevice
             dr[DeviceConfig.DC_PC_ADDRESS] = (int)userData.Target[0];//-----PC地址---
             dr[DeviceConfig.DC_NETWORK_IP] = userData.IP;//----IP地址----
             dr.EndEdit();
-            this.CurrentDevice = SysCtrl.CreateDevice(data.TargetType).CreateDevice(new DeviceData(dr));//----获取当前设备对象---
+            this.CurrentDevice = FactoryDevice.CreateDevice(data.TargetType).CreateDevice(new DeviceData(dr));//----获取当前设备对象---
 
             //-----获取控制对象---------------
             cbxControlObj.Items.Clear();
@@ -305,7 +305,7 @@ namespace ConfigDevice
             dr[DeviceConfig.DC_CONTROL_OBJ] = objName;//----判断设备是否含有相应的控制对象
             dr.EndEdit();
             CurrentControlObj = CurrentDevice.ContrlObjs[objName];//----获取当前控制对象
-            ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);//----创建视图控制对象
+            ViewCommandControlObj = ViewEditCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);//----创建视图控制对象
             ViewCommandControlObj.SetCommandData(data);//-----设置命令内容----
 
             refreshView();
@@ -422,7 +422,7 @@ namespace ConfigDevice
                         allowSync = false;
                         DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
                         CurrentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
-                        ViewCommandControlObj = SysCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
+                        ViewCommandControlObj = ViewEditCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
                         refreshView();
                         allowSync = true;
                         SyncCommandSetting();

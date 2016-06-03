@@ -64,7 +64,7 @@
             this.gcLogic.Name = "gcLogic";
             this.gcLogic.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1});
-            this.gcLogic.Size = new System.Drawing.Size(800, 46);
+            this.gcLogic.Size = new System.Drawing.Size(606, 46);
             this.gcLogic.TabIndex = 14;
             this.gcLogic.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvLogic});
@@ -82,6 +82,8 @@
             this.gvLogic.GridControl = this.gcLogic;
             this.gvLogic.HorzScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Never;
             this.gvLogic.Name = "gvLogic";
+            this.gvLogic.OptionsSelection.EnableAppearanceFocusedRow = false;
+            this.gvLogic.OptionsSelection.InvertSelection = true;
             this.gvLogic.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
             this.gvLogic.OptionsView.ShowGroupPanel = false;
             this.gvLogic.OptionsView.ShowIndicator = false;
@@ -106,6 +108,7 @@
             this.dcObject.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcObject.Visible = true;
             this.dcObject.VisibleIndex = 0;
+            this.dcObject.Width = 100;
             // 
             // dcOperate
             // 
@@ -124,6 +127,7 @@
             this.dcOperate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcOperate.Visible = true;
             this.dcOperate.VisibleIndex = 1;
+            this.dcOperate.Width = 100;
             // 
             // dcRangeStart
             // 
@@ -142,6 +146,7 @@
             this.dcRangeStart.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcRangeStart.Visible = true;
             this.dcRangeStart.VisibleIndex = 2;
+            this.dcRangeStart.Width = 100;
             // 
             // dcRangeEnd
             // 
@@ -160,6 +165,7 @@
             this.dcRangeEnd.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcRangeEnd.Visible = true;
             this.dcRangeEnd.VisibleIndex = 3;
+            this.dcRangeEnd.Width = 100;
             // 
             // dcValid
             // 
@@ -178,6 +184,7 @@
             this.dcValid.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcValid.Visible = true;
             this.dcValid.VisibleIndex = 4;
+            this.dcValid.Width = 100;
             // 
             // dcInvalid
             // 
@@ -196,6 +203,7 @@
             this.dcInvalid.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcInvalid.Visible = true;
             this.dcInvalid.VisibleIndex = 5;
+            this.dcInvalid.Width = 100;
             // 
             // repositoryItemTextEdit1
             // 
@@ -208,7 +216,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gcLogic);
             this.Name = "ViewLogicTools";
-            this.Size = new System.Drawing.Size(800, 165);
+            this.Size = new System.Drawing.Size(606, 45);
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLogic)).EndInit();

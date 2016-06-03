@@ -334,7 +334,7 @@ namespace ConfigDevice
             {
                 this.DeviceName = newName;
                 SysConfig.ListNetworks[this.NetworkIP].DeviceName = newName;
-                SysCtrl.UpdateNetworkDataTable(this);
+                NetworkCtrl.UpdateNetworkDataTable(this);
                 //CommonTools.MessageShow("保存成功!", 1, "");
             }
         }
@@ -430,10 +430,10 @@ namespace ConfigDevice
                     State = NetworkConfig.STATE_CONNECTED;
                     managerPassword = (byte[])(values[0]);
                     userPassword = (byte[])(values[1]);
-                    SysCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
+                    NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
                     int i =SysConfig.ListNetworks.Count;
                     GetPositionList(); //----------获取位置列表---------
-                    SysCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
+                    DeviceCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
                     CallbackUI(new CallbackParameter(  ActionKind.ConnectNetowrk, this ));
                     return;
                 }
@@ -521,8 +521,8 @@ namespace ConfigDevice
                 {
                     PCAddress = "";
                     State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
-                    SysCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
-                    SysCtrl.RemoveNetworkDeviceData(this);//----移除设备数据-----
+                    NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
+                    NetworkCtrl.RemoveNetworkDeviceData(this);//----移除设备数据-----
                     CallbackUI(new CallbackParameter( ActionKind.DisConnectNetwork, this ));
                     return;
                 }
@@ -729,8 +729,8 @@ namespace ConfigDevice
                     SysConfig.ListNetworks.Remove(this.NetworkIP);//---删除旧网络对象---      
                     this.NetworkIP = newIP.ToString();
                     SysConfig.ListNetworks.Add(this.NetworkIP, this);//---重新添加到对象列表-- 
-                }     
-                SysCtrl.UpdateNetworkDataTable(this);//---更新网络列表--
+                }
+                NetworkCtrl.UpdateNetworkDataTable(this);//---更新网络列表--
                 
                 //CommonTools.MessageShow("参数修改成功!", 1, "");
             }

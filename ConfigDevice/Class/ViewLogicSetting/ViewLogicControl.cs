@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Columns;
+using System.Data;
+using System.Drawing;
 
 namespace ConfigDevice
 {
@@ -80,57 +83,66 @@ namespace ConfigDevice
         public abstract UdpData GetLogicData(int logicID);//获取udp指令
         public abstract void SetLogicData(UdpData udp);//获取逻辑条件
 
-        protected DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxSelectKind;//选择编辑
-        protected DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit tedtTime;//时间类型编辑
-        protected DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit tedtTimeOfMD;//日期类型编辑
-        protected DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNum;//数字编辑
-        protected DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtPercentNum;//百分比
+        protected GridViewComboBox cbxOperate = new GridViewComboBox();//运算选择
+        protected GridViewTextEdit InvalidEdit = new GridViewTextEdit();//无效编辑
+        protected GridColumn dcTriggerObj;//触发对象
+        protected GridColumn dcOperate;//触发运算
+        protected GridColumn dcStartValue;//初始值
+        protected GridColumn dcEndValue;//结束值
+        protected GridColumn dcValid;//持续时间
+        protected GridColumn dcInvalid;//无效时间
 
         public ViewLogicControl(Device _device, GridView gv)
         {
+
             this.deviceTrigger = _device;
             this.gvLogic = gv;
-            //----命令编辑控件
-            cbxSelectKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            cbxSelectKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            cbxSelectKind.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+            InvalidEdit.ReadOnly = true;
+            InvalidEdit.NullText = "无效"; 
 
-            //----时间编辑控件
-            tedtTime = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
-            tedtTime.DisplayFormat.FormatString = "d";
-            tedtTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            tedtTime.Mask.EditMask = "HH:mm:ss";
-            tedtTime.Mask.UseMaskAsDisplayFormat = true;
-            tedtTime.Leave += new System.EventHandler(SysConfig.Edit_Leave);
-            tedtTime.Enter += new System.EventHandler(SysConfig.Edit_Enter);
 
-            //----月日编辑控件
-            tedtTimeOfMD = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
-            tedtTimeOfMD.DisplayFormat.FormatString = "d";
-            tedtTimeOfMD.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            tedtTimeOfMD.Mask.EditMask = "MM-dd";
-            tedtTimeOfMD.Mask.UseMaskAsDisplayFormat = true;
-            tedtTimeOfMD.Leave += new System.EventHandler(SysConfig.Edit_Leave);
-            tedtTimeOfMD.Enter += new System.EventHandler(SysConfig.Edit_Enter);
+            dcTriggerObj = gv.Columns.ColumnByFieldName(ViewConfig.DC_OBJECT);//触发对象
+            dcOperate = gv.Columns.ColumnByFieldName(ViewConfig.DC_OPERATION);//运算操作
+            dcStartValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_START_VALUE);//初始值
+            dcEndValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_END_VALUE);//结束值 
+            dcValid = gv.Columns.ColumnByFieldName(ViewConfig.DC_VALID_TIME);//有效值
+            dcInvalid = gv.Columns.ColumnByFieldName(ViewConfig.DC_INVALID_TIME);//无效值
+                      
+            //----初始化界面-----
+            foreach (GridColumn gc in gv.Columns)
+            {
+                if (gc.VisibleIndex <= 1) return;//触发对象和触发运算不清空
+                gc.AppearanceCell.BackColor = Color.LightYellow;
+                gc.ColumnEdit = null;
+            }
+            cbxOperate.Items.Clear();//清空触发运算
+            dcOperate.ColumnEdit = this.cbxOperate;//触发运算符 ,统一为下拉选择
+        }
 
-            //----数字编辑控件-----------
-            edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
-            edtNum.AutoHeight = false;
-            edtNum.Mask.EditMask = "d";
-            edtNum.Name = "edtNum";
-            edtNum.Leave += new System.EventHandler(SysConfig.Edit_Leave);
-            edtNum.Enter += new System.EventHandler(SysConfig.Edit_Enter);
+        /// <summary>
+        /// 设置无效
+        /// </summary>
+        /// <param name="gc"></param>
+        protected void setGridColumnInvalid(GridColumn gc)
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            dr[gc.FieldName] = null;
+            dr.EndEdit();            
+            gc.ColumnEdit = InvalidEdit;
+            gc.AppearanceCell.BackColor = Color.Gainsboro;//灰色
+            gc.AppearanceCell.ForeColor = Color.Black;
+        }
 
-            //----百分比编辑控件-------
-            edtPercentNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
-            edtPercentNum.AutoHeight = false;
-            edtPercentNum.Mask.EditMask = "P0";
-            edtPercentNum.Mask.UseMaskAsDisplayFormat = true;
-            edtPercentNum.MaxValue = new decimal(new int[] { 100, 0, 0, 0 });
-            edtPercentNum.MinValue = new decimal(new int[] { 0, 0, 0, 0 });
-            edtPercentNum.Name = "edtPercentNum";
-            edtPercentNum.Leave += new System.EventHandler(SysConfig.Edit_Leave);
-            edtPercentNum.Enter += new System.EventHandler(SysConfig.Edit_Enter);
+        /// <summary>
+        /// 设置生效
+        /// </summary>
+        /// <param name="gc"></param>
+        /// <param name="editor"></param>
+        protected void setGridColumnValid(GridColumn gc, DevExpress.XtraEditors.Repository.RepositoryItem editor)
+        {            
+            gc.ColumnEdit = editor;
+            gc.AppearanceCell.BackColor = Color.LightYellow;
+            gc.AppearanceCell.ForeColor = Color.Blue;
         }
     }
 }

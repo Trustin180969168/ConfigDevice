@@ -446,9 +446,9 @@
             // viewCommandEdit
             // 
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandEdit.Location = new System.Drawing.Point(0, 198);
+            this.viewCommandEdit.Location = new System.Drawing.Point(0, 262);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.Size = new System.Drawing.Size(985, 416);
+            this.viewCommandEdit.Size = new System.Drawing.Size(985, 352);
             this.viewCommandEdit.TabIndex = 0;
             // 
             // viewLogicSetting
@@ -456,7 +456,7 @@
             this.viewLogicSetting.Dock = System.Windows.Forms.DockStyle.Top;
             this.viewLogicSetting.Location = new System.Drawing.Point(0, 49);
             this.viewLogicSetting.Name = "viewLogicSetting";
-            this.viewLogicSetting.Size = new System.Drawing.Size(985, 149);
+            this.viewLogicSetting.Size = new System.Drawing.Size(985, 213);
             this.viewLogicSetting.TabIndex = 3;
             // 
             // panelControl1

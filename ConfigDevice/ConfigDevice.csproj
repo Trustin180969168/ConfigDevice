@@ -82,14 +82,14 @@
   <ItemGroup>
     <Compile Include="Class\Devices\DoorInput4.cs">
     </Compile>
-    <Compile Include="Class\Manage\FactoryDevice.cs" />
-    <Compile Include="Class\Manage\NetworkCtrl.cs" />
+    <Compile Include="Class\Manage\DeviceCtrl.cs" />
+    <Compile Include="Class\Manage\NetworkList.cs" />
     <Compile Include="Class\Devices\BaseDevice.cs" />
     <Compile Include="Class\Devices\Device.cs" />
     <Compile Include="Tools\ThreadActionTimer.cs">
     </Compile>
     <Compile Include="Config\DeviceConfig.cs" />
-    <Compile Include="Class\Manage\DeviceCtrl.cs" />
+    <Compile Include="Class\Manage\DeviceList.cs" />
     <Compile Include="Config\NetworkConfig.cs" />
     <Compile Include="Class\Devices\Network.cs">
     </Compile>
@@ -337,7 +337,7 @@
     <None Include="Resources\Traces1.png" />
     <Compile Include="Class\ControlObj\Valve.cs" />
     <Compile Include="Class\Devices\FlammableGasProbe.cs" />
-    <Compile Include="Class\Manage\CommandCtrl.cs" />
+    <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
     <Compile Include="Class\Devices\Road6FrontDimming.cs" />
     <Compile Include="Class\Devices\Road8FrontDimming.cs" />
@@ -346,8 +346,9 @@
     <Compile Include="Class\Devices\Road2FrontDimming.cs" />
     <Compile Include="Class\Devices\Road4FrontDimming.cs" />
     <Compile Include="Class\Devices\Road12FrontDimming.cs" />
+    <Compile Include="Class\Manage\NetworkCtrl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
-    <Compile Include="Class\Manage\FactoryViewControl.cs" />
+    <Compile Include="Class\Manage\ViewEditCtrl.cs" />
     <Compile Include="Class\Devices\Road8Relay.cs" />
     <Compile Include="Class\Devices\Road3Window.cs" />
     <Compile Include="Class\Devices\Amplifier.cs" />
@@ -359,7 +360,11 @@
     <Compile Include="Class\ViewCommandSetting\ViewMessagesControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewServerControl.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicControl.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicControlObjs.cs" />
     <Compile Include="Config\AudioConfig.cs" />
+    <Compile Include="Config\ViewConfig.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\CommandData.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCommandControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewMotorControl.cs" />

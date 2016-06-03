@@ -4,13 +4,13 @@ using System.Text;
 
 namespace ConfigDevice
 {
-    public class CommandCtrl
+    public class CommandList
     {
         private MySocket mySocket = MySocket.GetInstance();
         public Device device;//-----设备---
         public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
         public CallbackFromUDP callbackGetCommandData;//---回调获取指令----
-        public CommandCtrl(Device value)
+        public CommandList(Device value)
         {
             this.device = value;
             callbackGetCommandData = new CallbackFromUDP(getCommandData);

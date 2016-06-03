@@ -6,8 +6,7 @@ namespace ConfigDevice
 {
     public class DeviceConfig
     {
-        public static readonly byte[] ControlDevice = new byte[] { EQUIPMENT_SWIT_8, EQUIPMENT_SWIT_4, EQUIPMENT_TRAILING_6, 
-            EQUIPMENT_TRAILING_8, EQUIPMENT_CURTAIN_3CH };//----被控制的操作设备----
+
 
         //-----------回应启动搜索设备-------------
         public const byte RETSTARTSEARCH_TRUE = 0x0;        // 成功启动搜索设备
@@ -39,14 +38,7 @@ namespace ConfigDevice
         public const string DC_PARAMETER4 = "Parameter4";//参数4
         public const string DC_PARAMETER5 = "Parameter5";//参数5
         public const string DC_IMAGE1 = "Image1";//图片
-        //---逻辑列表-----
-        public const string DC_OBJECT = "Object";//触发对象
-        public const string DC_OPERATION = "Operation";//运算操作
-        public const string DC_START_VALUE = "StartValue";//开始值
-        public const string DC_END_VALUE = "EndValue";//结束值
-        public const string DC_VALID_TIME= "ValidTime";//有效就
-        public const string DC_INVALID_TIME = "InvalidTime";//无效时间
-
+     
         public const string ERROR_SAME_DEVICE_ID = "设备ID冲突!";//设备ID冲突
         public const string ERROR_SAME_DEVICE_TITLE = "设备名称冲突!";//设备名称冲突
         public const string ERROR_SAME_DEVICE_NETWORK_ID = "非法网络ID!";

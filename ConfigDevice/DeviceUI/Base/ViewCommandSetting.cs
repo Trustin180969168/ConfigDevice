@@ -22,7 +22,7 @@ namespace ConfigDevice
         {
             get { return commandCount; }
         }
-        public CommandCtrl CommandEdit;
+        public CommandList CommandEdit;
 
         public ViewCommandSetting()
         {
@@ -189,7 +189,7 @@ namespace ConfigDevice
                 cbxGroup.Properties.Items.Add(groupStr);
 
             int addCount = (int)edtEndNum.Value;//----指令的加载个数
-            CommandEdit = new CommandCtrl(device);
+            CommandEdit = new CommandList(device);
             CommandEdit.OnCallbackUI_Action += this.returnCommandData;//命令的执行的界面回调
             NeedInit = false;//---标记初始化完毕
             AddDefaultNullCommand();//----默认保留一条空指令便于添加-----

@@ -398,7 +398,7 @@ namespace ConfigDevice
             if (udpReply.ReplyByte == REPLY_RESULT.CMD_TRUE)
             {
                 this.Name = newName; this.AddressName = newPos; this.ByteAddressID = newBytePostion;
-                SysCtrl.UpdateDeviceData(this.GetDeviceData());
+                DeviceCtrl.UpdateDeviceData(this.GetDeviceData());
                 CallbackUI(new CallbackParameter(ActionKind.SaveDeviceName, this));
             }
             else
@@ -513,7 +513,7 @@ namespace ConfigDevice
                 this.AddressName = device.AddressName;
 
                 CallbackUI(null);//---返回UI----
-                SysCtrl.UpdateDeviceData(this.GetDeviceData());//--刷新----
+                DeviceCtrl.UpdateDeviceData(this.GetDeviceData());//--刷新----
             }
         }
 
