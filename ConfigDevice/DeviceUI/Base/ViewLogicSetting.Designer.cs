@@ -142,6 +142,7 @@
             this.viewLogicTools4.Dock = System.Windows.Forms.DockStyle.Top;
             this.viewLogicTools4.Location = new System.Drawing.Point(0, 138);
             this.viewLogicTools4.Name = "viewLogicTools4";
+            this.viewLogicTools4.Num = 4;
             this.viewLogicTools4.Size = new System.Drawing.Size(576, 46);
             this.viewLogicTools4.TabIndex = 3;
             // 
@@ -150,6 +151,7 @@
             this.viewLogicTools3.Dock = System.Windows.Forms.DockStyle.Top;
             this.viewLogicTools3.Location = new System.Drawing.Point(0, 92);
             this.viewLogicTools3.Name = "viewLogicTools3";
+            this.viewLogicTools3.Num = 3;
             this.viewLogicTools3.Size = new System.Drawing.Size(576, 46);
             this.viewLogicTools3.TabIndex = 2;
             // 
@@ -158,6 +160,7 @@
             this.viewLogicTools2.Dock = System.Windows.Forms.DockStyle.Top;
             this.viewLogicTools2.Location = new System.Drawing.Point(0, 46);
             this.viewLogicTools2.Name = "viewLogicTools2";
+            this.viewLogicTools2.Num = 2;
             this.viewLogicTools2.Size = new System.Drawing.Size(576, 46);
             this.viewLogicTools2.TabIndex = 1;
             // 
@@ -166,6 +169,7 @@
             this.viewLogicTools1.Dock = System.Windows.Forms.DockStyle.Top;
             this.viewLogicTools1.Location = new System.Drawing.Point(0, 0);
             this.viewLogicTools1.Name = "viewLogicTools1";
+            this.viewLogicTools1.Num = 1;
             this.viewLogicTools1.Size = new System.Drawing.Size(576, 46);
             this.viewLogicTools1.TabIndex = 0;
             // 

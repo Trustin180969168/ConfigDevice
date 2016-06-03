@@ -193,6 +193,48 @@ namespace ConfigDevice.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap logic2OR_2AND_AND {
+            get {
+                object obj = ResourceManager.GetObject("logic2OR_2AND_AND", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap logic2OR_2AND_OR {
+            get {
+                object obj = ResourceManager.GetObject("logic2OR_2AND_OR", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap logic3AND_1OR {
+            get {
+                object obj = ResourceManager.GetObject("logic3AND_1OR", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap logic3OR_1AND {
+            get {
+                object obj = ResourceManager.GetObject("logic3OR_1AND", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap logic4AND {
+            get {
+                object obj = ResourceManager.GetObject("logic4AND", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap logic4OR {
+            get {
+                object obj = ResourceManager.GetObject("logic4OR", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap logo_connect {
             get {
                 object obj = ResourceManager.GetObject("logo_connect", resourceCulture);

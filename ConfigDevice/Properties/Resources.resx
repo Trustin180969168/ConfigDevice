@@ -241,4 +241,22 @@
   <data name="power_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\power_off.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logic2OR_2AND_AND" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logic2OR_2AND_AND.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logic2OR_2AND_OR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logic2OR_2AND_OR.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logic3AND_1OR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logic3AND_1OR.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logic3OR_1AND" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logic3OR_1AND.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logic4AND" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logic4AND.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logic4OR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logic4OR.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
