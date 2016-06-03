@@ -36,21 +36,26 @@ namespace ConfigDevice
 
         // 设备[内部条件][外部条件]类型 --------------------------------------------------------------------------
         public const int LG_SENSOR_VOID = 0;          //无效(★不能改动★)
-        public const int LG_SENSOR_TEMP = 1;          //内部条件:温度
-        public const int LG_SENSOR_HUMI = 2;          //内部条件:湿度
-        public const int LG_SENSOR_RAIN = 3;          //内部条件:雨感
-        public const int LG_SENSOR_WIND = 4;          //内部条件:风速
-        public const int LG_SENSOR_LUMI = 5;          //内部条件:亮度
-        public const int LG_SENSOR_LEL = 6;          //内部条件:可燃气探头
-        public const int LG_SENSOR_RSP = 7;          //内部条件:雷达
-        public const int LG_SENSOR_TAMPER = 8;          //内部条件:防拆开关
+        public const int LG_SENSOR_TEMP = 1;          //内部条件:温度   (含有外设,含有等级)
+        public const int LG_SENSOR_HUMI = 2;          //内部条件:湿度   (含有外设,含有等级)
+        public const int LG_SENSOR_RAIN = 3;          //内部条件:雨感   (含有外设         )
+        public const int LG_SENSOR_WIND = 4;          //内部条件:风速   (含有外设,含有等级)
+        public const int LG_SENSOR_LUMI = 5;          //内部条件:亮度   (含有外设,含有等级)
+        public const int LG_SENSOR_LEL = 6;          //内部条件:可燃气探头  (含有外设         )
+        public const int LG_SENSOR_RSP = 7;          //内部条件:雷达    (含有外设         )
+        public const int LG_SENSOR_TAMPER = 8;          //内部条件:防拆开关 (含有外设         )
         public const int LG_EXT_SENSOR_SYS_LKID = 9;          //外部条件:系统联动
         public const int LG_EXT_SENSOR_SECURITY = 10;         //外部条件:安防联动
         public const int LG_EXT_SENSOR_TIME_SEG = 11;         //外部条件:时间段
         public const int LG_EXT_SENSOR_DATE_SEG = 12;         //外部条件:日期段
         public const int LG_EXT_SENSOR_WEEK_CYC = 13;         //外部条件:周循环
-        public const int LG_DEV_SENSOR_TEMP = 14;         //外部条件:温度(外部设备传感器)
-        public const int LG_SENSOR_TOTAL = 15;         //总数(★★数量以后会不断增加,必须在最尾处增加★★)
+        public const int LG_DEV_SENSOR_TEMP = 14;           //消防温控    (含有外设,含有等级)
+        public const int LG_SENSOR_TOTAL = 15;              //总数(★★数量以后会不断增加,必须在最尾处增加★★)
+        public const int LG_SENSOR_DEV_FLAG = 0x8000;       //[外设]传感器[标志位]->如:本设备,外设
+        public const int LG_SENSOR_LVL_FLAG = 0x4000;       //传感器[级别][标志位]->如:温度,27℃(数值),舒适(级别)
+        public const int LG_SENSOR_MASK = 0xBFFF;           //[同一个]传感器[掩码]->如:本设备的温度传感器,外设的温度传感器
+        public const int LG_SENSOR_TYP_MASK = 0x3FFF;       //[同类型]传感器[掩码]->如:温度,湿度
+        public const int LG_SENSOR_END_MARK = 0xFFFF;       //传感器结束符
         public const int LG_SENSOR_DEFAULT = LG_SENSOR_VOID;
 
 
@@ -80,17 +85,21 @@ namespace ConfigDevice
 
         public Device deviceTrigger;//触发设备对象
         public GridView gvLogic;//逻辑列表
-        public abstract UdpData GetLogicData(int logicID);//获取udp指令
-        public abstract void SetLogicData(UdpData udp);//获取逻辑条件
 
         protected GridViewComboBox cbxOperate = new GridViewComboBox();//运算选择
+        protected GridViewComboBox cbxKind = new GridViewComboBox();//触发类型
         protected GridViewTextEdit InvalidEdit = new GridViewTextEdit();//无效编辑
         protected GridColumn dcTriggerObj;//触发对象
+        protected GridColumn dcKind;//触发类型
         protected GridColumn dcOperate;//触发运算
         protected GridColumn dcStartValue;//初始值
         protected GridColumn dcEndValue;//结束值
         protected GridColumn dcValid;//持续时间
         protected GridColumn dcInvalid;//无效时间
+
+        public abstract UdpData GetLogicData(int logicID);//获取udp指令
+        public abstract void SetLogicData(UdpData udp);//获取逻辑条件 
+        public abstract void InitViewSetting();       /// 初始化配置界面
 
         public ViewLogicControl(Device _device, GridView gv)
         {
@@ -98,25 +107,23 @@ namespace ConfigDevice
             this.deviceTrigger = _device;
             this.gvLogic = gv;
             InvalidEdit.ReadOnly = true;
-            InvalidEdit.NullText = "无效"; 
-
+            InvalidEdit.NullText = "无效";
 
             dcTriggerObj = gv.Columns.ColumnByFieldName(ViewConfig.DC_OBJECT);//触发对象
+            dcKind = gv.Columns.ColumnByFieldName(ViewConfig.DC_KIND);//触发类型
             dcOperate = gv.Columns.ColumnByFieldName(ViewConfig.DC_OPERATION);//运算操作
             dcStartValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_START_VALUE);//初始值
             dcEndValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_END_VALUE);//结束值 
             dcValid = gv.Columns.ColumnByFieldName(ViewConfig.DC_VALID_TIME);//有效值
             dcInvalid = gv.Columns.ColumnByFieldName(ViewConfig.DC_INVALID_TIME);//无效值
-                      
+
             //----初始化界面-----
-            foreach (GridColumn gc in gv.Columns)
-            {
-                if (gc.VisibleIndex <= 1) return;//触发对象和触发运算不清空
-                gc.AppearanceCell.BackColor = Color.LightYellow;
-                gc.ColumnEdit = null;
-            }
+            foreach (GridColumn gc in gv.Columns)               
+                    gc.Visible = true; 
             cbxOperate.Items.Clear();//清空触发运算
-            dcOperate.ColumnEdit = this.cbxOperate;//触发运算符 ,统一为下拉选择
+            dcOperate.ColumnEdit = this.cbxOperate;//触发运算符 ,统一为下拉选择       
+            cbxKind.Items.Clear();//清空触发类型
+            dcKind.ColumnEdit = this.cbxKind;//触发类型
         }
 
         /// <summary>
@@ -127,7 +134,7 @@ namespace ConfigDevice
         {
             DataRow dr = gvLogic.GetDataRow(0);
             dr[gc.FieldName] = null;
-            dr.EndEdit();            
+            dr.EndEdit();
             gc.ColumnEdit = InvalidEdit;
             gc.AppearanceCell.BackColor = Color.Gainsboro;//灰色
             gc.AppearanceCell.ForeColor = Color.Black;
@@ -139,10 +146,15 @@ namespace ConfigDevice
         /// <param name="gc"></param>
         /// <param name="editor"></param>
         protected void setGridColumnValid(GridColumn gc, DevExpress.XtraEditors.Repository.RepositoryItem editor)
-        {            
+        {
             gc.ColumnEdit = editor;
             gc.AppearanceCell.BackColor = Color.LightYellow;
             gc.AppearanceCell.ForeColor = Color.Blue;
         }
+
+
+
+
+
     }
 }

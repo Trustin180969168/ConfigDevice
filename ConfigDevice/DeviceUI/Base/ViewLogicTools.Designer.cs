@@ -33,17 +33,18 @@
             this.gcLogic = new DevExpress.XtraGrid.GridControl();
             this.gvLogic = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcObject = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcKind = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcOperate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcRangeStart = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcRangeEnd = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcValid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcInvalid = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.cbxLogicObj = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLogic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvLogic)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxLogicObj)).BeginInit();
             this.SuspendLayout();
             // 
             // gridView1
@@ -63,7 +64,7 @@
             this.gcLogic.MainView = this.gvLogic;
             this.gcLogic.Name = "gcLogic";
             this.gcLogic.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemTextEdit1});
+            this.cbxLogicObj});
             this.gcLogic.Size = new System.Drawing.Size(606, 46);
             this.gcLogic.TabIndex = 14;
             this.gcLogic.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -74,6 +75,7 @@
             this.gvLogic.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.gvLogic.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.dcObject,
+            this.dcKind,
             this.dcOperate,
             this.dcRangeStart,
             this.dcRangeEnd,
@@ -83,8 +85,6 @@
             this.gvLogic.HorzScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Never;
             this.gvLogic.Name = "gvLogic";
             this.gvLogic.OptionsSelection.EnableAppearanceFocusedRow = false;
-            this.gvLogic.OptionsSelection.InvertSelection = true;
-            this.gvLogic.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
             this.gvLogic.OptionsView.ShowGroupPanel = false;
             this.gvLogic.OptionsView.ShowIndicator = false;
             this.gvLogic.RowSeparatorHeight = 4;
@@ -104,11 +104,29 @@
             this.dcObject.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcObject.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcObject.Caption = "触发对象";
+            this.dcObject.ColumnEdit = this.cbxLogicObj;
             this.dcObject.Name = "dcObject";
             this.dcObject.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcObject.Visible = true;
             this.dcObject.VisibleIndex = 0;
             this.dcObject.Width = 100;
+            // 
+            // dcKind
+            // 
+            this.dcKind.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcKind.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcKind.AppearanceCell.Options.UseBackColor = true;
+            this.dcKind.AppearanceCell.Options.UseForeColor = true;
+            this.dcKind.AppearanceCell.Options.UseTextOptions = true;
+            this.dcKind.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcKind.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcKind.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcKind.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcKind.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcKind.Caption = "数值类型";
+            this.dcKind.Name = "dcKind";
+            this.dcKind.Visible = true;
+            this.dcKind.VisibleIndex = 1;
             // 
             // dcOperate
             // 
@@ -126,7 +144,7 @@
             this.dcOperate.Name = "dcOperate";
             this.dcOperate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcOperate.Visible = true;
-            this.dcOperate.VisibleIndex = 1;
+            this.dcOperate.VisibleIndex = 2;
             this.dcOperate.Width = 100;
             // 
             // dcRangeStart
@@ -145,7 +163,7 @@
             this.dcRangeStart.Name = "dcRangeStart";
             this.dcRangeStart.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcRangeStart.Visible = true;
-            this.dcRangeStart.VisibleIndex = 2;
+            this.dcRangeStart.VisibleIndex = 3;
             this.dcRangeStart.Width = 100;
             // 
             // dcRangeEnd
@@ -164,7 +182,7 @@
             this.dcRangeEnd.Name = "dcRangeEnd";
             this.dcRangeEnd.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcRangeEnd.Visible = true;
-            this.dcRangeEnd.VisibleIndex = 3;
+            this.dcRangeEnd.VisibleIndex = 4;
             this.dcRangeEnd.Width = 100;
             // 
             // dcValid
@@ -183,7 +201,7 @@
             this.dcValid.Name = "dcValid";
             this.dcValid.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcValid.Visible = true;
-            this.dcValid.VisibleIndex = 4;
+            this.dcValid.VisibleIndex = 5;
             this.dcValid.Width = 100;
             // 
             // dcInvalid
@@ -202,13 +220,22 @@
             this.dcInvalid.Name = "dcInvalid";
             this.dcInvalid.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcInvalid.Visible = true;
-            this.dcInvalid.VisibleIndex = 5;
+            this.dcInvalid.VisibleIndex = 6;
             this.dcInvalid.Width = 100;
             // 
-            // repositoryItemTextEdit1
+            // cbxLogicObj
             // 
-            this.repositoryItemTextEdit1.AutoHeight = false;
-            this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
+            this.cbxLogicObj.Appearance.BackColor = System.Drawing.Color.LightYellow;
+            this.cbxLogicObj.Appearance.Options.UseBackColor = true;
+            this.cbxLogicObj.Appearance.Options.UseTextOptions = true;
+            this.cbxLogicObj.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.cbxLogicObj.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.cbxLogicObj.AutoHeight = false;
+            this.cbxLogicObj.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxLogicObj.Name = "cbxLogicObj";
+            this.cbxLogicObj.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxLogicObj.SelectedIndexChanged += new System.EventHandler(this.cbxLogicObj_SelectedIndexChanged);
             // 
             // ViewLogicTools
             // 
@@ -221,7 +248,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLogic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvLogic)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxLogicObj)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -238,7 +265,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn dcRangeEnd;
         private DevExpress.XtraGrid.Columns.GridColumn dcValid;
         private DevExpress.XtraGrid.Columns.GridColumn dcInvalid;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
+        private DevExpress.XtraGrid.Columns.GridColumn dcKind;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxLogicObj;
 
 
 

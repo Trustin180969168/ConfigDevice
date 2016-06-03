@@ -15,6 +15,7 @@ namespace ConfigDevice
         public ViewLogicFlamableGasProbe(Device _device, GridView gv)
             : base(_device, gv)
         {
+
             cbxOperate.Items.Add("等于");
             GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
             cbxStart.Items.Add("泄漏");
@@ -38,6 +39,11 @@ namespace ConfigDevice
  
         }
 
+
+        public override void InitViewSetting()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -94,6 +100,11 @@ namespace ConfigDevice
                 setGridColumnValid(dcEndValue, temperatureEdit);//----设置结束值有效----
         }
 
+
+        public override void InitViewSetting()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -130,6 +141,11 @@ namespace ConfigDevice
 
         }
 
+
+        public override void InitViewSetting()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -158,6 +174,11 @@ namespace ConfigDevice
 
         }
 
+
+        public override void InitViewSetting()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

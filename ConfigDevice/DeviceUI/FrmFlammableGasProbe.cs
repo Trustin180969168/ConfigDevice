@@ -140,5 +140,13 @@ namespace ConfigDevice
             if (chkClearLoudly.Checked) flag = flag | 4;
             flammableGasProbe.Valve.WriteParameter((short)spePreTime.Value, (short)speProbeEC.Value, flag);
         }
+
+        private void tctrlEdit_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            if (tctrlEdit.SelectedTabPageIndex == 2)
+                if (!viewLogicSetting.Inited)
+                    viewLogicSetting.InitLogicList(ViewConfig.TRIGGER_INVALID, ViewConfig.TRIGGER_FLAMMABLE_GAS_PROBE,
+                        ViewConfig.TRIGGER_TEMPERATURE, ViewConfig.TRIGGER_SYSTEM_INTERACTION);
+        }
     }
 }

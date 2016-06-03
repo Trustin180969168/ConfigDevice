@@ -8,6 +8,7 @@ namespace ConfigDevice
     {
         //---逻辑列表-----
         public const string DC_OBJECT = "Object";//触发对象
+        public const string DC_KIND = "Kind";//内容类型
         public const string DC_OPERATION = "Operation";//运算操作
         public const string DC_START_VALUE = "StartValue";//开始值
         public const string DC_END_VALUE = "EndValue";//结束值
@@ -42,6 +43,8 @@ namespace ConfigDevice
             //public const string TEMPERATURE = "温度";
             //public const string TEMPERATURE = "温度";
             //public const string TEMPERATURE = "温度";
+
+            public const string TRIGGER_KIND_PERIPHERAL = ""; 
         
     }
 

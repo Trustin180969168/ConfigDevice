@@ -58,7 +58,7 @@ namespace ConfigDevice
             if (TriggerName == ViewConfig.TRIGGER_SYSTEM_INTERACTION)
                 return new ViewLogicSystemInteraction(device, gv);
             else
-                return new ViewLogicInvalid(device, gv); ;
+                return new ViewLogicInvalid(device, gv); 
 
         }
     }
