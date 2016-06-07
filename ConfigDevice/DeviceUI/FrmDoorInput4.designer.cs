@@ -124,10 +124,10 @@
             this.tctrlEdit.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 12F);
             this.tctrlEdit.AppearancePage.Header.Options.UseFont = true;
             this.tctrlEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
+            this.tctrlEdit.Location = new System.Drawing.Point(0, 27);
             this.tctrlEdit.Name = "tctrlEdit";
             this.tctrlEdit.SelectedTabPage = this.pageJcsz;
-            this.tctrlEdit.Size = new System.Drawing.Size(1018, 719);
+            this.tctrlEdit.Size = new System.Drawing.Size(1018, 716);
             this.tctrlEdit.TabIndex = 1;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
@@ -140,7 +140,7 @@
             // 
             this.pageJcsz.Controls.Add(this.frmSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
+            this.pageJcsz.Size = new System.Drawing.Size(1009, 679);
             this.pageJcsz.Text = "基础配置";
             // 
             // frmSetting
@@ -148,7 +148,7 @@
             this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frmSetting.Location = new System.Drawing.Point(0, 0);
             this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(1009, 682);
+            this.frmSetting.Size = new System.Drawing.Size(1009, 679);
             this.frmSetting.TabIndex = 0;
             // 
             // pagePzjm
@@ -650,7 +650,7 @@
             // 
             this.pageCommand.Controls.Add(this.viewCommandEdit);
             this.pageCommand.Name = "pageCommand";
-            this.pageCommand.Size = new System.Drawing.Size(1009, 682);
+            this.pageCommand.Size = new System.Drawing.Size(1009, 679);
             this.pageCommand.Text = "指令配置";
             // 
             // viewCommandEdit
@@ -658,7 +658,7 @@
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandEdit.Location = new System.Drawing.Point(0, 0);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.Size = new System.Drawing.Size(1009, 682);
+            this.viewCommandEdit.Size = new System.Drawing.Size(1009, 679);
             this.viewCommandEdit.TabIndex = 0;
             // 
             // FrmDoorInput4
@@ -706,16 +706,6 @@
             this.pageCommand.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-
-
-            edtNum1.Enter += SysConfig.Edit_Enter;
-            edtNum1.Leave += SysConfig.Edit_Leave;
-            edtNum2.Enter += SysConfig.Edit_Enter;
-            edtNum2.Leave += SysConfig.Edit_Leave;
-            edtNum3.Enter += SysConfig.Edit_Enter;
-            edtNum3.Leave += SysConfig.Edit_Leave;
-            edtNum4.Enter += SysConfig.Edit_Enter;
-            edtNum4.Leave += SysConfig.Edit_Leave;
 
         }
 

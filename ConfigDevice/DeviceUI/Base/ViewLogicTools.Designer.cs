@@ -39,12 +39,10 @@
             this.dcRangeEnd = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcValid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcInvalid = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.cbxLogicObj = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLogic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvLogic)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxLogicObj)).BeginInit();
             this.SuspendLayout();
             // 
             // gridView1
@@ -63,8 +61,6 @@
             this.gcLogic.Location = new System.Drawing.Point(0, 0);
             this.gcLogic.MainView = this.gvLogic;
             this.gcLogic.Name = "gcLogic";
-            this.gcLogic.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.cbxLogicObj});
             this.gcLogic.Size = new System.Drawing.Size(606, 46);
             this.gcLogic.TabIndex = 14;
             this.gcLogic.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -87,6 +83,7 @@
             this.gvLogic.OptionsSelection.EnableAppearanceFocusedRow = false;
             this.gvLogic.OptionsView.ShowGroupPanel = false;
             this.gvLogic.OptionsView.ShowIndicator = false;
+            this.gvLogic.RowHeight = 22;
             this.gvLogic.RowSeparatorHeight = 4;
             this.gvLogic.ScrollStyle = DevExpress.XtraGrid.Views.Grid.ScrollStyleFlags.None;
             this.gvLogic.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Never;
@@ -104,12 +101,10 @@
             this.dcObject.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcObject.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcObject.Caption = "触发对象";
-            this.dcObject.ColumnEdit = this.cbxLogicObj;
             this.dcObject.Name = "dcObject";
-            this.dcObject.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcObject.Visible = true;
             this.dcObject.VisibleIndex = 0;
-            this.dcObject.Width = 100;
+            this.dcObject.Width = 113;
             // 
             // dcKind
             // 
@@ -123,10 +118,11 @@
             this.dcKind.AppearanceHeader.Options.UseTextOptions = true;
             this.dcKind.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcKind.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcKind.Caption = "数值类型";
+            this.dcKind.Caption = "触发类型";
             this.dcKind.Name = "dcKind";
             this.dcKind.Visible = true;
             this.dcKind.VisibleIndex = 1;
+            this.dcKind.Width = 73;
             // 
             // dcOperate
             // 
@@ -142,10 +138,9 @@
             this.dcOperate.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcOperate.Caption = "运算";
             this.dcOperate.Name = "dcOperate";
-            this.dcOperate.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcOperate.Visible = true;
             this.dcOperate.VisibleIndex = 2;
-            this.dcOperate.Width = 100;
+            this.dcOperate.Width = 51;
             // 
             // dcRangeStart
             // 
@@ -161,10 +156,9 @@
             this.dcRangeStart.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcRangeStart.Caption = "范围(开始)";
             this.dcRangeStart.Name = "dcRangeStart";
-            this.dcRangeStart.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcRangeStart.Visible = true;
             this.dcRangeStart.VisibleIndex = 3;
-            this.dcRangeStart.Width = 100;
+            this.dcRangeStart.Width = 88;
             // 
             // dcRangeEnd
             // 
@@ -180,10 +174,9 @@
             this.dcRangeEnd.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcRangeEnd.Caption = "范围(结束)";
             this.dcRangeEnd.Name = "dcRangeEnd";
-            this.dcRangeEnd.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcRangeEnd.Visible = true;
             this.dcRangeEnd.VisibleIndex = 4;
-            this.dcRangeEnd.Width = 100;
+            this.dcRangeEnd.Width = 88;
             // 
             // dcValid
             // 
@@ -199,10 +192,9 @@
             this.dcValid.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcValid.Caption = "持续时间(秒)";
             this.dcValid.Name = "dcValid";
-            this.dcValid.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcValid.Visible = true;
             this.dcValid.VisibleIndex = 5;
-            this.dcValid.Width = 100;
+            this.dcValid.Width = 88;
             // 
             // dcInvalid
             // 
@@ -218,24 +210,9 @@
             this.dcInvalid.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcInvalid.Caption = "无效持续(秒)";
             this.dcInvalid.Name = "dcInvalid";
-            this.dcInvalid.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
             this.dcInvalid.Visible = true;
             this.dcInvalid.VisibleIndex = 6;
-            this.dcInvalid.Width = 100;
-            // 
-            // cbxLogicObj
-            // 
-            this.cbxLogicObj.Appearance.BackColor = System.Drawing.Color.LightYellow;
-            this.cbxLogicObj.Appearance.Options.UseBackColor = true;
-            this.cbxLogicObj.Appearance.Options.UseTextOptions = true;
-            this.cbxLogicObj.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.cbxLogicObj.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.cbxLogicObj.AutoHeight = false;
-            this.cbxLogicObj.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxLogicObj.Name = "cbxLogicObj";
-            this.cbxLogicObj.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbxLogicObj.SelectedIndexChanged += new System.EventHandler(this.cbxLogicObj_SelectedIndexChanged);
+            this.dcInvalid.Width = 105;
             // 
             // ViewLogicTools
             // 
@@ -248,7 +225,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLogic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvLogic)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxLogicObj)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -259,14 +235,13 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraGrid.GridControl gcLogic;
         private DevExpress.XtraGrid.Views.Grid.GridView gvLogic;
-        private DevExpress.XtraGrid.Columns.GridColumn dcObject;
         private DevExpress.XtraGrid.Columns.GridColumn dcOperate;
         private DevExpress.XtraGrid.Columns.GridColumn dcRangeStart;
         private DevExpress.XtraGrid.Columns.GridColumn dcRangeEnd;
         private DevExpress.XtraGrid.Columns.GridColumn dcValid;
         private DevExpress.XtraGrid.Columns.GridColumn dcInvalid;
         private DevExpress.XtraGrid.Columns.GridColumn dcKind;
-        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxLogicObj;
+        private DevExpress.XtraGrid.Columns.GridColumn dcObject;
 
 
 

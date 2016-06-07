@@ -49,14 +49,28 @@ namespace ConfigDevice
         public static ViewLogicControl GetViewLogicControl(string TriggerName,Device device, GridView gv)
         {
 
-            if (TriggerName == ViewConfig.TRIGGER_INVALID)
+            if (TriggerName == ViewConfig.SENSOR_INVALID)
                 return new ViewLogicInvalid(device, gv);
-            if (TriggerName == ViewConfig.TRIGGER_FLAMMABLE_GAS_PROBE)
+            else if (TriggerName == ViewConfig.SENSOR_FLAMMABLE_GAS_PROBE)
                 return new ViewLogicFlamableGasProbe(device, gv);
-            if (TriggerName == ViewConfig.TRIGGER_TEMPERATURE)
+            else if (TriggerName == ViewConfig.SENSOR_TEMPERATURE)
                 return new ViewLogicTemperature(device, gv);
-            if (TriggerName == ViewConfig.TRIGGER_SYSTEM_INTERACTION)
+            else if (TriggerName == ViewConfig.SENSOR_SYSTEM_INTERACTION)
                 return new ViewLogicSystemInteraction(device, gv);
+            else if (TriggerName == ViewConfig.SENSOR_HUMIDITY)
+                return new ViewLogicHumidity(device, gv);
+            else if (TriggerName == ViewConfig.SENSOR_RADAR)
+                return new ViewLogicRadar(device, gv);
+            else if (TriggerName == ViewConfig.SENSOR_SWIT_TAMPER)
+                return new ViewLogicSwitTamper(device, gv);
+            else if (TriggerName == ViewConfig.SENSOR_TIME)
+                return new ViewLogicTime(device, gv);
+            else if (TriggerName == ViewConfig.SENSOR_DATE)
+                return new ViewLogicDateOfMonthDay(device, gv);
+            else if (TriggerName == ViewConfig.SENSOR_WEEK)
+                return new ViewLogicWeek(device, gv);
+            else if (TriggerName == ViewConfig.SENSOR_WINDY)
+                return new ViewLogicWindy(device, gv);
             else
                 return new ViewLogicInvalid(device, gv); 
 

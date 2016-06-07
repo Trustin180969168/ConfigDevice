@@ -183,6 +183,7 @@ namespace ConfigDevice
         /// </summary>
         public void InitViewCommand(Device device)
         {
+      
             cbxGroup.SelectedIndex = -1;
             cbxGroup.Properties.Items.Clear();
             foreach (string groupStr in CommmandGroups)
@@ -231,9 +232,7 @@ namespace ConfigDevice
         private void callbackUI(object[] values)
         {
 
-        }
-
-
+        } 
 
 
         /// <summary>

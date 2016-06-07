@@ -54,7 +54,7 @@ namespace ConfigDevice
             ContrlObjs.Add("时序", new Timing(this));
             ContrlObjs.Add("全部", new Swit(this));
 
-            circuit.OnCallbackRoad_Action += this.OnCallbackRoad_Action;
+            circuit.OnCallbackUI_Action += this.OnCallbackRoad_Action;
 
         }
 

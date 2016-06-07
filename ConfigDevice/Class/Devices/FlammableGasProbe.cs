@@ -15,6 +15,7 @@ namespace ConfigDevice
         public string ProbeState = "";//---探头状态---
         public short Templatetrue = 0;//---温度----
         public Valve Valve;//电机对象,用于阀门控制
+        public Circuit ProbeCircuit;//回路对象
         private CallbackFromUDP getStateInfo;//----获取设置信息----
         private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
         public bool OpenValve = false;//是否开阀门
@@ -48,9 +49,10 @@ namespace ConfigDevice
         private void initControlObjs()
         {
             Valve = new Valve(this);
-            ContrlObjs.Add("阀门", Valve); 
-
- 
+            ProbeCircuit =new Circuit(this,8);
+            ContrlObjs.Add("阀门", Valve);
+            ContrlObjs.Add("回路", ProbeCircuit);
+            ProbeCircuit.OnCallbackUI_Action += this.CallbackUI;
         }
 
         /// <summary>
@@ -107,6 +109,9 @@ namespace ConfigDevice
 
             return udp;
         }
+
+
+
 
         /// <summary>
         /// 获取数据

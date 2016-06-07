@@ -38,33 +38,36 @@
             this.timeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
             this.dcTime2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dateEdit = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
+            this.dcWeek = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.iccbWeek = new DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit();
             this.num = new DevExpress.XtraGrid.Columns.GridColumn();
             this.edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.dcSelect = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.meeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
-            this.meEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
-            this.lookupEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             this.imageComboBoxEdit1 = new DevExpress.XtraEditors.ImageComboBoxEdit();
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             this.lookUpEdit1 = new DevExpress.XtraEditors.LookUpEdit();
             this.button1 = new System.Windows.Forms.Button();
+            this.temperatureEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
+            this.checkedComboBoxEdit1 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            this.lookUpEdit2 = new DevExpress.XtraEditors.LookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit.VistaTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iccbWeek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtNum)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.meEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.temperatureEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit2.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // timeEdit1
@@ -96,11 +99,9 @@
             this.gcTime.Name = "gcTime";
             this.gcTime.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.timeEdit,
-            this.meeEdit,
-            this.meEdit,
-            this.lookupEdit,
             this.edtNum,
-            this.dateEdit});
+            this.dateEdit,
+            this.iccbWeek});
             this.gcTime.Size = new System.Drawing.Size(423, 466);
             this.gcTime.TabIndex = 5;
             this.gcTime.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -113,6 +114,7 @@
             this.gvTime.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.dcTime1,
             this.dcTime2,
+            this.dcWeek,
             this.num,
             this.dcSelect});
             this.gvTime.GridControl = this.gcTime;
@@ -182,6 +184,29 @@
             this.dateEdit.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             // 
+            // dcWeek
+            // 
+            this.dcWeek.Caption = "周";
+            this.dcWeek.ColumnEdit = this.iccbWeek;
+            this.dcWeek.Name = "dcWeek";
+            this.dcWeek.Visible = true;
+            this.dcWeek.VisibleIndex = 4;
+            // 
+            // iccbWeek
+            // 
+            this.iccbWeek.AutoHeight = false;
+            this.iccbWeek.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.iccbWeek.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期一"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期二"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期三"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期四"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期五"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期六"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期日")});
+            this.iccbWeek.Name = "iccbWeek";
+            // 
             // num
             // 
             this.num.AppearanceCell.Options.UseTextOptions = true;
@@ -221,30 +246,6 @@
             this.dcSelect.Visible = true;
             this.dcSelect.VisibleIndex = 2;
             // 
-            // meeEdit
-            // 
-            this.meeEdit.AutoHeight = false;
-            this.meeEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.meeEdit.ExportMode = DevExpress.XtraEditors.Repository.ExportMode.DisplayText;
-            this.meeEdit.Name = "meeEdit";
-            // 
-            // meEdit
-            // 
-            this.meEdit.Name = "meEdit";
-            // 
-            // lookupEdit
-            // 
-            this.lookupEdit.AutoHeight = false;
-            this.lookupEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookupEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ID", "设备ID", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("NAME", "设备名称", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None)});
-            this.lookupEdit.Name = "lookupEdit";
-            this.lookupEdit.ShowFooter = false;
-            this.lookupEdit.ShowHeader = false;
-            // 
             // simpleButton2
             // 
             this.simpleButton2.Location = new System.Drawing.Point(33, 61);
@@ -253,14 +254,6 @@
             this.simpleButton2.TabIndex = 6;
             this.simpleButton2.Text = "simpleButton2";
             this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
-            // 
-            // textEdit1
-            // 
-            this.textEdit1.Location = new System.Drawing.Point(114, 63);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Size = new System.Drawing.Size(100, 21);
-            this.textEdit1.TabIndex = 7;
-            this.textEdit1.EditValueChanged += new System.EventHandler(this.textEdit1_EditValueChanged);
             // 
             // simpleButton3
             // 
@@ -315,16 +308,83 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // temperatureEdit
+            // 
+            this.temperatureEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.temperatureEdit.Location = new System.Drawing.Point(235, 149);
+            this.temperatureEdit.Name = "temperatureEdit";
+            this.temperatureEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.temperatureEdit.Properties.Mask.EditMask = "P0";
+            this.temperatureEdit.Size = new System.Drawing.Size(100, 21);
+            this.temperatureEdit.TabIndex = 14;
+            // 
+            // spinEdit1
+            // 
+            this.spinEdit1.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spinEdit1.Location = new System.Drawing.Point(115, 61);
+            this.spinEdit1.Name = "spinEdit1";
+            this.spinEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spinEdit1.Size = new System.Drawing.Size(99, 21);
+            this.spinEdit1.TabIndex = 15;
+            // 
+            // checkedComboBoxEdit1
+            // 
+            this.checkedComboBoxEdit1.EditValue = "";
+            this.checkedComboBoxEdit1.Location = new System.Drawing.Point(137, 193);
+            this.checkedComboBoxEdit1.Name = "checkedComboBoxEdit1";
+            this.checkedComboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.checkedComboBoxEdit1.Properties.ExportMode = DevExpress.XtraEditors.Repository.ExportMode.Value;
+            this.checkedComboBoxEdit1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期一"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期二"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期三"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期四"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期五"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期六"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期日")});
+            this.checkedComboBoxEdit1.Properties.ShowAllItemCaption = "全选";
+            this.checkedComboBoxEdit1.Properties.QueryPopUp += new System.ComponentModel.CancelEventHandler(this.checkedComboBoxEdit1_Properties_QueryPopUp);
+            this.checkedComboBoxEdit1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkedComboBoxEdit1.Size = new System.Drawing.Size(283, 21);
+            this.checkedComboBoxEdit1.TabIndex = 16;
+            this.checkedComboBoxEdit1.EditValueChanged += new System.EventHandler(this.checkedComboBoxEdit1_EditValueChanged);
+            this.checkedComboBoxEdit1.QueryResultValue += new DevExpress.XtraEditors.Controls.QueryResultValueEventHandler(this.checkedComboBoxEdit1_QueryResultValue);
+            this.checkedComboBoxEdit1.Closed += new DevExpress.XtraEditors.Controls.ClosedEventHandler(this.checkedComboBoxEdit1_Closed);
+            // 
+            // lookUpEdit2
+            // 
+            this.lookUpEdit2.Location = new System.Drawing.Point(33, 243);
+            this.lookUpEdit2.Name = "lookUpEdit2";
+            this.lookUpEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit2.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.lookUpEdit2.Size = new System.Drawing.Size(352, 21);
+            this.lookUpEdit2.TabIndex = 17;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 466);
+            this.Controls.Add(this.lookUpEdit2);
+            this.Controls.Add(this.checkedComboBoxEdit1);
+            this.Controls.Add(this.spinEdit1);
+            this.Controls.Add(this.temperatureEdit);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lookUpEdit1);
             this.Controls.Add(this.imageComboBoxEdit1);
             this.Controls.Add(this.simpleButton3);
-            this.Controls.Add(this.textEdit1);
             this.Controls.Add(this.simpleButton2);
             this.Controls.Add(this.gcTime);
             this.Controls.Add(this.simpleButton1);
@@ -338,14 +398,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit.VistaTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iccbWeek)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtNum)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.meEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookupEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.temperatureEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit2.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -360,12 +421,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn dcTime2;
         private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit timeEdit;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn num;
-        private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit meeEdit;
-        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit meEdit;
         private DevExpress.XtraGrid.Columns.GridColumn dcSelect;
-        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit lookupEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNum;
         private DevExpress.XtraEditors.SimpleButton simpleButton3;
         private DevExpress.XtraEditors.ImageComboBoxEdit imageComboBoxEdit1;
@@ -373,6 +430,12 @@
         private DevExpress.XtraEditors.LookUpEdit lookUpEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit dateEdit;
         private System.Windows.Forms.Button button1;
+        private DevExpress.XtraEditors.SpinEdit temperatureEdit;
+        private DevExpress.XtraEditors.SpinEdit spinEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit iccbWeek;
+        private DevExpress.XtraGrid.Columns.GridColumn dcWeek;
+        private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit1;
+        private DevExpress.XtraEditors.LookUpEdit lookUpEdit2;
     }
 }
 

@@ -7,13 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors;
 
 namespace ProgramTest2
 {
+
+
+
     public partial class Form1 : Form, IMessageFilter
     {
         private bool limitedMouseWheel = false;
-        DataTable dt = new DataTable();
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit lookupEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+         DataTable dt = new DataTable();
         DataTable dtSelect = new DataTable();
         public Form1()
         {
@@ -21,6 +27,7 @@ namespace ProgramTest2
 
             dt.Columns.Add("time1", System.Type.GetType("System.String"));
             dt.Columns.Add("time2", System.Type.GetType("System.String"));
+            dt.Columns.Add("week", System.Type.GetType("System.String"));
             dt.Columns.Add("select", System.Type.GetType("System.String"));
             dt.Columns.Add("num", System.Type.GetType("System.Int16"));
 
@@ -28,6 +35,7 @@ namespace ProgramTest2
             dcTime2.FieldName = "time2";
             num.FieldName = "num";
             dcSelect.FieldName = "select";
+            dcWeek.FieldName = "week";
 
             dtSelect.Columns.Add("ID", System.Type.GetType("System.String"));
             dtSelect.Columns.Add("NAME", System.Type.GetType("System.String"));
@@ -40,8 +48,11 @@ namespace ProgramTest2
             lookupEdit.DisplayMember = "ID";
             lookupEdit.ValueMember = "ID";
 
+            lookUpEdit2.Properties.DataSource = dtSelect;
+            lookUpEdit2.Properties.DisplayMember = "NAME";
+            lookUpEdit2.Properties.ValueMember = "ID";
          
-            //----时间编辑控件            
+            //----时间编辑控件------
             dateEdit.DisplayFormat.FormatString = "d";
             dateEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             dateEdit.Mask.EditMask = "yyyy-MM-dd";
@@ -63,17 +74,20 @@ namespace ProgramTest2
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+            
 
-            textEdit1.Properties.DisplayFormat.FormatString = "#0.00%";
-            textEdit1.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            textEdit1.Properties.Mask.EditMask = "#0.00%";
-            textEdit1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            textEdit1.Properties.Mask.UseMaskAsDisplayFormat = true;
-            textEdit1.Name = "TextEdit";  
 
+            temperatureEdit.Properties.DisplayFormat.FormatString = "#0 ℃";
+            temperatureEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+              temperatureEdit.Properties.Mask.EditMask = "#0 ℃";
+            temperatureEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            temperatureEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            temperatureEdit.Properties.MaxValue = 60;
+            temperatureEdit.Properties.MinValue = -20;
             gcTime.DataSource = dt;
 
- 
+
 
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "1", 1 });
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "2", 2 });
@@ -87,7 +101,7 @@ namespace ProgramTest2
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "2", 2 });
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "3", 3 });
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "4", 4 });
-      
+
         }
 
         private void simpleButton2_Click(object sender, EventArgs e)
@@ -97,7 +111,7 @@ namespace ProgramTest2
             //      byte[] byteRunTime = {0xdc ,0x3f};
             Array.Resize(ref byteRunTime, 4);
             int runTime = BitConverter.ToInt32(byteRunTime, 0);
-            textEdit1.Text = runTime.ToString();
+
         }
 
         /// <summary>
@@ -169,5 +183,69 @@ namespace ProgramTest2
             gc.AppearanceCell.BackColor = Color.LightYellow;//灰色
             gc.AppearanceCell.ForeColor = Color.Blue;
         }
+
+
+
+        string weekValue = ""; private bool allowEdit = true;
+        private void checkedComboBoxEdit1_EditValueChanged(object sender, EventArgs e)
+        {
+            if (!allowEdit) return;
+            if (checkedComboBoxEdit1.Text != "")
+            {
+                if (checkedComboBoxEdit1.Text.Contains("星期"))
+                {
+                    weekValue = checkedComboBoxEdit1.Text;
+                    checkedComboBoxEdit1.Text = weekValue;
+                    checkedComboBoxEdit1.Text = checkedComboBoxEdit1.Text.Replace("星期", "");
+                }
+            }
+            else
+            {
+                weekValue = ""; 
+                checkedComboBoxEdit1.Text = "";
+                checkedComboBoxEdit1.Text = checkedComboBoxEdit1.Text.Replace("星期", "");
+            }
+
+        }
+
+        private void checkedComboBoxEdit1_Closed(object sender, ClosedEventArgs e)
+        {
+            allowEdit = false;
+      
+            if (checkedComboBoxEdit1.Text.Contains("星期"))
+            {
+                weekValue = checkedComboBoxEdit1.Text;
+                checkedComboBoxEdit1.Text = weekValue;
+                checkedComboBoxEdit1.Text = checkedComboBoxEdit1.Text.Replace("星期", "");
+            }
+            allowEdit = true;
+        }
+
+
+
+        private void checkedComboBoxEdit1_Properties_QueryPopUp(object sender, CancelEventArgs e)
+        {
+            allowEdit = false;
+            if (checkedComboBoxEdit1.Text == "") return;
+
+            string temp1 = checkedComboBoxEdit1.EditValue.ToString().Replace(", ", ", 星期");
+            string temp2 = "星期" + temp1;
+            checkedComboBoxEdit1.Text = temp2;
+            allowEdit = true;
+        }
+
+        private void checkedComboBoxEdit1_QueryResultValue(object sender, QueryResultValueEventArgs e)
+        {
+            
+        }
+
+   
+
+
+  
+
+
+
+ 
     }
 }

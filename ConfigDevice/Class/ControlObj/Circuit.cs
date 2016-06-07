@@ -6,12 +6,13 @@ namespace ConfigDevice
 {
     public class Circuit : ControlObj
     {
+        public const string CLASS_NAME = "Circuit";
         public const string NAME_CMD_SWIT_LOOP = "开关回路";
         public const string NAME_CMD_SWIT_LOOP_OPEN = "开回路";
         public const string NAME_CMD_SWIT_LOOP_CLOSE = "关回路";
         private int circuitCount = 1;
         private MySocket mySocket = MySocket.GetInstance();
-        public event CallbackUIAction OnCallbackRoad_Action;   //----回调UI----
+
         public Dictionary<int, string> ListCircuitIDAndName = new Dictionary<int, string>();//回路ID和名称对应表用于指令配置
         private CallbackFromUDP getRoadTitles;//-------每回路名称----
         private CallbackFromUDP finishGetRoadTitles;//-------完成读取回路名称----
@@ -51,6 +52,7 @@ namespace ConfigDevice
             }
             getRoadTitles = new CallbackFromUDP(getRoadTitlesData);
             finishGetRoadTitles = new CallbackFromUDP(finishGetRoadTitlesData);
+           
         }
 
         /// <summary>
@@ -167,7 +169,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
             crcData[10] = 0;//起始回路为第一回路
-            crcData[11] = 0xFF;//结束回路
+            crcData[11] = (byte)circuitCount;//结束回路
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
@@ -212,11 +214,69 @@ namespace ConfigDevice
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----        
             if (!finishReadRoads)
             {
-                if (OnCallbackRoad_Action != null)
-                    OnCallbackRoad_Action(null);
+                CallbackUI(new CallbackParameter(CLASS_NAME));
             }
             finishReadRoads = true;
         }
+
+
+        /// <summary>
+        /// 保存回路配置
+        /// </summary>
+        public void SaveRoadSetting(int roadNum, string roadName)
+        {
+            UdpData udpSend = createSaveRoadSettingUdp(roadNum, roadName);
+            mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
+                 new CallbackUdpAction(callbackSaveRoadSetting), null);
+        }
+        private void callbackSaveRoadSetting(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("保存回路失败!", udpReply.ReplyByte);
+            else
+                ReadRoadTitle();
+        }
+        private UdpData createSaveRoadSettingUdp(int roadNum, string roadName)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
+            byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME;//----用户命令-----
+            //---------计算长度------------------
+            //---------新名称-------------
+            byte[] value = Encoding.GetEncoding("GB2312").GetBytes(roadName);
+            byte[] byteName = new byte[32];
+            Buffer.BlockCopy(value, 0, byteName, 0, value.Length);
+            byte len = (byte)(1 + 2 + 1 + byteName.Length + 4);//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----   
+
+            byte[] crcData = new byte[len - 4 + 10];//10 固定长度:源+目标+命令+长度+分页
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            crcData[10] = (byte)roadNum;
+            crcData[13] = 2;//11,12为位置,直接填0x0,0x0,忽略, 13为位置, 直接填0x02.
+            Buffer.BlockCopy(byteName, 0, crcData, 14, byteName.Length);
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+
+
     }
 
 

@@ -9,8 +9,8 @@ using System.Windows.Forms;
 namespace ConfigDevice
 {
     public partial class ViewLogicSetting : UserControl
-    { 
-        public bool Inited = false;
+    {
+        public bool NeedInit = true;
 
         public ViewLogicSetting()
         {
@@ -21,15 +21,15 @@ namespace ConfigDevice
             imageCollection1.AddImage(global::ConfigDevice.Properties.Resources.logic3AND_1OR);
             imageCollection1.AddImage(global::ConfigDevice.Properties.Resources.logic2OR_2AND_OR);
             imageCollection1.AddImage(global::ConfigDevice.Properties.Resources.logic2OR_2AND_AND);
-            Inited = false;
+            NeedInit = true;
         }
 
 
         public void InitLogicList(params string[] triggers)
         {
             foreach (Control viewlogic in plLogicList.Controls)
-                (viewlogic as ViewLogicTools).InitTriggers(triggers);
-            Inited = true;
+                (viewlogic as ViewLogicTools).InitTriggerList(triggers);
+            NeedInit = false;
         }
 
 

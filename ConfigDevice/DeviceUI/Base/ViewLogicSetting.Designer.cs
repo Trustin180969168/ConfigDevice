@@ -33,13 +33,13 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.plLogicList = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.imageComboBoxEdit1 = new DevExpress.XtraEditors.ImageComboBoxEdit();
-            this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             this.viewLogicTools4 = new ConfigDevice.ViewLogicTools();
             this.viewLogicTools3 = new ConfigDevice.ViewLogicTools();
             this.viewLogicTools2 = new ConfigDevice.ViewLogicTools();
             this.viewLogicTools1 = new ConfigDevice.ViewLogicTools();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.imageComboBoxEdit = new DevExpress.XtraEditors.ImageComboBoxEdit();
+            this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
@@ -48,7 +48,7 @@
             this.plLogicList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,8 +92,44 @@
             this.plLogicList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.plLogicList.Location = new System.Drawing.Point(0, 0);
             this.plLogicList.Name = "plLogicList";
-            this.plLogicList.Size = new System.Drawing.Size(576, 182);
+            this.plLogicList.Size = new System.Drawing.Size(582, 182);
             this.plLogicList.TabIndex = 16;
+            // 
+            // viewLogicTools4
+            // 
+            this.viewLogicTools4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicTools4.Location = new System.Drawing.Point(0, 138);
+            this.viewLogicTools4.Name = "viewLogicTools4";
+            this.viewLogicTools4.Num = 4;
+            this.viewLogicTools4.Size = new System.Drawing.Size(582, 46);
+            this.viewLogicTools4.TabIndex = 3;
+            // 
+            // viewLogicTools3
+            // 
+            this.viewLogicTools3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicTools3.Location = new System.Drawing.Point(0, 92);
+            this.viewLogicTools3.Name = "viewLogicTools3";
+            this.viewLogicTools3.Num = 3;
+            this.viewLogicTools3.Size = new System.Drawing.Size(582, 46);
+            this.viewLogicTools3.TabIndex = 2;
+            // 
+            // viewLogicTools2
+            // 
+            this.viewLogicTools2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicTools2.Location = new System.Drawing.Point(0, 46);
+            this.viewLogicTools2.Name = "viewLogicTools2";
+            this.viewLogicTools2.Num = 2;
+            this.viewLogicTools2.Size = new System.Drawing.Size(582, 46);
+            this.viewLogicTools2.TabIndex = 1;
+            // 
+            // viewLogicTools1
+            // 
+            this.viewLogicTools1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicTools1.Location = new System.Drawing.Point(0, 0);
+            this.viewLogicTools1.Name = "viewLogicTools1";
+            this.viewLogicTools1.Num = 1;
+            this.viewLogicTools1.Size = new System.Drawing.Size(582, 46);
+            this.viewLogicTools1.TabIndex = 0;
             // 
             // groupControl2
             // 
@@ -105,73 +141,35 @@
             this.groupControl2.AppearanceCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.groupControl2.AutoSize = true;
             this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.imageComboBoxEdit1);
+            this.groupControl2.Controls.Add(this.imageComboBoxEdit);
             this.groupControl2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupControl2.Location = new System.Drawing.Point(576, 0);
+            this.groupControl2.Location = new System.Drawing.Point(582, 0);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(220, 182);
+            this.groupControl2.Size = new System.Drawing.Size(214, 182);
             this.groupControl2.TabIndex = 15;
             this.groupControl2.Text = "逻辑关系";
             // 
-            // imageComboBoxEdit1
+            // imageComboBoxEdit
             // 
-            this.imageComboBoxEdit1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.imageComboBoxEdit1.Location = new System.Drawing.Point(2, 21);
-            this.imageComboBoxEdit1.Name = "imageComboBoxEdit1";
-            this.imageComboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.imageComboBoxEdit1.Properties.DropDownRows = 4;
-            this.imageComboBoxEdit1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
+            this.imageComboBoxEdit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.imageComboBoxEdit.Location = new System.Drawing.Point(2, 21);
+            this.imageComboBoxEdit.Name = "imageComboBoxEdit";
+            this.imageComboBoxEdit.Properties.DropDownRows = 2;
+            this.imageComboBoxEdit.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 0, 0),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 1, 1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 2, 2),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 3, 3),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 4, 4),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 5, 5)});
-            this.imageComboBoxEdit1.Properties.LargeImages = this.imageCollection1;
-            this.imageComboBoxEdit1.Size = new System.Drawing.Size(216, 160);
-            this.imageComboBoxEdit1.TabIndex = 15;
+            this.imageComboBoxEdit.Properties.LargeImages = this.imageCollection1;
+            this.imageComboBoxEdit.Size = new System.Drawing.Size(210, 160);
+            this.imageComboBoxEdit.TabIndex = 15;
             // 
             // imageCollection1
             // 
             this.imageCollection1.ImageSize = new System.Drawing.Size(200, 158);
             this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
-            // 
-            // viewLogicTools4
-            // 
-            this.viewLogicTools4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewLogicTools4.Location = new System.Drawing.Point(0, 138);
-            this.viewLogicTools4.Name = "viewLogicTools4";
-            this.viewLogicTools4.Num = 4;
-            this.viewLogicTools4.Size = new System.Drawing.Size(576, 46);
-            this.viewLogicTools4.TabIndex = 3;
-            // 
-            // viewLogicTools3
-            // 
-            this.viewLogicTools3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewLogicTools3.Location = new System.Drawing.Point(0, 92);
-            this.viewLogicTools3.Name = "viewLogicTools3";
-            this.viewLogicTools3.Num = 3;
-            this.viewLogicTools3.Size = new System.Drawing.Size(576, 46);
-            this.viewLogicTools3.TabIndex = 2;
-            // 
-            // viewLogicTools2
-            // 
-            this.viewLogicTools2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewLogicTools2.Location = new System.Drawing.Point(0, 46);
-            this.viewLogicTools2.Name = "viewLogicTools2";
-            this.viewLogicTools2.Num = 2;
-            this.viewLogicTools2.Size = new System.Drawing.Size(576, 46);
-            this.viewLogicTools2.TabIndex = 1;
-            // 
-            // viewLogicTools1
-            // 
-            this.viewLogicTools1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewLogicTools1.Location = new System.Drawing.Point(0, 0);
-            this.viewLogicTools1.Name = "viewLogicTools1";
-            this.viewLogicTools1.Num = 1;
-            this.viewLogicTools1.Size = new System.Drawing.Size(576, 46);
-            this.viewLogicTools1.TabIndex = 0;
             // 
             // ViewLogicSetting
             // 
@@ -189,7 +187,7 @@
             this.plLogicList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -201,7 +199,7 @@
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private DevExpress.XtraEditors.ImageComboBoxEdit imageComboBoxEdit1;
+        private DevExpress.XtraEditors.ImageComboBoxEdit imageComboBoxEdit;
         private DevExpress.Utils.ImageCollection imageCollection1;
         private DevExpress.XtraEditors.PanelControl plLogicList;
         private ViewLogicTools viewLogicTools4;

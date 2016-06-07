@@ -11,7 +11,8 @@ namespace ConfigDevice
     public partial class ViewLogicTools : UserControl
     {
         public DataTable DataLogicSetting;//---逻辑配置表-----
-        public Device DeviceEdit;//设备对象
+        public Device DeviceEdit;//---设备对象---
+        private GridViewComboBox cbxLogicObj;//---触发对象---
         /// <summary>
         /// 序号
         /// </summary>
@@ -43,7 +44,10 @@ namespace ConfigDevice
             dcValid.FieldName = ViewConfig.DC_VALID_TIME;
             dcInvalid.FieldName = ViewConfig.DC_INVALID_TIME;
 
-            dcObject.ColumnEdit = cbxLogicObj;//---触发对象---
+            //---触发对象---
+            cbxLogicObj = new GridViewComboBox();
+            dcObject.ColumnEdit = cbxLogicObj;
+            cbxLogicObj.SelectedIndexChanged += new EventHandler(cbxLogicObj_SelectedIndexChanged);
 
             DataLogicSetting.Rows.Add();
             this.gcLogic.DataSource = DataLogicSetting;
@@ -56,11 +60,22 @@ namespace ConfigDevice
             foreach (string trigger in Triggers)
                 cbxLogicObj.Items.Add(trigger);
         }
-
-        public void InitTriggers(params string[] Triggers)
+        /// <summary>
+        /// 初始化触发列表
+        /// </summary>
+        /// <param name="Triggers"></param>
+        public void InitTriggerList(params string[] Triggers)
         {
-            foreach (string trigger in Triggers)
-                cbxLogicObj.Items.Add(trigger); 
+            foreach (string trigger in Triggers)//-----初始化触发列表---
+                cbxLogicObj.Items.Add(trigger);
+            cbxLogicObj.Items.Add(ViewConfig.SENSOR_INVALID);//添加无效选择 
+            //gvLogic.SetRowCellValue(0,dcObject,cbxLogicObj.Items[cbxLogicObj.Items.Count-1].ToString());
+
+            gvLogic.SetRowCellValue(0,dcObject,ViewConfig.SENSOR_INVALID);//---默认选择无效---
+            ViewLogicControl vlc = ViewEditCtrl.GetViewLogicControl(ViewConfig.SENSOR_INVALID, DeviceEdit, gvLogic);
+            DataRow dr = gvLogic.GetDataRow(0);
+            dr[ViewConfig.DC_OBJECT] = ViewConfig.SENSOR_INVALID;
+            dr.EndEdit();
         }
 
         /// <summary>
@@ -69,9 +84,11 @@ namespace ConfigDevice
         private void cbxLogicObj_SelectedIndexChanged(object sender, EventArgs e)
         {
             string name = (string)cbxLogicObj.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            ViewLogicControl vlc =  ViewEditCtrl.GetViewLogicControl(name,DeviceEdit,gvLogic);
-      
-            
+            ViewLogicControl vlc = ViewEditCtrl.GetViewLogicControl(name, DeviceEdit, gvLogic);
+            DataRow dr = gvLogic.GetDataRow(0);
+            dr[ViewConfig.DC_OBJECT] = name;
+            dr.EndEdit();
+            vlc.InitViewSetting();   
         }
 
 

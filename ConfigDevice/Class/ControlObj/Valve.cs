@@ -12,6 +12,7 @@ namespace ConfigDevice
         public const string STATE_CLOSE = "关阀门";
         public const string STATE_OPEN = "开阀门";
         public const string STATE_TOTAL = "总数";
+        public const string CLASS_NAME = "VALVE";
 
         public const string NAME_CMD_SWIT_LOOP = "开关电机";
         public const string NAME_CMD_SWIT_LOOP_OPEN = "开电机";
@@ -352,7 +353,7 @@ namespace ConfigDevice
             (this.deviceControled as FlammableGasProbe).ClearLight = (int)(userData.Data[5] & 2) == 2 ? true : false;//---是否关闭指示灯
             (this.deviceControled as FlammableGasProbe).ClearBuzzer = (int)(userData.Data[5] & 4) == 4 ? true : false;//---是否关闭蜂鸣器
 
-            this.deviceControled.CallbackUI(new CallbackParameter(this.deviceControled.GetType().ToString()));//---回调UI---
+            this.deviceControled.CallbackUI(new CallbackParameter(Valve.CLASS_NAME));//---回调UI---
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG);//取消订阅
         }
 

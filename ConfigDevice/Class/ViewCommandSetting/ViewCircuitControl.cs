@@ -42,7 +42,7 @@ namespace ConfigDevice
             dtCircuit.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
             foreach (int key in circuit.ListCircuitIDAndName.Keys)
                 dtCircuit.Rows.Add(key, circuit.ListCircuitIDAndName[key]);
-            circuit.OnCallbackRoad_Action += this.CallBackUI;
+            circuit.OnCallbackUI_Action += this.CallBackUI;
             circuit.ReadRoadTitle();//----获取回路数据-----
 
 
@@ -153,7 +153,7 @@ namespace ConfigDevice
                 lookupEdit.DataSource = dtCircuit;
                 lookupEdit.BestFit();
                 dcCircuit.ColumnEdit = lookupEdit;             
-                circuit.OnCallbackRoad_Action -= this.CallBackUI;
+                circuit.OnCallbackUI_Action -= this.CallBackUI;
             }
             catch (Exception e1) { e1.ToString(); }
         }
