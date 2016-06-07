@@ -30,44 +30,40 @@
         {
             this.xscCommands = new DevExpress.XtraEditors.XtraScrollableControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.cbxGroup = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.lblGroupName = new DevExpress.XtraEditors.LabelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.edtBeginNum = new DevExpress.XtraEditors.SpinEdit();
             this.edtEndNum = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.plCommandToolbar = new DevExpress.XtraEditors.PanelControl();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.btSyncEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
-            this.btAdd = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
-            this.plGroupCtrl = new DevExpress.XtraEditors.PanelControl();
+            this.lblGroupName = new System.Windows.Forms.ToolStripLabel();
+            this.cbxGroup = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
-            this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.plCommandToolbar)).BeginInit();
+            this.plCommandToolbar.SuspendLayout();
             this.toolStrip2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.plGroupCtrl)).BeginInit();
-            this.plGroupCtrl.SuspendLayout();
             this.SuspendLayout();
             // 
             // xscCommands
             // 
             this.xscCommands.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xscCommands.Location = new System.Drawing.Point(0, 80);
+            this.xscCommands.Location = new System.Drawing.Point(0, 32);
             this.xscCommands.Name = "xscCommands";
-            this.xscCommands.Size = new System.Drawing.Size(748, 374);
+            this.xscCommands.Size = new System.Drawing.Size(1000, 422);
             this.xscCommands.TabIndex = 5;
             // 
             // panelControl1
@@ -76,69 +72,22 @@
             this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl1.Controls.Add(this.panelControl2);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl1.Location = new System.Drawing.Point(0, 45);
+            this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(748, 35);
+            this.panelControl1.Size = new System.Drawing.Size(1000, 32);
             this.panelControl1.TabIndex = 6;
-            // 
-            // cbxGroup
-            // 
-            this.cbxGroup.Location = new System.Drawing.Point(160, 10);
-            this.cbxGroup.Name = "cbxGroup";
-            this.cbxGroup.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
-            this.cbxGroup.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Properties.Appearance.Options.UseFont = true;
-            this.cbxGroup.Properties.AppearanceDisabled.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Properties.AppearanceDisabled.Options.UseFont = true;
-            this.cbxGroup.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Properties.AppearanceDropDown.Options.UseFont = true;
-            this.cbxGroup.Properties.AppearanceFocused.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Properties.AppearanceFocused.Options.UseFont = true;
-            this.cbxGroup.Properties.AppearanceReadOnly.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Properties.AppearanceReadOnly.Options.UseFont = true;
-            this.cbxGroup.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxGroup.Properties.DropDownRows = 16;
-            this.cbxGroup.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbxGroup.Size = new System.Drawing.Size(400, 26);
-            this.cbxGroup.TabIndex = 9;
-            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
-            // 
-            // lblGroupName
-            // 
-            this.lblGroupName.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.lblGroupName.Appearance.Options.UseFont = true;
-            this.lblGroupName.Appearance.Options.UseTextOptions = true;
-            this.lblGroupName.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.lblGroupName.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblGroupName.Location = new System.Drawing.Point(33, 13);
-            this.lblGroupName.Name = "lblGroupName";
-            this.lblGroupName.Size = new System.Drawing.Size(121, 19);
-            this.lblGroupName.TabIndex = 8;
-            this.lblGroupName.Text = "组名";
             // 
             // panelControl2
             // 
             this.panelControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl2.Controls.Add(this.panelControl4);
-            this.panelControl2.Controls.Add(this.panelControl3);
+            this.panelControl2.Controls.Add(this.plCommandToolbar);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(748, 35);
+            this.panelControl2.Size = new System.Drawing.Size(1000, 32);
             this.panelControl2.TabIndex = 10;
-            // 
-            // panelControl3
-            // 
-            this.panelControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl3.Controls.Add(this.toolStrip2);
-            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl3.Location = new System.Drawing.Point(0, 0);
-            this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(271, 35);
-            this.panelControl3.TabIndex = 0;
             // 
             // panelControl4
             // 
@@ -149,9 +98,9 @@
             this.panelControl4.Controls.Add(this.labelControl2);
             this.panelControl4.Controls.Add(this.labelControl1);
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl4.Location = new System.Drawing.Point(271, 0);
+            this.panelControl4.Location = new System.Drawing.Point(651, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(477, 35);
+            this.panelControl4.Size = new System.Drawing.Size(349, 32);
             this.panelControl4.TabIndex = 1;
             // 
             // edtBeginNum
@@ -161,7 +110,7 @@
             0,
             0,
             0});
-            this.edtBeginNum.Location = new System.Drawing.Point(37, 5);
+            this.edtBeginNum.Location = new System.Drawing.Point(37, 3);
             this.edtBeginNum.Name = "edtBeginNum";
             this.edtBeginNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtBeginNum.Properties.Appearance.Options.UseFont = true;
@@ -193,7 +142,7 @@
             0,
             0,
             0});
-            this.edtEndNum.Location = new System.Drawing.Point(111, 5);
+            this.edtEndNum.Location = new System.Drawing.Point(111, 3);
             this.edtEndNum.Name = "edtEndNum";
             this.edtEndNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtEndNum.Properties.Appearance.Options.UseFont = true;
@@ -222,7 +171,7 @@
             // 
             this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.labelControl2.Appearance.Options.UseFont = true;
-            this.labelControl2.Location = new System.Drawing.Point(89, 9);
+            this.labelControl2.Location = new System.Drawing.Point(89, 7);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(16, 19);
             this.labelControl2.TabIndex = 9;
@@ -232,11 +181,22 @@
             // 
             this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(15, 9);
+            this.labelControl1.Location = new System.Drawing.Point(15, 7);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(16, 19);
             this.labelControl1.TabIndex = 8;
             this.labelControl1.Text = "从";
+            // 
+            // plCommandToolbar
+            // 
+            this.plCommandToolbar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.plCommandToolbar.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.plCommandToolbar.Controls.Add(this.toolStrip2);
+            this.plCommandToolbar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.plCommandToolbar.Location = new System.Drawing.Point(0, 0);
+            this.plCommandToolbar.Name = "plCommandToolbar";
+            this.plCommandToolbar.Size = new System.Drawing.Size(651, 32);
+            this.plCommandToolbar.TabIndex = 0;
             // 
             // toolStrip2
             // 
@@ -247,11 +207,13 @@
             this.btSyncEdit,
             this.toolStripSeparator1,
             this.btSaveCommands,
-            this.btAdd,
-            this.btRefresh});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 4);
+            this.btRefresh,
+            this.toolStripSeparator2,
+            this.lblGroupName,
+            this.cbxGroup});
+            this.toolStrip2.Location = new System.Drawing.Point(0, 1);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(271, 31);
+            this.toolStrip2.Size = new System.Drawing.Size(651, 31);
             this.toolStrip2.TabIndex = 4;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -280,15 +242,6 @@
             this.btSaveCommands.Text = "保存指令 ";
             this.btSaveCommands.Click += new System.EventHandler(this.btSaveCommands_Click);
             // 
-            // btAdd
-            // 
-            this.btAdd.Image = global::ConfigDevice.Properties.Resources.Add;
-            this.btAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(106, 28);
-            this.btAdd.Text = "添加指令 ";
-            this.btAdd.Visible = false;
-            // 
             // btRefresh
             // 
             this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
@@ -298,17 +251,25 @@
             this.btRefresh.Text = "刷新 ";
             this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
-            // plGroupCtrl
+            // lblGroupName
             // 
-            this.plGroupCtrl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.plGroupCtrl.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.plGroupCtrl.Controls.Add(this.cbxGroup);
-            this.plGroupCtrl.Controls.Add(this.lblGroupName);
-            this.plGroupCtrl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.plGroupCtrl.Location = new System.Drawing.Point(0, 0);
-            this.plGroupCtrl.Name = "plGroupCtrl";
-            this.plGroupCtrl.Size = new System.Drawing.Size(748, 45);
-            this.plGroupCtrl.TabIndex = 11;
+            this.lblGroupName.Name = "lblGroupName";
+            this.lblGroupName.Size = new System.Drawing.Size(41, 28);
+            this.lblGroupName.Text = "组名";
+            this.lblGroupName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cbxGroup
+            // 
+            this.cbxGroup.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.cbxGroup.Name = "cbxGroup";
+            this.cbxGroup.Size = new System.Drawing.Size(300, 31);
+            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Margin = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
             // 
             // ViewCommandSetting
             // 
@@ -316,26 +277,22 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.xscCommands);
             this.Controls.Add(this.panelControl1);
-            this.Controls.Add(this.plGroupCtrl);
             this.Name = "ViewCommandSetting";
-            this.Size = new System.Drawing.Size(748, 454);
+            this.Size = new System.Drawing.Size(1000, 454);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
-            this.panelControl3.ResumeLayout(false);
-            this.panelControl3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             this.panelControl4.ResumeLayout(false);
             this.panelControl4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.plCommandToolbar)).EndInit();
+            this.plCommandToolbar.ResumeLayout(false);
+            this.plCommandToolbar.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.plGroupCtrl)).EndInit();
-            this.plGroupCtrl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -344,21 +301,20 @@
 
         private DevExpress.XtraEditors.XtraScrollableControl xscCommands;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraEditors.ComboBoxEdit cbxGroup;
-        private DevExpress.XtraEditors.LabelControl lblGroupName;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.PanelControl panelControl4;
         private DevExpress.XtraEditors.SpinEdit edtBeginNum;
         private DevExpress.XtraEditors.SpinEdit edtEndNum;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
+        private DevExpress.XtraEditors.PanelControl plCommandToolbar;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton btSyncEdit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btSaveCommands;
-        private System.Windows.Forms.ToolStripButton btAdd;
         private System.Windows.Forms.ToolStripButton btRefresh;
-        private DevExpress.XtraEditors.PanelControl plGroupCtrl;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripLabel lblGroupName;
+        private System.Windows.Forms.ToolStripComboBox cbxGroup;
     }
 }

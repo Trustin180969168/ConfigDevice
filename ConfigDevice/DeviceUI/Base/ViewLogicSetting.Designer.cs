@@ -92,7 +92,7 @@
             this.plLogicList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.plLogicList.Location = new System.Drawing.Point(0, 0);
             this.plLogicList.Name = "plLogicList";
-            this.plLogicList.Size = new System.Drawing.Size(584, 182);
+            this.plLogicList.Size = new System.Drawing.Size(586, 182);
             this.plLogicList.TabIndex = 16;
             // 
             // viewLogicTools4
@@ -101,7 +101,7 @@
             this.viewLogicTools4.Location = new System.Drawing.Point(0, 138);
             this.viewLogicTools4.Name = "viewLogicTools4";
             this.viewLogicTools4.Num = 4;
-            this.viewLogicTools4.Size = new System.Drawing.Size(584, 46);
+            this.viewLogicTools4.Size = new System.Drawing.Size(586, 46);
             this.viewLogicTools4.TabIndex = 3;
             // 
             // viewLogicTools3
@@ -110,7 +110,7 @@
             this.viewLogicTools3.Location = new System.Drawing.Point(0, 92);
             this.viewLogicTools3.Name = "viewLogicTools3";
             this.viewLogicTools3.Num = 3;
-            this.viewLogicTools3.Size = new System.Drawing.Size(584, 46);
+            this.viewLogicTools3.Size = new System.Drawing.Size(586, 46);
             this.viewLogicTools3.TabIndex = 2;
             // 
             // viewLogicTools2
@@ -119,7 +119,7 @@
             this.viewLogicTools2.Location = new System.Drawing.Point(0, 46);
             this.viewLogicTools2.Name = "viewLogicTools2";
             this.viewLogicTools2.Num = 2;
-            this.viewLogicTools2.Size = new System.Drawing.Size(584, 46);
+            this.viewLogicTools2.Size = new System.Drawing.Size(586, 46);
             this.viewLogicTools2.TabIndex = 1;
             // 
             // viewLogicTools1
@@ -128,7 +128,7 @@
             this.viewLogicTools1.Location = new System.Drawing.Point(0, 0);
             this.viewLogicTools1.Name = "viewLogicTools1";
             this.viewLogicTools1.Num = 1;
-            this.viewLogicTools1.Size = new System.Drawing.Size(584, 46);
+            this.viewLogicTools1.Size = new System.Drawing.Size(586, 46);
             this.viewLogicTools1.TabIndex = 0;
             // 
             // groupControl2
@@ -143,9 +143,9 @@
             this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.groupControl2.Controls.Add(this.imageComboBoxEdit);
             this.groupControl2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupControl2.Location = new System.Drawing.Point(584, 0);
+            this.groupControl2.Location = new System.Drawing.Point(586, 0);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(212, 182);
+            this.groupControl2.Size = new System.Drawing.Size(210, 182);
             this.groupControl2.TabIndex = 15;
             this.groupControl2.Text = "逻辑关系";
             // 
@@ -163,7 +163,7 @@
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 4, 4),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("", 5, 5)});
             this.imageComboBoxEdit.Properties.LargeImages = this.imageCollection1;
-            this.imageComboBoxEdit.Size = new System.Drawing.Size(208, 160);
+            this.imageComboBoxEdit.Size = new System.Drawing.Size(206, 160);
             this.imageComboBoxEdit.TabIndex = 15;
             // 
             // imageCollection1

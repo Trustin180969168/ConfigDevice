@@ -12,7 +12,7 @@ namespace ConfigDevice
     public partial class ViewCommandSetting : UserControl
     {
         public string CommandGroupName { set { this.lblGroupName.Text = value; } }
-        public ComboBoxEdit CbxCommandGroup { get { return cbxGroup; } }
+        public ToolStripComboBox CbxCommandGroup { get { return cbxGroup; } }
         /// <summary>
         /// 是否显示组选择
         /// </summary>
@@ -20,11 +20,12 @@ namespace ConfigDevice
         {
             set
             {
-                //if (value) 
-                //    plGroupCtrl.Height = 45;
-                //else
-                //    plGroupCtrl.Height = 10;
-                plGroupCtrl.Visible = value;
+                lblGroupName.Visible = value;
+                cbxGroup.Visible = value;
+                if (!value) 
+                    plCommandToolbar.Width -= 300; 
+                else
+                    plCommandToolbar.Width += 300; 
             }
         }
 
@@ -200,9 +201,9 @@ namespace ConfigDevice
         {
       
             cbxGroup.SelectedIndex = -1;
-            cbxGroup.Properties.Items.Clear();
+            cbxGroup.Items.Clear();
             foreach (string groupStr in CommmandGroups)
-                cbxGroup.Properties.Items.Add(groupStr);
+                cbxGroup.Items.Add(groupStr);
 
             int addCount = (int)edtEndNum.Value;//----指令的加载个数
             CommandEdit = new CommandList(device);
@@ -212,7 +213,7 @@ namespace ConfigDevice
             if (CommmandGroups.Count > 0)
             {
                 cbxGroup.SelectedIndex = 0;//执行读取
-                cbxGroup.EditValue = CommmandGroups[0];//选择第一组/键      
+                cbxGroup.Text = CommmandGroups[0];//选择第一组/键      
             }
           
         }
@@ -224,19 +225,19 @@ namespace ConfigDevice
         {
             NeedInit = true;//---更新名称,不用执行指令配置列表
             int i = 0; int index = cbxGroup.SelectedIndex;
-            if (cbxGroup.Properties.Items.Count == CommmandGroups.Count)
+            if (cbxGroup.Items.Count == CommmandGroups.Count)
             {             
                 foreach (string groupStr in CommmandGroups)
-                    cbxGroup.Properties.Items[i++] = groupStr;
-                cbxGroup.EditValue = CommmandGroups[index];              
+                    cbxGroup.Items[i++] = groupStr;
+                cbxGroup.Text = CommmandGroups[index];              
             }
             else
             {
-                cbxGroup.Properties.Items.Clear();
+                cbxGroup.Items.Clear();
                 foreach (string groupStr in CommmandGroups)
-                    cbxGroup.Properties.Items.Add(groupStr);
+                    cbxGroup.Items.Add(groupStr);
                 cbxGroup.SelectedIndex = 0;//执行读取
-                cbxGroup.EditValue = CommmandGroups[0];
+                cbxGroup.Text = CommmandGroups[0];
             }
             NeedInit = false;
         }

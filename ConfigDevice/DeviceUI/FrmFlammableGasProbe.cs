@@ -83,7 +83,7 @@ namespace ConfigDevice
             if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)
             {
                 dtIDName.Rows.Clear();
-                viewCommandEdit.CbxCommandGroup.Properties.Items.Clear();
+                viewCommandEdit.CbxCommandGroup.Items.Clear();
                 foreach (int key in flammableGasProbe.ProbeCircuit.ListCircuitIDAndName.Keys)
                 {
                    // viewCommandEdit.CbxCommandGroup.Properties.Items.Add(flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key]);
@@ -197,7 +197,8 @@ namespace ConfigDevice
         {
             lblNum.Text = lookUpEdit.EditValue.ToString()+"、";
             edtTriggerActionName.Text = lookUpEdit.Text;
-            viewCommandEdit.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
+            if(!viewCommandEdit.NeedInit)
+                viewCommandEdit.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
         }
 
         /// <summary>

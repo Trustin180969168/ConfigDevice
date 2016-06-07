@@ -57,7 +57,7 @@ namespace ConfigDevice
             edtPercentNum.Name = "edtPercentNum";
             edtPercentNum.Leave += new System.EventHandler(SysConfig.Edit_Leave);
             edtPercentNum.Enter += new System.EventHandler(SysConfig.Edit_Enter);
-
+            
             controlObj = _controlObj;
             ViewSetting = gv;
             ViewSetting.Columns.ColumnByName("command").ColumnEdit = cbxCommandKind;
