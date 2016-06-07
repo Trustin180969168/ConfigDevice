@@ -11,7 +11,7 @@ namespace ConfigDevice
     /// <summary>
     /// 开关指令
     /// </summary>
-    public class ViewSwitControl : ViewCommandControl
+    public class ViewSwitControl : BaseViewCommandControl
     {
         GridColumn dcCommand;//指令
         GridColumn dcRunTime;//运行时间

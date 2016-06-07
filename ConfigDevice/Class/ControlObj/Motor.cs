@@ -7,8 +7,17 @@ namespace ConfigDevice
 
     public class Motor : ControlObj
     {
+        public const string CLASS_NAME = "MOTOR";
 
+        //-----阀门定义-----
+        public const string STATE_VALVE_STOP = "停止";
+        public const string STATE_VALVE_CLOSE = "关阀门";
+        public const string STATE_VALVE_OPEN = "开阀门";
+        public const string STATE_VALVE_TOTAL = "总数";
+        public Int16 MaxStopCE = 0;//卡停电流
+        public Int16 MaxRunTime = 0;//最大运行秒数
 
+        //--------电机及公共部分-------
         public const string NAME_CMD_SWIT_LOOP = "开关电机";
         public const string NAME_CMD_SWIT_LOOP_OPEN = "开电机";
         public const string NAME_CMD_SWIT_LOOP_CLOSE = "关电机";
@@ -21,7 +30,21 @@ namespace ConfigDevice
         public const string NAME_ACTION_ROAD_BACK_2 = "2路反转";
         public const string NAME_ACTION_ROAD_FRONT_3 = "3路正转";
         public const string NAME_ACTION_ROAD_BACK_3 = "3路反转";
+
+
+        public const int ACTION_RUN = 1;
+        public const int ACTION_STOP = 0;
+        public const int ACTION_ROAD_FRONT_1 = 0;
+        public const int ACTION_ROAD_BACK_1 = 1;
+        public const int ACTION_ROAD_FRONT_2 = 2;
+        public const int ACTION_ROAD_BACK_2 = 3;
+        public const int ACTION_ROAD_FRONT_3 = 4;
+        public const int ACTION_ROAD_BACK_3 = 5; 
+
+
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
+        private CallbackFromUDP getParameter;//-------每参数名称----
+
         public Motor(Device _deviceCtrl)
         {
             Name = "电机";
@@ -35,7 +58,7 @@ namespace ConfigDevice
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_OPEN_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION);
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_CLOSE_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION);
             }
-
+            getParameter = new CallbackFromUDP(getParameterData);
         } 
 
         /// <summary>
@@ -142,8 +165,192 @@ namespace ConfigDevice
 
         }
 
-     
 
+
+        /// <summary>
+        /// 写参数
+        /// </summary>
+        public void WriteParameter(Int16 second, Int16 ec, UInt32 flag)
+        {
+            UdpData udpSend = createWriteParameterUdp(second, ec, flag);
+            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
+                new CallbackUdpAction(callbackWriteParameterUdp), new object[] { second, ec, flag });
+        }
+        private void callbackWriteParameterUdp(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("设置参数失败!", udpReply.ReplyByte);
+            else
+            {
+                MaxRunTime = (Int16)values[0];
+                MaxStopCE = (Int16)values[1];
+                UInt32 flag = (UInt32)values[2];
+
+                (this.deviceControled as FlammableGasProbe).OpenValve = (int)(flag & 1) == 1 ? true : false;//---是否开阀门
+                (this.deviceControled as FlammableGasProbe).ClearLight = (int)(flag & 2) == 2 ? true : false;//---是否关闭指示灯
+                (this.deviceControled as FlammableGasProbe).ClearBuzzer = (int)(flag & 4) == 4 ? true : false;//---是否关闭蜂鸣器
+
+            }
+        }
+        private UdpData createWriteParameterUdp(Int16 second, Int16 ec, UInt32 flag)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
+            byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_CONFIG;//----用户命令-----
+            byte len = 4 + 1 + 8;//---数据长度----
+            byte[] runMaxTime = ConvertTools.GetByteFrom16BitInt(second);
+            byte[] maxEC = ConvertTools.GetByteFrom16BitInt(ec);
+
+            byte[] crcData = new byte[19];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            Buffer.BlockCopy(runMaxTime, 0, crcData, 11, 2);
+            Buffer.BlockCopy(maxEC, 0, crcData, 13, 2);
+            byte[] byteFlag = ConvertTools.GetByteFrom32BitUInt(flag);
+            Buffer.BlockCopy(byteFlag, 0, crcData, 15, 4);
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+
+
+
+
+        /// <summary>
+        /// 读参数
+        /// </summary>
+        public void ReadParameter()
+        {
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, deviceControled.DeviceID, getParameter);//----注册回调---
+            UdpData udpSend = createReadParameterUdp();
+            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
+                new CallbackUdpAction(callbackReadParameterUdp), null);
+        }
+        private void callbackReadParameterUdp(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("读取参数失败!", udpReply.ReplyByte);
+        }
+        private UdpData createReadParameterUdp()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
+            byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_CONFIG;//----用户命令-----
+            byte len = 4 + 2;//---数据长度---- 
+
+            byte[] crcData = new byte[12];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            crcData[10] = 0;
+            crcData[11] = 0;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+
+        /// <summary>
+        /// 获取阀门参数
+        /// </summary>
+        /// <param name="data">数据包</param>
+        /// <param name="values"></param>
+        private void getParameterData(UdpData data, object[] values)
+        {
+            UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
+
+            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            //----翻译数据------------
+            this.MaxRunTime = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[1], userData.Data[2] });//---最大运行时间---
+            this.MaxStopCE = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[3], userData.Data[4] });//----最大停止电流---
+
+            (this.deviceControled as FlammableGasProbe).OpenValve = (int)(userData.Data[5] & 1) == 1 ? true : false;//---是否开阀门
+            (this.deviceControled as FlammableGasProbe).ClearLight = (int)(userData.Data[5] & 2) == 2 ? true : false;//---是否关闭指示灯
+            (this.deviceControled as FlammableGasProbe).ClearBuzzer = (int)(userData.Data[5] & 4) == 4 ? true : false;//---是否关闭蜂鸣器
+
+            this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME));//---回调UI---
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG);//取消订阅
+        }
+
+
+        /// <summary>
+        /// 操作电机
+        /// </summary>
+        public void MotorAction(int goDirection, int stop)
+        {
+            UdpData udpSend = createMotorActionUdp(goDirection, stop);
+            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), null);
+        }
+        private void callbackReadRoadTitle(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("执行运转操作失败!", udpReply.ReplyByte);
+        }
+        private UdpData createMotorActionUdp(int goDirection, int stop)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
+            byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_SIMPLE_SWIT;//----用户命令-----
+            byte len = 0x06;//---数据长度----
+            byte[] crcData = new byte[12];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            crcData[10] = 0;//起始回路为第一回路
+            crcData[11] = (byte)stop;//结束回路
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
     
     }
 

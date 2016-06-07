@@ -15,7 +15,7 @@ namespace ConfigDevice
     public partial class ViewCommandTools : UserControl
     {
         public ControlObj CurrentControlObj;//---控制对象-----
-        public ViewCommandControl ViewCommandControlObj;// ----视图控制----
+        public BaseViewCommandControl ViewCommandControlObj;// ----视图控制----
         public DataTable DataCommandSetting;//---指令配置表-----
         public Device CurrentDevice;//当前设备
         public SyncCommandSetting SyncCommandEdit;//---同步编辑----

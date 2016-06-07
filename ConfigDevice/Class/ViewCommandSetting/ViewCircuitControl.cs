@@ -14,7 +14,7 @@ namespace ConfigDevice
     /// <summary>
     /// 回路指令
     /// </summary>
-    public class ViewCircuitControl : ViewCommandControl
+    public class ViewCircuitControl : BaseViewCommandControl
     {
 
         GridColumn dcCommand;//指令

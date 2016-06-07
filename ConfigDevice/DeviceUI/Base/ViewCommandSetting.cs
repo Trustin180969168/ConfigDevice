@@ -13,6 +13,21 @@ namespace ConfigDevice
     {
         public string CommandGroupName { set { this.lblGroupName.Text = value; } }
         public ComboBoxEdit CbxCommandGroup { get { return cbxGroup; } }
+        /// <summary>
+        /// 是否显示组选择
+        /// </summary>
+        public bool ShowGroupCtrl
+        {
+            set
+            {
+                //if (value) 
+                //    plGroupCtrl.Height = 45;
+                //else
+                //    plGroupCtrl.Height = 10;
+                plGroupCtrl.Visible = value;
+            }
+        }
+
         public List<string> CommmandGroups = new List<string>();
         public bool NeedInit = true;
         private bool syncEdit = false;

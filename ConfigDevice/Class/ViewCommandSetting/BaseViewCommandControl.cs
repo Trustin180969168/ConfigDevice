@@ -10,7 +10,7 @@ namespace ConfigDevice
     /// <summary>
     /// 回路指令
     /// </summary>
-    public abstract class  ViewCommandControl
+    public abstract class  BaseViewCommandControl
     {
         public ControlObj controlObj;//控制对象
         protected DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxCommandKind;//选择命令类型编辑
@@ -21,16 +21,15 @@ namespace ConfigDevice
         
         //----配置界面列表------
         public GridView ViewSetting;
-        public ViewCommandControl(ControlObj _controlObj, GridView gv)
+        public BaseViewCommandControl(ControlObj _controlObj, GridView gv)
         {    
             //----长文本编辑控件------------------
             this.meEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
-            //----命令编辑控件
+            //----命令编辑控件----
             this.cbxCommandKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             cbxCommandKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            cbxCommandKind.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
-      
-            //----时间编辑控件
+            cbxCommandKind.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;      
+            //----时间编辑控件----
             tedtTime = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
             tedtTime.DisplayFormat.FormatString = "d";
             tedtTime.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -39,15 +38,15 @@ namespace ConfigDevice
             tedtTime.Leave += new System.EventHandler(this.time_Leave);
             tedtTime.Leave += new System.EventHandler(SysConfig.Edit_Leave);
             tedtTime.Enter += new System.EventHandler(SysConfig.Edit_Enter);
-
             //----数字编辑控件-----------
             edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             edtNum.AutoHeight = false;
             edtNum.Mask.EditMask = "d";
             edtNum.Name = "edtNum";
+            edtNum.MinValue = 0;
+            edtNum.MaxValue = 200;
             edtNum.Leave += new System.EventHandler(SysConfig.Edit_Leave);
             edtNum.Enter += new System.EventHandler(SysConfig.Edit_Enter);
-
             //----百分比编辑控件-------
             edtPercentNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             edtPercentNum.AutoHeight = false;
@@ -62,6 +61,9 @@ namespace ConfigDevice
             controlObj = _controlObj;
             ViewSetting = gv;
             ViewSetting.Columns.ColumnByName("command").ColumnEdit = cbxCommandKind;
+            ViewSetting.Columns.ColumnByFieldName(DeviceConfig.DC_ID).ColumnEdit = edtNum;
+            ViewSetting.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).ColumnEdit = edtNum;
+            ViewSetting.FocusedColumn = ViewSetting.Columns[3];
         }
 
         /// <summary>

@@ -28,27 +28,215 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.xscCommands = new DevExpress.XtraEditors.XtraScrollableControl();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.cbxGroup = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.lblGroupName = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            this.edtBeginNum = new DevExpress.XtraEditors.SpinEdit();
+            this.edtEndNum = new DevExpress.XtraEditors.SpinEdit();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.btSyncEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
             this.btAdd = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
-            this.xscCommands = new DevExpress.XtraEditors.XtraScrollableControl();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.edtBeginNum = new DevExpress.XtraEditors.SpinEdit();
-            this.edtEndNum = new DevExpress.XtraEditors.SpinEdit();
-            this.cbxGroup = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.lblGroupName = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.toolStrip2.SuspendLayout();
+            this.plGroupCtrl = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
+            this.panelControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            this.panelControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
+            this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).BeginInit();
+            this.toolStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.plGroupCtrl)).BeginInit();
+            this.plGroupCtrl.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // xscCommands
+            // 
+            this.xscCommands.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xscCommands.Location = new System.Drawing.Point(0, 80);
+            this.xscCommands.Name = "xscCommands";
+            this.xscCommands.Size = new System.Drawing.Size(748, 374);
+            this.xscCommands.TabIndex = 5;
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl1.Controls.Add(this.panelControl2);
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl1.Location = new System.Drawing.Point(0, 45);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(748, 35);
+            this.panelControl1.TabIndex = 6;
+            // 
+            // cbxGroup
+            // 
+            this.cbxGroup.Location = new System.Drawing.Point(160, 10);
+            this.cbxGroup.Name = "cbxGroup";
+            this.cbxGroup.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+            this.cbxGroup.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.cbxGroup.Properties.Appearance.Options.UseFont = true;
+            this.cbxGroup.Properties.AppearanceDisabled.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.cbxGroup.Properties.AppearanceDisabled.Options.UseFont = true;
+            this.cbxGroup.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.cbxGroup.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.cbxGroup.Properties.AppearanceFocused.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.cbxGroup.Properties.AppearanceFocused.Options.UseFont = true;
+            this.cbxGroup.Properties.AppearanceReadOnly.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.cbxGroup.Properties.AppearanceReadOnly.Options.UseFont = true;
+            this.cbxGroup.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxGroup.Properties.DropDownRows = 16;
+            this.cbxGroup.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxGroup.Size = new System.Drawing.Size(400, 26);
+            this.cbxGroup.TabIndex = 9;
+            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
+            // 
+            // lblGroupName
+            // 
+            this.lblGroupName.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.lblGroupName.Appearance.Options.UseFont = true;
+            this.lblGroupName.Appearance.Options.UseTextOptions = true;
+            this.lblGroupName.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.lblGroupName.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblGroupName.Location = new System.Drawing.Point(33, 13);
+            this.lblGroupName.Name = "lblGroupName";
+            this.lblGroupName.Size = new System.Drawing.Size(121, 19);
+            this.lblGroupName.TabIndex = 8;
+            this.lblGroupName.Text = "组名";
+            // 
+            // panelControl2
+            // 
+            this.panelControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl2.Controls.Add(this.panelControl4);
+            this.panelControl2.Controls.Add(this.panelControl3);
+            this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl2.Location = new System.Drawing.Point(0, 0);
+            this.panelControl2.Name = "panelControl2";
+            this.panelControl2.Size = new System.Drawing.Size(748, 35);
+            this.panelControl2.TabIndex = 10;
+            // 
+            // panelControl3
+            // 
+            this.panelControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl3.Controls.Add(this.toolStrip2);
+            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl3.Location = new System.Drawing.Point(0, 0);
+            this.panelControl3.Name = "panelControl3";
+            this.panelControl3.Size = new System.Drawing.Size(271, 35);
+            this.panelControl3.TabIndex = 0;
+            // 
+            // panelControl4
+            // 
+            this.panelControl4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl4.Controls.Add(this.edtBeginNum);
+            this.panelControl4.Controls.Add(this.edtEndNum);
+            this.panelControl4.Controls.Add(this.labelControl2);
+            this.panelControl4.Controls.Add(this.labelControl1);
+            this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl4.Location = new System.Drawing.Point(271, 0);
+            this.panelControl4.Name = "panelControl4";
+            this.panelControl4.Size = new System.Drawing.Size(477, 35);
+            this.panelControl4.TabIndex = 1;
+            // 
+            // edtBeginNum
+            // 
+            this.edtBeginNum.EditValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.edtBeginNum.Location = new System.Drawing.Point(37, 5);
+            this.edtBeginNum.Name = "edtBeginNum";
+            this.edtBeginNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtBeginNum.Properties.Appearance.Options.UseFont = true;
+            this.edtBeginNum.Properties.Appearance.Options.UseTextOptions = true;
+            this.edtBeginNum.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.edtBeginNum.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.edtBeginNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtBeginNum.Properties.IsFloatValue = false;
+            this.edtBeginNum.Properties.Mask.EditMask = "d";
+            this.edtBeginNum.Properties.MaxValue = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.edtBeginNum.Properties.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.edtBeginNum.Size = new System.Drawing.Size(46, 26);
+            this.edtBeginNum.TabIndex = 7;
+            this.edtBeginNum.EditValueChanged += new System.EventHandler(this.edtEndNum_ValueChanged);
+            // 
+            // edtEndNum
+            // 
+            this.edtEndNum.EditValue = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.edtEndNum.Location = new System.Drawing.Point(111, 5);
+            this.edtEndNum.Name = "edtEndNum";
+            this.edtEndNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtEndNum.Properties.Appearance.Options.UseFont = true;
+            this.edtEndNum.Properties.Appearance.Options.UseTextOptions = true;
+            this.edtEndNum.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.edtEndNum.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.edtEndNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtEndNum.Properties.IsFloatValue = false;
+            this.edtEndNum.Properties.Mask.EditMask = "d";
+            this.edtEndNum.Properties.MaxValue = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.edtEndNum.Properties.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.edtEndNum.Size = new System.Drawing.Size(46, 26);
+            this.edtEndNum.TabIndex = 6;
+            this.edtEndNum.EditValueChanged += new System.EventHandler(this.edtEndNum_ValueChanged);
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControl2.Appearance.Options.UseFont = true;
+            this.labelControl2.Location = new System.Drawing.Point(89, 9);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(16, 19);
+            this.labelControl2.TabIndex = 9;
+            this.labelControl2.Text = "到";
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControl1.Appearance.Options.UseFont = true;
+            this.labelControl1.Location = new System.Drawing.Point(15, 9);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(16, 19);
+            this.labelControl1.TabIndex = 8;
+            this.labelControl1.Text = "从";
             // 
             // toolStrip2
             // 
@@ -61,10 +249,10 @@
             this.btSaveCommands,
             this.btAdd,
             this.btRefresh});
-            this.toolStrip2.Location = new System.Drawing.Point(2, 61);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 4);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(744, 31);
-            this.toolStrip2.TabIndex = 3;
+            this.toolStrip2.Size = new System.Drawing.Size(271, 31);
+            this.toolStrip2.TabIndex = 4;
             this.toolStrip2.Text = "toolStrip2";
             // 
             // btSyncEdit
@@ -100,7 +288,6 @@
             this.btAdd.Size = new System.Drawing.Size(106, 28);
             this.btAdd.Text = "添加指令 ";
             this.btAdd.Visible = false;
-            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // btRefresh
             // 
@@ -111,149 +298,17 @@
             this.btRefresh.Text = "刷新 ";
             this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
-            // xscCommands
+            // plGroupCtrl
             // 
-            this.xscCommands.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xscCommands.Location = new System.Drawing.Point(0, 94);
-            this.xscCommands.Name = "xscCommands";
-            this.xscCommands.Size = new System.Drawing.Size(748, 360);
-            this.xscCommands.TabIndex = 5;
-            // 
-            // panelControl1
-            // 
-            this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.panelControl1.Controls.Add(this.edtBeginNum);
-            this.panelControl1.Controls.Add(this.edtEndNum);
-            this.panelControl1.Controls.Add(this.cbxGroup);
-            this.panelControl1.Controls.Add(this.lblGroupName);
-            this.panelControl1.Controls.Add(this.labelControl2);
-            this.panelControl1.Controls.Add(this.labelControl1);
-            this.panelControl1.Controls.Add(this.toolStrip2);
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl1.Location = new System.Drawing.Point(0, 0);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(748, 94);
-            this.panelControl1.TabIndex = 6;
-            // 
-            // edtBeginNum
-            // 
-            this.edtBeginNum.EditValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.edtBeginNum.Location = new System.Drawing.Point(66, 19);
-            this.edtBeginNum.Name = "edtBeginNum";
-            this.edtBeginNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.edtBeginNum.Properties.Appearance.Options.UseFont = true;
-            this.edtBeginNum.Properties.Appearance.Options.UseTextOptions = true;
-            this.edtBeginNum.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.edtBeginNum.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.edtBeginNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.edtBeginNum.Properties.IsFloatValue = false;
-            this.edtBeginNum.Properties.Mask.EditMask = "d";
-            this.edtBeginNum.Properties.MaxValue = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.edtBeginNum.Properties.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.edtBeginNum.Size = new System.Drawing.Size(46, 26);
-            this.edtBeginNum.TabIndex = 1;
-            this.edtBeginNum.ValueChanged += new System.EventHandler(this.edtEndNum_ValueChanged);
-            // 
-            // edtEndNum
-            // 
-            this.edtEndNum.EditValue = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.edtEndNum.Location = new System.Drawing.Point(140, 19);
-            this.edtEndNum.Name = "edtEndNum";
-            this.edtEndNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.edtEndNum.Properties.Appearance.Options.UseFont = true;
-            this.edtEndNum.Properties.Appearance.Options.UseTextOptions = true;
-            this.edtEndNum.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.edtEndNum.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.edtEndNum.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.edtEndNum.Properties.IsFloatValue = false;
-            this.edtEndNum.Properties.Mask.EditMask = "d";
-            this.edtEndNum.Properties.MaxValue = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.edtEndNum.Properties.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.edtEndNum.Size = new System.Drawing.Size(46, 26);
-            this.edtEndNum.TabIndex = 1;
-            this.edtEndNum.ValueChanged += new System.EventHandler(this.edtEndNum_ValueChanged);
-            // 
-            // cbxGroup
-            // 
-            this.cbxGroup.Location = new System.Drawing.Point(319, 19);
-            this.cbxGroup.Name = "cbxGroup";
-            this.cbxGroup.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
-            this.cbxGroup.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Properties.Appearance.Options.UseFont = true;
-            this.cbxGroup.Properties.AppearanceDisabled.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Properties.AppearanceDisabled.Options.UseFont = true;
-            this.cbxGroup.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Properties.AppearanceDropDown.Options.UseFont = true;
-            this.cbxGroup.Properties.AppearanceFocused.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Properties.AppearanceFocused.Options.UseFont = true;
-            this.cbxGroup.Properties.AppearanceReadOnly.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Properties.AppearanceReadOnly.Options.UseFont = true;
-            this.cbxGroup.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxGroup.Properties.DropDownRows = 16;
-            this.cbxGroup.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbxGroup.Size = new System.Drawing.Size(400, 26);
-            this.cbxGroup.TabIndex = 9;
-            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
-            // 
-            // lblGroupName
-            // 
-            this.lblGroupName.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.lblGroupName.Appearance.Options.UseFont = true;
-            this.lblGroupName.Appearance.Options.UseTextOptions = true;
-            this.lblGroupName.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.lblGroupName.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblGroupName.Location = new System.Drawing.Point(192, 22);
-            this.lblGroupName.Name = "lblGroupName";
-            this.lblGroupName.Size = new System.Drawing.Size(121, 19);
-            this.lblGroupName.TabIndex = 8;
-            this.lblGroupName.Text = "组名";
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.labelControl2.Appearance.Options.UseFont = true;
-            this.labelControl2.Location = new System.Drawing.Point(118, 22);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(16, 19);
-            this.labelControl2.TabIndex = 5;
-            this.labelControl2.Text = "到";
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(44, 22);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(16, 19);
-            this.labelControl1.TabIndex = 5;
-            this.labelControl1.Text = "从";
+            this.plGroupCtrl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.plGroupCtrl.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.plGroupCtrl.Controls.Add(this.cbxGroup);
+            this.plGroupCtrl.Controls.Add(this.lblGroupName);
+            this.plGroupCtrl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.plGroupCtrl.Location = new System.Drawing.Point(0, 0);
+            this.plGroupCtrl.Name = "plGroupCtrl";
+            this.plGroupCtrl.Size = new System.Drawing.Size(748, 45);
+            this.plGroupCtrl.TabIndex = 11;
             // 
             // ViewCommandSetting
             // 
@@ -261,35 +316,49 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.xscCommands);
             this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.plGroupCtrl);
             this.Name = "ViewCommandSetting";
             this.Size = new System.Drawing.Size(748, 454);
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            this.panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
+            this.panelControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            this.panelControl3.ResumeLayout(false);
+            this.panelControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
+            this.panelControl4.ResumeLayout(false);
+            this.panelControl4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxGroup.Properties)).EndInit();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.plGroupCtrl)).EndInit();
+            this.plGroupCtrl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripButton btSaveCommands;
         private DevExpress.XtraEditors.XtraScrollableControl xscCommands;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.ComboBoxEdit cbxGroup;
         private DevExpress.XtraEditors.LabelControl lblGroupName;
+        private DevExpress.XtraEditors.PanelControl panelControl2;
+        private DevExpress.XtraEditors.PanelControl panelControl4;
+        private DevExpress.XtraEditors.SpinEdit edtBeginNum;
+        private DevExpress.XtraEditors.SpinEdit edtEndNum;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.PanelControl panelControl3;
+        private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton btSyncEdit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton btRefresh;
-        private DevExpress.XtraEditors.SpinEdit edtEndNum;
+        private System.Windows.Forms.ToolStripButton btSaveCommands;
         private System.Windows.Forms.ToolStripButton btAdd;
-        private DevExpress.XtraEditors.SpinEdit edtBeginNum;
+        private System.Windows.Forms.ToolStripButton btRefresh;
+        private DevExpress.XtraEditors.PanelControl plGroupCtrl;
     }
 }

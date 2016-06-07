@@ -11,7 +11,7 @@ namespace ConfigDevice
     /// <summary>
     /// 电机指令
     /// </summary>
-    public class ViewMotorControl : ViewCommandControl
+    public class ViewMotorControl : BaseViewCommandControl
     {
         GridColumn dcCommand;//指令
         GridColumn dcMotorAction;//动作

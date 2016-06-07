@@ -465,21 +465,21 @@
             // viewCommandEdit
             // 
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandEdit.Location = new System.Drawing.Point(0, 265);
+            this.viewCommandEdit.Location = new System.Drawing.Point(0, 259);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.Size = new System.Drawing.Size(985, 346);
+            this.viewCommandEdit.Size = new System.Drawing.Size(985, 352);
             this.viewCommandEdit.TabIndex = 0;
             // 
             // panelControl1
             // 
             this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Controls.Add(this.panelControl5);
             this.panelControl1.Controls.Add(this.viewLogicSetting);
+            this.panelControl1.Controls.Add(this.panelControl5);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(985, 265);
+            this.panelControl1.Size = new System.Drawing.Size(985, 259);
             this.panelControl1.TabIndex = 2;
             // 
             // panelControl5
@@ -632,10 +632,10 @@
             // 
             // viewLogicSetting
             // 
-            this.viewLogicSetting.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.viewLogicSetting.Location = new System.Drawing.Point(0, 36);
+            this.viewLogicSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.viewLogicSetting.Location = new System.Drawing.Point(0, 37);
             this.viewLogicSetting.Name = "viewLogicSetting";
-            this.viewLogicSetting.Size = new System.Drawing.Size(985, 229);
+            this.viewLogicSetting.Size = new System.Drawing.Size(985, 222);
             this.viewLogicSetting.TabIndex = 12;
             // 
             // FrmFlammableGasProbe

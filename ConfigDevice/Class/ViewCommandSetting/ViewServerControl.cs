@@ -12,7 +12,7 @@ namespace ConfigDevice
     /// <summary>
     /// 背景指令
     /// </summary>
-    public class ViewServerControl : ViewCommandControl
+    public class ViewServerControl : BaseViewCommandControl
     {
         GridColumn dcCommand;//指令
         GridColumn dcEmailContent;//Email内容

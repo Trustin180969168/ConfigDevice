@@ -11,7 +11,7 @@ namespace ConfigDevice
     /// <summary>
     /// 消息指令
     /// </summary>
-    public class ViewMessagesControl : ViewCommandControl
+    public class ViewMessagesControl : BaseViewCommandControl
     {
         GridColumn dcCommand;//指令
         GridColumn dcSoundSource;//音源

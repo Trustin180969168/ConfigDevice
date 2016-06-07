@@ -11,7 +11,7 @@ namespace ConfigDevice
     /// <summary>
     /// 背景指令
     /// </summary>
-    public class ViewBackgroundControl : ViewCommandControl
+    public class ViewBackgroundControl : BaseViewCommandControl
     {
         GridColumn dcCommand;//指令
         GridColumn dcSoundSource;//音源

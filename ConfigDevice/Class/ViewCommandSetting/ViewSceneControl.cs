@@ -10,7 +10,7 @@ namespace ConfigDevice
     /// <summary>
     /// 场景指令
     /// </summary>
-    public class ViewSceneControl : ViewCommandControl
+    public class ViewSceneControl : BaseViewCommandControl
     {
         GridColumn dcCommand;//指令
         GridColumn dcSceneNum;//场景

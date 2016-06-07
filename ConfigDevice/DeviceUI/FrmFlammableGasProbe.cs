@@ -53,8 +53,8 @@ namespace ConfigDevice
             flammableGasProbe.OnCallbackUI_Action += frmSetting.CallBackUI; 
             frmSetting.DeviceEdit = flammableGasProbe;           //---基础配置编辑
             refreshSateTimer = new ThreadActionTimer(2000, new Action(flammableGasProbe.ReadState));//---自动刷新----
-            viewCommandEdit.CbxCommandGroup.Visible = false;//----取消命令组显示------
-            viewCommandEdit.CommandGroupName = "";//----取消组名显示--------
+
+            viewCommandEdit.ShowGroupCtrl = false;//---不显示组选择
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace ConfigDevice
         /// </summary> 
         private void btOpenValve_Click(object sender, EventArgs e)
         {
-            flammableGasProbe.Valve.MotorAction(Valve.ACTION_ROAD_FRONT_1, Valve.ACTION_RUN);
+            flammableGasProbe.Valve.MotorAction(Motor.ACTION_ROAD_FRONT_1, Motor.ACTION_RUN);
         }
 
         /// <summary>
@@ -145,14 +145,14 @@ namespace ConfigDevice
         /// </summary> 
         private void btCloseValve_Click(object sender, EventArgs e)
         {
-            flammableGasProbe.Valve.MotorAction(Valve.ACTION_ROAD_BACK_1, Valve.ACTION_RUN);
+            flammableGasProbe.Valve.MotorAction(Motor.ACTION_ROAD_BACK_1, Motor.ACTION_RUN);
         }
         /// <summary>
         /// 停止阀门
         /// </summary> 
         private void btStopValve_Click(object sender, EventArgs e)
         {
-            flammableGasProbe.Valve.MotorAction(Valve.ACTION_ROAD_BACK_1, Valve.ACTION_STOP);
+            flammableGasProbe.Valve.MotorAction(Motor.ACTION_ROAD_BACK_1, Motor.ACTION_STOP);
         }
 
         /// <summary>

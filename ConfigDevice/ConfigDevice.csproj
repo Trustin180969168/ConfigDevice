@@ -341,7 +341,6 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\Election11.png" />
     <None Include="Resources\Traces1.png" />
-    <Compile Include="Class\ControlObj\Valve.cs" />
     <Compile Include="Class\Devices\FlammableGasProbe.cs" />
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
@@ -373,7 +372,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data\CommandData.cs" />
-    <Compile Include="Class\ViewCommandSetting\ViewCommandControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\BaseViewCommandControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewMotorControl.cs" />
     <Compile Include="Class\ControlObj\Background.cs" />
     <Compile Include="Class\ControlObj\Circuit.cs" />

@@ -14,7 +14,7 @@ namespace ConfigDevice
         public short ElectricCurrent = 0;//---电流---
         public string ProbeState = "";//---探头状态---
         public short Templatetrue = 0;//---温度----
-        public Valve Valve;//电机对象,用于阀门控制
+        public Motor Valve;//电机对象,用于阀门控制
         public Circuit ProbeCircuit;//回路对象
         private CallbackFromUDP getStateInfo;//----获取设置信息----
         private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
@@ -48,7 +48,7 @@ namespace ConfigDevice
         /// </summary>
         private void initControlObjs()
         {
-            Valve = new Valve(this);
+            Valve = new Motor(this);
             ProbeCircuit =new Circuit(this,8);
             ContrlObjs.Add("阀门", Valve);
             ContrlObjs.Add("回路", ProbeCircuit);
@@ -126,10 +126,10 @@ namespace ConfigDevice
             int temp = (int)userData.Data[0];
             switch (temp)
             {
-                case 0: this.ValveState = Valve.STATE_STOP; break;
-                case 1: this.ValveState = Valve.STATE_CLOSE; break;
-                case 2: this.ValveState = Valve.STATE_OPEN; break;
-                case 3: this.ValveState = Valve.STATE_TOTAL; break;
+                case 0: this.ValveState = Motor.STATE_VALVE_STOP; break;
+                case 1: this.ValveState = Motor.STATE_VALVE_CLOSE; break;
+                case 2: this.ValveState = Motor.STATE_VALVE_OPEN; break;
+                case 3: this.ValveState = Motor.STATE_VALVE_TOTAL; break;
                 default: this.ValveState = ""; break;
             }
             this.ElectricCurrent = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[1], userData.Data[2] });

@@ -10,7 +10,7 @@ namespace ConfigDevice
     /// <summary>
     /// 时序指令
     /// </summary>
-    public class ViewTimingControl : ViewCommandControl
+    public class ViewTimingControl : BaseViewCommandControl
     {
         GridColumn dcCommand;//指令
         GridColumn dcTimeNum;//时序序号

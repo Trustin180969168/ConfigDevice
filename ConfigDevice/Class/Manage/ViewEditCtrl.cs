@@ -16,7 +16,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="kindId">类型</param>
         /// <returns></returns>
-        public static ViewCommandControl GetViewCommandControl(ControlObj controlObj, GridView gv)
+        public static BaseViewCommandControl GetViewCommandControl(ControlObj controlObj, GridView gv)
         {
 
 
