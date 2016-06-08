@@ -12,7 +12,7 @@ namespace ConfigDevice
     /// <summary>
     /// 可燃气体探头
     /// </summary>
-    public class ViewLogicFlamableGasProbe : ViewLogicControl
+    public partial class ViewLogicFlamableGasProbe : ViewLogicControl
     {
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
         public ViewLogicFlamableGasProbe(Device _device, GridView gv)
@@ -22,16 +22,6 @@ namespace ConfigDevice
             cbxStart.Items.Add("泄漏");
             cbxStart.Items.Add("正常");
             dcStartValue.ColumnEdit = cbxStart;
-        }
-
-        public override UdpData GetLogicData(int logicID)
-        {
-            return null;
-        }
-
-        public override void SetLogicData(UdpData udp)
-        {
-
         }
 
         public override void InitViewSetting()

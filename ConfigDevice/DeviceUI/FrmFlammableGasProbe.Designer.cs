@@ -62,8 +62,9 @@
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
+            this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.viewLogicSetting = new ConfigDevice.ViewLogicSetting();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
@@ -75,7 +76,6 @@
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
-            this.viewLogicSetting = new ConfigDevice.ViewLogicSetting();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -99,8 +99,8 @@
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
             this.pageCommand.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
-            this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
+            this.groupControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
             this.panelControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -456,31 +456,41 @@
             // 
             // pageCommand
             // 
-            this.pageCommand.Controls.Add(this.viewCommandEdit);
-            this.pageCommand.Controls.Add(this.panelControl1);
+            this.pageCommand.Controls.Add(this.groupControl5);
+            this.pageCommand.Controls.Add(this.viewLogicSetting);
+            this.pageCommand.Controls.Add(this.panelControl5);
             this.pageCommand.Name = "pageCommand";
             this.pageCommand.Size = new System.Drawing.Size(985, 611);
             this.pageCommand.Text = "指令配置";
             // 
+            // groupControl5
+            // 
+            this.groupControl5.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl5.AppearanceCaption.Options.UseFont = true;
+            this.groupControl5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl5.Controls.Add(this.viewCommandEdit);
+            this.groupControl5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl5.Location = new System.Drawing.Point(0, 248);
+            this.groupControl5.Name = "groupControl5";
+            this.groupControl5.Size = new System.Drawing.Size(985, 363);
+            this.groupControl5.TabIndex = 3;
+            this.groupControl5.Text = "指令列表";
+            // 
             // viewCommandEdit
             // 
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandEdit.Location = new System.Drawing.Point(0, 259);
+            this.viewCommandEdit.Location = new System.Drawing.Point(2, 26);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.Size = new System.Drawing.Size(985, 352);
-            this.viewCommandEdit.TabIndex = 0;
+            this.viewCommandEdit.Size = new System.Drawing.Size(981, 335);
+            this.viewCommandEdit.TabIndex = 1;
             // 
-            // panelControl1
+            // viewLogicSetting
             // 
-            this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Controls.Add(this.viewLogicSetting);
-            this.panelControl1.Controls.Add(this.panelControl5);
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl1.Location = new System.Drawing.Point(0, 0);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(985, 259);
-            this.panelControl1.TabIndex = 2;
+            this.viewLogicSetting.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicSetting.Location = new System.Drawing.Point(0, 37);
+            this.viewLogicSetting.Name = "viewLogicSetting";
+            this.viewLogicSetting.Size = new System.Drawing.Size(985, 211);
+            this.viewLogicSetting.TabIndex = 12;
             // 
             // panelControl5
             // 
@@ -501,9 +511,9 @@
             this.panelControl3.Controls.Add(this.panelControl2);
             this.panelControl3.Controls.Add(this.lblGroupName);
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl3.Location = new System.Drawing.Point(216, 2);
+            this.panelControl3.Location = new System.Drawing.Point(226, 2);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(767, 33);
+            this.panelControl3.Size = new System.Drawing.Size(757, 33);
             this.panelControl3.TabIndex = 18;
             // 
             // panelControl2
@@ -516,7 +526,7 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(98, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(669, 33);
+            this.panelControl2.Size = new System.Drawing.Size(659, 33);
             this.panelControl2.TabIndex = 17;
             // 
             // edtTriggerActionName
@@ -597,7 +607,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl4.Location = new System.Drawing.Point(2, 2);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(214, 33);
+            this.panelControl4.Size = new System.Drawing.Size(224, 33);
             this.panelControl4.TabIndex = 17;
             // 
             // toolStrip2
@@ -609,7 +619,7 @@
             this.btRefreshTrigger});
             this.toolStrip2.Location = new System.Drawing.Point(2, 2);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(210, 31);
+            this.toolStrip2.Size = new System.Drawing.Size(220, 31);
             this.toolStrip2.TabIndex = 5;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -629,14 +639,7 @@
             this.btRefreshTrigger.Name = "btRefreshTrigger";
             this.btRefreshTrigger.Size = new System.Drawing.Size(101, 28);
             this.btRefreshTrigger.Text = "刷新数据";
-            // 
-            // viewLogicSetting
-            // 
-            this.viewLogicSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewLogicSetting.Location = new System.Drawing.Point(0, 37);
-            this.viewLogicSetting.Name = "viewLogicSetting";
-            this.viewLogicSetting.Size = new System.Drawing.Size(985, 222);
-            this.viewLogicSetting.TabIndex = 12;
+            this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
             // FrmFlammableGasProbe
             // 
@@ -673,8 +676,8 @@
             this.tsDoorInput.PerformLayout();
             this.pageJcsz.ResumeLayout(false);
             this.pageCommand.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
-            this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
+            this.groupControl5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
             this.panelControl5.ResumeLayout(false);
             this.panelControl5.PerformLayout();
@@ -704,8 +707,6 @@
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageCommand;
-        private ViewCommandSetting viewCommandEdit;
-        private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.TextEdit edtT;
         private DevExpress.XtraEditors.LabelControl labelControl4;
@@ -743,5 +744,7 @@
         private DevExpress.XtraEditors.LabelControl lblNum;
         private DevExpress.XtraEditors.LookUpEdit lookUpEdit;
         private DevExpress.XtraEditors.PanelControl panelControl5;
+        private DevExpress.XtraEditors.GroupControl groupControl5;
+        private ViewCommandSetting viewCommandEdit;
     }
 }

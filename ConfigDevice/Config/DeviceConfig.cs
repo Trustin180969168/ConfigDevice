@@ -38,7 +38,7 @@ namespace ConfigDevice
         public const string DC_PARAMETER4 = "Parameter4";//参数4
         public const string DC_PARAMETER5 = "Parameter5";//参数5
         public const string DC_IMAGE1 = "Image1";//图片
-     
+
         public const string ERROR_SAME_DEVICE_ID = "设备ID冲突!";//设备ID冲突
         public const string ERROR_SAME_DEVICE_TITLE = "设备名称冲突!";//设备名称冲突
         public const string ERROR_SAME_DEVICE_NETWORK_ID = "非法网络ID!";
@@ -137,8 +137,7 @@ namespace ConfigDevice
         public const byte EQUIPMENT_MOBILE = 0xfc;        //手机
         public const byte EQUIPMENT_SERVER = 0xfd;        //服务器
         public const byte EQUIPMENT_PC = 0xfe;        //PC类型
-        public const byte EQUIPMENT_PUBLIC = 0xFF;        //共公类型
-
+        public const byte EQUIPMENT_PUBLIC = 0xFF;        //共公类型 
 
         //-------------------指令分类--------------------
         public const byte CMD_TYPE_PUBLIC = EQUIPMENT_PUBLIC;           //公共类型
@@ -325,6 +324,29 @@ namespace ConfigDevice
         public static readonly byte[] CMD_AMP_SLWR_BGM_RADIO_NOHZ = new byte[] { 0x2d, CMD_TYPE_AMP };   //保存指令频率到指令的电台
 
         public static readonly byte[] CMD_AMP_WIFI_SET = new byte[] { 0x2E, CMD_TYPE_AMP };   //选择WIFI网络和设置连接密码(LIAO增加:2015-10-15)
+        //----逻辑部分-------
+
+        public static readonly byte[] CMD_LOGIC_WRITE_TIMER_NAME = new byte[] { 0x01, EQUIPMENT_LOGIC };//写定时器名称      
+        public static readonly byte[] CMD_LOGIC_READ_TIMER_NAME = new byte[] { 0x81, EQUIPMENT_LOGIC }; 			//读定时器名称       
+        public static readonly byte[] CMD_LOGIC_WRITE_BLOCK_NAME = new byte[] { 0x02, EQUIPMENT_LOGIC }; //写逻辑块名称       
+        public static readonly byte[] CMD_LOGIC_READ_BLOCK_NAME = new byte[] { 0x82, EQUIPMENT_LOGIC }; //读逻辑块名称       
+        public static readonly byte[] CMD_LOGIC_WRITE_BLOCK_PORT_SATE = new byte[] { 0x03, EQUIPMENT_LOGIC }; //写逻辑块端口状态  
+        public static readonly byte[] CMD_LOGIC_READ_BLOCK_PORT_SATE = new byte[] { 0x83, EQUIPMENT_LOGIC }; //读逻辑块端口状态  
+        public static readonly byte[] CMD_LOGIC_WRITE_TIMER_INF = new byte[] { 0x04, EQUIPMENT_LOGIC }; //写定时器设置信息  
+        public static readonly byte[] CMD_LOGIC_READ_TIMER_INF = new byte[] { 0x84, EQUIPMENT_LOGIC }; //读定时器设置信息   
+        public static readonly byte[] CMD_LOGIC_WRITE_BLOCK_INF = new byte[] { 0x05, EQUIPMENT_LOGIC }; //写逻辑块设置信息   
+        public static readonly byte[] CMD_LOGIC_READ_BLOCK_INF = new byte[] { 0x85, EQUIPMENT_LOGIC }; //读逻辑块设置信息            
+
+        public static readonly byte[] CMD_LOGIC_WRITE_CMD = new byte[] { 0x06, EQUIPMENT_LOGIC }; //写控制指令        
+        public static readonly byte[] CMD_LOGIC_READ_CMD = new byte[] { 0x86, EQUIPMENT_LOGIC }; //读控制指令
+
+        public static readonly byte[] CMD_LOGIC_READ_CONFIG = new byte[] { 0x41, EQUIPMENT_LOGIC }; //读参数设置 (条件与逻辑)
+        public static readonly byte[] CMD_LOGIC_WRITE_CONFIG = new byte[] { 0xC1, EQUIPMENT_LOGIC }; //写参数设置 (条件与逻辑)
+        public static readonly byte[] CMD_LOGIC_READ_EXACTION = new byte[] { 0x42, EQUIPMENT_LOGIC }; //读逻辑附加动作
+        public static readonly byte[] CMD_LOGIC_WRITE_EXACTION = new byte[] { 0xC2, EQUIPMENT_LOGIC }; //写逻辑附加动作   (不同设备各不一样)
+        public static readonly byte[] CMD_LOGIC_WRITE_SYSLKID = new byte[] { 0x43, EQUIPMENT_LOGIC }; //写逻辑系统联动号 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+        public static readonly byte[] CMD_LOGIC_READ_SECURITY = new byte[] { 0x44, EQUIPMENT_LOGIC }; //读逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
+        public static readonly byte[] CMD_LOGIC_WRITE_SECURITY = new byte[] { 0xC4, EQUIPMENT_LOGIC }; //写逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
 
 
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
@@ -426,4 +448,6 @@ namespace ConfigDevice
 
 
     }
+
+
 }

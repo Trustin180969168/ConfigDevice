@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.xscCommands = new DevExpress.XtraEditors.XtraScrollableControl();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.plTool = new DevExpress.XtraEditors.PanelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.edtBeginNum = new DevExpress.XtraEditors.SpinEdit();
@@ -42,11 +42,11 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblGroupName = new System.Windows.Forms.ToolStripLabel();
             this.cbxGroup = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
-            this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.plTool)).BeginInit();
+            this.plTool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
@@ -66,16 +66,16 @@
             this.xscCommands.Size = new System.Drawing.Size(1000, 422);
             this.xscCommands.TabIndex = 5;
             // 
-            // panelControl1
+            // plTool
             // 
-            this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Controls.Add(this.panelControl2);
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl1.Location = new System.Drawing.Point(0, 0);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1000, 32);
-            this.panelControl1.TabIndex = 6;
+            this.plTool.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.plTool.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.plTool.Controls.Add(this.panelControl2);
+            this.plTool.Dock = System.Windows.Forms.DockStyle.Top;
+            this.plTool.Location = new System.Drawing.Point(0, 0);
+            this.plTool.Name = "plTool";
+            this.plTool.Size = new System.Drawing.Size(1000, 32);
+            this.plTool.TabIndex = 6;
             // 
             // panelControl2
             // 
@@ -251,6 +251,12 @@
             this.btRefresh.Text = "刷新 ";
             this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Margin = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
             // lblGroupName
             // 
             this.lblGroupName.Name = "lblGroupName";
@@ -265,22 +271,16 @@
             this.cbxGroup.Size = new System.Drawing.Size(300, 31);
             this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Margin = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
-            // 
             // ViewCommandSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.xscCommands);
-            this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.plTool);
             this.Name = "ViewCommandSetting";
             this.Size = new System.Drawing.Size(1000, 454);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
-            this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.plTool)).EndInit();
+            this.plTool.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
@@ -300,7 +300,7 @@
         #endregion
 
         private DevExpress.XtraEditors.XtraScrollableControl xscCommands;
-        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private DevExpress.XtraEditors.PanelControl plTool;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.PanelControl panelControl4;
         private DevExpress.XtraEditors.SpinEdit edtBeginNum;

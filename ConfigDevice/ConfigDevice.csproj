@@ -351,6 +351,7 @@
     <Compile Include="Class\Devices\Road2FrontDimming.cs" />
     <Compile Include="Class\Devices\Road4FrontDimming.cs" />
     <Compile Include="Class\Devices\Road12FrontDimming.cs" />
+    <Compile Include="Class\Manage\LogicList.cs" />
     <Compile Include="Class\Manage\NetworkCtrl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
     <Compile Include="Class\Manage\ViewEditCtrl.cs" />
@@ -385,6 +386,7 @@
     <Compile Include="Class\ControlObj\Timing.cs" />
     <Compile Include="Data\DeviceData.cs" />
     <Compile Include="Data\NetworkData.cs" />
+    <Compile Include="Data\LogicData.cs" />
     <Compile Include="DeviceUI\Base\ViewCommandSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>

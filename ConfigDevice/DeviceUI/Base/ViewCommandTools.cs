@@ -231,8 +231,13 @@ namespace ConfigDevice
         /// </summary>
         private void SyncCommandSetting()
         {
+            if (gvCommands.FocusedRowHandle < 0) return;
             gvCommands.PostEditor();
-            gvCommands.GetDataRow(0).EndEdit();
+            DataRow dr = gvCommands.GetDataRow(0);
+            if (dr != null) 
+                dr.EndEdit();
+            else
+                return;
             if (SyncCommandEdit != null && this.Checked && allowSync)
                 SyncCommandEdit(this);
         }

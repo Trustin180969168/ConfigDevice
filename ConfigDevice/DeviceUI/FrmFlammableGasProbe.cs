@@ -53,8 +53,8 @@ namespace ConfigDevice
             flammableGasProbe.OnCallbackUI_Action += frmSetting.CallBackUI; 
             frmSetting.DeviceEdit = flammableGasProbe;           //---基础配置编辑
             refreshSateTimer = new ThreadActionTimer(2000, new Action(flammableGasProbe.ReadState));//---自动刷新----
-
-            viewCommandEdit.ShowGroupCtrl = false;//---不显示组选择
+ 
+            viewCommandEdit.ShowToolBar = false;
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace ConfigDevice
             {
                 if (viewLogicSetting.NeedInit)
                 {                    
-                    viewLogicSetting.InitLogicList(ViewConfig.SENSOR_FLAMMABLE_GAS_PROBE, ViewConfig.SENSOR_TEMPERATURE,
+                    viewLogicSetting.InitLogicList(flammableGasProbe, ViewConfig.SENSOR_FLAMMABLE_GAS_PROBE, ViewConfig.SENSOR_TEMPERATURE,
                           ViewConfig.SENSOR_SYSTEM_INTERACTION
                         //------以下是界面测试,非本设备的触发对象选择-----
                         //,ViewConfig.SENSOR_HUMIDITY,ViewConfig.SENSOR_RADAR,ViewConfig.SENSOR_SWIT_TAMPER,
@@ -217,6 +217,13 @@ namespace ConfigDevice
         private void btSaveTrigger_Click(object sender, EventArgs e)
         {
             flammableGasProbe.ProbeCircuit.SaveRoadSetting(Convert.ToInt16(lookUpEdit.EditValue) - 1, edtTriggerActionName.Text);
+            viewCommandEdit.SaveCommands();
+        }
+
+        private void btRefreshTrigger_Click(object sender, EventArgs e)
+        {
+            
+            viewCommandEdit.ReadCommandData();
         }
     }
 }

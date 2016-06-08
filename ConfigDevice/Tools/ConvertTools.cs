@@ -119,7 +119,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="b">4个字节</param>
         /// <returns></returns>
-        public static int Bytes4ToInt(byte[] b)
+        public static int Bytes4ToInt(params byte[] b)
         {            
            return System.BitConverter.ToInt32(b, 0); 
         }
@@ -129,7 +129,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="b">两个字节</param>
         /// <returns></returns>
-        public static short Bytes2ToInt(byte[] b)
+        public static short Bytes2ToInt(params byte[] b)
         {
             Array.Resize(ref b, 4);
             return System.BitConverter.ToInt16(b, 0);

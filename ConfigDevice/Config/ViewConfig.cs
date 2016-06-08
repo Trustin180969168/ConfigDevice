@@ -103,7 +103,7 @@ namespace ConfigDevice
         public const string SENSOR_FLAMMABLE_GAS_PROBE = "可燃气体探头";
         public const string SENSOR_RADAR = "雷达";
         public const string SENSOR_SWIT_TAMPER = "防拆开关";
-        public const string SENSOR_SYSTEM_INTERACTION = "系统联动";
+        public const string SENSOR_SYSTEM_INTERACTION = "系统联动号";
         public const string SENSOR_SECURITY_INTERACTION = "安防联动";
 
         public const string SENSOR_TIME = "时间段";

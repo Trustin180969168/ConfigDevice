@@ -29,6 +29,11 @@ namespace ConfigDevice
             }
         }
 
+        public bool ShowToolBar
+        {
+            set { plTool.Visible = value; }
+        }
+
         public List<string> CommmandGroups = new List<string>();
         public bool NeedInit = true;
         private bool syncEdit = false;
@@ -276,14 +281,21 @@ namespace ConfigDevice
         /// </summary>
         private void btSaveCommands_Click(object sender, EventArgs e)
         {
+            SaveCommands();
+        }
+        /// <summary>
+        /// 保存指令
+        /// </summary>
+        public void SaveCommands()
+        {
             foreach (Control view in xscCommands.Controls)
             {
                 ViewCommandTools commandView = view as ViewCommandTools;
                 if (!commandView.HasChanged) continue;
-                CommandData command =  commandView.GetCommandData();
+                CommandData command = commandView.GetCommandData();
                 if (command == null) continue;
-                command.ucCmdType=0;
-                command.ucCmdKey =  cbxGroup.SelectedIndex;
+                command.ucCmdType = 0;
+                command.ucCmdKey = cbxGroup.SelectedIndex;
                 command.ucCmdNum = commandView.Num - 1;
                 CommandEdit.SaveCommandData(command);
                 commandView.DataCommandSetting.AcceptChanges();
