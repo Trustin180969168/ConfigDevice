@@ -13,9 +13,15 @@ namespace ProgramTest2
         [STAThread]
         static void Main()
         {
+            Int16 a = 1;
+            byte[] ba = BitConverter.GetBytes(a);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+
+
+
+
         }
     }
 }

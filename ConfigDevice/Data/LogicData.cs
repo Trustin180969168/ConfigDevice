@@ -17,6 +17,20 @@ namespace ConfigDevice
         public UInt16 ValidSeconds;//有效时间(秒)
         public UInt16 InvalidSeconds;//无效时间(秒)
         public byte[] Retain = new byte[16];//保留16个字节
+
+        public byte[] Value()
+        {
+            byte[] value = new byte[31];
+            UInt16 objInt = (UInt16)(TriggerKindID | TriggerObjectID);
+            byte[] objByte = ConvertTools.GetByteFrom16BitUInt(objInt);
+            Buffer.BlockCopy(objByte, 0, value, 0, 2);
+            value[2] = ConvertTools.GetByteFromIntNum(CompareID);
+            byte[] sizeByte1 = ConvertTools.GetByteFrom32BitInt(Size1);
+            
+
+            return value;
+        }
+
     }
 
     /// <summary>
@@ -47,23 +61,23 @@ namespace ConfigDevice
         public LogicData(UserUdpData userData)
         {
             byte[] data = userData.Data;
-            this.GroupNum =  data[0];
-            Logic4KindID =  data[1]; 
-            for(int i = 0;i<TRIGGER_COUNT;i++)
+            this.GroupNum = data[0];
+            Logic4KindID = data[1];
+            for (int i = 0; i < TRIGGER_COUNT; i++)
             {
                 TriggerList[i] = new TriggerData();
                 Int16 objKindInfo = ConvertTools.Bytes2ToInt(data[2], data[3]);
 
-                TriggerList[i].TriggerObjectID =(UInt16) (objKindInfo & 0x3FF);//----低12位为传感器类型-----
-                TriggerList[i].TriggerKindID =(UInt16) (objKindInfo & 0xFC00);//---前六位标识位---
+                TriggerList[i].TriggerObjectID = (UInt16)(objKindInfo & 0x3FF);//----低12位为传感器类型-----
+                TriggerList[i].TriggerKindID = (UInt16)(objKindInfo & 0xFC00);//---前六位标识位---
 
                 TriggerList[i].CompareID = data[4 + i * 31];//---比较符-----
                 TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[5 + i * 31], data[6 + i * 31], data[7 + i * 31], data[8 + i * 31]);
                 TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[9 + i * 31], data[10 + i * 31], data[11 + i * 31], data[12 + i * 31]);
                 TriggerList[i].ValidSeconds = (UInt16)ConvertTools.Bytes2ToInt(data[13 + i * 31], data[14 + i * 31]);
                 TriggerList[i].InvalidSeconds = (UInt16)ConvertTools.Bytes2ToInt(data[15 + i * 31], data[16 + i * 31]);
-                TriggerList[i].Retain = CommonTools.CopyBytes(data, 17 + i * 31,16);
-        }
+                TriggerList[i].Retain = CommonTools.CopyBytes(data, 17 + i * 31, 16);
+            }
         }
 
         /// <summary>

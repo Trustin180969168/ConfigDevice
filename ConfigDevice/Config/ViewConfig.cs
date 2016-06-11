@@ -138,8 +138,8 @@ namespace ConfigDevice
 
         public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的值---- 
         public static Dictionary<UInt16, string> TRIGGER_ID_NAME = new Dictionary<UInt16, string>(); //-----触发对象对应的值---- 
-        public static Dictionary<string, UInt16> TRIGGER_KIND_ID_NAME = new Dictionary<string, UInt16>(); //-----触发级别ID对应的值---- 
-        public static Dictionary<UInt16, string> TRIGGER_KIND_NAME_ID = new Dictionary<UInt16, string>(); //-----触发级别值对应的ID---- 
+        public static Dictionary<string, UInt16> TRIGGER_KIND_NAME_ID = new Dictionary<string, UInt16>(); //-----触发级别ID对应的值---- 
+        public static Dictionary<UInt16, string> TRIGGER_KIND_ID_NAME = new Dictionary<UInt16, string>(); //-----触发级别值对应的ID---- 
         public static Dictionary<string, UInt16> MATH_NAME_ID = new Dictionary<string, UInt16>(); //-----运算ID值---- 
         public static Dictionary<UInt16, string> MATH_ID_NAME = new Dictionary<UInt16, string>(); //-----运算ID对应的名称---- 
         static ViewConfig()
@@ -177,18 +177,18 @@ namespace ConfigDevice
             TRIGGER_ID_NAME.Add(LG_DEV_SENSOR_TEMP, SENSOR_FIRE_TEMPERATURE);
 
             //-------触发类型-------
-            TRIGGER_KIND_ID_NAME.Add(SENSOR_VALUE_KIND_PERIPHERAL, LG_SENSOR_DEV_FLAG);
-            TRIGGER_KIND_ID_NAME.Add(SENSOR_VALUE_KIND_LEVEL, LG_SENSOR_LVL_FLAG);
-            TRIGGER_KIND_ID_NAME.Add(SENSOR_VALUE_KIND_SAME_UNIT, LG_SENSOR_MASK);
-            TRIGGER_KIND_ID_NAME.Add(SENSOR_VALUE_KIND_SAME_TYPE, LG_SENSOR_TYP_MASK);
-            TRIGGER_KIND_ID_NAME.Add(SENSOR_END_MASK, LG_SENSOR_END_MARK);
-            TRIGGER_KIND_ID_NAME.Add(SENSOR_VALUE_KIND_VALUE, LG_SENSOR_KIND_FLAG);
-            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_DEV_FLAG, SENSOR_VALUE_KIND_PERIPHERAL);
-            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_LVL_FLAG, SENSOR_VALUE_KIND_LEVEL);
-            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_MASK, SENSOR_VALUE_KIND_SAME_UNIT);
-            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_TYP_MASK, SENSOR_VALUE_KIND_SAME_TYPE);
-            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_END_MARK, SENSOR_END_MASK);
-            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_KIND_FLAG, SENSOR_VALUE_KIND_VALUE);
+            TRIGGER_KIND_NAME_ID.Add(SENSOR_VALUE_KIND_PERIPHERAL, LG_SENSOR_DEV_FLAG);
+            TRIGGER_KIND_NAME_ID.Add(SENSOR_VALUE_KIND_LEVEL, LG_SENSOR_LVL_FLAG);
+            TRIGGER_KIND_NAME_ID.Add(SENSOR_VALUE_KIND_SAME_UNIT, LG_SENSOR_MASK);
+            TRIGGER_KIND_NAME_ID.Add(SENSOR_VALUE_KIND_SAME_TYPE, LG_SENSOR_TYP_MASK);
+            TRIGGER_KIND_NAME_ID.Add(SENSOR_END_MASK, LG_SENSOR_END_MARK);
+            TRIGGER_KIND_NAME_ID.Add(SENSOR_VALUE_KIND_VALUE, LG_SENSOR_KIND_FLAG);
+            TRIGGER_KIND_ID_NAME.Add(LG_SENSOR_DEV_FLAG, SENSOR_VALUE_KIND_PERIPHERAL);
+            TRIGGER_KIND_ID_NAME.Add(LG_SENSOR_LVL_FLAG, SENSOR_VALUE_KIND_LEVEL);
+            TRIGGER_KIND_ID_NAME.Add(LG_SENSOR_MASK, SENSOR_VALUE_KIND_SAME_UNIT);
+            TRIGGER_KIND_ID_NAME.Add(LG_SENSOR_TYP_MASK, SENSOR_VALUE_KIND_SAME_TYPE);
+            TRIGGER_KIND_ID_NAME.Add(LG_SENSOR_END_MARK, SENSOR_END_MASK);
+            TRIGGER_KIND_ID_NAME.Add(LG_SENSOR_KIND_FLAG, SENSOR_VALUE_KIND_VALUE);
             
             //-------运算符-------
             MATH_ID_NAME.Add(LG_MATH_EQUAL_TO, LG_MATH_NAME_EQUAL_TO);

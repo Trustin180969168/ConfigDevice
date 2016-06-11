@@ -161,11 +161,11 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 根据一个8位的整数,翻译成一个字节
+        /// 根据一个32位以下的整数,取首字节
         /// </summary>
-        /// <param name="num">8位整数字符串</param>
+        /// <param name="num">32位整数</param>
         /// <returns>一个字节</returns>
-        public static byte GetByteFrom8BitNum(int num)
+        public static byte GetByteFromIntNum(int num)
         {
             byte value = BitConverter.GetBytes(num)[0];
             return value;
@@ -183,10 +183,22 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 根据一个32位的整数,翻译成两个字节的数组
+        /// 根据一个16位无符号整数,翻译成两个字节的数组
         /// </summary>
-        /// <param name="num">16位整数</param>
+        /// <param name="num">16位无符号整数</param>
         /// <returns>两个字节</returns>
+        public static byte[] GetByteFrom16BitUInt(UInt16 num)
+        {
+            byte[] value = BitConverter.GetBytes(Convert.ToUInt16(num));
+            return value;
+        }
+
+
+        /// <summary>
+        /// 根据一个32位的有符号整数,翻译成4个字节的数组
+        /// </summary>
+        /// <param name="num">32位有符号整数</param>
+        /// <returns>4个字节</returns>
         public static byte[] GetByteFrom32BitInt(int num)
         {
             byte[] value = BitConverter.GetBytes(Convert.ToInt32(num));
@@ -194,10 +206,10 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 根据一个32位的整数,翻译成两个字节的数组
+        /// 根据一个32位的无符号整数,翻译成4个字节的数组
         /// </summary>
-        /// <param name="num">16位整数</param>
-        /// <returns>两个字节</returns>
+        /// <param name="num">32位无符号整数</param>
+        /// <returns>4个字节</returns>
         public static byte[] GetByteFrom32BitUInt(uint num)
         {
             byte[] value = BitConverter.GetBytes(num);

@@ -14,13 +14,15 @@ namespace ConfigDevice
     /// </summary>
     public partial class ViewLogicFlamableGasProbe : BaseViewLogicControl
     {
+        public const string  VALUE1 = "正常";
+        public const string  VALUE2 = "泄漏";
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
         public ViewLogicFlamableGasProbe(Device _device, GridView gv)
             : base(_device, gv)
         {
             cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---运算--           
-            cbxStart.Items.Add("泄漏");
-            cbxStart.Items.Add("正常");
+            cbxStart.Items.Add(VALUE1);
+            cbxStart.Items.Add(VALUE2);
             dcStartValue.ColumnEdit = cbxStart;
         }
 
