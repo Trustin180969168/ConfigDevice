@@ -213,7 +213,7 @@ namespace ConfigDevice
 
 
 
-        public const Int16 MAX_DATA_SIZE = 128;//若定最大128长度.
+        public const Int16 MAX_DATA_SIZE = 256;//若定最大256长度.
         public const Int16 MIN_DATA_SIZE = 30;//若定最小30长度.
         public static Dictionary<int, IPInfo> IPList = new Dictionary<int, IPInfo>();
 

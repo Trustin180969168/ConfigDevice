@@ -29,6 +29,15 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 回调
+        /// </summary>
+        /// <param name="callbackParameter"></param>
+        public virtual void CallbackUI(CallbackParameter callbackParameter)
+        {
+
+        }
+
+        /// <summary>
         /// 初始化列表
         /// </summary>
         public void InitSelectDevice()

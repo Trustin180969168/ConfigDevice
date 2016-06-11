@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace ConfigDevice
 {
-    public abstract class ViewLogicControl
+    public abstract class BaseViewLogicControl
     {
         public const string TRIGGER_KIND_VALUE = "触发值";
         public const string TRIGGER_KIND_LEVEL = "级别";
@@ -34,11 +34,11 @@ namespace ConfigDevice
         protected GridColumn dcValid;//持续时间
         protected GridColumn dcInvalid;//无效时间
 
-        public abstract UdpData GetLogicData(int logicID);//获取udp指令
-        public abstract void SetLogicData(UdpData udp);//获取逻辑条件 
-        public abstract void InitViewSetting();       /// 初始化配置界面
+        public abstract TriggerData GetLogicData();//获取udp指令
+        public abstract void SetLogicData(TriggerData td);//获取逻辑条件 
+        public abstract void InitViewSetting();       // 初始化配置界面
 
-        public ViewLogicControl(Device _device, GridView gv)
+        public BaseViewLogicControl(Device _device, GridView gv)
         {
             this.deviceTrigger = _device;
             this.gvLogic = gv;
@@ -55,7 +55,7 @@ namespace ConfigDevice
             dcInvalid = gv.Columns.ColumnByFieldName(ViewConfig.DC_INVALID_TIME);//无效值
 
             cbxKind.Items.Clear();//----清空触发类型---
-            cbxKind.Items.Add(ViewLogicControl.TRIGGER_KIND_VALUE);//---默认为触发值----
+            cbxKind.Items.Add(BaseViewLogicControl.TRIGGER_KIND_VALUE);//---默认为触发值----
             dcKind.ColumnEdit = this.cbxKind;//---触发类型
             cbxOperate.Items.Clear();//----清空触发运算
             dcOperate.ColumnEdit = this.cbxOperate;//---触发运算符 ,统一为下拉选择----  
@@ -71,7 +71,7 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             dr[gc.FieldName] = null;
             dr.EndEdit();
-            gc.ColumnEdit = InvalidEdit;
+            gc.ColumnEdit = InvalidEdit;            
             gc.AppearanceCell.BackColor = Color.Gainsboro;//灰色
             gc.AppearanceCell.ForeColor = Color.Black;
             gc.OptionsColumn.AllowEdit = false;

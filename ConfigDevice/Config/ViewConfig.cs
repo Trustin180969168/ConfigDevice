@@ -10,6 +10,9 @@ namespace ConfigDevice
 {
     public static class ViewConfig
     {
+        //---执行操作名称----
+        public const string ACTION_CHANGE_LOGIC_GROUP = "ChangeLogicGroup";
+
         //---逻辑列表-----
         public const string DC_OBJECT = "Object";//触发对象
         public const string DC_KIND = "Kind";//内容类型
@@ -43,6 +46,15 @@ namespace ConfigDevice
         public const int LG_MATH_TOTAL = 7;
         public const int LG_MATH_DEFAULT = LG_MATH_EQUAL_TO;
 
+        public const string LG_MATH_NAME_EQUAL_TO = "等于";          //等于(只判断[slSiz1])                                  <- if (val1 == slSiz1)
+        public const string LG_MATH_NAME_LESS_THAN = "小于";          //小于(只判断[slSiz1])                                  <- if (val1 <  slSiz1)
+        public const string LG_MATH_NAME_GREATER_THAN = "大于";          //大于(只判断[slSiz1])                                  <- if (val1 >  slSiz1)
+        public const string LG_MATH_NAME_WITHIN = "以内";          //以内(范围内)(包括两边的数值) (判断[slSiz1]和[slSiz2]) <- if (val1 >= slSiz1) && if (val1 <= slSiz2)
+        public const string LG_MATH_NAME_WITHOUT = "以外";          //以外(范围外)                 (判断[slSiz1]和[slSiz2]) <- if (val1 <  slSiz1) || if (val1 >  slSiz2)
+        public const string LG_MATH_NAME_EQUAL_TO2 = "两者值相等";          //等于(判断[slSiz1]和[slSiz2])                          <- if (val2 == slSiz2)  { if (val1 == slSiz1) }
+        public const string LG_MATH_NAME_EQUAL_AND_TRUE = "两者与为真";          //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
+        public const string LG_MATH_NAME_TOTAL = "相加";
+        public const string LG_MATH_NAME_DEFAULT = LG_MATH_NAME_EQUAL_TO;
 
         // 设备[内部条件][外部条件]类型 --------------------------------------------------------------------------
         public const int LG_SENSOR_VOID = 0;          //无效(★不能改动★)
@@ -61,11 +73,12 @@ namespace ConfigDevice
         public const int LG_EXT_SENSOR_WEEK_CYC = 13;         //外部条件:周循环
         public const int LG_DEV_SENSOR_TEMP = 14;           //消防温控    (含有外设,含有等级)
         public const int LG_SENSOR_TOTAL = 15;              //总数(★★数量以后会不断增加,必须在最尾处增加★★)
+        public const UInt16 LG_SENSOR_KIND_FLAG = 0;       //默认触发级别
         public const UInt16 LG_SENSOR_DEV_FLAG = 0x8000;       //[外设]传感器[标志位]->如:本设备,外设
         public const UInt16 LG_SENSOR_LVL_FLAG = 0x4000;       //传感器[级别][标志位]->如:温度,27℃(数值),舒适(级别)
         public const UInt16 LG_SENSOR_MASK = 0xBFFF;           //[同一个]传感器[掩码]->如:本设备的温度传感器,外设的温度传感器
         public const UInt16 LG_SENSOR_TYP_MASK = 0x3FFF;       //[同类型]传感器[掩码]->如:温度,湿度
-        public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;       //传感器结束符
+        public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;       //传感器结束符 
         public const UInt16 LG_SENSOR_DEFAULT = LG_SENSOR_VOID;
 
 
@@ -124,9 +137,14 @@ namespace ConfigDevice
         
 
         public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的值---- 
-
+        public static Dictionary<UInt16, string> TRIGGER_ID_NAME = new Dictionary<UInt16, string>(); //-----触发对象对应的值---- 
+        public static Dictionary<string, UInt16> TRIGGER_KIND_ID_NAME = new Dictionary<string, UInt16>(); //-----触发级别ID对应的值---- 
+        public static Dictionary<UInt16, string> TRIGGER_KIND_NAME_ID = new Dictionary<UInt16, string>(); //-----触发级别值对应的ID---- 
+        public static Dictionary<string, UInt16> MATH_NAME_ID = new Dictionary<string, UInt16>(); //-----运算ID值---- 
+        public static Dictionary<UInt16, string> MATH_ID_NAME = new Dictionary<UInt16, string>(); //-----运算ID对应的名称---- 
         static ViewConfig()
         {
+            //-------传感器触发-------
             TRIGGER_NAME_ID.Add(SENSOR_INVALID, LG_SENSOR_VOID);
             TRIGGER_NAME_ID.Add(SENSOR_TEMPERATURE, LG_SENSOR_TEMP);
             TRIGGER_NAME_ID.Add(SENSOR_HUMIDITY, LG_SENSOR_HUMI);
@@ -142,13 +160,53 @@ namespace ConfigDevice
             TRIGGER_NAME_ID.Add(SENSOR_DATE, LG_EXT_SENSOR_DATE_SEG);
             TRIGGER_NAME_ID.Add(SENSOR_WEEK, LG_EXT_SENSOR_WEEK_CYC);
             TRIGGER_NAME_ID.Add(SENSOR_FIRE_TEMPERATURE, LG_DEV_SENSOR_TEMP);
-            TRIGGER_NAME_ID.Add(SENSOR_VALUE_KIND_PERIPHERAL, LG_SENSOR_DEV_FLAG);
-            TRIGGER_NAME_ID.Add(SENSOR_VALUE_KIND_LEVEL, LG_SENSOR_LVL_FLAG);
-            TRIGGER_NAME_ID.Add(SENSOR_VALUE_KIND_SAME_UNIT, LG_SENSOR_MASK);
-            TRIGGER_NAME_ID.Add(SENSOR_VALUE_KIND_SAME_TYPE, LG_SENSOR_TYP_MASK);
-            TRIGGER_NAME_ID.Add(SENSOR_END_MASK, LG_SENSOR_END_MARK);
-            TRIGGER_NAME_ID.Add(SENSOR_DEFAULT, LG_SENSOR_VOID);
-            TRIGGER_NAME_ID.Add(SENSOR_VALUE_KIND_VALUE, LG_SENSOR_VOID); 
+            TRIGGER_ID_NAME.Add(LG_SENSOR_VOID, SENSOR_INVALID);
+            TRIGGER_ID_NAME.Add(LG_SENSOR_TEMP, SENSOR_TEMPERATURE);
+            TRIGGER_ID_NAME.Add(LG_SENSOR_HUMI, SENSOR_HUMIDITY);
+            TRIGGER_ID_NAME.Add(LG_SENSOR_RAIN, SENSOR_RAIN_SENSOR);
+            TRIGGER_ID_NAME.Add(LG_SENSOR_WIND, SENSOR_WINDY);
+            TRIGGER_ID_NAME.Add(LG_SENSOR_LUMI, SENSOR_LUMINANCE);
+            TRIGGER_ID_NAME.Add(LG_SENSOR_LEL, SENSOR_FLAMMABLE_GAS_PROBE);
+            TRIGGER_ID_NAME.Add(LG_SENSOR_RSP, SENSOR_RADAR);
+            TRIGGER_ID_NAME.Add(LG_SENSOR_TAMPER, SENSOR_SWIT_TAMPER);
+            TRIGGER_ID_NAME.Add(LG_EXT_SENSOR_SYS_LKID, SENSOR_SYSTEM_INTERACTION);
+            TRIGGER_ID_NAME.Add(LG_EXT_SENSOR_SECURITY, SENSOR_SECURITY_INTERACTION);
+            TRIGGER_ID_NAME.Add(LG_EXT_SENSOR_TIME_SEG, SENSOR_TIME);
+            TRIGGER_ID_NAME.Add(LG_EXT_SENSOR_DATE_SEG, SENSOR_DATE);
+            TRIGGER_ID_NAME.Add(LG_EXT_SENSOR_WEEK_CYC, SENSOR_WEEK);
+            TRIGGER_ID_NAME.Add(LG_DEV_SENSOR_TEMP, SENSOR_FIRE_TEMPERATURE);
+
+            //-------触发类型-------
+            TRIGGER_KIND_ID_NAME.Add(SENSOR_VALUE_KIND_PERIPHERAL, LG_SENSOR_DEV_FLAG);
+            TRIGGER_KIND_ID_NAME.Add(SENSOR_VALUE_KIND_LEVEL, LG_SENSOR_LVL_FLAG);
+            TRIGGER_KIND_ID_NAME.Add(SENSOR_VALUE_KIND_SAME_UNIT, LG_SENSOR_MASK);
+            TRIGGER_KIND_ID_NAME.Add(SENSOR_VALUE_KIND_SAME_TYPE, LG_SENSOR_TYP_MASK);
+            TRIGGER_KIND_ID_NAME.Add(SENSOR_END_MASK, LG_SENSOR_END_MARK);
+            TRIGGER_KIND_ID_NAME.Add(SENSOR_VALUE_KIND_VALUE, LG_SENSOR_KIND_FLAG);
+            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_DEV_FLAG, SENSOR_VALUE_KIND_PERIPHERAL);
+            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_LVL_FLAG, SENSOR_VALUE_KIND_LEVEL);
+            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_MASK, SENSOR_VALUE_KIND_SAME_UNIT);
+            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_TYP_MASK, SENSOR_VALUE_KIND_SAME_TYPE);
+            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_END_MARK, SENSOR_END_MASK);
+            TRIGGER_KIND_NAME_ID.Add(LG_SENSOR_KIND_FLAG, SENSOR_VALUE_KIND_VALUE);
+            
+            //-------运算符-------
+            MATH_ID_NAME.Add(LG_MATH_EQUAL_TO, LG_MATH_NAME_EQUAL_TO);
+            MATH_ID_NAME.Add(LG_MATH_LESS_THAN, LG_MATH_NAME_LESS_THAN);
+            MATH_ID_NAME.Add(LG_MATH_GREATER_THAN, LG_MATH_NAME_GREATER_THAN);
+            MATH_ID_NAME.Add(LG_MATH_WITHIN, LG_MATH_NAME_WITHIN);
+            MATH_ID_NAME.Add(LG_MATH_WITHOUT, LG_MATH_NAME_WITHOUT);
+            MATH_ID_NAME.Add(LG_MATH_EQUAL_TO2, LG_MATH_NAME_EQUAL_TO2);
+            MATH_ID_NAME.Add(LG_MATH_EQUAL_AND_TRUE, LG_MATH_NAME_EQUAL_AND_TRUE);
+            MATH_ID_NAME.Add(LG_MATH_TOTAL, LG_MATH_NAME_TOTAL); 
+            MATH_NAME_ID.Add(LG_MATH_NAME_EQUAL_TO, LG_MATH_EQUAL_TO);
+            MATH_NAME_ID.Add(LG_MATH_NAME_LESS_THAN, LG_MATH_LESS_THAN);
+            MATH_NAME_ID.Add(LG_MATH_NAME_GREATER_THAN, LG_MATH_GREATER_THAN);
+            MATH_NAME_ID.Add(LG_MATH_NAME_WITHIN, LG_MATH_WITHIN);
+            MATH_NAME_ID.Add(LG_MATH_NAME_WITHOUT, LG_MATH_WITHOUT);
+            MATH_NAME_ID.Add(LG_MATH_NAME_EQUAL_TO2, LG_MATH_EQUAL_TO2);
+            MATH_NAME_ID.Add(LG_MATH_NAME_EQUAL_AND_TRUE, LG_MATH_EQUAL_AND_TRUE);
+            MATH_NAME_ID.Add(LG_MATH_NAME_TOTAL, LG_MATH_TOTAL); 
 
 
         }

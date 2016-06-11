@@ -46,7 +46,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="kindId">触发对象名称</param>
         /// <returns></returns>
-        public static ViewLogicControl GetViewLogicControl(string TriggerName,Device device, GridView gv)
+        public static BaseViewLogicControl GetViewLogicControl(string TriggerName,Device device, GridView gv)
         {
 
             if (TriggerName == ViewConfig.SENSOR_INVALID)

@@ -61,7 +61,7 @@
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.ViewBaseEdit();
-            this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
+            this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
             this.viewLogicSetting = new ConfigDevice.ViewLogicSetting();
@@ -72,8 +72,8 @@
             this.lblNum = new DevExpress.XtraEditors.LabelControl();
             this.lookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.lblGroupName = new DevExpress.XtraEditors.LabelControl();
-            this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.plToolBar = new DevExpress.XtraEditors.PanelControl();
+            this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
@@ -98,7 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.edtValveState.Properties)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
-            this.pageCommand.SuspendLayout();
+            this.pageLogic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
@@ -109,9 +109,9 @@
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtTriggerActionName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
-            this.panelControl4.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.plToolBar)).BeginInit();
+            this.plToolBar.SuspendLayout();
+            this.ToolBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -127,7 +127,7 @@
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
             this.pagePzjm,
-            this.pageCommand});
+            this.pageLogic});
             this.tctrlEdit.Text = "xtraTabControl1";
             this.tctrlEdit.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.tctrlEdit_SelectedPageChanged);
             // 
@@ -454,14 +454,14 @@
             this.frmSetting.Size = new System.Drawing.Size(985, 611);
             this.frmSetting.TabIndex = 0;
             // 
-            // pageCommand
+            // pageLogic
             // 
-            this.pageCommand.Controls.Add(this.groupControl5);
-            this.pageCommand.Controls.Add(this.viewLogicSetting);
-            this.pageCommand.Controls.Add(this.panelControl5);
-            this.pageCommand.Name = "pageCommand";
-            this.pageCommand.Size = new System.Drawing.Size(985, 611);
-            this.pageCommand.Text = "指令配置";
+            this.pageLogic.Controls.Add(this.groupControl5);
+            this.pageLogic.Controls.Add(this.viewLogicSetting);
+            this.pageLogic.Controls.Add(this.panelControl5);
+            this.pageLogic.Name = "pageLogic";
+            this.pageLogic.Size = new System.Drawing.Size(985, 611);
+            this.pageLogic.Text = "逻辑配置";
             // 
             // groupControl5
             // 
@@ -470,9 +470,9 @@
             this.groupControl5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.groupControl5.Controls.Add(this.viewCommandEdit);
             this.groupControl5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl5.Location = new System.Drawing.Point(0, 248);
+            this.groupControl5.Location = new System.Drawing.Point(0, 284);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(985, 363);
+            this.groupControl5.Size = new System.Drawing.Size(985, 327);
             this.groupControl5.TabIndex = 3;
             this.groupControl5.Text = "指令列表";
             // 
@@ -481,27 +481,29 @@
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandEdit.Location = new System.Drawing.Point(2, 26);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.Size = new System.Drawing.Size(981, 335);
+            this.viewCommandEdit.Size = new System.Drawing.Size(981, 299);
             this.viewCommandEdit.TabIndex = 1;
             // 
             // viewLogicSetting
             // 
+            this.viewLogicSetting.AutoSize = true;
+            this.viewLogicSetting.Circuit = null;
             this.viewLogicSetting.Dock = System.Windows.Forms.DockStyle.Top;
             this.viewLogicSetting.Location = new System.Drawing.Point(0, 37);
             this.viewLogicSetting.Name = "viewLogicSetting";
-            this.viewLogicSetting.Size = new System.Drawing.Size(985, 211);
+            this.viewLogicSetting.Size = new System.Drawing.Size(985, 247);
             this.viewLogicSetting.TabIndex = 12;
             // 
             // panelControl5
             // 
             this.panelControl5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.panelControl5.Controls.Add(this.panelControl3);
-            this.panelControl5.Controls.Add(this.panelControl4);
+            this.panelControl5.Controls.Add(this.plToolBar);
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl5.Location = new System.Drawing.Point(0, 0);
             this.panelControl5.Name = "panelControl5";
             this.panelControl5.Size = new System.Drawing.Size(985, 37);
-            this.panelControl5.TabIndex = 19;
+            this.panelControl5.TabIndex = 21;
             // 
             // panelControl3
             // 
@@ -600,28 +602,28 @@
             this.lblGroupName.TabIndex = 16;
             this.lblGroupName.Text = "触发动作 ";
             // 
-            // panelControl4
+            // plToolBar
             // 
-            this.panelControl4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.panelControl4.Controls.Add(this.toolStrip2);
-            this.panelControl4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl4.Location = new System.Drawing.Point(2, 2);
-            this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(224, 33);
-            this.panelControl4.TabIndex = 17;
+            this.plToolBar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.plToolBar.Controls.Add(this.ToolBar);
+            this.plToolBar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.plToolBar.Location = new System.Drawing.Point(2, 2);
+            this.plToolBar.Name = "plToolBar";
+            this.plToolBar.Size = new System.Drawing.Size(224, 33);
+            this.plToolBar.TabIndex = 17;
             // 
-            // toolStrip2
+            // ToolBar
             // 
-            this.toolStrip2.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolBar.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.ToolBar.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.ToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSaveTrigger,
             this.btRefreshTrigger});
-            this.toolStrip2.Location = new System.Drawing.Point(2, 2);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(220, 31);
-            this.toolStrip2.TabIndex = 5;
-            this.toolStrip2.Text = "toolStrip2";
+            this.ToolBar.Location = new System.Drawing.Point(2, 2);
+            this.ToolBar.Name = "ToolBar";
+            this.ToolBar.Size = new System.Drawing.Size(220, 31);
+            this.ToolBar.TabIndex = 5;
+            this.ToolBar.Text = "toolStrip2";
             // 
             // btSaveTrigger
             // 
@@ -675,7 +677,8 @@
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
             this.pageJcsz.ResumeLayout(false);
-            this.pageCommand.ResumeLayout(false);
+            this.pageLogic.ResumeLayout(false);
+            this.pageLogic.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
@@ -687,11 +690,11 @@
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.edtTriggerActionName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
-            this.panelControl4.ResumeLayout(false);
-            this.panelControl4.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.plToolBar)).EndInit();
+            this.plToolBar.ResumeLayout(false);
+            this.plToolBar.PerformLayout();
+            this.ToolBar.ResumeLayout(false);
+            this.ToolBar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -706,7 +709,7 @@
         private System.Windows.Forms.ToolStrip tsDoorInput;
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btRefresh;
-        private DevExpress.XtraTab.XtraTabPage pageCommand;
+        private DevExpress.XtraTab.XtraTabPage pageLogic;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.TextEdit edtT;
         private DevExpress.XtraEditors.LabelControl labelControl4;
@@ -733,18 +736,18 @@
         private DevExpress.XtraEditors.SimpleButton btCloseValve;
         private DevExpress.XtraEditors.SimpleButton btOpenValve;
         private ViewLogicSetting viewLogicSetting;
-        private DevExpress.XtraEditors.PanelControl panelControl4;
-        private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripButton btSaveTrigger;
-        private System.Windows.Forms.ToolStripButton btRefreshTrigger;
+        private DevExpress.XtraEditors.GroupControl groupControl5;
+        private ViewCommandSetting viewCommandEdit;
+        private DevExpress.XtraEditors.PanelControl panelControl5;
         private DevExpress.XtraEditors.PanelControl panelControl3;
-        private DevExpress.XtraEditors.LabelControl lblGroupName;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.TextEdit edtTriggerActionName;
         private DevExpress.XtraEditors.LabelControl lblNum;
         private DevExpress.XtraEditors.LookUpEdit lookUpEdit;
-        private DevExpress.XtraEditors.PanelControl panelControl5;
-        private DevExpress.XtraEditors.GroupControl groupControl5;
-        private ViewCommandSetting viewCommandEdit;
+        private DevExpress.XtraEditors.LabelControl lblGroupName;
+        private DevExpress.XtraEditors.PanelControl plToolBar;
+        public System.Windows.Forms.ToolStrip ToolBar;
+        private System.Windows.Forms.ToolStripButton btSaveTrigger;
+        private System.Windows.Forms.ToolStripButton btRefreshTrigger;
     }
 }

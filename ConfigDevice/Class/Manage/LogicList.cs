@@ -27,9 +27,21 @@ namespace ConfigDevice
                 OnCallbackUI_Action(callbackParameter);
         }
 
+
         /// <summary>
-        /// 获取指令数据
+        /// 申请读取逻辑配置
         /// </summary>
+        /// <param name="startNum">按键/分组 开始=结束</param>
+        public void ReadLogicData(int Num)
+        {
+            UdpData udpSend = createReadLogicUdp(Num, Num);
+            mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadLogicData), null);
+        }
+        /// <summary>
+        /// 申请读取逻辑配置
+        /// </summary>
+        /// <param name="startNum">按键/分组 开始</param>
+        /// <param name="endNum">按键/分组 结束</param>
         public void ReadLogicData( int startNum, int endNum)
         {
             UdpData udpSend = createReadLogicUdp( startNum, endNum);
@@ -86,9 +98,8 @@ namespace ConfigDevice
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
             LogicData logicData = new LogicData(userData);
-            CallbackUI(new CallbackParameter(  logicData ));//----界面回调------
+            CallbackUI(new CallbackParameter( logicData ));//----界面回调------
         }
-
 
         /// <summary>
         /// 保存指令
@@ -109,9 +120,7 @@ namespace ConfigDevice
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
-            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
-
- 
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议---- 
 
             return udp;
         }

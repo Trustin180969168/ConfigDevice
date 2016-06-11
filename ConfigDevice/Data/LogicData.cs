@@ -9,12 +9,13 @@ namespace ConfigDevice
     /// </summary>
     public class TriggerData
     {
-        public Int16 TriggerKindID;//触发类型类型ID(可燃气体探头,温度,系统联动号)
-        public Int16 CompareID;//比较(大于、小于、等于)
+        public UInt16 TriggerObjectID;//触发类型类型ID(可燃气体探头,温度,系统联动号)
+        public UInt16 TriggerKindID;//触发级别
+        public UInt16 CompareID;//比较(大于、小于、等于)
         public Int32 Size1;//大小1
         public Int32 Size2;//大小2
-        public Int16 ValidSeconds;//有效时间(秒)
-        public Int16 InvalidSeconds;//无效时间(秒)
+        public UInt16 ValidSeconds;//有效时间(秒)
+        public UInt16 InvalidSeconds;//无效时间(秒)
         public byte[] Retain = new byte[16];//保留16个字节
     }
 
@@ -25,10 +26,10 @@ namespace ConfigDevice
     {
         public string Name = "";//逻辑名称
         public const int TRIGGER_COUNT = 4;//触发条件固定为4个
-        public Int16 GroupNum;//第几个按键/分组
-        public Int16 Logic4KindID;//逻辑关系类型ID(4路,6种逻辑类型)
+        public byte GroupNum;//第几个按键/分组
+        public byte Logic4KindID;//逻辑关系类型ID(4路,6种逻辑类型)
         public TriggerData[] TriggerList = new TriggerData[TRIGGER_COUNT];//--4组逻辑数据
-
+        
 
         /// <summary>
         /// 构造函数
@@ -46,17 +47,22 @@ namespace ConfigDevice
         public LogicData(UserUdpData userData)
         {
             byte[] data = userData.Data;
-            this.GroupNum = (Int16)data[0];
-            Logic4KindID = (Int16)data[1]; 
+            this.GroupNum =  data[0];
+            Logic4KindID =  data[1]; 
             for(int i = 0;i<TRIGGER_COUNT;i++)
             {
                 TriggerList[i] = new TriggerData();
-                TriggerList[i].CompareID = data[2 + i * 31];
-                TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[3 + i * 31], data[4 + i * 31], data[5 + i * 31], data[6 + i * 31]);
-                TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[7 + i * 31], data[8 + i * 31], data[9 + i * 31], data[10 + i * 31]);
-                TriggerList[i].ValidSeconds = ConvertTools.Bytes2ToInt(data[11 + i * 31], data[12 + i * 31]);
-                TriggerList[i].InvalidSeconds = ConvertTools.Bytes2ToInt(data[13 + i * 31], data[14 + i * 31]);
-                TriggerList[i].Retain = CommonTools.CopyBytes(data, 15 + i * 31, 16);
+                Int16 objKindInfo = ConvertTools.Bytes2ToInt(data[2], data[3]);
+
+                TriggerList[i].TriggerObjectID =(UInt16) (objKindInfo & 0x3FF);//----低12位为传感器类型-----
+                TriggerList[i].TriggerKindID =(UInt16) (objKindInfo & 0xFC00);//---前六位标识位---
+
+                TriggerList[i].CompareID = data[4 + i * 31];//---比较符-----
+                TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[5 + i * 31], data[6 + i * 31], data[7 + i * 31], data[8 + i * 31]);
+                TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[9 + i * 31], data[10 + i * 31], data[11 + i * 31], data[12 + i * 31]);
+                TriggerList[i].ValidSeconds = (UInt16)ConvertTools.Bytes2ToInt(data[13 + i * 31], data[14 + i * 31]);
+                TriggerList[i].InvalidSeconds = (UInt16)ConvertTools.Bytes2ToInt(data[15 + i * 31], data[16 + i * 31]);
+                TriggerList[i].Retain = CommonTools.CopyBytes(data, 17 + i * 31,16);
         }
         }
 
@@ -67,6 +73,7 @@ namespace ConfigDevice
         {
 
         }
+
  
     }
 

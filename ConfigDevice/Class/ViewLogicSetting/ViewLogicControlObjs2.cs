@@ -7,22 +7,22 @@ namespace ConfigDevice
     /// <summary>
     /// 可燃气体探头
     /// </summary>
-    public partial class ViewLogicFlamableGasProbe : ViewLogicControl
+    public partial class ViewLogicFlamableGasProbe : BaseViewLogicControl
     {
 
-        public override UdpData GetLogicData(int logicID)
-        {
-            
+        public override TriggerData GetLogicData()
+        {            
+
+
+
             return null;
         }
 
 
-        public override void SetLogicData(UdpData udp)
-        {
-            
+        public override void SetLogicData(TriggerData td)
+        {            
 
         }
-
 
     }
 
