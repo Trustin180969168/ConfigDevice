@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace ConfigDevice 
 {
@@ -20,7 +21,7 @@ namespace ConfigDevice
             TriggerData triggerData = new TriggerData();
             triggerData.TriggerObjectID = ViewConfig.TRIGGER_NAME_ID[dr[ViewConfig.DC_OBJECT].ToString()];//----触发对象---
             triggerData.TriggerKindID = ViewConfig.TRIGGER_KIND_NAME_ID[dr[ViewConfig.DC_KIND].ToString()];//---触发类型---
-            triggerData.CompareID = ViewConfig.MATH_NAME_ID[dr[ViewConfig.DC_OPERATION].ToString()];//---触发比较---
+            triggerData.CompareID = (byte)ViewConfig.MATH_NAME_ID[dr[ViewConfig.DC_OPERATION].ToString()];//---触发比较---
             //--------泄漏/正常--------------
             string size1Str = dr[dcStartValue.FieldName].ToString();
             if (size1Str == ViewLogicFlamableGasProbe.VALUE1)
@@ -33,7 +34,7 @@ namespace ConfigDevice
             DateTime dtInvalid = DateTime.Parse(dr[dcInvalid.FieldName].ToString());
             int validSeconds = dtValid.Hour * 60 * 60 + dtValid.Minute * 60 + dtValid.Second;//有效秒数
             int invalidSeconds = dtInvalid.Hour * 60 * 60 + dtInvalid.Minute * 60 + dtInvalid.Second;//无效秒数
-            triggerData.ValidSeconds =(UInt16)validSeconds;
+            triggerData.ValidSeconds = (UInt16)validSeconds;
             triggerData.InvalidSeconds = (UInt16)invalidSeconds;
 
             return triggerData;
@@ -50,9 +51,9 @@ namespace ConfigDevice
             dr[dcOperate.FieldName] = ViewConfig.MATH_ID_NAME[td.CompareID];
             if (td.Size1 == 0)
                 dr[dcStartValue.FieldName] = ViewLogicFlamableGasProbe.VALUE1;
-            else if (td.Size1 == 0)
+            else if (td.Size1 == 1)
                 dr[dcStartValue.FieldName] = ViewLogicFlamableGasProbe.VALUE2;
- 
+
             string nowDateStr = DateTime.Now.ToShortDateString();
             dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();//----有效持续---
             dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
@@ -60,9 +61,24 @@ namespace ConfigDevice
             dr.EndEdit();
             dr.AcceptChanges();
         }
-
     }
 
+    /// <summary>
+    /// 无效
+    /// </summary>
+    public partial class ViewLogicInvalid : BaseViewLogicControl
+    {
+        public override TriggerData GetLogicData()
+        {
+            TriggerData triggerData = new TriggerData();
+            return triggerData;
+        }
 
+        public override void SetLogicData(TriggerData td)
+        {
+
+        }
+
+    }
 
 }

@@ -14,7 +14,7 @@ namespace ConfigDevice
         public ToolStripComboBox CbxSelectDevice { get { return (cbxSelectDevice as ToolStripComboBox); } }
         public Dictionary<int, DataRow> SelectDeviceList = new Dictionary<int, DataRow>();//---列表---
         public bool loaded = false;//是否加载完毕
-
+        protected  static readonly object lockObject = new object();
         public FrmDevice(Device _device)
         {
             this.Device = _device;      

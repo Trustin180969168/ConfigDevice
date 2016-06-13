@@ -910,7 +910,7 @@ namespace ConfigDevice
     /// <summary>
     /// 无效
     /// </summary>
-    public class ViewLogicInvalid : BaseViewLogicControl
+    public partial class ViewLogicInvalid : BaseViewLogicControl
     {
         public ViewLogicInvalid(Device _device, GridView gv)
             : base(_device, gv)
@@ -918,18 +918,7 @@ namespace ConfigDevice
             foreach (GridColumn gc in gvLogic.Columns)
                 if (gc.VisibleIndex != 0) setGridColumnInvalid(gc);
 
-        }
-
-
-        public override TriggerData GetLogicData()
-        {
-            return null;
-        }
-
-        public override void SetLogicData(TriggerData td)
-        {
-
-        }
+        } 
 
 
         public override void InitViewSetting()
@@ -937,6 +926,7 @@ namespace ConfigDevice
    
 
         }
+ 
     }
 
 

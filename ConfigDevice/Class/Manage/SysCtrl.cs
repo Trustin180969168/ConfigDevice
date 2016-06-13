@@ -56,9 +56,6 @@ namespace ConfigDevice
         }
 
 
-
-
-
         /// <summary>
         /// 测试IP是否有效
         /// </summary>
@@ -140,10 +137,6 @@ namespace ConfigDevice
             return new IPAddress(ip).ToString();
         }
 
-  
-
-       
-
 
         /// <summary>
         /// 注册接收RJ45回调数据
@@ -190,6 +183,19 @@ namespace ConfigDevice
         /// 移除回调列表,所有指令类型的回调对象
         /// </summary>
         /// <param name="_key">指令头</param>
+        public static void RemoveRJ45CallBackList(byte[] _key,string id)
+        {
+            lock (SysConfig.RJ45CallBackList)
+            {  
+                if (SysConfig.RJ45CallBackList.ContainsKey(_key + "_" + id))
+                    SysConfig.RJ45CallBackList.Remove(_key + "_" + id);
+            }
+        }
+
+        /// <summary>
+        /// 移除回调列表,所有指令类型的回调对象
+        /// </summary>
+        /// <param name="_key">指令头</param>
         public static void RemoveRJ45CallBackList(byte[] _key)
         {
             lock (SysConfig.RJ45CallBackList)
@@ -213,13 +219,16 @@ namespace ConfigDevice
         /// <param name="callback">回调对象</param>
         public static void AddRJ45CallBackList(byte[] key, CallbackFromUDP callback)
         {
-            string keyStr = ConvertTools.ByteToHexStr(key);
-            if (!SysConfig.RJ45CallBackList.ContainsKey(keyStr))
-                SysConfig.RJ45CallBackList.Add(keyStr, callback);
-            else
+            lock (SysConfig.RJ45CallBackList)
             {
-                SysConfig.RJ45CallBackList[keyStr] = callback;  //----暂时只用于单个事件订阅,所以直接覆盖------
+                string keyStr = ConvertTools.ByteToHexStr(key);
+                if (!SysConfig.RJ45CallBackList.ContainsKey(keyStr))
+                    SysConfig.RJ45CallBackList.Add(keyStr, callback);
+                else
+                {
+                    SysConfig.RJ45CallBackList[keyStr] = callback;  //----暂时只用于单个事件订阅,所以直接覆盖------
 
+                }
             }
         }
     }

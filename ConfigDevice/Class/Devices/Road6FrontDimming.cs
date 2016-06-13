@@ -9,7 +9,6 @@ namespace ConfigDevice
     public class Road6FrontDimming : Device
     {
         private const int circuitCount = 6;//回路数
-        public event CallbackUIAction OnCallbackRoad_Action;   //----回调UI----
         public Circuit circuit
         {
             get { return ContrlObjs["回路"] as Circuit; }
@@ -44,8 +43,7 @@ namespace ConfigDevice
             ContrlObjs.Add("场景", new Scene(this));
             ContrlObjs.Add("时序", new Timing(this));
             ContrlObjs.Add("全部", new Swit(this));
-
-            circuit.OnCallbackUI_Action += this.OnCallbackRoad_Action;
+ 
         }
 
         /// <summary>

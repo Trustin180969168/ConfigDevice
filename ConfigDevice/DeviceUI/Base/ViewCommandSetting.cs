@@ -119,6 +119,44 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 获取指令
+        /// </summary>
+        public void ReadCommandData(int groupNum)
+        {
+            if (!NeedInit)
+            {
+                if (edtBeginNum.Value > edtEndNum.Value) return;
+                int count = (int)edtEndNum.Value;
+                while (count > commandCount)
+                    addViewCommandSetting();
+                while (count < commandCount)
+                    removeViewCommandSetting();
+                //------清空------
+                foreach (Control view in xscCommands.Controls)
+                {
+                    ViewCommandTools commandView = view as ViewCommandTools;
+                    if (commandView.Num > count)
+                        continue;
+                    else if (commandView.Num >= edtBeginNum.Value && commandView.Num <= count)
+                        commandView.CleanCommandSetting();
+                }
+                //------隐藏不符合查询的条目----
+                foreach (Control view in xscCommands.Controls)
+                {
+                    ViewCommandTools commandView = view as ViewCommandTools;
+                    if (commandView.Num < edtBeginNum.Value)
+                        commandView.Visible = false;
+                    else
+                        commandView.Visible = true;
+                }
+                //while (xscCommands.Controls.Count > 0)
+                //    removeViewCommandSetting();
+                AddDefaultNullCommand();//----默认添加一条空指令
+                CommandEdit.ReadCommandData(groupNum, (int)edtBeginNum.Value - 1, (int)edtEndNum.Value - 1);//序号从0开始
+            }
+        }
+
+        /// <summary>
         /// 添加默认空指令
         /// </summary>
         private void AddDefaultNullCommand()

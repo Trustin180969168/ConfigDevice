@@ -97,7 +97,7 @@ namespace ConfigDevice
             PacketProperty = new byte[1];
             SendPort = new byte[2];
             Protocol = new byte[4];
-            ProtocolData = new byte[99];//128 - 16 - 2 - 2 - 1 - 1 - 2 - 4 - 1,一次通信的最大为128个字节28
+            ProtocolData = new byte[3 + 3 + 2 + 1 + 128 + 4];//一次通信的最大为128个字节---设备ID + 网段ID + 类型号+ 源设备ID + 源网段ID + 类型+ 页 + 控制字（2字节） + 长度+ 数据 + 4byte CRC
             CheckCodeAdd = new byte[1];
             Buffer.BlockCopy(UdpDataConfig.PACKAGE_CHECK_CODE, 0, CheckCodeAdd, 0, 1);
            

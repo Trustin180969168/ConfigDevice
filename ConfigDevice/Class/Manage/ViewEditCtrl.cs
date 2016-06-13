@@ -44,32 +44,32 @@ namespace ConfigDevice
         /// <summary>
         /// 获取逻辑配置
         /// </summary>
-        /// <param name="kindId">触发对象名称</param>
+        /// <param name="kindId">触发对象ID</param>
         /// <returns></returns>
-        public static BaseViewLogicControl GetViewLogicControl(string TriggerName,Device device, GridView gv)
+        public static BaseViewLogicControl GetViewLogicControl(int TriggerID,Device device, GridView gv)
         {
 
-            if (TriggerName == ViewConfig.SENSOR_INVALID)
+            if (TriggerID == ViewConfig.LG_SENSOR_DEFAULT)
                 return new ViewLogicInvalid(device, gv);
-            else if (TriggerName == ViewConfig.SENSOR_FLAMMABLE_GAS_PROBE)
+            else if (TriggerID == ViewConfig.LG_SENSOR_LEL)
                 return new ViewLogicFlamableGasProbe(device, gv);
-            else if (TriggerName == ViewConfig.SENSOR_TEMPERATURE)
+            else if (TriggerID == ViewConfig.LG_SENSOR_TEMP)
                 return new ViewLogicTemperature(device, gv);
-            else if (TriggerName == ViewConfig.SENSOR_SYSTEM_INTERACTION)
+            else if (TriggerID == ViewConfig.LG_EXT_SENSOR_SYS_LKID)
                 return new ViewLogicSystemInteraction(device, gv);
-            else if (TriggerName == ViewConfig.SENSOR_HUMIDITY)
+            else if (TriggerID == ViewConfig.LG_SENSOR_HUMI)
                 return new ViewLogicHumidity(device, gv);
-            else if (TriggerName == ViewConfig.SENSOR_RADAR)
+            else if (TriggerID == ViewConfig.LG_SENSOR_RSP)
                 return new ViewLogicRadar(device, gv);
-            else if (TriggerName == ViewConfig.SENSOR_SWIT_TAMPER)
+            else if (TriggerID == ViewConfig.LG_SENSOR_TAMPER)
                 return new ViewLogicSwitTamper(device, gv);
-            else if (TriggerName == ViewConfig.SENSOR_TIME)
+            else if (TriggerID == ViewConfig.LG_EXT_SENSOR_TIME_SEG)
                 return new ViewLogicTime(device, gv);
-            else if (TriggerName == ViewConfig.SENSOR_DATE)
+            else if (TriggerID == ViewConfig.LG_EXT_SENSOR_DATE_SEG)
                 return new ViewLogicDateOfMonthDay(device, gv);
-            else if (TriggerName == ViewConfig.SENSOR_WEEK)
+            else if (TriggerID == ViewConfig.LG_EXT_SENSOR_WEEK_CYC)
                 return new ViewLogicWeek(device, gv);
-            else if (TriggerName == ViewConfig.SENSOR_WINDY)
+            else if (TriggerID == ViewConfig.LG_SENSOR_WIND)
                 return new ViewLogicWindy(device, gv);
             else
                 return new ViewLogicInvalid(device, gv); 

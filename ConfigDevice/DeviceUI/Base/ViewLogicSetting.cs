@@ -16,8 +16,8 @@ namespace ConfigDevice
         public LogicList logicList;//---逻辑配置----
         private Circuit circuit;//--回路----
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
-        public int LogicNum { get { return lookUpEdit.ItemIndex + 1; } }
-        public string LogicName { get { return edtTriggerActionName.Text; } }
+        public int LogicItemIndex { get { return lookUpEdit.ItemIndex + 1; } }
+        public string LogicName { get { return edtTriggerActionName.Text; } } 
         public Circuit Circuit
         {
             get { return circuit; }
@@ -40,7 +40,7 @@ namespace ConfigDevice
         {
             set
             { 
-                   gcCtrl.ShowCaption =value; 
+                gcCtrl.ShowCaption =value; 
             }
         }
 
@@ -124,6 +124,8 @@ namespace ConfigDevice
             viewLogicTools2.SetLogicData(logicData.TriggerList[1]);
             viewLogicTools3.SetLogicData(logicData.TriggerList[2]);
             viewLogicTools4.SetLogicData(logicData.TriggerList[3]);
+
+
         }
 
 
@@ -136,7 +138,7 @@ namespace ConfigDevice
         {
             lblNum.Text = lookUpEdit.EditValue.ToString() + "、";
             edtTriggerActionName.Text = lookUpEdit.Text;
-            ReadLogicList(LogicNum); 
+            ReadLogicList(LogicItemIndex); 
         }
 
  
@@ -148,15 +150,53 @@ namespace ConfigDevice
 
         private void btSaveTrigger_Click(object sender, EventArgs e)
         {
-            SaveLogicList();
+            SaveLogicName();
+            SaveLogicData();
         }
 
         /// <summary>
-        /// 保存逻辑列表
+        /// 保存逻辑列表名称
         /// </summary>
-        public void SaveLogicList()
+        public void SaveLogicName()
         {
-            Circuit.SaveRoadSetting( LogicNum - 1,edtTriggerActionName.Text);//----保存回路名称---
+            Circuit.SaveRoadSetting(lookUpEdit.ItemIndex,edtTriggerActionName.Text);//----保存回路名称---            
+        }
+
+        /// <summary>
+        /// 保存逻辑数据
+        /// </summary>
+        public void SaveLogicData()
+        {
+            byte[] logicValue = new byte[31 * 4];
+            
+            byte[] value1 = viewLogicTools1.GetLogicData().Value();
+            byte[] value2 = viewLogicTools2.GetLogicData().Value();
+            byte[] value3 = viewLogicTools3.GetLogicData().Value();
+            byte[] value4 = viewLogicTools4.GetLogicData().Value();
+
+            Buffer.BlockCopy(value1, 0, logicValue, 0, 31);
+            Buffer.BlockCopy(value2, 0, logicValue, 31, 31);
+            Buffer.BlockCopy(value3, 0, logicValue, 62, 31);
+            Buffer.BlockCopy(value4, 0, logicValue, 93, 31);
+
+            logicList.SaveLogicData(lookUpEdit.ItemIndex, imageComboBoxEdit.SelectedIndex, logicValue);
+
+        }
+        public void SaveLogicData(int groupNum)
+        {
+            byte[] logicValue = new byte[31 * 4];
+
+            byte[] value1 = viewLogicTools1.GetLogicData().Value();
+            byte[] value2 = viewLogicTools2.GetLogicData().Value();
+            byte[] value3 = viewLogicTools3.GetLogicData().Value();
+            byte[] value4 = viewLogicTools4.GetLogicData().Value();
+
+            Buffer.BlockCopy(value1, 0, logicValue, 0, 31);
+            Buffer.BlockCopy(value2, 0, logicValue, 31, 31);
+            Buffer.BlockCopy(value3, 0, logicValue, 62, 31);
+            Buffer.BlockCopy(value4, 0, logicValue, 93, 31);
+
+            logicList.SaveLogicData(groupNum, imageComboBoxEdit.SelectedIndex, logicValue);
         }
 
         /// <summary>
@@ -164,11 +204,11 @@ namespace ConfigDevice
         /// </summary>
         public void ReadLogicList(int num)
         { 
-            logicList.ReadLogicData(num - 1); 
+            logicList.ReadLogicData(num); 
         }
         public void ReadLogicList()
         {
-            logicList.ReadLogicData(lookUpEdit.ItemIndex + 1);
+            logicList.ReadLogicData((int)lookUpEdit.ItemIndex + 1);
         }
 
         /// <summary>

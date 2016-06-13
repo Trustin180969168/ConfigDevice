@@ -73,7 +73,7 @@ namespace ConfigDevice
             //gvLogic.SetRowCellValue(0,dcObject,cbxLogicObj.Items[cbxLogicObj.Items.Count-1].ToString());
 
             gvLogic.SetRowCellValue(0,dcObject,ViewConfig.SENSOR_INVALID);//---默认选择无效---
-            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(ViewConfig.SENSOR_INVALID, DeviceEdit, gvLogic);
+            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(ViewConfig.LG_SENSOR_DEFAULT, DeviceEdit, gvLogic);
             DataRow dr = gvLogic.GetDataRow(0);
             dr[ViewConfig.DC_OBJECT] = ViewConfig.SENSOR_INVALID;
             dr.EndEdit();
@@ -85,7 +85,7 @@ namespace ConfigDevice
         private void cbxLogicObj_SelectedIndexChanged(object sender, EventArgs e)
         {
             string name = (string)cbxLogicObj.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(name, DeviceEdit, gvLogic);
+            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(ViewConfig.TRIGGER_NAME_ID[name], DeviceEdit, gvLogic);
             DataRow dr = gvLogic.GetDataRow(0);
             dr[ViewConfig.DC_OBJECT] = name;
             dr.EndEdit();
@@ -103,14 +103,8 @@ namespace ConfigDevice
         {          
             DataRow dr = this.gvLogic.GetDataRow(0);
             dr[ViewConfig.DC_OBJECT] = ViewConfig.TRIGGER_ID_NAME[td.TriggerObjectID];
-            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(dr[ViewConfig.DC_OBJECT].ToString(), DeviceEdit, gvLogic);
-            ViewLogicObj.InitViewSetting(); 
-            dr[ViewConfig.DC_KIND] = ViewConfig.TRIGGER_ID_NAME[td.TriggerKindID];
-            dr[ViewConfig.DC_OPERATION] = ViewConfig.MATH_ID_NAME[td.CompareID];
-            dr[ViewConfig.DC_START_VALUE] = td.Size1;
-            dr[ViewConfig.DC_END_VALUE] = td.Size2;
-            dr[ViewConfig.DC_VALID_TIME] = td.ValidSeconds;
-            dr[ViewConfig.DC_INVALID_TIME] = td.InvalidSeconds;
+            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(td.TriggerObjectID, DeviceEdit, gvLogic);
+            ViewLogicObj.InitViewSetting();  
             ViewLogicObj.SetLogicData(td);
             
             dr.EndEdit();          

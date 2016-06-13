@@ -650,6 +650,7 @@
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmFlammableGasProbe";
             this.Load += new System.EventHandler(this.FrmFlammableGasProbe_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmFlammableGasProbe_FormClosing);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);

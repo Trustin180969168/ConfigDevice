@@ -8,19 +8,15 @@ namespace ConfigDevice
  
     public class FlammableGasProbe:Device
     {
-
-
+        public const string CLASS_NAME = "FlammableGasProbe";
         public string ValveState = "";//---阀门状态---
         public short ElectricCurrent = 0;//---电流---
         public string ProbeState = "";//---探头状态---
         public short Templatetrue = 0;//---温度----
         public Motor Valve;//电机对象,用于阀门控制
         public Circuit ProbeCircuit;//回路对象
-        private CallbackFromUDP getStateInfo;//----获取设置信息----
-        private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
-        public bool OpenValve = false;//是否开阀门
-        public bool ClearLight = false;//是否关闭指示灯
-        public bool ClearBuzzer = false;//是否关闭蜂鸣器
+        private CallbackFromUDP getStateInfo;//----获取设置信息---- 
+
 
         public FlammableGasProbe(UserUdpData userUdpData)
             : base(userUdpData)
@@ -52,7 +48,6 @@ namespace ConfigDevice
             ProbeCircuit =new Circuit(this,8);
             ContrlObjs.Add("阀门", Valve);
             ContrlObjs.Add("回路", ProbeCircuit);
-            ProbeCircuit.OnCallbackUI_Action += this.CallbackUI;
         }
 
         /// <summary>
@@ -60,8 +55,8 @@ namespace ConfigDevice
         /// </summary>
         private void initCallback()
         {
-            getStateInfo = new CallbackFromUDP(this.getStateInfoData);
-            getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
+            RemoveRJ45Callback();
+            getStateInfo = new CallbackFromUDP(this.getStateInfoData);  
         }
 
         /// <summary>
@@ -69,8 +64,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadState()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE, getStateInfo);
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END,getWriteEnd);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE, this.DeviceID, getStateInfo);
             UdpData udpSend = createReadStateUdp();
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadState), null);
         }
@@ -110,9 +104,6 @@ namespace ConfigDevice
             return udp;
         }
 
-
-
-
         /// <summary>
         /// 获取数据
         /// </summary>
@@ -123,7 +114,10 @@ namespace ConfigDevice
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
             //------获取状态-----
-            int temp = (int)userData.Data[0];
+            this.Templatetrue = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[10], userData.Data[11] });//----消防温控---
+
+            this.ElectricCurrent = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[15], userData.Data[16] });//----阀门电流---
+            int temp = (int)userData.Data[14];
             switch (temp)
             {
                 case 0: this.ValveState = Motor.STATE_VALVE_STOP; break;
@@ -132,28 +126,30 @@ namespace ConfigDevice
                 case 3: this.ValveState = Motor.STATE_VALVE_TOTAL; break;
                 default: this.ValveState = ""; break;
             }
-            this.ElectricCurrent = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[1], userData.Data[2] });
-            if ((int)userData.Data[3] == 0)
+            if ((int)userData.Data[8] == 0)
                 this.ProbeState = "正常";
             else
-                this.ProbeState = "触发";
-            this.Templatetrue = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[4],userData.Data[5]});
+                this.ProbeState = "泄漏";
+       
 
-            CallbackUI(new CallbackParameter( this.GetType().ToString()));//----回调界面----
+            CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//----读完状态信息,回调界面----
         }
 
-
-                /// <summary>
-        /// 获取数据
+ 
+        /// <summary>
+        /// 取消对应指令所有回调订阅
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="values"></param>
-        private void getWriteEndData(UdpData data, object[] values)
+        public void RemoveRJ45Callback()
         {
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
-            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE); 
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE);
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END);
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG);
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME);
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER);
+ 
         }
+   
+
     }
 
 }

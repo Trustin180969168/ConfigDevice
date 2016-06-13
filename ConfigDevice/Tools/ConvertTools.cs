@@ -131,7 +131,6 @@ namespace ConfigDevice
         /// <returns></returns>
         public static short Bytes2ToInt(params byte[] b)
         {
-            Array.Resize(ref b, 4);
             return System.BitConverter.ToInt16(b, 0);
         }
 

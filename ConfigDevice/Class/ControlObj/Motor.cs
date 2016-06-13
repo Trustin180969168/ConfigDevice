@@ -7,7 +7,7 @@ namespace ConfigDevice
 
     public class Motor : ControlObj
     {
-        public const string CLASS_NAME = "MOTOR";
+        public const string CLASS_NAME = "Motor";
 
         //-----阀门定义-----
         public const string STATE_VALVE_STOP = "停止";
@@ -16,6 +16,9 @@ namespace ConfigDevice
         public const string STATE_VALVE_TOTAL = "总数";
         public Int16 MaxStopCE = 0;//卡停电流
         public Int16 MaxRunTime = 0;//最大运行秒数
+        public bool OpenValve = false;//是否开阀门
+        public bool ClearLight = false;//是否关闭指示灯
+        public bool ClearBuzzer = false;//是否关闭蜂鸣器 
 
         //--------电机及公共部分-------
         public const string NAME_CMD_SWIT_LOOP = "开关电机";
@@ -44,7 +47,7 @@ namespace ConfigDevice
 
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         private CallbackFromUDP getParameter;//-------每参数名称----
-
+        private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
         public Motor(Device _deviceCtrl)
         {
             Name = "电机";
@@ -58,7 +61,10 @@ namespace ConfigDevice
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_OPEN_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION);
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_CLOSE_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION);
             }
-            getParameter = new CallbackFromUDP(getParameterData);
+            getParameter = new CallbackFromUDP(getParameterData);          
+            
+            getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
+            getWriteEnd.Values = new object[] { CLASS_NAME,this.UUID };
         } 
 
         /// <summary>
@@ -160,11 +166,8 @@ namespace ConfigDevice
         /// <returns>CommandData</returns>
         public CommandData GetCommandData(byte[] command, int percent, int actionIndex, int usRunTime, int usOpenDly, int usCloseDly)
         {
-
             return ControlAction(command, percent, actionIndex, usRunTime, usOpenDly, usCloseDly);
-
         }
-
 
 
         /// <summary>
@@ -186,10 +189,9 @@ namespace ConfigDevice
                 MaxStopCE = (Int16)values[1];
                 UInt32 flag = (UInt32)values[2];
 
-                (this.deviceControled as FlammableGasProbe).OpenValve = (int)(flag & 1) == 1 ? true : false;//---是否开阀门
-                (this.deviceControled as FlammableGasProbe).ClearLight = (int)(flag & 2) == 2 ? true : false;//---是否关闭指示灯
-                (this.deviceControled as FlammableGasProbe).ClearBuzzer = (int)(flag & 4) == 4 ? true : false;//---是否关闭蜂鸣器
-
+                OpenValve = (int)(flag & 1) == 1 ? true : false;//---是否开阀门
+                ClearLight = (int)(flag & 2) == 2 ? true : false;//---是否关闭指示灯
+                ClearBuzzer = (int)(flag & 4) == 4 ? true : false;//---是否关闭蜂鸣器
             }
         }
         private UdpData createWriteParameterUdp(Int16 second, Int16 ec, UInt32 flag)
@@ -238,7 +240,8 @@ namespace ConfigDevice
         /// </summary>
         public void ReadParameter()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, deviceControled.DeviceID, getParameter);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, this.UUID, getParameter);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, getWriteEnd,1); 
             UdpData udpSend = createReadParameterUdp();
             MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadParameterUdp), null);
@@ -290,21 +293,35 @@ namespace ConfigDevice
         private void getParameterData(UdpData data, object[] values)
         {
             UserUdpData userData = new UserUdpData(data);
-            if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
+            if (userData.SourceID != deviceControled.DeviceID && (string)values[0] != this.GetType().Name) return;//不是本设备ID不接收.
 
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             //----翻译数据------------
             this.MaxRunTime = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[1], userData.Data[2] });//---最大运行时间---
             this.MaxStopCE = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[3], userData.Data[4] });//----最大停止电流---
 
-            (this.deviceControled as FlammableGasProbe).OpenValve = (int)(userData.Data[5] & 1) == 1 ? true : false;//---是否开阀门
-            (this.deviceControled as FlammableGasProbe).ClearLight = (int)(userData.Data[5] & 2) == 2 ? true : false;//---是否关闭指示灯
-            (this.deviceControled as FlammableGasProbe).ClearBuzzer = (int)(userData.Data[5] & 4) == 4 ? true : false;//---是否关闭蜂鸣器
+             OpenValve = (int)(userData.Data[5] & 1) == 1 ? true : false;//---是否开阀门
+             ClearLight = (int)(userData.Data[5] & 2) == 2 ? true : false;//---是否关闭指示灯
+             ClearBuzzer = (int)(userData.Data[5] & 4) == 4 ? true : false;//---是否关闭蜂鸣器     
 
-            this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME));//---回调UI---
-            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG);//取消订阅
+             this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME));//---回调UI---
         }
 
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="values"></param>
+        private void getWriteEndData(UdpData data, object[] values)
+        {
+            UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID == deviceControled.DeviceID && (string)values[0] == Motor.CLASS_NAME
+                && (string)values[1] == this.UUID)
+            {
+                UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+
+            }
+        }
 
         /// <summary>
         /// 操作电机
