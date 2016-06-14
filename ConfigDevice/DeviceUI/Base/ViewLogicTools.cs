@@ -69,13 +69,13 @@ namespace ConfigDevice
         {
             foreach (string trigger in Triggers)//-----初始化触发列表---
                 cbxLogicObj.Items.Add(trigger);
-            cbxLogicObj.Items.Add(ViewConfig.SENSOR_INVALID);//添加无效选择 
+            cbxLogicObj.Items.Add(SensorConfig.SENSOR_INVALID);//添加无效选择 
             //gvLogic.SetRowCellValue(0,dcObject,cbxLogicObj.Items[cbxLogicObj.Items.Count-1].ToString());
 
-            gvLogic.SetRowCellValue(0,dcObject,ViewConfig.SENSOR_INVALID);//---默认选择无效---
-            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(ViewConfig.LG_SENSOR_DEFAULT, DeviceEdit, gvLogic);
+            gvLogic.SetRowCellValue(0,dcObject,SensorConfig.SENSOR_INVALID);//---默认选择无效---
+            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(SensorConfig.LG_SENSOR_DEFAULT, DeviceEdit, gvLogic);
             DataRow dr = gvLogic.GetDataRow(0);
-            dr[ViewConfig.DC_OBJECT] = ViewConfig.SENSOR_INVALID;
+            dr[ViewConfig.DC_OBJECT] = SensorConfig.SENSOR_INVALID;
             dr.EndEdit();
         }
 

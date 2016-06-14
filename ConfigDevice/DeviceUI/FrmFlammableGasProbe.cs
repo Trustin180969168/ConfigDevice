@@ -22,17 +22,17 @@ namespace ConfigDevice
             InitializeComponent();
             flammableGasProbe = this.Device as FlammableGasProbe;
             //-----------初始化编辑控件-------
-            edtT.Properties.DisplayFormat.FormatString = "#0.0 ℃";
-            edtT.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            edtT.Properties.Mask.EditMask = "#0.0 ℃";
-            edtT.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            edtT.Properties.Mask.UseMaskAsDisplayFormat = true;
+            edtFireCtrlTemperatue.Properties.DisplayFormat.FormatString = "#0.0 ℃";
+            edtFireCtrlTemperatue.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            edtFireCtrlTemperatue.Properties.Mask.EditMask = "#0.0 ℃";
+            edtFireCtrlTemperatue.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            edtFireCtrlTemperatue.Properties.Mask.UseMaskAsDisplayFormat = true;
 
-            edtEC.Properties.DisplayFormat.FormatString = "#0 mA";
-            edtEC.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            edtEC.Properties.Mask.EditMask = "#0 mA";
-            edtEC.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            edtEC.Properties.Mask.UseMaskAsDisplayFormat = true;
+            edtVavleEC.Properties.DisplayFormat.FormatString = "#0 mA";
+            edtVavleEC.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            edtVavleEC.Properties.Mask.EditMask = "#0 mA";
+            edtVavleEC.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            edtVavleEC.Properties.Mask.UseMaskAsDisplayFormat = true;
             speProbeEC.Enter += SysConfig.Edit_Enter;
             speProbeEC.Leave += SysConfig.Edit_Leave;
             spePreTime.Enter += SysConfig.Edit_Enter;
@@ -104,20 +104,22 @@ namespace ConfigDevice
                     }
                     lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
                     viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+ 
 
-                    if (viewCommandEdit.NeedInit)
-                        viewCommandEdit.InitViewCommand(flammableGasProbe);//初始化命令项 
                 }
                 //-----读取完探头参数----- 
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == FlammableGasProbe.CLASS_NAME)
                 {
-
-
                     //-----刷新探头内容-------
-                    edtValveState.Text = flammableGasProbe.ValveState;
-                    edtEC.Text = flammableGasProbe.ElectricCurrent.ToString();
-                    edtGasProbe.Text = flammableGasProbe.ProbeState;
-                    edtT.Text = flammableGasProbe.Templatetrue.ToString();
+                    //edtValveState.Text = flammableGasProbe.ValveState;
+                    //edtEC.Text = flammableGasProbe.ElectricCurrent.ToString();
+                    //edtGasProbe.Text = flammableGasProbe.ProbeState;
+                    //edtT.Text = flammableGasProbe.TemplatetrueValue.ToString();
+
+                    edtValveState.Text = flammableGasProbe.Valve.ValveState;
+                    edtVavleEC.Text = flammableGasProbe.Valve.ValveElectricCurrent.ToString();
+                    edtGasProbeLevel.Text = flammableGasProbe.Probe.LevelValue;
+                    edtFireCtrlTemperatue.Text = flammableGasProbe.Temperature.Value.ToString();
                 }
                 //-----读取完阀门参数----------
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Motor.CLASS_NAME)
@@ -197,11 +199,11 @@ namespace ConfigDevice
             {
                 if (viewLogicSetting.NeedInit)
                 {                    
-                    viewLogicSetting.InitLogicList(flammableGasProbe, ViewConfig.SENSOR_FLAMMABLE_GAS_PROBE, ViewConfig.SENSOR_TEMPERATURE,
-                          ViewConfig.SENSOR_SYSTEM_INTERACTION
+                    viewLogicSetting.InitLogicList(flammableGasProbe, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE, SensorConfig.SENSOR_TEMPERATURE,
+                          SensorConfig.SENSOR_SYSTEM_INTERACTION
                         //------以下是界面测试,非本设备的触发对象选择-----
-                        //,ViewConfig.SENSOR_HUMIDITY,ViewConfig.SENSOR_RADAR,ViewConfig.SENSOR_SWIT_TAMPER,
-                        //ViewConfig.SENSOR_TIME,ViewConfig.SENSOR_DATE,ViewConfig.SENSOR_WEEK,ViewConfig.SENSOR_WINDY
+                        //,SensorConfig.SENSOR_HUMIDITY,SensorConfig.SENSOR_RADAR,SensorConfig.SENSOR_SWIT_TAMPER,
+                        //SensorConfig.SENSOR_TIME,SensorConfig.SENSOR_DATE,SensorConfig.SENSOR_WEEK,SensorConfig.SENSOR_WINDY
                           );
                     lookUpEdit.ItemIndex = 0;
                 }

@@ -10,11 +10,13 @@ namespace ConfigDevice
         public Device device;//-----设备---
         public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
         public CallbackFromUDP callbackGetCommandData;//---回调获取指令----
+        private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
+        private string ObjUuid = Guid.NewGuid().ToString();//唯一标识对象uuid
         public CommandList(Device value)
         {
             this.device = value;
-            callbackGetCommandData = new CallbackFromUDP(getCommandData);
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_COMMAND, callbackGetCommandData);//---注册回调----
+            callbackGetCommandData = new CallbackFromUDP(getCommandData);        
+            getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
         }
 
         /// <summary>
@@ -33,6 +35,8 @@ namespace ConfigDevice
         public void ReadCommandData(int groupNum, int startNum, int endNum)
         {
             UdpData udpSend = createReadCommandsUdp(groupNum, startNum, endNum);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_COMMAND, callbackGetCommandData);//---注册回调----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, ObjUuid, getWriteEnd);//---注册结束回调---
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadCommands), null);
         }
         private void callbackReadCommands(UdpData udpReply, object[] values)
@@ -92,6 +96,20 @@ namespace ConfigDevice
             CallbackUI(new CallbackParameter( new object[] { userData }));//----界面回调------
         }
 
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="values"></param>
+        private void getWriteEndData(UdpData data, object[] values)
+        {  
+            UserUdpData userData = new UserUdpData(data);
+            byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
+            if (userData.SourceID == device.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_COMMAND))
+            {
+                UdpTools.ReplyDeviceDataUdp(data);//----回复确认----- 
+            }
+        }
 
         /// <summary>
         /// 保存指令

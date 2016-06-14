@@ -9,13 +9,14 @@ namespace ConfigDevice
     public class FlammableGasProbe:Device
     {
         public const string CLASS_NAME = "FlammableGasProbe";
-        public string ValveState = "";//---阀门状态---
-        public short ElectricCurrent = 0;//---电流---
-        public string ProbeState = "";//---探头状态---
-        public short Templatetrue = 0;//---温度----
+
+
+ 
         public Motor Valve;//电机对象,用于阀门控制
         public Circuit ProbeCircuit;//回路对象
         private CallbackFromUDP getStateInfo;//----获取设置信息---- 
+        public FlamableGasProbeSensor Probe;//--探头----
+        public FireControlTemperatureSensor Temperature;//--消防温控----
 
 
         public FlammableGasProbe(UserUdpData userUdpData)
@@ -114,23 +115,41 @@ namespace ConfigDevice
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
             //------获取状态-----
-            this.Templatetrue = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[10], userData.Data[11] });//----消防温控---
-
-            this.ElectricCurrent = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[15], userData.Data[16] });//----阀门电流---
-            int temp = (int)userData.Data[14];
+            //this.Templatetrue = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[10], userData.Data[11] });//----消防温控---
+            //this.ElectricCurrent = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[15], userData.Data[16] });//----阀门电流---
+            //int temp = (int)userData.Data[14];
+            //switch (temp)
+            //{
+            //    case 0: this.ValveState = Motor.STATE_VALVE_STOP; break;
+            //    case 1: this.ValveState = Motor.STATE_VALVE_CLOSE; break;
+            //    case 2: this.ValveState = Motor.STATE_VALVE_OPEN; break;
+            //    case 3: this.ValveState = Motor.STATE_VALVE_TOTAL; break;
+            //    default: this.ValveState = ""; break;
+            //}
+            //if ((int)userData.Data[8] == 0)
+            //    this.ProbeState = "正常";
+            //else
+            //    this.ProbeState = "泄漏";
+       
+            //------找出数据段------
+            string dataStr = ConvertTools.ByteToHexStr(userData.Data);
+            string dataStr1 = dataStr.Split(new string[] { "FF FF" }, StringSplitOptions.RemoveEmptyEntries)[0];
+            string dataStr2 = dataStr.Split(new string[] { "FF FF" }, StringSplitOptions.RemoveEmptyEntries)[1];
+            byte[] dataByte1 = ConvertTools.StrToToHexByte(dataStr1);
+            byte[] dataByte2 = ConvertTools.StrToToHexByte(dataStr2);
+            this.Probe = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_LEL, dataByte1) as FlamableGasProbeSensor;//获取探头
+            this.Temperature = SensorCtrl.GetSensorFromByte(SensorConfig.LG_DEV_SENSOR_TEMP, dataByte1) as FireControlTemperatureSensor;//获取消防温控
+            //-------阀门-----
+            int temp = (int)dataByte2[0];
             switch (temp)
             {
-                case 0: this.ValveState = Motor.STATE_VALVE_STOP; break;
-                case 1: this.ValveState = Motor.STATE_VALVE_CLOSE; break;
-                case 2: this.ValveState = Motor.STATE_VALVE_OPEN; break;
-                case 3: this.ValveState = Motor.STATE_VALVE_TOTAL; break;
-                default: this.ValveState = ""; break;
+                case 0: this.Valve.ValveState = Motor.STATE_VALVE_STOP; break;
+                case 1: this.Valve.ValveState = Motor.STATE_VALVE_CLOSE; break;
+                case 2: this.Valve.ValveState = Motor.STATE_VALVE_OPEN; break;
+                case 3: this.Valve.ValveState = Motor.STATE_VALVE_TOTAL; break;
+                default: this.Valve.ValveState = ""; break;
             }
-            if ((int)userData.Data[8] == 0)
-                this.ProbeState = "正常";
-            else
-                this.ProbeState = "泄漏";
-       
+            this.Valve.ValveElectricCurrent = ConvertTools.Bytes2ToInt16(new byte[] { dataByte2[1], dataByte2[2] });//----阀门电流---         
 
             CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//----读完状态信息,回调界面----
         }

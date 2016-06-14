@@ -64,7 +64,7 @@ namespace ConfigDevice
             for (int i = 0; i < TRIGGER_COUNT; i++)
             {
                 TriggerList[i] = new TriggerData();
-                Int16 objKindInfo = ConvertTools.Bytes2ToInt(data[i * 31 + 2], data[i * 31 + 3]);
+                Int16 objKindInfo = ConvertTools.Bytes2ToInt16(data[i * 31 + 2], data[i * 31 + 3]);
 
                 TriggerList[i].TriggerObjectID = (UInt16)(objKindInfo & 0x3FF);//----低12位为传感器类型-----
                 TriggerList[i].TriggerKindID = (UInt16)(objKindInfo & 0xFC00);//---前六位标识位---
@@ -72,8 +72,8 @@ namespace ConfigDevice
                 TriggerList[i].CompareID = data[4 + i * 31];//---比较符-----
                 TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[5 + i * 31], data[6 + i * 31], data[7 + i * 31], data[8 + i * 31]);
                 TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[9 + i * 31], data[10 + i * 31], data[11 + i * 31], data[12 + i * 31]);
-                TriggerList[i].ValidSeconds = (UInt16)ConvertTools.Bytes2ToInt(data[13 + i * 31], data[14 + i * 31]);
-                TriggerList[i].InvalidSeconds = (UInt16)ConvertTools.Bytes2ToInt(data[15 + i * 31], data[16 + i * 31]);
+                TriggerList[i].ValidSeconds = (UInt16)ConvertTools.Bytes2ToInt16(data[13 + i * 31], data[14 + i * 31]);
+                TriggerList[i].InvalidSeconds = (UInt16)ConvertTools.Bytes2ToInt16(data[15 + i * 31], data[16 + i * 31]);
                 TriggerList[i].Retain = CommonTools.CopyBytes(data, 17 + i * 31, 16);
             }
         }

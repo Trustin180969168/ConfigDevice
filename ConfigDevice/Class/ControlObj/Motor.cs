@@ -19,7 +19,8 @@ namespace ConfigDevice
         public bool OpenValve = false;//是否开阀门
         public bool ClearLight = false;//是否关闭指示灯
         public bool ClearBuzzer = false;//是否关闭蜂鸣器 
-
+        public string ValveState = "";//---阀门状态---
+        public short ValveElectricCurrent = 0;//---电流---
         //--------电机及公共部分-------
         public const string NAME_CMD_SWIT_LOOP = "开关电机";
         public const string NAME_CMD_SWIT_LOOP_OPEN = "开电机";
@@ -234,14 +235,15 @@ namespace ConfigDevice
 
 
 
-
+        private bool finishReadParameter = false;//---判断是否读取完参数----
         /// <summary>
         /// 读参数
         /// </summary>
         public void ReadParameter()
         {
+            finishReadParameter = false;
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, this.UUID, getParameter);//----注册回调---
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, getWriteEnd,1); 
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, getWriteEnd); 
             UdpData udpSend = createReadParameterUdp();
             MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadParameterUdp), null);
@@ -297,14 +299,13 @@ namespace ConfigDevice
 
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             //----翻译数据------------
-            this.MaxRunTime = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[1], userData.Data[2] });//---最大运行时间---
-            this.MaxStopCE = ConvertTools.Bytes2ToInt(new byte[] { userData.Data[3], userData.Data[4] });//----最大停止电流---
+            this.MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[1], userData.Data[2] });//---最大运行时间---
+            this.MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[3], userData.Data[4] });//----最大停止电流---
 
-             OpenValve = (int)(userData.Data[5] & 1) == 1 ? true : false;//---是否开阀门
-             ClearLight = (int)(userData.Data[5] & 2) == 2 ? true : false;//---是否关闭指示灯
-             ClearBuzzer = (int)(userData.Data[5] & 4) == 4 ? true : false;//---是否关闭蜂鸣器     
-
-             this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME));//---回调UI---
+            OpenValve = (int)(userData.Data[5] & 1) == 1 ? true : false;//---是否开阀门
+            ClearLight = (int)(userData.Data[5] & 2) == 2 ? true : false;//---是否关闭指示灯
+            ClearBuzzer = (int)(userData.Data[5] & 4) == 4 ? true : false;//---是否关闭蜂鸣器     
+            finishReadParameter = true;
         }
 
         /// <summary>
@@ -314,12 +315,13 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getWriteEndData(UdpData data, object[] values)
         {
+            if (!finishReadParameter) return;//---未执行完读取阀门参数,不执行.
             UserUdpData userData = new UserUdpData(data);
-            if (userData.SourceID == deviceControled.DeviceID && (string)values[0] == Motor.CLASS_NAME
-                && (string)values[1] == this.UUID)
+            byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
+            if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_CONFIG)) 
             {
                 UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
-
+                this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME));//---回调UI---
             }
         }
 

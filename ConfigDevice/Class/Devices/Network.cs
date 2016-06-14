@@ -8,6 +8,7 @@ using System.Threading;
 namespace ConfigDevice
 {
     /*
+     * 
      * 用户数据: 
         目标: FF FF FE	
         源头: FC 38 F0		-FC:设备ID(公共地址) 38:网段ID(公共网段) F0:PC类型
@@ -21,8 +22,8 @@ namespace ConfigDevice
               00 00 00 00 00 00 00 00 00 00
               00 00 00 00 00 00 00 00 00 00  -30个字节为设备名称
               7E F3 A0 A8 -CRC校验  
-     * 
-     */
+    * 
+    */
     public class Position : IComparable<Position>
     {
         public const string DC_NUM = "Num";
@@ -69,12 +70,9 @@ namespace ConfigDevice
         private byte[] userPassword;//用户密码
 
         public byte ByteNetworkID { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } }
-  
-
         public DateTime RefreshTime;
-        private CallbackFromUDP callbackGetPosition;
-       // private CallbackFromUDP callbackGetVer; 
-
+        private CallbackFromUDP callbackGetPosition; 
+        private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
         /// <summary>
         /// 获取终端点
         /// </summary>
@@ -85,8 +83,6 @@ namespace ConfigDevice
             EndPoint remotePoint = (EndPoint)(ipep);
             return remotePoint;
         }
-
-  
 
         /// <summary>
         /// 构造函数
@@ -107,6 +103,8 @@ namespace ConfigDevice
             Buffer.BlockCopy(userUdpData.Data, 20, byteName, 0, 30);
             DeviceName = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Replace(" ","").Replace("","");
             ListPosition = new List<Position>();
+
+            getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
 
             regeditRJ45Callback();
         }
@@ -138,9 +136,7 @@ namespace ConfigDevice
         private void regeditRJ45Callback()
         {
             callbackGetPosition = new CallbackFromUDP(callbackGetPositions);
-           // callbackGetVer = new CallbackFromUDP(getVer);
-
-        
+ 
           
         }
 
@@ -150,7 +146,8 @@ namespace ConfigDevice
         /// </summary>
         public void GetPositionList()
         {
-            SysCtrl.AddRJ45CallBackList(NetworkConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, NetworkID, getWriteEnd);//---注册结束回调---
             ListPosition.Clear();
             UdpData udpSend = createGetPositionListUdp();
             callbackGetPosition.Udp = udpSend;         
@@ -177,7 +174,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = NetworkConfig.CMD_PC_READ_LOCALL_NAME;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_PC_READ_LOCALL_NAME;//----用户命令-----
             byte len = 0x6;//---数据长度---
             byte startNum = 0;
             byte endNum = 0x1F;
@@ -229,8 +226,21 @@ namespace ConfigDevice
                 ListPosition[pos.Num].Name = pos.Name;
                 ListPosition[pos.Num].HasPassword = pos.HasPassword;
             }
+        }
 
-
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="values"></param>
+        private void getWriteEndData(UdpData data, object[] values)
+        {
+            UserUdpData userData = new UserUdpData(data);
+            byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
+            if (userData.SourceID == this.NetworkID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PC_WRITE_LOCALL_NAME))
+            {
+                UdpTools.ReplyDeviceDataUdp(data);//----回复确认----- 
+            }
         }
 
         /// <summary>
@@ -270,7 +280,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//-----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = NetworkConfig.CMD_PC_WRITE_LOCALL_NAME;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_PC_WRITE_LOCALL_NAME;//----用户命令-----
             //---位置------
             byte num = (byte)(pos.Num - 1);
             if(pos.HasPassword)//--是否有密码----
@@ -354,7 +364,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, ByteKindID };//----目标信息--
             byte[] source = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = NetworkConfig.CMD_PC_CHANGENAME;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_PC_CHANGENAME;//----用户命令-----
             byte[] position = new byte[] { 0, 0 };//设备位置
             //---------新名称-------------           
             byte[] value = Encoding.GetEncoding("GB2312").GetBytes(newName);
@@ -418,7 +428,7 @@ namespace ConfigDevice
             {
                 //string temp = ConvertTools.ByteToHexStr(udpReceive.GetUdpData());
                 UserUdpData userData = new UserUdpData(udpReceive);
-                if (CommonTools.BytesEuqals(userData.Command, NetworkConfig.CMD_PC_CONNECT_ACK))//---为连接成功-----
+                if (CommonTools.BytesEuqals(userData.Command, DeviceConfig.CMD_PC_CONNECT_ACK))//---为连接成功-----
                 {
                     byte result = userData.Data[0];
                     if (result == CONNECT_RESULT.NOT_ALLOW_CONNECT)
@@ -458,7 +468,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { 0xFF, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = NetworkConfig.CMD_PC_CONNECT;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_PC_CONNECT;//----用户命令-----
             byte len = 0x1A;//---数据长度---
             //---管理员密码---密码:1234 => 0x21,0x43,0xFF,0xFF
             string str1 = pw.Substring(0, 1); string str2 = pw.Substring(1, 1);
@@ -517,7 +527,7 @@ namespace ConfigDevice
             lock (SysConfig.ListNetworks)
             {
                 UserUdpData userData = new UserUdpData(udpReceive);
-                if (CommonTools.BytesEuqals(userData.Command, NetworkConfig.CMD_PC_DISCONNECT))//---成功回复断开连接-----
+                if (CommonTools.BytesEuqals(userData.Command, DeviceConfig.CMD_PC_DISCONNECT))//---成功回复断开连接-----
                 {
                     PCAddress = "";
                     State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
@@ -548,7 +558,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = NetworkConfig.CMD_PC_DISCONNECT;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_PC_DISCONNECT;//----用户命令-----
             byte len = 0x04;//---数据长度---
 
             //--------添加到用户数据--------
@@ -605,7 +615,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, ByteKindID };//----目标信息--
             byte[] source = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = NetworkConfig.CMD_PC_CHANGEPASSWORD;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_PC_CHANGEPASSWORD;//----用户命令-----
             byte len = 0x20;//---数据长度---
 
             //---管理员密码---密码:1234 => 0x21,0x43,0xFF,0xFF
@@ -680,7 +690,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = NetworkConfig.CMD_PC_CONNECTING;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_PC_CONNECTING;//----用户命令-----
             byte len = 0x04;//---数据长度---
 
             //--------添加到用户数据--------
@@ -755,7 +765,7 @@ namespace ConfigDevice
             byte[] source = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PC };//----源信息----
                  
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = NetworkConfig.CMD_PC_CHANGENET;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_PC_CHANGENET;//----用户命令-----
             byte len = 0x2B;//---数据长度---
             byte[] temp = new byte[] { 0x47, 0x53 };    //----保留----      
             byte[] dns = new byte[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };//--临时dns地址,一共两个

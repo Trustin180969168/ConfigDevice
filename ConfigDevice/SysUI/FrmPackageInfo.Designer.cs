@@ -43,6 +43,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btStop = new System.Windows.Forms.ToolStripButton();
             this.btAutoRelesh = new System.Windows.Forms.ToolStripButton();
+            this.btClear = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.gcPackage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPackage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rteData)).BeginInit();
@@ -220,7 +221,8 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btStop,
-            this.btAutoRelesh});
+            this.btAutoRelesh,
+            this.btClear});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(792, 31);
@@ -241,9 +243,18 @@
             this.btAutoRelesh.Image = global::ConfigDevice.Properties.Resources.Point1;
             this.btAutoRelesh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btAutoRelesh.Name = "btAutoRelesh";
-            this.btAutoRelesh.Size = new System.Drawing.Size(92, 28);
-            this.btAutoRelesh.Text = "自动更新";
+            this.btAutoRelesh.Size = new System.Drawing.Size(96, 28);
+            this.btAutoRelesh.Text = "自动更新 ";
             this.btAutoRelesh.Click += new System.EventHandler(this.btAutoRelesh_Click);
+            // 
+            // btClear
+            // 
+            this.btClear.Image = global::ConfigDevice.Properties.Resources.Clear;
+            this.btClear.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btClear.Name = "btClear";
+            this.btClear.Size = new System.Drawing.Size(68, 28);
+            this.btClear.Text = "清空 ";
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
             // 
             // FrmPackageInfo
             // 
@@ -284,5 +295,6 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btStop;
         private System.Windows.Forms.ToolStripButton btAutoRelesh;
+        private System.Windows.Forms.ToolStripButton btClear;
     }
 }

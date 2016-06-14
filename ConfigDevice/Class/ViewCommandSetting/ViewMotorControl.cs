@@ -191,9 +191,9 @@ namespace ConfigDevice
             byte[] byteOpenDelayTime = CommonTools.CopyBytes(data.Data, 5, 2);
             byte[] byteCloseDelayTime = CommonTools.CopyBytes(data.Data, 7, 2);
 
-            int runTime =   ConvertTools.Bytes2ToInt(byteRunTime);
-            int openDelayTime = ConvertTools.Bytes2ToInt(byteOpenDelayTime);  
-            int closeDelayTime = ConvertTools.Bytes2ToInt(byteCloseDelayTime); 
+            int runTime =   ConvertTools.Bytes2ToInt16(byteRunTime);
+            int openDelayTime = ConvertTools.Bytes2ToInt16(byteOpenDelayTime);  
+            int closeDelayTime = ConvertTools.Bytes2ToInt16(byteCloseDelayTime); 
 
             string nowDateStr = DateTime.Now.ToShortDateString(); 
             DataTable dt = ViewSetting.GridControl.DataSource as DataTable;

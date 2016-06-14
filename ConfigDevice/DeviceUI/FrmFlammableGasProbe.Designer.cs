@@ -48,11 +48,11 @@
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.btAutoRefresh = new DevExpress.XtraEditors.CheckButton();
-            this.edtT = new DevExpress.XtraEditors.TextEdit();
+            this.edtFireCtrlTemperatue = new DevExpress.XtraEditors.TextEdit();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            this.edtEC = new DevExpress.XtraEditors.TextEdit();
+            this.edtVavleEC = new DevExpress.XtraEditors.TextEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.edtGasProbe = new DevExpress.XtraEditors.TextEdit();
+            this.edtGasProbeLevel = new DevExpress.XtraEditors.TextEdit();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.edtValveState = new DevExpress.XtraEditors.TextEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -92,9 +92,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.speProbeEC.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edtT.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtEC.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtGasProbe.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtFireCtrlTemperatue.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtVavleEC.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtGasProbeLevel.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtValveState.Properties)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
@@ -321,11 +321,11 @@
             // 
             this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.groupControl1.Controls.Add(this.btAutoRefresh);
-            this.groupControl1.Controls.Add(this.edtT);
+            this.groupControl1.Controls.Add(this.edtFireCtrlTemperatue);
             this.groupControl1.Controls.Add(this.labelControl4);
-            this.groupControl1.Controls.Add(this.edtEC);
+            this.groupControl1.Controls.Add(this.edtVavleEC);
             this.groupControl1.Controls.Add(this.labelControl2);
-            this.groupControl1.Controls.Add(this.edtGasProbe);
+            this.groupControl1.Controls.Add(this.edtGasProbeLevel);
             this.groupControl1.Controls.Add(this.labelControl3);
             this.groupControl1.Controls.Add(this.edtValveState);
             this.groupControl1.Controls.Add(this.labelControl1);
@@ -345,13 +345,13 @@
             this.btAutoRefresh.Text = "自动刷新";
             this.btAutoRefresh.CheckedChanged += new System.EventHandler(this.btAutoRefresh_CheckedChanged);
             // 
-            // edtT
+            // edtFireCtrlTemperatue
             // 
-            this.edtT.Location = new System.Drawing.Point(271, 58);
-            this.edtT.Name = "edtT";
-            this.edtT.Properties.ReadOnly = true;
-            this.edtT.Size = new System.Drawing.Size(100, 21);
-            this.edtT.TabIndex = 1;
+            this.edtFireCtrlTemperatue.Location = new System.Drawing.Point(271, 58);
+            this.edtFireCtrlTemperatue.Name = "edtFireCtrlTemperatue";
+            this.edtFireCtrlTemperatue.Properties.ReadOnly = true;
+            this.edtFireCtrlTemperatue.Size = new System.Drawing.Size(100, 21);
+            this.edtFireCtrlTemperatue.TabIndex = 1;
             // 
             // labelControl4
             // 
@@ -361,13 +361,13 @@
             this.labelControl4.TabIndex = 0;
             this.labelControl4.Text = "温      度";
             // 
-            // edtEC
+            // edtVavleEC
             // 
-            this.edtEC.Location = new System.Drawing.Point(271, 31);
-            this.edtEC.Name = "edtEC";
-            this.edtEC.Properties.ReadOnly = true;
-            this.edtEC.Size = new System.Drawing.Size(100, 21);
-            this.edtEC.TabIndex = 1;
+            this.edtVavleEC.Location = new System.Drawing.Point(271, 31);
+            this.edtVavleEC.Name = "edtVavleEC";
+            this.edtVavleEC.Properties.ReadOnly = true;
+            this.edtVavleEC.Size = new System.Drawing.Size(100, 21);
+            this.edtVavleEC.TabIndex = 1;
             // 
             // labelControl2
             // 
@@ -377,13 +377,13 @@
             this.labelControl2.TabIndex = 0;
             this.labelControl2.Text = "阀门电流";
             // 
-            // edtGasProbe
+            // edtGasProbeLevel
             // 
-            this.edtGasProbe.Location = new System.Drawing.Point(91, 58);
-            this.edtGasProbe.Name = "edtGasProbe";
-            this.edtGasProbe.Properties.ReadOnly = true;
-            this.edtGasProbe.Size = new System.Drawing.Size(100, 21);
-            this.edtGasProbe.TabIndex = 1;
+            this.edtGasProbeLevel.Location = new System.Drawing.Point(91, 58);
+            this.edtGasProbeLevel.Name = "edtGasProbeLevel";
+            this.edtGasProbeLevel.Properties.ReadOnly = true;
+            this.edtGasProbeLevel.Size = new System.Drawing.Size(100, 21);
+            this.edtGasProbeLevel.TabIndex = 1;
             // 
             // labelControl3
             // 
@@ -671,9 +671,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edtT.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtEC.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtGasProbe.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtFireCtrlTemperatue.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtVavleEC.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtGasProbeLevel.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtValveState.Properties)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
@@ -712,11 +712,11 @@
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageLogic;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private DevExpress.XtraEditors.TextEdit edtT;
+        private DevExpress.XtraEditors.TextEdit edtFireCtrlTemperatue;
         private DevExpress.XtraEditors.LabelControl labelControl4;
-        private DevExpress.XtraEditors.TextEdit edtEC;
+        private DevExpress.XtraEditors.TextEdit edtVavleEC;
         private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.TextEdit edtGasProbe;
+        private DevExpress.XtraEditors.TextEdit edtGasProbeLevel;
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.TextEdit edtValveState;
         private DevExpress.XtraEditors.LabelControl labelControl1;

@@ -26,7 +26,7 @@ namespace ConfigDevice
             //-------------RJ45主动刷新网络包的回调----------------
             callbackRefreshNetwork = new CallbackFromUDP(callbackRefreshNetworkData);
             callbackRefreshNetwork.ActionCount = long.MaxValue;
-            SysCtrl.AddRJ45CallBackList(NetworkConfig.CMD_PC_CONNECTING, callbackRefreshNetwork);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PC_CONNECTING, callbackRefreshNetwork);
         }
 
  
@@ -215,7 +215,7 @@ namespace ConfigDevice
             //---------1.1计算校验码-------------
             byte[] temp3 = new byte[18];
             Buffer.BlockCopy(temp1, 0, temp3, 0, 7);
-            Buffer.BlockCopy(NetworkConfig.CMD_PC_SEARCH, 0, temp3, 7, 2);//-----命令字节---
+            Buffer.BlockCopy(DeviceConfig.CMD_PC_SEARCH, 0, temp3, 7, 2);//-----命令字节---
             Buffer.BlockCopy(temp2, 0, temp3, 9, 9);
             byte[] crcCode = CRC32.GetCheckValue(temp3);
             //---------1.2计算数据-------             

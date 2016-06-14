@@ -129,10 +129,21 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="b">两个字节</param>
         /// <returns></returns>
-        public static short Bytes2ToInt(params byte[] b)
+        public static short Bytes2ToInt16(params byte[] b)
         {
             return System.BitConverter.ToInt16(b, 0);
         }
+
+        /// <summary>
+        /// 字节转10进制
+        /// </summary>
+        /// <param name="b">两个字节</param>
+        /// <returns></returns>
+        public static UInt16 Bytes2ToUInt16(params byte[] b)
+        {
+            return System.BitConverter.ToUInt16(b, 0);
+        }
+
 
         /// <summary>
         /// 十进制字符串转16进制字符串

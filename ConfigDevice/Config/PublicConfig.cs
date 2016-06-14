@@ -291,7 +291,7 @@ namespace ConfigDevice
     /// <summary>
     /// 回调对象
     /// </summary>
-    public class  CallbackFromUDP
+    public class CallbackFromUDP
     {
         public UdpData Udp;//---包数据---
         public event CallbackUdpAction CallBackAction;//----委托操作----    

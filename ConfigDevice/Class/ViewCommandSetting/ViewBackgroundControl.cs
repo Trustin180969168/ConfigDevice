@@ -166,10 +166,10 @@ namespace ConfigDevice
             int kindIndex = (int)data.Data[5];
             ViewSetting.SetRowCellValue(0, dcPlayOrder,AudioConfig.AudioPlayModeIDName[kindIndex]);
             //---曲目-----
-            int playNum = ConvertTools.Bytes2ToInt(new byte[] { data.Data[6], data.Data[7] });
+            int playNum = ConvertTools.Bytes2ToInt16(new byte[] { data.Data[6], data.Data[7] });
             ViewSetting.SetRowCellValue(0, dcPlayNum, playNum.ToString());
             //---播放时间-----
-            int playTime = ConvertTools.Bytes2ToInt(new byte[] { data.Data[8], data.Data[9] });
+            int playTime = ConvertTools.Bytes2ToInt16(new byte[] { data.Data[8], data.Data[9] });
             DataRow dr = ViewSetting.GetDataRow(0);
             string nowDateStr = DateTime.Now.ToShortDateString();
             dr[dcPlayTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(playTime).ToLongTimeString();

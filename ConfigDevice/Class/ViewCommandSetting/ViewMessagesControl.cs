@@ -191,14 +191,14 @@ namespace ConfigDevice
             int kindIndex = (int)data.Data[5];
             ViewSetting.SetRowCellValue(0, dcPlayOrder, AudioConfig.AudioPlayModeIDName[kindIndex]);
             //---曲目-----
-            int playNum = ConvertTools.Bytes2ToInt(new byte[] { data.Data[6], data.Data[7] });
+            int playNum = ConvertTools.Bytes2ToInt16(new byte[] { data.Data[6], data.Data[7] });
             ViewSetting.SetRowCellValue(0, dcPlayNum, playNum.ToString());
             //次数或时间-----
             if (kindIndex == (int)AudioPlayMode.CTRLP_PMD_MULTI_TIME || kindIndex == (int)AudioPlayMode.CTRLP_PMD_SIMPLE_TIME)
             {
                 //---播放时间-----
                 dcPlayCount.ColumnEdit = tedtTime; dcPlayCount.Caption = "播放时间";
-                int playTime = ConvertTools.Bytes2ToInt(new byte[] { data.Data[8], data.Data[9] });
+                int playTime = ConvertTools.Bytes2ToInt16(new byte[] { data.Data[8], data.Data[9] });
                 DataRow dr = ViewSetting.GetDataRow(0);
                 string nowDateStr = DateTime.Now.ToShortDateString();
                 dr[dcPlayCount.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(playTime).ToLongTimeString();
@@ -207,7 +207,7 @@ namespace ConfigDevice
             {
                 //---播放次数----
                 dcPlayCount.ColumnEdit = edtNum; dcPlayCount.Caption = "播放次数";
-                int playCount = ConvertTools.Bytes2ToInt(new byte[] { data.Data[8], data.Data[9] });
+                int playCount = ConvertTools.Bytes2ToInt16(new byte[] { data.Data[8], data.Data[9] });
                 ViewSetting.SetRowCellValue(0, dcPlayCount, playCount.ToString());
             }
         }

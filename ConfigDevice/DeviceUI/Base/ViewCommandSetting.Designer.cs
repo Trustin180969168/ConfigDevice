@@ -266,6 +266,7 @@
             // 
             // cbxGroup
             // 
+            this.cbxGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxGroup.Font = new System.Drawing.Font("Tahoma", 12F);
             this.cbxGroup.Name = "cbxGroup";
             this.cbxGroup.Size = new System.Drawing.Size(300, 31);

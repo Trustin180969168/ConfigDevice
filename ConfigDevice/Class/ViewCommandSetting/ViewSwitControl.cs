@@ -110,7 +110,7 @@ namespace ConfigDevice
             }
             ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
             byte[] byteRunTime = CommonTools.CopyBytes(data.Data,2, 2);
-            int runTime = ConvertTools.Bytes2ToInt(byteRunTime);//---运行时间--
+            int runTime = ConvertTools.Bytes2ToInt16(byteRunTime);//---运行时间--
             string nowDateStr = DateTime.Now.ToShortDateString();
             DataTable dt = ViewSetting.GridControl.DataSource as DataTable;
             DataRow dr = dt.Rows[0];

@@ -12,12 +12,13 @@ namespace ConfigDevice
         public CallbackFromUDP callbackGetLogicData;      //---回调获取指令----
         public const int LogicCount = 4;//----逻辑配置数---
         private CallbackFromUDP finishGetData;//-------完成数据读取----
+        private string ObjUuid = Guid.NewGuid().ToString();//唯一标识对象uuid
         public LogicList(Device value)
         {
             this.device = value;
             callbackGetLogicData = new CallbackFromUDP(getLogicData);
             finishGetData = new CallbackFromUDP(finishReadData);
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_CONFIG, callbackGetLogicData);//---注册回调----
+           
         }
 
         /// <summary>
@@ -46,8 +47,9 @@ namespace ConfigDevice
         /// <param name="endNum">按键/分组 结束</param>
         public void ReadLogicData( int startNum, int endNum)
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, device.DeviceID, finishGetData);//---注册回调----
-            UdpData udpSend = createReadLogicUdp( startNum, endNum);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_CONFIG, callbackGetLogicData);//---注册回调----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, ObjUuid, finishGetData);//---注册回调----
+            UdpData udpSend = createReadLogicUdp(startNum, endNum);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadLogicData), null);
         }
         private void callbackReadLogicData(UdpData udpReply, object[] values)
@@ -102,7 +104,6 @@ namespace ConfigDevice
             LogicData logicData = new LogicData(userData);
             CallbackUI(new CallbackParameter( logicData ));//----界面回调------
         }
-
 
         /// <summary>
         /// 保存逻辑配置
@@ -189,11 +190,11 @@ namespace ConfigDevice
         private void finishReadData(UdpData data, object[] values)
         {
             UserUdpData userData = new UserUdpData(data);
-            if (userData.SourceID != device.DeviceID) return;//不是本设备ID不接收.
-
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----  
-            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, device.DeviceID);
-
+            byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
+            if (userData.SourceID == device.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_CONFIG))//不是本设备ID不接收.
+            {
+                UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----  
+            }
         }
     }
 }

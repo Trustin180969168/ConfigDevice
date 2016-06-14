@@ -138,8 +138,8 @@ namespace ConfigDevice
         public void ReadRoadTitle()
         {
             finishReadRoads = false;
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME,this.UUID, getRoadTitles);//----注册回调---
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, finishGetRoadTitles,1);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, this.UUID, getRoadTitles);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, finishGetRoadTitles);//----注册结束回调---
             UdpData udpSend = createReadRoadTitleUdp();
             mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), null);
         }
@@ -198,7 +198,8 @@ namespace ConfigDevice
             int num = userData.Data[0];
             string roadName = Encoding.GetEncoding("GB2312").GetString(byteName);
             if (ListCircuitIDAndName.ContainsKey(num + 1)) ListCircuitIDAndName[num + 1] = roadName;
-
+            if (num + 1 == this.circuitCount) 
+                finishReadRoads = true;//---表示回路已经读取完毕----
         }
 
         /// <summary>
@@ -207,18 +208,14 @@ namespace ConfigDevice
         /// <param name="data">数据包</param>
         /// <param name="values"></param>
         private void finishGetRoadTitlesData(UdpData data, object[] values)
-        {
+        { 
             UserUdpData userData = new UserUdpData(data);
-            if (userData.SourceID == deviceControled.DeviceID && (string)values[0] == Circuit.CLASS_NAME
-                && (string)values[1] == this.UUID)//不是本设备ID,并且不是被操作对象,不接收.
+            byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
+            if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME))  //不是本设备ID,并且不是被操作对象,不接收.              
             {
-                UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----        
-                if (!finishReadRoads)//----完成则回调-----
-                {
-                    this.deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME));//---回调UI---
-                    CallbackUI(new CallbackParameter(CLASS_NAME));
-                }
-                finishReadRoads = true;
+                UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----  
+                this.deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME));//---回调UI---
+                CallbackUI(new CallbackParameter(CLASS_NAME));
             }
         }
 
