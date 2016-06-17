@@ -18,10 +18,7 @@ namespace ConfigDevice
         public override TriggerData GetLogicData()
         {
             DataRow dr = gvLogic.GetDataRow(0);
-            TriggerData triggerData = new TriggerData();
-            triggerData.TriggerObjectID = ViewConfig.TRIGGER_NAME_ID[dr[ViewConfig.DC_OBJECT].ToString()];  //---触发对象--- 
-            triggerData.TriggerKindID = ViewConfig.TRIGGER_KIND_NAME_ID[dr[ViewConfig.DC_KIND].ToString()]; //---级别标识---
-            triggerData.CompareID = (byte)ViewConfig.MATH_NAME_ID[dr[ViewConfig.DC_OPERATION].ToString()];  //---触发比较---    
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
             //--------泄漏/正常--------------
             string size1Str = dr[dcStartValue.FieldName].ToString();
             if (size1Str == ViewLogicFlamableGasProbe.VALUE1)
@@ -45,24 +42,65 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="td"></param>
         public override void SetLogicData(TriggerData td)
-        {
-            DataRow dr = gvLogic.GetDataRow(0);
-            dr[ViewConfig.DC_OBJECT] = ViewConfig.TRIGGER_ID_NAME[td.TriggerObjectID];
-            dr[dcTriggerKind.FieldName] = ViewConfig.TRIGGER_KIND_ID_NAME[td.TriggerKindID];
-            dr[dcOperate.FieldName] = ViewConfig.MATH_ID_NAME[td.CompareID];
-            if (td.Size1 == 0)
+        { 
+            DataRow dr = this.GetInitDataRow(td);//---初始化行---
+            if (td.Size1 == 0)//-----获取触发值----
                 dr[dcStartValue.FieldName] = ViewLogicFlamableGasProbe.VALUE1;
             else if (td.Size1 == 1)
                 dr[dcStartValue.FieldName] = ViewLogicFlamableGasProbe.VALUE2;
             string nowDateStr = DateTime.Now.ToShortDateString();
             dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();//----有效持续---
             dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
-                  
 
             dr.EndEdit();
             dr.AcceptChanges();
         }
     }
+
+    /// <summary>
+    /// 系统联动号
+    /// </summary>
+    public partial class ViewLogicSystemInteraction : BaseViewLogicControl
+    {
+        /// <summary>
+        /// 获取逻辑数据
+        /// </summary>
+        /// <returns></returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            triggerData.CompareID = 5;//系统联动号为5的比较符号值
+            //--------泄漏/正常--------------
+            string size1Str = dr[dcStartValue.FieldName].ToString();
+            if (size1Str == ViewLogicSystemInteraction.VALUE1)
+                triggerData.Size1 = 0;
+            else if (size1Str == ViewLogicSystemInteraction.VALUE2)
+                triggerData.Size1 = 1;
+            triggerData.Size2 =Convert.ToInt16(dr[dcEndValue.FieldName]) ;
+
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行---
+            if (td.Size1 == 0)//-----联动号操作----
+                dr[dcStartValue.FieldName] = ViewLogicSystemInteraction.VALUE1;
+            else if (td.Size1 == 1)
+                dr[dcStartValue.FieldName] = ViewLogicSystemInteraction.VALUE2;
+            dr[this.dcEndValue.FieldName] = td.Size2;//联动号
+
+            dr.EndEdit();
+            dr.AcceptChanges();
+        }
+
+    }
+
 
 
     /// <summary>
@@ -82,5 +120,6 @@ namespace ConfigDevice
         }
 
     }
+
 
 }

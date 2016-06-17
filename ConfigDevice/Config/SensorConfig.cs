@@ -26,11 +26,15 @@ namespace ConfigDevice
         public const UInt16 LG_SENSOR_KIND_FLAG = 0;            //默认触发级别
         public const UInt16 LG_SENSOR_DEV_FLAG = 0x8000;        //[外设]传感器[标志位]->如:本设备,外设
         public const UInt16 LG_SENSOR_LVL_FLAG = 0x4000;        //传感器[级别][标志位]->如:温度,27℃(数值),舒适(级别)
+        public const UInt16 LG_SENSOR_DIF_FLAG = 0x2000;     //传感器[差值][标志位]->只针对[本设备]与[外设]同类传感器的[差值],所以须要有[LG_SENSOR_DEV_FLAG]标志
         public const UInt16 LG_SENSOR_MASK = 0xBFFF;            //[同一个]传感器[掩码]->如:本设备的温度传感器,外设的温度传感器
         public const UInt16 LG_SENSOR_TYP_MASK = 0x3FFF;        //[同类型]传感器[掩码]->如:温度,湿度
         public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;        //传感器结束符 
         public const UInt16 LG_SENSOR_DEFAULT = LG_SENSOR_VOID;
-        
+        //------触发位置--------
+        public const string POSITION_LOCAL = "本地";
+        public const string POSITION_PERIPHERAL = "外设";
+        public const string POSITION_PERIPHERAL_DIFFERENT = "外设差异";
         //------触发对象------
         public const string SENSOR_INVALID = "无效";
         public const string SENSOR_TEMPERATURE = "温度";
@@ -50,7 +54,6 @@ namespace ConfigDevice
         public const string SENSOR_FIRE_TEMPERATURE = "消防温控";
 
         public const string SENSOR_VALUE_KIND_VALUE = "触发值";
-        public const string SENSOR_VALUE_KIND_PERIPHERAL = "外设";
         public const string SENSOR_VALUE_KIND_LEVEL = "等级";
         public const string SENSOR_VALUE_KIND_SAME_UNIT = "同一个";
         public const string SENSOR_VALUE_KIND_SAME_TYPE = "同类型";

@@ -211,5 +211,10 @@ namespace ConfigDevice
             ReadLogicList();
         }
 
+        private void labelControl1_Click(object sender, EventArgs e)
+        {
+            plToolBar.Visible = true;
+        }
+
     }
 }

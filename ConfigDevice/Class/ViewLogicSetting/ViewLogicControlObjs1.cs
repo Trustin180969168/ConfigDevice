@@ -20,19 +20,22 @@ namespace ConfigDevice
         public ViewLogicFlamableGasProbe(Device _device, GridView gv)
             : base(_device, gv)
         {
+            
             cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---运算--           
             cbxStart.Items.Add(VALUE1);
             cbxStart.Items.Add(VALUE2);
             dcStartValue.ColumnEdit = cbxStart;
 
-            cbxKind.Items.Clear();//----清空触发类型---
-            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//--触发类型(等级)----
-            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_PERIPHERAL);//--触发类型(外设)---- 
+            cbxKind.Items.Clear();//----清空触发类型(探头只有等级)---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//--触发类型(等级)---- 
+
+            cbxPosition.Items.Add(SensorConfig.POSITION_PERIPHERAL);//---添加外设---
         }
 
         public override void InitViewSetting()
         {     
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
@@ -40,6 +43,7 @@ namespace ConfigDevice
             setGridColumnValid(dcInvalid, new GridViewTimeEdit());//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
             gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
@@ -80,6 +84,7 @@ namespace ConfigDevice
             setGridColumnInvalid(dcEndValue);//----结束值无效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
+
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
@@ -223,11 +228,6 @@ namespace ConfigDevice
 
         }
     }
-
-
-
-
-
 
 
     /// <summary>
@@ -982,14 +982,18 @@ namespace ConfigDevice
     /// <summary>
     /// 系统联动号
     /// </summary>
-    public class ViewLogicSystemInteraction : BaseViewLogicControl
+    public partial class ViewLogicSystemInteraction : BaseViewLogicControl
     {
+        public const string VALUE1 = "打开";
+        public const string VALUE2 = "关闭";
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值选择---
         private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//----数字------
         public ViewLogicSystemInteraction(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//----触发运算符---
+            setGridColumnValid(dcTriggerPosition, cbxPosition);//-------设置触发位置有效---
+            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//----触发 运算符---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE);//---触发类型,只有触发值--- 
             //---开始为下拉----
             cbxStart.Items.Add("打开");
             cbxStart.Items.Add("关闭");
@@ -1004,16 +1008,6 @@ namespace ConfigDevice
             edtNum.MaxValue = 100;
         }
 
-        public override TriggerData GetLogicData()
-        {
-            return null;
-        }
-
-        public override void SetLogicData(TriggerData td)
-        {
-
-        }
-
 
         public override void InitViewSetting()
         {
@@ -1024,6 +1018,7 @@ namespace ConfigDevice
             setGridColumnInvalid(dcValid);//---取消有效持续---
             setGridColumnInvalid(dcInvalid); //---取消无效持续---
 
+            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
             gvLogic.SetRowCellValue(0, dcOperate, this.cbxOperate.Items[0].ToString());//---第一个触发运算---
             gvLogic.SetRowCellValue(0, dcStartValue, this.cbxStart.Items[0].ToString());//---第一个开始选择运算---

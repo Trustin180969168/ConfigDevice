@@ -29,9 +29,22 @@ namespace ConfigDevice
             }
         }
 
+        /// <summary>
+        /// 显示工具栏
+        /// </summary>
         public bool ShowToolBar
         {
             set { plTool.Visible = value; }
+            get { return plTool.Visible; }
+        }
+
+        /// <summary>
+        /// 显示指令工具栏
+        /// </summary>
+        public bool ShowCommandBar
+        {
+            set { plCommandToolbar.Visible = value; }
+            get { return plCommandToolbar.Visible; }
         }
 
         public List<string> CommmandGroups = new List<string>();
@@ -355,6 +368,20 @@ namespace ConfigDevice
         private void btAdd_Click(object sender, EventArgs e)
         {
             this.addViewCommandSetting();
+        }
+
+        private void labelControl3_Click(object sender, EventArgs e)
+        {
+            if (ShowToolBar)
+            {
+                lblShowToolbar.Text = "显示工具栏";
+                ShowToolBar = false;
+            }
+            else
+            {
+                lblShowToolbar.Text = "隐藏工具栏";
+                ShowToolBar = true;
+            }
         }
 
 

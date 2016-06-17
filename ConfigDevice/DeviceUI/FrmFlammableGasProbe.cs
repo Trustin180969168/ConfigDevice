@@ -80,7 +80,9 @@ namespace ConfigDevice
             frmSetting.DeviceEdit = flammableGasProbe;           //---基础配置编辑
             //----------逻辑配置控件----
             viewLogicSetting.ShowToolBar = false;//不显示工具栏  
+            viewCommandEdit.ShowCommandBar = false;//不显示指令栏
             viewCommandEdit.ShowToolBar = false;
+           
         }
 
         private void FrmFlammableGasProbe_Load(object sender, EventArgs e)
@@ -221,11 +223,11 @@ namespace ConfigDevice
             {
                 if (viewLogicSetting.NeedInit)
                 {                    
-                    viewLogicSetting.InitLogicList(flammableGasProbe, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE, SensorConfig.SENSOR_TEMPERATURE,
-                          SensorConfig.SENSOR_SYSTEM_INTERACTION
+                    viewLogicSetting.InitLogicList(flammableGasProbe, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE,
+                        SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.SENSOR_SYSTEM_INTERACTION
                         //------以下是界面测试,非本设备的触发对象选择-----
-                        , SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_RADAR, SensorConfig.SENSOR_SWIT_TAMPER,
-                        SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_WINDY
+                        //, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_RADAR, SensorConfig.SENSOR_SWIT_TAMPER,
+                        //SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_WINDY
                           );
                     lookUpEdit.ItemIndex = 0;
                 }
@@ -281,10 +283,8 @@ namespace ConfigDevice
         /// </summary>
         private void btRefreshTrigger_Click(object sender, EventArgs e)
         {
-
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----读取逻辑数据----
             viewCommandEdit.ReadCommandData();//---读取命令数据----
-
         }
 
         /// <summary>
@@ -316,6 +316,6 @@ namespace ConfigDevice
         {
             flammableGasProbe.RemoveRJ45Callback();//----清空回调-----
         }
-
+        
     }
 }

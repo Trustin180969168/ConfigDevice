@@ -30,7 +30,9 @@ namespace ConfigDevice
 
             DataLogicSetting = new DataTable("逻辑配置");
             DataLogicSetting.Columns.Add(ViewConfig.DC_OBJECT, System.Type.GetType("System.String"));
+            DataLogicSetting.Columns.Add(ViewConfig.DC_POSITION, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_KIND, System.Type.GetType("System.String"));
+            DataLogicSetting.Columns.Add(ViewConfig.DC_DIFFERENT_DEVICE, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_OPERATION, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_START_VALUE, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_END_VALUE, System.Type.GetType("System.String"));
@@ -44,6 +46,8 @@ namespace ConfigDevice
             dcRangeEnd.FieldName = ViewConfig.DC_END_VALUE;
             dcValid.FieldName = ViewConfig.DC_VALID_TIME;
             dcInvalid.FieldName = ViewConfig.DC_INVALID_TIME;
+            dcDiffDevice.FieldName = ViewConfig.DC_DIFFERENT_DEVICE;
+            dcPosition.FieldName = ViewConfig.DC_POSITION;
 
             //---触发对象---
             cbxLogicObj = new GridViewComboBox();

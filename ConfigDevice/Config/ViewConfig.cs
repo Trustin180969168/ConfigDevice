@@ -52,7 +52,7 @@ namespace ConfigDevice
         public const string LG_MATH_NAME_GREATER_THAN = "大于";          //大于(只判断[slSiz1])                                  <- if (val1 >  slSiz1)
         public const string LG_MATH_NAME_WITHIN = "以内";          //以内(范围内)(包括两边的数值) (判断[slSiz1]和[slSiz2]) <- if (val1 >= slSiz1) && if (val1 <= slSiz2)
         public const string LG_MATH_NAME_WITHOUT = "以外";          //以外(范围外)                 (判断[slSiz1]和[slSiz2]) <- if (val1 <  slSiz1) || if (val1 >  slSiz2)
-        public const string LG_MATH_NAME_EQUAL_TO2 = "两者值相等";          //等于(判断[slSiz1]和[slSiz2])                          <- if (val2 == slSiz2)  { if (val1 == slSiz1) }
+        public const string LG_MATH_NAME_EQUAL_TO2 = "等于";          //等于(判断[slSiz1]和[slSiz2])                          <- if (val2 == slSiz2)  { if (val1 == slSiz1) }
         public const string LG_MATH_NAME_EQUAL_AND_TRUE = "两者与为真";          //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
         public const string LG_MATH_NAME_TOTAL = "相加";
         public const string LG_MATH_NAME_DEFAULT = LG_MATH_NAME_EQUAL_TO;
@@ -64,6 +64,9 @@ namespace ConfigDevice
         public static Dictionary<UInt16, string> TRIGGER_KIND_ID_NAME = new Dictionary<UInt16, string>(); //-----触发级别值对应的ID---- 
         public static Dictionary<string, UInt16> MATH_NAME_ID = new Dictionary<string, UInt16>(); //-----运算ID值---- 
         public static Dictionary<UInt16, string> MATH_ID_NAME = new Dictionary<UInt16, string>(); //-----运算ID对应的名称---- 
+        public static Dictionary<string, UInt16> TRIGGER_POSITION_NAME_ID = new Dictionary<string, UInt16>(); //-----触发位置ID---- 
+        public static Dictionary<UInt16, string> TRIGGER_POSITION_ID_NAME = new Dictionary<UInt16, string>(); //-----触发位置名称---- 
+
         static ViewConfig()
         {
             //-------传感器触发-------
@@ -97,22 +100,26 @@ namespace ConfigDevice
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_DATE_SEG, SensorConfig.SENSOR_DATE);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_WEEK_CYC, SensorConfig.SENSOR_WEEK);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_DEV_SENSOR_TEMP, SensorConfig.SENSOR_FIRE_TEMPERATURE);
-
+            //------触发位置的对应关系--------
+            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.POSITION_LOCAL, 0);//-------本地-----
+            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.POSITION_PERIPHERAL, SensorConfig.LG_SENSOR_DEV_FLAG);//----外设----
+            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.POSITION_PERIPHERAL_DIFFERENT, SensorConfig.LG_SENSOR_DIF_FLAG);//----差值----
+            TRIGGER_POSITION_ID_NAME.Add(0, SensorConfig.POSITION_LOCAL);//-------本地-----
+            TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DEV_FLAG, SensorConfig.POSITION_PERIPHERAL);//----外设----
+            TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DIF_FLAG, SensorConfig.POSITION_PERIPHERAL_DIFFERENT);//----差值----
             //-------触发类型-------
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE, SensorConfig.LG_SENSOR_KIND_FLAG);//---默认触发类别---
-            TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_PERIPHERAL, SensorConfig.LG_SENSOR_DEV_FLAG);//----外设-----
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL, SensorConfig.LG_SENSOR_LVL_FLAG);//----级别-----
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_SAME_UNIT, SensorConfig.LG_SENSOR_MASK);
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_SAME_TYPE, SensorConfig.LG_SENSOR_TYP_MASK);
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_END_MASK, SensorConfig.LG_SENSOR_END_MARK);
 
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_KIND_FLAG, SensorConfig.SENSOR_VALUE_KIND_VALUE);//---默认触发类别---
-            TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_DEV_FLAG, SensorConfig.SENSOR_VALUE_KIND_PERIPHERAL);//----外设-----
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_LVL_FLAG, SensorConfig.SENSOR_VALUE_KIND_LEVEL);//----级别-----
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_MASK, SensorConfig.SENSOR_VALUE_KIND_SAME_UNIT);
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_TYP_MASK, SensorConfig.SENSOR_VALUE_KIND_SAME_TYPE);
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_END_MARK, SensorConfig.SENSOR_END_MASK);
-            
+
             //-------运算符-------
             MATH_ID_NAME.Add(LG_MATH_EQUAL_TO, LG_MATH_NAME_EQUAL_TO);
             MATH_ID_NAME.Add(LG_MATH_LESS_THAN, LG_MATH_NAME_LESS_THAN);
@@ -121,16 +128,14 @@ namespace ConfigDevice
             MATH_ID_NAME.Add(LG_MATH_WITHOUT, LG_MATH_NAME_WITHOUT);
             MATH_ID_NAME.Add(LG_MATH_EQUAL_TO2, LG_MATH_NAME_EQUAL_TO2);
             MATH_ID_NAME.Add(LG_MATH_EQUAL_AND_TRUE, LG_MATH_NAME_EQUAL_AND_TRUE);
-            MATH_ID_NAME.Add(LG_MATH_TOTAL, LG_MATH_NAME_TOTAL); 
+            MATH_ID_NAME.Add(LG_MATH_TOTAL, LG_MATH_NAME_TOTAL);
             MATH_NAME_ID.Add(LG_MATH_NAME_EQUAL_TO, LG_MATH_EQUAL_TO);
             MATH_NAME_ID.Add(LG_MATH_NAME_LESS_THAN, LG_MATH_LESS_THAN);
             MATH_NAME_ID.Add(LG_MATH_NAME_GREATER_THAN, LG_MATH_GREATER_THAN);
             MATH_NAME_ID.Add(LG_MATH_NAME_WITHIN, LG_MATH_WITHIN);
             MATH_NAME_ID.Add(LG_MATH_NAME_WITHOUT, LG_MATH_WITHOUT);
-            MATH_NAME_ID.Add(LG_MATH_NAME_EQUAL_TO2, LG_MATH_EQUAL_TO2);
             MATH_NAME_ID.Add(LG_MATH_NAME_EQUAL_AND_TRUE, LG_MATH_EQUAL_AND_TRUE);
-            MATH_NAME_ID.Add(LG_MATH_NAME_TOTAL, LG_MATH_TOTAL); 
-
+            MATH_NAME_ID.Add(LG_MATH_NAME_TOTAL, LG_MATH_TOTAL);
 
         }
    
@@ -176,9 +181,11 @@ namespace ConfigDevice
             DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             Mask.EditMask = "HH:mm:ss";
             Mask.UseMaskAsDisplayFormat = true;
-            Leave += new System.EventHandler(SysConfig.Edit_Leave);
+            Leave += new System.EventHandler(SysConfig.Edit_Leave); 
             Enter += new System.EventHandler(SysConfig.Edit_Enter);
         }
+
+
     }
 
     /// <summary>
@@ -195,6 +202,9 @@ namespace ConfigDevice
             Leave += new System.EventHandler(SysConfig.Edit_Leave);
             Enter += new System.EventHandler(SysConfig.Edit_Enter);
         }
+
+
+
     }
 
     /// <summary>

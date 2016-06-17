@@ -33,7 +33,7 @@
             this.gcLogic = new DevExpress.XtraGrid.GridControl();
             this.gvLogic = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcObject = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dcTriggerPosition = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcPosition = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcDiffDevice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcKind = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcOperate = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -75,7 +75,7 @@
             this.gvLogic.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.gvLogic.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.dcObject,
-            this.dcTriggerPosition,
+            this.dcPosition,
             this.dcDiffDevice,
             this.dcKind,
             this.dcOperate,
@@ -118,26 +118,26 @@
             this.dcObject.Caption = "触发对象";
             this.dcObject.Name = "dcObject";
             this.dcObject.Visible = true;
-            this.dcObject.VisibleIndex = 7;
-            this.dcObject.Width = 100;
+            this.dcObject.VisibleIndex = 0;
+            this.dcObject.Width = 140;
             // 
-            // dcTriggerPosition
+            // dcPosition
             // 
-            this.dcTriggerPosition.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.dcTriggerPosition.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcTriggerPosition.AppearanceCell.Options.UseBackColor = true;
-            this.dcTriggerPosition.AppearanceCell.Options.UseForeColor = true;
-            this.dcTriggerPosition.AppearanceCell.Options.UseTextOptions = true;
-            this.dcTriggerPosition.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcTriggerPosition.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcTriggerPosition.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcTriggerPosition.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcTriggerPosition.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcTriggerPosition.Caption = "触发位置";
-            this.dcTriggerPosition.Name = "dcTriggerPosition";
-            this.dcTriggerPosition.Visible = true;
-            this.dcTriggerPosition.VisibleIndex = 8;
-            this.dcTriggerPosition.Width = 100;
+            this.dcPosition.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcPosition.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcPosition.AppearanceCell.Options.UseBackColor = true;
+            this.dcPosition.AppearanceCell.Options.UseForeColor = true;
+            this.dcPosition.AppearanceCell.Options.UseTextOptions = true;
+            this.dcPosition.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcPosition.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcPosition.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcPosition.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcPosition.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcPosition.Caption = "触发位置";
+            this.dcPosition.Name = "dcPosition";
+            this.dcPosition.Visible = true;
+            this.dcPosition.VisibleIndex = 1;
+            this.dcPosition.Width = 80;
             // 
             // dcDiffDevice
             // 
@@ -154,7 +154,7 @@
             this.dcDiffDevice.Caption = "差异设备";
             this.dcDiffDevice.Name = "dcDiffDevice";
             this.dcDiffDevice.Visible = true;
-            this.dcDiffDevice.VisibleIndex = 0;
+            this.dcDiffDevice.VisibleIndex = 2;
             this.dcDiffDevice.Width = 80;
             // 
             // dcKind
@@ -172,7 +172,7 @@
             this.dcKind.Caption = "触发类型";
             this.dcKind.Name = "dcKind";
             this.dcKind.Visible = true;
-            this.dcKind.VisibleIndex = 1;
+            this.dcKind.VisibleIndex = 3;
             this.dcKind.Width = 80;
             // 
             // dcOperate
@@ -190,7 +190,7 @@
             this.dcOperate.Caption = "运算";
             this.dcOperate.Name = "dcOperate";
             this.dcOperate.Visible = true;
-            this.dcOperate.VisibleIndex = 2;
+            this.dcOperate.VisibleIndex = 4;
             this.dcOperate.Width = 80;
             // 
             // dcRangeStart
@@ -208,7 +208,7 @@
             this.dcRangeStart.Caption = "范围(开始)";
             this.dcRangeStart.Name = "dcRangeStart";
             this.dcRangeStart.Visible = true;
-            this.dcRangeStart.VisibleIndex = 3;
+            this.dcRangeStart.VisibleIndex = 5;
             this.dcRangeStart.Width = 80;
             // 
             // dcRangeEnd
@@ -226,7 +226,7 @@
             this.dcRangeEnd.Caption = "范围(结束)";
             this.dcRangeEnd.Name = "dcRangeEnd";
             this.dcRangeEnd.Visible = true;
-            this.dcRangeEnd.VisibleIndex = 4;
+            this.dcRangeEnd.VisibleIndex = 6;
             this.dcRangeEnd.Width = 80;
             // 
             // dcValid
@@ -244,7 +244,7 @@
             this.dcValid.Caption = "触发时间(秒)";
             this.dcValid.Name = "dcValid";
             this.dcValid.Visible = true;
-            this.dcValid.VisibleIndex = 5;
+            this.dcValid.VisibleIndex = 7;
             this.dcValid.Width = 80;
             // 
             // dcInvalid
@@ -262,7 +262,7 @@
             this.dcInvalid.Caption = "恢复时间(秒)";
             this.dcInvalid.Name = "dcInvalid";
             this.dcInvalid.Visible = true;
-            this.dcInvalid.VisibleIndex = 6;
+            this.dcInvalid.VisibleIndex = 8;
             this.dcInvalid.Width = 80;
             // 
             // gridColumn3
@@ -315,7 +315,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn dcInvalid;
         private DevExpress.XtraGrid.Columns.GridColumn dcKind;
         private DevExpress.XtraGrid.Columns.GridColumn dcObject;
-        private DevExpress.XtraGrid.Columns.GridColumn dcTriggerPosition;
+        private DevExpress.XtraGrid.Columns.GridColumn dcPosition;
         private DevExpress.XtraGrid.Columns.GridColumn dcDiffDevice;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;

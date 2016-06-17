@@ -46,6 +46,7 @@
             this.lblGroupName = new System.Windows.Forms.ToolStripLabel();
             this.cbxGroup = new System.Windows.Forms.ToolStripComboBox();
             this.gcCommandList = new DevExpress.XtraEditors.GroupControl();
+            this.lblShowToolbar = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.plTool)).BeginInit();
             this.plTool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -279,6 +280,7 @@
             this.gcCommandList.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gcCommandList.AppearanceCaption.Options.UseFont = true;
             this.gcCommandList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.gcCommandList.Controls.Add(this.lblShowToolbar);
             this.gcCommandList.Controls.Add(this.xscCommands);
             this.gcCommandList.Controls.Add(this.plTool);
             this.gcCommandList.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -287,6 +289,20 @@
             this.gcCommandList.Size = new System.Drawing.Size(1000, 454);
             this.gcCommandList.TabIndex = 0;
             this.gcCommandList.Text = "指令列表";
+            // 
+            // lblShowToolbar
+            // 
+            this.lblShowToolbar.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblShowToolbar.Appearance.ForeColor = System.Drawing.Color.Blue;
+            this.lblShowToolbar.Appearance.Options.UseFont = true;
+            this.lblShowToolbar.Appearance.Options.UseForeColor = true;
+            this.lblShowToolbar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblShowToolbar.Location = new System.Drawing.Point(90, 6);
+            this.lblShowToolbar.Name = "lblShowToolbar";
+            this.lblShowToolbar.Size = new System.Drawing.Size(75, 16);
+            this.lblShowToolbar.TabIndex = 7;
+            this.lblShowToolbar.Text = "显示工具栏";
+            this.lblShowToolbar.Click += new System.EventHandler(this.labelControl3_Click);
             // 
             // ViewCommandSetting
             // 
@@ -311,6 +327,7 @@
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommandList)).EndInit();
             this.gcCommandList.ResumeLayout(false);
+            this.gcCommandList.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -335,5 +352,6 @@
         private System.Windows.Forms.ToolStripLabel lblGroupName;
         private System.Windows.Forms.ToolStripComboBox cbxGroup;
         private DevExpress.XtraEditors.GroupControl gcCommandList;
+        private DevExpress.XtraEditors.LabelControl lblShowToolbar;
     }
 }

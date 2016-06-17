@@ -9,9 +9,9 @@ namespace ConfigDevice
     /// </summary>
     public class TriggerData
     {
-        public UInt16 TriggerObjectID = 0 ;         //触发类型类型ID(可燃气体探头,温度,系统联动号),默认为0
-        public UInt16 TriggerKindID = 0;            //触发级别,默认为0
-        public UInt16 TriggerPeripheralID = 0;      //触发外设,默认为0
+        public UInt16 TriggerObjectID = 0 ;         //触发类型ID(可燃气体探头,温度,系统联动号),默认为0
+        public UInt16 TriggerKindID = 0;            //触发级别,触发值,级别
+        public UInt16 TriggerPositionID = 0;        //触发位置ID,本地,外设,差值,默认为本地
         public byte CompareID = 0;                  //比较(大于、小于、等于)
         public Int32 Size1 = 0;                     //大小1
         public Int32 Size2 = 0;                     //大小2
@@ -26,7 +26,7 @@ namespace ConfigDevice
         public byte[] Value()
         {
             byte[] value = new byte[31];
-            UInt16 objInt = (UInt16)(TriggerKindID | TriggerObjectID | TriggerPeripheralID);
+            UInt16 objInt = (UInt16)(TriggerKindID | TriggerObjectID | TriggerPositionID);
             byte[] objByte = ConvertTools.GetByteFromUInt16(objInt);               
             byte[] sizeByte1 = ConvertTools.GetByteFromInt32(Size1);
             byte[] sizeByte2 = ConvertTools.GetByteFromInt32(Size2);
@@ -70,8 +70,8 @@ namespace ConfigDevice
                 Int16 objKindInfo = ConvertTools.Bytes2ToInt16(data[i * 31 + 2], data[i * 31 + 3]);
 
                 TriggerList[i].TriggerObjectID = (UInt16)(objKindInfo & 0x3FF);     //---低10位为传感器类型-----
-                TriggerList[i].TriggerKindID = (UInt16)(objKindInfo & SensorConfig.LG_SENSOR_DEV_FLAG);     //---获取外设标识值----
-                TriggerList[i].TriggerPeripheralID = (UInt16)(objKindInfo & SensorConfig.LG_SENSOR_LVL_FLAG);     //---获取级别标识值-----
+                TriggerList[i].TriggerPositionID = (UInt16)(objKindInfo & SensorConfig.LG_SENSOR_DEV_FLAG);     //---获取外设标识值----
+                TriggerList[i].TriggerKindID = (UInt16)(objKindInfo & SensorConfig.LG_SENSOR_LVL_FLAG);     //---获取级别标识值-----
 
                 TriggerList[i].CompareID = data[4 + i * 31];//---比较符-----
                 TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[5 + i * 31], data[6 + i * 31], data[7 + i * 31], data[8 + i * 31]);

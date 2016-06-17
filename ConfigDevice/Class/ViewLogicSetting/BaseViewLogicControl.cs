@@ -25,6 +25,7 @@ namespace ConfigDevice
 
         protected GridViewComboBox cbxOperate = new GridViewComboBox();//运算选择
         protected GridViewComboBox cbxKind = new GridViewComboBox();//触发类型
+        protected GridViewComboBox cbxPosition = new GridViewComboBox();//触发位置
         protected GridViewTextEdit InvalidEdit = new GridViewTextEdit();//无效编辑
         protected GridColumn dcTriggerObj;//触发对象
         protected GridColumn dcTriggerPosition;//触发位置
@@ -49,7 +50,9 @@ namespace ConfigDevice
             InvalidEdit.AllowFocused = false; 
 
             dcTriggerObj = gv.Columns.ColumnByFieldName(ViewConfig.DC_OBJECT);//触发对象
+            dcTriggerPosition = gv.Columns.ColumnByFieldName(ViewConfig.DC_POSITION);//触发位置
             dcTriggerKind = gv.Columns.ColumnByFieldName(ViewConfig.DC_KIND);//触发类型
+            dcDifferentDevice = gv.Columns.ColumnByFieldName(ViewConfig.DC_DIFFERENT_DEVICE);//差异设备            
             dcOperate = gv.Columns.ColumnByFieldName(ViewConfig.DC_OPERATION);//运算操作
             dcStartValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_START_VALUE);//初始值
             dcEndValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_END_VALUE);//结束值 
@@ -59,7 +62,13 @@ namespace ConfigDevice
             dcTriggerKind.ColumnEdit = this.cbxKind;//---触发类型
             cbxOperate.Items.Clear();//----清空触发运算
             dcOperate.ColumnEdit = this.cbxOperate;//---触发运算符 ,统一为下拉选择----  
-            
+
+            cbxPosition.Items.Clear();//清空触发位置
+            cbxPosition.Items.Add(SensorConfig.POSITION_LOCAL);//---默认位置是本地----
+            dcTriggerPosition.ColumnEdit = cbxPosition;//---触发编辑----
+
+            //dcDifferentDevice.Visible = false;//---默认不显示差异设备--
+            setGridColumnInvalid(dcDifferentDevice);//---默认差异设备列无效---             
         }
 
         /// <summary>
@@ -91,9 +100,35 @@ namespace ConfigDevice
             gc.OptionsColumn.AllowEdit = true;
         }
 
+        /// <summary>
+        /// 创建触发数据,并初始化
+        /// </summary>
+        /// <param name="dr">行</param>
+        /// <returns>TriggerData</returns>
+        protected static TriggerData GetInitTriggerData(DataRow dr)
+        {
+            TriggerData triggerData = new TriggerData();
+            triggerData.TriggerObjectID = ViewConfig.TRIGGER_NAME_ID[dr[ViewConfig.DC_OBJECT].ToString()];  //---触发对象--- 
+            triggerData.TriggerPositionID = ViewConfig.TRIGGER_POSITION_NAME_ID[dr[ViewConfig.DC_POSITION].ToString()];  //---触发位置--- 
+            triggerData.TriggerKindID = ViewConfig.TRIGGER_KIND_NAME_ID[dr[ViewConfig.DC_KIND].ToString()]; //---级别标识---
+            triggerData.CompareID = (byte)ViewConfig.MATH_NAME_ID[dr[ViewConfig.DC_OPERATION].ToString()];  //---触发比较---    
+            return triggerData;
+        }
 
-
-
+        /// <summary>
+        /// 获取行,并初始化
+        /// </summary>
+        /// <param name="td">TriggerData</param>
+        /// <returns>DataRow</returns>
+        protected DataRow GetInitDataRow(TriggerData td)
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            dr[dcTriggerObj.FieldName] = ViewConfig.TRIGGER_ID_NAME[td.TriggerObjectID];                //---触发对象---
+            dr[dcTriggerPosition.FieldName] = ViewConfig.TRIGGER_POSITION_ID_NAME[td.TriggerPositionID];//---触发位置-----
+            dr[dcTriggerKind.FieldName] = ViewConfig.TRIGGER_KIND_ID_NAME[td.TriggerKindID];            //---触发级别---
+            dr[dcOperate.FieldName] = ViewConfig.MATH_ID_NAME[td.CompareID];                            //---比较运算----
+            return dr;
+        }
 
     }
 }
