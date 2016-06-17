@@ -13,8 +13,8 @@ namespace ConfigDevice
     public partial class ViewLogicSetting : UserControl
     {
         public bool NeedInit = true;
-        public LogicList logicList;//---逻辑配置----
-        private Circuit circuit;//--回路----
+        public LogicList logicList; //---逻辑配置----
+        private Circuit circuit;    //---回路----
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
         public int LogicItemIndex { get { return lookUpEdit.ItemIndex + 1; } }
         public string LogicName { get { return edtTriggerActionName.Text; } } 
@@ -68,7 +68,6 @@ namespace ConfigDevice
             NeedInit = true;
         }
 
-
         /// <summary>
         /// 回调
         /// </summary>
@@ -107,29 +106,6 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 获取指令数据
-        /// </summary>
-        /// <param name="udpResult"></param>
-        /// <param name="values"></param>
-        private void returnLogicData(CallbackParameter parameter)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new CallbackUIAction(returnLogicData), parameter);
-                return;
-            }
-            LogicData logicData = parameter.Parameters[0] as LogicData;
-            imageComboBoxEdit.SelectedIndex = logicData.Logic4KindID;
-            viewLogicTools1.SetLogicData(logicData.TriggerList[0]);
-            viewLogicTools2.SetLogicData(logicData.TriggerList[1]);
-            viewLogicTools3.SetLogicData(logicData.TriggerList[2]);
-            viewLogicTools4.SetLogicData(logicData.TriggerList[3]);
-
-
-        }
-
-
-        /// <summary>
         /// 逻辑配置组选择
         /// </summary>
         /// <param name="sender"></param>
@@ -140,8 +116,6 @@ namespace ConfigDevice
             edtTriggerActionName.Text = lookUpEdit.Text;
             ReadLogicList(LogicItemIndex); 
         }
-
- 
 
         private void edtTriggerActionName_DoubleClick(object sender, EventArgs e)
         {
@@ -160,6 +134,24 @@ namespace ConfigDevice
         public void SaveLogicName()
         {
             Circuit.SaveRoadSetting(lookUpEdit.ItemIndex,edtTriggerActionName.Text);//----保存回路名称---            
+        }
+
+        /// <summary>
+        /// 获取指令数据
+        /// </summary>
+        private void returnLogicData(CallbackParameter parameter)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CallbackUIAction(returnLogicData), parameter);
+                return;
+            }
+            LogicData logicData = parameter.Parameters[0] as LogicData;
+            imageComboBoxEdit.SelectedIndex = logicData.Logic4KindID;
+            viewLogicTools1.SetLogicData(logicData.TriggerList[0]);
+            viewLogicTools2.SetLogicData(logicData.TriggerList[1]);
+            viewLogicTools3.SetLogicData(logicData.TriggerList[2]);
+            viewLogicTools4.SetLogicData(logicData.TriggerList[3]);
         }
 
         /// <summary>

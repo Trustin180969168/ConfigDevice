@@ -62,8 +62,23 @@
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
-            this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.sptBuzzerSeconds = new DevExpress.XtraEditors.SpinEdit();
+            this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
+            this.sptLightSeconds = new DevExpress.XtraEditors.SpinEdit();
+            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl16 = new DevExpress.XtraEditors.LabelControl();
+            this.sptValveSeconds = new DevExpress.XtraEditors.SpinEdit();
+            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            this.cbxBuzzer = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
+            this.cbxLight = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            this.cbxValveAction = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
             this.viewLogicSetting = new ConfigDevice.ViewLogicSetting();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
@@ -99,8 +114,13 @@
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
             this.pageLogic.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
-            this.groupControl5.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sptBuzzerSeconds.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sptValveSeconds.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxBuzzer.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxLight.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxValveAction.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
             this.panelControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -119,10 +139,10 @@
             this.tctrlEdit.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 12F);
             this.tctrlEdit.AppearancePage.Header.Options.UseFont = true;
             this.tctrlEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tctrlEdit.Location = new System.Drawing.Point(0, 27);
+            this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
             this.tctrlEdit.SelectedTabPage = this.pagePzjm;
-            this.tctrlEdit.Size = new System.Drawing.Size(994, 648);
+            this.tctrlEdit.Size = new System.Drawing.Size(1018, 719);
             this.tctrlEdit.TabIndex = 2;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
@@ -139,7 +159,7 @@
             this.pagePzjm.Controls.Add(this.groupControl1);
             this.pagePzjm.Controls.Add(this.tsDoorInput);
             this.pagePzjm.Name = "pagePzjm";
-            this.pagePzjm.Size = new System.Drawing.Size(985, 611);
+            this.pagePzjm.Size = new System.Drawing.Size(1009, 682);
             this.pagePzjm.Text = "配置界面";
             // 
             // groupControl3
@@ -418,7 +438,7 @@
             this.btRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
-            this.tsDoorInput.Size = new System.Drawing.Size(985, 31);
+            this.tsDoorInput.Size = new System.Drawing.Size(1009, 31);
             this.tsDoorInput.TabIndex = 1;
             this.tsDoorInput.Text = "toolStrip2";
             // 
@@ -443,7 +463,7 @@
             // 
             this.pageJcsz.Controls.Add(this.frmSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(985, 611);
+            this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
             this.pageJcsz.Text = "基础配置";
             // 
             // frmSetting
@@ -451,38 +471,196 @@
             this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frmSetting.Location = new System.Drawing.Point(0, 0);
             this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(985, 611);
+            this.frmSetting.Size = new System.Drawing.Size(1009, 682);
             this.frmSetting.TabIndex = 0;
             // 
             // pageLogic
             // 
-            this.pageLogic.Controls.Add(this.groupControl5);
+            this.pageLogic.Controls.Add(this.viewCommandEdit);
+            this.pageLogic.Controls.Add(this.groupBox1);
             this.pageLogic.Controls.Add(this.viewLogicSetting);
             this.pageLogic.Controls.Add(this.panelControl5);
             this.pageLogic.Name = "pageLogic";
-            this.pageLogic.Size = new System.Drawing.Size(985, 611);
+            this.pageLogic.Size = new System.Drawing.Size(1009, 682);
             this.pageLogic.Text = "逻辑配置";
-            // 
-            // groupControl5
-            // 
-            this.groupControl5.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl5.AppearanceCaption.Options.UseFont = true;
-            this.groupControl5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl5.Controls.Add(this.viewCommandEdit);
-            this.groupControl5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl5.Location = new System.Drawing.Point(0, 284);
-            this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(985, 327);
-            this.groupControl5.TabIndex = 3;
-            this.groupControl5.Text = "指令列表";
             // 
             // viewCommandEdit
             // 
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandEdit.Location = new System.Drawing.Point(2, 26);
+            this.viewCommandEdit.Location = new System.Drawing.Point(0, 336);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.Size = new System.Drawing.Size(981, 299);
+            this.viewCommandEdit.Size = new System.Drawing.Size(1009, 346);
             this.viewCommandEdit.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.sptBuzzerSeconds);
+            this.groupBox1.Controls.Add(this.labelControl17);
+            this.groupBox1.Controls.Add(this.sptLightSeconds);
+            this.groupBox1.Controls.Add(this.labelControl14);
+            this.groupBox1.Controls.Add(this.labelControl16);
+            this.groupBox1.Controls.Add(this.sptValveSeconds);
+            this.groupBox1.Controls.Add(this.labelControl13);
+            this.groupBox1.Controls.Add(this.cbxBuzzer);
+            this.groupBox1.Controls.Add(this.labelControl11);
+            this.groupBox1.Controls.Add(this.cbxLight);
+            this.groupBox1.Controls.Add(this.labelControl15);
+            this.groupBox1.Controls.Add(this.labelControl10);
+            this.groupBox1.Controls.Add(this.labelControl12);
+            this.groupBox1.Controls.Add(this.cbxValveAction);
+            this.groupBox1.Controls.Add(this.labelControl9);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Font = new System.Drawing.Font("宋体", 9F);
+            this.groupBox1.Location = new System.Drawing.Point(0, 284);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1009, 52);
+            this.groupBox1.TabIndex = 22;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "阀门动作";
+            // 
+            // sptBuzzerSeconds
+            // 
+            this.sptBuzzerSeconds.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.sptBuzzerSeconds.Location = new System.Drawing.Point(843, 17);
+            this.sptBuzzerSeconds.Name = "sptBuzzerSeconds";
+            this.sptBuzzerSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.sptBuzzerSeconds.Properties.Mask.EditMask = "d";
+            this.sptBuzzerSeconds.Size = new System.Drawing.Size(53, 21);
+            this.sptBuzzerSeconds.TabIndex = 3;
+            // 
+            // labelControl17
+            // 
+            this.labelControl17.Location = new System.Drawing.Point(902, 20);
+            this.labelControl17.Name = "labelControl17";
+            this.labelControl17.Size = new System.Drawing.Size(12, 14);
+            this.labelControl17.TabIndex = 2;
+            this.labelControl17.Text = "秒";
+            // 
+            // sptLightSeconds
+            // 
+            this.sptLightSeconds.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.sptLightSeconds.Location = new System.Drawing.Point(556, 17);
+            this.sptLightSeconds.Name = "sptLightSeconds";
+            this.sptLightSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.sptLightSeconds.Properties.Mask.EditMask = "d";
+            this.sptLightSeconds.Size = new System.Drawing.Size(53, 21);
+            this.sptLightSeconds.TabIndex = 3;
+            // 
+            // labelControl14
+            // 
+            this.labelControl14.Location = new System.Drawing.Point(615, 20);
+            this.labelControl14.Name = "labelControl14";
+            this.labelControl14.Size = new System.Drawing.Size(12, 14);
+            this.labelControl14.TabIndex = 2;
+            this.labelControl14.Text = "秒";
+            // 
+            // labelControl16
+            // 
+            this.labelControl16.Location = new System.Drawing.Point(812, 20);
+            this.labelControl16.Name = "labelControl16";
+            this.labelControl16.Size = new System.Drawing.Size(28, 14);
+            this.labelControl16.TabIndex = 2;
+            this.labelControl16.Text = "时间:";
+            // 
+            // sptValveSeconds
+            // 
+            this.sptValveSeconds.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.sptValveSeconds.Location = new System.Drawing.Point(254, 17);
+            this.sptValveSeconds.Name = "sptValveSeconds";
+            this.sptValveSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.sptValveSeconds.Properties.Mask.EditMask = "d";
+            this.sptValveSeconds.Size = new System.Drawing.Size(53, 21);
+            this.sptValveSeconds.TabIndex = 3;
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Location = new System.Drawing.Point(525, 20);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(28, 14);
+            this.labelControl13.TabIndex = 2;
+            this.labelControl13.Text = "时间:";
+            // 
+            // cbxBuzzer
+            // 
+            this.cbxBuzzer.Location = new System.Drawing.Point(723, 17);
+            this.cbxBuzzer.Name = "cbxBuzzer";
+            this.cbxBuzzer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxBuzzer.Size = new System.Drawing.Size(80, 21);
+            this.cbxBuzzer.TabIndex = 1;
+            // 
+            // labelControl11
+            // 
+            this.labelControl11.Location = new System.Drawing.Point(313, 20);
+            this.labelControl11.Name = "labelControl11";
+            this.labelControl11.Size = new System.Drawing.Size(12, 14);
+            this.labelControl11.TabIndex = 2;
+            this.labelControl11.Text = "秒";
+            // 
+            // cbxLight
+            // 
+            this.cbxLight.Location = new System.Drawing.Point(437, 17);
+            this.cbxLight.Name = "cbxLight";
+            this.cbxLight.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxLight.Size = new System.Drawing.Size(80, 21);
+            this.cbxLight.TabIndex = 1;
+            // 
+            // labelControl15
+            // 
+            this.labelControl15.Location = new System.Drawing.Point(679, 20);
+            this.labelControl15.Name = "labelControl15";
+            this.labelControl15.Size = new System.Drawing.Size(40, 14);
+            this.labelControl15.TabIndex = 0;
+            this.labelControl15.Text = "蜂鸣器:";
+            // 
+            // labelControl10
+            // 
+            this.labelControl10.Location = new System.Drawing.Point(223, 20);
+            this.labelControl10.Name = "labelControl10";
+            this.labelControl10.Size = new System.Drawing.Size(28, 14);
+            this.labelControl10.TabIndex = 2;
+            this.labelControl10.Text = "时间:";
+            // 
+            // labelControl12
+            // 
+            this.labelControl12.Location = new System.Drawing.Point(370, 20);
+            this.labelControl12.Name = "labelControl12";
+            this.labelControl12.Size = new System.Drawing.Size(64, 14);
+            this.labelControl12.TabIndex = 0;
+            this.labelControl12.Text = "指示灯指示:";
+            // 
+            // cbxValveAction
+            // 
+            this.cbxValveAction.Location = new System.Drawing.Point(134, 17);
+            this.cbxValveAction.Name = "cbxValveAction";
+            this.cbxValveAction.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxValveAction.Size = new System.Drawing.Size(80, 21);
+            this.cbxValveAction.TabIndex = 1;
+            // 
+            // labelControl9
+            // 
+            this.labelControl9.Location = new System.Drawing.Point(79, 20);
+            this.labelControl9.Name = "labelControl9";
+            this.labelControl9.Size = new System.Drawing.Size(52, 14);
+            this.labelControl9.TabIndex = 0;
+            this.labelControl9.Text = "阀门动作:";
             // 
             // viewLogicSetting
             // 
@@ -491,7 +669,7 @@
             this.viewLogicSetting.Dock = System.Windows.Forms.DockStyle.Top;
             this.viewLogicSetting.Location = new System.Drawing.Point(0, 37);
             this.viewLogicSetting.Name = "viewLogicSetting";
-            this.viewLogicSetting.Size = new System.Drawing.Size(985, 247);
+            this.viewLogicSetting.Size = new System.Drawing.Size(1009, 247);
             this.viewLogicSetting.TabIndex = 12;
             // 
             // panelControl5
@@ -502,7 +680,7 @@
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl5.Location = new System.Drawing.Point(0, 0);
             this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(985, 37);
+            this.panelControl5.Size = new System.Drawing.Size(1009, 37);
             this.panelControl5.TabIndex = 21;
             // 
             // panelControl3
@@ -515,7 +693,7 @@
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl3.Location = new System.Drawing.Point(226, 2);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(757, 33);
+            this.panelControl3.Size = new System.Drawing.Size(781, 33);
             this.panelControl3.TabIndex = 18;
             // 
             // panelControl2
@@ -528,7 +706,7 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(98, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(659, 33);
+            this.panelControl2.Size = new System.Drawing.Size(683, 33);
             this.panelControl2.TabIndex = 17;
             // 
             // edtTriggerActionName
@@ -646,7 +824,7 @@
             // FrmFlammableGasProbe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(994, 675);
+            this.ClientSize = new System.Drawing.Size(1018, 743);
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmFlammableGasProbe";
             this.Load += new System.EventHandler(this.FrmFlammableGasProbe_Load);
@@ -680,8 +858,14 @@
             this.pageJcsz.ResumeLayout(false);
             this.pageLogic.ResumeLayout(false);
             this.pageLogic.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
-            this.groupControl5.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sptBuzzerSeconds.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sptValveSeconds.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxBuzzer.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxLight.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxValveAction.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
             this.panelControl5.ResumeLayout(false);
             this.panelControl5.PerformLayout();
@@ -737,7 +921,6 @@
         private DevExpress.XtraEditors.SimpleButton btCloseValve;
         private DevExpress.XtraEditors.SimpleButton btOpenValve;
         private ViewLogicSetting viewLogicSetting;
-        private DevExpress.XtraEditors.GroupControl groupControl5;
         private ViewCommandSetting viewCommandEdit;
         private DevExpress.XtraEditors.PanelControl panelControl5;
         private DevExpress.XtraEditors.PanelControl panelControl3;
@@ -750,5 +933,21 @@
         public System.Windows.Forms.ToolStrip ToolBar;
         private System.Windows.Forms.ToolStripButton btSaveTrigger;
         private System.Windows.Forms.ToolStripButton btRefreshTrigger;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private DevExpress.XtraEditors.SpinEdit sptBuzzerSeconds;
+        private DevExpress.XtraEditors.LabelControl labelControl17;
+        private DevExpress.XtraEditors.SpinEdit sptLightSeconds;
+        private DevExpress.XtraEditors.LabelControl labelControl14;
+        private DevExpress.XtraEditors.LabelControl labelControl16;
+        private DevExpress.XtraEditors.SpinEdit sptValveSeconds;
+        private DevExpress.XtraEditors.LabelControl labelControl13;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxBuzzer;
+        private DevExpress.XtraEditors.LabelControl labelControl11;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxLight;
+        private DevExpress.XtraEditors.LabelControl labelControl15;
+        private DevExpress.XtraEditors.LabelControl labelControl10;
+        private DevExpress.XtraEditors.LabelControl labelControl12;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxValveAction;
     }
 }

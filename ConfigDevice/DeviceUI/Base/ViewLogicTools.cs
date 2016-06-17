@@ -102,13 +102,10 @@ namespace ConfigDevice
         public void SetLogicData(TriggerData td)
         {          
             DataRow dr = this.gvLogic.GetDataRow(0);
-            dr[ViewConfig.DC_OBJECT] = ViewConfig.TRIGGER_ID_NAME[td.TriggerObjectID];
-            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(td.TriggerObjectID, DeviceEdit, gvLogic);
-            ViewLogicObj.InitViewSetting();  
-            ViewLogicObj.SetLogicData(td);
-            
-            dr.EndEdit();          
- 
+            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(td.TriggerObjectID, DeviceEdit, gvLogic);//---获取逻辑控制对象-----
+            ViewLogicObj.InitViewSetting();     //------初始化视图配置------
+            ViewLogicObj.SetLogicData(td);      //------设置逻辑数据-------            
+            dr.EndEdit();     
         }
 
         /// <summary>

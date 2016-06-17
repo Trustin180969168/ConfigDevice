@@ -18,8 +18,7 @@ namespace ConfigDevice
         public FrmDevice(Device _device)
         {
             this.Device = _device;      
-            InitializeComponent();
-      
+            InitializeComponent();      
         }
 
         public FrmDevice()
@@ -62,8 +61,6 @@ namespace ConfigDevice
         /// <param name="e"></param>
         public virtual void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-
             
         }
 

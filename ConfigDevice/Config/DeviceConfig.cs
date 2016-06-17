@@ -360,7 +360,7 @@ namespace ConfigDevice
         public static readonly byte[] CMD_LOGIC_WRITE_CONFIG = new byte[] { 0xC1, EQUIPMENT_LOGIC }; //写参数设置 (条件与逻辑)
         public static readonly byte[] CMD_LOGIC_READ_EXACTION = new byte[] { 0x42, EQUIPMENT_LOGIC }; //读逻辑附加动作
         public static readonly byte[] CMD_LOGIC_WRITE_EXACTION = new byte[] { 0xC2, EQUIPMENT_LOGIC }; //写逻辑附加动作   (不同设备各不一样)
-        public static readonly byte[] CMD_LOGIC_WRITE_SYSLKID = new byte[] { 0x43, EQUIPMENT_LOGIC }; //写逻辑系统联动号 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+        public static readonly byte[] CMD_LOGIC_WRITE_SYSLKID = new byte[] { 0xC3, EQUIPMENT_LOGIC }; //写逻辑系统联动号 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
         public static readonly byte[] CMD_LOGIC_READ_SECURITY = new byte[] { 0x44, EQUIPMENT_LOGIC }; //读逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
         public static readonly byte[] CMD_LOGIC_WRITE_SECURITY = new byte[] { 0xC4, EQUIPMENT_LOGIC }; //写逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
 

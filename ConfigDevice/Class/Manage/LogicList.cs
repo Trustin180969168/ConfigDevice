@@ -17,8 +17,7 @@ namespace ConfigDevice
         {
             this.device = value;
             callbackGetLogicData = new CallbackFromUDP(getLogicData);
-            finishGetData = new CallbackFromUDP(finishReadData);
-           
+            finishGetData = new CallbackFromUDP(finishReadData);           
         }
 
         /// <summary>
@@ -30,7 +29,6 @@ namespace ConfigDevice
             if (this.OnCallbackUI_Action != null)
                 OnCallbackUI_Action(callbackParameter);
         }
-
 
         /// <summary>
         /// 申请读取逻辑配置
@@ -102,7 +100,7 @@ namespace ConfigDevice
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
             LogicData logicData = new LogicData(userData);
-            CallbackUI(new CallbackParameter( logicData ));//----界面回调------
+            CallbackUI(new CallbackParameter(logicData));//----界面回调-----
         }
 
         /// <summary>
@@ -156,8 +154,6 @@ namespace ConfigDevice
             return udp;
         }
 
-
-
         /// <summary>
         /// 保存指令
         /// </summary>
@@ -196,5 +192,6 @@ namespace ConfigDevice
                 UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----  
             }
         }
+
     }
 }

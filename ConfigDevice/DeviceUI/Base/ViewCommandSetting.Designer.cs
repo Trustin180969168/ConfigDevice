@@ -45,6 +45,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblGroupName = new System.Windows.Forms.ToolStripLabel();
             this.cbxGroup = new System.Windows.Forms.ToolStripComboBox();
+            this.gcCommandList = new DevExpress.XtraEditors.GroupControl();
             ((System.ComponentModel.ISupportInitialize)(this.plTool)).BeginInit();
             this.plTool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -56,14 +57,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.plCommandToolbar)).BeginInit();
             this.plCommandToolbar.SuspendLayout();
             this.toolStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCommandList)).BeginInit();
+            this.gcCommandList.SuspendLayout();
             this.SuspendLayout();
             // 
             // xscCommands
             // 
             this.xscCommands.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xscCommands.Location = new System.Drawing.Point(0, 32);
+            this.xscCommands.Location = new System.Drawing.Point(2, 62);
             this.xscCommands.Name = "xscCommands";
-            this.xscCommands.Size = new System.Drawing.Size(1000, 422);
+            this.xscCommands.Size = new System.Drawing.Size(996, 390);
             this.xscCommands.TabIndex = 5;
             // 
             // plTool
@@ -72,9 +75,9 @@
             this.plTool.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.plTool.Controls.Add(this.panelControl2);
             this.plTool.Dock = System.Windows.Forms.DockStyle.Top;
-            this.plTool.Location = new System.Drawing.Point(0, 0);
+            this.plTool.Location = new System.Drawing.Point(2, 26);
             this.plTool.Name = "plTool";
-            this.plTool.Size = new System.Drawing.Size(1000, 32);
+            this.plTool.Size = new System.Drawing.Size(996, 36);
             this.plTool.TabIndex = 6;
             // 
             // panelControl2
@@ -86,7 +89,7 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(1000, 32);
+            this.panelControl2.Size = new System.Drawing.Size(996, 36);
             this.panelControl2.TabIndex = 10;
             // 
             // panelControl4
@@ -100,7 +103,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl4.Location = new System.Drawing.Point(651, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(349, 32);
+            this.panelControl4.Size = new System.Drawing.Size(345, 36);
             this.panelControl4.TabIndex = 1;
             // 
             // edtBeginNum
@@ -195,12 +198,11 @@
             this.plCommandToolbar.Dock = System.Windows.Forms.DockStyle.Left;
             this.plCommandToolbar.Location = new System.Drawing.Point(0, 0);
             this.plCommandToolbar.Name = "plCommandToolbar";
-            this.plCommandToolbar.Size = new System.Drawing.Size(651, 32);
+            this.plCommandToolbar.Size = new System.Drawing.Size(651, 36);
             this.plCommandToolbar.TabIndex = 0;
             // 
             // toolStrip2
             // 
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip2.Font = new System.Drawing.Font("Tahoma", 12F);
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -211,7 +213,7 @@
             this.toolStripSeparator2,
             this.lblGroupName,
             this.cbxGroup});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 1);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(651, 31);
             this.toolStrip2.TabIndex = 4;
@@ -272,12 +274,25 @@
             this.cbxGroup.Size = new System.Drawing.Size(300, 31);
             this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
             // 
+            // gcCommandList
+            // 
+            this.gcCommandList.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gcCommandList.AppearanceCaption.Options.UseFont = true;
+            this.gcCommandList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.gcCommandList.Controls.Add(this.xscCommands);
+            this.gcCommandList.Controls.Add(this.plTool);
+            this.gcCommandList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcCommandList.Location = new System.Drawing.Point(0, 0);
+            this.gcCommandList.Name = "gcCommandList";
+            this.gcCommandList.Size = new System.Drawing.Size(1000, 454);
+            this.gcCommandList.TabIndex = 0;
+            this.gcCommandList.Text = "指令列表";
+            // 
             // ViewCommandSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.xscCommands);
-            this.Controls.Add(this.plTool);
+            this.Controls.Add(this.gcCommandList);
             this.Name = "ViewCommandSetting";
             this.Size = new System.Drawing.Size(1000, 454);
             ((System.ComponentModel.ISupportInitialize)(this.plTool)).EndInit();
@@ -294,6 +309,8 @@
             this.plCommandToolbar.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCommandList)).EndInit();
+            this.gcCommandList.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -317,5 +334,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripLabel lblGroupName;
         private System.Windows.Forms.ToolStripComboBox cbxGroup;
+        private DevExpress.XtraEditors.GroupControl gcCommandList;
     }
 }

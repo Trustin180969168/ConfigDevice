@@ -79,7 +79,7 @@
             this.cedtSelect,
             this.numEdit,
             this.meeEdit});
-            this.gcCommands.Size = new System.Drawing.Size(923, 57);
+            this.gcCommands.Size = new System.Drawing.Size(923, 50);
             this.gcCommands.TabIndex = 8;
             this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvCommands});
@@ -107,6 +107,7 @@
             this.gvCommands.OptionsView.ColumnAutoWidth = false;
             this.gvCommands.OptionsView.ShowGroupPanel = false;
             this.gvCommands.OptionsView.ShowIndicator = false;
+            this.gvCommands.RowHeight = 18;
             this.gvCommands.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
             this.gvCommands.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCommands_CellValueChanged);
             this.gvCommands.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gvCommands_MouseDown);
@@ -396,7 +397,7 @@
             this.hyperLinkEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
             this.hyperLinkEdit1.Properties.Image = global::ConfigDevice.Properties.Resources.del1;
             this.hyperLinkEdit1.Properties.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.hyperLinkEdit1.Size = new System.Drawing.Size(30, 57);
+            this.hyperLinkEdit1.Size = new System.Drawing.Size(30, 50);
             this.hyperLinkEdit1.TabIndex = 11;
             this.hyperLinkEdit1.Click += new System.EventHandler(this.linkEdit_Click);
             // 
@@ -415,7 +416,7 @@
             this.cedtNum.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
             this.cedtNum.Properties.Caption = "1";
             this.cedtNum.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Default;
-            this.cedtNum.Size = new System.Drawing.Size(47, 57);
+            this.cedtNum.Size = new System.Drawing.Size(47, 50);
             this.cedtNum.TabIndex = 13;
             // 
             // ViewCommandTools
@@ -426,7 +427,7 @@
             this.Controls.Add(this.hyperLinkEdit1);
             this.Controls.Add(this.cedtNum);
             this.Name = "ViewCommandTools";
-            this.Size = new System.Drawing.Size(1000, 57);
+            this.Size = new System.Drawing.Size(1000, 50);
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).EndInit();

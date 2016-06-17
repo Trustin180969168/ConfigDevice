@@ -17,7 +17,6 @@ namespace ConfigDevice
         public Dictionary<int, string> LevelIDValue = new Dictionary<int, string>();//级别ID表
         public Dictionary<string,int> LevelValueID = new Dictionary<string,int>();//级别名称
 
-
         public string LevelValue { get { return LevelIDValue[this.LevelID]; } }//----级别名称值----
         public Sensor(byte[] value)
         {
@@ -28,6 +27,22 @@ namespace ConfigDevice
         }
         public Sensor()
         {
+
+
+        } 
+
+        /// <summary>
+        /// 获取对象体的值
+        /// </summary>
+        /// <returns></returns>
+        public virtual byte[] GetValue()
+        {
+            byte[] byteValue = new byte[12];
+            Buffer.BlockCopy(ConvertTools.GetByteFromUInt16(KindID),0,byteValue,0,2);
+            byteValue[3]=LevelID;
+            byteValue[4] = Retain;
+            Buffer.BlockCopy(ConvertTools.GetByteFromInt16(Value),0,byteValue,0,2);
+            return byteValue;
         }
         public abstract void Init();//----具体对象初始化-----
     }
@@ -60,10 +75,8 @@ namespace ConfigDevice
             LevelValueID.Add("正常", SensorConfig.TEMPFC_LV_NORMAL);
             LevelValueID.Add("高温", SensorConfig.TEMPFC_LV_HIGH);
             LevelValueID.Add("火灾", SensorConfig.TEMPFC_LV_FIRE);
-            LevelValueID.Add("", SensorConfig.TEMPFC_LV_TOTAL);
- 
-        }
- 
+            LevelValueID.Add("", SensorConfig.TEMPFC_LV_TOTAL); 
+        } 
     }
 
     /// <summary>
@@ -92,13 +105,10 @@ namespace ConfigDevice
 
             LevelValueID.Add("正常", SensorConfig.LEL_LV_NORMAL);
             LevelValueID.Add("泄漏", SensorConfig.LEL_LV_TRIGGERED);
-            LevelValueID.Add("", SensorConfig.LEL_LV_TOTAL); 
-  
-        }
+            LevelValueID.Add("", SensorConfig.LEL_LV_TOTAL);   
+        } 
 
     }
-
-
 
     /// <summary>
     /// 无效的传感器
@@ -120,6 +130,10 @@ namespace ConfigDevice
         {
             KindName = "无效";  
  
+        }
+        public override byte[] GetValue()
+        {
+            return new byte[12];
         }
 
     }

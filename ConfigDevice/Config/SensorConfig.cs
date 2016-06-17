@@ -6,33 +6,31 @@ namespace ConfigDevice
 {
     public class SensorConfig
     {
-        // 设备[内部条件][外部条件]类型 --------------------------------------------------------------------------
-        public const int LG_SENSOR_VOID = 0;          //无效(★不能改动★)
-        public const int LG_SENSOR_TEMP = 1;          //内部条件:温度   (含有外设,含有等级)
-        public const int LG_SENSOR_HUMI = 2;          //内部条件:湿度   (含有外设,含有等级)
-        public const int LG_SENSOR_RAIN = 3;          //内部条件:雨感   (含有外设         )
-        public const int LG_SENSOR_WIND = 4;          //内部条件:风速   (含有外设,含有等级)
-        public const int LG_SENSOR_LUMI = 5;          //内部条件:亮度   (含有外设,含有等级)
-        public const int LG_SENSOR_LEL = 6;          //内部条件:可燃气探头  (含有外设         )
-        public const int LG_SENSOR_RSP = 7;          //内部条件:雷达    (含有外设         )
-        public const int LG_SENSOR_TAMPER = 8;          //内部条件:防拆开关 (含有外设         )
-        public const int LG_EXT_SENSOR_SYS_LKID = 9;          //外部条件:系统联动
-        public const int LG_EXT_SENSOR_SECURITY = 10;         //外部条件:安防联动
-        public const int LG_EXT_SENSOR_TIME_SEG = 11;         //外部条件:时间段
-        public const int LG_EXT_SENSOR_DATE_SEG = 12;         //外部条件:日期段
-        public const int LG_EXT_SENSOR_WEEK_CYC = 13;         //外部条件:周循环
-        public const int LG_DEV_SENSOR_TEMP = 14;           //消防温控    (含有外设,含有等级)
-        public const int LG_SENSOR_TOTAL = 15;              //总数(★★数量以后会不断增加,必须在最尾处增加★★)
-        public const UInt16 LG_SENSOR_KIND_FLAG = 0;       //默认触发级别
-        public const UInt16 LG_SENSOR_DEV_FLAG = 0x8000;       //[外设]传感器[标志位]->如:本设备,外设
-        public const UInt16 LG_SENSOR_LVL_FLAG = 0x4000;       //传感器[级别][标志位]->如:温度,27℃(数值),舒适(级别)
-        public const UInt16 LG_SENSOR_MASK = 0xBFFF;           //[同一个]传感器[掩码]->如:本设备的温度传感器,外设的温度传感器
-        public const UInt16 LG_SENSOR_TYP_MASK = 0x3FFF;       //[同类型]传感器[掩码]->如:温度,湿度
-        public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;       //传感器结束符 
+        // 设备[内部条件][外部条件]类型 (低10bit传感器类型,高6bit特别标志位)---------------------
+        public const int LG_SENSOR_VOID = 0;                    //无效(★不能改动★)
+        public const int LG_SENSOR_TEMP = 1;                    //内部条件:温度   (含有外设,含有等级)
+        public const int LG_SENSOR_HUMI = 2;                    //内部条件:湿度   (含有外设,含有等级)
+        public const int LG_SENSOR_RAIN = 3;                    //内部条件:雨感   (含有外设         )
+        public const int LG_SENSOR_WIND = 4;                    //内部条件:风速   (含有外设,含有等级)
+        public const int LG_SENSOR_LUMI = 5;                    //内部条件:亮度   (含有外设,含有等级)
+        public const int LG_SENSOR_LEL = 6;                     //内部条件:可燃气探头  (含有外设         )
+        public const int LG_SENSOR_RSP = 7;                     //内部条件:雷达    (含有外设         )
+        public const int LG_SENSOR_TAMPER = 8;                  //内部条件:防拆开关 (含有外设         )
+        public const int LG_EXT_SENSOR_SYS_LKID = 9;            //外部条件:系统联动
+        public const int LG_EXT_SENSOR_SECURITY = 10;           //外部条件:安防联动
+        public const int LG_EXT_SENSOR_TIME_SEG = 11;           //外部条件:时间段
+        public const int LG_EXT_SENSOR_DATE_SEG = 12;           //外部条件:日期段
+        public const int LG_EXT_SENSOR_WEEK_CYC = 13;           //外部条件:周循环
+        public const int LG_DEV_SENSOR_TEMP = 14;               //消防温控    (含有外设,含有等级)
+        public const int LG_SENSOR_TOTAL = 15;                  //总数(★★数量以后会不断增加,必须在最尾处增加★★)
+        public const UInt16 LG_SENSOR_KIND_FLAG = 0;            //默认触发级别
+        public const UInt16 LG_SENSOR_DEV_FLAG = 0x8000;        //[外设]传感器[标志位]->如:本设备,外设
+        public const UInt16 LG_SENSOR_LVL_FLAG = 0x4000;        //传感器[级别][标志位]->如:温度,27℃(数值),舒适(级别)
+        public const UInt16 LG_SENSOR_MASK = 0xBFFF;            //[同一个]传感器[掩码]->如:本设备的温度传感器,外设的温度传感器
+        public const UInt16 LG_SENSOR_TYP_MASK = 0x3FFF;        //[同类型]传感器[掩码]->如:温度,湿度
+        public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;        //传感器结束符 
         public const UInt16 LG_SENSOR_DEFAULT = LG_SENSOR_VOID;
-
-
-
+        
         //------触发对象------
         public const string SENSOR_INVALID = "无效";
         public const string SENSOR_TEMPERATURE = "温度";
@@ -53,7 +51,7 @@ namespace ConfigDevice
 
         public const string SENSOR_VALUE_KIND_VALUE = "触发值";
         public const string SENSOR_VALUE_KIND_PERIPHERAL = "外设";
-        public const string SENSOR_VALUE_KIND_LEVEL = "级别";
+        public const string SENSOR_VALUE_KIND_LEVEL = "等级";
         public const string SENSOR_VALUE_KIND_SAME_UNIT = "同一个";
         public const string SENSOR_VALUE_KIND_SAME_TYPE = "同类型";
         public const string SENSOR_END_MASK = "结束";

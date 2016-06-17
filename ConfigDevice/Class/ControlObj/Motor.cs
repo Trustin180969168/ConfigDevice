@@ -10,9 +10,18 @@ namespace ConfigDevice
         public const string CLASS_NAME = "Motor";
 
         //-----阀门定义-----
+        public const int LEL_VALACT_CLOSE  =    0;        //【关阀门】
+	    public const int LEL_VALACT_OPEN   =    1;        //【开阀门】
+	    public const int LEL_VALACT_NOT    =    2;        //【不动作】
+	    public const int LEL_VALACT_TOTAL  =    3;        //【总数】
+	    public const int LEL_VALACT_DEFAULT =   LEL_VALACT_CLOSE;
+	    public byte  ValAct = 0;               //阀门  动作类型：关阀门、开阀门 (如:LEL_VALACT_CLOSE)
+	    public ushort ValTim = 0;               //阀门  动作时间：单位秒         (如:10->10秒，0->强制为1秒)
+
         public const string STATE_VALVE_STOP = "停止";
         public const string STATE_VALVE_CLOSE = "关阀门";
         public const string STATE_VALVE_OPEN = "开阀门";
+        public const string STATE_VALVE_NONE = "不动作";
         public const string STATE_VALVE_TOTAL = "总数";
         public Int16 MaxStopCE = 0;//卡停电流
         public Int16 MaxRunTime = 0;//最大运行秒数
@@ -209,8 +218,8 @@ namespace ConfigDevice
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_CONFIG;//----用户命令-----
             byte len = 4 + 1 + 8;//---数据长度----
-            byte[] runMaxTime = ConvertTools.GetByteFrom16BitInt(second);
-            byte[] maxEC = ConvertTools.GetByteFrom16BitInt(ec);
+            byte[] runMaxTime = ConvertTools.GetByteFromInt16(second);
+            byte[] maxEC = ConvertTools.GetByteFromInt16(ec);
 
             byte[] crcData = new byte[19];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
@@ -220,7 +229,7 @@ namespace ConfigDevice
             crcData[9] = len;
             Buffer.BlockCopy(runMaxTime, 0, crcData, 11, 2);
             Buffer.BlockCopy(maxEC, 0, crcData, 13, 2);
-            byte[] byteFlag = ConvertTools.GetByteFrom32BitUInt(flag);
+            byte[] byteFlag = ConvertTools.GetByteFromUInt32(flag);
             Buffer.BlockCopy(byteFlag, 0, crcData, 15, 4);
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------

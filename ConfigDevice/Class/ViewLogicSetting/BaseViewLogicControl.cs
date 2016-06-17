@@ -27,7 +27,9 @@ namespace ConfigDevice
         protected GridViewComboBox cbxKind = new GridViewComboBox();//触发类型
         protected GridViewTextEdit InvalidEdit = new GridViewTextEdit();//无效编辑
         protected GridColumn dcTriggerObj;//触发对象
-        protected GridColumn dcKind;//触发类型
+        protected GridColumn dcTriggerPosition;//触发位置
+        protected GridColumn dcTriggerKind;//触发类型
+        protected GridColumn dcDifferentDevice;//差异设备
         protected GridColumn dcOperate;//触发运算
         protected GridColumn dcStartValue;//初始值
         protected GridColumn dcEndValue;//结束值
@@ -47,16 +49,14 @@ namespace ConfigDevice
             InvalidEdit.AllowFocused = false; 
 
             dcTriggerObj = gv.Columns.ColumnByFieldName(ViewConfig.DC_OBJECT);//触发对象
-            dcKind = gv.Columns.ColumnByFieldName(ViewConfig.DC_KIND);//触发类型
+            dcTriggerKind = gv.Columns.ColumnByFieldName(ViewConfig.DC_KIND);//触发类型
             dcOperate = gv.Columns.ColumnByFieldName(ViewConfig.DC_OPERATION);//运算操作
             dcStartValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_START_VALUE);//初始值
             dcEndValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_END_VALUE);//结束值 
             dcValid = gv.Columns.ColumnByFieldName(ViewConfig.DC_VALID_TIME);//有效值
             dcInvalid = gv.Columns.ColumnByFieldName(ViewConfig.DC_INVALID_TIME);//无效值
-
-            cbxKind.Items.Clear();//----清空触发类型---
-            cbxKind.Items.Add(BaseViewLogicControl.TRIGGER_KIND_VALUE);//---默认为触发值----
-            dcKind.ColumnEdit = this.cbxKind;//---触发类型
+            
+            dcTriggerKind.ColumnEdit = this.cbxKind;//---触发类型
             cbxOperate.Items.Clear();//----清空触发运算
             dcOperate.ColumnEdit = this.cbxOperate;//---触发运算符 ,统一为下拉选择----  
             
@@ -69,7 +69,8 @@ namespace ConfigDevice
         protected void setGridColumnInvalid(GridColumn gc)
         {
             DataRow dr = gvLogic.GetDataRow(0);
-            dr[gc.FieldName] = null;
+            if(gc.FieldName != "")
+                dr[gc.FieldName] = null;
             dr.EndEdit();
             gc.ColumnEdit = InvalidEdit;            
             gc.AppearanceCell.BackColor = Color.Gainsboro;//灰色

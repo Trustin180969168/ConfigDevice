@@ -80,7 +80,7 @@ namespace ConfigDevice
         private void btSaveNamePosition_Click(object sender, EventArgs e)
         {
             int pos = cbxPosition.SelectedIndex;
-            byte[] bytePos = ConvertTools.GetByteFrom16BitInt(pos);
+            byte[] bytePos = ConvertTools.GetByteFromInt16(pos);
             string newPos = cbxPosition.Text;
             DeviceEdit.SaveDeviceName(edtName.Text, bytePos, newPos);
          
@@ -143,7 +143,7 @@ namespace ConfigDevice
         private void btSaveAll_Click(object sender, EventArgs e)
         {
             int pos = cbxPosition.SelectedIndex;
-            byte[] bytePos = ConvertTools.GetByteFrom16BitInt(pos);
+            byte[] bytePos = ConvertTools.GetByteFromInt16(pos);
             string newPos = cbxPosition.Text;
 
             DeviceData data = DeviceEdit.GetDeviceData();

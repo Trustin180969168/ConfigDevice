@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmDevice));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripLabel();
@@ -48,7 +47,7 @@
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(645, 50);
+            this.toolStrip1.Size = new System.Drawing.Size(984, 24);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -61,27 +60,28 @@
             // toolStripButton3
             // 
             this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.Font = new System.Drawing.Font("宋体", 12F);
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(80, 16);
             this.toolStripButton3.Text = "设备选择:";
+            this.toolStripButton3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cbxSelectDevice
             // 
             this.cbxSelectDevice.BackColor = System.Drawing.Color.LightYellow;
             this.cbxSelectDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxSelectDevice.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbxSelectDevice.Font = new System.Drawing.Font("宋体", 12F);
             this.cbxSelectDevice.ForeColor = System.Drawing.Color.Blue;
             this.cbxSelectDevice.Name = "cbxSelectDevice";
-            this.cbxSelectDevice.Size = new System.Drawing.Size(600, 27);
+            this.cbxSelectDevice.Size = new System.Drawing.Size(500, 24);
             this.cbxSelectDevice.Click += new System.EventHandler(this.cbxSelectDevice_Click);
             // 
             // FrmDevice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 325);
+            this.ClientSize = new System.Drawing.Size(984, 325);
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

@@ -186,7 +186,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="num">16位整数</param>
         /// <returns>两个字节</returns>
-        public static byte[] GetByteFrom16BitInt(int num)
+        public static byte[] GetByteFromInt16(int num)
         {
             byte[] value = BitConverter.GetBytes(Convert.ToInt16(num));
             return value;
@@ -197,7 +197,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="num">16位无符号整数</param>
         /// <returns>两个字节</returns>
-        public static byte[] GetByteFrom16BitUInt(UInt16 num)
+        public static byte[] GetByteFromUInt16(UInt16 num)
         {
             byte[] value = BitConverter.GetBytes(Convert.ToUInt16(num));
             return value;
@@ -209,7 +209,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="num">32位有符号整数</param>
         /// <returns>4个字节</returns>
-        public static byte[] GetByteFrom32BitInt(int num)
+        public static byte[] GetByteFromInt32(int num)
         {
             byte[] value = BitConverter.GetBytes(Convert.ToInt32(num));
             return value;
@@ -220,7 +220,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="num">32位无符号整数</param>
         /// <returns>4个字节</returns>
-        public static byte[] GetByteFrom32BitUInt(uint num)
+        public static byte[] GetByteFromUInt32(uint num)
         {
             byte[] value = BitConverter.GetBytes(num);
             return value;

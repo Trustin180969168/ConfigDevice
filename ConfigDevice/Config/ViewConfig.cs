@@ -15,7 +15,9 @@ namespace ConfigDevice
 
         //---逻辑列表-----
         public const string DC_OBJECT = "Object";//触发对象
+        public const string DC_POSITION = "Position";//触发位置
         public const string DC_KIND = "Kind";//内容类型
+        public const string DC_DIFFERENT_DEVICE = "Device";//差异设备
         public const string DC_OPERATION = "Operation";//运算操作
         public const string DC_START_VALUE = "StartValue";//开始值
         public const string DC_END_VALUE = "EndValue";//结束值
@@ -33,7 +35,6 @@ namespace ConfigDevice
         public const int LG_2OR_2AND_AND = 5;          //第5种逻辑关系:2个条件[或],2个条件[与],再两者[与]
         public const int LG_TOTAL = 6;
         public const int LG_DEFAULT = LG_4OR;
-
 
         // 数学关系 ----------------------------------------------------------------------------------------------
         public const int LG_MATH_EQUAL_TO = 0;          //等于(只判断[slSiz1])                                  <- if (val1 == slSiz1)
@@ -98,18 +99,19 @@ namespace ConfigDevice
             TRIGGER_ID_NAME.Add(SensorConfig.LG_DEV_SENSOR_TEMP, SensorConfig.SENSOR_FIRE_TEMPERATURE);
 
             //-------触发类型-------
-            TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_PERIPHERAL, SensorConfig.LG_SENSOR_DEV_FLAG);
-            TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL, SensorConfig.LG_SENSOR_LVL_FLAG);
+            TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE, SensorConfig.LG_SENSOR_KIND_FLAG);//---默认触发类别---
+            TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_PERIPHERAL, SensorConfig.LG_SENSOR_DEV_FLAG);//----外设-----
+            TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL, SensorConfig.LG_SENSOR_LVL_FLAG);//----级别-----
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_SAME_UNIT, SensorConfig.LG_SENSOR_MASK);
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_SAME_TYPE, SensorConfig.LG_SENSOR_TYP_MASK);
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_END_MASK, SensorConfig.LG_SENSOR_END_MARK);
-            TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE, SensorConfig.LG_SENSOR_KIND_FLAG);
-            TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_DEV_FLAG, SensorConfig.SENSOR_VALUE_KIND_PERIPHERAL);
-            TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_LVL_FLAG, SensorConfig.SENSOR_VALUE_KIND_LEVEL);
+
+            TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_KIND_FLAG, SensorConfig.SENSOR_VALUE_KIND_VALUE);//---默认触发类别---
+            TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_DEV_FLAG, SensorConfig.SENSOR_VALUE_KIND_PERIPHERAL);//----外设-----
+            TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_LVL_FLAG, SensorConfig.SENSOR_VALUE_KIND_LEVEL);//----级别-----
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_MASK, SensorConfig.SENSOR_VALUE_KIND_SAME_UNIT);
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_TYP_MASK, SensorConfig.SENSOR_VALUE_KIND_SAME_TYPE);
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_END_MARK, SensorConfig.SENSOR_END_MASK);
-            TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_KIND_FLAG, SensorConfig.SENSOR_VALUE_KIND_VALUE);
             
             //-------运算符-------
             MATH_ID_NAME.Add(LG_MATH_EQUAL_TO, LG_MATH_NAME_EQUAL_TO);

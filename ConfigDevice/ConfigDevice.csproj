@@ -55,6 +55,10 @@
     <Reference Include="DevExpress.XtraLayout.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraNavBar.v8.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraPivotGrid.v8.1.dll</HintPath>
@@ -341,6 +345,8 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\Election11.png" />
     <None Include="Resources\Traces1.png" />
+    <Compile Include="Class\ControlObj\Buzzer.cs" />
+    <Compile Include="Class\ControlObj\Light.cs" />
     <Compile Include="Class\Devices\FlammableGasProbe.cs" />
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
@@ -367,7 +373,7 @@
     <Compile Include="Class\ViewCommandSetting\ViewBackgroundControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewMessagesControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewServerControl.cs" />
-    <Compile Include="Class\ViewLogicSetting\ViewLogicControl.cs" />
+    <Compile Include="Class\ViewLogicSetting\BaseViewLogicControl.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicControlObjs1.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicControlObjs2.cs" />
     <Compile Include="Config\AudioConfig.cs" />

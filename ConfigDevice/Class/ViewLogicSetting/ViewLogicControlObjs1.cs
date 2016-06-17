@@ -24,18 +24,22 @@ namespace ConfigDevice
             cbxStart.Items.Add(VALUE1);
             cbxStart.Items.Add(VALUE2);
             dcStartValue.ColumnEdit = cbxStart;
+
+            cbxKind.Items.Clear();//----清空触发类型---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//--触发类型(等级)----
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_PERIPHERAL);//--触发类型(外设)---- 
         }
 
         public override void InitViewSetting()
         {     
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
             setGridColumnValid(dcValid, new GridViewTimeEdit());//---持续时间----
             setGridColumnValid(dcInvalid, new GridViewTimeEdit());//----失效时间-----  
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
             gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
@@ -70,14 +74,14 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
@@ -111,14 +115,14 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
@@ -153,14 +157,14 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
@@ -206,14 +210,14 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
@@ -251,14 +255,14 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, timeEdit);//---开始值有效
             setGridColumnValid(dcEndValue, timeEdit);//----结束值有效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个级别选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个级别选择----
             gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---默认第一个运算选择----
             gvLogic.SetRowCellValue(0, dcStartValue, "00:00:00");//----默认为0秒
             gvLogic.SetRowCellValue(0, dcEndValue, "00:00:00");//----默认为0秒 
@@ -292,14 +296,14 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, dateEdit);//---开始值有效
             setGridColumnValid(dcEndValue, dateEdit);//----结束值无效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个级别选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个级别选择----
             gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---默认第一个运算选择----
             gvLogic.SetRowCellValue(0, dcStartValue, "01-01");//----默认为1号
             gvLogic.SetRowCellValue(0, dcEndValue, "01-01");//----默认为1号
@@ -347,14 +351,14 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, iccbWeek);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个级别选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个级别选择----
             gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---默认第一个运算选择----
             
         }
@@ -419,14 +423,14 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, temperatureEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效--- 
             setGridColumnValid(dcValid, new GridViewTimeEdit());//---持续时间----
             setGridColumnValid(dcInvalid, new GridViewTimeEdit());//失效时间----- 
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
             gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
 
@@ -543,14 +547,14 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, temperatureEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效--- 
             setGridColumnValid(dcValid, new GridViewTimeEdit());//---持续时间----
             setGridColumnValid(dcInvalid, new GridViewTimeEdit());//失效时间----- 
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
             gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
 
@@ -667,14 +671,14 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, humidityEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效--- 
             setGridColumnValid(dcValid, new GridViewTimeEdit());//---持续时间----
             setGridColumnValid(dcInvalid, new GridViewTimeEdit());//失效时间----- 
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
             gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
 
@@ -789,14 +793,14 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, windyEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效--- 
             setGridColumnValid(dcValid, new GridViewTimeEdit());//---持续时间----
             setGridColumnValid(dcInvalid, new GridViewTimeEdit());//失效时间----- 
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
             gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
 
@@ -909,14 +913,14 @@ namespace ConfigDevice
         /// </summary>
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, luminanceEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效--- 
             setGridColumnValid(dcValid, new GridViewTimeEdit());//---持续时间----
             setGridColumnValid(dcInvalid, new GridViewTimeEdit());//失效时间----- 
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
             gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
 
@@ -971,7 +975,6 @@ namespace ConfigDevice
                 gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
             }
         }
-
     }
 
 
@@ -1014,14 +1017,14 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnValid(dcEndValue, edtNum);//---结束为数字编辑---
             setGridColumnInvalid(dcValid);//---取消有效持续---
             setGridColumnInvalid(dcInvalid); //---取消无效持续---
 
-            gvLogic.SetRowCellValue(0, dcKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
             gvLogic.SetRowCellValue(0, dcOperate, this.cbxOperate.Items[0].ToString());//---第一个触发运算---
             gvLogic.SetRowCellValue(0, dcStartValue, this.cbxStart.Items[0].ToString());//---第一个开始选择运算---
             gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束范围为0---
