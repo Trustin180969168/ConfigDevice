@@ -32,12 +32,15 @@ namespace ConfigDevice
             DataLogicSetting.Columns.Add(ViewConfig.DC_OBJECT, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_POSITION, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_KIND, System.Type.GetType("System.String"));
-            DataLogicSetting.Columns.Add(ViewConfig.DC_DIFFERENT_DEVICE, System.Type.GetType("System.String"));
+            DataLogicSetting.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_OPERATION, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_START_VALUE, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_END_VALUE, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_VALID_TIME, System.Type.GetType("System.String"));
             DataLogicSetting.Columns.Add(ViewConfig.DC_INVALID_TIME, System.Type.GetType("System.String"));
+            DataLogicSetting.Columns.Add(ViewConfig.DC_DEVICE_ID, System.Type.GetType("System.String"));//差异设备ID
+            DataLogicSetting.Columns.Add(ViewConfig.DC_DEVICE_KIND_ID, System.Type.GetType("System.String"));//差异类型ID
+            DataLogicSetting.Columns.Add(ViewConfig.DC_DEVICE_NETWORK_ID, System.Type.GetType("System.String"));//差异网络ID 
 
             dcObject.FieldName = ViewConfig.DC_OBJECT;
             dcKind.FieldName = ViewConfig.DC_KIND;
@@ -46,7 +49,7 @@ namespace ConfigDevice
             dcRangeEnd.FieldName = ViewConfig.DC_END_VALUE;
             dcValid.FieldName = ViewConfig.DC_VALID_TIME;
             dcInvalid.FieldName = ViewConfig.DC_INVALID_TIME;
-            dcDiffDevice.FieldName = ViewConfig.DC_DIFFERENT_DEVICE;
+            dcDiffDevice.FieldName = ViewConfig.DC_DEVICE_VALUE;
             dcPosition.FieldName = ViewConfig.DC_POSITION;
 
             //---触发对象---

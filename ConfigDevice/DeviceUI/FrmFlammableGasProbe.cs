@@ -74,7 +74,7 @@ namespace ConfigDevice
             lookUpEdit.Properties.ShowFooter = false;
             lookUpEdit.Properties.ShowHeader = false;
             lookUpEdit.Properties.DataSource = dtIDName;
-            //-------------可燃气体回调----------- 
+            //----------可燃气体回调----------- 
             flammableGasProbe.OnCallbackUI_Action += this.CallbackUI;
             flammableGasProbe.OnCallbackUI_Action += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = flammableGasProbe;           //---基础配置编辑
@@ -99,8 +99,7 @@ namespace ConfigDevice
             flammableGasProbe.SearchVer();//---获取版本号-----   
             flammableGasProbe.ProbeCircuit.ReadRoadTitle();//----读取回路---- 
             flammableGasProbe.ReadState();//---读取状态----     
-            flammableGasProbe.Valve.ReadParameter();//---读取参数---
-            
+            flammableGasProbe.Valve.ReadParameter();//---读取参数---            
         }
 
         /// <summary>

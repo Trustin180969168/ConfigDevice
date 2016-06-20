@@ -46,7 +46,7 @@ namespace ConfigDevice
         /// </summary>
         private void SelectDevice_Load(object sender, EventArgs e)
         {
-            DataTable dt = SysConfig.DtDevice.Clone(); 
+            DataTable dt = SysConfig.DtDevice.Clone();
             DataRow[] rows =  SysConfig.DtDevice.Select( ViewConfig.SELECT_COMMAND_DEVICE_QUERY_CONDITION);
             foreach (DataRow dr in rows)
                 dt.Rows.Add(dr.ItemArray);

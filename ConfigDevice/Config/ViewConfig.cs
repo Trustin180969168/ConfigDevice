@@ -18,7 +18,7 @@ namespace ConfigDevice
         public const string DC_OBJECT = "Object";//触发对象
         public const string DC_POSITION = "Position";//触发位置
         public const string DC_KIND = "Kind";//内容类型
-        public const string DC_DIFFERENT_DEVICE = "Device";//差异设备
+        public const string DC_DEVICE_VALUE = "DeviceValue";//差异设备
         public const string DC_OPERATION = "Operation";//运算操作
         public const string DC_START_VALUE = "StartValue";//开始值
         public const string DC_END_VALUE = "EndValue";//结束值
@@ -26,8 +26,10 @@ namespace ConfigDevice
         public const string DC_INVALID_TIME = "InvalidTime";//无效时间 
         public const string DC_NAME = "Name";
         public const string DC_ID = "ID";
-
-
+        public const string DC_DEVICE_ID = "DeviceID";//设备ID
+        public const string DC_DEVICE_NETWORK_ID = "DeviceNetworkID";//设备的网络ID
+        public const string DC_DEVICE_KIND_ID = "DeviceKindID";//设备类型ID
+        //public const string DC_DEVICE_VALUE = "DeviceValue";//设备唯一值
 
         public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的值---- 
         public static Dictionary<UInt16, string> TRIGGER_ID_NAME = new Dictionary<UInt16, string>(); //-----触发对象对应的值---- 
@@ -37,7 +39,6 @@ namespace ConfigDevice
         public static Dictionary<UInt16, string> MATH_ID_NAME = new Dictionary<UInt16, string>(); //-----运算ID对应的名称---- 
         public static Dictionary<string, UInt16> TRIGGER_POSITION_NAME_ID = new Dictionary<string, UInt16>(); //-----触发位置ID---- 
         public static Dictionary<UInt16, string> TRIGGER_POSITION_ID_NAME = new Dictionary<UInt16, string>(); //-----触发位置名称---- 
-
 
         public static  string SELECT_COMMAND_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
                    "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
@@ -53,7 +54,19 @@ namespace ConfigDevice
                    "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
                    ")";
 
-        public static string SELECT_LOGIC_DEVICE_QUERY_CONDITION = " 1 = 1 ";
+        public static string SELECT_LOGIC_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
+                   "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_SWIT_4 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_SWIT_6 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_SWIT_8 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_2 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_4 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_6 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_8 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
+                   ")";
 
         static ViewConfig()
         {

@@ -23,10 +23,10 @@ namespace ConfigDevice
         public const int LG_EXT_SENSOR_WEEK_CYC = 13;           //外部条件:周循环
         public const int LG_SENSOR_TEMP_FC = 14;               //消防温控    (含有外设,含有等级)
         public const int LG_SENSOR_TVOC = 16;         //TVOC有害气体 (含有外设,含有级别)
-        public const int  LG_SENSOR_CO2    =       17;         //二氧化碳     (含有外设,含有级别)
-        public const int  LG_SENSOR_CH2O     =     18;         //甲醛         (含有外设,含有级别)
-        public const int  LG_EXT_SENSOR_SLF_LKID = 19;         //特殊:内部联动(                 )
-        public const int  LG_SENSOR_PM25      =    20;         //PM2.5        (含有外设,含有级别) 
+        public const int LG_SENSOR_CO2 = 17;         //二氧化碳     (含有外设,含有级别)
+        public const int LG_SENSOR_CH2O = 18;         //甲醛         (含有外设,含有级别)
+        public const int LG_EXT_SENSOR_SLF_LKID = 19;         //特殊:内部联动(                 )
+        public const int LG_SENSOR_PM25 = 20;         //PM2.5        (含有外设,含有级别) 
         public const int LG_SENSOR_AQI = 21;                  //总数(★★数量以后会不断增加,必须在最尾处增加★★)
 
         public const UInt16 LG_SENSOR_DEF_FLAG = 0;        //级别默认值0
@@ -38,12 +38,10 @@ namespace ConfigDevice
         public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;        //传感器结束符 
         public const UInt16 LG_SENSOR_DEFAULT = LG_SENSOR_VOID;
 
-
-
         //------触发位置--------
         public const string SENSOR_POSITION_LOCAL = "本地";
         public const string SENSOR_POSITION_PERIPHERAL = "外设";
-        public const string SENSOR_POSITION_PERIPHERAL_DIFFERENT = "外设差异";
+        public const string SENSOR_POSITION_PERIPHERAL_DIFFERENT = "外设差值";
         //------触发对象------
         public const string SENSOR_INVALID = "无效";
         public const string SENSOR_TEMPERATURE = "温度";
@@ -62,7 +60,7 @@ namespace ConfigDevice
         public const string SENSOR_WEEK = "周循环";
         public const string SENSOR_FIRE_TEMPERATURE = "消防温控";
 
-        public const string SENSOR_VALUE_KIND_VALUE = "触发值"; 
+        public const string SENSOR_VALUE_KIND_VALUE = "触发值";
         public const string SENSOR_VALUE_KIND_LEVEL = "等级";
         public const string SENSOR_VALUE_KIND_SAME_UNIT = "同一个";
         public const string SENSOR_VALUE_KIND_SAME_TYPE = "同类型";
@@ -99,7 +97,7 @@ namespace ConfigDevice
         public const string LG_MATH_NAME_EQUAL_AND_TRUE = "两者与为真";          //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
         public const string LG_MATH_NAME_TOTAL = "相加";
         public const string LG_MATH_NAME_DEFAULT = LG_MATH_NAME_EQUAL_TO;
- 
+
 
         //系统联动[ucCmp ]值:           LG_MATH_EQUAL_TO2
         //系统联动[slSiz2]值:           0~LG_LINKAGE_NUM-1
@@ -147,7 +145,7 @@ namespace ConfigDevice
         public const int RAIN_LV_TOTAL = 2;
 
         // [风速]级别 <- LG_SENSOR_WIND
-        public const int WIND_LV_NOT = 0;         //【无风】
+        public const int WIND_LV_NOT = 0;          //【无风】
         public const int WIND_LV_TINY = 1;          //【微风】
         public const int WIND_LV_SMALL = 2;          //【小风】
         public const int WIND_LV_HIGH = 3;          //【大风】
@@ -181,7 +179,9 @@ namespace ConfigDevice
         public const int TEMPFC_LV_HIGH = 1;          //【高温】
         public const int TEMPFC_LV_FIRE = 2;          //【火灾】
         public const int TEMPFC_LV_TOTAL = 3;
-
+        public const string TEMPFC_NAME_LV_NORMAL = "正常";          //【正常】
+        public const string TEMPFC_NAME_LV_HIGH = "高温";          //【高温】
+        public const string TEMPFC_NAME_LV_FIRE = "火灾";          //【火灾】
         // [空气质量]级别 <- LG_SENSOR_AQI
         public const int AQI_LV_GOOD = 0;          //【优】
         public const int AQI_LV_MODERATE = 1;          //【良】
@@ -206,6 +206,11 @@ namespace ConfigDevice
         public const int CH2O_LV_HIGH = 2;          //【高】
         public const int CH2O_LV_TOTAL = 3;
 
+        // [PM2.5]级别 <- LG_SENSOR_PM25
+        public const int PM25_LV_LOW = 0;          //【低】
+        public const int PM25_LV_MEDIUM = 1;          //【中】
+        public const int PM25_LV_HIGH = 2;          //【高】
+        public const int PM25_LV_TOTAL = 3;
     }
 
 }

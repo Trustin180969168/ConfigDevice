@@ -40,19 +40,32 @@ namespace ProgramTest2
             dtSelect.Columns.Add("ID", System.Type.GetType("System.String"));
             dtSelect.Columns.Add("NAME", System.Type.GetType("System.String"));
             dtSelect.Columns.Add("VALUE", System.Type.GetType("System.String"));
-            dtSelect.Rows.Add("1", "名称1", "值1");
-            dtSelect.Rows.Add("2", "名称2", "值2");
-            dtSelect.Rows.Add("3", "名称3", "值3");
-            dtSelect.Rows.Add("4", "名称4", "值4");
- 
+            dtSelect.Columns.Add("UniqueValue", System.Type.GetType("System.String"));
+            dtSelect.Rows.Add("1", "名称1", "类型1", "1_名称1_类型1");
+            dtSelect.Rows.Add("2", "名称2", "类型2", "2_名称2_类型2");
+            dtSelect.Rows.Add("3", "名称3", "类型3", "3_名称3_类型3");
+            dtSelect.Rows.Add("4", "名称4", "类型4", "4_名称4_类型4");
+            dtSelect.Rows.Add("1", "名称1", "类型2", "1_名称1_类型2");
+      
             lookupEdit.DataSource = dtSelect;
             lookupEdit.DisplayMember = "ID";
             lookupEdit.ValueMember = "ID";
 
+
             lookUpEdit2.Properties.DataSource = dtSelect;
             lookUpEdit2.Properties.DisplayMember = "NAME";
-            lookUpEdit2.Properties.ValueMember = "ID";
-         
+            lookUpEdit2.Properties.ValueMember = "UniqueValue";
+            lookUpEdit2.Properties.Columns.Add(new LookUpColumnInfo("ID"));
+            lookUpEdit2.Properties.Columns.Add(new LookUpColumnInfo("NAME"));
+            lookUpEdit2.Properties.Columns.Add(new LookUpColumnInfo("VALUE"));
+            //lookUpEdit2.Properties.Columns.Add(new LookUpColumnInfo("UniqueValue"));
+            //lookUpEdit2.Properties.Columns[3].Visible = false;
+
+
+            gridLookUpEdit1.Properties.DataSource = dtSelect;
+            gridLookUpEdit1.Properties.DisplayMember = "NAME";
+            gridLookUpEdit1.Properties.ValueMember = "UniqueValue";
+            
             //----时间编辑控件------
             dateEdit.DisplayFormat.FormatString = "d";
             dateEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;

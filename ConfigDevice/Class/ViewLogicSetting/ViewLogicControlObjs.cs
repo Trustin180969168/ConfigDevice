@@ -8,20 +8,19 @@ using System.Drawing;
 
 namespace ConfigDevice
 {
-
     /// <summary>
     /// 可燃气体探头
     /// </summary>
-    public partial class ViewLogicFlamableGasProbe : BaseViewLogicControl
+    public class ViewLogicFlamableGasProbe : BaseViewLogicControl
     {
-        public const string  VALUE1 = "正常";
-        public const string  VALUE2 = "泄漏";
+        public const string VALUE1 = "正常";
+        public const string VALUE2 = "泄漏";
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
         public ViewLogicFlamableGasProbe(Device _device, GridView gv)
             : base(_device, gv)
         {
-            
-            cbxOperate.Items.Add( SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
+
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
             cbxStart.Items.Add(VALUE1);
             cbxStart.Items.Add(VALUE2);
             dcStartValue.ColumnEdit = cbxStart;
@@ -33,7 +32,7 @@ namespace ConfigDevice
         }
 
         public override void InitViewSetting()
-        {     
+        {
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
@@ -49,7 +48,57 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
             gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
         }
+
+
+        /// <summary>
+        /// 获取逻辑配置数据
+        /// </summary>
+        /// <returns>TriggerData</returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            //--------泄漏/正常--------------
+            string size1Str = dr[dcStartValue.FieldName].ToString();
+            if (size1Str == ViewLogicFlamableGasProbe.VALUE1)
+                triggerData.Size1 = 0;
+            else if (size1Str == ViewLogicFlamableGasProbe.VALUE2)
+                triggerData.Size1 = 1;
+            triggerData.Size2 = 0;//----无效------
+            //-----有效持续,无效持续------            
+            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
+            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //无效秒数       
+            triggerData.ValidSeconds = (UInt16)validSeconds;
+            triggerData.InvalidSeconds = (UInt16)invalidSeconds;
+            string nowDateStr = DateTime.Now.ToShortDateString();
+            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
+
+            dr.EndEdit();
+            gvLogic.RefreshData();
+
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行---
+            if (td.Size1 == 0)//-----获取触发值----
+                dr[dcStartValue.FieldName] = ViewLogicFlamableGasProbe.VALUE1;
+            else if (td.Size1 == 1)
+                dr[dcStartValue.FieldName] = ViewLogicFlamableGasProbe.VALUE2;
+            string nowDateStr = DateTime.Now.ToShortDateString();
+            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
+            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
+            dr.EndEdit();
+            dr.AcceptChanges();
+        }
     }
+
 
     /// <summary>
     /// 雷达探头
@@ -902,6 +951,43 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcStartValue, this.cbxStart.Items[0].ToString());//---第一个开始选择运算---
             gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束范围为0---
         }
+
+        /// <summary>
+        /// 获取逻辑数据
+        /// </summary>
+        /// <returns></returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_TO2;//系统联动号为5的比较符号值
+            //--------泄漏/正常--------------
+            string size1Str = dr[dcStartValue.FieldName].ToString();
+            if (size1Str == ViewLogicSystemInteraction.VALUE1)
+                triggerData.Size1 = SensorConfig.LG_SYSLKID_ACT_ON;
+            else if (size1Str == ViewLogicSystemInteraction.VALUE2)
+                triggerData.Size1 = SensorConfig.LG_SYSLKID_ACT_OFF;
+            triggerData.Size2 = Convert.ToInt16(dr[dcEndValue.FieldName]);
+
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行---
+            if (td.Size1 == 0)//-----联动号操作----
+                dr[dcStartValue.FieldName] = ViewLogicSystemInteraction.VALUE1;
+            else if (td.Size1 == 1)
+                dr[dcStartValue.FieldName] = ViewLogicSystemInteraction.VALUE2;
+            dr[this.dcEndValue.FieldName] = td.Size2;//联动号
+
+            dr.EndEdit();
+            dr.AcceptChanges();
+        }
     }
 
 
@@ -924,6 +1010,16 @@ namespace ConfigDevice
         public override void InitViewSetting()
         {
    
+
+        }
+        public override TriggerData GetLogicData()
+        {
+            TriggerData triggerData = new TriggerData();
+            return triggerData;
+        }
+
+        public override void SetLogicData(TriggerData td)
+        {
 
         }
  

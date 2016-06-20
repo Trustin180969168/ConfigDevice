@@ -18,6 +18,10 @@ namespace ConfigDevice
         public UInt16 ValidSeconds = 0;             //有效时间(秒)
         public UInt16 InvalidSeconds = 0;           //无效时间(秒)
         public byte[] Retain = new byte[16];        //保留16个字节
+        public byte DeviceKindID = 0;               //设备类型ID
+        public byte DeviceNetworkID = 0;            //设备网段ID
+        public byte DeviceID = 0;                   //设备ID
+
 
         /// <summary>
         /// 获取触发值
@@ -74,13 +78,14 @@ namespace ConfigDevice
                 TriggerList[i].TriggerKindID = (UInt16)(objKindInfo & SensorConfig.LG_SENSOR_LVL_FLAG);     //---获取级别标识值-----
 
                 TriggerList[i].CompareID = data[4 + i * 31];//---比较符-----
-                TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[5 + i * 31], data[6 + i * 31], data[7 + i * 31], data[8 + i * 31]);
-                TriggerList[i].Size2 = ConvertTools.Bytes4ToInt(data[9 + i * 31], data[10 + i * 31], data[11 + i * 31], data[12 + i * 31]);
-                TriggerList[i].ValidSeconds = (UInt16)ConvertTools.Bytes2ToInt16(data[13 + i * 31], data[14 + i * 31]);
-                TriggerList[i].InvalidSeconds = (UInt16)ConvertTools.Bytes2ToInt16(data[15 + i * 31], data[16 + i * 31]);
-                TriggerList[i].Retain = CommonTools.CopyBytes(data, 17 + i * 31, 16);
-
-
+                TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[5 + i * 31], data[6 + i * 31], data[7 + i * 31], data[8 + i * 31]);        //---开始值---
+                TriggerList[i].Size2 = ConvertTools.Bytes4ToInt(data[9 + i * 31], data[10 + i * 31], data[11 + i * 31], data[12 + i * 31]);     //---结束值---
+                TriggerList[i].ValidSeconds = (UInt16)ConvertTools.Bytes2ToInt16(data[13 + i * 31], data[14 + i * 31]);     //----有效触发时间
+                TriggerList[i].InvalidSeconds = (UInt16)ConvertTools.Bytes2ToInt16(data[15 + i * 31], data[16 + i * 31]);   //----失效触发时间
+                TriggerList[i].DeviceKindID = data[17 + i * 31];    //----设备类型ID---
+                TriggerList[i].DeviceNetworkID = data[18 + i * 31]; //---设备网络ID---
+                TriggerList[i].DeviceID = data[19 + i * 31];        //---设备ID---
+                TriggerList[i].Retain = CommonTools.CopyBytes(data, 20 + i * 31, 13);
             }
         }
  

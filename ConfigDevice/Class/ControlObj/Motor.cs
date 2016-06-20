@@ -44,7 +44,6 @@ namespace ConfigDevice
         public const string NAME_ACTION_ROAD_FRONT_3 = "3路正转";
         public const string NAME_ACTION_ROAD_BACK_3 = "3路反转";
 
-
         public const int ACTION_RUN = 1;
         public const int ACTION_STOP = 0;
         public const int ACTION_ROAD_FRONT_1 = 0;

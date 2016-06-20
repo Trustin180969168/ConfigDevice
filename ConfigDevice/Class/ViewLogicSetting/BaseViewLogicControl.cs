@@ -48,7 +48,7 @@ namespace ConfigDevice
             dcTriggerObj = gv.Columns.ColumnByFieldName(ViewConfig.DC_OBJECT);//触发对象
             dcTriggerPosition = gv.Columns.ColumnByFieldName(ViewConfig.DC_POSITION);//触发位置
             dcTriggerKind = gv.Columns.ColumnByFieldName(ViewConfig.DC_KIND);//触发类型
-            dcDifferentDevice = gv.Columns.ColumnByFieldName(ViewConfig.DC_DIFFERENT_DEVICE);//差异设备            
+            dcDifferentDevice = gv.Columns.ColumnByFieldName(ViewConfig.DC_DEVICE_VALUE);//差异设备            
             dcOperate = gv.Columns.ColumnByFieldName(ViewConfig.DC_OPERATION);//运算操作
             dcStartValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_START_VALUE);//初始值
             dcEndValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_END_VALUE);//结束值 
@@ -56,25 +56,25 @@ namespace ConfigDevice
             dcInvalid = gv.Columns.ColumnByFieldName(ViewConfig.DC_INVALID_TIME);//无效值
 
             cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE);//---默认添加触发值---
-            dcTriggerKind.ColumnEdit = this.cbxKind;//---触发类型
-            cbxOperate.Items.Clear();//----清空触发运算
-            dcOperate.ColumnEdit = this.cbxOperate;//---触发运算符 ,统一为下拉选择----  
-            cbxPosition.Items.Clear();//清空触发位置
+            dcTriggerKind.ColumnEdit = this.cbxKind;                //---触发类型
+            cbxOperate.Items.Clear();                               //----清空触发运算
+            dcOperate.ColumnEdit = this.cbxOperate;                 //---触发运算符 ,统一为下拉选择----  
+            cbxPosition.Items.Clear();                              //---清空触发位置
             cbxPosition.Items.Add(SensorConfig.SENSOR_POSITION_LOCAL);//---默认位置是本地----
-            dcTriggerPosition.ColumnEdit = cbxPosition;//---触发编辑---- 
-            setGridColumnInvalid(dcDifferentDevice);//---默认差异设备列无效---        
-            //-------初始化设备选择控件-----
+            dcTriggerPosition.ColumnEdit = cbxPosition;             //---触发编辑---- 
+            setGridColumnInvalid(dcDifferentDevice);                //---默认差异设备列无效---        
+            //------初始化设备选择控件-----
             lookupDevice.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, "设备ID", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NETWORK_ID, "网段ID", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NAME, "设备名称", 120, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
-             new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_KIND_NAME, "设备类型", 120, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None)
+                new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NAME, "设备名称", 120, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+                new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, "设备ID", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+                new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NETWORK_ID, "网段ID", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+                new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_KIND_NAME, "设备类型", 120, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.Ascending)//---默认升序排序--
             });
             lookupDevice.PopupWidth = 500;
             lookupDevice.Name = "lookupEdit";
             lookupDevice.NullText = "选择设备";
             lookupDevice.DisplayMember = DeviceConfig.DC_NAME;
-            lookupDevice.ValueMember = DeviceConfig.DC_ID;      
+            lookupDevice.ValueMember = ViewConfig.DC_DEVICE_VALUE;
         }
 
         /// <summary>
@@ -136,6 +136,10 @@ namespace ConfigDevice
             dr[dcTriggerPosition.FieldName] = ViewConfig.TRIGGER_POSITION_ID_NAME[td.TriggerPositionID];//---触发位置-----
             dr[dcTriggerKind.FieldName] = ViewConfig.TRIGGER_KIND_ID_NAME[td.TriggerKindID];            //---触发级别---
             dr[dcOperate.FieldName] = ViewConfig.MATH_ID_NAME[td.CompareID];                            //---比较运算----
+
+            gvLogic.PostEditor();
+            dr.EndEdit();
+   
             return dr;
         }
 
