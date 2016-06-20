@@ -21,7 +21,7 @@ namespace ConfigDevice
             : base(_device, gv)
         {
             
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---运算--           
+            cbxOperate.Items.Add( SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
             cbxStart.Items.Add(VALUE1);
             cbxStart.Items.Add(VALUE2);
             dcStartValue.ColumnEdit = cbxStart;
@@ -29,7 +29,7 @@ namespace ConfigDevice
             cbxKind.Items.Clear();//----清空触发类型(探头只有等级)---
             cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//--触发类型(等级)---- 
 
-            cbxPosition.Items.Add(SensorConfig.POSITION_PERIPHERAL);//---添加外设---
+            cbxPosition.Items.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL);//---添加外设---
         }
 
         public override void InitViewSetting()
@@ -39,12 +39,12 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
-            setGridColumnValid(dcValid, new GridViewTimeEdit());//---持续时间----
-            setGridColumnValid(dcInvalid, new GridViewTimeEdit());//----失效时间-----  
+            setGridColumnValid(dcValid, this.ValidTimeEdit);//---持续时间----
+            setGridColumnValid(dcInvalid, this.InvalidTimeEdit);//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
+            gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
             gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
             gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
@@ -60,7 +60,7 @@ namespace ConfigDevice
         public ViewLogicRadar(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---运算--           
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
             cbxStart.Items.Add("正常");
             cbxStart.Items.Add("触发");
             dcStartValue.ColumnEdit = cbxStart;
@@ -87,7 +87,7 @@ namespace ConfigDevice
 
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
+            gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
         }
@@ -102,7 +102,7 @@ namespace ConfigDevice
         public ViewLogicSwitTamper(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---运算--           
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
             cbxStart.Items.Add("安全");
             cbxStart.Items.Add("被拆");
             dcStartValue.ColumnEdit = cbxStart; 
@@ -128,7 +128,7 @@ namespace ConfigDevice
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
+            gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
         }
@@ -144,7 +144,7 @@ namespace ConfigDevice
         public ViewLogicRain(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---运算--           
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
             cbxStart.Items.Add("有雨");
             cbxStart.Items.Add("无雨"); 
             dcStartValue.ColumnEdit = cbxStart;
@@ -170,7 +170,7 @@ namespace ConfigDevice
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
+            gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
         }
@@ -188,7 +188,7 @@ namespace ConfigDevice
         public ViewLogicSecurityInteraction(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---运算--           
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
             cbxStart.Items.Add("系统被撤防");
             cbxStart.Items.Add("系统进入布放延时中");
             cbxStart.Items.Add("系统进入布放");
@@ -223,7 +223,7 @@ namespace ConfigDevice
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcOperate, BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---默认等于----
+            gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
         }
@@ -323,7 +323,7 @@ namespace ConfigDevice
         public ViewLogicWeek(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//---等于---
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---等于---
             //iccbWeek.AutoHeight = false;
             //iccbWeek.ShowAllItemCaption = "全选";
             
@@ -376,18 +376,18 @@ namespace ConfigDevice
         public ViewLogicTemperature(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxKind.Items.Add(BaseViewLogicControl.TRIGGER_KIND_LEVEL);//---加上级别---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//---加上级别---
             cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
 
             //-------触发运算选择------
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_LESS_THAN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_MORE_THAN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_WITHIN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EXCEPT);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_LESS_THAN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_GREATER_THAN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
             cbxOperate.SelectedIndexChanged += new System.EventHandler(this.cbxOperate_SelectedIndexChanged);
             //-------级别运算选择------
-            cbxOperateLevel.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);
+            cbxOperateLevel.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
 
             //-------初始化温度编辑控件------
             temperatureEdit.DisplayFormat.FormatString = "#0 ℃";
@@ -448,7 +448,7 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             dr[ViewConfig.DC_KIND] = kindName;
             dr.EndEdit();
-            if (kindName == BaseViewLogicControl.TRIGGER_KIND_VALUE)
+            if (kindName == SensorConfig.SENSOR_VALUE_KIND_VALUE)
             {
                 setGridColumnValid(dcOperate, cbxOperate);
                 setGridColumnValid(dcStartValue, temperatureEdit);
@@ -458,7 +458,7 @@ namespace ConfigDevice
                 gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
                 gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
             }
-            else if (kindName == BaseViewLogicControl.TRIGGER_KIND_LEVEL)
+            else if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
             {
                 setGridColumnValid(dcOperate, cbxOperateLevel);
                 setGridColumnValid(dcStartValue, cbxTemperatureLevelEdit);
@@ -475,8 +475,8 @@ namespace ConfigDevice
         private void cbxOperate_SelectedIndexChanged(object sender, EventArgs e)
         {
             string operateName = (string)cbxOperate.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            if (operateName == BaseViewLogicControl.TRIGGER_OPERATE_EQUAL || operateName == BaseViewLogicControl.TRIGGER_OPERATE_LESS_THAN ||
-                operateName == BaseViewLogicControl.TRIGGER_OPERATE_MORE_THAN)
+            if (operateName == SensorConfig.LG_MATH_NAME_EQUAL_TO || operateName == SensorConfig.LG_MATH_NAME_LESS_THAN ||
+                operateName == SensorConfig.LG_MATH_NAME_GREATER_THAN)
                 setGridColumnInvalid(dcEndValue);//---设置结束值无效----
             else
             {
@@ -489,128 +489,7 @@ namespace ConfigDevice
     }
 
 
-
-
-    /// <summary>
-    /// 消防温度
-    /// </summary>
-    public class ViewLogicFireControlTemperature : BaseViewLogicControl
-    {
-        GridViewDigitalEdit temperatureEdit = new GridViewDigitalEdit();//--温度编辑控件---
-        GridViewComboBox cbxOperateLevel = new GridViewComboBox();//---级别运算--
-        GridViewComboBox cbxTemperatureLevelEdit = new GridViewComboBox();//---温度级别编辑控件---
-        public ViewLogicFireControlTemperature(Device _device, GridView gv)
-            : base(_device, gv)
-        {
-            cbxKind.Items.Add(BaseViewLogicControl.TRIGGER_KIND_LEVEL);//---加上级别---
-            cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
-
-            //-------触发运算选择------
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_LESS_THAN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_MORE_THAN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_WITHIN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EXCEPT);
-            cbxOperate.SelectedIndexChanged += new System.EventHandler(this.cbxOperate_SelectedIndexChanged);
-            //-------级别运算选择------
-            cbxOperateLevel.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);
-
-            //-------初始化温度编辑控件------
-            temperatureEdit.DisplayFormat.FormatString = "#0 ℃";
-            temperatureEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            temperatureEdit.Mask.EditMask = "#0 ℃";
-            temperatureEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            temperatureEdit.Mask.UseMaskAsDisplayFormat = true;
-            temperatureEdit.MaxValue = 60;
-            temperatureEdit.MinValue = -20;
-
-            //-------初始化级别编辑控件------
-            cbxTemperatureLevelEdit.Items.Add("正常");
-            cbxTemperatureLevelEdit.Items.Add("高温");
-            cbxTemperatureLevelEdit.Items.Add("大火"); 
-
-        }
-
-
-        public override TriggerData GetLogicData()
-        {
-            return null;
-        }
-
-        public override void SetLogicData(TriggerData td)
-        {
-
-        }
-
-        /// <summary>
-        /// 设置初始值
-        /// </summary>
-        public override void InitViewSetting()
-        {
-            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
-            setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
-            setGridColumnValid(dcStartValue, temperatureEdit);//---开始值有效
-            setGridColumnInvalid(dcEndValue);//----结束值无效--- 
-            setGridColumnValid(dcValid, new GridViewTimeEdit());//---持续时间----
-            setGridColumnValid(dcInvalid, new GridViewTimeEdit());//失效时间----- 
-
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-            gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
-
-            gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
-            gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
-        }
-
-        /// <summary>
-        /// 触发类型选择
-        /// </summary> 
-        private void cbxKind_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string kindName = (string)cbxKind.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            gvLogic.PostEditor();
-            DataRow dr = gvLogic.GetDataRow(0);
-            dr[ViewConfig.DC_KIND] = kindName;
-            dr.EndEdit();
-            if (kindName == BaseViewLogicControl.TRIGGER_KIND_VALUE)
-            {
-                setGridColumnValid(dcOperate, cbxOperate);
-                setGridColumnValid(dcStartValue, temperatureEdit);
-                setGridColumnValid(dcEndValue, temperatureEdit);
-
-                gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-                gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
-                gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
-            }
-            else if (kindName == BaseViewLogicControl.TRIGGER_KIND_LEVEL)
-            {
-                setGridColumnValid(dcOperate, cbxOperateLevel);
-                setGridColumnValid(dcStartValue, cbxTemperatureLevelEdit);
-                setGridColumnInvalid(dcEndValue);
-
-                gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-                gvLogic.SetRowCellValue(0, dcStartValue, cbxTemperatureLevelEdit.Items[0].ToString());//---开始值---         
-            }
-        }
-
-        /// <summary>
-        /// 运算符触发
-        /// </summary> 
-        private void cbxOperate_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string operateName = (string)cbxOperate.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            if (operateName == BaseViewLogicControl.TRIGGER_OPERATE_EQUAL || operateName == BaseViewLogicControl.TRIGGER_OPERATE_LESS_THAN ||
-                operateName == BaseViewLogicControl.TRIGGER_OPERATE_MORE_THAN)
-                setGridColumnInvalid(dcEndValue);//---设置结束值无效----
-            else
-            {
-                setGridColumnValid(dcEndValue, temperatureEdit);//----设置结束值有效----
-                gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
-                gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
-            }
-        }
-
-    }
+   
 
 
     /// <summary>
@@ -624,18 +503,18 @@ namespace ConfigDevice
         public ViewLogicHumidity(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxKind.Items.Add(BaseViewLogicControl.TRIGGER_KIND_LEVEL);//---加上级别---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//---加上级别---
             cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
 
             //-------触发运算选择------
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_LESS_THAN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_MORE_THAN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_WITHIN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EXCEPT);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_LESS_THAN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_GREATER_THAN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
             cbxOperate.SelectedIndexChanged += new System.EventHandler(this.cbxOperate_SelectedIndexChanged);
             //-------级别运算选择------
-            cbxOperateLevel.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);
+            cbxOperateLevel.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
 
             //-------初始化温度编辑控件------
             //humidityEdit.DisplayFormat.FormatString = "#0 %RH";
@@ -696,7 +575,7 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             dr[ViewConfig.DC_KIND] = kindName;
             dr.EndEdit();
-            if (kindName == BaseViewLogicControl.TRIGGER_KIND_VALUE)
+            if (kindName == SensorConfig.SENSOR_VALUE_KIND_VALUE)
             {
                 setGridColumnValid(dcOperate, cbxOperate);
                 setGridColumnValid(dcStartValue, humidityEdit);
@@ -706,7 +585,7 @@ namespace ConfigDevice
                 gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
                 gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
             }
-            else if (kindName == BaseViewLogicControl.TRIGGER_KIND_LEVEL)
+            else if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
             {
                 setGridColumnValid(dcOperate, cbxOperateLevel);
                 setGridColumnValid(dcStartValue, cbxHumidityLevelEdit);
@@ -723,8 +602,8 @@ namespace ConfigDevice
         private void cbxOperate_SelectedIndexChanged(object sender, EventArgs e)
         {
             string operateName = (string)cbxOperate.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            if (operateName == BaseViewLogicControl.TRIGGER_OPERATE_EQUAL || operateName == BaseViewLogicControl.TRIGGER_OPERATE_LESS_THAN ||
-                operateName == BaseViewLogicControl.TRIGGER_OPERATE_MORE_THAN)
+            if (operateName == SensorConfig.LG_MATH_NAME_EQUAL_TO || operateName == SensorConfig.LG_MATH_NAME_LESS_THAN ||
+                operateName == SensorConfig.LG_MATH_NAME_GREATER_THAN)
                 setGridColumnInvalid(dcEndValue);//---设置结束值无效----
             else
             {
@@ -748,18 +627,18 @@ namespace ConfigDevice
         public ViewLogicWindy(Device _device, GridView gv)
             : base(_device, gv)
         { 
-            cbxKind.Items.Add(BaseViewLogicControl.TRIGGER_KIND_LEVEL);//---加上级别---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//---加上级别---
             cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
 
             //-------触发运算选择------
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_LESS_THAN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_MORE_THAN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_WITHIN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EXCEPT);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_LESS_THAN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_GREATER_THAN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
             cbxOperate.SelectedIndexChanged += new System.EventHandler(this.cbxOperate_SelectedIndexChanged);
             //-------级别运算选择------
-            cbxOperateLevel.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);
+            cbxOperateLevel.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
 
             //-------初始化温度编辑控件------
             windyEdit.DisplayFormat.FormatString = "#0.0 米/秒";
@@ -818,7 +697,7 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             dr[ViewConfig.DC_KIND] = kindName;
             dr.EndEdit();
-            if (kindName == BaseViewLogicControl.TRIGGER_KIND_VALUE)
+            if (kindName == SensorConfig.SENSOR_VALUE_KIND_VALUE)
             {
                 setGridColumnValid(dcOperate, cbxOperate);
                 setGridColumnValid(dcStartValue, windyEdit);
@@ -828,7 +707,7 @@ namespace ConfigDevice
                 gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
                 gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
             }
-            else if (kindName == BaseViewLogicControl.TRIGGER_KIND_LEVEL)
+            else if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
             {
                 setGridColumnValid(dcOperate, cbxOperateLevel);
                 setGridColumnValid(dcStartValue, cbxHumidityLevelEdit);
@@ -845,8 +724,8 @@ namespace ConfigDevice
         private void cbxOperate_SelectedIndexChanged(object sender, EventArgs e)
         {
             string operateName = (string)cbxOperate.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            if (operateName == BaseViewLogicControl.TRIGGER_OPERATE_EQUAL || operateName == BaseViewLogicControl.TRIGGER_OPERATE_LESS_THAN ||
-                operateName == BaseViewLogicControl.TRIGGER_OPERATE_MORE_THAN)
+            if (operateName == SensorConfig.LG_MATH_NAME_EQUAL_TO || operateName == SensorConfig.LG_MATH_NAME_LESS_THAN ||
+                operateName == SensorConfig.LG_MATH_NAME_GREATER_THAN)
                 setGridColumnInvalid(dcEndValue);//---设置结束值无效----
             else
             {
@@ -871,18 +750,18 @@ namespace ConfigDevice
         public ViewLogicLuminance(Device _device, GridView gv)
             : base(_device, gv)
         { 
-            cbxKind.Items.Add(BaseViewLogicControl.TRIGGER_KIND_LEVEL);//---加上级别---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//---加上级别---
             cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
 
             //-------触发运算选择------
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_LESS_THAN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_MORE_THAN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_WITHIN);
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EXCEPT);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_LESS_THAN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_GREATER_THAN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
             cbxOperate.SelectedIndexChanged += new System.EventHandler(this.cbxOperate_SelectedIndexChanged);
             //-------级别运算选择------
-            cbxOperateLevel.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);
+            cbxOperateLevel.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
 
             //-------初始化温度编辑控件------
             luminanceEdit.MinValue = 0;
@@ -938,7 +817,7 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             dr[ViewConfig.DC_KIND] = kindName;
             dr.EndEdit();
-            if (kindName == BaseViewLogicControl.TRIGGER_KIND_VALUE)
+            if (kindName == SensorConfig.SENSOR_VALUE_KIND_VALUE)
             {
                 setGridColumnValid(dcOperate, cbxOperate);
                 setGridColumnValid(dcStartValue, luminanceEdit);
@@ -948,7 +827,7 @@ namespace ConfigDevice
                 gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
                 gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
             }
-            else if (kindName == BaseViewLogicControl.TRIGGER_KIND_LEVEL)
+            else if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
             {
                 setGridColumnValid(dcOperate, cbxOperateLevel);
                 setGridColumnValid(dcStartValue, cbxHumidityLevelEdit);
@@ -965,8 +844,8 @@ namespace ConfigDevice
         private void cbxOperate_SelectedIndexChanged(object sender, EventArgs e)
         {
             string operateName = (string)cbxOperate.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            if (operateName == BaseViewLogicControl.TRIGGER_OPERATE_EQUAL || operateName == BaseViewLogicControl.TRIGGER_OPERATE_LESS_THAN ||
-                operateName == BaseViewLogicControl.TRIGGER_OPERATE_MORE_THAN)
+            if (operateName == SensorConfig.LG_MATH_NAME_EQUAL_TO || operateName == SensorConfig.LG_MATH_NAME_LESS_THAN ||
+                operateName == SensorConfig.LG_MATH_NAME_GREATER_THAN)
                 setGridColumnInvalid(dcEndValue);//---设置结束值无效----
             else
             {
@@ -992,8 +871,7 @@ namespace ConfigDevice
             : base(_device, gv)
         {
             setGridColumnValid(dcTriggerPosition, cbxPosition);//-------设置触发位置有效---
-            cbxOperate.Items.Add(BaseViewLogicControl.TRIGGER_OPERATE_EQUAL);//----触发 运算符---
-            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE);//---触发类型,只有触发值--- 
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//----触发 运算符---
             //---开始为下拉----
             cbxStart.Items.Add("打开");
             cbxStart.Items.Add("关闭");

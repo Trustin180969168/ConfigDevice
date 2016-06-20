@@ -458,6 +458,7 @@
             this.btRefresh.Name = "btRefresh";
             this.btRefresh.Size = new System.Drawing.Size(100, 28);
             this.btRefresh.Text = "刷新数据";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // pageJcsz
             // 
@@ -489,6 +490,8 @@
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandEdit.Location = new System.Drawing.Point(0, 336);
             this.viewCommandEdit.Name = "viewCommandEdit";
+            this.viewCommandEdit.ShowCommandBar = false;
+            this.viewCommandEdit.ShowToolBar = false;
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 346);
             this.viewCommandEdit.TabIndex = 1;
             // 

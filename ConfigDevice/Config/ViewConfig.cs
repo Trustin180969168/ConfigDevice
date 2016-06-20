@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid.Columns;
 using System.ComponentModel;
 using DevExpress.XtraEditors;
 using System.Data;
@@ -26,37 +27,7 @@ namespace ConfigDevice
         public const string DC_NAME = "Name";
         public const string DC_ID = "ID";
 
-        // 逻辑关系 ----------------------------------------------------------------------------------------------
-        public const int LG_4OR = 0;          //第1种逻辑关系:4个条件[或]
-        public const int LG_4AND = 1;          //第2种逻辑关系:4个条件[与]
-        public const int LG_3OR_1AND = 2;          //第3种逻辑关系:3个条件[或],再1个条件[与]
-        public const int LG_3AND_1OR = 3;          //第4种逻辑关系:3个条件[与],再1个条件[或]
-        public const int LG_2OR_2AND_OR = 4;          //第5种逻辑关系:2个条件[或],2个条件[与],再两者[或]
-        public const int LG_2OR_2AND_AND = 5;          //第5种逻辑关系:2个条件[或],2个条件[与],再两者[与]
-        public const int LG_TOTAL = 6;
-        public const int LG_DEFAULT = LG_4OR;
 
-        // 数学关系 ----------------------------------------------------------------------------------------------
-        public const int LG_MATH_EQUAL_TO = 0;          //等于(只判断[slSiz1])                                  <- if (val1 == slSiz1)
-        public const int LG_MATH_LESS_THAN = 1;          //小于(只判断[slSiz1])                                  <- if (val1 <  slSiz1)
-        public const int LG_MATH_GREATER_THAN = 2;          //大于(只判断[slSiz1])                                  <- if (val1 >  slSiz1)
-        public const int LG_MATH_WITHIN = 3;          //以内(范围内)(包括两边的数值) (判断[slSiz1]和[slSiz2]) <- if (val1 >= slSiz1) && if (val1 <= slSiz2)
-        public const int LG_MATH_WITHOUT = 4;          //以外(范围外)                 (判断[slSiz1]和[slSiz2]) <- if (val1 <  slSiz1) || if (val1 >  slSiz2)
-        public const int LG_MATH_EQUAL_TO2 = 5;          //等于(判断[slSiz1]和[slSiz2])                          <- if (val2 == slSiz2)  { if (val1 == slSiz1) }
-        public const int LG_MATH_EQUAL_AND_TRUE = 6;          //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
-        public const int LG_MATH_TOTAL = 7;
-        public const int LG_MATH_DEFAULT = LG_MATH_EQUAL_TO;
-
-        public const string LG_MATH_NAME_EQUAL_TO = "等于";          //等于(只判断[slSiz1])                                  <- if (val1 == slSiz1)
-        public const string LG_MATH_NAME_LESS_THAN = "小于";          //小于(只判断[slSiz1])                                  <- if (val1 <  slSiz1)
-        public const string LG_MATH_NAME_GREATER_THAN = "大于";          //大于(只判断[slSiz1])                                  <- if (val1 >  slSiz1)
-        public const string LG_MATH_NAME_WITHIN = "以内";          //以内(范围内)(包括两边的数值) (判断[slSiz1]和[slSiz2]) <- if (val1 >= slSiz1) && if (val1 <= slSiz2)
-        public const string LG_MATH_NAME_WITHOUT = "以外";          //以外(范围外)                 (判断[slSiz1]和[slSiz2]) <- if (val1 <  slSiz1) || if (val1 >  slSiz2)
-        public const string LG_MATH_NAME_EQUAL_TO2 = "等于";          //等于(判断[slSiz1]和[slSiz2])                          <- if (val2 == slSiz2)  { if (val1 == slSiz1) }
-        public const string LG_MATH_NAME_EQUAL_AND_TRUE = "两者与为真";          //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
-        public const string LG_MATH_NAME_TOTAL = "相加";
-        public const string LG_MATH_NAME_DEFAULT = LG_MATH_NAME_EQUAL_TO;
- 
 
         public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的值---- 
         public static Dictionary<UInt16, string> TRIGGER_ID_NAME = new Dictionary<UInt16, string>(); //-----触发对象对应的值---- 
@@ -66,6 +37,23 @@ namespace ConfigDevice
         public static Dictionary<UInt16, string> MATH_ID_NAME = new Dictionary<UInt16, string>(); //-----运算ID对应的名称---- 
         public static Dictionary<string, UInt16> TRIGGER_POSITION_NAME_ID = new Dictionary<string, UInt16>(); //-----触发位置ID---- 
         public static Dictionary<UInt16, string> TRIGGER_POSITION_ID_NAME = new Dictionary<UInt16, string>(); //-----触发位置名称---- 
+
+
+        public static  string SELECT_COMMAND_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
+                   "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_SWIT_4 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_SWIT_6 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_SWIT_8 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_2 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_4 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_6 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_8 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
+                   "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
+                   ")";
+
+        public static string SELECT_LOGIC_DEVICE_QUERY_CONDITION = " 1 = 1 ";
 
         static ViewConfig()
         {
@@ -84,7 +72,7 @@ namespace ConfigDevice
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_TIME, SensorConfig.LG_EXT_SENSOR_TIME_SEG);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_DATE, SensorConfig.LG_EXT_SENSOR_DATE_SEG);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_WEEK, SensorConfig.LG_EXT_SENSOR_WEEK_CYC);
-            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.LG_DEV_SENSOR_TEMP);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.LG_SENSOR_TEMP_FC);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_VOID, SensorConfig.SENSOR_INVALID);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TEMP, SensorConfig.SENSOR_TEMPERATURE);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_HUMI, SensorConfig.SENSOR_HUMIDITY);
@@ -99,46 +87,46 @@ namespace ConfigDevice
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_TIME_SEG, SensorConfig.SENSOR_TIME);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_DATE_SEG, SensorConfig.SENSOR_DATE);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_WEEK_CYC, SensorConfig.SENSOR_WEEK);
-            TRIGGER_ID_NAME.Add(SensorConfig.LG_DEV_SENSOR_TEMP, SensorConfig.SENSOR_FIRE_TEMPERATURE);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TEMP_FC, SensorConfig.SENSOR_FIRE_TEMPERATURE);
             //------触发位置的对应关系--------
-            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.POSITION_LOCAL, 0);//-------本地-----
-            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.POSITION_PERIPHERAL, SensorConfig.LG_SENSOR_DEV_FLAG);//----外设----
-            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.POSITION_PERIPHERAL_DIFFERENT, SensorConfig.LG_SENSOR_DIF_FLAG);//----差值----
-            TRIGGER_POSITION_ID_NAME.Add(0, SensorConfig.POSITION_LOCAL);//-------本地-----
-            TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DEV_FLAG, SensorConfig.POSITION_PERIPHERAL);//----外设----
-            TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DIF_FLAG, SensorConfig.POSITION_PERIPHERAL_DIFFERENT);//----差值----
+            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_LOCAL, 0);//-------本地-----
+            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL, SensorConfig.LG_SENSOR_DEV_FLAG);//----外设----
+            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT, SensorConfig.LG_SENSOR_DIF_FLAG);//----差值----
+            TRIGGER_POSITION_ID_NAME.Add(0, SensorConfig.SENSOR_POSITION_LOCAL);//-------本地-----
+            TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DEV_FLAG, SensorConfig.SENSOR_POSITION_PERIPHERAL);//----外设----
+            TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DIF_FLAG, SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT);//----差值----
             //-------触发类型-------
-            TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE, SensorConfig.LG_SENSOR_KIND_FLAG);//---默认触发类别---
+            TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE, SensorConfig.LG_SENSOR_DEF_FLAG);//---默认触发类别---
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL, SensorConfig.LG_SENSOR_LVL_FLAG);//----级别-----
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_SAME_UNIT, SensorConfig.LG_SENSOR_MASK);
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_SAME_TYPE, SensorConfig.LG_SENSOR_TYP_MASK);
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_END_MASK, SensorConfig.LG_SENSOR_END_MARK);
 
-            TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_KIND_FLAG, SensorConfig.SENSOR_VALUE_KIND_VALUE);//---默认触发类别---
+            TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_DEF_FLAG, SensorConfig.SENSOR_VALUE_KIND_VALUE);//---默认触发类别---
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_LVL_FLAG, SensorConfig.SENSOR_VALUE_KIND_LEVEL);//----级别-----
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_MASK, SensorConfig.SENSOR_VALUE_KIND_SAME_UNIT);
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_TYP_MASK, SensorConfig.SENSOR_VALUE_KIND_SAME_TYPE);
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_END_MARK, SensorConfig.SENSOR_END_MASK);
 
             //-------运算符-------
-            MATH_ID_NAME.Add(LG_MATH_EQUAL_TO, LG_MATH_NAME_EQUAL_TO);
-            MATH_ID_NAME.Add(LG_MATH_LESS_THAN, LG_MATH_NAME_LESS_THAN);
-            MATH_ID_NAME.Add(LG_MATH_GREATER_THAN, LG_MATH_NAME_GREATER_THAN);
-            MATH_ID_NAME.Add(LG_MATH_WITHIN, LG_MATH_NAME_WITHIN);
-            MATH_ID_NAME.Add(LG_MATH_WITHOUT, LG_MATH_NAME_WITHOUT);
-            MATH_ID_NAME.Add(LG_MATH_EQUAL_TO2, LG_MATH_NAME_EQUAL_TO2);
-            MATH_ID_NAME.Add(LG_MATH_EQUAL_AND_TRUE, LG_MATH_NAME_EQUAL_AND_TRUE);
-            MATH_ID_NAME.Add(LG_MATH_TOTAL, LG_MATH_NAME_TOTAL);
-            MATH_NAME_ID.Add(LG_MATH_NAME_EQUAL_TO, LG_MATH_EQUAL_TO);
-            MATH_NAME_ID.Add(LG_MATH_NAME_LESS_THAN, LG_MATH_LESS_THAN);
-            MATH_NAME_ID.Add(LG_MATH_NAME_GREATER_THAN, LG_MATH_GREATER_THAN);
-            MATH_NAME_ID.Add(LG_MATH_NAME_WITHIN, LG_MATH_WITHIN);
-            MATH_NAME_ID.Add(LG_MATH_NAME_WITHOUT, LG_MATH_WITHOUT);
-            MATH_NAME_ID.Add(LG_MATH_NAME_EQUAL_AND_TRUE, LG_MATH_EQUAL_AND_TRUE);
-            MATH_NAME_ID.Add(LG_MATH_NAME_TOTAL, LG_MATH_TOTAL);
+            MATH_ID_NAME.Add(SensorConfig.LG_MATH_EQUAL_TO, SensorConfig.LG_MATH_NAME_EQUAL_TO);
+            MATH_ID_NAME.Add(SensorConfig.LG_MATH_LESS_THAN, SensorConfig.LG_MATH_NAME_LESS_THAN);
+            MATH_ID_NAME.Add(SensorConfig.LG_MATH_GREATER_THAN, SensorConfig.LG_MATH_NAME_GREATER_THAN);
+            MATH_ID_NAME.Add(SensorConfig.LG_MATH_WITHIN, SensorConfig.LG_MATH_NAME_WITHIN);
+            MATH_ID_NAME.Add(SensorConfig.LG_MATH_WITHOUT, SensorConfig.LG_MATH_NAME_WITHOUT);
+            MATH_ID_NAME.Add(SensorConfig.LG_MATH_EQUAL_TO2, SensorConfig.LG_MATH_NAME_EQUAL_TO2);
+            MATH_ID_NAME.Add(SensorConfig.LG_MATH_EQUAL_AND_TRUE, SensorConfig.LG_MATH_NAME_EQUAL_AND_TRUE);
+            MATH_ID_NAME.Add(SensorConfig.LG_MATH_TOTAL, SensorConfig.LG_MATH_NAME_TOTAL);
+            MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO, SensorConfig.LG_MATH_EQUAL_TO);
+            MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_LESS_THAN, SensorConfig.LG_MATH_LESS_THAN);
+            MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_GREATER_THAN, SensorConfig.LG_MATH_GREATER_THAN);
+            MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_WITHIN, SensorConfig.LG_MATH_WITHIN);
+            MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_WITHOUT, SensorConfig.LG_MATH_WITHOUT);
+            MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_EQUAL_AND_TRUE, SensorConfig.LG_MATH_EQUAL_AND_TRUE);
+            MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_TOTAL, SensorConfig.LG_MATH_TOTAL);
 
         }
-   
+
     }
 
     /// <summary>
@@ -250,6 +238,18 @@ namespace ConfigDevice
             : base()
         {
             AutoHeight = false;
+        }
+    }
+
+    /// <summary>
+    /// 查询选择
+    /// </summary>
+    public class GridViewLookupEdit : DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit
+    {
+        public GridViewLookupEdit()
+            : base()
+        {
+    
         }
     }
 

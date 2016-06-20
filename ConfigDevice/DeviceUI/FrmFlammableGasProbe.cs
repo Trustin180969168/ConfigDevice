@@ -285,6 +285,7 @@ namespace ConfigDevice
         {
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----读取逻辑数据----
             viewCommandEdit.ReadCommandData();//---读取命令数据----
+            flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
         }
 
         /// <summary>
@@ -315,6 +316,17 @@ namespace ConfigDevice
         private void FrmFlammableGasProbe_FormClosing(object sender, FormClosingEventArgs e)
         {
             flammableGasProbe.RemoveRJ45Callback();//----清空回调-----
+        }
+
+        /// <summary>
+        /// 刷新状态及参数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+            flammableGasProbe.ReadState();//---读取状态----     
+            flammableGasProbe.Valve.ReadParameter();//---读取参数---
         }
         
     }

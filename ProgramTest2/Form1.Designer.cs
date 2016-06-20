@@ -43,6 +43,8 @@
             this.num = new DevExpress.XtraGrid.Columns.GridColumn();
             this.edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.dcSelect = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemGridLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.repositoryItemGridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             this.imageComboBoxEdit1 = new DevExpress.XtraEditors.ImageComboBoxEdit();
@@ -53,6 +55,7 @@
             this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
             this.checkedComboBoxEdit1 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.lookUpEdit2 = new DevExpress.XtraEditors.LookUpEdit();
+            this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
@@ -61,6 +64,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit.VistaTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iccbWeek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).BeginInit();
@@ -68,6 +73,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).BeginInit();
             this.SuspendLayout();
             // 
             // timeEdit1
@@ -101,7 +107,9 @@
             this.timeEdit,
             this.edtNum,
             this.dateEdit,
-            this.iccbWeek});
+            this.iccbWeek,
+            this.repositoryItemGridLookUpEdit1,
+            this.repositoryItemLookUpEdit1});
             this.gcTime.Size = new System.Drawing.Size(423, 466);
             this.gcTime.TabIndex = 5;
             this.gcTime.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -246,6 +254,21 @@
             this.dcSelect.Visible = true;
             this.dcSelect.VisibleIndex = 2;
             // 
+            // repositoryItemGridLookUpEdit1
+            // 
+            this.repositoryItemGridLookUpEdit1.AutoHeight = false;
+            this.repositoryItemGridLookUpEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemGridLookUpEdit1.Name = "repositoryItemGridLookUpEdit1";
+            this.repositoryItemGridLookUpEdit1.View = this.repositoryItemGridLookUpEdit1View;
+            // 
+            // repositoryItemGridLookUpEdit1View
+            // 
+            this.repositoryItemGridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.repositoryItemGridLookUpEdit1View.Name = "repositoryItemGridLookUpEdit1View";
+            this.repositoryItemGridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.repositoryItemGridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
+            // 
             // simpleButton2
             // 
             this.simpleButton2.Location = new System.Drawing.Point(33, 61);
@@ -369,8 +392,15 @@
             this.lookUpEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.lookUpEdit2.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lookUpEdit2.Size = new System.Drawing.Size(352, 21);
+            this.lookUpEdit2.Size = new System.Drawing.Size(136, 21);
             this.lookUpEdit2.TabIndex = 17;
+            // 
+            // repositoryItemLookUpEdit1
+            // 
+            this.repositoryItemLookUpEdit1.AutoHeight = false;
+            this.repositoryItemLookUpEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemLookUpEdit1.Name = "repositoryItemLookUpEdit1";
             // 
             // Form1
             // 
@@ -400,6 +430,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iccbWeek)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).EndInit();
@@ -407,6 +439,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -436,6 +469,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn dcWeek;
         private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit1;
         private DevExpress.XtraEditors.LookUpEdit lookUpEdit2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit repositoryItemGridLookUpEdit1;
+        private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemGridLookUpEdit1View;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
     }
 }
 

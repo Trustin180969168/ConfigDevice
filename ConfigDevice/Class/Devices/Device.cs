@@ -497,11 +497,10 @@ namespace ConfigDevice
             //------获取数据-----
             UserUdpData userData = new UserUdpData(data);
             Device device = new BaseDevice(userData);
-            //------回复反馈的设备信息-------
-            //UdpTools.ReplyDeviceDataUdp(data);//----由主界面接收反馈----
 
             if (device.MAC == this.MAC)
             {
+                UdpTools.ReplyDeviceDataUdp(data);//----由主界面接收反馈----
                 this.DeviceID = device.DeviceID;
                 this.NetworkID = device.NetworkID;
                 this.KindID = device.KindID;
@@ -512,7 +511,7 @@ namespace ConfigDevice
                 this.NetworkIP = device.NetworkIP;
                 this.AddressName = device.AddressName;
 
-                CallbackUI(null);//---返回UI----
+                CallbackUI(new CallbackParameter(this.GetType().BaseType.Name));//---返回UI----
                 DeviceCtrl.UpdateDeviceData(this.GetDeviceData());//--刷新----
             }
         }

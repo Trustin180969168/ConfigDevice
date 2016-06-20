@@ -18,8 +18,6 @@ namespace ConfigDevice
         /// <returns></returns>
         public static BaseViewCommandControl GetViewCommandControl(ControlObj controlObj, GridView gv)
         {
-
-
             if (controlObj is ConfigDevice.Background)
                 return new ViewBackgroundControl(controlObj, gv);
             else if (controlObj is ConfigDevice.Circuit)
@@ -38,7 +36,6 @@ namespace ConfigDevice
                 return new ViewTimingControl(controlObj, gv);
 
             else return null;
-
         }
 
         /// <summary>
@@ -48,13 +45,14 @@ namespace ConfigDevice
         /// <returns></returns>
         public static BaseViewLogicControl GetViewLogicControl(int TriggerID,Device device, GridView gv)
         {
-
             if (TriggerID == SensorConfig.LG_SENSOR_DEFAULT)
                 return new ViewLogicInvalid(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_LEL)
                 return new ViewLogicFlamableGasProbe(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_TEMP)
                 return new ViewLogicTemperature(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_TEMP_FC)
+                return new ViewLogicFireControlTemperature(device, gv);
             else if (TriggerID == SensorConfig.LG_EXT_SENSOR_SYS_LKID)
                 return new ViewLogicSystemInteraction(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_HUMI)
@@ -73,8 +71,28 @@ namespace ConfigDevice
                 return new ViewLogicWindy(device, gv);
             else
                 return new ViewLogicInvalid(device, gv); 
-
         }
+
+        /// <summary>
+        /// 判断是否有效时间
+        /// </summary>
+        /// <param name="seconds">秒数</param>
+        /// <returns></returns>
+        public static int getSecondsFromTimeStr(string timeStr)
+        {
+            try
+            {
+                DateTime dtValid = DateTime.Parse(timeStr);
+                int validSeconds = dtValid.Hour * 60 * 60 + dtValid.Minute * 60 + dtValid.Second;           //有效秒数
+                if (validSeconds > 64800)
+                { CommonTools.MessageShow("运行时间不能大于18小时!", 2, ""); return 64800; }
+                else
+                    return validSeconds;
+            }
+            catch { CommonTools.MessageShow("时间格式错误!", 2, ""); return 0; }
+        }
+
+
     }
 
 

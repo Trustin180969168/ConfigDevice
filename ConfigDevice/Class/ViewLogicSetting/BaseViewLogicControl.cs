@@ -10,15 +10,6 @@ namespace ConfigDevice
 {
     public abstract class BaseViewLogicControl
     {
-        public const string TRIGGER_KIND_VALUE = "触发值";
-        public const string TRIGGER_KIND_LEVEL = "级别";
-        public const string TRIGGER_KIND_PERIPHERAL = "外设";
-
-        public const string TRIGGER_OPERATE_EQUAL = "等于";
-        public const string TRIGGER_OPERATE_LESS_THAN = "小于";
-        public const string TRIGGER_OPERATE_MORE_THAN = "大于";
-        public const string TRIGGER_OPERATE_WITHIN = "以内";
-        public const string TRIGGER_OPERATE_EXCEPT = "以外"; 
 
         public Device deviceTrigger;//触发设备对象
         public GridView gvLogic;//逻辑列表
@@ -27,6 +18,9 @@ namespace ConfigDevice
         protected GridViewComboBox cbxKind = new GridViewComboBox();//触发类型
         protected GridViewComboBox cbxPosition = new GridViewComboBox();//触发位置
         protected GridViewTextEdit InvalidEdit = new GridViewTextEdit();//无效编辑
+        protected GridViewTimeEdit ValidTimeEdit = new GridViewTimeEdit();//有效触发时间编辑
+        protected GridViewTimeEdit InvalidTimeEdit = new GridViewTimeEdit();//无效触发时间编辑
+        protected GridViewLookupEdit lookupDevice = new GridViewLookupEdit();//设备选择编辑
         protected GridColumn dcTriggerObj;//触发对象
         protected GridColumn dcTriggerPosition;//触发位置
         protected GridColumn dcTriggerKind;//触发类型
@@ -47,7 +41,9 @@ namespace ConfigDevice
             this.gvLogic = gv;
             InvalidEdit.ReadOnly = true;
             InvalidEdit.NullText = "无效";
-            InvalidEdit.AllowFocused = false; 
+            InvalidEdit.AllowFocused = false;
+            ValidTimeEdit.Leave += this.ValidTimeEdit_Leave;
+            InvalidTimeEdit.Leave += this.InvalidTimeEdit_Leave;
 
             dcTriggerObj = gv.Columns.ColumnByFieldName(ViewConfig.DC_OBJECT);//触发对象
             dcTriggerPosition = gv.Columns.ColumnByFieldName(ViewConfig.DC_POSITION);//触发位置
@@ -58,17 +54,27 @@ namespace ConfigDevice
             dcEndValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_END_VALUE);//结束值 
             dcValid = gv.Columns.ColumnByFieldName(ViewConfig.DC_VALID_TIME);//有效值
             dcInvalid = gv.Columns.ColumnByFieldName(ViewConfig.DC_INVALID_TIME);//无效值
-            
+
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE);//---默认添加触发值---
             dcTriggerKind.ColumnEdit = this.cbxKind;//---触发类型
             cbxOperate.Items.Clear();//----清空触发运算
             dcOperate.ColumnEdit = this.cbxOperate;//---触发运算符 ,统一为下拉选择----  
-
             cbxPosition.Items.Clear();//清空触发位置
-            cbxPosition.Items.Add(SensorConfig.POSITION_LOCAL);//---默认位置是本地----
-            dcTriggerPosition.ColumnEdit = cbxPosition;//---触发编辑----
-
-            //dcDifferentDevice.Visible = false;//---默认不显示差异设备--
-            setGridColumnInvalid(dcDifferentDevice);//---默认差异设备列无效---             
+            cbxPosition.Items.Add(SensorConfig.SENSOR_POSITION_LOCAL);//---默认位置是本地----
+            dcTriggerPosition.ColumnEdit = cbxPosition;//---触发编辑---- 
+            setGridColumnInvalid(dcDifferentDevice);//---默认差异设备列无效---        
+            //-------初始化设备选择控件-----
+            lookupDevice.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, "设备ID", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NETWORK_ID, "网段ID", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NAME, "设备名称", 120, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+             new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_KIND_NAME, "设备类型", 120, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None)
+            });
+            lookupDevice.PopupWidth = 500;
+            lookupDevice.Name = "lookupEdit";
+            lookupDevice.NullText = "选择设备";
+            lookupDevice.DisplayMember = DeviceConfig.DC_NAME;
+            lookupDevice.ValueMember = DeviceConfig.DC_ID;      
         }
 
         /// <summary>
@@ -98,6 +104,7 @@ namespace ConfigDevice
             gc.AppearanceCell.BackColor = Color.LightYellow;
             gc.AppearanceCell.ForeColor = Color.Blue;
             gc.OptionsColumn.AllowEdit = true;
+            
         }
 
         /// <summary>
@@ -122,12 +129,82 @@ namespace ConfigDevice
         /// <returns>DataRow</returns>
         protected DataRow GetInitDataRow(TriggerData td)
         {
+            gvLogic.PostEditor();
             DataRow dr = gvLogic.GetDataRow(0);
+            dr.EndEdit();
             dr[dcTriggerObj.FieldName] = ViewConfig.TRIGGER_ID_NAME[td.TriggerObjectID];                //---触发对象---
             dr[dcTriggerPosition.FieldName] = ViewConfig.TRIGGER_POSITION_ID_NAME[td.TriggerPositionID];//---触发位置-----
             dr[dcTriggerKind.FieldName] = ViewConfig.TRIGGER_KIND_ID_NAME[td.TriggerKindID];            //---触发级别---
             dr[dcOperate.FieldName] = ViewConfig.MATH_ID_NAME[td.CompareID];                            //---比较运算----
             return dr;
+        }
+
+        /// <summary>
+        /// 时间离开校验
+        /// </summary>
+        private void ValidTimeEdit_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                gvLogic.PostEditor();
+                DataRow dr = gvLogic.GetDataRow(0);
+                dr.EndEdit();
+                DateTime dtValid = DateTime.Parse(dr[dcValid.FieldName].ToString());
+                int validSeconds = dtValid.Hour * 60 * 60 + dtValid.Minute * 60 + dtValid.Second;           //有效秒数
+                if (validSeconds > 64800)
+                    CommonTools.MessageShow("触发时间不能大于18小时!", 2, "");    
+            }
+            catch { CommonTools.MessageShow("时间格式错误!", 2, ""); }
+        }
+
+        /// <summary>
+        /// 时间离开校验
+        /// </summary>
+        private void InvalidTimeEdit_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                DataRow dr = gvLogic.GetDataRow(0);
+                DateTime dtInvalid = DateTime.Parse(dr[dcInvalid.FieldName].ToString());
+                int invalidSeconds = dtInvalid.Hour * 60 * 60 + dtInvalid.Minute * 60 + dtInvalid.Second;           //无效秒数
+                if (invalidSeconds > 64800)
+                    CommonTools.MessageShow("恢复时间不能大于18小时!", 2, "");
+            }
+            catch { CommonTools.MessageShow("时间格式错误!", 2, ""); }
+        }
+
+        /// <summary>
+        /// 移除触发级别
+        /// </summary>
+        /// <param name="kindName">级别名称</param>
+        protected void RemoveKindName(string kindName)
+        {
+            for (int i = 0; i < cbxKind.Items.Count; i++)
+                if (cbxKind.Items[i].ToString() == kindName)
+                {
+                    cbxKind.Items.RemoveAt(i);
+                    break;
+                }
+        }
+
+
+        /// <summary>
+        /// 添加触发级别
+        /// </summary>
+        /// <param name="kindName">级别名称</param>
+        protected void AddKindName(string kindName)
+        {
+            bool found = false;
+            for (int i = 0; i < cbxKind.Items.Count; i++)
+                if (cbxKind.Items[i].ToString() == kindName)
+                {
+                    found = true;
+                    break;
+                }
+
+
+            if (!found)
+                cbxKind.Items.Add(kindName);
         }
 
     }

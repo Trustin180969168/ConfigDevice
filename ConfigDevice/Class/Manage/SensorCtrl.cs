@@ -39,7 +39,7 @@ namespace ConfigDevice
         {
             if (kindID == SensorConfig.LG_SENSOR_VOID)
                 return new InvalidSensor(value);
-            if (kindID == SensorConfig.LG_DEV_SENSOR_TEMP)
+            if (kindID == SensorConfig.LG_SENSOR_TEMP_FC)
                 return new FireControlTemperatureSensor(value);
             if (kindID == SensorConfig.LG_SENSOR_LEL)
                 return new FlamableGasProbeSensor(value);

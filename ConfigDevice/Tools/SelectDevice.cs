@@ -24,28 +24,7 @@ namespace ConfigDevice
             deviceState.FieldName = DeviceConfig.DC_STATE;
             deviceRemark.FieldName = DeviceConfig.DC_REMARK;
         }
-
-        /// <summary>
-        /// 筛选出能进行指令配置操作的设备
-        /// </summary>
-        /// <returns></returns>
-        private string chooseCondition()
-        {
-            string temp = DeviceConfig.DC_KIND_ID + " in (" +
-                          "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_SWIT_4 + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_SWIT_6 + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_SWIT_8 + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_2 + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_4 + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_6 + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_8 + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
-                          "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
-                          ")";
-            return temp;
-        }
+ 
 
         /// <summary>
         /// 双击选择设备
@@ -67,9 +46,8 @@ namespace ConfigDevice
         /// </summary>
         private void SelectDevice_Load(object sender, EventArgs e)
         {
-            DataTable dt = SysConfig.DtDevice.Clone();
-            string cdnStr = chooseCondition();
-            DataRow[] rows =  SysConfig.DtDevice.Select(cdnStr);
+            DataTable dt = SysConfig.DtDevice.Clone(); 
+            DataRow[] rows =  SysConfig.DtDevice.Select( ViewConfig.SELECT_COMMAND_DEVICE_QUERY_CONDITION);
             foreach (DataRow dr in rows)
                 dt.Rows.Add(dr.ItemArray);
             dt.AcceptChanges();

@@ -21,9 +21,15 @@ namespace ConfigDevice
         public const int LG_EXT_SENSOR_TIME_SEG = 11;           //外部条件:时间段
         public const int LG_EXT_SENSOR_DATE_SEG = 12;           //外部条件:日期段
         public const int LG_EXT_SENSOR_WEEK_CYC = 13;           //外部条件:周循环
-        public const int LG_DEV_SENSOR_TEMP = 14;               //消防温控    (含有外设,含有等级)
-        public const int LG_SENSOR_TOTAL = 15;                  //总数(★★数量以后会不断增加,必须在最尾处增加★★)
-        public const UInt16 LG_SENSOR_KIND_FLAG = 0;            //默认触发级别
+        public const int LG_SENSOR_TEMP_FC = 14;               //消防温控    (含有外设,含有等级)
+        public const int LG_SENSOR_TVOC = 16;         //TVOC有害气体 (含有外设,含有级别)
+        public const int  LG_SENSOR_CO2    =       17;         //二氧化碳     (含有外设,含有级别)
+        public const int  LG_SENSOR_CH2O     =     18;         //甲醛         (含有外设,含有级别)
+        public const int  LG_EXT_SENSOR_SLF_LKID = 19;         //特殊:内部联动(                 )
+        public const int  LG_SENSOR_PM25      =    20;         //PM2.5        (含有外设,含有级别) 
+        public const int LG_SENSOR_AQI = 21;                  //总数(★★数量以后会不断增加,必须在最尾处增加★★)
+
+        public const UInt16 LG_SENSOR_DEF_FLAG = 0;        //级别默认值0
         public const UInt16 LG_SENSOR_DEV_FLAG = 0x8000;        //[外设]传感器[标志位]->如:本设备,外设
         public const UInt16 LG_SENSOR_LVL_FLAG = 0x4000;        //传感器[级别][标志位]->如:温度,27℃(数值),舒适(级别)
         public const UInt16 LG_SENSOR_DIF_FLAG = 0x2000;     //传感器[差值][标志位]->只针对[本设备]与[外设]同类传感器的[差值],所以须要有[LG_SENSOR_DEV_FLAG]标志
@@ -31,10 +37,13 @@ namespace ConfigDevice
         public const UInt16 LG_SENSOR_TYP_MASK = 0x3FFF;        //[同类型]传感器[掩码]->如:温度,湿度
         public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;        //传感器结束符 
         public const UInt16 LG_SENSOR_DEFAULT = LG_SENSOR_VOID;
+
+
+
         //------触发位置--------
-        public const string POSITION_LOCAL = "本地";
-        public const string POSITION_PERIPHERAL = "外设";
-        public const string POSITION_PERIPHERAL_DIFFERENT = "外设差异";
+        public const string SENSOR_POSITION_LOCAL = "本地";
+        public const string SENSOR_POSITION_PERIPHERAL = "外设";
+        public const string SENSOR_POSITION_PERIPHERAL_DIFFERENT = "外设差异";
         //------触发对象------
         public const string SENSOR_INVALID = "无效";
         public const string SENSOR_TEMPERATURE = "温度";
@@ -53,12 +62,44 @@ namespace ConfigDevice
         public const string SENSOR_WEEK = "周循环";
         public const string SENSOR_FIRE_TEMPERATURE = "消防温控";
 
-        public const string SENSOR_VALUE_KIND_VALUE = "触发值";
+        public const string SENSOR_VALUE_KIND_VALUE = "触发值"; 
         public const string SENSOR_VALUE_KIND_LEVEL = "等级";
         public const string SENSOR_VALUE_KIND_SAME_UNIT = "同一个";
         public const string SENSOR_VALUE_KIND_SAME_TYPE = "同类型";
         public const string SENSOR_END_MASK = "结束";
         public const string SENSOR_DEFAULT = SENSOR_INVALID;
+
+        // 逻辑关系 ----------------------------------------------------------------------------------------------
+        public const int LG_4OR = 0;          //第1种逻辑关系:4个条件[或]
+        public const int LG_4AND = 1;          //第2种逻辑关系:4个条件[与]
+        public const int LG_3OR_1AND = 2;          //第3种逻辑关系:3个条件[或],再1个条件[与]
+        public const int LG_3AND_1OR = 3;          //第4种逻辑关系:3个条件[与],再1个条件[或]
+        public const int LG_2OR_2AND_OR = 4;          //第5种逻辑关系:2个条件[或],2个条件[与],再两者[或]
+        public const int LG_2OR_2AND_AND = 5;          //第5种逻辑关系:2个条件[或],2个条件[与],再两者[与]
+        public const int LG_TOTAL = 6;
+        public const int LG_DEFAULT = LG_4OR;
+
+        // 数学关系 ----------------------------------------------------------------------------------------------
+        public const int LG_MATH_EQUAL_TO = 0;          //等于(只判断[slSiz1])                                  <- if (val1 == slSiz1)
+        public const int LG_MATH_LESS_THAN = 1;          //小于(只判断[slSiz1])                                  <- if (val1 <  slSiz1)
+        public const int LG_MATH_GREATER_THAN = 2;          //大于(只判断[slSiz1])                                  <- if (val1 >  slSiz1)
+        public const int LG_MATH_WITHIN = 3;          //以内(范围内)(包括两边的数值) (判断[slSiz1]和[slSiz2]) <- if (val1 >= slSiz1) && if (val1 <= slSiz2)
+        public const int LG_MATH_WITHOUT = 4;          //以外(范围外)                 (判断[slSiz1]和[slSiz2]) <- if (val1 <  slSiz1) || if (val1 >  slSiz2)
+        public const int LG_MATH_EQUAL_TO2 = 5;          //等于(判断[slSiz1]和[slSiz2])                          <- if (val2 == slSiz2)  { if (val1 == slSiz1) }
+        public const int LG_MATH_EQUAL_AND_TRUE = 6;          //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
+        public const int LG_MATH_TOTAL = 7;
+        public const int LG_MATH_DEFAULT = LG_MATH_EQUAL_TO;
+
+        public const string LG_MATH_NAME_EQUAL_TO = "等于";          //等于(只判断[slSiz1])                                  <- if (val1 == slSiz1)
+        public const string LG_MATH_NAME_LESS_THAN = "小于";          //小于(只判断[slSiz1])                                  <- if (val1 <  slSiz1)
+        public const string LG_MATH_NAME_GREATER_THAN = "大于";          //大于(只判断[slSiz1])                                  <- if (val1 >  slSiz1)
+        public const string LG_MATH_NAME_WITHIN = "以内";          //以内(范围内)(包括两边的数值) (判断[slSiz1]和[slSiz2]) <- if (val1 >= slSiz1) && if (val1 <= slSiz2)
+        public const string LG_MATH_NAME_WITHOUT = "以外";          //以外(范围外)                 (判断[slSiz1]和[slSiz2]) <- if (val1 <  slSiz1) || if (val1 >  slSiz2)
+        public const string LG_MATH_NAME_EQUAL_TO2 = "等于";          //等于(判断[slSiz1]和[slSiz2])                          <- if (val2 == slSiz2)  { if (val1 == slSiz1) }
+        public const string LG_MATH_NAME_EQUAL_AND_TRUE = "两者与为真";          //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
+        public const string LG_MATH_NAME_TOTAL = "相加";
+        public const string LG_MATH_NAME_DEFAULT = LG_MATH_NAME_EQUAL_TO;
+ 
 
         //系统联动[ucCmp ]值:           LG_MATH_EQUAL_TO2
         //系统联动[slSiz2]值:           0~LG_LINKAGE_NUM-1

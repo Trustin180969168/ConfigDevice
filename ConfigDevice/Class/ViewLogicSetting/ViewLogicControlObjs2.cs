@@ -26,13 +26,17 @@ namespace ConfigDevice
             else if (size1Str == ViewLogicFlamableGasProbe.VALUE2)
                 triggerData.Size1 = 1;
             triggerData.Size2 = 0;//----无效------
-            //-----有效持续,无效持续------
-            DateTime dtValid = DateTime.Parse(dr[dcValid.FieldName].ToString());
-            DateTime dtInvalid = DateTime.Parse(dr[dcInvalid.FieldName].ToString());
-            int validSeconds = dtValid.Hour * 60 * 60 + dtValid.Minute * 60 + dtValid.Second;           //有效秒数
-            int invalidSeconds = dtInvalid.Hour * 60 * 60 + dtInvalid.Minute * 60 + dtInvalid.Second;   //无效秒数
+            //-----有效持续,无效持续------            
+            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
+            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //无效秒数       
             triggerData.ValidSeconds = (UInt16)validSeconds;
             triggerData.InvalidSeconds = (UInt16)invalidSeconds;
+            string nowDateStr = DateTime.Now.ToShortDateString();
+            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
+
+            dr.EndEdit();
+            gvLogic.RefreshData();
 
             return triggerData;
         }
@@ -49,13 +53,14 @@ namespace ConfigDevice
             else if (td.Size1 == 1)
                 dr[dcStartValue.FieldName] = ViewLogicFlamableGasProbe.VALUE2;
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();//----有效持续---
+            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
             dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
-
             dr.EndEdit();
             dr.AcceptChanges();
         }
     }
+
+
 
     /// <summary>
     /// 系统联动号
@@ -70,13 +75,13 @@ namespace ConfigDevice
         {
             DataRow dr = gvLogic.GetDataRow(0);
             TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
-            triggerData.CompareID = 5;//系统联动号为5的比较符号值
+            triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_TO2;//系统联动号为5的比较符号值
             //--------泄漏/正常--------------
             string size1Str = dr[dcStartValue.FieldName].ToString();
             if (size1Str == ViewLogicSystemInteraction.VALUE1)
-                triggerData.Size1 = 0;
+                triggerData.Size1 = SensorConfig.LG_SYSLKID_ACT_ON;
             else if (size1Str == ViewLogicSystemInteraction.VALUE2)
-                triggerData.Size1 = 1;
+                triggerData.Size1 = SensorConfig.LG_SYSLKID_ACT_OFF;
             triggerData.Size2 =Convert.ToInt16(dr[dcEndValue.FieldName]) ;
 
             return triggerData;
@@ -98,9 +103,7 @@ namespace ConfigDevice
             dr.EndEdit();
             dr.AcceptChanges();
         }
-
     }
-
 
 
     /// <summary>
@@ -120,6 +123,12 @@ namespace ConfigDevice
         }
 
     }
+
+ 
+
+
+
+
 
 
 }

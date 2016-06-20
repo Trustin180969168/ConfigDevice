@@ -79,8 +79,9 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0,dcObject,SensorConfig.SENSOR_INVALID);//---默认选择无效---
             ViewLogicObj = ViewEditCtrl.GetViewLogicControl(SensorConfig.LG_SENSOR_DEFAULT, DeviceEdit, gvLogic);
             DataRow dr = gvLogic.GetDataRow(0);
-            dr[ViewConfig.DC_OBJECT] = SensorConfig.SENSOR_INVALID;
+            dr[ViewConfig.DC_OBJECT] = SensorConfig.SENSOR_INVALID;//----触发初始化,触发对象----
             dr.EndEdit();
+
         }
 
         /// <summary>
@@ -109,7 +110,23 @@ namespace ConfigDevice
             ViewLogicObj = ViewEditCtrl.GetViewLogicControl(td.TriggerObjectID, DeviceEdit, gvLogic);//---获取逻辑控制对象-----
             ViewLogicObj.InitViewSetting();     //------初始化视图配置------
             ViewLogicObj.SetLogicData(td);      //------设置逻辑数据-------            
-            dr.EndEdit();     
+            dr.EndEdit();
+            dr.AcceptChanges();//---提交变更----
+        }
+
+        public bool HasChanged  //------是否执行了更改------
+        {
+            get
+            {
+                this.gvLogic.PostEditor();
+                DataRow dr = gvLogic.GetDataRow(0);
+                dr.EndEdit();
+                DataTable dt = this.DataLogicSetting.GetChanges(DataRowState.Modified);
+                if (dt != null && dt.Rows.Count > 0)
+                    return true;
+                else
+                    return false;
+            }
         }
 
         /// <summary>

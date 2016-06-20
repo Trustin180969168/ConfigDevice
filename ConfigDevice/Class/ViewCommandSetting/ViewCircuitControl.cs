@@ -16,7 +16,6 @@ namespace ConfigDevice
     /// </summary>
     public class ViewCircuitControl : BaseViewCommandControl
     {
-
         GridColumn dcCommand;//指令
         GridColumn dcCircuit;//回路
         GridColumn dcPercent;//亮度
@@ -45,7 +44,6 @@ namespace ConfigDevice
             circuit.OnCallbackUI_Action += this.CallBackUI;
             circuit.ReadRoadTitle();//----获取回路数据-----
 
-
             //------初始化回路列表选择-------
             lookupEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.lookupEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
@@ -55,10 +53,8 @@ namespace ConfigDevice
             lookupEdit.DisplayMember = DeviceConfig.DC_ID;
             lookupEdit.ValueMember = DeviceConfig.DC_ID;
             lookupEdit.ShowFooter = false;
-            lookupEdit.ShowHeader = false;
-          
-
-
+            lookupEdit.ShowHeader = false;        
+            
             InitViewSetting();
         }
 
@@ -80,11 +76,11 @@ namespace ConfigDevice
             int closeDelaySeconds = dtCloseDelay.Hour * 60 * 60 + dtCloseDelay.Minute * 60 + dtCloseDelay.Second;//关延迟秒数
 
             if (runTimeSeconds > 64800)
-             CommonTools.MessageShow("运行时间不能大于18小时!", 2, ""); 
+                CommonTools.MessageShow("运行时间不能大于18小时!", 2, "");
             if (openDelaySeconds > 64800)
-             CommonTools.MessageShow("开延迟不能大于18小时!", 2, "");
+                CommonTools.MessageShow("开延迟不能大于18小时!", 2, "");
             if (closeDelaySeconds > 64800)
-             CommonTools.MessageShow("关延迟不能大于18小时!", 2, ""); 
+                CommonTools.MessageShow("关延迟不能大于18小时!", 2, "");
         }
 
         /// <summary>

@@ -376,6 +376,7 @@
     <Compile Include="Class\ViewLogicSetting\BaseViewLogicControl.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicControlObjs1.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicControlObjs2.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicFireControlTemperature.cs" />
     <Compile Include="Config\AudioConfig.cs" />
     <Compile Include="Config\SensorConfig.cs" />
     <Compile Include="Config\ViewConfig.cs">

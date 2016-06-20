@@ -129,7 +129,7 @@ namespace ConfigDevice
             byte[] dataByte1 = ConvertTools.StrToToHexByte(dataStr1);
             byte[] dataByte2 = ConvertTools.StrToToHexByte(dataStr2);
             this.Probe = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_LEL, dataByte1) as FlamableGasProbeSensor;//获取探头
-            this.Temperature = SensorCtrl.GetSensorFromByte(SensorConfig.LG_DEV_SENSOR_TEMP, dataByte1) as FireControlTemperatureSensor;//获取消防温控
+            this.Temperature = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_TEMP_FC, dataByte1) as FireControlTemperatureSensor;//获取消防温控
             //-------阀门状态-----
             int temp = (int)dataByte2[0];
             switch (temp)

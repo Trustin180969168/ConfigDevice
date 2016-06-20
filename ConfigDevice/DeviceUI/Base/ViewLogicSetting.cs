@@ -15,8 +15,9 @@ namespace ConfigDevice
         public bool NeedInit = true;
         public LogicList logicList; //---逻辑配置----
         private Circuit circuit;    //---回路----
+        private int currentLogicNum; //---当前逻辑----
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
-        public int LogicItemIndex { get { return lookUpEdit.ItemIndex + 1; } }
+        public int LogicItemIndex { get { return lookUpEdit.ItemIndex; } }
         public string LogicName { get { return edtTriggerActionName.Text; } } 
         public Circuit Circuit
         {
@@ -148,6 +149,7 @@ namespace ConfigDevice
             }
             LogicData logicData = parameter.Parameters[0] as LogicData;
             imageComboBoxEdit.SelectedIndex = logicData.Logic4KindID;
+            currentLogicNum = logicData.Logic4KindID;
             viewLogicTools1.SetLogicData(logicData.TriggerList[0]);
             viewLogicTools2.SetLogicData(logicData.TriggerList[1]);
             viewLogicTools3.SetLogicData(logicData.TriggerList[2]);
@@ -159,36 +161,44 @@ namespace ConfigDevice
         /// </summary>
         public void SaveLogicData()
         {
-            byte[] logicValue = new byte[31 * 4];
-            
-            byte[] value1 = viewLogicTools1.GetLogicData().Value();
-            byte[] value2 = viewLogicTools2.GetLogicData().Value();
-            byte[] value3 = viewLogicTools3.GetLogicData().Value();
-            byte[] value4 = viewLogicTools4.GetLogicData().Value();
+            if (viewLogicTools1.HasChanged || viewLogicTools2.HasChanged || viewLogicTools3.HasChanged ||
+                viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex)
+            {
+                byte[] logicValue = new byte[31 * 4];
 
-            Buffer.BlockCopy(value1, 0, logicValue, 0, 31);
-            Buffer.BlockCopy(value2, 0, logicValue, 31, 31);
-            Buffer.BlockCopy(value3, 0, logicValue, 62, 31);
-            Buffer.BlockCopy(value4, 0, logicValue, 93, 31);
+                byte[] value1 = viewLogicTools1.GetLogicData().Value();
+                byte[] value2 = viewLogicTools2.GetLogicData().Value();
+                byte[] value3 = viewLogicTools3.GetLogicData().Value();
+                byte[] value4 = viewLogicTools4.GetLogicData().Value();
 
-            logicList.SaveLogicData(lookUpEdit.ItemIndex, imageComboBoxEdit.SelectedIndex, logicValue);
+                Buffer.BlockCopy(value1, 0, logicValue, 0, 31);
+                Buffer.BlockCopy(value2, 0, logicValue, 31, 31);
+                Buffer.BlockCopy(value3, 0, logicValue, 62, 31);
+                Buffer.BlockCopy(value4, 0, logicValue, 93, 31);
 
+                logicList.SaveLogicData(lookUpEdit.ItemIndex, imageComboBoxEdit.SelectedIndex, logicValue);
+            }
         }
         public void SaveLogicData(int groupNum)
         {
-            byte[] logicValue = new byte[31 * 4];
+            if (viewLogicTools1.HasChanged || viewLogicTools2.HasChanged || viewLogicTools3.HasChanged ||
+                viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex)
+            {
 
-            byte[] value1 = viewLogicTools1.GetLogicData().Value();
-            byte[] value2 = viewLogicTools2.GetLogicData().Value();
-            byte[] value3 = viewLogicTools3.GetLogicData().Value();
-            byte[] value4 = viewLogicTools4.GetLogicData().Value();
+                byte[] logicValue = new byte[31 * 4];
 
-            Buffer.BlockCopy(value1, 0, logicValue, 0, 31);
-            Buffer.BlockCopy(value2, 0, logicValue, 31, 31);
-            Buffer.BlockCopy(value3, 0, logicValue, 62, 31);
-            Buffer.BlockCopy(value4, 0, logicValue, 93, 31);
+                byte[] value1 = viewLogicTools1.GetLogicData().Value();
+                byte[] value2 = viewLogicTools2.GetLogicData().Value();
+                byte[] value3 = viewLogicTools3.GetLogicData().Value();
+                byte[] value4 = viewLogicTools4.GetLogicData().Value();
 
-            logicList.SaveLogicData(groupNum, imageComboBoxEdit.SelectedIndex, logicValue);
+                Buffer.BlockCopy(value1, 0, logicValue, 0, 31);
+                Buffer.BlockCopy(value2, 0, logicValue, 31, 31);
+                Buffer.BlockCopy(value3, 0, logicValue, 62, 31);
+                Buffer.BlockCopy(value4, 0, logicValue, 93, 31);
+
+                logicList.SaveLogicData(groupNum, imageComboBoxEdit.SelectedIndex, logicValue);
+            }
         }
 
         /// <summary>
