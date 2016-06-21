@@ -104,10 +104,10 @@ namespace ConfigDevice
             //------触发位置的对应关系--------
             TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_LOCAL, 0);//-------本地-----
             TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL, SensorConfig.LG_SENSOR_DEV_FLAG);//----外设----
-            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT, SensorConfig.LG_SENSOR_DIF_FLAG);//----差值----
+            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT, SensorConfig.LG_SENSOR_DIF_FLAG_VALUE);//----外设差值----
             TRIGGER_POSITION_ID_NAME.Add(0, SensorConfig.SENSOR_POSITION_LOCAL);//-------本地-----
             TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DEV_FLAG, SensorConfig.SENSOR_POSITION_PERIPHERAL);//----外设----
-            TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DIF_FLAG, SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT);//----差值----
+            TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DIF_FLAG_VALUE, SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT);//----外设差值----
             //-------触发类型-------
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE, SensorConfig.LG_SENSOR_DEF_FLAG);//---默认触发类别---
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL, SensorConfig.LG_SENSOR_LVL_FLAG);//----级别-----

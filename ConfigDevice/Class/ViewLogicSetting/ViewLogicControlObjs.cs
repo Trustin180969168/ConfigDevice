@@ -13,16 +13,15 @@ namespace ConfigDevice
     /// </summary>
     public class ViewLogicFlamableGasProbe : BaseViewLogicControl
     {
-        public const string VALUE1 = "正常";
-        public const string VALUE2 = "泄漏";
+        private string[] levelValues = { SensorConfig.LEL_LV_NAME_NORMAL, SensorConfig.LEL_LV_NAME_TRIGGERED };
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
         public ViewLogicFlamableGasProbe(Device _device, GridView gv)
             : base(_device, gv)
         {
 
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
-            cbxStart.Items.Add(VALUE1);
-            cbxStart.Items.Add(VALUE2);
+            cbxStart.Items.Add(levelValues[0]);
+            cbxStart.Items.Add(levelValues[1]);
             dcStartValue.ColumnEdit = cbxStart;
 
             cbxKind.Items.Clear();//----清空触发类型(探头只有等级)---
@@ -59,11 +58,8 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
             //--------泄漏/正常--------------
-            string size1Str = dr[dcStartValue.FieldName].ToString();
-            if (size1Str == ViewLogicFlamableGasProbe.VALUE1)
-                triggerData.Size1 = 0;
-            else if (size1Str == ViewLogicFlamableGasProbe.VALUE2)
-                triggerData.Size1 = 1;
+            string size1Str = dr[dcStartValue.FieldName].ToString(); 
+            triggerData.Size1 = FindLevelIndex(levelValues,size1Str);//----获取等级值---
             triggerData.Size2 = 0;//----无效------
             //-----有效持续,无效持续------            
             int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
@@ -86,11 +82,8 @@ namespace ConfigDevice
         /// <param name="td"></param>
         public override void SetLogicData(TriggerData td)
         {
-            DataRow dr = this.GetInitDataRow(td);//---初始化行---
-            if (td.Size1 == 0)//-----获取触发值----
-                dr[dcStartValue.FieldName] = ViewLogicFlamableGasProbe.VALUE1;
-            else if (td.Size1 == 1)
-                dr[dcStartValue.FieldName] = ViewLogicFlamableGasProbe.VALUE2;
+            DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
+            dr[dcStartValue.FieldName] = levelValues[td.Size1];
             string nowDateStr = DateTime.Now.ToShortDateString();
             dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
             dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
@@ -912,8 +905,8 @@ namespace ConfigDevice
     /// </summary>
     public partial class ViewLogicSystemInteraction : BaseViewLogicControl
     {
-        public const string VALUE1 = "打开";
-        public const string VALUE2 = "关闭";
+
+        public string[] LevelValues = { SensorConfig.LG_SYSLKID_NAME_ACT_OFF,SensorConfig.LG_SYSLKID_NAME_ACT_ON };
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值选择---
         private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//----数字------
         public ViewLogicSystemInteraction(Device _device, GridView gv)
@@ -922,10 +915,9 @@ namespace ConfigDevice
             setGridColumnValid(dcTriggerPosition, cbxPosition);//-------设置触发位置有效---
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//----触发 运算符---
             //---开始为下拉----
-            cbxStart.Items.Add("打开");
-            cbxStart.Items.Add("关闭");
-
-            //-------初始化温度编辑控件------
+            cbxStart.Items.Add(LevelValues[0]);
+            cbxStart.Items.Add(LevelValues[1]);
+            //---初始化温度编辑控件------
             edtNum.DisplayFormat.FormatString = "##0 号";
             edtNum.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             edtNum.Mask.EditMask = "##0 号";
@@ -961,16 +953,13 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
             triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_TO2;//系统联动号为5的比较符号值
-            //--------泄漏/正常--------------
-            string size1Str = dr[dcStartValue.FieldName].ToString();
-            if (size1Str == ViewLogicSystemInteraction.VALUE1)
-                triggerData.Size1 = SensorConfig.LG_SYSLKID_ACT_ON;
-            else if (size1Str == ViewLogicSystemInteraction.VALUE2)
-                triggerData.Size1 = SensorConfig.LG_SYSLKID_ACT_OFF;
+            //--------关闭/打开--------------
+            string size1Str = dr[dcStartValue.FieldName].ToString(); 
+            triggerData.Size1 =  FindLevelIndex(LevelValues,size1Str); 
             triggerData.Size2 = Convert.ToInt16(dr[dcEndValue.FieldName]);
 
             return triggerData;
-        }
+        }        
 
         /// <summary>
         /// 设置逻辑数据
@@ -979,20 +968,15 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行---
-            if (td.Size1 == 0)//-----联动号操作----
-                dr[dcStartValue.FieldName] = ViewLogicSystemInteraction.VALUE1;
-            else if (td.Size1 == 1)
-                dr[dcStartValue.FieldName] = ViewLogicSystemInteraction.VALUE2;
-            dr[this.dcEndValue.FieldName] = td.Size2;//联动号
+           //-----联动号操作----
+            dr[dcStartValue.FieldName] = LevelValues[td.Size1];
+            dr[dcEndValue.FieldName] = td.Size2;//联动号
 
             dr.EndEdit();
             dr.AcceptChanges();
         }
     }
-
-
-
-
+    
     /// <summary>
     /// 无效
     /// </summary>

@@ -32,7 +32,8 @@ namespace ConfigDevice
         public const UInt16 LG_SENSOR_DEF_FLAG = 0;        //级别默认值0
         public const UInt16 LG_SENSOR_DEV_FLAG = 0x8000;        //[外设]传感器[标志位]->如:本设备,外设
         public const UInt16 LG_SENSOR_LVL_FLAG = 0x4000;        //传感器[级别][标志位]->如:温度,27℃(数值),舒适(级别)
-        public const UInt16 LG_SENSOR_DIF_FLAG = 0x2000;     //传感器[差值][标志位]->只针对[本设备]与[外设]同类传感器的[差值],所以须要有[LG_SENSOR_DEV_FLAG]标志
+        public const UInt16 LG_SENSOR_DIF_FLAG = 0x2000;        //传感器[差值][标志位]->只针对[本设备]与[外设]同类传感器的[差值],所以须要有[LG_SENSOR_DEV_FLAG]标志
+        public const UInt16 LG_SENSOR_DIF_FLAG_VALUE = 0xA000;  //外设差值  0x8000 | 0x2000
         public const UInt16 LG_SENSOR_MASK = 0xBFFF;            //[同一个]传感器[掩码]->如:本设备的温度传感器,外设的温度传感器
         public const UInt16 LG_SENSOR_TYP_MASK = 0x3FFF;        //[同类型]传感器[掩码]->如:温度,湿度
         public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;        //传感器结束符 
@@ -106,7 +107,8 @@ namespace ConfigDevice
         public const int LG_SYSLKID_ACT_ON = 1;          //打开
         public const int LG_SYSLKID_ACT_TOTAL = 2;          //总数
         public const int LG_SYSLKID_ACT_DEFAULT = LG_SYSLKID_ACT_ON;
-
+        public const string LG_SYSLKID_NAME_ACT_OFF = "关闭";          //关闭
+        public const string LG_SYSLKID_NAME_ACT_ON = "打开";          //打开
 
         //安防联动[ucCmp ]值:           LG_MATH_EQUAL_AND_TRUE  → 下面的[slSiz1]值为单选bit ─┐
         //安防联动[slSiz1]值 ←────────────────────────────────┘
@@ -163,7 +165,8 @@ namespace ConfigDevice
         public const int LEL_LV_NORMAL = 0;          //【正常】
         public const int LEL_LV_TRIGGERED = 1;          //【泄漏】
         public const int LEL_LV_TOTAL = 2;
-
+        public const string LEL_LV_NAME_NORMAL = "正常";          //【正常】
+        public const string LEL_LV_NAME_TRIGGERED = "泄漏";          //【泄漏】
         // [雷达]级别 <- LG_SENSOR_RSP
         public const int RSP_LV_NORMAL = 0;          //【正常】
         public const int RSP_LV_TRIGGERED = 1;          //【触发】

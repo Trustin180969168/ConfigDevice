@@ -211,5 +211,24 @@ namespace ConfigDevice
                 cbxKind.Items.Add(kindName);
         }
 
+        /// <summary>
+        /// 获取级别对应的序号,默认为0
+        /// </summary>
+        /// <param name="levels">等级列表</param>
+        /// <param name="value">等级值</param>
+        /// <returns></returns>
+        protected int FindLevelIndex(string[] levels, string value)
+        {
+            int index = 0;
+            for (int i = 0; i < levels.Length; i++)
+            {
+                if (levels[i] == value)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
+        }
     }
 }
