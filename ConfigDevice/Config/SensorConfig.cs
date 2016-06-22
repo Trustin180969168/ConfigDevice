@@ -186,9 +186,9 @@ namespace ConfigDevice
         public const string TEMPFC_NAME_LV_HIGH = "高温";          //【高温】
         public const string TEMPFC_NAME_LV_FIRE = "火灾";          //【火灾】
         // [空气质量]级别 <- LG_SENSOR_AQI
-        public const int AQI_LV_GOOD = 0;          //【优】
+        public const int AQI_LV_POOR = 0;          //【差】
         public const int AQI_LV_MODERATE = 1;          //【良】
-        public const int AQI_LV_POOR = 2;          //【差】
+        public const int AQI_LV_GOOD = 2;          //【优】
         public const int AQI_LV_TOTAL = 3;
 
         // [TVOC有害气体]级别 <- LG_SENSOR_TVOC

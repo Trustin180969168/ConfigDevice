@@ -29,6 +29,8 @@ namespace ConfigDevice
         public const string DC_DEVICE_ID = "DeviceID";//设备ID
         public const string DC_DEVICE_NETWORK_ID = "DeviceNetworkID";//设备的网络ID
         public const string DC_DEVICE_KIND_ID = "DeviceKindID";//设备类型ID
+        public const string DC_LOGIC_VALUE = "LogicValue";//逻辑配置值
+        public const string DC_LOGIC_ADDITION_VALUE = "LogicAddtionValue";//逻辑附加值
         //public const string DC_DEVICE_VALUE = "DeviceValue";//设备唯一值
 
         public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的值---- 

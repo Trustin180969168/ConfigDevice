@@ -208,13 +208,22 @@ namespace ConfigDevice
         {
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
+            byte[] value = userData.Data;
+            SetAdditionLogicData(value);
+        }
 
-            this.Valve.ValAct = userData.Data[1];//动作类型
-            this.Valve.ValTim = ConvertTools.Bytes2ToUInt16(new byte[] { userData.Data[2], userData.Data[3] });//动作时间
-            this.FGP_Light.LedAct = userData.Data[4];//动作类型
-            this.FGP_Light.LedTim = ConvertTools.Bytes2ToUInt16(new byte[] { userData.Data[5], userData.Data[6] });//动作时间
-            this.FGP_Buzzer.BuzAct = userData.Data[7];//动作类型
-            this.FGP_Buzzer.BuzTim = ConvertTools.Bytes2ToUInt16(new byte[] { userData.Data[8], userData.Data[9] });//动作时间
+        /// <summary>
+        /// 设置附加动作
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetAdditionLogicData(byte[] value)
+        {
+            this.Valve.ValAct = value[1];//动作类型
+            this.Valve.ValTim = ConvertTools.Bytes2ToUInt16(new byte[] { value[2], value[3] });//动作时间
+            this.FGP_Light.LedAct = value[4];//动作类型
+            this.FGP_Light.LedTim = ConvertTools.Bytes2ToUInt16(new byte[] { value[5], value[6] });//动作时间
+            this.FGP_Buzzer.BuzAct = value[7];//动作类型
+            this.FGP_Buzzer.BuzTim = ConvertTools.Bytes2ToUInt16(new byte[] { value[8], value[9] });//动作时间
         }
 
         /// <summary>
@@ -302,8 +311,27 @@ namespace ConfigDevice
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER);
  
         }
-   
 
+        /// <summary>
+        /// 获取附加值
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetAdditionValue()
+        {
+            byte[] additionValue = new byte[10];
+
+            additionValue[1] = (byte)Valve.ValAct;//---阀门---
+            byte[] byteSeconds = ConvertTools.GetByteFromUInt16(Valve.ValTim);
+            Buffer.BlockCopy(byteSeconds, 0, additionValue, 2, 2);
+            additionValue[4] = (byte)this.FGP_Light.LedAct;//----指示灯---
+            byteSeconds = ConvertTools.GetByteFromUInt16(FGP_Light.LedTim);
+            Buffer.BlockCopy(byteSeconds, 0, additionValue, 5, 2);
+            additionValue[7] = (byte)this.FGP_Buzzer.BuzAct;//----蜂鸣器---
+            byteSeconds = ConvertTools.GetByteFromUInt16(this.FGP_Buzzer.BuzTim);
+            Buffer.BlockCopy(byteSeconds, 0, additionValue, 8, 2);
+
+            return additionValue;
+        }
     }
 
 }

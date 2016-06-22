@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraEditors.Controls;
+using System.Collections;
 
 namespace ConfigDevice
 {
@@ -16,6 +17,7 @@ namespace ConfigDevice
         private FlammableGasProbe flammableGasProbe;
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
         private string currentGroupName = "";//当前组名
+        private LogicQuickSetting logicQuickSetting;//快速配置编辑
 
         public FrmFlammableGasProbe(Device _device)
             : base(_device)
@@ -82,7 +84,21 @@ namespace ConfigDevice
             viewLogicSetting.ShowToolBar = false;//不显示工具栏  
             viewCommandEdit.ShowCommandBar = false;//不显示指令栏
             viewCommandEdit.ShowToolBar = false;
-           
+            //----------快速配置-----
+            logicQuickSetting = new LogicQuickSetting("EQUIPMENT_FUEL_GAS");
+            initLogicQuitSetting();
+        }
+
+        /// <summary>
+        /// 初始化快速配置
+        /// </summary>
+        private void initLogicQuitSetting()
+        {            
+            cbxQuickSetting.Properties.Items.Clear();
+            ArrayList names = logicQuickSetting.GetLogicQuickNameList();
+            foreach (string name in names)
+                cbxQuickSetting.Properties.Items.Add(name);
+            edtLogicLocalSetting.Text = "";
         }
 
         private void FrmFlammableGasProbe_Load(object sender, EventArgs e)
@@ -96,9 +112,9 @@ namespace ConfigDevice
         /// </summary>
         private void loadData()
         {
-            flammableGasProbe.SearchVer();//---获取版本号-----   
+            flammableGasProbe.SearchVer();          //---获取版本号-----   
             flammableGasProbe.ProbeCircuit.ReadRoadTitle();//----读取回路---- 
-            flammableGasProbe.ReadState();//---读取状态----     
+            flammableGasProbe.ReadState();          //---读取状态----     
             flammableGasProbe.Valve.ReadParameter();//---读取参数---            
         }
 
@@ -107,7 +123,6 @@ namespace ConfigDevice
         /// </summary>
         public override void CallbackUI(CallbackParameter callbackParameter)
         {
-
             if (this.InvokeRequired)
             {
                 this.Invoke(new CallbackUIAction(CallbackUI), callbackParameter);
@@ -257,8 +272,7 @@ namespace ConfigDevice
             if(currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----
                 flammableGasProbe.ProbeCircuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
-            viewCommandEdit.SaveCommands();//---保存指令配置---
-      
+            viewCommandEdit.SaveCommands();//---保存指令配置---      
         }
         /// <summary>
         /// 是否有修改
@@ -303,7 +317,6 @@ namespace ConfigDevice
             lblNum.Text = lookUpEdit.EditValue.ToString() + "、";
             edtTriggerActionName.Text = lookUpEdit.Text;
             currentGroupName = edtTriggerActionName.Text;
-
             if (!viewLogicSetting.NeedInit)
                 viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
             if (!viewCommandEdit.NeedInit)
@@ -327,6 +340,86 @@ namespace ConfigDevice
             flammableGasProbe.ReadState();//---读取状态----     
             flammableGasProbe.Valve.ReadParameter();//---读取参数---
         }
-        
+
+
+
+        /// <summary>
+        /// 获取附加动作值
+        /// </summary>
+        /// <returns></returns>
+        private byte[] getAdditionValue()
+        {
+            //-----保存附加动作----  
+            flammableGasProbe.Valve.ValAct = (byte)cbxValveAction.SelectedIndex;
+            flammableGasProbe.Valve.ValTim = (ushort)sptValveSeconds.Value;
+            flammableGasProbe.FGP_Light.LedAct = (byte)cbxLight.SelectedIndex;
+            flammableGasProbe.FGP_Light.LedTim = (ushort)this.sptLightSeconds.Value;
+            flammableGasProbe.FGP_Buzzer.BuzAct = (byte)cbxBuzzer.SelectedIndex;
+            flammableGasProbe.FGP_Buzzer.BuzTim = (ushort)sptValveSeconds.Value;
+
+            return flammableGasProbe.GetAdditionValue();
+        }
+
+ 
+
+        /// <summary>
+        /// 保存本地逻辑配置
+        /// </summary>
+        private void SaveLocalLogic()
+        {
+            string name = edtLogicLocalSetting.Text;
+            if (name == "") return;
+            if (!cbxQuickSetting.Properties.Items.Contains(name))//----列表没有,追加到本地列表----
+            {
+                cbxQuickSetting.Properties.Items.Add(name);
+                logicQuickSetting.SaveLogicLocalSetting(cbxQuickSetting.Properties.Items.Count - 1, name,
+                    this.viewLogicSetting.GetLogicData(), this.getAdditionValue());
+                cbxQuickSetting.Text = edtLogicLocalSetting.Text;
+            }
+            else
+            {
+                logicQuickSetting.SaveLogicLocalSetting(cbxQuickSetting.SelectedIndex, name,
+                    this.viewLogicSetting.GetLogicData(), this.getAdditionValue());
+            }
+           
+        }
+        /// <summary>
+        /// 加载默认配置
+        /// </summary>
+        private void cbxQuickSetting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            edtLogicLocalSetting.Text = cbxQuickSetting.Text;
+            //-------逻辑数据-----
+            viewLogicSetting.ClearTrggerData();
+            LogicData logicData = new LogicData(logicQuickSetting.GetLogicData(cbxQuickSetting.SelectedIndex));
+            viewLogicSetting.ReturnLogicData(new CallbackParameter(logicData));
+            //-------附加动作------
+            byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
+            flammableGasProbe.SetAdditionLogicData(adittionData);
+            this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
+        }
+
+        private void edtLogicLocalSetting_DoubleClick(object sender, EventArgs e)
+        {
+            cbxQuickSetting.ShowPopup();
+        }
+
+
+        /// <summary>
+        /// 保存本地逻辑
+        /// </summary> 
+        private void edtLogicLocalSetting_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((int)e.Modifiers == ((int)Keys.Control + (int)Keys.Alt) && e.KeyCode == Keys.S)
+            {
+                SaveLocalLogic();
+            }
+            else if ((int)e.Modifiers == ((int)Keys.Control + (int)Keys.Alt) && e.KeyCode == Keys.D)
+            {
+                logicQuickSetting.DelLogicLocalSetting(cbxQuickSetting.SelectedIndex);
+                initLogicQuitSetting();//---初始化快速配置列表---
+            }
+        }
+   
     }
 }

@@ -95,7 +95,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="data"></param>
         /// <param name="values"></param>
-        public void getLogicData(UdpData data, object[] values)
+        private void getLogicData(UdpData data, object[] values)
         {
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
@@ -107,9 +107,9 @@ namespace ConfigDevice
         /// 保存逻辑配置
         /// </summary>
         /// <param name="startNum">按键/分组 开始=结束</param>
-        public void SaveLogicData(int groupNum,int logicNum,byte[] values)
+        public void SaveLogicData(byte[] values)
         {
-            UdpData udpSend = createSaveLogicUdp(groupNum, logicNum, values);
+            UdpData udpSend = createSaveLogicUdp(values);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveLogicData), null);
         }
         private void callbackSaveLogicData(UdpData udpReply, object[] values)
@@ -117,7 +117,7 @@ namespace ConfigDevice
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("保存逻辑配置失败!", udpReply.ReplyByte);
         }
-        private UdpData createSaveLogicUdp(int groupNum, int logicNum, byte[] values)
+        private UdpData createSaveLogicUdp(byte[] values)
         {
             UdpData udp = new UdpData();
 
@@ -131,8 +131,8 @@ namespace ConfigDevice
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_LOGIC_WRITE_CONFIG;//----用户命令-----
             byte len = (byte)(4 + 2 + 31 * LogicList.LogicCount);//---数据长度---- 
-            byte byteGroupNum = (byte)groupNum;//--组号--
-            byte byteLogicNum = (byte)logicNum;//--逻辑号---
+            byte byteGroupNum = values[0];//--组号--
+            byte byteLogicNum = values[1];//--逻辑号---
             //---------生成校验码-----------
             byte[] crcData = new byte[10 + (4 + 2 + 31 * LogicList.LogicCount) - 4];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
@@ -142,7 +142,7 @@ namespace ConfigDevice
             crcData[9] = len;
             crcData[10] = byteGroupNum;
             crcData[11] = byteLogicNum;
-            Buffer.BlockCopy(values, 0, crcData, 12, values.Length);
+            Buffer.BlockCopy(values, 2, crcData, 12, values.Length-2);
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
 
             //---------拼接到包中------

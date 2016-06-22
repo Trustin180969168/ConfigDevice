@@ -84,7 +84,18 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             dr[ViewConfig.DC_OBJECT] = SensorConfig.SENSOR_INVALID;//----触发初始化,触发对象----
             dr.EndEdit();
+        }
 
+        /// <summary>
+        /// 清空触发对象
+        /// </summary>
+        public void ClearTriggerView()
+        {
+            gvLogic.SetRowCellValue(0, dcObject, SensorConfig.SENSOR_INVALID);//---默认选择无效---
+            ViewLogicObj = ViewEditCtrl.GetViewLogicControl(SensorConfig.LG_SENSOR_DEFAULT, DeviceEdit, gvLogic);
+            DataRow dr = gvLogic.GetDataRow(0);
+            dr[ViewConfig.DC_OBJECT] = SensorConfig.SENSOR_INVALID;//----触发初始化,触发对象----
+            dr.EndEdit();
         }
 
         /// <summary>

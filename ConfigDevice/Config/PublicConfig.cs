@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.Data;
 using System.Management;
+using System.Windows.Forms;
 
 namespace ConfigDevice
 {
@@ -193,6 +194,7 @@ namespace ConfigDevice
     //     用于保存系统配置
     public static class SysConfig
     {
+        public static readonly string ConfigPath = Application.StartupPath + "\\data\\config\\";
 
         static SysConfig()
         {

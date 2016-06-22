@@ -358,6 +358,7 @@
     <Compile Include="Class\Devices\Road4FrontDimming.cs" />
     <Compile Include="Class\Devices\Road12FrontDimming.cs" />
     <Compile Include="Class\Manage\LogicList.cs" />
+    <Compile Include="Class\Manage\LogicQuickSetting.cs" />
     <Compile Include="Class\Manage\NetworkCtrl.cs" />
     <Compile Include="Class\Manage\SensorCtrl.cs" />
     <Compile Include="Class\Sensor\Sensors.cs" />

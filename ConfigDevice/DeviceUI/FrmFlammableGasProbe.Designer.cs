@@ -83,6 +83,9 @@
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.edtLogicLocalSetting = new DevExpress.XtraEditors.TextEdit();
+            this.cbxQuickSetting = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl18 = new DevExpress.XtraEditors.LabelControl();
             this.edtTriggerActionName = new DevExpress.XtraEditors.TextEdit();
             this.lblNum = new DevExpress.XtraEditors.LabelControl();
             this.lookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
@@ -127,6 +130,8 @@
             this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtLogicLocalSetting.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxQuickSetting.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtTriggerActionName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.plToolBar)).BeginInit();
@@ -703,14 +708,58 @@
             // 
             this.panelControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl2.Controls.Add(this.edtLogicLocalSetting);
+            this.panelControl2.Controls.Add(this.cbxQuickSetting);
+            this.panelControl2.Controls.Add(this.labelControl18);
             this.panelControl2.Controls.Add(this.edtTriggerActionName);
             this.panelControl2.Controls.Add(this.lblNum);
             this.panelControl2.Controls.Add(this.lookUpEdit);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl2.Location = new System.Drawing.Point(98, 0);
+            this.panelControl2.Location = new System.Drawing.Point(99, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(683, 33);
+            this.panelControl2.Size = new System.Drawing.Size(682, 33);
             this.panelControl2.TabIndex = 17;
+            // 
+            // edtLogicLocalSetting
+            // 
+            this.edtLogicLocalSetting.Location = new System.Drawing.Point(511, 4);
+            this.edtLogicLocalSetting.Name = "edtLogicLocalSetting";
+            this.edtLogicLocalSetting.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtLogicLocalSetting.Properties.Appearance.Options.UseFont = true;
+            this.edtLogicLocalSetting.Size = new System.Drawing.Size(148, 26);
+            this.edtLogicLocalSetting.TabIndex = 19;
+            this.edtLogicLocalSetting.DoubleClick += new System.EventHandler(this.edtLogicLocalSetting_DoubleClick);
+            this.edtLogicLocalSetting.KeyDown += new System.Windows.Forms.KeyEventHandler(this.edtLogicLocalSetting_KeyDown);
+            // 
+            // cbxQuickSetting
+            // 
+            this.cbxQuickSetting.Location = new System.Drawing.Point(511, 4);
+            this.cbxQuickSetting.Name = "cbxQuickSetting";
+            this.cbxQuickSetting.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.cbxQuickSetting.Properties.Appearance.Options.UseFont = true;
+            this.cbxQuickSetting.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.cbxQuickSetting.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.cbxQuickSetting.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxQuickSetting.Properties.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.cbxQuickSetting.Size = new System.Drawing.Size(166, 26);
+            this.cbxQuickSetting.TabIndex = 18;
+            this.cbxQuickSetting.SelectedIndexChanged += new System.EventHandler(this.cbxQuickSetting_SelectedIndexChanged);
+            // 
+            // labelControl18
+            // 
+            this.labelControl18.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControl18.Appearance.Options.UseFont = true;
+            this.labelControl18.Appearance.Options.UseTextOptions = true;
+            this.labelControl18.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.labelControl18.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl18.Location = new System.Drawing.Point(420, 4);
+            this.labelControl18.Name = "labelControl18";
+            this.labelControl18.Size = new System.Drawing.Size(87, 26);
+            this.labelControl18.TabIndex = 17;
+            this.labelControl18.Text = "快速配置";
             // 
             // edtTriggerActionName
             // 
@@ -722,7 +771,7 @@
             this.edtTriggerActionName.Properties.Appearance.Options.UseBackColor = true;
             this.edtTriggerActionName.Properties.Appearance.Options.UseFont = true;
             this.edtTriggerActionName.Properties.Appearance.Options.UseForeColor = true;
-            this.edtTriggerActionName.Size = new System.Drawing.Size(474, 26);
+            this.edtTriggerActionName.Size = new System.Drawing.Size(360, 26);
             this.edtTriggerActionName.TabIndex = 13;
             this.edtTriggerActionName.DoubleClick += new System.EventHandler(this.edtTriggerActionName_DoubleClick);
             // 
@@ -765,7 +814,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.lookUpEdit.Properties.DropDownRows = 8;
             this.lookUpEdit.Properties.PopupWidth = 500;
-            this.lookUpEdit.Size = new System.Drawing.Size(520, 26);
+            this.lookUpEdit.Size = new System.Drawing.Size(406, 26);
             this.lookUpEdit.TabIndex = 14;
             this.lookUpEdit.EditValueChanged += new System.EventHandler(this.lookUpEdit_EditValueChanged);
             // 
@@ -779,7 +828,7 @@
             this.lblGroupName.Dock = System.Windows.Forms.DockStyle.Left;
             this.lblGroupName.Location = new System.Drawing.Point(0, 0);
             this.lblGroupName.Name = "lblGroupName";
-            this.lblGroupName.Size = new System.Drawing.Size(98, 33);
+            this.lblGroupName.Size = new System.Drawing.Size(99, 33);
             this.lblGroupName.TabIndex = 16;
             this.lblGroupName.Text = "触发动作 ";
             // 
@@ -876,6 +925,8 @@
             this.panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.edtLogicLocalSetting.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxQuickSetting.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtTriggerActionName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.plToolBar)).EndInit();
@@ -952,5 +1003,8 @@
         private DevExpress.XtraEditors.LabelControl labelControl10;
         private DevExpress.XtraEditors.LabelControl labelControl12;
         private DevExpress.XtraEditors.ComboBoxEdit cbxValveAction;
+        private DevExpress.XtraEditors.LabelControl labelControl18;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxQuickSetting;
+        private DevExpress.XtraEditors.TextEdit edtLogicLocalSetting;
     }
 }

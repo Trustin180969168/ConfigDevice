@@ -70,6 +70,26 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 获取指令数据
+        /// </summary>
+        public void ReturnLogicData(CallbackParameter parameter)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CallbackUIAction(ReturnLogicData), parameter);
+                return;
+            }
+            LogicData logicData = parameter.Parameters[0] as LogicData;
+            imageComboBoxEdit.SelectedIndex = logicData.Logic4KindID;
+            currentLogicNum = logicData.Logic4KindID;
+            viewLogicTools1.SetLogicData(logicData.TriggerList[0]);
+            viewLogicTools2.SetLogicData(logicData.TriggerList[1]);
+            viewLogicTools3.SetLogicData(logicData.TriggerList[2]);
+            viewLogicTools4.SetLogicData(logicData.TriggerList[3]);
+        }
+
+
+        /// <summary>
         /// 回调
         /// </summary>
         private void callbackUI(CallbackParameter callbackParameter)
@@ -101,7 +121,7 @@ namespace ConfigDevice
             foreach (Control viewlogic in plLogicList.Controls)
                 (viewlogic as ViewLogicTools).InitTriggerList(triggers);
             logicList = new LogicList(device);
-            logicList.OnCallbackUI_Action += this.returnLogicData;//命令的执行的界面回调
+            logicList.OnCallbackUI_Action += this.ReturnLogicData;//命令的执行的界面回调
             NeedInit = false;
             lookUpEdit.ItemIndex = 0;
         }
@@ -137,24 +157,7 @@ namespace ConfigDevice
             Circuit.SaveRoadSetting(lookUpEdit.ItemIndex,edtTriggerActionName.Text);//----保存回路名称---            
         }
 
-        /// <summary>
-        /// 获取指令数据
-        /// </summary>
-        private void returnLogicData(CallbackParameter parameter)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new CallbackUIAction(returnLogicData), parameter);
-                return;
-            }
-            LogicData logicData = parameter.Parameters[0] as LogicData;
-            imageComboBoxEdit.SelectedIndex = logicData.Logic4KindID;
-            currentLogicNum = logicData.Logic4KindID;
-            viewLogicTools1.SetLogicData(logicData.TriggerList[0]);
-            viewLogicTools2.SetLogicData(logicData.TriggerList[1]);
-            viewLogicTools3.SetLogicData(logicData.TriggerList[2]);
-            viewLogicTools4.SetLogicData(logicData.TriggerList[3]);
-        }
+
 
         /// <summary>
         /// 保存逻辑数据
@@ -164,40 +167,34 @@ namespace ConfigDevice
             if (viewLogicTools1.HasChanged || viewLogicTools2.HasChanged || viewLogicTools3.HasChanged ||
                 viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex)
             {
-                byte[] logicValue = new byte[31 * 4];
-
-                byte[] value1 = viewLogicTools1.GetLogicData().Value();
-                byte[] value2 = viewLogicTools2.GetLogicData().Value();
-                byte[] value3 = viewLogicTools3.GetLogicData().Value();
-                byte[] value4 = viewLogicTools4.GetLogicData().Value();
-
-                Buffer.BlockCopy(value1, 0, logicValue, 0, 31);
-                Buffer.BlockCopy(value2, 0, logicValue, 31, 31);
-                Buffer.BlockCopy(value3, 0, logicValue, 62, 31);
-                Buffer.BlockCopy(value4, 0, logicValue, 93, 31);
-
-                logicList.SaveLogicData(lookUpEdit.ItemIndex, imageComboBoxEdit.SelectedIndex, logicValue);
+                byte[] logicValue = GetLogicData();
+                logicValue[0] = (byte)lookUpEdit.ItemIndex;
+                logicList.SaveLogicData(logicValue);
             }
+        }
+        public byte[] GetLogicData()
+        {
+            byte[] logicValue = new byte[2 + 31 * 4];
+            logicValue[1] = (byte)imageComboBoxEdit.SelectedIndex;
+            byte[] value1 = viewLogicTools1.GetLogicData().Value();
+            byte[] value2 = viewLogicTools2.GetLogicData().Value();
+            byte[] value3 = viewLogicTools3.GetLogicData().Value();
+            byte[] value4 = viewLogicTools4.GetLogicData().Value();
+
+            Buffer.BlockCopy(value1, 0, logicValue, 2, 31);
+            Buffer.BlockCopy(value2, 0, logicValue, 33, 31);
+            Buffer.BlockCopy(value3, 0, logicValue, 64, 31);
+            Buffer.BlockCopy(value4, 0, logicValue, 95, 31);
+            return logicValue;
         }
         public void SaveLogicData(int groupNum)
         {
             if (viewLogicTools1.HasChanged || viewLogicTools2.HasChanged || viewLogicTools3.HasChanged ||
                 viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex)
-            {
-
-                byte[] logicValue = new byte[31 * 4];
-
-                byte[] value1 = viewLogicTools1.GetLogicData().Value();
-                byte[] value2 = viewLogicTools2.GetLogicData().Value();
-                byte[] value3 = viewLogicTools3.GetLogicData().Value();
-                byte[] value4 = viewLogicTools4.GetLogicData().Value();
-
-                Buffer.BlockCopy(value1, 0, logicValue, 0, 31);
-                Buffer.BlockCopy(value2, 0, logicValue, 31, 31);
-                Buffer.BlockCopy(value3, 0, logicValue, 62, 31);
-                Buffer.BlockCopy(value4, 0, logicValue, 93, 31);
-
-                logicList.SaveLogicData(groupNum, imageComboBoxEdit.SelectedIndex, logicValue);
+            {           
+                byte[] logicValue = GetLogicData();
+                logicValue[0] = (byte)groupNum;
+                logicList.SaveLogicData(logicValue);
             }
         }
 
@@ -205,8 +202,19 @@ namespace ConfigDevice
         /// 读取逻辑列表
         /// </summary>
         public void ReadLogicList(int num)
-        { 
+        {
+            ClearTrggerData();
             logicList.ReadLogicData(num); 
+        }
+        /// <summary>
+        /// 清空触发列表
+        /// </summary>
+        public void ClearTrggerData()
+        {
+            viewLogicTools1.ClearTriggerView();
+            viewLogicTools2.ClearTriggerView();
+            viewLogicTools3.ClearTriggerView();
+            viewLogicTools4.ClearTriggerView();
         }
         public void ReadLogicList()
         {

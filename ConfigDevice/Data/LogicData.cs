@@ -69,6 +69,20 @@ namespace ConfigDevice
         public LogicData(UserUdpData userData)
         {
             byte[] data = userData.Data;
+            GetLogicData(data);
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="userData">数据</param>
+        public LogicData(byte[] data)
+        { 
+            GetLogicData(data);
+        }
+
+        private void GetLogicData(byte[] data)
+        {
             this.GroupNum = data[0];
             Logic4KindID = data[1];
             for (int i = 0; i < TRIGGER_COUNT; i++)
@@ -90,6 +104,25 @@ namespace ConfigDevice
                 TriggerList[i].DeviceID = data[19 + i * 31];        //---设备ID---
                 TriggerList[i].Retain = CommonTools.CopyBytes(data, 20 + i * 31, 13);
             }
+        }
+
+
+
+        /// <summary>
+        /// 获取逻辑数据值
+        /// </summary>
+        /// <returns>byte[]</returns>
+        public byte[] GetValue()
+        {
+            byte[] value = new byte[126];
+            value[0] = GroupNum;
+            value[1] = Logic4KindID;
+            Buffer.BlockCopy(TriggerList[0].Value(), 0, value, 2, 31);
+            Buffer.BlockCopy(TriggerList[1].Value(), 0, value, 33, 31);
+            Buffer.BlockCopy(TriggerList[2].Value(), 0, value, 34, 31);
+            Buffer.BlockCopy(TriggerList[3].Value(), 0, value, 95, 31);
+
+            return value;
         }
  
     }
