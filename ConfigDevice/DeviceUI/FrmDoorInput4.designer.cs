@@ -31,8 +31,6 @@
             this.edtName = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.cedtSecurity = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
-            this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
             this.gccSecurity = new DevExpress.XtraEditors.GroupControl();
             this.gcSecurity = new DevExpress.XtraGrid.GridControl();
@@ -74,13 +72,14 @@
             this.edtNum2 = new DevExpress.XtraEditors.SpinEdit();
             this.edtNum3 = new DevExpress.XtraEditors.SpinEdit();
             this.edtNum4 = new DevExpress.XtraEditors.SpinEdit();
+            this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
+            this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageCommand = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
             ((System.ComponentModel.ISupportInitialize)(this.edtName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtSecurity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
-            this.pageJcsz.SuspendLayout();
             this.pagePzjm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gccSecurity)).BeginInit();
             this.gccSecurity.SuspendLayout();
@@ -105,6 +104,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.edtNum2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtNum3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtNum4.Properties)).BeginInit();
+            this.pageJcsz.SuspendLayout();
             this.pageCommand.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -135,21 +135,6 @@
             this.pageCommand});
             this.tctrlEdit.Text = "xtraTabControl1";
             this.tctrlEdit.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.tctrlEdit_SelectedPageChanged);
-            // 
-            // pageJcsz
-            // 
-            this.pageJcsz.Controls.Add(this.frmSetting);
-            this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
-            this.pageJcsz.Text = "基础配置";
-            // 
-            // frmSetting
-            // 
-            this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmSetting.Location = new System.Drawing.Point(0, 0);
-            this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(1009, 682);
-            this.frmSetting.TabIndex = 0;
             // 
             // pagePzjm
             // 
@@ -646,11 +631,26 @@
             this.edtNum4.Size = new System.Drawing.Size(52, 21);
             this.edtNum4.TabIndex = 6;
             // 
+            // pageJcsz
+            // 
+            this.pageJcsz.Controls.Add(this.frmSetting);
+            this.pageJcsz.Name = "pageJcsz";
+            this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
+            this.pageJcsz.Text = "基础配置";
+            // 
+            // frmSetting
+            // 
+            this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.frmSetting.Location = new System.Drawing.Point(0, 0);
+            this.frmSetting.Name = "frmSetting";
+            this.frmSetting.Size = new System.Drawing.Size(1009, 682);
+            this.frmSetting.TabIndex = 0;
+            // 
             // pageCommand
             // 
             this.pageCommand.Controls.Add(this.viewCommandEdit);
             this.pageCommand.Name = "pageCommand";
-            this.pageCommand.Size = new System.Drawing.Size(1009, 679);
+            this.pageCommand.Size = new System.Drawing.Size(1009, 682);
             this.pageCommand.Text = "指令配置";
             // 
             // viewCommandEdit
@@ -658,9 +658,9 @@
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandEdit.Location = new System.Drawing.Point(0, 0);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.ShowCommandBar = false;
-            this.viewCommandEdit.ShowToolBar = false;
-            this.viewCommandEdit.Size = new System.Drawing.Size(1009, 679);
+            this.viewCommandEdit.ShowCommandBar = true;
+            this.viewCommandEdit.ShowToolBar = true;
+            this.viewCommandEdit.Size = new System.Drawing.Size(1009, 682);
             this.viewCommandEdit.TabIndex = 0;
             // 
             // FrmDoorInput4
@@ -677,7 +677,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cedtSecurity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);
-            this.pageJcsz.ResumeLayout(false);
             this.pagePzjm.ResumeLayout(false);
             this.pagePzjm.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gccSecurity)).EndInit();
@@ -705,6 +704,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.edtNum2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtNum3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtNum4.Properties)).EndInit();
+            this.pageJcsz.ResumeLayout(false);
             this.pageCommand.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

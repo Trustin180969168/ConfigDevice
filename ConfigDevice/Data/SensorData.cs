@@ -70,12 +70,10 @@ namespace ConfigDevice
             LevelIDValue.Add(SensorConfig.TEMPFC_LV_NORMAL, "正常");
             LevelIDValue.Add(SensorConfig.TEMPFC_LV_HIGH, "高温");
             LevelIDValue.Add(SensorConfig.TEMPFC_LV_FIRE, "火灾");
-            LevelIDValue.Add(SensorConfig.TEMPFC_LV_TOTAL, "");
 
             LevelValueID.Add("正常", SensorConfig.TEMPFC_LV_NORMAL);
             LevelValueID.Add("高温", SensorConfig.TEMPFC_LV_HIGH);
             LevelValueID.Add("火灾", SensorConfig.TEMPFC_LV_FIRE);
-            LevelValueID.Add("", SensorConfig.TEMPFC_LV_TOTAL); 
         } 
     }
 

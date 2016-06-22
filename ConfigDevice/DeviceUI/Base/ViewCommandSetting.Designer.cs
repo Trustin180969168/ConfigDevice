@@ -41,6 +41,7 @@
             this.btSyncEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btSaveCommands = new System.Windows.Forms.ToolStripButton();
+            this.btTest = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblGroupName = new System.Windows.Forms.ToolStripLabel();
@@ -85,8 +86,8 @@
             // 
             this.panelControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Controls.Add(this.plCommandToolbar);
+            this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
@@ -102,9 +103,9 @@
             this.panelControl4.Controls.Add(this.labelControl2);
             this.panelControl4.Controls.Add(this.labelControl1);
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl4.Location = new System.Drawing.Point(651, 0);
+            this.panelControl4.Location = new System.Drawing.Point(0, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(345, 36);
+            this.panelControl4.Size = new System.Drawing.Size(996, 36);
             this.panelControl4.TabIndex = 1;
             // 
             // edtBeginNum
@@ -196,10 +197,10 @@
             this.plCommandToolbar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.plCommandToolbar.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.plCommandToolbar.Controls.Add(this.toolStrip2);
-            this.plCommandToolbar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.plCommandToolbar.Location = new System.Drawing.Point(0, 0);
+            this.plCommandToolbar.Dock = System.Windows.Forms.DockStyle.Right;
+            this.plCommandToolbar.Location = new System.Drawing.Point(181, 0);
             this.plCommandToolbar.Name = "plCommandToolbar";
-            this.plCommandToolbar.Size = new System.Drawing.Size(651, 36);
+            this.plCommandToolbar.Size = new System.Drawing.Size(815, 36);
             this.plCommandToolbar.TabIndex = 0;
             // 
             // toolStrip2
@@ -210,13 +211,14 @@
             this.btSyncEdit,
             this.toolStripSeparator1,
             this.btSaveCommands,
+            this.btTest,
             this.btRefresh,
             this.toolStripSeparator2,
             this.lblGroupName,
             this.cbxGroup});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(651, 31);
+            this.toolStrip2.Size = new System.Drawing.Size(815, 31);
             this.toolStrip2.TabIndex = 4;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -245,6 +247,15 @@
             this.btSaveCommands.Text = "保存指令 ";
             this.btSaveCommands.Click += new System.EventHandler(this.btSaveCommands_Click);
             // 
+            // btTest
+            // 
+            this.btTest.Image = global::ConfigDevice.Properties.Resources.fact;
+            this.btTest.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btTest.Name = "btTest";
+            this.btTest.Size = new System.Drawing.Size(106, 28);
+            this.btTest.Text = "指令测试 ";
+            this.btTest.Click += new System.EventHandler(this.btTest_Click);
+            // 
             // btRefresh
             // 
             this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
@@ -256,7 +267,6 @@
             // 
             // toolStripSeparator2
             // 
-            this.toolStripSeparator2.Margin = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
             // 
@@ -353,5 +363,6 @@
         private System.Windows.Forms.ToolStripComboBox cbxGroup;
         private DevExpress.XtraEditors.GroupControl gcCommandList;
         private DevExpress.XtraEditors.LabelControl lblShowToolbar;
+        private System.Windows.Forms.ToolStripButton btTest;
     }
 }

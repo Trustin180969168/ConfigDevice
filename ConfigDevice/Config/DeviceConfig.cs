@@ -364,7 +364,7 @@ namespace ConfigDevice
         public static readonly byte[] CMD_LOGIC_READ_SECURITY = new byte[] { 0x44, EQUIPMENT_LOGIC }; //读逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
         public static readonly byte[] CMD_LOGIC_WRITE_SECURITY = new byte[] { 0xC4, EQUIPMENT_LOGIC }; //写逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
 
-
+        public static readonly byte[] CMD_PUBLIC_TEST_KEY_CMD = new byte[] { 0xb2, CMD_TYPE_PUBLIC }; //指令测试 
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
         static DeviceConfig()//---静态构造函数------
         {

@@ -47,6 +47,18 @@ namespace ConfigDevice
             get { return plCommandToolbar.Visible; }
         }
 
+        /// <summary>
+        /// 显示逻辑工具栏配置,只保留指令测试
+        /// </summary>
+        public void ShowLogicToolBarSetting()
+        {
+            plTool.Visible = true;
+            this.btSaveCommands.Visible = false;
+            btRefresh.Visible = false;
+            cbxGroup.Visible = false;
+            lblGroupName.Visible = false; 
+        }
+
         public List<string> CommmandGroups = new List<string>();
         public bool NeedInit = true;
         private bool syncEdit = false;
@@ -382,6 +394,14 @@ namespace ConfigDevice
                 lblShowToolbar.Text = "隐藏工具栏";
                 ShowToolBar = true;
             }
+        }
+
+        /// <summary>
+        /// 指令测试
+        /// </summary> 
+        private void btTest_Click(object sender, EventArgs e)
+        {
+            this.CommandEdit.TestCommands(cbxGroup.SelectedIndex);
         }
 
 

@@ -22,9 +22,7 @@ namespace ConfigDevice
         public DeviceList()
         {
             callbackGetSearchDevices = new CallbackFromUDP(this.getDevices);
-            callbackGetStopSearchDevices = new CallbackFromUDP(this.callbackStopSearch); 
-   
-
+            callbackGetStopSearchDevices = new CallbackFromUDP(this.callbackStopSearch);
         }
 
         /// <summary>

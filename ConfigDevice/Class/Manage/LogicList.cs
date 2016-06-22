@@ -154,29 +154,6 @@ namespace ConfigDevice
             return udp;
         }
 
-        /// <summary>
-        /// 保存指令
-        /// </summary>
-        /// <param name="groupIndex">命令组</param>
-        /// <param name="num">命令序号</param>
-        /// <param name="data">命令数据</param>
-        public void SaveLogicData(int startNum,int logicID,TriggerData[] triggers)
-        {
-            UdpData udpSend = createWriteLogicUdp(startNum, logicID, triggers);
-            mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult),
-                new object[] { "保存逻辑触发失败!" });
-        }
-        private UdpData createWriteLogicUdp(int startNum, int logicID, TriggerData[] triggers)
-        {
-            UdpData udp = new UdpData();
-
-            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
-            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
-            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
-            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议---- 
-
-            return udp;
-        }
 
         /// <summary>
         /// 完成读取 
@@ -192,6 +169,8 @@ namespace ConfigDevice
                 UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----  
             }
         }
+
+       
 
     }
 }

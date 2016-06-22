@@ -143,6 +143,10 @@
       <DependentUpon>ViewCommandSetting.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmMotorDC3.resx">
+      <DependentUpon>FrmMotorDC3.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -361,7 +365,7 @@
     <Compile Include="Class\Manage\LogicQuickSetting.cs" />
     <Compile Include="Class\Manage\NetworkCtrl.cs" />
     <Compile Include="Class\Manage\SensorCtrl.cs" />
-    <Compile Include="Class\Sensor\Sensors.cs" />
+    <Compile Include="Data\SensorData.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
     <Compile Include="Class\Manage\ViewEditCtrl.cs" />
     <Compile Include="Class\Devices\Road8Relay.cs" />
@@ -420,6 +424,12 @@
     </Compile>
     <Compile Include="DeviceUI\FrmFlammableGasProbe.Designer.cs">
       <DependentUpon>FrmFlammableGasProbe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmMotorDC3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmMotorDC3.Designer.cs">
+      <DependentUpon>FrmMotorDC3.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Tools\PortTools.cs" />

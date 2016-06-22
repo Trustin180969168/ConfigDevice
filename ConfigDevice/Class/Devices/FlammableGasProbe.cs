@@ -113,7 +113,7 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 获取数据
+        /// 获取状态
         /// </summary>
         /// <param name="data"></param>
         /// <param name="values"></param>

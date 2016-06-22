@@ -204,5 +204,55 @@ namespace ConfigDevice
 
             return udp;
         }
+
+        /// <summary>
+        /// 指令测试
+        /// </summary>
+        /// <param name="groupIndex">组/键</param>
+        public void TestCommands(int groupIndex)
+        {
+            UdpData udpSend = createTestCommandsUdp(groupIndex);
+            mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackTestCommandsData), null);
+        }
+        private void callbackTestCommandsData(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("发送指令测试失败!", udpReply.ReplyByte);
+        }
+        private UdpData createTestCommandsUdp(int groupIndex)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { device.ByteDeviceID, device.ByteNetworkId, device.ByteKindID };//----目标信息--
+            byte[] source = new byte[] { device.BytePCAddress, device.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_TEST_KEY_CMD;//----用户命令-----
+            byte len = (byte)(4 + 3);//---数据长度---- 
+            byte byteGroupNum = (byte)groupIndex;//--组号--
+
+            //---------生成校验码-----------
+            byte[] crcData = new byte[10 + 3];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            crcData[10] = byteGroupNum;
+            crcData[11] = 1;        //功能值/开关 (0：关，1：开)
+            crcData[12] = 100;      //方向值/亮度 (0~100：强置亮度，其它：使用各自指令设置的亮度) 
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
     }
 }

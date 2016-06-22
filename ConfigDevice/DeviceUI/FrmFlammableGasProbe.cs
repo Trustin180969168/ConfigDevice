@@ -25,11 +25,11 @@ namespace ConfigDevice
             InitializeComponent();
             flammableGasProbe = this.Device as FlammableGasProbe;
             //-----------初始化编辑控件-------
-            edtFireCtrlTemperatue.Properties.DisplayFormat.FormatString = "#0.0 ℃";
-            edtFireCtrlTemperatue.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            edtFireCtrlTemperatue.Properties.Mask.EditMask = "#0.0 ℃";
-            edtFireCtrlTemperatue.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            edtFireCtrlTemperatue.Properties.Mask.UseMaskAsDisplayFormat = true;
+            //edtFireCtrlTemperatue.Properties.DisplayFormat.FormatString = "#0.0 ℃";
+            //edtFireCtrlTemperatue.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            //edtFireCtrlTemperatue.Properties.Mask.EditMask = "#0.0 ℃";
+            //edtFireCtrlTemperatue.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            //edtFireCtrlTemperatue.Properties.Mask.UseMaskAsDisplayFormat = true;
 
             edtVavleEC.Properties.DisplayFormat.FormatString = "#0 mA";
             edtVavleEC.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -82,7 +82,9 @@ namespace ConfigDevice
             frmSetting.DeviceEdit = flammableGasProbe;           //---基础配置编辑
             //----------逻辑配置控件----
             viewLogicSetting.ShowToolBar = false;//不显示工具栏  
-            viewCommandEdit.ShowCommandBar = false;//不显示指令栏
+            //viewCommandEdit.ShowCommandBar = true;//不显示指令栏
+            
+            viewCommandEdit.ShowLogicToolBarSetting();
             viewCommandEdit.ShowToolBar = false;
             //----------快速配置-----
             logicQuickSetting = new LogicQuickSetting("EQUIPMENT_FUEL_GAS");
@@ -150,7 +152,7 @@ namespace ConfigDevice
                     edtValveState.Text = flammableGasProbe.Valve.ValveState;
                     edtVavleEC.Text = flammableGasProbe.Valve.ValveElectricCurrent.ToString();
                     edtGasProbeLevel.Text = flammableGasProbe.Probe.LevelValue;
-                    edtFireCtrlTemperatue.Text = flammableGasProbe.Temperature.Value.ToString();
+                    edtFireCtrlTemperatue.Text = flammableGasProbe.Temperature.Value.ToString() +" ℃  " + flammableGasProbe.Temperature.LevelValue;
                     //-----逻辑附加动作-------
                     cbxBuzzer.SelectedIndex = flammableGasProbe.FGP_Buzzer.BuzAct;
                     sptBuzzerSeconds.Text = flammableGasProbe.FGP_Buzzer.BuzTim.ToString();
@@ -320,7 +322,8 @@ namespace ConfigDevice
             if (!viewLogicSetting.NeedInit)
                 viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
             if (!viewCommandEdit.NeedInit)
-                viewCommandEdit.ReadCommandData(lookUpEdit.ItemIndex);//---获取指令配置列表----
+                //viewCommandEdit.ReadCommandData(lookUpEdit.ItemIndex);//---获取指令配置列表----
+                viewCommandEdit.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
             flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
 
         }
@@ -426,6 +429,8 @@ namespace ConfigDevice
             flammableGasProbe.SetAdditionLogicData(adittionData);
             this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
         }
+
+    
    
     }
 }

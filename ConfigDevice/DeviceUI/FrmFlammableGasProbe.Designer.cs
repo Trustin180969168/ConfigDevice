@@ -384,7 +384,7 @@
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(48, 14);
             this.labelControl4.TabIndex = 0;
-            this.labelControl4.Text = "温      度";
+            this.labelControl4.Text = "消防温控";
             // 
             // edtVavleEC
             // 
@@ -495,8 +495,8 @@
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandEdit.Location = new System.Drawing.Point(0, 336);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.ShowCommandBar = false;
-            this.viewCommandEdit.ShowToolBar = false;
+            this.viewCommandEdit.ShowCommandBar = true;
+            this.viewCommandEdit.ShowToolBar = true;
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 346);
             this.viewCommandEdit.TabIndex = 1;
             // 

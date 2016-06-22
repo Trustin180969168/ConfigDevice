@@ -50,6 +50,8 @@ namespace ConfigDevice
 
             loadData();
             viewCommandEdit.CommandGroupName = "当前区域";
+            viewCommandEdit.ShowCommandBar = true;
+            viewCommandEdit.ShowToolBar = true;
         }
 
         /// <summary>

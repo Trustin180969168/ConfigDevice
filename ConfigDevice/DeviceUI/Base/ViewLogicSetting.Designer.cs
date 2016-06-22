@@ -33,6 +33,10 @@
             this.gcCtrl = new DevExpress.XtraEditors.GroupControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.plLogicList = new DevExpress.XtraEditors.PanelControl();
+            this.viewLogicTools4 = new ConfigDevice.ViewLogicTools();
+            this.viewLogicTools3 = new ConfigDevice.ViewLogicTools();
+            this.viewLogicTools2 = new ConfigDevice.ViewLogicTools();
+            this.viewLogicTools1 = new ConfigDevice.ViewLogicTools();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.imageComboBoxEdit = new DevExpress.XtraEditors.ImageComboBoxEdit();
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
@@ -47,10 +51,6 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
-            this.viewLogicTools4 = new ConfigDevice.ViewLogicTools();
-            this.viewLogicTools3 = new ConfigDevice.ViewLogicTools();
-            this.viewLogicTools2 = new ConfigDevice.ViewLogicTools();
-            this.viewLogicTools1 = new ConfigDevice.ViewLogicTools();
             ((System.ComponentModel.ISupportInitialize)(this.gcCtrl)).BeginInit();
             this.gcCtrl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
@@ -116,6 +116,42 @@
             this.plLogicList.Name = "plLogicList";
             this.plLogicList.Size = new System.Drawing.Size(786, 182);
             this.plLogicList.TabIndex = 16;
+            // 
+            // viewLogicTools4
+            // 
+            this.viewLogicTools4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicTools4.Location = new System.Drawing.Point(0, 138);
+            this.viewLogicTools4.Name = "viewLogicTools4";
+            this.viewLogicTools4.Num = 4;
+            this.viewLogicTools4.Size = new System.Drawing.Size(786, 46);
+            this.viewLogicTools4.TabIndex = 3;
+            // 
+            // viewLogicTools3
+            // 
+            this.viewLogicTools3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicTools3.Location = new System.Drawing.Point(0, 92);
+            this.viewLogicTools3.Name = "viewLogicTools3";
+            this.viewLogicTools3.Num = 3;
+            this.viewLogicTools3.Size = new System.Drawing.Size(786, 46);
+            this.viewLogicTools3.TabIndex = 2;
+            // 
+            // viewLogicTools2
+            // 
+            this.viewLogicTools2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicTools2.Location = new System.Drawing.Point(0, 46);
+            this.viewLogicTools2.Name = "viewLogicTools2";
+            this.viewLogicTools2.Num = 2;
+            this.viewLogicTools2.Size = new System.Drawing.Size(786, 46);
+            this.viewLogicTools2.TabIndex = 1;
+            // 
+            // viewLogicTools1
+            // 
+            this.viewLogicTools1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicTools1.Location = new System.Drawing.Point(0, 0);
+            this.viewLogicTools1.Name = "viewLogicTools1";
+            this.viewLogicTools1.Num = 1;
+            this.viewLogicTools1.Size = new System.Drawing.Size(786, 46);
+            this.viewLogicTools1.TabIndex = 0;
             // 
             // groupControl2
             // 
@@ -305,42 +341,6 @@
             this.btRefreshTrigger.Size = new System.Drawing.Size(101, 28);
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
-            // 
-            // viewLogicTools4
-            // 
-            this.viewLogicTools4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewLogicTools4.Location = new System.Drawing.Point(0, 138);
-            this.viewLogicTools4.Name = "viewLogicTools4";
-            this.viewLogicTools4.Num = 4;
-            this.viewLogicTools4.Size = new System.Drawing.Size(786, 46);
-            this.viewLogicTools4.TabIndex = 3;
-            // 
-            // viewLogicTools3
-            // 
-            this.viewLogicTools3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewLogicTools3.Location = new System.Drawing.Point(0, 92);
-            this.viewLogicTools3.Name = "viewLogicTools3";
-            this.viewLogicTools3.Num = 3;
-            this.viewLogicTools3.Size = new System.Drawing.Size(786, 46);
-            this.viewLogicTools3.TabIndex = 2;
-            // 
-            // viewLogicTools2
-            // 
-            this.viewLogicTools2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewLogicTools2.Location = new System.Drawing.Point(0, 46);
-            this.viewLogicTools2.Name = "viewLogicTools2";
-            this.viewLogicTools2.Num = 2;
-            this.viewLogicTools2.Size = new System.Drawing.Size(786, 46);
-            this.viewLogicTools2.TabIndex = 1;
-            // 
-            // viewLogicTools1
-            // 
-            this.viewLogicTools1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.viewLogicTools1.Location = new System.Drawing.Point(0, 0);
-            this.viewLogicTools1.Name = "viewLogicTools1";
-            this.viewLogicTools1.Num = 1;
-            this.viewLogicTools1.Size = new System.Drawing.Size(786, 46);
-            this.viewLogicTools1.TabIndex = 0;
             // 
             // ViewLogicSetting
             // 
