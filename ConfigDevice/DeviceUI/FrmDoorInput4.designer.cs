@@ -124,10 +124,10 @@
             this.tctrlEdit.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 12F);
             this.tctrlEdit.AppearancePage.Header.Options.UseFont = true;
             this.tctrlEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tctrlEdit.Location = new System.Drawing.Point(0, 27);
+            this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
-            this.tctrlEdit.SelectedTabPage = this.pageJcsz;
-            this.tctrlEdit.Size = new System.Drawing.Size(1018, 716);
+            this.tctrlEdit.SelectedTabPage = this.pagePzjm;
+            this.tctrlEdit.Size = new System.Drawing.Size(1018, 719);
             this.tctrlEdit.TabIndex = 1;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
@@ -140,7 +140,7 @@
             // 
             this.pageJcsz.Controls.Add(this.frmSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(1009, 679);
+            this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
             this.pageJcsz.Text = "基础配置";
             // 
             // frmSetting
@@ -148,7 +148,7 @@
             this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frmSetting.Location = new System.Drawing.Point(0, 0);
             this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(1009, 679);
+            this.frmSetting.Size = new System.Drawing.Size(1009, 682);
             this.frmSetting.TabIndex = 0;
             // 
             // pagePzjm
@@ -658,6 +658,8 @@
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandEdit.Location = new System.Drawing.Point(0, 0);
             this.viewCommandEdit.Name = "viewCommandEdit";
+            this.viewCommandEdit.ShowCommandBar = false;
+            this.viewCommandEdit.ShowToolBar = false;
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 679);
             this.viewCommandEdit.TabIndex = 0;
             // 

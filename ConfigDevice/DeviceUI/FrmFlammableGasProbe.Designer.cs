@@ -746,7 +746,7 @@
             "2"});
             this.cbxQuickSetting.Size = new System.Drawing.Size(166, 26);
             this.cbxQuickSetting.TabIndex = 18;
-            this.cbxQuickSetting.SelectedIndexChanged += new System.EventHandler(this.cbxQuickSetting_SelectedIndexChanged);
+            this.cbxQuickSetting.Closed += new DevExpress.XtraEditors.Controls.ClosedEventHandler(this.cbxQuickSetting_Closed);
             // 
             // labelControl18
             // 

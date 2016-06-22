@@ -383,22 +383,11 @@ namespace ConfigDevice
             }
            
         }
-        /// <summary>
-        /// 加载默认配置
-        /// </summary>
-        private void cbxQuickSetting_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            edtLogicLocalSetting.Text = cbxQuickSetting.Text;
-            //-------逻辑数据-----
-            viewLogicSetting.ClearTrggerData();
-            LogicData logicData = new LogicData(logicQuickSetting.GetLogicData(cbxQuickSetting.SelectedIndex));
-            viewLogicSetting.ReturnLogicData(new CallbackParameter(logicData));
-            //-------附加动作------
-            byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
-            flammableGasProbe.SetAdditionLogicData(adittionData);
-            this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
-        }
 
+
+        /// <summary>
+        /// 双击打开快速选择
+        /// </summary> 
         private void edtLogicLocalSetting_DoubleClick(object sender, EventArgs e)
         {
             cbxQuickSetting.ShowPopup();
@@ -419,6 +408,23 @@ namespace ConfigDevice
                 logicQuickSetting.DelLogicLocalSetting(cbxQuickSetting.SelectedIndex);
                 initLogicQuitSetting();//---初始化快速配置列表---
             }
+        }
+
+
+        /// <summary>
+        /// 加载快速配置
+        /// </summary>
+        private void cbxQuickSetting_Closed(object sender, ClosedEventArgs e)
+        {
+            edtLogicLocalSetting.Text = cbxQuickSetting.Text;
+            //-------逻辑数据-----
+            viewLogicSetting.ClearTrggerData();
+            LogicData logicData = new LogicData(logicQuickSetting.GetLogicData(cbxQuickSetting.SelectedIndex));
+            viewLogicSetting.ReturnLogicData(new CallbackParameter(logicData));
+            //-------附加动作------
+            byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
+            flammableGasProbe.SetAdditionLogicData(adittionData);
+            this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
         }
    
     }

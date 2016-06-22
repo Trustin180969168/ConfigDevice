@@ -199,7 +199,6 @@ namespace ConfigDevice
             }
         }
 
-
         /// <summary>
         /// 获取触发数据
         /// </summary>
@@ -260,7 +259,7 @@ namespace ConfigDevice
                     if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
                     {
                         DataRow drInsert = dtSelectDevices.Rows.Add();
-                        drInsert[DeviceConfig.DC_NAME] = "无效名称";
+                        drInsert[DeviceConfig.DC_NAME] = "未知设备";
                         drInsert[DeviceConfig.DC_KIND_ID] = (int)td.DeviceKindID;
                         drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[td.DeviceKindID];
                         drInsert[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
@@ -269,8 +268,11 @@ namespace ConfigDevice
                         drInsert.EndEdit();
                         dtSelectDevices.AcceptChanges();
                     }
-                    else
-                        dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                    dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                    dr[ViewConfig.DC_DEVICE_ID] = td.DeviceID;
+                    dr[ViewConfig.DC_DEVICE_NETWORK_ID] = td.DeviceNetworkID;
+                    dr[ViewConfig.DC_DEVICE_KIND_ID] = td.DeviceKindID;
+                    dr.EndEdit();
                 }
             }
             kindChanged();//---执行级别触发---

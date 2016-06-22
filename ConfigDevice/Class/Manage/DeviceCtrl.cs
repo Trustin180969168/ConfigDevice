@@ -105,6 +105,9 @@ namespace ConfigDevice
 
     }
  
+    /// <summary>
+    /// 创建设备编辑界面
+    /// </summary>
     public static class FactoryDevice
     {
         /// <summary>
@@ -117,9 +120,10 @@ namespace ConfigDevice
             switch (kindId)
             {
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
-                case DeviceConfig.EQUIPMENT_RJ45: return new FactoryBaseDeviceEdit();
-                case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryDoor4InputEdit();
-                case DeviceConfig.EQUIPMENT_FUEL_GAS: return new FactoryFlammableGasProbeEdit();
+                case DeviceConfig.EQUIPMENT_RJ45: return new FactoryBaseDeviceEdit();//-------RJ45,wifi功放---------
+                case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryDoor4InputEdit();//------门输入4--------
+                case DeviceConfig.EQUIPMENT_FUEL_GAS: return new FactoryFlammableGasProbeEdit();//----可燃气体-----
+                case DeviceConfig.EQUIPMENT_WEATHER: return new FactoryWeatherStationEdit();//-----气象站-----
                 default: return new FactoryBaseDeviceEdit();
             }
         }
@@ -192,6 +196,20 @@ namespace ConfigDevice
     /// 可燃气体探头
     /// </summary>
     public class FactoryFlammableGasProbeEdit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            FlammableGasProbe flammableGasProbe = new FlammableGasProbe(data);
+            return new FrmFlammableGasProbe(flammableGasProbe);
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// 气象站
+    /// </summary>
+    public class FactoryWeatherStationEdit : IFactoryDeviceEdit
     {
         #region IFactory 成员
         FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)

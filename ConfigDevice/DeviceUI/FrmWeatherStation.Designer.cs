@@ -36,11 +36,15 @@
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageActionList = new DevExpress.XtraTab.XtraTabPage();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.viewCommandSetting1 = new ConfigDevice.ViewCommandSetting();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
+            this.pageActionList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -54,13 +58,14 @@
             this.tctrlEdit.Size = new System.Drawing.Size(901, 506);
             this.tctrlEdit.TabIndex = 2;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.pagePzjm,
             this.pageJcsz,
+            this.pagePzjm,
             this.pageActionList});
             this.tctrlEdit.Text = "xtraTabControl1";
             // 
             // pagePzjm
             // 
+            this.pagePzjm.Controls.Add(this.panelControl1);
             this.pagePzjm.Controls.Add(this.tsDoorInput);
             this.pagePzjm.Name = "pagePzjm";
             this.pagePzjm.Size = new System.Drawing.Size(892, 469);
@@ -112,9 +117,29 @@
             // 
             // pageActionList
             // 
+            this.pageActionList.Controls.Add(this.viewCommandSetting1);
             this.pageActionList.Name = "pageActionList";
             this.pageActionList.Size = new System.Drawing.Size(892, 469);
             this.pageActionList.Text = "指令配置";
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl1.Location = new System.Drawing.Point(0, 31);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(892, 438);
+            this.panelControl1.TabIndex = 2;
+            // 
+            // viewCommandSetting1
+            // 
+            this.viewCommandSetting1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.viewCommandSetting1.Location = new System.Drawing.Point(0, 0);
+            this.viewCommandSetting1.Name = "viewCommandSetting1";
+            this.viewCommandSetting1.ShowCommandBar = false;
+            this.viewCommandSetting1.ShowToolBar = false;
+            this.viewCommandSetting1.Size = new System.Drawing.Size(892, 469);
+            this.viewCommandSetting1.TabIndex = 0;
             // 
             // FrmWeatherStation
             // 
@@ -133,6 +158,8 @@
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
             this.pageJcsz.ResumeLayout(false);
+            this.pageActionList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,5 +175,7 @@
         private DevExpress.XtraTab.XtraTabPage pageJcsz;
         private ViewBaseEdit frmSetting;
         private DevExpress.XtraTab.XtraTabPage pageActionList;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private ViewCommandSetting viewCommandSetting1;
     }
 }

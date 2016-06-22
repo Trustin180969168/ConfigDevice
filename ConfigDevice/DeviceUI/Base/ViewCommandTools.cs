@@ -23,7 +23,6 @@ namespace ConfigDevice
         private bool allowSync = true;//是否允许同步
         public event DeleteCommandData DelCommandData;//删除命令
 
-
         /// <summary>
         /// 序号
         /// </summary>
