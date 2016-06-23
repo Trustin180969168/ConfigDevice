@@ -15,7 +15,8 @@ namespace ConfigDevice
         GridViewDigitalEdit temperatureEdit = new GridViewDigitalEdit();//--温度编辑控件---
         GridViewComboBox cbxOperateLevel = new GridViewComboBox();//---操作运算--
         GridViewComboBox cbxTemperatureLevelEdit = new GridViewComboBox();//---温度级别编辑控件--- 
-        DataTable dtSelectDevices = new DataTable(); //选择设备列表 
+        GridViewGridLookupEdit gridLookupDevice1;//---查找设备列表---
+        DataTable dtSelectDevices1;//---选择的设备列表---
         private string[] levelValues = { SensorConfig.TEMPFC_NAME_LV_NORMAL, SensorConfig.TEMPFC_NAME_LV_HIGH, SensorConfig.TEMPFC_NAME_LV_FIRE };
         public ViewLogicFireControlTemperature(Device _device, GridView gv)
             : base(_device, gv)
@@ -27,7 +28,10 @@ namespace ConfigDevice
             cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);                            //---加上级别(默认只有触发值)---
             cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
             dcTriggerKind.ColumnEdit = cbxKind;
-            initLookupEdit();//---初始化选择设备列表
+            //-------初始化设备列表选择-----
+            gridLookupDevice1 = ViewEditCtrl.GetLogicDevicesLookupEdit();
+            gridLookupDevice1.EditValueChanged += this.lookUpEdit_EditValueChanged;
+            dtSelectDevices1 = gridLookupDevice1.DataSource as DataTable;
             //--------触发运算选择------
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_LESS_THAN);
@@ -72,27 +76,7 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
         }
 
-        /// <summary>
-        /// 初始化设备列表选择
-        /// </summary>
-        private void initLookupEdit()
-        {
-            //-----获取选择的设备数据---
-            dtSelectDevices = SysConfig.DtDevice.Clone();
-            DataRow[] rows = SysConfig.DtDevice.Select(ViewConfig.SELECT_LOGIC_DEVICE_QUERY_CONDITION);
-            foreach (DataRow dr in rows)
-                dtSelectDevices.Rows.Add(dr.ItemArray);
-            //----初始化新的设备值----
-            dtSelectDevices.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
-            foreach (DataRow dr in dtSelectDevices.Rows)
-                dr[ViewConfig.DC_DEVICE_VALUE] = dr[DeviceConfig.DC_KIND_ID].ToString() + dr[DeviceConfig.DC_NETWORK_ID].ToString() + dr[DeviceConfig.DC_ID].ToString();
-
-            dtSelectDevices.AcceptChanges();
-            lookupDevice.DataSource = dtSelectDevices;
-
-            lookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
-        }
-
+ 
         /// <summary>
         /// 选择切换
         /// </summary> 
@@ -101,8 +85,9 @@ namespace ConfigDevice
             gvLogic.PostEditor();
             DataRow dr = gvLogic.GetDataRow(0);
             dr.EndEdit();
-            int i = lookupDevice.GetDataSourceRowIndex(ViewConfig.DC_DEVICE_VALUE, dr[ViewConfig.DC_DEVICE_VALUE].ToString());
-            DataRow drSelect = dtSelectDevices.Rows[i];
+            //int i = lookupDevice.GetDataSourceRowIndex(ViewConfig.DC_DEVICE_VALUE, dr[ViewConfig.DC_DEVICE_VALUE].ToString());
+            int i = gridLookupDevice1.GetIndexByKeyValue(dr[ViewConfig.DC_DEVICE_VALUE].ToString());
+            DataRow drSelect = dtSelectDevices1.Rows[i];
             dr[ViewConfig.DC_DEVICE_ID] = drSelect[DeviceConfig.DC_ID];
             dr[ViewConfig.DC_DEVICE_KIND_ID] = drSelect[DeviceConfig.DC_KIND_ID];
             dr[ViewConfig.DC_DEVICE_NETWORK_ID] = drSelect[DeviceConfig.DC_NETWORK_ID];
@@ -128,7 +113,7 @@ namespace ConfigDevice
             {
                 gvLogic.SetRowCellValue(0, dcTriggerKind, cbxKind.Items[0].ToString());//---第一个运算符-----
                 RemoveKindName(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//-----外设差值,只有触发值----
-                setGridColumnValid(dcDifferentDevice, lookupDevice);//------选择设备有效----
+                setGridColumnValid(dcDifferentDevice, gridLookupDevice1);//------选择设备有效----
             }
             else
             {
@@ -236,6 +221,7 @@ namespace ConfigDevice
 
             dr.EndEdit();
             gvLogic.RefreshData();
+            dr.AcceptChanges();//----再次修改才保存-----
 
             return triggerData;
         }
@@ -255,18 +241,19 @@ namespace ConfigDevice
                     dr[ViewConfig.DC_DEVICE_VALUE] = null;
                 else
                 {
-                    DataRow[] rows = dtSelectDevices.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
+                  
+                    DataRow[] rows = dtSelectDevices1.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
                     if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
                     {
-                        DataRow drInsert = dtSelectDevices.Rows.Add();
-                        drInsert[DeviceConfig.DC_NAME] = "未知设备";
+                        DataRow drInsert = dtSelectDevices1.Rows.Add();
+                        drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;
                         drInsert[DeviceConfig.DC_KIND_ID] = (int)td.DeviceKindID;
                         drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[td.DeviceKindID];
                         drInsert[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
                         drInsert[DeviceConfig.DC_NETWORK_ID] = (int)td.DeviceNetworkID;
                         drInsert[DeviceConfig.DC_ID] = (int)td.DeviceID;
                         drInsert.EndEdit();
-                        dtSelectDevices.AcceptChanges();
+                        dtSelectDevices1.AcceptChanges();
                     }
                     dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
                     dr[ViewConfig.DC_DEVICE_ID] = td.DeviceID;

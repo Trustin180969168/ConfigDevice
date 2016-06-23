@@ -71,7 +71,8 @@ namespace ConfigDevice
             dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
 
             dr.EndEdit();
-            gvLogic.RefreshData();
+            dr.AcceptChanges();//----再次修改才保存-----
+            gvLogic.RefreshData();          
 
             return triggerData;
         }
@@ -957,6 +958,7 @@ namespace ConfigDevice
             string size1Str = dr[dcStartValue.FieldName].ToString(); 
             triggerData.Size1 =  FindLevelIndex(LevelValues,size1Str); 
             triggerData.Size2 = Convert.ToInt16(dr[dcEndValue.FieldName]);
+            dr.AcceptChanges();//----再次修改才保存-----
 
             return triggerData;
         }        

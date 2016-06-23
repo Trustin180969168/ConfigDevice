@@ -148,8 +148,8 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_TRAILING_6: return new FactoryRoad6FrontDimming();//6路前沿调光
                 case DeviceConfig.EQUIPMENT_TRAILING_8: return new FactoryRoad8FrontDimming();//8路前沿调光
                 case DeviceConfig.EQUIPMENT_TRAILING_12: return new FactoryRoad12FrontDimming();//12路前沿调光
-                case DeviceConfig.EQUIPMENT_SERVER: return new FactoryServers();//12路前沿调光
-
+                case DeviceConfig.EQUIPMENT_SERVER: return new FactoryServers();//服务器
+                case DeviceConfig.EQUIPMENT_LINKID: return new FactorySystemInteraction();//系统联动号
                 default: return new FactoryBaseDevice();
             }
         }
@@ -432,6 +432,22 @@ namespace ConfigDevice
         public Device CreateDevice(DeviceData data)
         {
             Device device = new Server(data);
+            return device;
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// 系统联动号
+    /// </summary>
+    public class FactorySystemInteraction : IFactoryDevice
+    {
+        #region IFactoryDevice 成员
+
+        public Device CreateDevice(DeviceData data)
+        {
+            Device device = new SystemInteraction(data);
             return device;
         }
 

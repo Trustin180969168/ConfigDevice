@@ -12,7 +12,7 @@
 **           2. 需要更新时请把更新的数据统一发到经理处，统一更新后再统一更新
 **           3. 
 **
-** 当前版本: 2.1   		     
+** 当前版本: 2.1
 ** 修 改 者: 钟珊瑚
 ** 完成日期: 2013年8月22日
 ** 
@@ -45,7 +45,8 @@
    (22) V3.6版本, 增加[CMD_LOGIC_READ_CONFIG]等指令                (廖超庭 2016年04月12日)
    (23) V3.7版本, 增加[CMD_PUBLIC_TEST_KEY_CMD]指令                (廖超庭 2016年05月04日)
    (24) V3.8版本, 增加[EQUIPMENT_RSP]设备类型                      (廖超庭 2016年05月12日)
-   (25) V3.9版本, 增加[CMD_LOGIC_WRITE_SYSLKID]低位值由0x43改为0xC3(廖超庭 2016年06月15日)
+   (25) V3.9版本, 增加[CMD_LOGIC_WRITE_SYSLKID]低位值由0x43改为0xC3(廖超庭 2016年06月15日) -> 最终改为0xC5
+   (26) V4.0版本, 修改[CMD_LOGIC_WRITE_SYSLKID]为[开/关/开关]等    (廖超庭 2016年06月22日)
 **======================================================================================================*/
 
 
@@ -53,29 +54,29 @@
 系统通信格式：
             设备ID + 网段ID + 类型号 + 源设备ID + 源网段ID + 类型+ 页 + 控制字(2字节) + 长度 + 数据 +  4byte CRC
    长度 = 数据	+ 4byte CRC		
-	
- 设备ID 范围 0~100 ，网段也是 0~100 ,100以上为特殊，用于专用设备如服务器，平板等
   
+ 设备ID 范围 0~100 ，网段也是 0~100 ,100以上为特殊，用于专用设备如服务器，平板等
+   
     下位机利用 设备类型,设备ID，网段ID来区上数据是否需要接收。	
-   
+	
  设备ID，网段ID，类型号组合说明
-	 设备 ID     网段ID        类型                 说明 
-   
+  设备 ID     网段ID        类型                 说明 
+	
                 |-- 本段ID --- 指定       本设备正常通信，需要返回数据                      
                 |-- 本段ID --- 公共       无效           
   0~100 --|--	公共   --- 指定       无效
                 |--	公共   --- 公共       无效
-			   
-	|-- 本段   --- 指定      本段所有类型相同都处理，不返回
+	   
+ |-- 本段   --- 指定      本段所有类型相同都处理，不返回
   公共  --|-- 本段   --- 公共      本段所有设备，          不返回
-		  |-- 公共   --- 指定      系统所类型相同都处理，  不返回
-	|-- 公共   --- 公共		 系统所的设备，          不返回
-	 
-	|-- 本段   --- 指定      本段符合条件的指定类型设备返回数据  		
+	|-- 公共   --- 指定      系统所类型相同都处理，  不返回
+ |-- 公共   --- 公共		 系统所的设备，          不返回
+   
+ |-- 本段   --- 指定      本段符合条件的指定类型设备返回数据  		
  带返回公共--|-- 本段   --- 公共      本段符合条件的设备返回数据  		
-			 |-- 公共   --- 指定      系统符合条件的指定类型设备返回数据  		
-	|-- 公共   --- 公共      系统符合条件的设备返回数据  
- 
+	|-- 公共   --- 指定      系统符合条件的指定类型设备返回数据  		
+ |-- 公共   --- 公共      系统符合条件的设备返回数据  
+  
 ========================================================================================================*/
 //注意通信数据用小端模式，低位在前高位在后
 
@@ -226,6 +227,7 @@ enum
 #define EQUIPMENT_PANEL              0xE0        //通用控制面板
 
 #define EQUIPMENT_RJ45       	     0xf0        //RJ45类型
+#define EQUIPMENT_LINKID             0xf1        //联动号(专用<-指令配置)
 #define EQUIPMENT_MOBILE             0xfc        //手机
 #define EQUIPMENT_SERVER             0xfd        //服务器
 #define EQUIPMENT_PC           	     0xfe        //PC类型
@@ -241,7 +243,7 @@ enum
 //对应的回复指令bit7为1
 读指令：   		0xh,1xh
 写指令:    		8xh,9xh     配对使用，也会单独出现
-   
+	
 控制指令:  		2xh,        控制开关灯，音量，用户可以感知的指令
 状态指令： 		axh,
 其他指令： 		3xh,4xh
@@ -386,7 +388,7 @@ enum    //公共指令    _PUBLIC
 //对应的回复指令bit7为1
 读指令：   		0xh,1xh
 写指令:    		8xh,9xh     配对使用，也会单独出现
-   
+	
 控制指令:  		2xh,        控制开关灯，音量，用户可以感知的指令
 状态指令： 		axh,
 其他指令： 		3xh,4xh
@@ -557,7 +559,7 @@ enum  // LOGIC 指令	 EQUIPMENT_LOGIC
 	CMD_LOGIC_READ_TIMER_INF            = ((CMD_TYPE_LOGIC << 8) | 0x84) 			,//读定时器设置信息  │     标准要求:[读指令]bit7=0,[写指令]bit7=1!!!!!!
 	CMD_LOGIC_WRITE_BLOCK_INF           = ((CMD_TYPE_LOGIC << 8) | 0x05)			,//写逻辑块设置信息  │
 	CMD_LOGIC_READ_BLOCK_INF            = ((CMD_TYPE_LOGIC << 8) | 0x85) 			,//读逻辑块设置信息  │
-	                                                                                 //                  │
+	//                  │
 	CMD_LOGIC_WRITE_CMD                 = ((CMD_TYPE_LOGIC << 8) | 0x06) 			,//写控制指令        │
 	CMD_LOGIC_READ_CMD                  = ((CMD_TYPE_LOGIC << 8) | 0x86) 			,//读控制指令        ┘
 	
@@ -565,14 +567,15 @@ enum  // LOGIC 指令	 EQUIPMENT_LOGIC
 	CMD_LOGIC_WRITE_CONFIG              = ((CMD_TYPE_LOGIC << 8) | 0xC1)        ,//写参数设置 (条件与逻辑)
 	CMD_LOGIC_READ_EXACTION             = ((CMD_TYPE_LOGIC << 8) | 0x42)        ,//读逻辑附加动作
 	CMD_LOGIC_WRITE_EXACTION            = ((CMD_TYPE_LOGIC << 8) | 0xC2)        ,//写逻辑附加动作   (不同设备各不一样)
-	CMD_LOGIC_WRITE_SYSLKID             = ((CMD_TYPE_LOGIC << 8) | 0xC3)        ,//写逻辑系统联动号 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
 	CMD_LOGIC_READ_SECURITY             = ((CMD_TYPE_LOGIC << 8) | 0x44)        ,//读逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
 	CMD_LOGIC_WRITE_SECURITY            = ((CMD_TYPE_LOGIC << 8) | 0xC4)        ,//写逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
-
-		
+	
 	CMD_LOGIC_WRITE_SYSLKID             = ((CMD_TYPE_LOGIC << 8) | 0xC5)        ,//写逻辑系统联动号-开关 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
 	CMD_LOGIC_WRITE_SYSLKID_OPEN        = ((CMD_TYPE_LOGIC << 8) | 0xC6)        ,//写逻辑系统联动号-开   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
 	CMD_LOGIC_WRITE_SYSLKID_CLOSE       = ((CMD_TYPE_LOGIC << 8) | 0xC7)        ,//写逻辑系统联动号-关   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+	CMD_LOGIC_WRITE_SLFLKID             = ((CMD_TYPE_LOGIC << 8) | 0xC8)        ,//写逻辑内部联动号-开关 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+	CMD_LOGIC_WRITE_SLFLKID_OPEN        = ((CMD_TYPE_LOGIC << 8) | 0xC9)        ,//写逻辑内部联动号-开   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+	CMD_LOGIC_WRITE_SLFLKID_CLOSE       = ((CMD_TYPE_LOGIC << 8) | 0xCA)        ,//写逻辑内部联动号-关   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
 }; 
 
 enum // 空调指令  	CMD_TYPE_AC

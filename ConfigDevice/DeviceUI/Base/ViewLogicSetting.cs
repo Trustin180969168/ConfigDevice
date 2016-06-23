@@ -167,10 +167,30 @@ namespace ConfigDevice
             if (viewLogicTools1.HasChanged || viewLogicTools2.HasChanged || viewLogicTools3.HasChanged ||
                 viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex)
             {
+                saveLogicData();
+            }
+        }
+        /// <summary>
+        /// 保存逻辑数据
+        /// </summary>
+        /// <param name="groupNum">序号</param>
+        /// <param name="changed">是否改</param>
+        public void SaveLogicData(int groupNum,bool changed)
+        {
+            if (viewLogicTools1.HasChanged || viewLogicTools2.HasChanged || viewLogicTools3.HasChanged ||
+                viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex || changed)
+            {
+
                 byte[] logicValue = GetLogicData();
-                logicValue[0] = (byte)lookUpEdit.ItemIndex;
+                logicValue[0] = (byte)groupNum;
                 logicList.SaveLogicData(logicValue);
             }
+        }
+        private void saveLogicData()
+        {
+            byte[] logicValue = GetLogicData();
+            logicValue[0] = (byte)lookUpEdit.ItemIndex;
+            logicList.SaveLogicData(logicValue);
         }
         public byte[] GetLogicData()
         {
@@ -187,16 +207,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(value4, 0, logicValue, 95, 31);
             return logicValue;
         }
-        public void SaveLogicData(int groupNum)
-        {
-            if (viewLogicTools1.HasChanged || viewLogicTools2.HasChanged || viewLogicTools3.HasChanged ||
-                viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex)
-            {           
-                byte[] logicValue = GetLogicData();
-                logicValue[0] = (byte)groupNum;
-                logicList.SaveLogicData(logicValue);
-            }
-        }
+
 
         /// <summary>
         /// 读取逻辑列表

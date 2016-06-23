@@ -22,7 +22,7 @@ namespace ConfigDevice
         public GridControl GridCommandView { get { return this.gcCommands; } }
         private bool allowSync = true;//是否允许同步
         public event DeleteCommandData DelCommandData;//删除命令
-
+        private GridViewGridLookupEdit gridLookupDevice;//设备下拉选择
         /// <summary>
         /// 序号
         /// </summary>
@@ -74,11 +74,12 @@ namespace ConfigDevice
             DataCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER3, System.Type.GetType("System.String"));
             DataCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER4, System.Type.GetType("System.String"));
             DataCommandSetting.Columns.Add(DeviceConfig.DC_PARAMETER5, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));//----唯一标识设备的值,类型ID+网络ID+设备ID---
 
             ID.FieldName = DeviceConfig.DC_ID;
             deviceNetwork.FieldName = DeviceConfig.DC_NETWORK_ID;
             deviceKind.FieldName = DeviceConfig.DC_KIND_NAME;
-            deviceName.FieldName = DeviceConfig.DC_NAME;
+            deviceName.FieldName = ViewConfig.DC_DEVICE_VALUE;
             deviceCtrlObj.FieldName = DeviceConfig.DC_CONTROL_OBJ;
             command.FieldName = DeviceConfig.DC_COMMAND;
             parameter1.FieldName = DeviceConfig.DC_PARAMETER1;
@@ -94,8 +95,62 @@ namespace ConfigDevice
         public ViewCommandTools(int num)
             : this()
         {
-            this.Num = num;
+           this.Num = num;
+           gridLookupDevice = ViewEditCtrl.GetCommandDevicesLookupEdit;//-----下拉选择------
+    
+           gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
+           deviceName.ColumnEdit = gridLookupDevice;
         }
+
+
+        /// <summary>
+        /// 选择切换
+        /// </summary> 
+        private void lookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+
+            this.gvCommands.PostEditor();
+            DataRow drCommand = gvCommands.GetDataRow(0);
+            drCommand.EndEdit();
+            string deviceValue = drCommand[ViewConfig.DC_DEVICE_VALUE].ToString();
+            //-----不能选择未知设备------------
+            if (gridLookupDevice.GetDisplayTextByKeyValue(deviceValue) == ViewConfig.NAME_INVALID_DEVICE)
+            {
+                CommonTools.MessageShow("不能选择未知设备!",2,"");
+                drCommand.RejectChanges();
+                return;
+            }
+            //-----获取选择的设备-------------
+            int i = gridLookupDevice.GetIndexByKeyValue(deviceValue);
+            DataRow drSelect = (gridLookupDevice.DataSource as DataTable).Rows[i];
+            byte kindId = BitConverter.GetBytes(Convert.ToInt16(drSelect[DeviceConfig.DC_KIND_ID]))[0];
+            Device selectDevice = FactoryDevice.CreateDevice(kindId).CreateDevice(new DeviceData(drSelect));//---创建相应的设备对象-----
+            CleanCommandSetting();//----清空配置------
+            //-----添加选择设备信息到指令列表-------
+            drCommand = gvCommands.GetDataRow(0);//---清空后再次获取----
+            drCommand[DeviceConfig.DC_NUM] = cedtNum.Text;
+            drCommand[DeviceConfig.DC_ID] = selectDevice.DeviceID;
+            drCommand[DeviceConfig.DC_NETWORK_ID] = selectDevice.NetworkID;
+            drCommand[DeviceConfig.DC_KIND_NAME] = selectDevice.KindName;
+            drCommand[DeviceConfig.DC_NAME] = selectDevice.Name;
+            drCommand[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+            drCommand.EndEdit();
+            gvCommands.BestFitColumns();
+
+            cbxControlObj.Items.Clear();
+            foreach (string key in selectDevice.ContrlObjs.Keys)
+                cbxControlObj.Items.Add(key);
+
+            //-------默认第一个控制对象,涉及多个值的变动,采取手动同步------
+            allowSync = false;
+            DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
+            CurrentControlObj = selectDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
+            ViewCommandControlObj = ViewEditCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
+            refreshView();
+            allowSync = true;
+            SyncCommandSetting();
+        }
+
         /// <summary>
         /// 选择设备
         /// </summary>
@@ -271,7 +326,6 @@ namespace ConfigDevice
                 CurrentControlObj = CurrentDevice.ContrlObjs[value.CurrentControlObj.Name];
                 ViewCommandControlObj = ViewEditCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
             }
-
             this.DataCommandSetting = value.DataCommandSetting.Copy();
             gcCommands.DataSource = this.DataCommandSetting;
             refreshView();
@@ -289,13 +343,32 @@ namespace ConfigDevice
 
             CommandData data = new CommandData(userData);
             DataRow dr = gvCommands.GetDataRow(0);
+            string deviceValue = data.TargetType.ToString() + "_" + data.TargetNet.ToString() + "_" + data.TargetId.ToString();
+
+            DataTable dtSelect  = this.gridLookupDevice.DataSource as DataTable;
+            DataRow[] rows = dtSelect.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
+            if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
+            {
+                DataRow drInsert = dtSelect.Rows.Add();
+                drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;
+                drInsert[DeviceConfig.DC_KIND_ID] = (int)data.TargetType;//---设备ID----
+                drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[data.TargetType];//---设备类型----
+                drInsert[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                drInsert[DeviceConfig.DC_NETWORK_ID] = (int)data.TargetNet;//---网络ID---
+                drInsert[DeviceConfig.DC_ID] = (int)data.TargetId;//-----设备ID---
+                drInsert.EndEdit();
+                dtSelect.AcceptChanges();
+            }
+
+            //------赋值到列表中----------
             dr[DeviceConfig.DC_ID] = (int)data.TargetId;//-----设备ID---
             dr[DeviceConfig.DC_NETWORK_ID] = (int)data.TargetNet;//---网络ID---
             dr[DeviceConfig.DC_KIND_ID] = (int)data.TargetType;//---设备ID----
             dr[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[data.TargetType];//---设备类型----
-            dr[DeviceConfig.DC_NAME] = this.getDeviceName(((int)data.TargetId).ToString(), ((int)data.TargetNet).ToString());//---名称-----
+ //           dr[DeviceConfig.DC_NAME] = this.getDeviceName(((int)data.TargetId).ToString(), ((int)data.TargetNet).ToString());//---名称-----
             dr[DeviceConfig.DC_PC_ADDRESS] = (int)userData.Target[0];//-----PC地址---
             dr[DeviceConfig.DC_NETWORK_IP] = userData.IP;//----IP地址----
+            dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;//----唯一设备值----
             dr.EndEdit();
             this.CurrentDevice = FactoryDevice.CreateDevice(data.TargetType).CreateDevice(new DeviceData(dr));//----获取当前设备对象---
 
@@ -317,6 +390,8 @@ namespace ConfigDevice
             allowSync = true;
         }
 
+      
+
         /// <summary>
         /// 获取被控制的设备名称
         /// </summary>
@@ -327,7 +402,7 @@ namespace ConfigDevice
         {
             string temp = DeviceConfig.DC_ID + " = '" + deviceID + "' and " + DeviceConfig.DC_NETWORK_ID + "= '" + networkID + "'";
             DataRow[] rows = SysConfig.DtDevice.Select(temp);
-            if (rows.Length == 0) return "未知设备";
+            if (rows.Length == 0) return ViewConfig.NAME_INVALID_DEVICE;
             return rows[0][DeviceConfig.DC_NAME].ToString();
         }
 
@@ -399,6 +474,7 @@ namespace ConfigDevice
         /// <param name="e"></param>
         private void gcCommands_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            /*
             GridHitInfo HitInfo = this.gvCommands.CalcHitInfo(e.Location);//获取鼠标点击的位置
             if (HitInfo.InRowCell && HitInfo.Column != null)
             {
@@ -434,6 +510,7 @@ namespace ConfigDevice
                 }
                     
             }
+             */
         }
         /// <summary>
         /// 单击编辑

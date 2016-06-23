@@ -73,7 +73,7 @@ namespace ConfigDevice
             if (DeviceConfig.EQUIPMENT_ID_NAME.ContainsKey(userUdpData.Source[2]))
                 KindName = DeviceConfig.EQUIPMENT_ID_NAME[userUdpData.Source[2]];
             else
-                KindName = "未知设备";
+                KindName = ViewConfig.NAME_INVALID_DEVICE;
             State = DeviceConfig.STATE_RIGHT;
 
         }
@@ -134,9 +134,6 @@ namespace ConfigDevice
             State = value.State;
             Remark = value.Remark;
         }
-
-
-
 
     }
 }

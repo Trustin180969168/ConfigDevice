@@ -127,6 +127,7 @@
             this.ID.Caption = "ID";
             this.ID.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.ID.Name = "ID";
+            this.ID.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.ID.OptionsColumn.FixedWidth = true;
             this.ID.Visible = true;
             this.ID.VisibleIndex = 0;
@@ -147,6 +148,7 @@
             this.deviceNetwork.Caption = "网段";
             this.deviceNetwork.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.deviceNetwork.Name = "deviceNetwork";
+            this.deviceNetwork.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.deviceNetwork.OptionsColumn.FixedWidth = true;
             this.deviceNetwork.Visible = true;
             this.deviceNetwork.VisibleIndex = 1;
@@ -163,7 +165,7 @@
             this.deviceKind.Caption = "设备类型";
             this.deviceKind.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.deviceKind.Name = "deviceKind";
-            this.deviceKind.OptionsColumn.AllowEdit = false;
+            this.deviceKind.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.deviceKind.OptionsColumn.FixedWidth = true;
             this.deviceKind.OptionsColumn.ReadOnly = true;
             this.deviceKind.Visible = true;
@@ -172,6 +174,10 @@
             // 
             // deviceName
             // 
+            this.deviceName.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.deviceName.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.deviceName.AppearanceCell.Options.UseBackColor = true;
+            this.deviceName.AppearanceCell.Options.UseForeColor = true;
             this.deviceName.AppearanceCell.Options.UseTextOptions = true;
             this.deviceName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.deviceName.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -181,9 +187,8 @@
             this.deviceName.Caption = "设备名称";
             this.deviceName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.deviceName.Name = "deviceName";
-            this.deviceName.OptionsColumn.AllowEdit = false;
+            this.deviceName.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.deviceName.OptionsColumn.FixedWidth = true;
-            this.deviceName.OptionsColumn.ReadOnly = true;
             this.deviceName.Visible = true;
             this.deviceName.VisibleIndex = 3;
             this.deviceName.Width = 140;
@@ -203,6 +208,7 @@
             this.deviceCtrlObj.Caption = "控制对象";
             this.deviceCtrlObj.ColumnEdit = this.cbxControlObj;
             this.deviceCtrlObj.Name = "deviceCtrlObj";
+            this.deviceCtrlObj.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.deviceCtrlObj.OptionsColumn.FixedWidth = true;
             this.deviceCtrlObj.Visible = true;
             this.deviceCtrlObj.VisibleIndex = 4;
@@ -232,6 +238,7 @@
             this.command.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.command.Caption = "指令";
             this.command.Name = "command";
+            this.command.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.command.OptionsColumn.FixedWidth = true;
             this.command.Width = 80;
             // 
@@ -249,6 +256,7 @@
             this.parameter1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter1.Caption = "参数1";
             this.parameter1.Name = "parameter1";
+            this.parameter1.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.parameter1.OptionsColumn.FixedWidth = true;
             this.parameter1.Width = 80;
             // 
@@ -266,6 +274,7 @@
             this.parameter2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter2.Caption = "参数2";
             this.parameter2.Name = "parameter2";
+            this.parameter2.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.parameter2.OptionsColumn.FixedWidth = true;
             this.parameter2.Width = 80;
             // 
@@ -283,6 +292,7 @@
             this.parameter3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter3.Caption = "参数3";
             this.parameter3.Name = "parameter3";
+            this.parameter3.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.parameter3.OptionsColumn.FixedWidth = true;
             this.parameter3.Width = 80;
             // 
@@ -300,6 +310,7 @@
             this.parameter4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter4.Caption = "参数4";
             this.parameter4.Name = "parameter4";
+            this.parameter4.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.parameter4.OptionsColumn.FixedWidth = true;
             this.parameter4.Width = 80;
             // 
@@ -317,6 +328,7 @@
             this.parameter5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.parameter5.Caption = "参数5";
             this.parameter5.Name = "parameter5";
+            this.parameter5.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.parameter5.OptionsColumn.FixedWidth = true;
             this.parameter5.Width = 80;
             // 

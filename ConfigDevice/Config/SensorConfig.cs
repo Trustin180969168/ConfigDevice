@@ -61,7 +61,7 @@ namespace ConfigDevice
         public const string SENSOR_WEEK = "周循环";
         public const string SENSOR_FIRE_TEMPERATURE = "消防温控";
 
-        public const string SENSOR_VALUE_KIND_VALUE = "触发值";
+        public const string SENSOR_VALUE_KIND_VALUE = "数值";
         public const string SENSOR_VALUE_KIND_LEVEL = "等级";
         public const string SENSOR_VALUE_KIND_SAME_UNIT = "同一个";
         public const string SENSOR_VALUE_KIND_SAME_TYPE = "同类型";

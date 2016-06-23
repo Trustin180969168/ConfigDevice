@@ -33,6 +33,8 @@ namespace ConfigDevice
         public const string DC_LOGIC_ADDITION_VALUE = "LogicAddtionValue";//逻辑附加值
         //public const string DC_DEVICE_VALUE = "DeviceValue";//设备唯一值
 
+        public const string NAME_INVALID_DEVICE = "未知设备";
+
         public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的值---- 
         public static Dictionary<UInt16, string> TRIGGER_ID_NAME = new Dictionary<UInt16, string>(); //-----触发对象对应的值---- 
         public static Dictionary<string, UInt16> TRIGGER_KIND_NAME_ID = new Dictionary<string, UInt16>(); //-----触发级别ID对应的值---- 
@@ -142,7 +144,11 @@ namespace ConfigDevice
 
         }
 
+
     }
+
+   
+
 
     /// <summary>
     /// 触发对象列表数据
@@ -257,7 +263,7 @@ namespace ConfigDevice
     }
 
     /// <summary>
-    /// 查询选择
+    /// 下拉查找选择
     /// </summary>
     public class GridViewLookupEdit : DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit
     {
@@ -265,6 +271,24 @@ namespace ConfigDevice
             : base()
         {
     
+        }
+    }
+
+    /// <summary>
+    /// 下拉表查找选择
+    /// </summary>
+    public class GridViewGridLookupEdit : DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit
+    {
+
+
+        public GridViewGridLookupEdit( )
+            : base()
+        {
+ 
+            this.View.OptionsView.ShowIndicator = false;
+            this.View.OptionsView.ShowGroupPanel = false;
+            this.View.OptionsView.ShowAutoFilterRow = true;
+            this.View.BestFitColumns();
         }
     }
 

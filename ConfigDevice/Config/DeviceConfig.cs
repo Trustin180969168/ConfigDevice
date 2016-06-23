@@ -6,6 +6,30 @@ namespace ConfigDevice
 {
     public class DeviceConfig
     {
+        //设备ID 0~100,  101以上为指定设备的ID
+        public enum SpecicalID
+        {
+            ID_MOBILE_START = 151,//手机、平板开始地址
+            ID_MOBILE_END = 200,//手机、平板结束地址
+            ID_PC_START = 201,//PC地址开始
+            ID_PC_END = 220,//PC地址结束
+            ID_PKGNUM_PUBLIC = 251,//带包号公共地址(由RJ45缓冲补发并保证其成功到达目标)
+            ID_RJ45 = 252,//485转网络转换器ID
+            ID_SERVER = 253,//服务器
+            ID_ANSWER_PUBLIC = 254,//带返回公共地址
+            ID_PUBLIC = 255      //公共地址
+        };
+
+
+        //特殊网段
+        public enum NetworkSpecialID
+        {
+            NET_MOBILE = 252,     //手机网段
+            NET_SERVER = 254,     //服务器网段
+            NET_PUBLIC = 255      //公共地址
+        };
+
+
 
 
         //-----------回应启动搜索设备-------------
@@ -134,6 +158,7 @@ namespace ConfigDevice
         public const byte EQUIPMENT_PANEL = 0xE0;        //通用控制面板
 
         public const byte EQUIPMENT_RJ45 = 0xf0;        //RJ45类型
+        public const byte EQUIPMENT_LINKID = 0xf1;        //联动号(专用<-指令配置)
         public const byte EQUIPMENT_MOBILE = 0xfc;        //手机
         public const byte EQUIPMENT_SERVER = 0xfd;        //服务器
         public const byte EQUIPMENT_PC = 0xfe;        //PC类型
@@ -156,6 +181,9 @@ namespace ConfigDevice
         public const byte CMD_TYPE_GSM = EQUIPMENT_GSM;               //GSM网络
         public const byte CMD_TYPE_MOBILE = EQUIPMENT_MOBILE;           //手机
         public const byte CMD_TYPE_PANEL = EQUIPMENT_PANEL;         //通用控制面板
+
+
+
 
         //--------------------定义设备命令-----------------------------
         //------网络命令------
@@ -340,8 +368,8 @@ namespace ConfigDevice
         public static readonly byte[] CMD_AMP_SLWR_BGM_RADIO_NOHZ = new byte[] { 0x2d, CMD_TYPE_AMP };   //保存指令频率到指令的电台
 
         public static readonly byte[] CMD_AMP_WIFI_SET = new byte[] { 0x2E, CMD_TYPE_AMP };   //选择WIFI网络和设置连接密码(LIAO增加:2015-10-15)
-        //----逻辑部分-------
 
+        //----逻辑部分-------
         public static readonly byte[] CMD_LOGIC_WRITE_TIMER_NAME = new byte[] { 0x01, EQUIPMENT_LOGIC };//写定时器名称      
         public static readonly byte[] CMD_LOGIC_READ_TIMER_NAME = new byte[] { 0x81, EQUIPMENT_LOGIC }; 			//读定时器名称       
         public static readonly byte[] CMD_LOGIC_WRITE_BLOCK_NAME = new byte[] { 0x02, EQUIPMENT_LOGIC }; //写逻辑块名称       
@@ -359,16 +387,23 @@ namespace ConfigDevice
         public static readonly byte[] CMD_LOGIC_READ_CONFIG = new byte[] { 0x41, EQUIPMENT_LOGIC }; //读参数设置 (条件与逻辑)
         public static readonly byte[] CMD_LOGIC_WRITE_CONFIG = new byte[] { 0xC1, EQUIPMENT_LOGIC }; //写参数设置 (条件与逻辑)
         public static readonly byte[] CMD_LOGIC_READ_EXACTION = new byte[] { 0x42, EQUIPMENT_LOGIC }; //读逻辑附加动作
-        public static readonly byte[] CMD_LOGIC_WRITE_EXACTION = new byte[] { 0xC2, EQUIPMENT_LOGIC }; //写逻辑附加动作   (不同设备各不一样)
-        public static readonly byte[] CMD_LOGIC_WRITE_SYSLKID = new byte[] { 0xC3, EQUIPMENT_LOGIC }; //写逻辑系统联动号 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+        public static readonly byte[] CMD_LOGIC_WRITE_EXACTION = new byte[] { 0xC2, EQUIPMENT_LOGIC }; //写逻辑附加动作   (不同设备各不一样) 
         public static readonly byte[] CMD_LOGIC_READ_SECURITY = new byte[] { 0x44, EQUIPMENT_LOGIC }; //读逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
         public static readonly byte[] CMD_LOGIC_WRITE_SECURITY = new byte[] { 0xC4, EQUIPMENT_LOGIC }; //写逻辑器安防联动标志配置 (各个逻辑动作可单独联动)
 
+        public static readonly byte[] CMD_LOGIC_WRITE_SYSLKID = new byte[] { 0xC5, CMD_TYPE_LOGIC };//写逻辑系统联动号-开关 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+        public static readonly byte[] CMD_LOGIC_WRITE_SYSLKID_OPEN = new byte[] { 0xC6, CMD_TYPE_LOGIC };//写逻辑系统联动号-开   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+        public static readonly byte[] CMD_LOGIC_WRITE_SYSLKID_CLOSE = new byte[] { 0xC7, CMD_TYPE_LOGIC };//写逻辑系统联动号-关   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+        public static readonly byte[] CMD_LOGIC_WRITE_SLFLKID = new byte[] { 0xC8, CMD_TYPE_LOGIC };//写逻辑内部联动号-开关 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+        public static readonly byte[] CMD_LOGIC_WRITE_SLFLKID_OPEN = new byte[] { 0xC9, CMD_TYPE_LOGIC };//写逻辑内部联动号-开   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+        public static readonly byte[] CMD_LOGIC_WRITE_SLFLKID_CLOSE = new byte[] { 0xCA, CMD_TYPE_LOGIC };//写逻辑内部联动号-关   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+
+        //-----特殊部分------
         public static readonly byte[] CMD_PUBLIC_TEST_KEY_CMD = new byte[] { 0xb2, CMD_TYPE_PUBLIC }; //指令测试 
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
         static DeviceConfig()//---静态构造函数------
         {
-            //  EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_4,"4路继电器");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_LINKID, "联动号");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_RJ45, "网关处理器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_LCD, "液晶按键");
 

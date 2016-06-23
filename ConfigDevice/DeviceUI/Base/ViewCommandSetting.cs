@@ -212,11 +212,13 @@ namespace ConfigDevice
             {
                 syncEdit = !syncEdit;
                 btSyncEdit.Image = global::ConfigDevice.Properties.Resources.check;
+                pedtSnyc.Image = global::ConfigDevice.Properties.Resources.check;
             }
             else
             {
                 syncEdit = !syncEdit;
                 btSyncEdit.Image = global::ConfigDevice.Properties.Resources.uncheck;
+                pedtSnyc.Image = global::ConfigDevice.Properties.Resources.uncheck;
             }
             foreach (Control view in xscCommands.Controls)
             {
@@ -266,8 +268,8 @@ namespace ConfigDevice
         /// 初始化指令配置
         /// </summary>
         public void InitViewCommand(Device device)
-        {
-      
+        {  
+            ViewEditCtrl.InitCommandDevicesLookupEdit();//----初始化设备选择列表----        
             cbxGroup.SelectedIndex = -1;
             cbxGroup.Items.Clear();
             foreach (string groupStr in CommmandGroups)
@@ -282,8 +284,7 @@ namespace ConfigDevice
             {
                 cbxGroup.SelectedIndex = 0;//执行读取
                 cbxGroup.Text = CommmandGroups[0];//选择第一组/键      
-            }
-          
+            }          
         }
 
         /// <summary>
@@ -403,6 +404,10 @@ namespace ConfigDevice
         {
             this.CommandEdit.TestCommands(cbxGroup.SelectedIndex);
         }
+
+
+
+
 
 
     }

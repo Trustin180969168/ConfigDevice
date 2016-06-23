@@ -32,6 +32,7 @@
             this.plTool = new DevExpress.XtraEditors.PanelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            this.pedtSnyc = new DevExpress.XtraEditors.PictureEdit();
             this.edtBeginNum = new DevExpress.XtraEditors.SpinEdit();
             this.edtEndNum = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
@@ -54,6 +55,7 @@
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pedtSnyc.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.plCommandToolbar)).BeginInit();
@@ -86,8 +88,8 @@
             // 
             this.panelControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl2.Controls.Add(this.plCommandToolbar);
             this.panelControl2.Controls.Add(this.panelControl4);
+            this.panelControl2.Controls.Add(this.plCommandToolbar);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
@@ -98,6 +100,7 @@
             // 
             this.panelControl4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl4.Controls.Add(this.pedtSnyc);
             this.panelControl4.Controls.Add(this.edtBeginNum);
             this.panelControl4.Controls.Add(this.edtEndNum);
             this.panelControl4.Controls.Add(this.labelControl2);
@@ -105,8 +108,18 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl4.Location = new System.Drawing.Point(0, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(996, 36);
+            this.panelControl4.Size = new System.Drawing.Size(198, 36);
             this.panelControl4.TabIndex = 1;
+            // 
+            // pedtSnyc
+            // 
+            this.pedtSnyc.EditValue = global::ConfigDevice.Properties.Resources.uncheck;
+            this.pedtSnyc.Location = new System.Drawing.Point(6, 3);
+            this.pedtSnyc.Name = "pedtSnyc";
+            this.pedtSnyc.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            this.pedtSnyc.Size = new System.Drawing.Size(28, 28);
+            this.pedtSnyc.TabIndex = 10;
+            this.pedtSnyc.Click += new System.EventHandler(this.btSyncEdit_Click);
             // 
             // edtBeginNum
             // 
@@ -115,7 +128,7 @@
             0,
             0,
             0});
-            this.edtBeginNum.Location = new System.Drawing.Point(37, 3);
+            this.edtBeginNum.Location = new System.Drawing.Point(64, 4);
             this.edtBeginNum.Name = "edtBeginNum";
             this.edtBeginNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtBeginNum.Properties.Appearance.Options.UseFont = true;
@@ -147,7 +160,7 @@
             0,
             0,
             0});
-            this.edtEndNum.Location = new System.Drawing.Point(111, 3);
+            this.edtEndNum.Location = new System.Drawing.Point(138, 4);
             this.edtEndNum.Name = "edtEndNum";
             this.edtEndNum.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtEndNum.Properties.Appearance.Options.UseFont = true;
@@ -176,7 +189,7 @@
             // 
             this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.labelControl2.Appearance.Options.UseFont = true;
-            this.labelControl2.Location = new System.Drawing.Point(89, 7);
+            this.labelControl2.Location = new System.Drawing.Point(116, 8);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(16, 19);
             this.labelControl2.TabIndex = 9;
@@ -186,7 +199,7 @@
             // 
             this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(15, 7);
+            this.labelControl1.Location = new System.Drawing.Point(42, 8);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(16, 19);
             this.labelControl1.TabIndex = 8;
@@ -198,14 +211,15 @@
             this.plCommandToolbar.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.plCommandToolbar.Controls.Add(this.toolStrip2);
             this.plCommandToolbar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.plCommandToolbar.Location = new System.Drawing.Point(181, 0);
+            this.plCommandToolbar.Location = new System.Drawing.Point(198, 0);
             this.plCommandToolbar.Name = "plCommandToolbar";
-            this.plCommandToolbar.Size = new System.Drawing.Size(815, 36);
+            this.plCommandToolbar.Size = new System.Drawing.Size(798, 36);
             this.plCommandToolbar.TabIndex = 0;
             // 
             // toolStrip2
             // 
             this.toolStrip2.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSyncEdit,
@@ -218,7 +232,7 @@
             this.cbxGroup});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(815, 31);
+            this.toolStrip2.Size = new System.Drawing.Size(798, 31);
             this.toolStrip2.TabIndex = 4;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -230,6 +244,7 @@
             this.btSyncEdit.Name = "btSyncEdit";
             this.btSyncEdit.Size = new System.Drawing.Size(28, 28);
             this.btSyncEdit.Text = "同步编辑 ";
+            this.btSyncEdit.Visible = false;
             this.btSyncEdit.Click += new System.EventHandler(this.btSyncEdit_Click);
             // 
             // toolStripSeparator1
@@ -237,6 +252,7 @@
             this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(6, 0, 20, 0);
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator1.Visible = false;
             // 
             // btSaveCommands
             // 
@@ -328,6 +344,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             this.panelControl4.ResumeLayout(false);
             this.panelControl4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pedtSnyc.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.plCommandToolbar)).EndInit();
@@ -364,5 +381,6 @@
         private DevExpress.XtraEditors.GroupControl gcCommandList;
         private DevExpress.XtraEditors.LabelControl lblShowToolbar;
         private System.Windows.Forms.ToolStripButton btTest;
+        private DevExpress.XtraEditors.PictureEdit pedtSnyc;
     }
 }

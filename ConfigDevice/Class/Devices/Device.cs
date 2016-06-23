@@ -26,7 +26,14 @@ namespace ConfigDevice
 
         public Dictionary<string, ControlObj> ContrlObjs = new Dictionary<string, ControlObj>();//控制对象列表
 
-        public byte BytePCAddress { get { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; } }
+        public byte BytePCAddress
+        {
+            get
+            {
+                try { return BitConverter.GetBytes(Convert.ToInt16(PCAddress))[0]; }
+                catch { return 0; }
+            }
+        }
         public byte ByteDeviceID { get { return BitConverter.GetBytes(Convert.ToInt16(DeviceID))[0]; } }
         public byte ByteKindID { get { return BitConverter.GetBytes(Convert.ToInt16(KindID))[0]; } }
         public byte[] ByteMacAddress { get { return ConvertTools.StrToToHexByte(MAC); } }

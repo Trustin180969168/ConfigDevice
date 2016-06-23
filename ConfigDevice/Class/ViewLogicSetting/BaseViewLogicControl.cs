@@ -5,6 +5,9 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Columns;
 using System.Data;
 using System.Drawing;
+using DevExpress.XtraRichTextEdit;
+using DevExpress.XtraGrid.Drawing;
+using DevExpress.XtraEditors.Controls;
 
 namespace ConfigDevice
 {
@@ -13,6 +16,7 @@ namespace ConfigDevice
 
         public Device deviceTrigger;//触发设备对象
         public GridView gvLogic;//逻辑列表
+        //protected DataTable dtSelectDevices = new DataTable(); //选择设备列表 
 
         protected GridViewComboBox cbxOperate = new GridViewComboBox();//运算选择
         protected GridViewComboBox cbxKind = new GridViewComboBox();//触发类型
@@ -20,7 +24,9 @@ namespace ConfigDevice
         protected GridViewTextEdit InvalidEdit = new GridViewTextEdit();//无效编辑
         protected GridViewTimeEdit ValidTimeEdit = new GridViewTimeEdit();//有效触发时间编辑
         protected GridViewTimeEdit InvalidTimeEdit = new GridViewTimeEdit();//无效触发时间编辑
-        protected GridViewLookupEdit lookupDevice = new GridViewLookupEdit();//设备选择编辑
+        //protected GridViewLookupEdit lookupDevice = new GridViewLookupEdit();//设备选择编辑
+        //protected GridViewGridLookupEdit gridLookupDevice = new GridViewGridLookupEdit();//设备列表选择编辑
+
         protected GridColumn dcTriggerObj;//触发对象
         protected GridColumn dcTriggerPosition;//触发位置
         protected GridColumn dcTriggerKind;//触发类型
@@ -64,17 +70,76 @@ namespace ConfigDevice
             dcTriggerPosition.ColumnEdit = cbxPosition;             //---触发编辑---- 
             setGridColumnInvalid(dcDifferentDevice);                //---默认差异设备列无效---        
             //------初始化设备选择控件-----
-            lookupDevice.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-                new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NAME, "设备名称", 120, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
-                new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, "设备ID", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
-                new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NETWORK_ID, "网段ID", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
-                new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_KIND_NAME, "设备类型", 120, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.Ascending)//---默认升序排序--
-            });
-            lookupDevice.PopupWidth = 500;
-            lookupDevice.Name = "lookupEdit";
-            lookupDevice.NullText = "选择设备";
-            lookupDevice.DisplayMember = DeviceConfig.DC_NAME;
-            lookupDevice.ValueMember = ViewConfig.DC_DEVICE_VALUE;
+            //lookupDevice.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            //    new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NAME, "设备名称", 120, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+            //    new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, "设备ID", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+            //    new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NETWORK_ID, "网段ID", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+            //    new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_KIND_NAME, "设备类型", 120, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.Ascending)//---默认升序排序--
+            //});
+            //lookupDevice.PopupWidth = 500;
+            //lookupDevice.Name = "lookupEdit";
+            //lookupDevice.NullText = "选择设备";
+            //lookupDevice.DisplayMember = DeviceConfig.DC_NAME;
+            //lookupDevice.ValueMember = ViewConfig.DC_DEVICE_VALUE;
+            
+            //gridLookupDevice.Name = "gridLookupEdit";
+            //gridLookupDevice.NullText = "选择设备";
+            //gridLookupDevice.DisplayMember = DeviceConfig.DC_NAME;
+            //gridLookupDevice.ValueMember = ViewConfig.DC_DEVICE_VALUE;
+        }
+
+        /// <summary>
+        /// 初始化设备选择列表
+        /// </summary>
+        protected void initGridLookupDevice()
+        {
+            ////-----获取选择的设备数据---
+            //dtSelectDevices = SysConfig.DtDevice.Clone();
+            //DataRow[] rows = SysConfig.DtDevice.Select(ViewConfig.SELECT_LOGIC_DEVICE_QUERY_CONDITION);
+            //foreach (DataRow dr in rows)
+            //    dtSelectDevices.Rows.Add(dr.ItemArray);
+            ////----初始化新的设备值----
+            //dtSelectDevices.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
+            //foreach (DataRow dr in dtSelectDevices.Rows)
+            //    dr[ViewConfig.DC_DEVICE_VALUE] = dr[DeviceConfig.DC_KIND_ID].ToString() + dr[DeviceConfig.DC_NETWORK_ID].ToString() + dr[DeviceConfig.DC_ID].ToString(); 
+            //dtSelectDevices.AcceptChanges();
+            ////----初始化下拉界面------
+            //gridLookupDevice.DataSource = dtSelectDevices;
+            //foreach (GridColumn gc in gridLookupDevice.View.Columns)
+            //{
+            //    if (gc.FieldName != DeviceConfig.DC_ID && gc.FieldName != DeviceConfig.DC_NETWORK_ID &&
+            //        gc.FieldName != DeviceConfig.DC_KIND_NAME && gc.FieldName != DeviceConfig.DC_NAME)
+            //        gc.Visible = false;
+            //}
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).SortIndex = 0;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).SortIndex = 1;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).VisibleIndex = 0;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).VisibleIndex = 1;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).VisibleIndex = 2;
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).VisibleIndex = 3;
+
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).Caption = "设备ID";
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).Caption = "设备名称";
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).Caption = "网段";
+            //gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).Caption = "设备类型";
+            //gridLookupDevice.View.BestFitColumns();
+          //  gridLookupDevice.View.OptionsView.ColumnAutoWidth = true;     
         }
 
         /// <summary>
