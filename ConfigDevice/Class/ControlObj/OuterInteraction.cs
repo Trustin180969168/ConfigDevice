@@ -18,9 +18,9 @@ namespace ConfigDevice
             deviceControled = _deviceCtrl;
             if (NameAndCommand.Count == 0)
             {
-                NameAndCommand.Add(NAME_CMD_LOGIC_WRITE_SYSLKID, DeviceConfig.CMD_LOGIC_WRITE_SLFLKID);
-                NameAndCommand.Add(NAME_CMD_LOGIC_WRITE_SYSLKID_OPEN, DeviceConfig.CMD_LOGIC_WRITE_SLFLKID_OPEN);
-                NameAndCommand.Add(NAME_CMD_LOGIC_WRITE_SYSLKID_CLOSE, DeviceConfig.CMD_LOGIC_WRITE_SLFLKID_CLOSE);
+                NameAndCommand.Add(NAME_CMD_LOGIC_WRITE_SYSLKID, DeviceConfig.CMD_LOGIC_WRITE_SYSLKID);
+                NameAndCommand.Add(NAME_CMD_LOGIC_WRITE_SYSLKID_OPEN, DeviceConfig.CMD_LOGIC_WRITE_SYSLKID_OPEN);
+                NameAndCommand.Add(NAME_CMD_LOGIC_WRITE_SYSLKID_CLOSE, DeviceConfig.CMD_LOGIC_WRITE_SYSLKID_CLOSE);
             }
         }
 

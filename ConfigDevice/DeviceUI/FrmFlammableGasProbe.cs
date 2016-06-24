@@ -84,8 +84,8 @@ namespace ConfigDevice
             viewLogicSetting.ShowToolBar = false;//不显示工具栏  
             //viewCommandEdit.ShowCommandBar = true;//不显示指令栏
             
-            viewCommandEdit.ShowLogicToolBarSetting();
-            viewCommandEdit.ShowToolBar = false;
+            viewCommandSetting.ShowLogicToolBarSetting();
+            viewCommandSetting.ShowToolBar = false;
             //----------快速配置-----
             logicQuickSetting = new LogicQuickSetting("EQUIPMENT_FUEL_GAS");
             initLogicQuitSetting();
@@ -135,11 +135,11 @@ namespace ConfigDevice
                 //---读取完回路----
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)
                 {
-                    viewCommandEdit.CbxCommandGroup.Items.Clear();
+                    viewCommandSetting.CbxCommandGroup.Items.Clear();
                     dtIDName.Rows.Clear();
                     foreach (int key in flammableGasProbe.ProbeCircuit.ListCircuitIDAndName.Keys)
                     {
-                        viewCommandEdit.CommmandGroups.Add(flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key]);//----指令组选择----
+                        viewCommandSetting.CommmandGroups.Add(flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key]);//----指令组选择----
                         dtIDName.Rows.Add(new object[] { key, flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key] });//初始化逻辑项 
                     }
                     lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
@@ -247,10 +247,10 @@ namespace ConfigDevice
                           );
                     lookUpEdit.ItemIndex = 0;
                 }
-                if (viewCommandEdit.NeedInit)
+                if (viewCommandSetting.NeedInit)
                 {
-                    viewCommandEdit.InitViewCommand(flammableGasProbe);//初始化
-                    viewCommandEdit.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
+                    viewCommandSetting.InitViewCommand(flammableGasProbe);//初始化
+                    viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
                 }       
             }
         } 
@@ -275,7 +275,7 @@ namespace ConfigDevice
                 flammableGasProbe.ProbeCircuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
 
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex, quickSetup);//--保存逻辑数据---
-            viewCommandEdit.SaveCommands();//---保存指令配置---   
+            viewCommandSetting.SaveCommands();//---保存指令配置---   
             quickSetup = false;//----恢复快速配置标记-----
         }
         /// <summary>
@@ -301,7 +301,7 @@ namespace ConfigDevice
         private void btRefreshTrigger_Click(object sender, EventArgs e)
         {
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----读取逻辑数据----
-            viewCommandEdit.ReadCommandData();//---读取命令数据----
+            viewCommandSetting.ReadCommandData();//---读取命令数据----
             flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
         }
 
@@ -323,9 +323,9 @@ namespace ConfigDevice
             currentGroupName = edtTriggerActionName.Text;
             if (!viewLogicSetting.NeedInit)
                 viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
-            if (!viewCommandEdit.NeedInit)
+            if (!viewCommandSetting.NeedInit)
                 //viewCommandEdit.ReadCommandData(lookUpEdit.ItemIndex);//---获取指令配置列表----
-                viewCommandEdit.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
+                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
             flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
 
         }
@@ -435,7 +435,23 @@ namespace ConfigDevice
 
         }
 
-    
+        /// <summary>
+        /// 更换设备事件
+        /// </summary>
+        public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FlammableGasProbe _flammableGasProbe = new FlammableGasProbe(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            if (flammableGasProbe.MAC == _flammableGasProbe.MAC) return;
+
+            _flammableGasProbe.OnCallbackUI_Action += this.CallbackUI;
+            _flammableGasProbe.OnCallbackUI_Action += frmSetting.CallBackUI;
+            frmSetting.DeviceEdit = _flammableGasProbe;           //---基础配置编辑  
+            viewCommandSetting.NeedInit = true;//----重新初始化,通过回调实现------
+            viewLogicSetting.NeedInit = true;//---重新初始化逻辑配置
+            flammableGasProbe = _flammableGasProbe;
+            this.Text = _flammableGasProbe.Name;
+            loadData();
+        }
    
     }
 }

@@ -108,7 +108,7 @@ namespace ConfigDevice
         {
             ViewSetting.PostEditor();
             DataRow dr = ViewSetting.GetDataRow(0);
-            byte[] Command = InnerInteraction.NameAndCommand[dr[dcCommand.FieldName].ToString()];//----命令------- 
+            byte[] Command = OuterInteraction.NameAndCommand[dr[dcCommand.FieldName].ToString()];//----命令------- 
             int actionIndex = 0;
             if (dr[dcCommand.FieldName].ToString() == OuterInteraction.NAME_CMD_LOGIC_WRITE_SYSLKID_OPEN)
                 actionIndex = 1;//-----动作,开关,开,关,只有开为非零-----       
@@ -149,9 +149,9 @@ namespace ConfigDevice
         {
             //---找出对应的指令---------
             string cmdName = "";
-            foreach (string key in InnerInteraction.NameAndCommand.Keys)
+            foreach (string key in OuterInteraction.NameAndCommand.Keys)
             {
-                if (CommonTools.BytesEuqals(data.Cmd, InnerInteraction.NameAndCommand[key]))
+                if (CommonTools.BytesEuqals(data.Cmd, OuterInteraction.NameAndCommand[key]))
                 { cmdName = key; break; }
             }
             ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---          

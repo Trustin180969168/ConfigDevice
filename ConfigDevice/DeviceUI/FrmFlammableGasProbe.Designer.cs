@@ -62,7 +62,7 @@
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
-            this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
+            this.viewCommandSetting = new ConfigDevice.ViewCommandSetting();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.sptBuzzerSeconds = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
@@ -482,7 +482,7 @@
             // 
             // pageLogic
             // 
-            this.pageLogic.Controls.Add(this.viewCommandEdit);
+            this.pageLogic.Controls.Add(this.viewCommandSetting);
             this.pageLogic.Controls.Add(this.groupBox1);
             this.pageLogic.Controls.Add(this.viewLogicSetting);
             this.pageLogic.Controls.Add(this.panelControl5);
@@ -490,15 +490,15 @@
             this.pageLogic.Size = new System.Drawing.Size(1009, 682);
             this.pageLogic.Text = "逻辑配置";
             // 
-            // viewCommandEdit
+            // viewCommandSetting
             // 
-            this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandEdit.Location = new System.Drawing.Point(0, 336);
-            this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.ShowCommandBar = true;
-            this.viewCommandEdit.ShowToolBar = true;
-            this.viewCommandEdit.Size = new System.Drawing.Size(1009, 346);
-            this.viewCommandEdit.TabIndex = 1;
+            this.viewCommandSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.viewCommandSetting.Location = new System.Drawing.Point(0, 336);
+            this.viewCommandSetting.Name = "viewCommandSetting";
+            this.viewCommandSetting.ShowCommandBar = true;
+            this.viewCommandSetting.ShowToolBar = true;
+            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 346);
+            this.viewCommandSetting.TabIndex = 1;
             // 
             // groupBox1
             // 
@@ -975,7 +975,7 @@
         private DevExpress.XtraEditors.SimpleButton btCloseValve;
         private DevExpress.XtraEditors.SimpleButton btOpenValve;
         private ViewLogicSetting viewLogicSetting;
-        private ViewCommandSetting viewCommandEdit;
+        private ViewCommandSetting viewCommandSetting;
         private DevExpress.XtraEditors.PanelControl panelControl5;
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.PanelControl panelControl2;

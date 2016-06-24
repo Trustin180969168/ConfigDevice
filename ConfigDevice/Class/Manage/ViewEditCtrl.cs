@@ -78,6 +78,79 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 获取控制对象
+        /// </summary>
+        /// <param name="cmd">指令</param>
+        /// <returns></returns>
+        public static string GetControlObj(CommandData cmdData)
+        {
+            byte kind = cmdData.TargetType;
+            switch (kind)
+            {
+                case DeviceConfig.EQUIPMENT_CURTAIN_3CH:
+                case DeviceConfig.EQUIPMENT_CURTAIN_2CH: return "电机";
+                case DeviceConfig.EQUIPMENT_SWIT_4:
+                case DeviceConfig.EQUIPMENT_SWIT_6:
+                case DeviceConfig.EQUIPMENT_SWIT_8:
+                case DeviceConfig.EQUIPMENT_TRAILING_2:
+                case DeviceConfig.EQUIPMENT_TRAILING_4:
+                case DeviceConfig.EQUIPMENT_TRAILING_6:
+                case DeviceConfig.EQUIPMENT_TRAILING_8:
+
+                case DeviceConfig.EQUIPMENT_TRAILING_12:
+                    {
+                        if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_NOT) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP))
+                            return "回路";
+                        if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_OPEN) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_CLOSE) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_NOT) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP))
+                            return "场景";
+                        if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_OPEN) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_CLOSE) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_NOT) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP))
+                            return "时序";
+                        if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_OPEN) ||
+                        CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_CLOSE))
+                            return "全部";
+                    } break;
+                case DeviceConfig.EQUIPMENT_AMP_MP3:
+                    {
+                        if (cmdData.Data[2] == (byte)AudioKind.GENERAL_BGM)
+                            return "背景";
+                        if (cmdData.Data[2] == (byte)AudioKind.TG_MESSAGE)
+                            return "消息";
+                    } break;
+                case DeviceConfig.EQUIPMENT_LINKID:
+                    {
+                        if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SYSLKID) ||
+                                    CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SYSLKID_OPEN) ||
+                                    CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SYSLKID_CLOSE))
+                            return "系统联动号";
+                        if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SLFLKID) ||
+                                    CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SLFLKID_OPEN) ||
+                                    CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SLFLKID_CLOSE))
+                            return "内部联动号";
+                    } break;
+                case DeviceConfig.EQUIPMENT_SERVER: return "服务器";
+                default: return "无效";
+            }
+            return "无效";
+
+        }
+
+
+        /// <summary>
         /// 判断是否有效时间
         /// </summary>
         /// <param name="seconds">秒数</param>
