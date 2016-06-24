@@ -60,9 +60,9 @@ namespace ConfigDevice
             DataCommandSetting = new DataTable();
 
             DataCommandSetting.Columns.Add(DeviceConfig.DC_NUM, System.Type.GetType("System.Int16"));
-            DataCommandSetting.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.String"));
-            DataCommandSetting.Columns.Add(DeviceConfig.DC_NETWORK_ID, System.Type.GetType("System.String"));
-            DataCommandSetting.Columns.Add(DeviceConfig.DC_KIND_ID, System.Type.GetType("System.String"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_ID, System.Type.GetType("System.Int16"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_NETWORK_ID, System.Type.GetType("System.Int16"));
+            DataCommandSetting.Columns.Add(DeviceConfig.DC_KIND_ID, System.Type.GetType("System.Int16"));
             DataCommandSetting.Columns.Add(DeviceConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
             DataCommandSetting.Columns.Add(DeviceConfig.DC_NAME, System.Type.GetType("System.String"));
             DataCommandSetting.Columns.Add(DeviceConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
@@ -124,27 +124,27 @@ namespace ConfigDevice
             int i = gridLookupDevice.GetIndexByKeyValue(deviceValue);
             DataRow drSelect = (gridLookupDevice.DataSource as DataTable).Rows[i];
             byte kindId = BitConverter.GetBytes(Convert.ToInt16(drSelect[DeviceConfig.DC_KIND_ID]))[0];
-            Device selectDevice = FactoryDevice.CreateDevice(kindId).CreateDevice(new DeviceData(drSelect));//---创建相应的设备对象-----
+            CurrentDevice = FactoryDevice.CreateDevice(kindId).CreateDevice(new DeviceData(drSelect));//---创建相应的设备对象-----
             CleanCommandSetting();//----清空配置------
             //-----添加选择设备信息到指令列表-------
             drCommand = gvCommands.GetDataRow(0);//---清空后再次获取----
             drCommand[DeviceConfig.DC_NUM] = cedtNum.Text;
-            drCommand[DeviceConfig.DC_ID] = selectDevice.DeviceID;
-            drCommand[DeviceConfig.DC_NETWORK_ID] = selectDevice.NetworkID;
-            drCommand[DeviceConfig.DC_KIND_NAME] = selectDevice.KindName;
-            drCommand[DeviceConfig.DC_NAME] = selectDevice.Name;
+            drCommand[DeviceConfig.DC_ID] = CurrentDevice.DeviceID;
+            drCommand[DeviceConfig.DC_NETWORK_ID] = CurrentDevice.NetworkID;
+            drCommand[DeviceConfig.DC_KIND_NAME] = CurrentDevice.KindName;
+            drCommand[DeviceConfig.DC_NAME] = CurrentDevice.Name;
             drCommand[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
             drCommand.EndEdit();
             gvCommands.BestFitColumns();
 
             cbxControlObj.Items.Clear();
-            foreach (string key in selectDevice.ContrlObjs.Keys)
+            foreach (string key in CurrentDevice.ContrlObjs.Keys)
                 cbxControlObj.Items.Add(key);
 
             //-------默认第一个控制对象,涉及多个值的变动,采取手动同步------
             allowSync = false;
             DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
-            CurrentControlObj = selectDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
+            CurrentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
             ViewCommandControlObj = ViewEditCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
             refreshView();
             allowSync = true;

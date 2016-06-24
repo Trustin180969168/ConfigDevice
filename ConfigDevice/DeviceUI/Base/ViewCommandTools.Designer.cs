@@ -101,7 +101,6 @@
             this.parameter5});
             this.gvCommands.GridControl = this.gcCommands;
             this.gvCommands.Name = "gvCommands";
-            this.gvCommands.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click;
             this.gvCommands.OptionsSelection.EnableAppearanceFocusedRow = false;
             this.gvCommands.OptionsSelection.InvertSelection = true;
             this.gvCommands.OptionsView.ColumnAutoWidth = false;

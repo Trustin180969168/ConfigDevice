@@ -148,7 +148,7 @@ namespace ConfigDevice
             }
             else if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
             {
-                setGridColumnValid(dcOperate, cbxOperateLevel);
+                //setGridColumnValid(dcOperate, cbxOperateLevel);
                 setGridColumnValid(dcStartValue, cbxTemperatureLevelEdit);
                 setGridColumnInvalid(dcEndValue);
 

@@ -38,6 +38,7 @@ namespace ConfigDevice
         public const UInt16 LG_SENSOR_TYP_MASK = 0x3FFF;        //[同类型]传感器[掩码]->如:温度,湿度
         public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;        //传感器结束符 
         public const UInt16 LG_SENSOR_DEFAULT = LG_SENSOR_VOID;
+        public const Int16 LG_LINKAGE_NUM = 100;
 
         //------触发位置--------
         public const string SENSOR_POSITION_LOCAL = "本地";

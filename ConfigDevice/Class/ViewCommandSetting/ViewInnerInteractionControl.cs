@@ -32,13 +32,8 @@ namespace ConfigDevice
             dcOpenDelay = ViewSetting.Columns.ColumnByName("parameter4");
             dcCloseDelay = ViewSetting.Columns.ColumnByName("parameter5");
                    
-            edtNum.DisplayFormat.FormatString = "##0 号";
-            edtNum.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            edtNum.Mask.EditMask = "##0 号";
-            edtNum.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            edtNum.Mask.UseMaskAsDisplayFormat = true;
             edtNum.MinValue = 0;
-            edtNum.MaxValue = (int)DeviceConfig.SpecicalID.ID_PKGNUM_PUBLIC - 1;
+            edtNum.MaxValue = (int)SensorConfig.LG_LINKAGE_NUM - 1;
             dcInteractiveNum.ColumnEdit = edtNum;
 
             InitViewSetting();
@@ -158,7 +153,8 @@ namespace ConfigDevice
                 if (CommonTools.BytesEuqals(data.Cmd, InnerInteraction.NameAndCommand[key]))
                 { cmdName = key; break; }
             }
-            ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---          
+            ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---   
+            
             ViewSetting.SetRowCellValue(0, dcInteractiveNum,(int)data.Data[1]);//---系统联动号,Data[2]为回路号,不用显示---
    
             byte[] byteRunTime = CommonTools.CopyBytes(data.Data, 3, 2);
