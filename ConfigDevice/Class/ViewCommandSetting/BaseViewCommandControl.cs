@@ -15,7 +15,7 @@ namespace ConfigDevice
         public ControlObj controlObj;//控制对象
         protected DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxCommandKind;//选择命令类型编辑
         protected DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit tedtTime;//时间类型编辑
-        protected DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtNum;//数字编辑
+        protected GridViewDigitalEdit edtNum;//数字编辑
         protected DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtPercentNum;//百分比
         protected DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit meEdit;//下拉文本框
         
@@ -39,14 +39,12 @@ namespace ConfigDevice
             tedtTime.Leave += new System.EventHandler(SysConfig.Edit_Leave);
             tedtTime.Enter += new System.EventHandler(SysConfig.Edit_Enter);
             //----数字编辑控件-----------
-            edtNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
+            edtNum = new GridViewDigitalEdit();
             edtNum.AutoHeight = false;
             edtNum.Mask.EditMask = "d";
             edtNum.Name = "edtNum";
             edtNum.MinValue = 0;
             edtNum.MaxValue = 200;
-            edtNum.Leave += new System.EventHandler(SysConfig.Edit_Leave);
-            edtNum.Enter += new System.EventHandler(SysConfig.Edit_Enter);
             //----百分比编辑控件-------
             edtPercentNum = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             edtPercentNum.AutoHeight = false;

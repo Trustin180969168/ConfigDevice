@@ -14,7 +14,7 @@ namespace ConfigDevice
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public InnerInteraction(Device _deviceCtrl)
         {
-            Name = "全部";
+            Name = "开关";
             deviceControled = _deviceCtrl;
             if (NameAndCommand.Count == 0)
             {
@@ -35,7 +35,7 @@ namespace ConfigDevice
         /// <param name="usOpenDly">开延迟</param>
         /// <param name="usCloseDly">关延迟</param>
         /// <returns></returns>
-        public CommandData GetCommandData(byte[] cmd, int actionIndex, int interactionNum,
+        public CommandData GetCommandData(byte[] cmd,int actionIndex,int interactionNum,
             int usRunTime, int usOpenDly, int usCloseDly)
         {
             CommandData cmdData = new CommandData("内部联动");

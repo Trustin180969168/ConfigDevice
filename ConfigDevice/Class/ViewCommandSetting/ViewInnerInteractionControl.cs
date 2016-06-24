@@ -14,27 +14,32 @@ namespace ConfigDevice
     public class ViewInnerInteractionControl : BaseViewCommandControl
     {
         GridColumn dcCommand;//指令
-        GridColumn dcActionKind;//操作类型
         GridColumn dcInteractiveNum;//联动号
+        GridColumn dcCircuitNum;//回路
         GridColumn dcRunTime;//运行时间
         GridColumn dcOpenDelay;//开延迟
         GridColumn dcCloseDelay;//关延迟
         InnerInteraction inner;//控制对象
-        DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxActionKind;//选择命令类型编辑     
 
         public ViewInnerInteractionControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
         {
             inner = controlObj as InnerInteraction;
             dcCommand = ViewSetting.Columns.ColumnByName("command");
-            dcActionKind = ViewSetting.Columns.ColumnByName("parameter1");
-            dcInteractiveNum = ViewSetting.Columns.ColumnByName("parameter2");
+            dcInteractiveNum = ViewSetting.Columns.ColumnByName("parameter1");
+            dcCircuitNum = ViewSetting.Columns.ColumnByName("parameter2");
             dcRunTime = ViewSetting.Columns.ColumnByName("parameter3");
             dcOpenDelay = ViewSetting.Columns.ColumnByName("parameter4");
             dcCloseDelay = ViewSetting.Columns.ColumnByName("parameter5");
-
-            cbxActionKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            cbxActionKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+                   
+            edtNum.DisplayFormat.FormatString = "##0 号";
+            edtNum.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            edtNum.Mask.EditMask = "##0 号";
+            edtNum.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            edtNum.Mask.UseMaskAsDisplayFormat = true;
+            edtNum.MinValue = 0;
+            edtNum.MaxValue = (int)DeviceConfig.SpecicalID.ID_PKGNUM_PUBLIC - 1;
+            dcInteractiveNum.ColumnEdit = edtNum;
 
             InitViewSetting();
         }
@@ -45,45 +50,34 @@ namespace ConfigDevice
         public override void InitViewSetting()
         {
             dcCommand.Visible = true;
-            dcActionKind.Visible = true;
             dcInteractiveNum.Visible = true;
+            dcCircuitNum.Visible = false;
             dcRunTime.Visible = true;
             dcOpenDelay.Visible = true;
             dcCloseDelay.Visible = true;
             ViewSetting.Columns.ColumnByName("parameter1").VisibleIndex = 6;
-            ViewSetting.Columns.ColumnByName("parameter2").VisibleIndex = 7;
-            ViewSetting.Columns.ColumnByName("parameter3").VisibleIndex = 8;
-            ViewSetting.Columns.ColumnByName("parameter4").VisibleIndex = 9;
-            ViewSetting.Columns.ColumnByName("parameter5").VisibleIndex = 10;
+            ViewSetting.Columns.ColumnByName("parameter3").VisibleIndex = 7;
+            ViewSetting.Columns.ColumnByName("parameter4").VisibleIndex = 8;
+            ViewSetting.Columns.ColumnByName("parameter5").VisibleIndex = 9;
 
             cbxCommandKind.Items.Add(InnerInteraction.NAME_CMD_LOGIC_WRITE_SLFLKID);
             cbxCommandKind.Items.Add(InnerInteraction.NAME_CMD_LOGIC_WRITE_SLFLKID_OPEN); 
             cbxCommandKind.Items.Add(InnerInteraction.NAME_CMD_LOGIC_WRITE_SLFLKID_CLOSE);
-          
-
-            dcActionKind.Caption = "";
-            cbxActionKind.Items.Add(InnerInteraction.NAME_CMD_LOGIC_WRITE_SLFLKID);
-            cbxActionKind.Items.Add(InnerInteraction.NAME_CMD_LOGIC_WRITE_SLFLKID_OPEN); 
-            cbxActionKind.Items.Add(InnerInteraction.NAME_CMD_LOGIC_WRITE_SLFLKID_CLOSE);
-            dcActionKind.ColumnEdit = cbxActionKind;
 
             dcInteractiveNum.Caption = "联动号";
-            dcInteractiveNum.ColumnEdit = edtNum;
+            dcCircuitNum.Caption = "回路";
+            dcCircuitNum.ColumnEdit = edtNum;
             dcRunTime.Caption = "运行时间";
             dcRunTime.ColumnEdit = tedtTime;
             dcOpenDelay.Caption = "开延迟";
             dcOpenDelay.ColumnEdit = tedtTime;
             dcCloseDelay.Caption = "关延迟";
             dcCloseDelay.ColumnEdit = tedtTime;
-
-            ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
-            ViewSetting.SetRowCellValue(0, dcActionKind, cbxActionKind.Items[0].ToString());
-            ViewSetting.SetRowCellValue(0, dcInteractiveNum, "0");
+ 
+            ViewSetting.SetRowCellValue(0, dcInteractiveNum,"0"); 
             ViewSetting.SetRowCellValue(0, dcRunTime, "00:00:00");
             ViewSetting.SetRowCellValue(0, dcOpenDelay, "00:00:00");
-            ViewSetting.SetRowCellValue(0, dcCloseDelay, "00:00:00");
-
-            // ViewSetting.BestFitColumns();
+            ViewSetting.SetRowCellValue(0, dcCloseDelay, "00:00:00");  
 
         }
 
@@ -118,13 +112,11 @@ namespace ConfigDevice
         {
             ViewSetting.PostEditor();
             DataRow dr = ViewSetting.GetDataRow(0);
-            byte[] motorCommand = Motor.NameAndCommand[dr[dcCommand.FieldName].ToString()];//-----电机命令-----------------            
-            int percent = Convert.ToInt16(dr[dcInteractiveNum.FieldName].ToString());//-----百分比----
-            //----------开关动作-----------------
+            byte[] Command = InnerInteraction.NameAndCommand[dr[dcCommand.FieldName].ToString()];//----命令------- 
             int actionIndex = 0;
-            string actionName = dr[dcActionKind.FieldName].ToString();
-            if (actionName == InnerInteraction.NAME_CMD_LOGIC_WRITE_SLFLKID_OPEN)
-                actionIndex = 1;
+            if(dr[dcCommand.FieldName].ToString() == InnerInteraction.NAME_CMD_LOGIC_WRITE_SLFLKID_OPEN)
+                actionIndex = 1;//-----动作,开关,开,关,只有开为非零-----       
+            int interactionNum = Convert.ToInt16(dr[dcInteractiveNum.FieldName]);//----系统联动号------- 
             //----------计算时间-------------------
             DateTime dtRunTime = DateTime.Parse(dr[dcRunTime.FieldName].ToString());
             DateTime dtOpenDelay = DateTime.Parse(dr[dcOpenDelay.FieldName].ToString());
@@ -141,7 +133,7 @@ namespace ConfigDevice
             if (closeDelaySeconds > 64800)
             { CommonTools.MessageShow("关延迟不能大于18小时!", 2, ""); return null; }
 
-            return inner.GetCommandData(motorCommand, percent, actionIndex, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
+            return inner.GetCommandData(Command, actionIndex,interactionNum, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
         }
 
 
@@ -159,20 +151,16 @@ namespace ConfigDevice
         /// <param name="data"></param>
         public override void SetCommandData(CommandData data)
         {
-
             //---找出对应的指令---------
             string cmdName = "";
-            foreach (string key in Motor.NameAndCommand.Keys)
+            foreach (string key in InnerInteraction.NameAndCommand.Keys)
             {
-                if (CommonTools.BytesEuqals(data.Cmd, Motor.NameAndCommand[key]))
+                if (CommonTools.BytesEuqals(data.Cmd, InnerInteraction.NameAndCommand[key]))
                 { cmdName = key; break; }
             }
-            ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
-
-            int cmdIndex = (int)data.Data[2];//---开关动作---
-            ViewSetting.SetRowCellValue(0, dcActionKind, cbxActionKind.Items[cmdIndex].ToString());//---电机动作---
-            ViewSetting.SetRowCellValue(0, dcInteractiveNum, (int)data.Data[1]);//---程度----
-
+            ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---          
+            ViewSetting.SetRowCellValue(0, dcInteractiveNum,(int)data.Data[1]);//---系统联动号,Data[2]为回路号,不用显示---
+   
             byte[] byteRunTime = CommonTools.CopyBytes(data.Data, 3, 2);
             byte[] byteOpenDelayTime = CommonTools.CopyBytes(data.Data, 5, 2);
             byte[] byteCloseDelayTime = CommonTools.CopyBytes(data.Data, 7, 2);

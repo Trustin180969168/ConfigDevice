@@ -925,7 +925,7 @@ namespace ConfigDevice
             edtNum.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             edtNum.Mask.UseMaskAsDisplayFormat = true;
             edtNum.MinValue = 0;
-            edtNum.MaxValue = 100;
+            edtNum.MaxValue = (int)DeviceConfig.SpecicalID.ID_PKGNUM_PUBLIC - 1;
         }
 
 

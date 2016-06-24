@@ -460,6 +460,17 @@ namespace ConfigDevice
                         if (cmdData.Data[2] == (byte)AudioKind.TG_MESSAGE)
                             return "消息";
                     } break;
+                case DeviceConfig.EQUIPMENT_LINKID:
+                    {
+                        if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SYSLKID) ||
+                                    CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SYSLKID_OPEN) ||
+                                    CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SYSLKID_CLOSE))
+                            return "系统联动号";
+                        if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SLFLKID) ||
+                                    CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SLFLKID_OPEN) ||
+                                    CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_LOGIC_WRITE_SLFLKID_CLOSE))
+                            return "内部联动号";
+                    } break;
                 case DeviceConfig.EQUIPMENT_SERVER: return "服务器";
                 default: return "无效";
             }

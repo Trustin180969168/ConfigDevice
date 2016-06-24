@@ -151,7 +151,7 @@
             this.dcDiffDevice.AppearanceHeader.Options.UseTextOptions = true;
             this.dcDiffDevice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcDiffDevice.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcDiffDevice.Caption = "差异设备";
+            this.dcDiffDevice.Caption = "触发设备";
             this.dcDiffDevice.Name = "dcDiffDevice";
             this.dcDiffDevice.Visible = true;
             this.dcDiffDevice.VisibleIndex = 2;

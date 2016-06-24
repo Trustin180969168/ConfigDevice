@@ -183,8 +183,6 @@ namespace ConfigDevice
         public const byte CMD_TYPE_PANEL = EQUIPMENT_PANEL;         //通用控制面板
 
 
-
-
         //--------------------定义设备命令-----------------------------
         //------网络命令------
         public static readonly byte[] CMD_PC_SEARCH = new byte[] { 0x01, DeviceConfig.EQUIPMENT_PC };       //----搜索网络命令----

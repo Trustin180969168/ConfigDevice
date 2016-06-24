@@ -42,7 +42,7 @@ namespace ConfigDevice
         //------触发位置--------
         public const string SENSOR_POSITION_LOCAL = "本地";
         public const string SENSOR_POSITION_PERIPHERAL = "外设";
-        public const string SENSOR_POSITION_PERIPHERAL_DIFFERENT = "外设差值";
+        public const string SENSOR_POSITION_PERIPHERAL_DIFFERENT = "外设(差值)";
         //------触发对象------
         public const string SENSOR_INVALID = "无效";
         public const string SENSOR_TEMPERATURE = "温度";
