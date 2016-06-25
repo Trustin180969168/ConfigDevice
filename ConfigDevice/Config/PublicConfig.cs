@@ -16,7 +16,7 @@ namespace ConfigDevice
     public delegate void CallbackUIAction(CallbackParameter callbackParameter);//----回调UI界面---- 
     public delegate void SyncCommandSetting(ViewCommandTools viewCommandTools);//---同步指令设置
     public delegate void DeleteCommandData(int cmdNum);//----删除命令-----
-
+    public delegate void ChangePosition(int cmdNum);//----换位置----- 
 
     /// <summary>
     /// 回复结果码

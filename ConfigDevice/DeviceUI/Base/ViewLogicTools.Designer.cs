@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gcLogic = new DevExpress.XtraGrid.GridControl();
+            this.cmsLogic = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btGoUp = new System.Windows.Forms.ToolStripMenuItem();
+            this.btGoDown = new System.Windows.Forms.ToolStripMenuItem();
             this.gvLogic = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcObject = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcPosition = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -46,6 +50,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLogic)).BeginInit();
+            this.cmsLogic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvLogic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,6 +64,7 @@
             // 
             // gcLogic
             // 
+            this.gcLogic.ContextMenuStrip = this.cmsLogic;
             this.gcLogic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcLogic.EmbeddedNavigator.Name = "";
             this.gcLogic.FormsUseDefaultLookAndFeel = false;
@@ -69,6 +75,30 @@
             this.gcLogic.TabIndex = 14;
             this.gcLogic.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvLogic});
+            // 
+            // cmsLogic
+            // 
+            this.cmsLogic.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btGoUp,
+            this.btGoDown});
+            this.cmsLogic.Name = "cmsLogic";
+            this.cmsLogic.Size = new System.Drawing.Size(153, 70);
+            // 
+            // btGoUp
+            // 
+            this.btGoUp.Image = global::ConfigDevice.Properties.Resources.up;
+            this.btGoUp.Name = "btGoUp";
+            this.btGoUp.Size = new System.Drawing.Size(152, 22);
+            this.btGoUp.Text = "向上";
+            this.btGoUp.Click += new System.EventHandler(this.btGoUp_Click);
+            // 
+            // btGoDown
+            // 
+            this.btGoDown.Image = global::ConfigDevice.Properties.Resources.down;
+            this.btGoDown.Name = "btGoDown";
+            this.btGoDown.Size = new System.Drawing.Size(152, 22);
+            this.btGoDown.Text = "向下";
+            this.btGoDown.Click += new System.EventHandler(this.btGoDown_Click);
             // 
             // gvLogic
             // 
@@ -297,6 +327,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLogic)).EndInit();
+            this.cmsLogic.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvLogic)).EndInit();
             this.ResumeLayout(false);
 
@@ -319,6 +350,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn dcDiffDevice;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private System.Windows.Forms.ContextMenuStrip cmsLogic;
+        private System.Windows.Forms.ToolStripMenuItem btGoUp;
+        private System.Windows.Forms.ToolStripMenuItem btGoDown;
 
 
 

@@ -327,7 +327,7 @@
             this.lblShowToolbar.Name = "lblShowToolbar";
             this.lblShowToolbar.Size = new System.Drawing.Size(75, 16);
             this.lblShowToolbar.TabIndex = 7;
-            this.lblShowToolbar.Text = "显示工具栏";
+            this.lblShowToolbar.Text = "隐藏工具栏";
             this.lblShowToolbar.Click += new System.EventHandler(this.labelControl3_Click);
             // 
             // ViewCommandSetting

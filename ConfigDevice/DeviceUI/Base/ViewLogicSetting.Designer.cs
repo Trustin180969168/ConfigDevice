@@ -349,7 +349,7 @@
             this.AutoSize = true;
             this.Controls.Add(this.gcCtrl);
             this.Name = "ViewLogicSetting";
-            this.Size = new System.Drawing.Size(1000, 249);
+            this.Size = new System.Drawing.Size(1000, 271);
             ((System.ComponentModel.ISupportInitialize)(this.gcCtrl)).EndInit();
             this.gcCtrl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();

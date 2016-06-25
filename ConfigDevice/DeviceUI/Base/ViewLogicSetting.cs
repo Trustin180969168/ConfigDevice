@@ -82,10 +82,10 @@ namespace ConfigDevice
             LogicData logicData = parameter.Parameters[0] as LogicData;
             imageComboBoxEdit.SelectedIndex = logicData.Logic4KindID;
             currentLogicNum = logicData.Logic4KindID;
-            viewLogicTools1.SetLogicData(logicData.TriggerList[0]);
-            viewLogicTools2.SetLogicData(logicData.TriggerList[1]);
-            viewLogicTools3.SetLogicData(logicData.TriggerList[2]);
-            viewLogicTools4.SetLogicData(logicData.TriggerList[3]);
+            viewLogicTools1.SetTriggerData(logicData.TriggerList[0]);
+            viewLogicTools2.SetTriggerData(logicData.TriggerList[1]);
+            viewLogicTools3.SetTriggerData(logicData.TriggerList[2]);
+            viewLogicTools4.SetTriggerData(logicData.TriggerList[3]);
         }
 
 
@@ -157,8 +157,6 @@ namespace ConfigDevice
             Circuit.SaveRoadSetting(lookUpEdit.ItemIndex,edtTriggerActionName.Text);//----保存回路名称---            
         }
 
-
-
         /// <summary>
         /// 保存逻辑数据
         /// </summary>
@@ -196,10 +194,10 @@ namespace ConfigDevice
         {
             byte[] logicValue = new byte[2 + 31 * 4];
             logicValue[1] = (byte)imageComboBoxEdit.SelectedIndex;
-            byte[] value1 = viewLogicTools1.GetLogicData().Value();
-            byte[] value2 = viewLogicTools2.GetLogicData().Value();
-            byte[] value3 = viewLogicTools3.GetLogicData().Value();
-            byte[] value4 = viewLogicTools4.GetLogicData().Value();
+            byte[] value1 = viewLogicTools1.GetTriggerData().Value();
+            byte[] value2 = viewLogicTools2.GetTriggerData().Value();
+            byte[] value3 = viewLogicTools3.GetTriggerData().Value();
+            byte[] value4 = viewLogicTools4.GetTriggerData().Value();
 
             Buffer.BlockCopy(value1, 0, logicValue, 2, 31);
             Buffer.BlockCopy(value2, 0, logicValue, 33, 31);
@@ -226,6 +224,15 @@ namespace ConfigDevice
             viewLogicTools2.ClearTriggerView();
             viewLogicTools3.ClearTriggerView();
             viewLogicTools4.ClearTriggerView();
+
+            viewLogicTools1.GoUp = this.ChangeUp;    //---向上----
+            viewLogicTools1.GoDown = this.ChangeDown;//---向下----
+            viewLogicTools2.GoUp = this.ChangeUp;    //---向上----
+            viewLogicTools2.GoDown = this.ChangeDown;//---向下----
+            viewLogicTools3.GoUp = this.ChangeUp;    //---向上----
+            viewLogicTools3.GoDown = this.ChangeDown;//---向下----
+            viewLogicTools4.GoUp = this.ChangeUp;    //---向上----
+            viewLogicTools4.GoDown = this.ChangeDown;//---向下----
         }
         public void ReadLogicList()
         {
@@ -244,6 +251,65 @@ namespace ConfigDevice
         {
             plToolBar.Visible = true;
         }
+
+        /// <summary>
+        /// 向上更换触发
+        /// </summary>
+        /// <param name="triggerNum">触发ID</param>
+        public void ChangeUp(int triggerNum)
+        {
+            if (triggerNum == 1) return;
+            int changeNum = triggerNum - 1;    
+            ViewLogicTools souChangeLogicTools = getViewLogicTools(triggerNum);
+            ViewLogicTools desChangeLogicTools = getViewLogicTools(changeNum);
+            TriggerData souChangedTriggerData = souChangeLogicTools.GetTriggerData();//---源触发数据---
+            TriggerData desChangedTriggerData = desChangeLogicTools.GetTriggerData();//----目标触发数据-----
+            souChangeLogicTools.SetTriggerData(desChangedTriggerData);//----交换数据---
+            desChangeLogicTools.SetTriggerData(souChangedTriggerData);//----交换数据-----
+
+        }
+
+        /// <summary>
+        /// 向下更换触发
+        /// </summary>
+        /// <param name="triggerNum">触发ID</param>
+        public void ChangeDown(int triggerNum)
+        {
+            if (triggerNum == 4) return;
+            int changeNum = triggerNum + 1;
+            ViewLogicTools souChangeLogicTools = getViewLogicTools(triggerNum);
+            ViewLogicTools desChangeLogicTools = getViewLogicTools(changeNum);
+            TriggerData souChangedTriggerData = souChangeLogicTools.GetTriggerData();//---源触发数据---
+            TriggerData desChangedTriggerData = desChangeLogicTools.GetTriggerData();//----目标触发数据-----
+            souChangeLogicTools.SetTriggerData(desChangedTriggerData);//----交换数据---
+            desChangeLogicTools.SetTriggerData(souChangedTriggerData);//----交换数据-----
+
+        }
+
+
+        /// <summary>
+        /// 获取触发数据
+        /// </summary>
+        /// <param name="Num">触发条件序号</param>
+        /// <returns></returns>
+        private ViewLogicTools getViewLogicTools(int TriggerNum)
+        {
+
+            ViewLogicTools value = null;
+            foreach (Control viewlogic in plLogicList.Controls)
+            {
+                value = (viewlogic as ViewLogicTools);
+                if (value.Num == TriggerNum)
+                    return value;
+            }
+            return value;
+        }
+
+
+
+
+
+
 
     }
 }

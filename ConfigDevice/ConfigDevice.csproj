@@ -323,6 +323,8 @@
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
     <Content Include="Config\SmartLight.h" />
+    <None Include="Resources\down.png" />
+    <None Include="Resources\up.png" />
     <None Include="Resources\logic4OR.bmp" />
     <None Include="Resources\logic4AND.bmp" />
     <None Include="Resources\logic3OR_1AND.bmp" />

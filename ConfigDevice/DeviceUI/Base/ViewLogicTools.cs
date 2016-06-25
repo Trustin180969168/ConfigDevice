@@ -10,6 +10,8 @@ namespace ConfigDevice
 {
     public partial class ViewLogicTools : UserControl
     {
+        public ChangePosition GoUp;//---向上移动---
+        public ChangePosition GoDown;//---向下移动----
         public DataTable DataLogicSetting;//---逻辑配置表-----
         public Device DeviceEdit;//---设备对象---
         private GridViewComboBox cbxLogicObj;//---触发对象---
@@ -118,7 +120,7 @@ namespace ConfigDevice
         /// <param name="device">设备</param>
         /// <param name="data">命令</param>
         /// <returns></returns>
-        public void SetLogicData(TriggerData td)
+        public void SetTriggerData(TriggerData td)
         {          
             DataRow dr = this.gvLogic.GetDataRow(0);
             ViewLogicObj = ViewEditCtrl.GetViewLogicControl(td.TriggerObjectID, DeviceEdit, gvLogic);//---获取逻辑控制对象-----
@@ -147,7 +149,7 @@ namespace ConfigDevice
         /// 设置命令行
         /// </summary>
         /// <returns>TriggerData</returns>
-        public TriggerData GetLogicData()
+        public TriggerData GetTriggerData()
         {
             try
             {
@@ -158,6 +160,16 @@ namespace ConfigDevice
                 return ViewLogicObj.GetLogicData();
             }
             catch { return null; }
+        }
+
+        private void btGoUp_Click(object sender, EventArgs e)
+        {
+            this.GoUp(this.num);
+        }
+
+        private void btGoDown_Click(object sender, EventArgs e)
+        {
+            this.GoDown(this.num);
         }
 
 

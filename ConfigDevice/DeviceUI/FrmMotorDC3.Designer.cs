@@ -34,31 +34,31 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.roadNum = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.motorName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.motorStopEC = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcPosition = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcMotorStopEC = new DevExpress.XtraGrid.Columns.GridColumn();
             this.speEC = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
-            this.motorTurnTime = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcMotorTurnTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.speSecond = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
-            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemSpinEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
-            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcPosition2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcState = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcCurrentEC = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.spedtEC = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
+            this.dcAction1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcAction2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcAction3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcAction4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
+            this.linkAction = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.pagePzcl.SuspendLayout();
@@ -75,11 +75,11 @@
             this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spedtEC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.linkAction)).BeginInit();
             this.SuspendLayout();
             // 
             // xtraTabControl1
@@ -146,66 +146,66 @@
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.roadNum,
-            this.motorName,
-            this.motorStopEC,
-            this.motorTurnTime});
+            this.dcPosition,
+            this.dcName,
+            this.dcMotorStopEC,
+            this.dcMotorTurnTime});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.OptionsView.ShowIndicator = false;
             // 
-            // roadNum
+            // dcPosition
             // 
-            this.roadNum.AppearanceCell.Options.UseTextOptions = true;
-            this.roadNum.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.roadNum.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.roadNum.AppearanceHeader.Options.UseTextOptions = true;
-            this.roadNum.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.roadNum.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
-            this.roadNum.Caption = "位置";
-            this.roadNum.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.roadNum.Name = "roadNum";
-            this.roadNum.OptionsColumn.ReadOnly = true;
-            this.roadNum.Visible = true;
-            this.roadNum.VisibleIndex = 0;
-            this.roadNum.Width = 100;
+            this.dcPosition.AppearanceCell.Options.UseTextOptions = true;
+            this.dcPosition.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcPosition.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcPosition.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcPosition.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcPosition.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
+            this.dcPosition.Caption = "位置";
+            this.dcPosition.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.dcPosition.Name = "dcPosition";
+            this.dcPosition.OptionsColumn.ReadOnly = true;
+            this.dcPosition.Visible = true;
+            this.dcPosition.VisibleIndex = 0;
+            this.dcPosition.Width = 100;
             // 
-            // motorName
+            // dcName
             // 
-            this.motorName.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.motorName.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.motorName.AppearanceCell.Options.UseBackColor = true;
-            this.motorName.AppearanceCell.Options.UseForeColor = true;
-            this.motorName.AppearanceCell.Options.UseTextOptions = true;
-            this.motorName.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.motorName.AppearanceHeader.Options.UseTextOptions = true;
-            this.motorName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.motorName.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
-            this.motorName.Caption = "电机名称";
-            this.motorName.Name = "motorName";
-            this.motorName.Visible = true;
-            this.motorName.VisibleIndex = 1;
-            this.motorName.Width = 156;
+            this.dcName.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcName.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcName.AppearanceCell.Options.UseBackColor = true;
+            this.dcName.AppearanceCell.Options.UseForeColor = true;
+            this.dcName.AppearanceCell.Options.UseTextOptions = true;
+            this.dcName.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcName.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcName.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
+            this.dcName.Caption = "电机名称";
+            this.dcName.Name = "dcName";
+            this.dcName.Visible = true;
+            this.dcName.VisibleIndex = 1;
+            this.dcName.Width = 156;
             // 
-            // motorStopEC
+            // dcMotorStopEC
             // 
-            this.motorStopEC.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.motorStopEC.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.motorStopEC.AppearanceCell.Options.UseBackColor = true;
-            this.motorStopEC.AppearanceCell.Options.UseForeColor = true;
-            this.motorStopEC.AppearanceCell.Options.UseTextOptions = true;
-            this.motorStopEC.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.motorStopEC.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.motorStopEC.AppearanceHeader.Options.UseTextOptions = true;
-            this.motorStopEC.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.motorStopEC.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
-            this.motorStopEC.Caption = "电机卡停电流";
-            this.motorStopEC.ColumnEdit = this.speEC;
-            this.motorStopEC.Name = "motorStopEC";
-            this.motorStopEC.Visible = true;
-            this.motorStopEC.VisibleIndex = 2;
-            this.motorStopEC.Width = 156;
+            this.dcMotorStopEC.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcMotorStopEC.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcMotorStopEC.AppearanceCell.Options.UseBackColor = true;
+            this.dcMotorStopEC.AppearanceCell.Options.UseForeColor = true;
+            this.dcMotorStopEC.AppearanceCell.Options.UseTextOptions = true;
+            this.dcMotorStopEC.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcMotorStopEC.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcMotorStopEC.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcMotorStopEC.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcMotorStopEC.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
+            this.dcMotorStopEC.Caption = "电机卡停电流";
+            this.dcMotorStopEC.ColumnEdit = this.speEC;
+            this.dcMotorStopEC.Name = "dcMotorStopEC";
+            this.dcMotorStopEC.Visible = true;
+            this.dcMotorStopEC.VisibleIndex = 2;
+            this.dcMotorStopEC.Width = 156;
             // 
             // speEC
             // 
@@ -215,24 +215,24 @@
             this.speEC.Mask.EditMask = "d";
             this.speEC.Name = "speEC";
             // 
-            // motorTurnTime
+            // dcMotorTurnTime
             // 
-            this.motorTurnTime.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.motorTurnTime.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.motorTurnTime.AppearanceCell.Options.UseBackColor = true;
-            this.motorTurnTime.AppearanceCell.Options.UseForeColor = true;
-            this.motorTurnTime.AppearanceCell.Options.UseTextOptions = true;
-            this.motorTurnTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.motorTurnTime.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.motorTurnTime.AppearanceHeader.Options.UseTextOptions = true;
-            this.motorTurnTime.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.motorTurnTime.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
-            this.motorTurnTime.Caption = "最长转动时间";
-            this.motorTurnTime.ColumnEdit = this.speSecond;
-            this.motorTurnTime.Name = "motorTurnTime";
-            this.motorTurnTime.Visible = true;
-            this.motorTurnTime.VisibleIndex = 3;
-            this.motorTurnTime.Width = 160;
+            this.dcMotorTurnTime.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcMotorTurnTime.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcMotorTurnTime.AppearanceCell.Options.UseBackColor = true;
+            this.dcMotorTurnTime.AppearanceCell.Options.UseForeColor = true;
+            this.dcMotorTurnTime.AppearanceCell.Options.UseTextOptions = true;
+            this.dcMotorTurnTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcMotorTurnTime.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcMotorTurnTime.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcMotorTurnTime.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcMotorTurnTime.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
+            this.dcMotorTurnTime.Caption = "最长转动时间";
+            this.dcMotorTurnTime.ColumnEdit = this.speSecond;
+            this.dcMotorTurnTime.Name = "dcMotorTurnTime";
+            this.dcMotorTurnTime.Visible = true;
+            this.dcMotorTurnTime.VisibleIndex = 3;
+            this.dcMotorTurnTime.Width = 160;
             // 
             // speSecond
             // 
@@ -266,8 +266,8 @@
             this.gridControl2.MainView = this.gridView3;
             this.gridControl2.Name = "gridControl2";
             this.gridControl2.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemSpinEdit1,
-            this.repositoryItemSpinEdit2});
+            this.spedtEC,
+            this.linkAction});
             this.gridControl2.Size = new System.Drawing.Size(713, 97);
             this.gridControl2.TabIndex = 2;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -277,151 +277,148 @@
             // gridView3
             // 
             this.gridView3.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn1,
-            this.gridColumn2,
-            this.gridColumn3,
-            this.gridColumn4,
-            this.gridColumn5,
-            this.gridColumn6,
-            this.gridColumn7});
+            this.dcPosition2,
+            this.dcState,
+            this.dcCurrentEC,
+            this.dcAction1,
+            this.dcAction2,
+            this.dcAction3,
+            this.dcAction4});
             this.gridView3.GridControl = this.gridControl2;
             this.gridView3.Name = "gridView3";
             this.gridView3.OptionsView.ShowGroupPanel = false;
             this.gridView3.OptionsView.ShowIndicator = false;
             // 
-            // gridColumn1
+            // dcPosition2
             // 
-            this.gridColumn1.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn1.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn1.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn1.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn1.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
-            this.gridColumn1.Caption = "位置";
-            this.gridColumn1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.OptionsColumn.ReadOnly = true;
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 0;
-            this.gridColumn1.Width = 100;
+            this.dcPosition2.AppearanceCell.Options.UseTextOptions = true;
+            this.dcPosition2.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcPosition2.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcPosition2.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcPosition2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcPosition2.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
+            this.dcPosition2.Caption = "位置";
+            this.dcPosition2.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.dcPosition2.Name = "dcPosition2";
+            this.dcPosition2.OptionsColumn.ReadOnly = true;
+            this.dcPosition2.Visible = true;
+            this.dcPosition2.VisibleIndex = 0;
+            this.dcPosition2.Width = 100;
             // 
-            // gridColumn2
+            // dcState
             // 
-            this.gridColumn2.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn2.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn2.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn2.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn2.Caption = "当前状态";
-            this.gridColumn2.Name = "gridColumn2";
-            this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 1;
-            this.gridColumn2.Width = 135;
+            this.dcState.AppearanceCell.Options.UseTextOptions = true;
+            this.dcState.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcState.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcState.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcState.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcState.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcState.Caption = "当前状态";
+            this.dcState.Name = "dcState";
+            this.dcState.OptionsColumn.ReadOnly = true;
+            this.dcState.Visible = true;
+            this.dcState.VisibleIndex = 1;
+            this.dcState.Width = 135;
             // 
-            // gridColumn3
+            // dcCurrentEC
             // 
-            this.gridColumn3.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn3.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn3.Caption = "当前电流";
-            this.gridColumn3.ColumnEdit = this.repositoryItemSpinEdit1;
-            this.gridColumn3.Name = "gridColumn3";
-            this.gridColumn3.Visible = true;
-            this.gridColumn3.VisibleIndex = 2;
-            this.gridColumn3.Width = 135;
+            this.dcCurrentEC.AppearanceCell.Options.UseTextOptions = true;
+            this.dcCurrentEC.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcCurrentEC.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcCurrentEC.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcCurrentEC.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcCurrentEC.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcCurrentEC.Caption = "当前电流";
+            this.dcCurrentEC.ColumnEdit = this.spedtEC;
+            this.dcCurrentEC.Name = "dcCurrentEC";
+            this.dcCurrentEC.OptionsColumn.ReadOnly = true;
+            this.dcCurrentEC.Visible = true;
+            this.dcCurrentEC.VisibleIndex = 2;
+            this.dcCurrentEC.Width = 135;
             // 
-            // repositoryItemSpinEdit1
+            // spedtEC
             // 
-            this.repositoryItemSpinEdit1.AutoHeight = false;
-            this.repositoryItemSpinEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.spedtEC.AutoHeight = false;
+            this.spedtEC.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.repositoryItemSpinEdit1.Mask.EditMask = "d";
-            this.repositoryItemSpinEdit1.Name = "repositoryItemSpinEdit1";
+            this.spedtEC.Mask.EditMask = "d";
+            this.spedtEC.Name = "spedtEC";
             // 
-            // gridColumn4
+            // dcAction1
             // 
-            this.gridColumn4.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.gridColumn4.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.gridColumn4.AppearanceCell.Options.UseBackColor = true;
-            this.gridColumn4.AppearanceCell.Options.UseForeColor = true;
-            this.gridColumn4.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn4.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn4.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn4.Caption = "动作1";
-            this.gridColumn4.ColumnEdit = this.repositoryItemSpinEdit2;
-            this.gridColumn4.Name = "gridColumn4";
-            this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 3;
-            this.gridColumn4.Width = 94;
+            this.dcAction1.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcAction1.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcAction1.AppearanceCell.Options.UseBackColor = true;
+            this.dcAction1.AppearanceCell.Options.UseForeColor = true;
+            this.dcAction1.AppearanceCell.Options.UseTextOptions = true;
+            this.dcAction1.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcAction1.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAction1.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcAction1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcAction1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAction1.Caption = "动作1";
+            this.dcAction1.ColumnEdit = this.linkAction;
+            this.dcAction1.Name = "dcAction1";
+            this.dcAction1.Visible = true;
+            this.dcAction1.VisibleIndex = 3;
+            this.dcAction1.Width = 94;
             // 
-            // repositoryItemSpinEdit2
+            // dcAction2
             // 
-            this.repositoryItemSpinEdit2.AutoHeight = false;
-            this.repositoryItemSpinEdit2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.repositoryItemSpinEdit2.Mask.EditMask = "d";
-            this.repositoryItemSpinEdit2.Name = "repositoryItemSpinEdit2";
+            this.dcAction2.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcAction2.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcAction2.AppearanceCell.Options.UseBackColor = true;
+            this.dcAction2.AppearanceCell.Options.UseForeColor = true;
+            this.dcAction2.AppearanceCell.Options.UseTextOptions = true;
+            this.dcAction2.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcAction2.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAction2.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcAction2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcAction2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAction2.Caption = "动作2";
+            this.dcAction2.ColumnEdit = this.linkAction;
+            this.dcAction2.Name = "dcAction2";
+            this.dcAction2.Visible = true;
+            this.dcAction2.VisibleIndex = 4;
+            this.dcAction2.Width = 79;
             // 
-            // gridColumn5
+            // dcAction3
             // 
-            this.gridColumn5.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.gridColumn5.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.gridColumn5.AppearanceCell.Options.UseBackColor = true;
-            this.gridColumn5.AppearanceCell.Options.UseForeColor = true;
-            this.gridColumn5.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn5.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn5.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn5.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn5.Caption = "动作2";
-            this.gridColumn5.Name = "gridColumn5";
-            this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 4;
-            this.gridColumn5.Width = 79;
+            this.dcAction3.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcAction3.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcAction3.AppearanceCell.Options.UseBackColor = true;
+            this.dcAction3.AppearanceCell.Options.UseForeColor = true;
+            this.dcAction3.AppearanceCell.Options.UseTextOptions = true;
+            this.dcAction3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcAction3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAction3.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcAction3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcAction3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAction3.Caption = "动作3";
+            this.dcAction3.ColumnEdit = this.linkAction;
+            this.dcAction3.Name = "dcAction3";
+            this.dcAction3.Visible = true;
+            this.dcAction3.VisibleIndex = 5;
+            this.dcAction3.Width = 79;
             // 
-            // gridColumn6
+            // dcAction4
             // 
-            this.gridColumn6.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.gridColumn6.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.gridColumn6.AppearanceCell.Options.UseBackColor = true;
-            this.gridColumn6.AppearanceCell.Options.UseForeColor = true;
-            this.gridColumn6.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn6.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn6.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn6.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn6.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn6.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn6.Caption = "动作3";
-            this.gridColumn6.Name = "gridColumn6";
-            this.gridColumn6.Visible = true;
-            this.gridColumn6.VisibleIndex = 5;
-            this.gridColumn6.Width = 79;
-            // 
-            // gridColumn7
-            // 
-            this.gridColumn7.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.gridColumn7.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.gridColumn7.AppearanceCell.Options.UseBackColor = true;
-            this.gridColumn7.AppearanceCell.Options.UseForeColor = true;
-            this.gridColumn7.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn7.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn7.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn7.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn7.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn7.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn7.Caption = "动作4";
-            this.gridColumn7.Name = "gridColumn7";
-            this.gridColumn7.Visible = true;
-            this.gridColumn7.VisibleIndex = 6;
-            this.gridColumn7.Width = 85;
+            this.dcAction4.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcAction4.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcAction4.AppearanceCell.Options.UseBackColor = true;
+            this.dcAction4.AppearanceCell.Options.UseForeColor = true;
+            this.dcAction4.AppearanceCell.Options.UseTextOptions = true;
+            this.dcAction4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcAction4.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAction4.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcAction4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcAction4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAction4.Caption = "动作4";
+            this.dcAction4.ColumnEdit = this.linkAction;
+            this.dcAction4.Name = "dcAction4";
+            this.dcAction4.Visible = true;
+            this.dcAction4.VisibleIndex = 6;
+            this.dcAction4.Width = 85;
             // 
             // gridView4
             // 
@@ -472,6 +469,11 @@
             this.viewBaseSetting.Size = new System.Drawing.Size(783, 512);
             this.viewBaseSetting.TabIndex = 0;
             // 
+            // linkAction
+            // 
+            this.linkAction.AutoHeight = false;
+            this.linkAction.Name = "linkAction";
+            // 
             // FrmMotorDC3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -499,12 +501,12 @@
             this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spedtEC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
             this.pageJcsz.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.linkAction)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -521,28 +523,28 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraGrid.Columns.GridColumn roadNum;
-        private DevExpress.XtraGrid.Columns.GridColumn motorName;
-        private DevExpress.XtraGrid.Columns.GridColumn motorStopEC;
+        private DevExpress.XtraGrid.Columns.GridColumn dcPosition;
+        private DevExpress.XtraGrid.Columns.GridColumn dcName;
+        private DevExpress.XtraGrid.Columns.GridColumn dcMotorStopEC;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit speEC;
-        private DevExpress.XtraGrid.Columns.GridColumn motorTurnTime;
+        private DevExpress.XtraGrid.Columns.GridColumn dcMotorTurnTime;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit speSecond;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraGrid.GridControl gridControl2;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
-        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
-        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit2;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
+        private DevExpress.XtraGrid.Columns.GridColumn dcPosition2;
+        private DevExpress.XtraGrid.Columns.GridColumn dcState;
+        private DevExpress.XtraGrid.Columns.GridColumn dcCurrentEC;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit spedtEC;
+        private DevExpress.XtraGrid.Columns.GridColumn dcAction1;
+        private DevExpress.XtraGrid.Columns.GridColumn dcAction2;
+        private DevExpress.XtraGrid.Columns.GridColumn dcAction3;
+        private DevExpress.XtraGrid.Columns.GridColumn dcAction4;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView4;
         private System.Windows.Forms.ToolStrip tsDoorInput;
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btRefresh;
+        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkAction;
 
 
     }
