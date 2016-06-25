@@ -51,8 +51,8 @@ namespace ConfigDevice
             edtNetworkName.Text = NetworkEdit.DeviceName;
             edtNetworkID.Text = NetworkEdit.NetworkID;
             edtNetworkIP.IP = NetworkEdit.NetworkIP;
-            edtMask.IP = SysConfig.SubnetMask.ToString();
-            edtGateway.IP = SysConfig.DefaultIPGateway.ToString();
+            edtMask.IP = SysConfig.SubnetMask.ToString();//----目前固定 255.255.255.0----
+            edtGateway.IP = edtNetworkIP.DefaultGateWay;//----目前固定xxx.xxx.xxx.1-----
 
             if (NetworkEdit.State == NetworkConfig.STATE_CONNECTED)
                 NetworkEdit.SearchVer();

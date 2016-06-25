@@ -13,6 +13,7 @@ namespace ConfigDevice
     {
         public string CommandGroupName { set { this.lblGroupName.Text = value; } }
         public ToolStripComboBox CbxCommandGroup { get { return cbxGroup; } }
+        private DateTime actionTime = DateTime.Now.AddMinutes(-1);//---执行时间-----
         /// <summary>
         /// 是否显示组选择
         /// </summary>
@@ -34,7 +35,14 @@ namespace ConfigDevice
         /// </summary>
         public bool ShowToolBar
         {
-            set { plTool.Visible = value; }
+            set
+            {
+                plTool.Visible = value;
+                if (value) 
+                    lblShowToolbar.Text = "隐藏工具栏"; 
+                else
+                    lblShowToolbar.Text = "显示工具栏";
+            }
             get { return plTool.Visible; }
         }
 
@@ -112,6 +120,8 @@ namespace ConfigDevice
         {
             if (!NeedInit)
             {
+                if (DateTime.Now < actionTime.AddSeconds(1)) return;
+                actionTime = DateTime.Now;
                 if (edtBeginNum.Value > edtEndNum.Value) return;
                 int count = (int)edtEndNum.Value;
                 while (count > commandCount)

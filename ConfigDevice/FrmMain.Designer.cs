@@ -53,6 +53,7 @@
             this.deviceAddress = new DevExpress.XtraGrid.Columns.GridColumn();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btQryDevices = new System.Windows.Forms.ToolStripButton();
             this.btClearDevice = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btQry = new System.Windows.Forms.ToolStripButton();
@@ -396,6 +397,7 @@
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
+            this.btQryDevices,
             this.btClearDevice,
             this.toolStripSeparator1,
             this.btQry,
@@ -417,6 +419,15 @@
             this.btSave.Size = new System.Drawing.Size(74, 28);
             this.btSave.Text = "保存 ";
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
+            // btQryDevices
+            // 
+            this.btQryDevices.Image = global::ConfigDevice.Properties.Resources.View;
+            this.btQryDevices.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btQryDevices.Name = "btQryDevices";
+            this.btQryDevices.Size = new System.Drawing.Size(105, 28);
+            this.btQryDevices.Text = "设备搜索 ";
+            this.btQryDevices.Click += new System.EventHandler(this.btRefreshDevices_Click);
             // 
             // btClearDevice
             // 
@@ -1033,5 +1044,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn deviceAddress;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtNetworkName;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtDeviceName;
+        private System.Windows.Forms.ToolStripButton btQryDevices;
     }
 }

@@ -156,7 +156,7 @@ namespace ConfigDevice
         public const byte EQUIPMENT_ENV_SENSOR_E = 0x85;        //环境传感器E
 
         public const byte EQUIPMENT_PANEL = 0xE0;        //通用控制面板
-
+        public const byte EQUIPMENT_RSP = 0x90;         //雷达
         public const byte EQUIPMENT_RJ45 = 0xf0;        //RJ45类型
         public const byte EQUIPMENT_LINKID = 0xf1;        //联动号(专用<-指令配置)
         public const byte EQUIPMENT_MOBILE = 0xfc;        //手机
@@ -397,7 +397,7 @@ namespace ConfigDevice
         public static readonly byte[] CMD_LOGIC_WRITE_SLFLKID_CLOSE = new byte[] { 0xCA, CMD_TYPE_LOGIC };//写逻辑内部联动号-关   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
 
         //-----特殊部分------
-        public static readonly byte[] CMD_PUBLIC_TEST_KEY_CMD = new byte[] { 0xb2, CMD_TYPE_PUBLIC }; //指令测试 
+        public static readonly byte[] CMD_PUBLIC_TEST_KEY_CMD = new byte[] { 0xb3, CMD_TYPE_PUBLIC }; //指令测试 
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
         static DeviceConfig()//---静态构造函数------
         {
@@ -405,9 +405,9 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_RJ45, "网关处理器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_LCD, "液晶按键");
 
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_TFT_LCD, "彩色液晶按键");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_TFT_LCD, "液晶多功能面板");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_1, "1键按键");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_2, "2键按键");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_2, "多功能控制面板(2键)");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_3, "3键按键");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_4, "4键按键");
@@ -416,10 +416,10 @@ namespace ConfigDevice
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_7, "7键按键");
 
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_4, "4路继电器");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_6, "6路继电器");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_8, "8路继电器");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_12, "12路继电器");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_4, "4路驱动器");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_6, "6路驱动器");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_8, "8路驱动器");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_12, "12路驱动器");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SRC_2, "2路硅调光");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SRC_4, "4路硅调光");
@@ -450,6 +450,7 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_ENV_SENSOR_C, "环境传感器C");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_ENV_SENSOR_D, "环境传感器D");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_ENV_SENSOR_E, "环境传感器E");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_AIR_QUALITY, "环境传感器");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_WEATHER, "智能气象");
 
@@ -472,8 +473,8 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOORBELL, "门铃");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PLAYER_KEY_7, "7键播放控制面板");
 
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_CURTAIN_2CH, "窗帘-2路");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_CURTAIN_3CH, "窗帘-3路");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_CURTAIN_2CH, "2路电机直流驱动器");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_CURTAIN_3CH, "3路电机直流驱动器");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SHORT_OUT_4, "短路输出4");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SHORT_OUT_8, "短路输出8");
@@ -483,16 +484,14 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_GSM, "GSM模块");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_HVAC_2CH, "空调-2阀门");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_IR_CEIL, "天花型红外");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_IR_86, "86型红外");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_IR_CEIL, "红外线转发器,天花型");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_IR_86, "红外线转发器,86型");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SERVER, "云平台主机");
-
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_RSP, "接近式雷达感应器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_FUEL_GAS, "可燃气体报警器");
 
             EQUIPMENT_ID_NAME.Add(0, "无效类型");
-
-
         }
 
 

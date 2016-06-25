@@ -26,7 +26,7 @@ namespace ConfigDevice
         private bool OneNetworkShow = false;//是否单网段显示
         private Dictionary<string, Network> listRrefreshDevices = new Dictionary<string, Network>();//-----刷新设备列表--
         private bool searchingDevice = false;//是否正在搜索设备,需要加锁限制
-
+        private Object lockObject = new object();
 
         public FrmMain()
         {
@@ -353,18 +353,22 @@ namespace ConfigDevice
         /// </summary>
         private void initCbxSelectNetwork()
         {
-            string oldSelect = cbxSelectNetwork.Text;
-            listNetworkNameID.Clear(); cbxSelectNetwork.Items.Clear();
-            cbxSelectNetwork.Items.Add("");
-            //-----网络列表------------------
-            foreach (Network network in SysConfig.ListNetworks.Values)
+            lock (lockObject)
             {
-                cbxSelectNetwork.Items.Add(network.DeviceName);
-                listNetworkNameID.Add(network.DeviceName, network.NetworkID);
+                string oldSelect = cbxSelectNetwork.Text;
+                listNetworkNameID.Clear(); cbxSelectNetwork.Items.Clear();
+                cbxSelectNetwork.Items.Add("");
+                //-----网络列表------------------
+                foreach (Network network in SysConfig.ListNetworks.Values)
+                {
+                    cbxSelectNetwork.Items.Add(network.DeviceName);
+                    if(!listNetworkNameID.ContainsKey(network.DeviceName))
+                        listNetworkNameID.Add(network.DeviceName, network.NetworkID);
+                }
+                cbxSelectNetwork.SelectedIndexChanged -= cbxSelectNetwork_SelectedIndexChanged;
+                cbxSelectNetwork.Text = oldSelect;
+                cbxSelectNetwork.SelectedIndexChanged += cbxSelectNetwork_SelectedIndexChanged;
             }
-            cbxSelectNetwork.SelectedIndexChanged -= cbxSelectNetwork_SelectedIndexChanged;
-            cbxSelectNetwork.Text = oldSelect;
-            cbxSelectNetwork.SelectedIndexChanged += cbxSelectNetwork_SelectedIndexChanged;
         }
 
         /// <summary>
@@ -787,6 +791,7 @@ namespace ConfigDevice
                     this.Cursor = Cursors.Default;
             }
         }
+
  
     }
 }

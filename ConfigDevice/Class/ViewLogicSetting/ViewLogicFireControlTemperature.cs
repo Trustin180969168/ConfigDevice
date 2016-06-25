@@ -17,7 +17,6 @@ namespace ConfigDevice
         GridViewComboBox cbxTemperatureLevelEdit = new GridViewComboBox();//---温度级别编辑控件--- 
         GridViewGridLookupEdit gridLookupDevice1;//---查找设备列表---
         DataTable dtSelectDevices1;//---选择的设备列表---
-        private string[] levelValues = { SensorConfig.TEMPFC_NAME_LV_NORMAL, SensorConfig.TEMPFC_NAME_LV_HIGH, SensorConfig.TEMPFC_NAME_LV_FIRE };
         public ViewLogicFireControlTemperature(Device _device, GridView gv)
             : base(_device, gv)
         {
@@ -50,9 +49,9 @@ namespace ConfigDevice
             temperatureEdit.MaxValue = 60;
             temperatureEdit.MinValue = -20;
             //-------初始化级别编辑控件------
-            cbxTemperatureLevelEdit.Items.Add(levelValues[0]);//正常
-            cbxTemperatureLevelEdit.Items.Add(levelValues[1]);//高温
-            cbxTemperatureLevelEdit.Items.Add(levelValues[2]);//大火
+            cbxTemperatureLevelEdit.Items.Add(FireControlTemperatureSensor.LEVEL_ID_NAME[0]);//正常
+            cbxTemperatureLevelEdit.Items.Add(FireControlTemperatureSensor.LEVEL_ID_NAME[1]);//高温
+            cbxTemperatureLevelEdit.Items.Add(FireControlTemperatureSensor.LEVEL_ID_NAME[2]);//大火
 
         }
 
@@ -76,7 +75,7 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
         }
 
- 
+
         /// <summary>
         /// 选择切换
         /// </summary> 
@@ -103,11 +102,11 @@ namespace ConfigDevice
         }
 
         private void positionChanged()
-        { 
+        {
             gvLogic.PostEditor();
             DataRow dr = gvLogic.GetDataRow(0);
             string positionName = dr[ViewConfig.DC_POSITION].ToString();
-            dr.EndEdit(); 
+            dr.EndEdit();
             //------根据触发位置值,选择触发类型编辑-----
             if (positionName == SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT)
             {
@@ -205,7 +204,7 @@ namespace ConfigDevice
                 catch { triggerData.DeviceID = 0; triggerData.DeviceKindID = 0; triggerData.DeviceNetworkID = 0; }
             }
             if (triggerData.TriggerKindID == SensorConfig.LG_SENSOR_LVL_FLAG)//---为级别--- 
-                triggerData.Size1 = FindLevelIndex(levelValues,dr[dcStartValue.FieldName].ToString());
+                triggerData.Size1 = FireControlTemperatureSensor.LEVEL_NAME_ID[dr[dcStartValue.FieldName].ToString()];
             else
                 triggerData.Size1 = Convert.ToInt32(dr[dcStartValue.FieldName].ToString());
             if (dcEndValue.OptionsColumn.AllowEdit)//---有效则添加到结束值-----
@@ -241,7 +240,7 @@ namespace ConfigDevice
                     dr[ViewConfig.DC_DEVICE_VALUE] = null;
                 else
                 {
-                  
+
                     DataRow[] rows = dtSelectDevices1.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
                     if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
                     {
@@ -266,7 +265,7 @@ namespace ConfigDevice
             if (td.TriggerKindID == SensorConfig.LG_SENSOR_LVL_FLAG)//---为级别类型---
             {
                 dcStartValue.ColumnEdit = cbxTemperatureLevelEdit;
-                dr[dcStartValue.FieldName] = levelValues[td.Size1];
+                dr[dcStartValue.FieldName] = FireControlTemperatureSensor.LEVEL_ID_NAME[td.Size1];
             }
             else
                 dr[dcStartValue.FieldName] = td.Size1;//---为触发值类型

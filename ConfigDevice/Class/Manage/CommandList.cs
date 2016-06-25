@@ -12,6 +12,7 @@ namespace ConfigDevice
         public CallbackFromUDP callbackGetCommandData;//---回调获取指令----
         private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
         private string ObjUuid = Guid.NewGuid().ToString();//唯一标识对象uuid
+
         public CommandList(Device value)
         {
             this.device = value;
@@ -34,6 +35,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadCommandData(int groupNum, int startNum, int endNum)
         {
+
             UdpData udpSend = createReadCommandsUdp(groupNum, startNum, endNum);
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_COMMAND, callbackGetCommandData);//---注册回调----
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, ObjUuid, getWriteEnd);//---注册结束回调---
@@ -41,9 +43,9 @@ namespace ConfigDevice
         }
         private void callbackReadCommands(UdpData udpReply, object[] values)
         {
-          
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("申请读取指令失败!", udpReply.ReplyByte);
+
         }
         private UdpData createReadCommandsUdp(int _grounNum, int _startNum ,int _endNum)
         {
@@ -58,6 +60,7 @@ namespace ConfigDevice
             byte[] source = new byte[] { device.BytePCAddress, device.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_COMMAND;//----用户命令-----
+           // byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_MULTI;//----用户命令-----
             byte len = 0x08;//---数据长度----
             byte kind = device.ByteKindID;//指令类型(未用到,不作处理)
             byte groupNum = (byte)_grounNum;
@@ -84,6 +87,7 @@ namespace ConfigDevice
             return udp;
         }
 
+       
         /// <summary>
         /// 获取配置信息
         /// </summary>

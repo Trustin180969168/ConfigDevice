@@ -13,7 +13,7 @@ namespace ConfigDevice
         /// <param name="kindID">传感器类型ID</param>
         /// <param name="value">多个传感器值的数据</param>
         /// <returns>传感器</returns>
-        public static Sensor GetSensorFromByte(UInt16 kindID, byte[] value)
+        public static SensorStateData GetSensorFromByte(UInt16 kindID, byte[] value)
         {
             if (value.Length < 6) return null;//长度无效
             int count = value.Length / 6;//获取有效的传感器个数
@@ -35,7 +35,7 @@ namespace ConfigDevice
         /// <param name="kindID"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Sensor FactorySensor(UInt16 kindID, byte[] value)
+        public static SensorStateData FactorySensor(UInt16 kindID, byte[] value)
         {
             if (kindID == SensorConfig.LG_SENSOR_VOID)
                 return new InvalidSensor(value);

@@ -14,14 +14,9 @@ namespace ConfigDevice
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-          
-           // new FrmTest().Show(); 
-            
-            Application.Run(new FrmMain());
-        
+            Application.SetCompatibleTextRenderingDefault(false);         
 
-            // Application.Run(new FrmTestSocket());
+            Application.Run(new FrmMain());
         }
     }
 }

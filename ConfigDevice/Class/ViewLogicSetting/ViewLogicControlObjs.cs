@@ -12,16 +12,15 @@ namespace ConfigDevice
     /// 可燃气体探头
     /// </summary>
     public class ViewLogicFlamableGasProbe : BaseViewLogicControl
-    {
-        private string[] levelValues = { SensorConfig.LEL_LV_NAME_NORMAL, SensorConfig.LEL_LV_NAME_TRIGGERED };
+    { 
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
         public ViewLogicFlamableGasProbe(Device _device, GridView gv)
             : base(_device, gv)
         {
 
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
-            cbxStart.Items.Add(levelValues[0]);
-            cbxStart.Items.Add(levelValues[1]);
+            cbxStart.Items.Add(FlamableGasProbeSensor.LEVEL_ID_NAME[0]);
+            cbxStart.Items.Add(FlamableGasProbeSensor.LEVEL_ID_NAME[1]);
             dcStartValue.ColumnEdit = cbxStart;
 
             cbxKind.Items.Clear();//----清空触发类型(探头只有等级)---
@@ -59,7 +58,7 @@ namespace ConfigDevice
             TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
             //--------泄漏/正常--------------
             string size1Str = dr[dcStartValue.FieldName].ToString(); 
-            triggerData.Size1 = FindLevelIndex(levelValues,size1Str);//----获取等级值---
+            triggerData.Size1 =  FlamableGasProbeSensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
             triggerData.Size2 = 0;//----无效------
             //-----有效持续,无效持续------            
             int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
@@ -84,7 +83,7 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
-            dr[dcStartValue.FieldName] = levelValues[td.Size1];
+            dr[dcStartValue.FieldName] = FlamableGasProbeSensor.LEVEL_ID_NAME[td.Size1];
             string nowDateStr = DateTime.Now.ToShortDateString();
             dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
             dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---

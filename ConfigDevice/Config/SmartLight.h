@@ -47,6 +47,7 @@
    (24) V3.8版本, 增加[EQUIPMENT_RSP]设备类型                      (廖超庭 2016年05月12日)
    (25) V3.9版本, 增加[CMD_LOGIC_WRITE_SYSLKID]低位值由0x43改为0xC3(廖超庭 2016年06月15日) -> 最终改为0xC5
    (26) V4.0版本, 修改[CMD_LOGIC_WRITE_SYSLKID]为[开/关/开关]等    (廖超庭 2016年06月22日)
+   (27) V4.1版本, 增加[EQUIPMENT_AIR_O2]设备类型                   (廖超庭 2016年06月23日)
 **======================================================================================================*/
 
 
@@ -177,6 +178,7 @@ enum
 #define EQUIPMENT_CO2                0x3a        //二氧化碳
 #define EQUIPMENT_FUEL_GAS           0x3b        //可然气体
 #define EQUIPMENT_AIR_QUALITY        0x3c        //空气质量
+#define EQUIPMENT_AIR_O2             0x3d        //氧气传感器
 
 #define EQUIPMENT_IR_CEIL	         0x40        //红外线转发器,天花型
 #define EQUIPMENT_IR_86              0x41        //红外线转发器,86型

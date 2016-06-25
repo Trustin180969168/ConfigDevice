@@ -123,6 +123,10 @@
       <DependentUpon>ViewLogicSetting.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmEnvironment.resx">
+      <DependentUpon>FrmEnvironment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\FrmFlammableGasProbe.resx">
       <DependentUpon>FrmFlammableGasProbe.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -357,6 +361,7 @@
     <Compile Include="Class\ControlObj\OuterInteraction.cs" />
     <Compile Include="Class\Devices\FlammableGasProbe.cs" />
     <Compile Include="Class\Devices\SystemInteraction.cs" />
+    <Compile Include="Class\Devices\Environment.cs" />
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
     <Compile Include="Class\Devices\Road6FrontDimming.cs" />
@@ -372,7 +377,7 @@
     <Compile Include="Class\Manage\SensorCtrl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewInnerInteractionControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewOuterInteractionControl.cs" />
-    <Compile Include="Data\SensorData.cs" />
+    <Compile Include="Data\SensorStateData.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
     <Compile Include="Class\Manage\ViewEditCtrl.cs" />
     <Compile Include="Class\Devices\Road8Relay.cs" />
@@ -425,6 +430,12 @@
     </Compile>
     <Compile Include="DeviceUI\Base\ViewLogicSetting.Designer.cs">
       <DependentUpon>ViewLogicSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmEnvironment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmEnvironment.Designer.cs">
+      <DependentUpon>FrmEnvironment.cs</DependentUpon>
     </Compile>
     <Compile Include="DeviceUI\FrmFlammableGasProbe.cs">
       <SubType>Form</SubType>

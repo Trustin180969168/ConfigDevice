@@ -128,17 +128,17 @@ namespace ConfigDevice
 
         // [温度]级别 <- LG_SENSOR_TEMP
         public const int TEMP_LV_COLD_H = 0;          //【寒冷】
-        public const int TEMP_LV_COLD_L = 1;          //【小冷】
+        public const int TEMP_LV_COLD_L = 1;          //【较冷】
         public const int TEMP_LV_COMF = 2;          //【舒适】
-        public const int TEMP_LV_HOT_L = 3;          //【小热】
-        public const int TEMP_LV_HOT_H = 4;          //【酷热】
+        public const int TEMP_LV_HOT_L = 3;          //【较热】
+        public const int TEMP_LV_HOT_H = 4;          //【炎热】
         public const int TEMP_LV_TOTAL = 5;
 
         // [湿度]级别 <- LG_SENSOR_HUMI
         public const int HUMI_LV_ARID_H = 0;          //【干燥】
-        public const int HUMI_LV_ARID_L = 1;          //【微燥】
+        public const int HUMI_LV_ARID_L = 1;          //【稍燥】
         public const int HUMI_LV_OPTIMUM = 2;          //【适宜】
-        public const int HUMI_LV_MOIST_L = 3;          //【微湿】
+        public const int HUMI_LV_MOIST_L = 3;          //【较湿】
         public const int HUMI_LV_MOIST_H = 4;          //【潮湿】
         public const int HUMI_LV_TOTAL = 5;
 
@@ -186,35 +186,44 @@ namespace ConfigDevice
         public const string TEMPFC_NAME_LV_NORMAL = "正常";          //【正常】
         public const string TEMPFC_NAME_LV_HIGH = "高温";          //【高温】
         public const string TEMPFC_NAME_LV_FIRE = "火灾";          //【火灾】
-        // [空气质量]级别 <- LG_SENSOR_AQI
+
+
+        // [空气质量]等级 <- LG_SENSOR_AQI
         public const int AQI_LV_POOR = 0;          //【差】
         public const int AQI_LV_MODERATE = 1;          //【良】
         public const int AQI_LV_GOOD = 2;          //【优】
         public const int AQI_LV_TOTAL = 3;
 
-        // [TVOC有害气体]级别 <- LG_SENSOR_TVOC
-        public const int TVOC_LV_LOW = 0;          //【低】
-        public const int TVOC_LV_MEDIUM = 1;          //【中】
-        public const int TVOC_LV_HIGH = 2;          //【高】
+        // [TVOC有害气体]等级 <- LG_SENSOR_TVOC
+        public const int TVOC_LV_POOR = 0;          //【差】
+        public const int TVOC_LV_MODERATE = 1;          //【良】
+        public const int TVOC_LV_GOOD = 2;          //【优】
         public const int TVOC_LV_TOTAL = 3;
 
-        // [二氧化碳]级别 <- LG_SENSOR_CO2
-        public const int CO2_LV_LOW = 0;          //【低】
-        public const int CO2_LV_MEDIUM = 1;          //【中】
-        public const int CO2_LV_HIGH = 2;          //【高】
+        // [二氧化碳]等级 <- LG_SENSOR_CO2
+        public const int CO2_LV_POOR = 0;          //【差】
+        public const int CO2_LV_MODERATE = 1;          //【良】
+        public const int CO2_LV_GOOD = 2;          //【优】
         public const int CO2_LV_TOTAL = 3;
 
-        // [甲醛]级别 <- LG_SENSOR_CH2O
-        public const int CH2O_LV_LOW = 0;          //【低】
-        public const int CH2O_LV_MEDIUM = 1;          //【中】
-        public const int CH2O_LV_HIGH = 2;          //【高】
+        // [甲醛]等级 <- LG_SENSOR_CH2O
+        public const int CH2O_LV_POOR = 0;          //【差】
+        public const int CH2O_LV_MODERATE = 1;          //【良】
+        public const int CH2O_LV_GOOD = 2;          //【优】
         public const int CH2O_LV_TOTAL = 3;
 
-        // [PM2.5]级别 <- LG_SENSOR_PM25
-        public const int PM25_LV_LOW = 0;          //【低】
-        public const int PM25_LV_MEDIUM = 1;          //【中】
-        public const int PM25_LV_HIGH = 2;          //【高】
+        // [PM2.5]等级 <- LG_SENSOR_PM25
+        public const int PM25_LV_POOR = 0;          //【差】
+        public const int PM25_LV_MODERATE = 1;         //【良】
+        public const int PM25_LV_GOOD = 2;          //【优】
         public const int PM25_LV_TOTAL = 3;
+
+        // [氧气浓度]等级 <- LG_SENSOR_O2
+        public const int O2_LV_LOW = 0;          //【过低】
+        public const int O2_LV_MEDIUM = 1;          //【适宜】
+        public const int O2_LV_HIGH = 2;          //【富氧】
+        public const int O2_LV_TOTAL = 3;
+
     }
 
 }

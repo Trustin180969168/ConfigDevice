@@ -55,6 +55,19 @@ namespace ConfigDevice
                 }
             }
         }
+
+        public string DefaultGateWay
+        {
+            get {
+
+                string ip = this.IP;
+                string temp = ip.Substring(0, ip.LastIndexOf(".")) + ".1";
+                return temp;
+            
+            
+            
+            }
+        }
       
         private string ip;
 
