@@ -27,7 +27,6 @@ namespace ConfigDevice
         public SensorStateData()
         {
 
-
         } 
 
         /// <summary>
@@ -57,12 +56,12 @@ namespace ConfigDevice
         public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
         static FireControlTemperatureSensor()
         {
-            LEVEL_ID_NAME.Add(SensorConfig.TEMPFC_LV_NORMAL, SensorConfig.TEMPFC_NAME_LV_NORMAL);
-            LEVEL_ID_NAME.Add(SensorConfig.TEMPFC_LV_HIGH, SensorConfig.TEMPFC_NAME_LV_HIGH);
-            LEVEL_ID_NAME.Add(SensorConfig.TEMPFC_LV_FIRE, SensorConfig.TEMPFC_NAME_LV_FIRE);
-            LEVEL_NAME_ID.Add(SensorConfig.TEMPFC_NAME_LV_NORMAL, SensorConfig.TEMPFC_LV_NORMAL);
-            LEVEL_NAME_ID.Add(SensorConfig.TEMPFC_NAME_LV_HIGH, SensorConfig.TEMPFC_LV_HIGH);
-            LEVEL_NAME_ID.Add(SensorConfig.TEMPFC_NAME_LV_FIRE, SensorConfig.TEMPFC_LV_FIRE);
+            LEVEL_ID_NAME.Add(SensorConfig.TEMPFC_LV_NORMAL, SensorConfig.TEMPFC_LV_NAME_NORMAL);
+            LEVEL_ID_NAME.Add(SensorConfig.TEMPFC_LV_HIGH, SensorConfig.TEMPFC_LV_NAME_HIGH);
+            LEVEL_ID_NAME.Add(SensorConfig.TEMPFC_LV_FIRE, SensorConfig.TEMPFC_LV_NAME_FIRE);
+            LEVEL_NAME_ID.Add(SensorConfig.TEMPFC_LV_NAME_NORMAL, SensorConfig.TEMPFC_LV_NORMAL);
+            LEVEL_NAME_ID.Add(SensorConfig.TEMPFC_LV_NAME_HIGH, SensorConfig.TEMPFC_LV_HIGH);
+            LEVEL_NAME_ID.Add(SensorConfig.TEMPFC_LV_NAME_FIRE, SensorConfig.TEMPFC_LV_FIRE);
         }
         public FireControlTemperatureSensor(byte[] value):base(value)        
         {
@@ -116,6 +115,7 @@ namespace ConfigDevice
         } 
 
     }
+    
 
     /// <summary>
     /// 无效的传感器
