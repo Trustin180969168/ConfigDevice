@@ -18,7 +18,14 @@ namespace ConfigDevice
         private int currentLogicNum; //---当前逻辑----
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
         public int LogicItemIndex { get { return lookUpEdit.ItemIndex; } }
-        public string LogicName { get { return edtTriggerActionName.Text; } } 
+        public string LogicName { get { return edtTriggerActionName.Text; } }
+        private bool isSystemSetting = false;//----是否系统触发配置----
+
+        public bool IsSystemSetting
+        {
+            get { return isSystemSetting; }
+            set { isSystemSetting = value; }
+        }
         public Circuit Circuit
         {
             get { return circuit; }
@@ -163,9 +170,10 @@ namespace ConfigDevice
         public void SaveLogicData()
         {
             if (viewLogicTools1.HasChanged || viewLogicTools2.HasChanged || viewLogicTools3.HasChanged ||
-                viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex)
+                viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex ||    isSystemSetting )
             {
                 saveLogicData();
+                isSystemSetting = false;
             }
         }
         /// <summary>
@@ -173,15 +181,15 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="groupNum">序号</param>
         /// <param name="changed">是否改</param>
-        public void SaveLogicData(int groupNum,bool changed)
+        public void SaveLogicData(int groupNum)
         {
             if (viewLogicTools1.HasChanged || viewLogicTools2.HasChanged || viewLogicTools3.HasChanged ||
-                viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex || changed)
+                viewLogicTools4.HasChanged || currentLogicNum != imageComboBoxEdit.SelectedIndex || isSystemSetting)
             {
-
                 byte[] logicValue = GetLogicData();
                 logicValue[0] = (byte)groupNum;
                 logicList.SaveLogicData(logicValue);
+                isSystemSetting = false;
             }
         }
         private void saveLogicData()
@@ -189,6 +197,7 @@ namespace ConfigDevice
             byte[] logicValue = GetLogicData();
             logicValue[0] = (byte)lookUpEdit.ItemIndex;
             logicList.SaveLogicData(logicValue);
+            isSystemSetting = false;
         }
         public byte[] GetLogicData()
         {
@@ -264,9 +273,11 @@ namespace ConfigDevice
             ViewLogicTools desChangeLogicTools = getViewLogicTools(changeNum);
             TriggerData souChangedTriggerData = souChangeLogicTools.GetTriggerData();//---源触发数据---
             TriggerData desChangedTriggerData = desChangeLogicTools.GetTriggerData();//----目标触发数据-----
+            souChangeLogicTools.ClearTriggerView();
+            desChangeLogicTools.ClearTriggerView();
             souChangeLogicTools.SetTriggerData(desChangedTriggerData);//----交换数据---
             desChangeLogicTools.SetTriggerData(souChangedTriggerData);//----交换数据-----
-
+            isSystemSetting = true;
         }
 
         /// <summary>
@@ -281,9 +292,11 @@ namespace ConfigDevice
             ViewLogicTools desChangeLogicTools = getViewLogicTools(changeNum);
             TriggerData souChangedTriggerData = souChangeLogicTools.GetTriggerData();//---源触发数据---
             TriggerData desChangedTriggerData = desChangeLogicTools.GetTriggerData();//----目标触发数据-----
+            souChangeLogicTools.ClearTriggerView();
+            desChangeLogicTools.ClearTriggerView();
             souChangeLogicTools.SetTriggerData(desChangedTriggerData);//----交换数据---
             desChangeLogicTools.SetTriggerData(souChangedTriggerData);//----交换数据-----
-
+            isSystemSetting = true;
         }
 
 
@@ -294,7 +307,6 @@ namespace ConfigDevice
         /// <returns></returns>
         private ViewLogicTools getViewLogicTools(int TriggerNum)
         {
-
             ViewLogicTools value = null;
             foreach (Control viewlogic in plLogicList.Controls)
             {

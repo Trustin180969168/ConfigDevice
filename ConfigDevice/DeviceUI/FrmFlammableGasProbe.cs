@@ -18,7 +18,7 @@ namespace ConfigDevice
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
         private string currentGroupName = "";//当前组名
         private LogicQuickSetting logicQuickSetting;//快速配置编辑
-        private bool quickSetup = false;//是否快速配置
+        private bool isQuickSetting = false;//是否快速配置设定
         public FrmFlammableGasProbe(Device _device)
             : base(_device)
         {
@@ -261,7 +261,7 @@ namespace ConfigDevice
         private void btSaveTrigger_Click(object sender, EventArgs e)
         {
             //-----保存附加动作----
-            if (hasChangedAdditionLogic() || quickSetup)
+            if (hasChangedAdditionLogic() || isQuickSetting)
             {
                 flammableGasProbe.Valve.ValAct = (byte)cbxValveAction.SelectedIndex;
                 flammableGasProbe.Valve.ValTim = (ushort)sptValveSeconds.Value;
@@ -274,9 +274,10 @@ namespace ConfigDevice
             if (currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----
                 flammableGasProbe.ProbeCircuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
 
-            viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex, quickSetup);//--保存逻辑数据---
+            viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
+            viewLogicSetting.IsSystemSetting = false;//---恢复标志位---
             viewCommandSetting.SaveCommands();//---保存指令配置---   
-            quickSetup = false;//----恢复快速配置标记-----
+            
         }
         /// <summary>
         /// 是否有修改
@@ -431,7 +432,7 @@ namespace ConfigDevice
             flammableGasProbe.SetAdditionLogicData(adittionData);
             this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
             //----------手头变更修改状态------
-            quickSetup = true;
+            isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
 
         }
 
