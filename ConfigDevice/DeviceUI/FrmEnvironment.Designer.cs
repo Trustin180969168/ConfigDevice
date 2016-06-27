@@ -1,4 +1,4 @@
-﻿namespace ConfigDevice.DeviceUI
+﻿namespace ConfigDevice
 {
     partial class FrmEnvironment
     {
@@ -31,6 +31,8 @@
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.cedtOpenHealthLight = new DevExpress.XtraEditors.CheckEdit();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.gcEnvironment = new DevExpress.XtraGrid.GridControl();
             this.gvEnvironment = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -42,7 +44,7 @@
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
-            this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.frmSetting = new ConfigDevice.ViewBaseEdit();
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
@@ -68,13 +70,14 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
-            this.cedtPointLight = new DevExpress.XtraEditors.CheckEdit();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cedtOpenHealthLight.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcEnvironment)).BeginInit();
@@ -99,9 +102,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.plToolBar)).BeginInit();
             this.plToolBar.SuspendLayout();
             this.ToolBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cedtPointLight.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -130,6 +130,8 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.panelControl1.Appearance.Options.UseBackColor = true;
             this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.panelControl1.Controls.Add(this.groupControl2);
             this.panelControl1.Controls.Add(this.groupControl1);
@@ -138,6 +140,26 @@
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1009, 651);
             this.panelControl1.TabIndex = 2;
+            // 
+            // groupControl2
+            // 
+            this.groupControl2.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.groupControl2.Appearance.Options.UseBackColor = true;
+            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl2.Controls.Add(this.cedtOpenHealthLight);
+            this.groupControl2.Location = new System.Drawing.Point(47, 19);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(565, 69);
+            this.groupControl2.TabIndex = 3;
+            this.groupControl2.Text = "环境配置";
+            // 
+            // cedtOpenHealthLight
+            // 
+            this.cedtOpenHealthLight.Location = new System.Drawing.Point(26, 35);
+            this.cedtOpenHealthLight.Name = "cedtOpenHealthLight";
+            this.cedtOpenHealthLight.Properties.Caption = "开启室内空气健康指标指示灯";
+            this.cedtOpenHealthLight.Size = new System.Drawing.Size(185, 19);
+            this.cedtOpenHealthLight.TabIndex = 2;
             // 
             // groupControl1
             // 
@@ -173,15 +195,14 @@
             this.gridColumn5});
             this.gvEnvironment.GridControl = this.gcEnvironment;
             this.gvEnvironment.Name = "gvEnvironment";
+            this.gvEnvironment.OptionsView.ColumnAutoWidth = false;
             this.gvEnvironment.OptionsView.ShowGroupPanel = false;
             this.gvEnvironment.OptionsView.ShowIndicator = false;
             // 
             // dcSensor
             // 
-            this.dcSensor.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.dcSensor.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcSensor.AppearanceCell.BackColor = System.Drawing.Color.Snow;
             this.dcSensor.AppearanceCell.Options.UseBackColor = true;
-            this.dcSensor.AppearanceCell.Options.UseForeColor = true;
             this.dcSensor.AppearanceCell.Options.UseTextOptions = true;
             this.dcSensor.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcSensor.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -193,6 +214,7 @@
             this.dcSensor.OptionsColumn.ReadOnly = true;
             this.dcSensor.Visible = true;
             this.dcSensor.VisibleIndex = 0;
+            this.dcSensor.Width = 120;
             // 
             // dcValue
             // 
@@ -211,6 +233,7 @@
             this.dcValue.OptionsColumn.ReadOnly = true;
             this.dcValue.Visible = true;
             this.dcValue.VisibleIndex = 1;
+            this.dcValue.Width = 96;
             // 
             // dcLevel
             // 
@@ -224,7 +247,7 @@
             this.dcLevel.AppearanceHeader.Options.UseTextOptions = true;
             this.dcLevel.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcLevel.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcLevel.Caption = "级别";
+            this.dcLevel.Caption = "等级";
             this.dcLevel.Name = "dcLevel";
             this.dcLevel.OptionsColumn.ReadOnly = true;
             this.dcLevel.Visible = true;
@@ -273,7 +296,7 @@
             this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
-            this.btRefresh});
+            this.btAutoRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
             this.tsDoorInput.Size = new System.Drawing.Size(1009, 31);
@@ -287,14 +310,16 @@
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(76, 28);
             this.btSave.Text = "保存 ";
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
-            // btRefresh
+            // btAutoRefresh
             // 
-            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
-            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(100, 28);
-            this.btRefresh.Text = "自动刷新";
+            this.btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btAutoRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btAutoRefresh.Name = "btAutoRefresh";
+            this.btAutoRefresh.Size = new System.Drawing.Size(100, 28);
+            this.btAutoRefresh.Text = "自动刷新";
+            this.btAutoRefresh.Click += new System.EventHandler(this.btAutoRefresh_CheckedChanged);
             // 
             // pageJcsz
             // 
@@ -592,30 +617,13 @@
             this.btRefreshTrigger.Size = new System.Drawing.Size(101, 28);
             this.btRefreshTrigger.Text = "刷新数据";
             // 
-            // cedtPointLight
-            // 
-            this.cedtPointLight.Location = new System.Drawing.Point(26, 35);
-            this.cedtPointLight.Name = "cedtPointLight";
-            this.cedtPointLight.Properties.Caption = "开启室内空气健康指标指示灯";
-            this.cedtPointLight.Size = new System.Drawing.Size(185, 19);
-            this.cedtPointLight.TabIndex = 2;
-            // 
-            // groupControl2
-            // 
-            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.cedtPointLight);
-            this.groupControl2.Location = new System.Drawing.Point(47, 19);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(565, 69);
-            this.groupControl2.TabIndex = 3;
-            this.groupControl2.Text = "环境配置";
-            // 
             // FrmEnvironment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(1018, 743);
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmEnvironment";
+            this.Load += new System.EventHandler(this.FrmFlammableGasProbe_Load);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);
@@ -623,6 +631,9 @@
             this.pagePzjm.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cedtOpenHealthLight.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcEnvironment)).EndInit();
@@ -653,9 +664,6 @@
             this.plToolBar.PerformLayout();
             this.ToolBar.ResumeLayout(false);
             this.ToolBar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cedtPointLight.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -677,7 +685,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private System.Windows.Forms.ToolStrip tsDoorInput;
         private System.Windows.Forms.ToolStripButton btSave;
-        private System.Windows.Forms.ToolStripButton btRefresh;
+        private System.Windows.Forms.ToolStripButton btAutoRefresh;
         private DevExpress.XtraTab.XtraTabPage pageJcsz;
         private ViewBaseEdit frmSetting;
         private DevExpress.XtraTab.XtraTabPage pageLogic;
@@ -703,7 +711,7 @@
         public System.Windows.Forms.ToolStrip ToolBar;
         private System.Windows.Forms.ToolStripButton btSaveTrigger;
         private System.Windows.Forms.ToolStripButton btRefreshTrigger;
-        private DevExpress.XtraEditors.CheckEdit cedtPointLight;
+        private DevExpress.XtraEditors.CheckEdit cedtOpenHealthLight;
         private DevExpress.XtraEditors.GroupControl groupControl2;
     }
 }

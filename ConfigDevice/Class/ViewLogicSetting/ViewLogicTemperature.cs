@@ -8,16 +8,16 @@ using System.Drawing;
 namespace ConfigDevice
 {
     /// <summary>
-    /// 消防温度
+    /// 温度
     /// </summary>
-    public class ViewLogicFireControlTemperature : BaseViewLogicControl
+    public class ViewLogicTemperature : BaseViewLogicControl
     {
         GridViewDigitalEdit temperatureEdit = new GridViewDigitalEdit();//--温度编辑控件---
         GridViewComboBox cbxOperateLevel = new GridViewComboBox();//---操作运算--
         GridViewComboBox cbxTemperatureLevelEdit = new GridViewComboBox();//---温度级别编辑控件--- 
-        GridViewGridLookupEdit gridLookupDevice1;//---查找设备列表---
-        DataTable dtSelectDevices1;//---选择的设备列表---
-        public ViewLogicFireControlTemperature(Device _device, GridView gv)
+        GridViewGridLookupEdit gridLookupDevice;//---查找设备列表---
+        DataTable dtSelectDevices;//---选择的设备列表---
+        public ViewLogicTemperature(Device _device, GridView gv)
             : base(_device, gv)
         {
             setGridColumnValid(dcTriggerPosition, cbxPosition);                                 //-------设置触发位置有效---
@@ -28,9 +28,9 @@ namespace ConfigDevice
             cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
             dcTriggerKind.ColumnEdit = cbxKind;
             //-------初始化设备列表选择-----
-            gridLookupDevice1 = ViewEditCtrl.GetLogicDevicesLookupEdit();
-            gridLookupDevice1.EditValueChanged += this.lookUpEdit_EditValueChanged;
-            dtSelectDevices1 = gridLookupDevice1.DataSource as DataTable;
+            gridLookupDevice = ViewEditCtrl.GetLogicDevicesLookupEdit();
+            gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
+            dtSelectDevices = gridLookupDevice.DataSource as DataTable;
             //--------触发运算选择------
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_LESS_THAN);
@@ -49,9 +49,8 @@ namespace ConfigDevice
             temperatureEdit.MaxValue = 60;
             temperatureEdit.MinValue = -20;
             //-------初始化级别编辑控件------
-            foreach (string value in FireControlTemperatureSensor.LEVEL_ID_NAME.Values)
-                cbxTemperatureLevelEdit.Items.Add(value);
-
+            foreach (string value in TemperatureSensor.LEVEL_ID_NAME.Values)
+                cbxTemperatureLevelEdit.Items.Add(value); 
         }
 
         /// <summary>
@@ -84,8 +83,8 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             dr.EndEdit();
             //int i = lookupDevice.GetDataSourceRowIndex(ViewConfig.DC_DEVICE_VALUE, dr[ViewConfig.DC_DEVICE_VALUE].ToString());
-            int i = gridLookupDevice1.GetIndexByKeyValue(dr[ViewConfig.DC_DEVICE_VALUE].ToString());
-            DataRow drSelect = dtSelectDevices1.Rows[i];
+            int i = gridLookupDevice.GetIndexByKeyValue(dr[ViewConfig.DC_DEVICE_VALUE].ToString());
+            DataRow drSelect = dtSelectDevices.Rows[i];
             dr[ViewConfig.DC_DEVICE_ID] = drSelect[DeviceConfig.DC_ID];
             dr[ViewConfig.DC_DEVICE_KIND_ID] = drSelect[DeviceConfig.DC_KIND_ID];
             dr[ViewConfig.DC_DEVICE_NETWORK_ID] = drSelect[DeviceConfig.DC_NETWORK_ID];
@@ -111,7 +110,7 @@ namespace ConfigDevice
             {
                 gvLogic.SetRowCellValue(0, dcTriggerKind, cbxKind.Items[0].ToString());//---第一个运算符-----
                 RemoveKindName(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//-----外设差值,只有触发值----
-                setGridColumnValid(dcDifferentDevice, gridLookupDevice1);//------选择设备有效----
+                setGridColumnValid(dcDifferentDevice, gridLookupDevice);//------选择设备有效----
             }
             else
             {
@@ -146,6 +145,7 @@ namespace ConfigDevice
             }
             else if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
             {
+                //setGridColumnValid(dcOperate, cbxOperateLevel);
                 setGridColumnValid(dcStartValue, cbxTemperatureLevelEdit);
                 setGridColumnInvalid(dcEndValue);
 
@@ -172,19 +172,12 @@ namespace ConfigDevice
                 operateName == SensorConfig.LG_MATH_NAME_GREATER_THAN)
                 setGridColumnInvalid(dcEndValue);//---设置结束值无效----
             else
-            {                
-                string kindName = dr[ViewConfig.DC_KIND].ToString();
-                if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
-                {
-                    setGridColumnValid(dcEndValue, cbxTemperatureLevelEdit);
-                    gvLogic.SetRowCellValue(0, dcEndValue, cbxTemperatureLevelEdit.Items[0].ToString());//---开始值---     
-                }
-                else
+            {
+                if (!dcEndValue.OptionsColumn.AllowEdit)
                 {
                     setGridColumnValid(dcEndValue, temperatureEdit);//----设置结束值有效----
                     gvLogic.SetRowCellValue(0, dcEndValue, 0);      //---结束值---
                 }
-
             }
         }
 
@@ -209,18 +202,11 @@ namespace ConfigDevice
                 catch { triggerData.DeviceID = 0; triggerData.DeviceKindID = 0; triggerData.DeviceNetworkID = 0; }
             }
             if (triggerData.TriggerKindID == SensorConfig.LG_SENSOR_LVL_FLAG)//---为级别--- 
-            {
-                triggerData.Size1 = FireControlTemperatureSensor.LEVEL_NAME_ID[dr[dcStartValue.FieldName].ToString()]; 
-                if(dcEndValue.OptionsColumn.AllowEdit)
-                    triggerData.Size2 = FireControlTemperatureSensor.LEVEL_NAME_ID[dr[dcEndValue.FieldName].ToString()]; 
-            }
+                triggerData.Size1 = FireControlTemperatureSensor.LEVEL_NAME_ID[dr[dcStartValue.FieldName].ToString()];
             else
-            {
                 triggerData.Size1 = Convert.ToInt32(dr[dcStartValue.FieldName].ToString());
-                if (dcEndValue.OptionsColumn.AllowEdit)//---有效则添加到结束值-----
-                    triggerData.Size2 = Convert.ToInt32(dr[ViewConfig.DC_END_VALUE].ToString());
-            }
-
+            if (dcEndValue.OptionsColumn.AllowEdit)//---有效则添加到结束值-----
+                triggerData.Size2 = Convert.ToInt32(dr[ViewConfig.DC_END_VALUE].ToString());
             //-----有效持续,无效持续------            
             int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
             int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //无效秒数       
@@ -253,10 +239,10 @@ namespace ConfigDevice
                 else
                 {
 
-                    DataRow[] rows = dtSelectDevices1.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
+                    DataRow[] rows = dtSelectDevices.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
                     if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
                     {
-                        DataRow drInsert = dtSelectDevices1.Rows.Add();
+                        DataRow drInsert = dtSelectDevices.Rows.Add();
                         drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;
                         drInsert[DeviceConfig.DC_KIND_ID] = (int)td.DeviceKindID;
                         drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[td.DeviceKindID];
@@ -264,7 +250,7 @@ namespace ConfigDevice
                         drInsert[DeviceConfig.DC_NETWORK_ID] = (int)td.DeviceNetworkID;
                         drInsert[DeviceConfig.DC_ID] = (int)td.DeviceID;
                         drInsert.EndEdit();
-                        dtSelectDevices1.AcceptChanges();
+                        dtSelectDevices.AcceptChanges();
                     }
                     dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
                     dr[ViewConfig.DC_DEVICE_ID] = td.DeviceID;
@@ -274,21 +260,18 @@ namespace ConfigDevice
                 }
             }
             kindChanged();//---执行级别触发---
-            dr[dcOperate.FieldName] = ViewConfig.MATH_ID_NAME[td.CompareID];  //---级别触发后,初始化了运算符,所以重新赋值----
-            operateChanged();//---执行运算触发---
             if (td.TriggerKindID == SensorConfig.LG_SENSOR_LVL_FLAG)//---为级别类型---
             {
                 dcStartValue.ColumnEdit = cbxTemperatureLevelEdit;
                 dr[dcStartValue.FieldName] = FireControlTemperatureSensor.LEVEL_ID_NAME[td.Size1];
-                if (dcEndValue.OptionsColumn.AllowEdit)
-                    dr[dcEndValue.FieldName] = FireControlTemperatureSensor.LEVEL_ID_NAME[td.Size2];
             }
             else
-            {
                 dr[dcStartValue.FieldName] = td.Size1;//---为触发值类型
-                if (dcEndValue.OptionsColumn.AllowEdit)
-                    dr[dcEndValue.FieldName] = td.Size2;
-            }
+            dr[dcOperate.FieldName] = ViewConfig.MATH_ID_NAME[td.CompareID];  //---级别触发后,初始化了运算符,所以重新赋值----
+            operateChanged();//---执行运算触发---
+            if (dcEndValue.OptionsColumn.AllowEdit)
+                dr[dcEndValue.FieldName] = td.Size2;
+
             string nowDateStr = DateTime.Now.ToShortDateString();
             dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
             dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---

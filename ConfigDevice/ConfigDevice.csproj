@@ -377,6 +377,7 @@
     <Compile Include="Class\Manage\SensorCtrl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewInnerInteractionControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewOuterInteractionControl.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicTemperature.cs" />
     <Compile Include="Data\SensorStateData.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
     <Compile Include="Class\Manage\ViewEditCtrl.cs" />

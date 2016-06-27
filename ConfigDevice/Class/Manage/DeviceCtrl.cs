@@ -124,6 +124,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryDoor4InputEdit();//------门输入4--------
                 case DeviceConfig.EQUIPMENT_FUEL_GAS: return new FactoryFlammableGasProbeEdit();//----可燃气体-----
                 case DeviceConfig.EQUIPMENT_WEATHER: return new FactoryWeatherStationEdit();//-----气象站-----
+                case DeviceConfig.EQUIPMENT_AIR_QUALITY: return new FactoryEnvironmentEdit();//-----环境-----
                 default: return new FactoryBaseDeviceEdit();
             }
         }
@@ -216,6 +217,20 @@ namespace ConfigDevice
         {
             FlammableGasProbe flammableGasProbe = new FlammableGasProbe(data);
             return new FrmFlammableGasProbe(flammableGasProbe);
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// 环境
+    /// </summary>
+    public class FactoryEnvironmentEdit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            Environment environment = new Environment(data);
+            return new FrmEnvironment(environment);
         }
         #endregion
     }

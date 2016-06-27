@@ -70,10 +70,9 @@ namespace ConfigDevice
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_OPEN_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION);
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_CLOSE_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION);
             }
-            getParameter = new CallbackFromUDP(getParameterData);          
-            
+            getParameter = new CallbackFromUDP(getParameterData);                 
             getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
-            getWriteEnd.Values = new object[] { CLASS_NAME,this.UUID };
+
         } 
 
         /// <summary>
@@ -303,7 +302,7 @@ namespace ConfigDevice
         private void getParameterData(UdpData data, object[] values)
         {
             UserUdpData userData = new UserUdpData(data);
-            if (userData.SourceID != deviceControled.DeviceID && (string)values[0] != this.GetType().Name) return;//不是本设备ID不接收.
+            if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
             UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
             //----翻译数据------------

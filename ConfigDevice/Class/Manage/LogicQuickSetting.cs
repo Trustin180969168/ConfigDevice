@@ -81,8 +81,8 @@ namespace ConfigDevice
         /// <returns></returns>
         public byte[] GetLogicData(int index)
         {
-            byte[] logicData = new byte[126];
-            if (index <= dtLogicData.Rows.Count - 1 && index >= 0)
+            byte[] logicData = new byte[126]; 
+            if (index <= dtLogicData.Rows.Count - 1 && index >= 0 && index != -1)
             {
                 DataRow dr = dtLogicData.Rows[index];
                 logicData = ConvertTools.StrToToHexByte(dr[ViewConfig.DC_LOGIC_VALUE].ToString());

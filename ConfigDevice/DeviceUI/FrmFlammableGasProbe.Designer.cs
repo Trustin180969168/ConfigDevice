@@ -609,8 +609,10 @@
             this.cbxBuzzer.Name = "cbxBuzzer";
             this.cbxBuzzer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxBuzzer.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbxBuzzer.Size = new System.Drawing.Size(80, 21);
             this.cbxBuzzer.TabIndex = 1;
+            this.cbxBuzzer.SelectedIndexChanged += new System.EventHandler(this.cbxAction_SelectedIndexChanged);
             // 
             // labelControl11
             // 
@@ -626,8 +628,10 @@
             this.cbxLight.Name = "cbxLight";
             this.cbxLight.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxLight.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbxLight.Size = new System.Drawing.Size(80, 21);
             this.cbxLight.TabIndex = 1;
+            this.cbxLight.SelectedIndexChanged += new System.EventHandler(this.cbxAction_SelectedIndexChanged);
             // 
             // labelControl15
             // 
@@ -659,8 +663,10 @@
             this.cbxValveAction.Name = "cbxValveAction";
             this.cbxValveAction.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxValveAction.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbxValveAction.Size = new System.Drawing.Size(80, 21);
             this.cbxValveAction.TabIndex = 1;
+            this.cbxValveAction.SelectedIndexChanged += new System.EventHandler(this.cbxAction_SelectedIndexChanged);
             // 
             // labelControl9
             // 
@@ -675,6 +681,7 @@
             this.viewLogicSetting.AutoSize = true;
             this.viewLogicSetting.Circuit = null;
             this.viewLogicSetting.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewLogicSetting.IsSystemSetting = false;
             this.viewLogicSetting.Location = new System.Drawing.Point(0, 37);
             this.viewLogicSetting.Name = "viewLogicSetting";
             this.viewLogicSetting.Size = new System.Drawing.Size(1009, 247);

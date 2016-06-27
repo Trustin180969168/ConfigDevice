@@ -31,6 +31,9 @@ namespace ConfigDevice
         public const string DC_DEVICE_KIND_ID = "DeviceKindID";//设备类型ID
         public const string DC_LOGIC_VALUE = "LogicValue";//逻辑配置值
         public const string DC_LOGIC_ADDITION_VALUE = "LogicAddtionValue";//逻辑附加值
+        public const string DC_SENSOR_NAME = "Name";//传感器名称
+        public const string DC_SENSOR_VALUE = "Value";//传感器值
+        public const string DC_SENSOR_LEVEL = "Level";//传感器级别
         //public const string DC_DEVICE_VALUE = "DeviceValue";//设备唯一值
 
         public const string NAME_INVALID_DEVICE = "未知设备";

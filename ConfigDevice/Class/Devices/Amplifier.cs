@@ -5,9 +5,6 @@ using System.Data;
 
 namespace ConfigDevice
 {
-
-
-
     public class Amplifier : Device
     {
 

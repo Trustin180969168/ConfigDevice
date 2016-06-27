@@ -4,21 +4,27 @@ using System.Text;
 using System.Data;
 
 namespace ConfigDevice
-{
- 
+{ 
     public class Environment:Device
     {
         public const string CLASS_NAME = "FlammableGasProbe";
         
-        public Circuit ProbeCircuit;//回路对象
-        public Light FGP_Light;//指示灯
+        public Circuit ProbeCircuit;                //回路对象
+        public Light FGP_Light;                     //指示灯
 
-
-
-        private CallbackFromUDP getStateInfo;//----获取设置信息---- 
-        private CallbackFromUDP getAdditionLogic;//----获取附加逻辑信息---- 
-        private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
-
+        private CallbackFromUDP getStateInfo;       //----获取设置信息---- 
+        private CallbackFromUDP getAdditionLogic;   //----获取附加逻辑信息---- 
+        private CallbackFromUDP getWriteEnd;        //----获取结束读取信息----
+        //----传感器状态对象----
+        public TemperatureSensor temperatureSensor; //--温度----
+        public HumiditySensor humiditySensor;       //---湿度---
+        public LuminanceSensor luminanceSensor;     //---亮度----
+        public AQISensor AQISensor;                 //---空气质量----
+        public TVOCSensor TVOCSensor;               //---有害气体----
+        public CO2Sensor CO2Sensor;                 //---二氧化碳-----
+        public CH2OSensor CH2OSensor;               //---甲醛----
+        public PM25Sensor PM25Sensor;               //---PM2.5----
+        public O2Sensor O2Sensor;                   //---氧气-----
 
         public Environment(UserUdpData userUdpData)
             : base(userUdpData)
@@ -125,8 +131,17 @@ namespace ConfigDevice
             string dataStr2 = dataStr.Split(new string[] { "FF FF" }, StringSplitOptions.RemoveEmptyEntries)[1];
             byte[] dataByte1 = ConvertTools.StrToToHexByte(dataStr1);
             byte[] dataByte2 = ConvertTools.StrToToHexByte(dataStr2);
-             //-------阀门状态-----
-     
+             //----各个传感器状态-----
+            this.temperatureSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_TEMP, dataByte1) as TemperatureSensor;//获取温度
+            this.humiditySensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_HUMI, dataByte1) as HumiditySensor;//获取湿度
+            this.luminanceSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_LUMI, dataByte1) as LuminanceSensor;//亮度
+            this.AQISensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_AQI, dataByte1) as AQISensor;//空气质量
+            this.TVOCSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_TVOC, dataByte1) as TVOCSensor;//有害气体
+            this.CO2Sensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_CO2, dataByte1) as CO2Sensor;//二氧化碳
+            this.CH2OSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_CH2O, dataByte1) as CH2OSensor;//甲醛
+            this.PM25Sensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_PM25, dataByte1) as PM25Sensor;//PM2.5
+            this.O2Sensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_O2, dataByte1) as O2Sensor;//氧气浓度
+         
             CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//----读完状态信息,回调界面----
         }
 
@@ -287,8 +302,7 @@ namespace ConfigDevice
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END);
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG);
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME);
-            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER);
- 
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER); 
         }
 
         /// <summary>

@@ -22,12 +22,14 @@ namespace ConfigDevice
         public const int LG_EXT_SENSOR_DATE_SEG = 12;           //外部条件:日期段
         public const int LG_EXT_SENSOR_WEEK_CYC = 13;           //外部条件:周循环
         public const int LG_SENSOR_TEMP_FC = 14;               //消防温控    (含有外设,含有等级)
+        public const int LG_SENSOR_AQI = 15;        //空气质量     (含有外设,只有等级)
         public const int LG_SENSOR_TVOC = 16;         //TVOC有害气体 (含有外设,含有级别)
         public const int LG_SENSOR_CO2 = 17;         //二氧化碳     (含有外设,含有级别)
         public const int LG_SENSOR_CH2O = 18;         //甲醛         (含有外设,含有级别)
         public const int LG_EXT_SENSOR_SLF_LKID = 19;         //特殊:内部联动(                 )
         public const int LG_SENSOR_PM25 = 20;         //PM2.5        (含有外设,含有级别) 
-        public const int LG_SENSOR_AQI = 21;                  //总数(★★数量以后会不断增加,必须在最尾处增加★★)
+        public const int LG_SENSOR_O2 = 21;         //氧气浓度     (含有外设,含有等级)
+        public const int LG_SENSOR_TOTAL = 22;                  //总数(★★数量以后会不断增加,必须在最尾处增加★★)
 
         public const UInt16 LG_SENSOR_DEF_FLAG = 0;        //级别默认值0
         public const UInt16 LG_SENSOR_DEV_FLAG = 0x8000;        //[外设]传感器[标志位]->如:本设备,外设

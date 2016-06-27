@@ -42,25 +42,25 @@ namespace ConfigDevice
             spePreTime.Leave += SysConfig.Edit_Leave;
             refreshSateTimer = new ThreadActionTimer(2000, new Action(flammableGasProbe.ReadState));//---自动刷新----
             //----------蜂鸣器-------
-            sptBuzzerSeconds.Properties.MaxValue = 3600;
-            sptBuzzerSeconds.Properties.MinValue = 0;
+            sptBuzzerSeconds.Properties.MaxValue = 65535;
+            sptBuzzerSeconds.Properties.MinValue = 1;
             sptBuzzerSeconds.Enter += SysConfig.Edit_Enter;
             sptBuzzerSeconds.Leave += SysConfig.Edit_Leave;
             cbxBuzzer.Properties.Items.Add(Buzzer.STATE_BUZACT_CLOSE);
             cbxBuzzer.Properties.Items.Add(Buzzer.STATE_BUZACT_OPEN);
             cbxBuzzer.Properties.Items.Add(Buzzer.STATE_BUZACT_NONE);
             //----------指示灯-------
-            sptLightSeconds.Properties.MaxValue = 3600;
-            sptLightSeconds.Properties.MinValue = 0;
+            sptLightSeconds.Properties.MaxValue = 65535;
+            sptLightSeconds.Properties.MinValue = 1;
             sptLightSeconds.Enter += SysConfig.Edit_Enter;
             sptLightSeconds.Leave += SysConfig.Edit_Leave;
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_OFF);
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_ON);
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_GLINT);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_NOT);
+            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_NONE);
             //----------阀门-------
-            sptValveSeconds.Properties.MaxValue = 3600;
-            sptValveSeconds.Properties.MinValue = 0;
+            sptValveSeconds.Properties.MaxValue = 65535;
+            sptValveSeconds.Properties.MinValue = 1;
             sptValveSeconds.Enter += SysConfig.Edit_Enter;
             sptValveSeconds.Leave += SysConfig.Edit_Leave;
             cbxValveAction.Properties.Items.Add(Motor.STATE_VALVE_CLOSE);
@@ -452,6 +452,26 @@ namespace ConfigDevice
             flammableGasProbe = _flammableGasProbe;
             this.Text = _flammableGasProbe.Name;
             loadData();
+        }
+
+        private void cbxAction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxValveAction.Text == Motor.STATE_VALVE_NONE)
+                sptValveSeconds.Enabled = false;
+            else
+                sptValveSeconds.Enabled = true;
+
+            if (cbxLight.Text == Light.STATE_LEDACT_OFF ||cbxLight.Text ==  Light.STATE_LEDACT_NONE)
+                sptLightSeconds.Enabled = false;
+            else
+                sptLightSeconds.Enabled = true;
+
+            if (cbxBuzzer.Text == Buzzer.STATE_BUZACT_CLOSE ||cbxBuzzer.Text ==  Buzzer.STATE_BUZACT_NONE)
+                sptBuzzerSeconds.Enabled = false;
+            else
+                sptBuzzerSeconds.Enabled = true;
+
+
         }
    
     }

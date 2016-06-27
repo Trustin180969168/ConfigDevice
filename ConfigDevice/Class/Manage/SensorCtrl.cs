@@ -26,7 +26,8 @@ namespace ConfigDevice
                     return FactorySensor(kindID, sensorValue);
                 }
             }
-            return null;
+            //----找不到传感器值,默认创建一个对象返回----
+            return FactorySensor(kindID,new byte[6]);
         }
 
         /// <summary>
@@ -39,15 +40,30 @@ namespace ConfigDevice
         {
             if (kindID == SensorConfig.LG_SENSOR_VOID)
                 return new InvalidSensor(value);
-            if (kindID == SensorConfig.LG_SENSOR_TEMP_FC)
+            if (kindID == SensorConfig.LG_SENSOR_TEMP_FC)//---消防温度
                 return new FireControlTemperatureSensor(value);
-            if (kindID == SensorConfig.LG_SENSOR_LEL)
+            if (kindID == SensorConfig.LG_SENSOR_LEL)//---可燃气体探头
                 return new FlamableGasProbeSensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_TEMP)//---温度
+                return new TemperatureSensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_HUMI)//---湿度
+                return new HumiditySensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_LUMI)//---亮度
+                return new LuminanceSensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_AQI)//---空气质量
+                return new AQISensor(value);            
+            if (kindID == SensorConfig.LG_SENSOR_TVOC)//---有害气体
+                return new TVOCSensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_CO2)//---二氧化碳
+                return new CO2Sensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_CH2O)//---甲醛
+                return new CH2OSensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_PM25)//---PM2.5
+                return new PM25Sensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_O2)
+                return new O2Sensor(value); 
 
             return null;
-            
-
-
         }
 
 

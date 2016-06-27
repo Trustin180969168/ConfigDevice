@@ -544,8 +544,6 @@ namespace ConfigDevice
         }
 
 
-
-
         /// <summary>
         /// 图片编辑
         /// </summary>
@@ -657,7 +655,6 @@ namespace ConfigDevice
                     CommonTools.MessageShow("请先连接网络设备" + network.DeviceName + "!", 3, "");
                     continue;
                 }
-
             }
 
         }
@@ -735,8 +732,6 @@ namespace ConfigDevice
                 CommonTools.MessageShow("请先连接网络" + network.DeviceName, 3, "");
 
         }
-
-
 
  
         /// <summary>
