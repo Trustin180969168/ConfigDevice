@@ -122,7 +122,6 @@
             this.gvLogic.OptionsCustomization.AllowColumnResizing = false;
             this.gvLogic.OptionsCustomization.AllowFilter = false;
             this.gvLogic.OptionsCustomization.AllowGroup = false;
-            this.gvLogic.OptionsCustomization.AllowRowSizing = true;
             this.gvLogic.OptionsCustomization.AllowSort = false;
             this.gvLogic.OptionsSelection.EnableAppearanceFocusedRow = false;
             this.gvLogic.OptionsView.AllowCellMerge = true;

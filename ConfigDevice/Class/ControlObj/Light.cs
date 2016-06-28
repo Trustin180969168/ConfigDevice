@@ -38,7 +38,14 @@ namespace ConfigDevice
         public const string STATE_LEDACT_ON = "点亮";        //【点亮(红灯)】
         public const string STATE_LEDACT_GLINT = "闪烁";        //【闪烁(红灯)】
         public const string STATE_LEDACT_NONE = "不动作";        //【不动作】
- 
+        public const string STATE_LEDACT_GREEN_ON="绿灯点亮";//绿灯点亮
+        public const string STATE_LEDACT_ORANGE_ON = "橙灯点亮";
+        public const string STATE_LEDACT_RED_ON = "红灯点亮";
+        public const string STATE_LEDACT_RED_GLINT = "红灯闪烁";
+
+
+
+
         public byte LedAct = 0;               //指示灯指示动作：熄灭、闪烁等   (如:LEL_LEDACT_OFF)
         public ushort LedTim = 0;               //指示灯指示时间：单位秒         (如:10->10秒，0->无限)
         private CallbackFromUDP getParameter;//-------每参数名称----

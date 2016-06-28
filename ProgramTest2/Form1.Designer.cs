@@ -206,7 +206,6 @@
             // 
             // iccbWeek
             // 
-            this.iccbWeek.AutoHeight = false;
             this.iccbWeek.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.iccbWeek.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
@@ -218,6 +217,7 @@
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期六"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期日")});
             this.iccbWeek.Name = "iccbWeek";
+            this.iccbWeek.PopupFormMinSize = new System.Drawing.Size(50, 200);
             // 
             // num
             // 

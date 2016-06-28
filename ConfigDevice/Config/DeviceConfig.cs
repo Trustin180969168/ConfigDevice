@@ -453,7 +453,9 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_AIR_QUALITY, "环境传感器");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_WEATHER, "智能气象");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_TEMP, "温度模块"); 
 
+            
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PRI_1, "人体感应1个方向");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PRI_2, "人体感应2个方向");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PRI_3, "人体感应3个方向");

@@ -103,13 +103,20 @@ namespace ConfigDevice
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_VOID, SensorConfig.SENSOR_INVALID);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TEMP, SensorConfig.SENSOR_TEMPERATURE);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_HUMI, SensorConfig.SENSOR_HUMIDITY);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_AQI, SensorConfig.SENSOR_AQI);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_CO2, SensorConfig.SENSOR_CO2);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_PM25, SensorConfig.SENSOR_PM25);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_CH2O, SensorConfig.SENSOR_CH20);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_O2, SensorConfig.SENSOR_O2);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_RAIN, SensorConfig.SENSOR_RAIN_SENSOR);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_WIND, SensorConfig.SENSOR_WINDY);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_LUMI, SensorConfig.SENSOR_LUMINANCE);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TVOC, SensorConfig.SENSOR_TVOC);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_LEL, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_RSP, SensorConfig.SENSOR_RADAR);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TAMPER, SensorConfig.SENSOR_SWIT_TAMPER);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_SYS_LKID, SensorConfig.SENSOR_SYSTEM_INTERACTION);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_SLF_LKID, SensorConfig.SENSOR_INNER_INTERACTION);//内部联动
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_SECURITY, SensorConfig.SENSOR_SECURITY_INTERACTION);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_TIME_SEG, SensorConfig.SENSOR_TIME);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_DATE_SEG, SensorConfig.SENSOR_DATE);
@@ -149,7 +156,6 @@ namespace ConfigDevice
             MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_GREATER_THAN, SensorConfig.LG_MATH_GREATER_THAN);
             MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_WITHIN, SensorConfig.LG_MATH_WITHIN);
             MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_WITHOUT, SensorConfig.LG_MATH_WITHOUT);
-            MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_EQUAL_AND_TRUE, SensorConfig.LG_MATH_EQUAL_AND_TRUE);
             MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_TOTAL, SensorConfig.LG_MATH_TOTAL);
 
         }
@@ -203,8 +209,6 @@ namespace ConfigDevice
             Leave += new System.EventHandler(SysConfig.Edit_Leave); 
             Enter += new System.EventHandler(SysConfig.Edit_Enter);
         }
-
-
     }
 
     /// <summary>
@@ -315,7 +319,7 @@ namespace ConfigDevice
             : base()
         {
             this.Name = "WeekEdit";
-             
+
             this.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期一"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期二"),
@@ -325,12 +329,11 @@ namespace ConfigDevice
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期六"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期日")});
             this.ShowAllItemCaption = "全选";
-
+            this.PopupFormMinSize =  new System.Drawing.Size(50, 200);
             this.EditValueChanged += checkedComboBoxEdit_EditValueChanged;
             this.Closed += checkedComboBoxEdit_Closed;
             this.QueryPopUp += checkedComboBoxEdit_Properties_QueryPopUp;
             this.ShowPopupCloseButton = false;
-           
         }
        
         private void checkedComboBoxEdit_EditValueChanged(object sender, EventArgs e)

@@ -410,8 +410,10 @@
             this.cbxLight.Name = "cbxLight";
             this.cbxLight.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxLight.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbxLight.Size = new System.Drawing.Size(80, 21);
             this.cbxLight.TabIndex = 1;
+            this.cbxLight.SelectedIndexChanged += new System.EventHandler(this.cbxLight_SelectedIndexChanged);
             // 
             // labelControl12
             // 
@@ -480,6 +482,8 @@
             this.edtLogicLocalSetting.Properties.Appearance.Options.UseFont = true;
             this.edtLogicLocalSetting.Size = new System.Drawing.Size(148, 26);
             this.edtLogicLocalSetting.TabIndex = 19;
+            this.edtLogicLocalSetting.DoubleClick += new System.EventHandler(this.edtLogicLocalSetting_DoubleClick);
+            this.edtLogicLocalSetting.KeyDown += new System.Windows.Forms.KeyEventHandler(this.edtLogicLocalSetting_KeyDown);
             // 
             // cbxQuickSetting
             // 
@@ -496,6 +500,7 @@
             "2"});
             this.cbxQuickSetting.Size = new System.Drawing.Size(166, 26);
             this.cbxQuickSetting.TabIndex = 18;
+            this.cbxQuickSetting.Closed += new DevExpress.XtraEditors.Controls.ClosedEventHandler(this.cbxQuickSetting_Closed);
             // 
             // labelControl18
             // 
@@ -522,6 +527,7 @@
             this.edtTriggerActionName.Properties.Appearance.Options.UseForeColor = true;
             this.edtTriggerActionName.Size = new System.Drawing.Size(360, 26);
             this.edtTriggerActionName.TabIndex = 13;
+            this.edtTriggerActionName.DoubleClick += new System.EventHandler(this.edtTriggerActionName_DoubleClick);
             // 
             // lblNum
             // 
@@ -564,6 +570,7 @@
             this.lookUpEdit.Properties.PopupWidth = 500;
             this.lookUpEdit.Size = new System.Drawing.Size(406, 26);
             this.lookUpEdit.TabIndex = 14;
+            this.lookUpEdit.EditValueChanged += new System.EventHandler(this.lookUpEdit_EditValueChanged);
             // 
             // lblGroupName
             // 
@@ -609,6 +616,7 @@
             this.btSaveTrigger.Name = "btSaveTrigger";
             this.btSaveTrigger.Size = new System.Drawing.Size(74, 28);
             this.btSaveTrigger.Text = "保存 ";
+            this.btSaveTrigger.Click += new System.EventHandler(this.btSaveTrigger_Click);
             // 
             // btRefreshTrigger
             // 
@@ -617,6 +625,7 @@
             this.btRefreshTrigger.Name = "btRefreshTrigger";
             this.btRefreshTrigger.Size = new System.Drawing.Size(101, 28);
             this.btRefreshTrigger.Text = "刷新数据";
+            this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
             // FrmEnvironment
             // 

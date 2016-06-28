@@ -75,6 +75,8 @@ namespace ConfigDevice
                 return new ViewLogicInnerInteraction(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_HUMI)
                 return new ViewLogicHumidity(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_LUMI)//--亮度
+                return new ViewLogicLuminance(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_RSP)
                 return new ViewLogicRadar(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_TAMPER)

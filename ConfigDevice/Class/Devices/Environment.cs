@@ -9,8 +9,8 @@ namespace ConfigDevice
     {
         public const string CLASS_NAME = "FlammableGasProbe";
         
-        public Circuit ProbeCircuit;                //回路对象
-        public Light FGP_Light;                     //指示灯
+        public Circuit Circuit;                //回路对象
+        public Light PointLight;                     //指示灯
 
         private CallbackFromUDP getStateInfo;       //----获取设置信息---- 
         private CallbackFromUDP getAdditionLogic;   //----获取附加逻辑信息---- 
@@ -53,10 +53,10 @@ namespace ConfigDevice
         private void initControlObjs()
         {
 
-            FGP_Light = new Light(this);
-            ProbeCircuit = new Circuit(this,8);            
+            PointLight = new Light(this);
+            Circuit = new Circuit(this,8);            
 
-            ContrlObjs.Add("回路", ProbeCircuit);
+            ContrlObjs.Add("回路", Circuit);
         }
 
         /// <summary>
@@ -219,8 +219,8 @@ namespace ConfigDevice
         public void SetAdditionLogicData(byte[] value)
         {
 
-            this.FGP_Light.LedAct = value[4];//动作类型
-            this.FGP_Light.LedTim = ConvertTools.Bytes2ToUInt16(new byte[] { value[5], value[6] });//动作时间
+            this.PointLight.LedAct = value[1];//动作类型
+            this.PointLight.LedTim = ConvertTools.Bytes2ToUInt16(new byte[] { value[2], value[3] });//动作时间
         }
 
         /// <summary>
@@ -266,21 +266,18 @@ namespace ConfigDevice
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_LOGIC_WRITE_EXACTION;//----用户命令-----
-            byte len = 14;//---数据长度----
-            byte[] crcData = new byte[10 + 10];
+            byte len = 11;//---数据长度----
+            byte[] crcData = new byte[10 + 7];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
 
-            crcData[10] = (byte)groupNum;
-            byte[] byteSeconds = new byte[2];
-            Buffer.BlockCopy(byteSeconds, 0, crcData, 12, 2);
-            crcData[14] = (byte)this.FGP_Light.LedAct;//----指示灯---
-            byteSeconds = ConvertTools.GetByteFromUInt16(FGP_Light.LedTim);
-            Buffer.BlockCopy(byteSeconds, 0, crcData, 15, 2);
-            Buffer.BlockCopy(byteSeconds, 0, crcData, 18, 2);
+            crcData[10] = (byte)groupNum; 
+            crcData[11] = (byte)this.PointLight.LedAct;//----指示灯---
+            byte[] byteSeconds = ConvertTools.GetByteFromUInt16(PointLight.LedTim);
+            Buffer.BlockCopy(byteSeconds, 0, crcData, 12, 2); 
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------            
             //---------拼接到包中------
@@ -315,8 +312,8 @@ namespace ConfigDevice
             byte[] byteSeconds = new byte[2];
 
             Buffer.BlockCopy(byteSeconds, 0, additionValue, 2, 2);
-            additionValue[4] = (byte)this.FGP_Light.LedAct;//----指示灯---
-            byteSeconds = ConvertTools.GetByteFromUInt16(FGP_Light.LedTim);
+            additionValue[4] = (byte)this.PointLight.LedAct;//----指示灯---
+            byteSeconds = ConvertTools.GetByteFromUInt16(PointLight.LedTim);
             Buffer.BlockCopy(byteSeconds, 0, additionValue, 5, 2);
 
             Buffer.BlockCopy(byteSeconds, 0, additionValue, 8, 2);

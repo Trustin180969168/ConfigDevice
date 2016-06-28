@@ -101,6 +101,11 @@
             this.parameter5});
             this.gvCommands.GridControl = this.gcCommands;
             this.gvCommands.Name = "gvCommands";
+            this.gvCommands.OptionsCustomization.AllowColumnMoving = false;
+            this.gvCommands.OptionsCustomization.AllowColumnResizing = false;
+            this.gvCommands.OptionsCustomization.AllowFilter = false;
+            this.gvCommands.OptionsCustomization.AllowGroup = false;
+            this.gvCommands.OptionsCustomization.AllowSort = false;
             this.gvCommands.OptionsSelection.EnableAppearanceFocusedRow = false;
             this.gvCommands.OptionsSelection.InvertSelection = true;
             this.gvCommands.OptionsView.ColumnAutoWidth = false;

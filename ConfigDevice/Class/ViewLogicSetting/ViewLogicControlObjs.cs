@@ -437,12 +437,16 @@ namespace ConfigDevice
 
         public override TriggerData GetLogicData()
         {
-            return null;
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_AND_TRUE;  //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
+
+            return triggerData;
         }
 
         public override void SetLogicData(TriggerData td)
         {
-
+        
         }
 
         public override void InitViewSetting()
@@ -470,36 +474,78 @@ namespace ConfigDevice
         private GridViewTimeEdit timeEdit = new GridViewTimeEdit();//----时间编辑---
         public ViewLogicTime(Device _device, GridView gv)
             : base(_device, gv)
-        {         
-            cbxOperate.Items.Add("以内");
-            cbxOperate.Items.Add("以外");  
-        }
-
-        public override TriggerData GetLogicData()
         {
-            return null;
-        }
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
 
-        public override void SetLogicData(TriggerData td)
-        {
+            timeEdit.Mask.EditMask = "HH:mm";
+            dcStartValue.ColumnEdit = timeEdit;
+            dcEndValue.ColumnEdit = timeEdit;
 
+            cbxKind.Items.Clear();//----清空触发类型(探头只有等级)---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE);//--触发类型(值)---- 
+
+             
         }
 
         public override void InitViewSetting()
         {
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, timeEdit);//---开始值有效
             setGridColumnValid(dcEndValue, timeEdit);//----结束值有效---
             setGridColumnInvalid(dcValid);//---持续时间----
-            setGridColumnInvalid(dcInvalid);//----失效时间-----  
+            setGridColumnInvalid(dcInvalid);//----失效时间-----   
 
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个级别选择----
-            gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---默认第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcStartValue, "00:00:00");//----默认为0秒
-            gvLogic.SetRowCellValue(0, dcEndValue, "00:00:00");//----默认为0秒 
+            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----   
+            gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_WITHIN);//---默认以内----
+            gvLogic.SetRowCellValue(0, dcStartValue,"00:00");//--默认第一个开始值---
+            gvLogic.SetRowCellValue(0, dcEndValue, "00:00");//--默认第一个开始值--- 
 
         }
+
+        /// <summary>
+        /// 获取逻辑配置数据
+        /// </summary>
+        /// <returns>TriggerData</returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            //--------开始秒数,结束秒数-------------- 
+            DateTime dtStartTime = DateTime.Parse(dr[dcStartValue.FieldName].ToString());
+            DateTime dtEndTime = DateTime.Parse(dr[dcEndValue.FieldName].ToString());
+
+            byte[] startSeconds = new byte[] { 0, (byte)dtStartTime.Minute, (byte)dtStartTime.Hour, 0 };
+            byte[] endSeconds = new byte[] { 0, (byte)dtEndTime.Minute, (byte)dtEndTime.Hour, 0 };
+            triggerData.Size1 = ConvertTools.Bytes4ToInt(startSeconds);
+            triggerData.Size2 = ConvertTools.Bytes4ToInt(endSeconds);
+
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
+            string nowDateStr = DateTime.Now.ToShortDateString();
+
+            byte[] dtStartTime = ConvertTools.GetByteFromInt32(td.Size1);
+            byte[] dtEndTime = ConvertTools.GetByteFromInt32(td.Size2);
+            int dtStartSeconds = (int)dtStartTime[2] * 60 * 60 + (int)dtStartTime[1] * 60;
+            int dtEndSeconds = (int)dtEndTime[2] * 60 * 60 + (int)dtEndTime[1] * 60;
+
+            dr[dcStartValue.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(dtStartSeconds).ToLongTimeString();  //---开始时间---
+            dr[dcEndValue.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(dtEndSeconds).ToLongTimeString();//----结束时间---
+            dr.EndEdit();
+            dr.AcceptChanges();
+        }
+    
     }
 
 
@@ -512,37 +558,78 @@ namespace ConfigDevice
         public ViewLogicDateOfMonthDay(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add("以内");
-            cbxOperate.Items.Add("以外");
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
+
+            dcStartValue.ColumnEdit = dateEdit;
+            dcEndValue.ColumnEdit = dateEdit;
+
+            cbxKind.Items.Clear();//----清空触发类型(探头只有等级)---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE);//--触发类型(值)---- 
         }
 
-        public override TriggerData GetLogicData()
-        {
-            return null;
-        }
 
-        public override void SetLogicData(TriggerData td)
-        {
-
-        }
 
         public override void InitViewSetting()
         {
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, dateEdit);//---开始值有效
-            setGridColumnValid(dcEndValue, dateEdit);//----结束值无效---
+            setGridColumnValid(dcEndValue, dateEdit);//----结束值有效---
             setGridColumnInvalid(dcValid);//---持续时间----
-            setGridColumnInvalid(dcInvalid);//----失效时间-----  
+            setGridColumnInvalid(dcInvalid);//----失效时间-----   
 
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个级别选择----
-            gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---默认第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----   
+            gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_WITHIN);//---默认以内---- 
             gvLogic.SetRowCellValue(0, dcStartValue, "01-01");//----默认为1号
             gvLogic.SetRowCellValue(0, dcEndValue, "01-01");//----默认为1号
 
         }
-    }
 
+
+        /// <summary>
+        /// 获取逻辑配置数据
+        /// </summary>
+        /// <returns>TriggerData</returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            //--------开始秒数,结束秒数-------------- 
+            DateTime dtStartTime = DateTime.Parse(dr[dcStartValue.FieldName].ToString());
+            DateTime dtEndTime = DateTime.Parse(dr[dcEndValue.FieldName].ToString());
+
+            byte[] startDate = new byte[] {(byte)dtStartTime.Day, (byte)dtStartTime.Month,0,0 };
+            byte[] endDate = new byte[] {(byte)dtEndTime.Day, (byte)dtEndTime.Month,0,0 };
+            triggerData.Size1 = ConvertTools.Bytes4ToInt(startDate);
+            triggerData.Size2 = ConvertTools.Bytes4ToInt(endDate);
+
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
+            string nowDateStr = DateTime.Now.ToShortDateString();
+
+            byte[] dtStartTime = ConvertTools.GetByteFromInt32(td.Size1);
+            byte[] dtEndTime = ConvertTools.GetByteFromInt32(td.Size2);
+
+            DateTime dtStartValue = DateTime.Parse(dtStartTime[1].ToString() + "-" + dtStartTime[0].ToString());
+            DateTime dtEndValue = DateTime.Parse(dtEndTime[1].ToString() + "-" + dtEndTime[0].ToString());
+
+            dr[dcStartValue.FieldName] = dtStartValue;  //---开始时间---
+            dr[dcEndValue.FieldName] = dtEndValue;      //----结束时间---
+            dr.EndEdit();
+            dr.AcceptChanges();
+        }
+    }
 
 
     /// <summary>
@@ -550,60 +637,88 @@ namespace ConfigDevice
     /// </summary>
     public class ViewLogicWeek : BaseViewLogicControl
     {
-      //  private DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit iccbWeek = new DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit();//周循环编辑
         private GridViewWeekEdit iccbWeek = new GridViewWeekEdit();
         public ViewLogicWeek(Device _device, GridView gv)
             : base(_device, gv)
-        {
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---等于---
-            //iccbWeek.AutoHeight = false;
-            //iccbWeek.ShowAllItemCaption = "全选";
-            
-            //this.iccbWeek.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
-            //new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期一"),
-            //new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期二"),
-            //new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期三"),
-            //new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期四"),
-            //new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期五"),
-            //new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期六"),
-            //new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期日")});
-            dcStartValue.ColumnEdit = iccbWeek;
-           
-        }
-
-        public override TriggerData GetLogicData()
-        {
-            return null;
-        }
-
-        public override void SetLogicData(TriggerData td)
-        {
-
-        }
+        {         
+            setGridColumnValid(dcTriggerPosition, cbxPosition);//-------设置触发位置有效---
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//----触发 运算符---            
+        } 
 
         public override void InitViewSetting()
         {
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, iccbWeek);//---开始值有效
-            setGridColumnInvalid(dcEndValue);//----结束值无效---
-            setGridColumnInvalid(dcValid);//---持续时间----
-            setGridColumnInvalid(dcInvalid);//----失效时间-----  
+            setGridColumnInvalid(dcEndValue);//---结束为无效---
+            setGridColumnInvalid(dcValid);//---取消有效持续---
+            setGridColumnInvalid(dcInvalid); //---取消无效持续---
 
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个级别选择----
-            gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---默认第一个运算选择----
-            gvLogic.SetRowCellValue(0,dcStartValue, "");//---默认空值----
+            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
+            gvLogic.SetRowCellValue(0, dcOperate, this.cbxOperate.Items[0].ToString());//---第一个触发运算---
+            gvLogic.SetRowCellValue(0, dcStartValue, "");//---第一个开始选择运算---
             
         }
+
+
+        /// <summary>
+        /// 获取逻辑数据
+        /// </summary>
+        /// <returns></returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_AND_TRUE;  //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
+            string weekValue = dr[dcStartValue.FieldName].ToString();//----选择的周结果---
+            byte value = 0;
+            if (weekValue != "")
+            {
+                string[] weeks = weekValue.Replace(" ","").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);             
+                foreach(string week in weeks)
+                {
+                    if (week == "一") value = (byte)(value | 1);
+                    else if (week == "二") value = (byte)(value | 2);
+                    else if (week == "三") value = (byte)(value | 4);
+                    else if (week == "四") value = (byte)(value | 8);
+                    else if (week == "五") value = (byte)(value | 16);
+                    else if (week == "六") value = (byte)(value | 32);
+                    else if (week == "日") value = (byte)(value | 64);
+                }
+            }
+            triggerData.Size1 =  (int)value;
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
+             
+            byte[] weekByteValue = ConvertTools.GetByteFromInt32(td.Size1);
+            byte byteWeeks = weekByteValue[0];
+            string weekValue = "";
+            if ((int)(byteWeeks & 1) == 1) weekValue += ", 一";
+            if ((int)(byteWeeks & 2) == 2) weekValue += ", 二";
+            if ((int)(byteWeeks & 4) == 4) weekValue += ", 三";
+            if ((int)(byteWeeks & 8) == 8) weekValue += ", 四";
+            if ((int)(byteWeeks & 16) == 16) weekValue += ", 五";
+            if ((int)(byteWeeks & 32) == 32) weekValue += ", 六";
+            if ((int)(byteWeeks & 64) == 64) weekValue += ", 日";
+            if (weekValue != "")
+            {
+                weekValue = weekValue.Substring(1);
+                dr[dcStartValue.FieldName] = weekValue.Trim();
+            }
+
+            dr.EndEdit();
+            dr.AcceptChanges();
+        }
     }
-
-
-  
-
-
-   
-
-
 
     
     /// <summary>
@@ -728,123 +843,6 @@ namespace ConfigDevice
     }
 
 
-
-    /// <summary>
-    /// 亮度
-    /// </summary>
-    public class ViewLogicLuminance : BaseViewLogicControl
-    {
-        GridViewDigitalEdit luminanceEdit = new GridViewDigitalEdit();//--亮度编辑控件---
-        GridViewComboBox cbxOperateLevel = new GridViewComboBox();//---级别运算--
-        GridViewComboBox cbxHumidityLevelEdit = new GridViewComboBox();//---湿度级别编辑控件---
-        public ViewLogicLuminance(Device _device, GridView gv)
-            : base(_device, gv)
-        { 
-            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//---加上级别---
-            cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
-
-            //-------触发运算选择------
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_LESS_THAN);
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_GREATER_THAN);
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
-            cbxOperate.SelectedIndexChanged += new System.EventHandler(this.cbxOperate_SelectedIndexChanged);
-            //-------级别运算选择------
-            cbxOperateLevel.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
-
-            //-------初始化温度编辑控件------
-            luminanceEdit.MinValue = 0;
-            luminanceEdit.MaxValue = 25000;
-
-            //-------初始化级别编辑控件------
-            cbxHumidityLevelEdit.Items.Add("黑夜");
-            cbxHumidityLevelEdit.Items.Add("昏暗");
-            cbxHumidityLevelEdit.Items.Add("明亮");
-            cbxHumidityLevelEdit.Items.Add("白天");
-            cbxHumidityLevelEdit.Items.Add("日照");
-
-        }
-
-
-        public override TriggerData GetLogicData()
-        {
-            return null;
-        }
-
-        public override void SetLogicData(TriggerData td)
-        {
-
-        }
-
-        /// <summary>
-        /// 设置初始值
-        /// </summary>
-        public override void InitViewSetting()
-        {
-            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
-            setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
-            setGridColumnValid(dcStartValue, luminanceEdit);//---开始值有效
-            setGridColumnInvalid(dcEndValue);//----结束值无效--- 
-            setGridColumnValid(dcValid, new GridViewTimeEdit());//---持续时间----
-            setGridColumnValid(dcInvalid, new GridViewTimeEdit());//失效时间----- 
-
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-            gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
-
-            gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
-            gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
-        }
-
-        /// <summary>
-        /// 触发类型选择
-        /// </summary> 
-        private void cbxKind_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string kindName = (string)cbxKind.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            gvLogic.PostEditor();
-            DataRow dr = gvLogic.GetDataRow(0);
-            dr[ViewConfig.DC_KIND] = kindName;
-            dr.EndEdit();
-            if (kindName == SensorConfig.SENSOR_VALUE_KIND_VALUE)
-            {
-                setGridColumnValid(dcOperate, cbxOperate);
-                setGridColumnValid(dcStartValue, luminanceEdit);
-                setGridColumnValid(dcEndValue, luminanceEdit);
-
-                gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-                gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
-                gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
-            }
-            else if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
-            {
-                setGridColumnValid(dcOperate, cbxOperateLevel);
-                setGridColumnValid(dcStartValue, cbxHumidityLevelEdit);
-                setGridColumnInvalid(dcEndValue);
-
-                gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-                gvLogic.SetRowCellValue(0, dcStartValue, cbxHumidityLevelEdit.Items[0].ToString());//---开始值---         
-            }
-        }
-
-        /// <summary>
-        /// 运算符触发
-        /// </summary> 
-        private void cbxOperate_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string operateName = (string)cbxOperate.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            if (operateName == SensorConfig.LG_MATH_NAME_EQUAL_TO || operateName == SensorConfig.LG_MATH_NAME_LESS_THAN ||
-                operateName == SensorConfig.LG_MATH_NAME_GREATER_THAN)
-                setGridColumnInvalid(dcEndValue);//---设置结束值无效----
-            else
-            {
-                setGridColumnValid(dcEndValue, luminanceEdit);//----设置结束值有效----
-                gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
-                gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
-            }
-        }
-    }
 
 
 

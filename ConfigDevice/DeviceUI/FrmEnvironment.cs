@@ -51,9 +51,11 @@ namespace ConfigDevice
             sptLightSeconds.Enter += SysConfig.Edit_Enter;
             sptLightSeconds.Leave += SysConfig.Edit_Leave;
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_OFF);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_ON);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_GLINT);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_NONE); 
+            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_GREEN_ON);
+            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_ORANGE_ON);
+            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_ON); 
+            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_GLINT); 
+
             //----------回路查询选择------
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, "回路", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_NAME, 380));
@@ -103,9 +105,9 @@ namespace ConfigDevice
         private void loadData()
         {
             environment.SearchVer();          //---获取版本号-----   
-            environment.ProbeCircuit.ReadRoadTitle();//----读取回路---- 
+            environment.Circuit.ReadRoadTitle();//----读取回路---- 
             environment.ReadState();          //---读取状态----            
-            environment.FGP_Light.ReadParameter();//---读取参数----
+            environment.PointLight.ReadParameter();//---读取参数----
            
         }
 
@@ -126,10 +128,10 @@ namespace ConfigDevice
                 {
                     viewCommandSetting.CbxCommandGroup.Items.Clear();
                     dtIDName.Rows.Clear();
-                    foreach (int key in environment.ProbeCircuit.ListCircuitIDAndName.Keys)
+                    foreach (int key in environment.Circuit.ListCircuitIDAndName.Keys)
                     {
-                        viewCommandSetting.CommmandGroups.Add(environment.ProbeCircuit.ListCircuitIDAndName[key]);//----指令组选择----
-                        dtIDName.Rows.Add(new object[] { key, environment.ProbeCircuit.ListCircuitIDAndName[key] });//初始化逻辑项 
+                        viewCommandSetting.CommmandGroups.Add(environment.Circuit.ListCircuitIDAndName[key]);//----指令组选择----
+                        dtIDName.Rows.Add(new object[] { key, environment.Circuit.ListCircuitIDAndName[key] });//初始化逻辑项 
                     }
                     lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
                     viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
@@ -152,13 +154,13 @@ namespace ConfigDevice
                     gcEnvironment.DataSource = dtSensorState;
                     gvEnvironment.RefreshData();
                     //-----逻辑附加动作------- 
-                    this.cbxLight.SelectedIndex = environment.FGP_Light.LedAct;
-                    this.sptLightSeconds.Text = environment.FGP_Light.LedTim.ToString(); 
+                    this.cbxLight.SelectedIndex = environment.PointLight.LedAct;
+                    this.sptLightSeconds.Text = environment.PointLight.LedTim.ToString(); 
                 }
                 //-----读取指示灯参数----------
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Light.CLASS_NAME)
                 {
-                    cedtOpenHealthLight.Checked = environment.FGP_Light.OpenHealthLight;
+                    cedtOpenHealthLight.Checked = environment.PointLight.OpenHealthLight;
                 }
             }
         }
@@ -188,9 +190,9 @@ namespace ConfigDevice
         /// </summary> 
         private void btSave_Click(object sender, EventArgs e)
         {
-            if (environment.FGP_Light.OpenHealthLight != cedtOpenHealthLight.Checked)
+            if (environment.PointLight.OpenHealthLight != cedtOpenHealthLight.Checked)
             {
-                environment.FGP_Light.WriteParameter(new LightParameter(cedtOpenHealthLight.Checked));
+                environment.PointLight.WriteParameter(new LightParameter(cedtOpenHealthLight.Checked));
             }
         }
 
@@ -204,9 +206,10 @@ namespace ConfigDevice
                 if (viewLogicSetting.NeedInit)
                 {
                     viewLogicSetting.InitLogicList( environment,
-                        SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_AQI,
+                        SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY,SensorConfig.SENSOR_LUMINANCE, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_AQI,
                         SensorConfig.SENSOR_TVOC, SensorConfig.SENSOR_CO2, SensorConfig.SENSOR_CH20, SensorConfig.SENSOR_PM25,SensorConfig.SENSOR_O2,
-                        SensorConfig.SENSOR_TIME,SensorConfig.SENSOR_DATE,SensorConfig.SENSOR_WEEK,SensorConfig.SENSOR_SYSTEM_INTERACTION,SensorConfig.SENSOR_INNER_INTERACTION                          );
+                        SensorConfig.SENSOR_TIME,SensorConfig.SENSOR_DATE,SensorConfig.SENSOR_WEEK,SensorConfig.SENSOR_SYSTEM_INTERACTION,SensorConfig.SENSOR_INNER_INTERACTION, 
+                        SensorConfig.SENSOR_INVALID);
                     lookUpEdit.ItemIndex = 0;
                 }
                 if (viewCommandSetting.NeedInit)
@@ -224,14 +227,13 @@ namespace ConfigDevice
         {
             //-----保存附加动作----
             if (hasChangedAdditionLogic() || isQuickSetting)
-            {
-    
-                environment.FGP_Light.LedAct = (byte)cbxLight.SelectedIndex;
-                environment.FGP_Light.LedTim = (ushort)this.sptLightSeconds.Value; 
+            {    
+                environment.PointLight.LedAct = (byte)cbxLight.SelectedIndex;
+                environment.PointLight.LedTim = (ushort)this.sptLightSeconds.Value; 
                 environment.SaveAdditionLogic(lookUpEdit.ItemIndex);//---保存附加动作---
             }
             if (currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----
-                environment.ProbeCircuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
+                environment.Circuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
 
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
             viewLogicSetting.IsSystemSetting = false;//---恢复标志位---
@@ -244,8 +246,8 @@ namespace ConfigDevice
         /// <returns></returns>
         private bool hasChangedAdditionLogic()
         { 
-            if (environment.FGP_Light.LedAct != cbxLight.SelectedIndex) return true;
-            if (environment.FGP_Light.LedTim != (ushort)this.sptLightSeconds.Value) return true; 
+            if (environment.PointLight.LedAct != cbxLight.SelectedIndex) return true;
+            if (environment.PointLight.LedTim != (ushort)this.sptLightSeconds.Value) return true; 
 
             return false;
         }
@@ -290,7 +292,6 @@ namespace ConfigDevice
         {
             environment.RemoveRJ45Callback();//----清空回调-----
         }
- 
 
 
         /// <summary>
@@ -300,8 +301,8 @@ namespace ConfigDevice
         private byte[] getAdditionValue()
         {
             //-----保存附加动作----    
-            environment.FGP_Light.LedAct = (byte)cbxLight.SelectedIndex;
-            environment.FGP_Light.LedTim = (ushort)this.sptLightSeconds.Value; 
+            environment.PointLight.LedAct = (byte)cbxLight.SelectedIndex;
+            environment.PointLight.LedTim = (ushort)this.sptLightSeconds.Value; 
             return environment.GetAdditionValue();
         }
 
@@ -388,6 +389,14 @@ namespace ConfigDevice
             environment = _environment;
             this.Text = _environment.Name;
             loadData();
+        }
+
+        private void cbxLight_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxLight.Text == Light.STATE_LEDACT_OFF || cbxLight.Text == Light.STATE_LEDACT_NONE)
+                sptLightSeconds.Enabled = false;
+            else
+                sptLightSeconds.Enabled = true;
         }
 
 
