@@ -8,16 +8,16 @@ using System.Drawing;
 namespace ConfigDevice
 {
     /// <summary>
-    /// 温度
+    /// 湿度
     /// </summary>
-    public class ViewLogicTemperature : BaseViewLogicControl
+    public class ViewLogicHumidity : BaseViewLogicControl
     {
-        GridViewDigitalEdit temperatureEdit = new GridViewDigitalEdit();//--温度编辑控件---
+        GridViewPercentEdit humidityEdit = new GridViewPercentEdit();//--湿度编辑控件---
         GridViewComboBox cbxOperateLevel = new GridViewComboBox();//---操作运算--
-        GridViewComboBox cbxTemperatureLevelEdit = new GridViewComboBox();//---温度级别编辑控件--- 
+        GridViewComboBox cbxHumidityLevelEdit = new GridViewComboBox();//---湿度级别编辑控件--- 
         GridViewGridLookupEdit gridLookupDevice1;//---查找设备列表---
         DataTable dtSelectDevices1;//---选择的设备列表---
-        public ViewLogicTemperature(Device _device, GridView gv)
+        public ViewLogicHumidity(Device _device, GridView gv)
             : base(_device, gv)
         {
             setGridColumnValid(dcTriggerPosition, cbxPosition);                                 //-------设置触发位置有效---
@@ -39,18 +39,10 @@ namespace ConfigDevice
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
             cbxOperate.SelectedIndexChanged += new System.EventHandler(this.cbxOperate_SelectedIndexChanged);
             //-------级别运算选择------
-            cbxOperateLevel.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
-            //-------初始化温度编辑控件------
-            temperatureEdit.DisplayFormat.FormatString = "#0 ℃";
-            temperatureEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            temperatureEdit.Mask.EditMask = "#0 ℃";
-            temperatureEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            temperatureEdit.Mask.UseMaskAsDisplayFormat = true;
-            temperatureEdit.MaxValue = 60;
-            temperatureEdit.MinValue = -20;
+            cbxOperateLevel.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO); 
             //-------初始化级别编辑控件------
-            foreach (string value in  TemperatureSensor.LEVEL_ID_NAME.Values)
-                cbxTemperatureLevelEdit.Items.Add(value);
+            foreach (string value in HumiditySensor.LEVEL_ID_NAME.Values)
+                cbxHumidityLevelEdit.Items.Add(value);
 
         }
 
@@ -62,7 +54,7 @@ namespace ConfigDevice
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnInvalid(dcDifferentDevice);//---默认差值无效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
-            setGridColumnValid(dcStartValue, temperatureEdit);//---开始值有效
+            setGridColumnValid(dcStartValue, humidityEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效--- 
             setGridColumnValid(dcValid, ValidTimeEdit);//---持续时间----
             setGridColumnValid(dcInvalid, InvalidTimeEdit);//失效时间----- 
@@ -137,8 +129,8 @@ namespace ConfigDevice
             if (kindName == SensorConfig.SENSOR_VALUE_KIND_VALUE)
             {
                 setGridColumnValid(dcOperate, cbxOperate);
-                setGridColumnValid(dcStartValue, temperatureEdit);
-                setGridColumnValid(dcEndValue, temperatureEdit);
+                setGridColumnValid(dcStartValue, humidityEdit);
+                setGridColumnValid(dcEndValue, humidityEdit);
 
                 gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
                 gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
@@ -146,11 +138,11 @@ namespace ConfigDevice
             }
             else if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
             {
-                setGridColumnValid(dcStartValue, cbxTemperatureLevelEdit);
+                setGridColumnValid(dcStartValue, cbxHumidityLevelEdit);
                 setGridColumnInvalid(dcEndValue);
 
                 gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-                gvLogic.SetRowCellValue(0, dcStartValue, cbxTemperatureLevelEdit.Items[0].ToString());//---开始值---         
+                gvLogic.SetRowCellValue(0, dcStartValue, cbxHumidityLevelEdit.Items[0].ToString());//---开始值---         
             }
             operateChanged();
         }
@@ -176,12 +168,12 @@ namespace ConfigDevice
                 string kindName = dr[ViewConfig.DC_KIND].ToString();
                 if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
                 {
-                    setGridColumnValid(dcEndValue, cbxTemperatureLevelEdit);
-                    gvLogic.SetRowCellValue(0, dcEndValue, cbxTemperatureLevelEdit.Items[0].ToString());//---开始值---     
+                    setGridColumnValid(dcEndValue, cbxHumidityLevelEdit);
+                    gvLogic.SetRowCellValue(0, dcEndValue, cbxHumidityLevelEdit.Items[0].ToString());//---开始值---     
                 }
                 else
                 {
-                    setGridColumnValid(dcEndValue, temperatureEdit);//----设置结束值有效----
+                    setGridColumnValid(dcEndValue, humidityEdit);//----设置结束值有效----
                     gvLogic.SetRowCellValue(0, dcEndValue, 0);      //---结束值---
                 }
 
@@ -210,9 +202,9 @@ namespace ConfigDevice
             }
             if (triggerData.TriggerKindID == SensorConfig.LG_SENSOR_LVL_FLAG)//---为级别--- 
             {
-                triggerData.Size1 = TemperatureSensor.LEVEL_NAME_ID[dr[dcStartValue.FieldName].ToString()];
+                triggerData.Size1 =  HumiditySensor.LEVEL_NAME_ID[dr[dcStartValue.FieldName].ToString()];
                 if (dcEndValue.OptionsColumn.AllowEdit)
-                    triggerData.Size2 = TemperatureSensor.LEVEL_NAME_ID[dr[dcEndValue.FieldName].ToString()];
+                    triggerData.Size2 = HumiditySensor.LEVEL_NAME_ID[dr[dcEndValue.FieldName].ToString()];
             }
             else
             {
@@ -278,10 +270,10 @@ namespace ConfigDevice
             operateChanged();//---执行运算触发---
             if (td.TriggerKindID == SensorConfig.LG_SENSOR_LVL_FLAG)//---为级别类型---
             {
-                dcStartValue.ColumnEdit = cbxTemperatureLevelEdit;
-                dr[dcStartValue.FieldName] = TemperatureSensor.LEVEL_ID_NAME[td.Size1];
+                dcStartValue.ColumnEdit = cbxHumidityLevelEdit;
+                dr[dcStartValue.FieldName] = HumiditySensor.LEVEL_ID_NAME[td.Size1];
                 if (dcEndValue.OptionsColumn.AllowEdit)
-                    dr[dcEndValue.FieldName] = TemperatureSensor.LEVEL_ID_NAME[td.Size2];
+                    dr[dcEndValue.FieldName] = HumiditySensor.LEVEL_ID_NAME[td.Size2];
             }
             else
             {

@@ -81,6 +81,10 @@ namespace ConfigDevice
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_INVALID, SensorConfig.LG_SENSOR_VOID);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_TEMPERATURE, SensorConfig.LG_SENSOR_TEMP);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_HUMIDITY, SensorConfig.LG_SENSOR_HUMI);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_AQI, SensorConfig.LG_SENSOR_AQI);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_TVOC, SensorConfig.LG_SENSOR_TVOC);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_CO2, SensorConfig.LG_SENSOR_CO2);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_PM25, SensorConfig.LG_SENSOR_PM25);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_RAIN_SENSOR, SensorConfig.LG_SENSOR_RAIN);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_WINDY, SensorConfig.LG_SENSOR_WIND);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_LUMINANCE, SensorConfig.LG_SENSOR_LUMI);

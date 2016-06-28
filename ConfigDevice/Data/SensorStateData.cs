@@ -426,7 +426,6 @@ namespace ConfigDevice
             KindName = "二氧化碳传感器";
             Unit = "ppm";
 
-
             foreach (int key in LEVEL_ID_NAME.Keys)
                 LevelIDName.Add(key, LEVEL_ID_NAME[key]);
             foreach (string key in LEVEL_NAME_ID.Keys)
@@ -552,17 +551,12 @@ namespace ConfigDevice
         {
             KindName = "氧气传感器";
             Unit = "%";
-
-
             foreach (int key in LEVEL_ID_NAME.Keys)
                 LevelIDName.Add(key, LEVEL_ID_NAME[key]);
             foreach (string key in LEVEL_NAME_ID.Keys)
                 LevelNameID.Add(key, LEVEL_NAME_ID[key]);
         }
     } 
-
-
-
 
     /// <summary>
     /// 无效的传感器

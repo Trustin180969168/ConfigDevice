@@ -119,6 +119,7 @@
             this.pagePzjm,
             this.pageLogic});
             this.tctrlEdit.Text = "xtraTabControl1";
+            this.tctrlEdit.SelectedPageChanged += new DevExpress.XtraTab.TabPageChangedEventHandler(this.tctrlEdit_SelectedPageChanged);
             // 
             // pagePzjm
             // 

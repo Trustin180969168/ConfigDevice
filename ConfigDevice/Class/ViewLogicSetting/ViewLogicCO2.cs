@@ -8,16 +8,16 @@ using System.Drawing;
 namespace ConfigDevice
 {
     /// <summary>
-    /// 温度
+    /// 二氧化碳
     /// </summary>
-    public class ViewLogicTemperature : BaseViewLogicControl
+    public class ViewLogicCO2 : BaseViewLogicControl
     {
-        GridViewDigitalEdit temperatureEdit = new GridViewDigitalEdit();//--温度编辑控件---
+        GridViewDigitalEdit co2Edit = new GridViewDigitalEdit();//--CO2编辑控件---
         GridViewComboBox cbxOperateLevel = new GridViewComboBox();//---操作运算--
-        GridViewComboBox cbxTemperatureLevelEdit = new GridViewComboBox();//---温度级别编辑控件--- 
+        GridViewComboBox cbxCO2LevelEdit = new GridViewComboBox();//---CO2级别编辑控件--- 
         GridViewGridLookupEdit gridLookupDevice1;//---查找设备列表---
         DataTable dtSelectDevices1;//---选择的设备列表---
-        public ViewLogicTemperature(Device _device, GridView gv)
+        public ViewLogicCO2(Device _device, GridView gv)
             : base(_device, gv)
         {
             setGridColumnValid(dcTriggerPosition, cbxPosition);                                 //-------设置触发位置有效---
@@ -40,17 +40,17 @@ namespace ConfigDevice
             cbxOperate.SelectedIndexChanged += new System.EventHandler(this.cbxOperate_SelectedIndexChanged);
             //-------级别运算选择------
             cbxOperateLevel.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
-            //-------初始化温度编辑控件------
-            temperatureEdit.DisplayFormat.FormatString = "#0 ℃";
-            temperatureEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            temperatureEdit.Mask.EditMask = "#0 ℃";
-            temperatureEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            temperatureEdit.Mask.UseMaskAsDisplayFormat = true;
-            temperatureEdit.MaxValue = 60;
-            temperatureEdit.MinValue = -20;
+            //-------初始化CO2编辑控件------
+            co2Edit.DisplayFormat.FormatString = "#0 ppm";
+            co2Edit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            co2Edit.Mask.EditMask = "#0 ppm";
+            co2Edit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            co2Edit.Mask.UseMaskAsDisplayFormat = true;
+            co2Edit.MaxValue = 1000;
+            co2Edit.MinValue = -1000;
             //-------初始化级别编辑控件------
-            foreach (string value in  TemperatureSensor.LEVEL_ID_NAME.Values)
-                cbxTemperatureLevelEdit.Items.Add(value);
+            foreach (string value in CO2Sensor.LEVEL_ID_NAME.Values)
+                cbxCO2LevelEdit.Items.Add(value);
 
         }
 
@@ -62,7 +62,7 @@ namespace ConfigDevice
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnInvalid(dcDifferentDevice);//---默认差值无效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
-            setGridColumnValid(dcStartValue, temperatureEdit);//---开始值有效
+            setGridColumnValid(dcStartValue, co2Edit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效--- 
             setGridColumnValid(dcValid, ValidTimeEdit);//---持续时间----
             setGridColumnValid(dcInvalid, InvalidTimeEdit);//失效时间----- 
@@ -137,8 +137,8 @@ namespace ConfigDevice
             if (kindName == SensorConfig.SENSOR_VALUE_KIND_VALUE)
             {
                 setGridColumnValid(dcOperate, cbxOperate);
-                setGridColumnValid(dcStartValue, temperatureEdit);
-                setGridColumnValid(dcEndValue, temperatureEdit);
+                setGridColumnValid(dcStartValue, co2Edit);
+                setGridColumnValid(dcEndValue, co2Edit);
 
                 gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
                 gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
@@ -146,11 +146,11 @@ namespace ConfigDevice
             }
             else if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
             {
-                setGridColumnValid(dcStartValue, cbxTemperatureLevelEdit);
+                setGridColumnValid(dcStartValue, cbxCO2LevelEdit);
                 setGridColumnInvalid(dcEndValue);
 
                 gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-                gvLogic.SetRowCellValue(0, dcStartValue, cbxTemperatureLevelEdit.Items[0].ToString());//---开始值---         
+                gvLogic.SetRowCellValue(0, dcStartValue, cbxCO2LevelEdit.Items[0].ToString());//---开始值---         
             }
             operateChanged();
         }
@@ -176,12 +176,12 @@ namespace ConfigDevice
                 string kindName = dr[ViewConfig.DC_KIND].ToString();
                 if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
                 {
-                    setGridColumnValid(dcEndValue, cbxTemperatureLevelEdit);
-                    gvLogic.SetRowCellValue(0, dcEndValue, cbxTemperatureLevelEdit.Items[0].ToString());//---开始值---     
+                    setGridColumnValid(dcEndValue, cbxCO2LevelEdit);
+                    gvLogic.SetRowCellValue(0, dcEndValue, cbxCO2LevelEdit.Items[0].ToString());//---开始值---     
                 }
                 else
                 {
-                    setGridColumnValid(dcEndValue, temperatureEdit);//----设置结束值有效----
+                    setGridColumnValid(dcEndValue, co2Edit);//----设置结束值有效----
                     gvLogic.SetRowCellValue(0, dcEndValue, 0);      //---结束值---
                 }
 
@@ -210,9 +210,9 @@ namespace ConfigDevice
             }
             if (triggerData.TriggerKindID == SensorConfig.LG_SENSOR_LVL_FLAG)//---为级别--- 
             {
-                triggerData.Size1 = TemperatureSensor.LEVEL_NAME_ID[dr[dcStartValue.FieldName].ToString()];
+                triggerData.Size1 = CO2Sensor.LEVEL_NAME_ID[dr[dcStartValue.FieldName].ToString()];
                 if (dcEndValue.OptionsColumn.AllowEdit)
-                    triggerData.Size2 = TemperatureSensor.LEVEL_NAME_ID[dr[dcEndValue.FieldName].ToString()];
+                    triggerData.Size2 = CO2Sensor.LEVEL_NAME_ID[dr[dcEndValue.FieldName].ToString()];
             }
             else
             {
@@ -278,10 +278,10 @@ namespace ConfigDevice
             operateChanged();//---执行运算触发---
             if (td.TriggerKindID == SensorConfig.LG_SENSOR_LVL_FLAG)//---为级别类型---
             {
-                dcStartValue.ColumnEdit = cbxTemperatureLevelEdit;
-                dr[dcStartValue.FieldName] = TemperatureSensor.LEVEL_ID_NAME[td.Size1];
+                dcStartValue.ColumnEdit = cbxCO2LevelEdit;
+                dr[dcStartValue.FieldName] = CO2Sensor.LEVEL_ID_NAME[td.Size1];
                 if (dcEndValue.OptionsColumn.AllowEdit)
-                    dr[dcEndValue.FieldName] = TemperatureSensor.LEVEL_ID_NAME[td.Size2];
+                    dr[dcEndValue.FieldName] = CO2Sensor.LEVEL_ID_NAME[td.Size2];
             }
             else
             {

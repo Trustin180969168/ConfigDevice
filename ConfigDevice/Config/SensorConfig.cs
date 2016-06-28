@@ -50,6 +50,10 @@ namespace ConfigDevice
         public const string SENSOR_INVALID = "无效";
         public const string SENSOR_TEMPERATURE = "温度";
         public const string SENSOR_HUMIDITY = "湿度";
+        public const string SENSOR_AQI = "空气质量";
+        public const string SENSOR_TVOC = "TVOC有害气体";
+        public const string SENSOR_CO2 = "二氧化碳";
+        public const string SENSOR_PM25 = "PM2.5";
         public const string SENSOR_RAIN_SENSOR = "雨感";
         public const string SENSOR_WINDY = "风速";
         public const string SENSOR_LUMINANCE = "亮度";

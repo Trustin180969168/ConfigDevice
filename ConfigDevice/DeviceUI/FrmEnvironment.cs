@@ -203,11 +203,10 @@ namespace ConfigDevice
             {
                 if (viewLogicSetting.NeedInit)
                 {
-                    viewLogicSetting.InitLogicList(environment, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE,
-                        SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.SENSOR_SYSTEM_INTERACTION
-                        //------以下是界面测试,非本设备的触发对象选择-----
-                        //, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_RADAR, SensorConfig.SENSOR_SWIT_TAMPER,
-                        //SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_WINDY
+                    viewLogicSetting.InitLogicList( environment,
+                        SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_AQI, 
+                        SensorConfig.SENSOR_TVOC,SensorConfig.SENSOR_CO2,SensorConfig.SENSOR_PM25
+ 
                           );
                     lookUpEdit.ItemIndex = 0;
                 }

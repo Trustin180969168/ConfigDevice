@@ -55,6 +55,14 @@ namespace ConfigDevice
                 return new ViewLogicFlamableGasProbe(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_TEMP)
                 return new ViewLogicTemperature(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_AQI)
+                return new ViewLogicAQI(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_TVOC)
+                return new ViewLogicTVOC(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_CO2)
+                return new ViewLogicCO2(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_PM25)
+                return new ViewLogicPM25(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_TEMP_FC)
                 return new ViewLogicFireControlTemperature(device, gv);
             else if (TriggerID == SensorConfig.LG_EXT_SENSOR_SYS_LKID)
