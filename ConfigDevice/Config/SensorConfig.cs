@@ -53,14 +53,17 @@ namespace ConfigDevice
         public const string SENSOR_AQI = "空气质量";
         public const string SENSOR_TVOC = "TVOC有害气体";
         public const string SENSOR_CO2 = "二氧化碳";
+        public const string SENSOR_CH20 = "甲醛";
         public const string SENSOR_PM25 = "PM2.5";
+        public const string SENSOR_O2 = "氧气浓度";
         public const string SENSOR_RAIN_SENSOR = "雨感";
         public const string SENSOR_WINDY = "风速";
         public const string SENSOR_LUMINANCE = "亮度";
         public const string SENSOR_FLAMMABLE_GAS_PROBE = "可燃气体探头";
         public const string SENSOR_RADAR = "雷达";
         public const string SENSOR_SWIT_TAMPER = "防拆开关";
-        public const string SENSOR_SYSTEM_INTERACTION = "系统联动号";
+        public const string SENSOR_SYSTEM_INTERACTION = "系统联动";
+        public const string SENSOR_INNER_INTERACTION = "内部联动";
         public const string SENSOR_SECURITY_INTERACTION = "安防联动";
 
         public const string SENSOR_TIME = "时间段";

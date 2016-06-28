@@ -57,6 +57,9 @@ namespace ConfigDevice
             //---触发对象---
             cbxLogicObj = new GridViewComboBox();
             dcObject.ColumnEdit = cbxLogicObj;
+            cbxLogicObj.DropDownRows = 16;
+            cbxLogicObj.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            cbxLogicObj.AppearanceDropDown.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             cbxLogicObj.SelectedIndexChanged += new EventHandler(cbxLogicObj_SelectedIndexChanged);
 
             DataLogicSetting.Rows.Add();

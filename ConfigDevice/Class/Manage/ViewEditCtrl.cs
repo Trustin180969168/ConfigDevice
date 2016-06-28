@@ -61,12 +61,18 @@ namespace ConfigDevice
                 return new ViewLogicTVOC(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_CO2)
                 return new ViewLogicCO2(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_CH2O)
+                return new ViewLogicCH20(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_PM25)
                 return new ViewLogicPM25(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_O2)
+                return new ViewLogicO2(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_TEMP_FC)
                 return new ViewLogicFireControlTemperature(device, gv);
             else if (TriggerID == SensorConfig.LG_EXT_SENSOR_SYS_LKID)
                 return new ViewLogicSystemInteraction(device, gv);
+            else if (TriggerID == SensorConfig.LG_EXT_SENSOR_SLF_LKID)
+                return new ViewLogicInnerInteraction(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_HUMI)
                 return new ViewLogicHumidity(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_RSP)

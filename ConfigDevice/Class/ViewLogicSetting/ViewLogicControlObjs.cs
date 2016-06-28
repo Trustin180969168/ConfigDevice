@@ -865,9 +865,9 @@ namespace ConfigDevice
             cbxStart.Items.Add(LevelValues[0]);
             cbxStart.Items.Add(LevelValues[1]);
             //---初始化温度编辑控件------
-            edtNum.DisplayFormat.FormatString = "##0 号";
+            edtNum.DisplayFormat.FormatString = "#0 号";
             edtNum.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            edtNum.Mask.EditMask = "##0 号";
+            edtNum.Mask.EditMask = "#0 号";
             edtNum.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             edtNum.Mask.UseMaskAsDisplayFormat = true;
             edtNum.MinValue = 0;
@@ -917,6 +917,84 @@ namespace ConfigDevice
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行---
            //-----联动号操作----
+            dr[dcStartValue.FieldName] = LevelValues[td.Size1];
+            dr[dcEndValue.FieldName] = td.Size2;//联动号
+
+            dr.EndEdit();
+            dr.AcceptChanges();
+        }
+    }
+
+    /// <summary>
+    /// 内部联动
+    /// </summary>
+    public partial class ViewLogicInnerInteraction : BaseViewLogicControl
+    {
+
+        public string[] LevelValues = { SensorConfig.LG_SYSLKID_NAME_ACT_OFF, SensorConfig.LG_SYSLKID_NAME_ACT_ON };
+        private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值选择---
+        private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//----数字------
+        public ViewLogicInnerInteraction(Device _device, GridView gv)
+            : base(_device, gv)
+        {
+            setGridColumnValid(dcTriggerPosition, cbxPosition);//-------设置触发位置有效---
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//----触发 运算符---
+            //---开始为下拉----
+            cbxStart.Items.Add(LevelValues[0]);
+            cbxStart.Items.Add(LevelValues[1]);
+            //---初始化温度编辑控件------
+            edtNum.DisplayFormat.FormatString = "#0 号";
+            edtNum.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            edtNum.Mask.EditMask = "#0 号";
+            edtNum.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            edtNum.Mask.UseMaskAsDisplayFormat = true;
+            edtNum.MinValue = 0;
+            edtNum.MaxValue = (int)DeviceConfig.SpecicalID.ID_PKGNUM_PUBLIC - 1;
+        }
+
+
+        public override void InitViewSetting()
+        {
+            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
+            setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
+            setGridColumnValid(dcEndValue, edtNum);//---结束为数字编辑---
+            setGridColumnInvalid(dcValid);//---取消有效持续---
+            setGridColumnInvalid(dcInvalid); //---取消无效持续---
+
+            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
+            gvLogic.SetRowCellValue(0, dcOperate, this.cbxOperate.Items[0].ToString());//---第一个触发运算---
+            gvLogic.SetRowCellValue(0, dcStartValue, this.cbxStart.Items[0].ToString());//---第一个开始选择运算---
+            gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束范围为0---
+        }
+
+        /// <summary>
+        /// 获取逻辑数据
+        /// </summary>
+        /// <returns></returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_TO2;//系统联动号为5的比较符号值
+            //--------关闭/打开--------------
+            string size1Str = dr[dcStartValue.FieldName].ToString();
+            triggerData.Size1 = FindLevelIndex(LevelValues, size1Str);
+            triggerData.Size2 = Convert.ToInt16(dr[dcEndValue.FieldName]);
+            dr.AcceptChanges();//----再次修改才保存-----
+
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行---
+            //-----联动号操作----
             dr[dcStartValue.FieldName] = LevelValues[td.Size1];
             dr[dcEndValue.FieldName] = td.Size2;//联动号
 

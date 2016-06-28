@@ -383,6 +383,7 @@
     <Compile Include="Class\ViewLogicSetting\ViewLogicCO2.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicPM25.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicCH20.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicO2.cs" />
     <Compile Include="Data\SensorStateData.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
     <Compile Include="Class\Manage\ViewEditCtrl.cs" />

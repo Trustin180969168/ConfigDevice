@@ -85,13 +85,16 @@ namespace ConfigDevice
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_TVOC, SensorConfig.LG_SENSOR_TVOC);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_CO2, SensorConfig.LG_SENSOR_CO2);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_PM25, SensorConfig.LG_SENSOR_PM25);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_CH20, SensorConfig.LG_SENSOR_CH2O);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_O2, SensorConfig.LG_SENSOR_O2);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_RAIN_SENSOR, SensorConfig.LG_SENSOR_RAIN);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_WINDY, SensorConfig.LG_SENSOR_WIND);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_LUMINANCE, SensorConfig.LG_SENSOR_LUMI);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE, SensorConfig.LG_SENSOR_LEL);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_RADAR, SensorConfig.LG_SENSOR_RSP);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SWIT_TAMPER, SensorConfig.LG_SENSOR_TAMPER);
-            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.LG_EXT_SENSOR_SYS_LKID);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.LG_EXT_SENSOR_SYS_LKID);//系统联动
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_INNER_INTERACTION, SensorConfig.LG_EXT_SENSOR_SLF_LKID);//内部联动
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SECURITY_INTERACTION, SensorConfig.LG_EXT_SENSOR_SECURITY);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_TIME, SensorConfig.LG_EXT_SENSOR_TIME_SEG);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_DATE, SensorConfig.LG_EXT_SENSOR_DATE_SEG);
