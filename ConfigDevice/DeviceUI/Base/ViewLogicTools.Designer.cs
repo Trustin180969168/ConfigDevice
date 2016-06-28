@@ -82,13 +82,13 @@
             this.btGoUp,
             this.btGoDown});
             this.cmsLogic.Name = "cmsLogic";
-            this.cmsLogic.Size = new System.Drawing.Size(153, 70);
+            this.cmsLogic.Size = new System.Drawing.Size(95, 48);
             // 
             // btGoUp
             // 
             this.btGoUp.Image = global::ConfigDevice.Properties.Resources.up;
             this.btGoUp.Name = "btGoUp";
-            this.btGoUp.Size = new System.Drawing.Size(152, 22);
+            this.btGoUp.Size = new System.Drawing.Size(94, 22);
             this.btGoUp.Text = "向上";
             this.btGoUp.Click += new System.EventHandler(this.btGoUp_Click);
             // 
@@ -96,7 +96,7 @@
             // 
             this.btGoDown.Image = global::ConfigDevice.Properties.Resources.down;
             this.btGoDown.Name = "btGoDown";
-            this.btGoDown.Size = new System.Drawing.Size(152, 22);
+            this.btGoDown.Size = new System.Drawing.Size(94, 22);
             this.btGoDown.Text = "向下";
             this.btGoDown.Click += new System.EventHandler(this.btGoDown_Click);
             // 
@@ -125,6 +125,7 @@
             this.gvLogic.OptionsCustomization.AllowRowSizing = true;
             this.gvLogic.OptionsCustomization.AllowSort = false;
             this.gvLogic.OptionsSelection.EnableAppearanceFocusedRow = false;
+            this.gvLogic.OptionsView.AllowCellMerge = true;
             this.gvLogic.OptionsView.ColumnAutoWidth = false;
             this.gvLogic.OptionsView.ShowGroupPanel = false;
             this.gvLogic.OptionsView.ShowIndicator = false;

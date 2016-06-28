@@ -592,6 +592,7 @@ namespace ConfigDevice
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个级别选择----
             gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---默认第一个运算选择----
+            gvLogic.SetRowCellValue(0,dcStartValue, "");//---默认空值----
             
         }
     }
