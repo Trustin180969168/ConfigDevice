@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmNetworkEdit));
-            this.ipInputTextbox1 = new IpInputExt.Ctrls.IpInputTextbox();
+            this.ipInputTextbox1 = new ConfigDevice.IpInputTextbox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btSavePosition = new System.Windows.Forms.ToolStripButton();
             this.btFindOn = new System.Windows.Forms.ToolStripButton();
@@ -496,7 +496,7 @@
 
         #endregion
 
-        private IpInputExt.Ctrls.IpInputTextbox  ipInputTextbox1;
+        private ConfigDevice.IpInputTextbox  ipInputTextbox1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btSavePosition;
         private DevExpress.XtraEditors.TextEdit edtNetworkID;
