@@ -18,11 +18,15 @@ namespace ConfigDevice
         public BaseViewCommandControl ViewCommandControlObj;// ----视图控制----
         public DataTable DataCommandSetting;//---指令配置表-----
         public Device CurrentDevice;//当前设备
+        public DeviceData DeviceData;
         public SyncCommandSetting SyncCommandEdit;//---同步编辑----
         public GridControl GridCommandView { get { return this.gcCommands; } }
         private bool allowSync = true;//是否允许同步
         public event DeleteCommandData DelCommandData;//删除命令
         private GridViewGridLookupEdit gridLookupDevice;//设备下拉选择
+        public ChangePosition GoUp;//---向上移动---
+        public ChangePosition GoDown;//---向下移动----
+        public bool QuickSetting = false;//---通过快速配置设定,需要更新------
         /// <summary>
         /// 序号
         /// </summary>
@@ -143,9 +147,12 @@ namespace ConfigDevice
 
             //-------默认第一个控制对象,涉及多个值的变动,采取手动同步------
             allowSync = false;
-            DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
-            CurrentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
-            ViewCommandControlObj = ViewEditCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
+            if (cbxControlObj.Items.Count > 0)
+            {
+                DataCommandSetting.Rows[0][DeviceConfig.DC_CONTROL_OBJ] = cbxControlObj.Items[0].ToString();
+                CurrentControlObj = CurrentDevice.ContrlObjs[cbxControlObj.Items[0].ToString()];
+                ViewCommandControlObj = ViewEditCtrl.GetViewCommandControl(CurrentControlObj, gvCommands);
+            }
             refreshView();
             allowSync = true;
             SyncCommandSetting();
@@ -337,12 +344,16 @@ namespace ConfigDevice
         /// <param name="device">设备</param>
         /// <param name="data">命令</param>
         /// <returns></returns>
-        public void SetCommandData(UserUdpData userData)
+        public void SetCommandData(CommandData data)
         {            
             allowSync = false;
-
-            CommandData data = new CommandData(userData);
             DataRow dr = gvCommands.GetDataRow(0);
+            //----判断是否为空,非空则提示清除----
+            if (data == null && QuickSetting && dr[DeviceConfig.DC_KIND_NAME].ToString() != "")
+            { linkEdit_Click(null, null); return; }
+            else if(data == null)
+                return;
+          
             string deviceValue = data.TargetType.ToString() + "_" + data.TargetNet.ToString() + "_" + data.TargetId.ToString();
 
             DataTable dtSelect  = this.gridLookupDevice.DataSource as DataTable;
@@ -365,9 +376,8 @@ namespace ConfigDevice
             dr[DeviceConfig.DC_NETWORK_ID] = (int)data.TargetNet;//---网络ID---
             dr[DeviceConfig.DC_KIND_ID] = (int)data.TargetType;//---设备ID----
             dr[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[data.TargetType];//---设备类型----
- //           dr[DeviceConfig.DC_NAME] = this.getDeviceName(((int)data.TargetId).ToString(), ((int)data.TargetNet).ToString());//---名称-----
-            dr[DeviceConfig.DC_PC_ADDRESS] = (int)userData.Target[0];//-----PC地址---
-            dr[DeviceConfig.DC_NETWORK_IP] = userData.IP;//----IP地址----
+            dr[DeviceConfig.DC_PC_ADDRESS] = data.PCAddress;//-----PC地址---
+            dr[DeviceConfig.DC_NETWORK_IP] = data.NetworkIP;//----IP地址----
             dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;//----唯一设备值----
             dr.EndEdit();
             this.CurrentDevice = FactoryDevice.CreateDevice(data.TargetType).CreateDevice(new DeviceData(dr));//----获取当前设备对象---
@@ -472,8 +482,23 @@ namespace ConfigDevice
             //}
         }
 
- 
+        /// <summary>
+        /// 向上移动
+        /// </summary> 
+        private void btGoUp_Click(object sender, EventArgs e)
+        {
+        
+            GoUp(this.Num);
+        
+        }
+        /// <summary>
+        /// 向下移动
+        /// </summary> 
+        private void btGoDown_Click(object sender, EventArgs e)
+        {
+            GoDown(this.Num);
 
+        }
 
     }
 }

@@ -139,8 +139,10 @@ namespace ConfigDevice
             if (runTimeSeconds > 64800)
             { CommonTools.MessageShow("运行时间不能大于18小时!", 2, ""); return null; }
 
-            return background.GetCommandData(command, volume, sourceIndex, kindIndex, playNum, runTimeSeconds);
-
+            CommandData result = background.GetCommandData(command, volume, sourceIndex, kindIndex, playNum, runTimeSeconds);
+            result.NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
+            result.PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
+            return result;
         }
 
 

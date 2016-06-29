@@ -70,6 +70,7 @@ namespace ConfigDevice
             dcCloseDelay.Caption = "关延迟";
             dcCloseDelay.ColumnEdit = tedtTime;
 
+            ViewSetting.SetRowCellValue(0, dcCommand, OuterInteraction.NAME_CMD_LOGIC_WRITE_SYSLKID); 
             ViewSetting.SetRowCellValue(0, dcInteractiveNum, "0");
             ViewSetting.SetRowCellValue(0, dcRunTime, "00:00:00");
             ViewSetting.SetRowCellValue(0, dcOpenDelay, "00:00:00");
@@ -129,7 +130,10 @@ namespace ConfigDevice
             if (closeDelaySeconds > 64800)
             { CommonTools.MessageShow("关延迟不能大于18小时!", 2, ""); return null; }
 
-            return outer.GetCommandData(Command, actionIndex, interactionNum, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
+            CommandData result = outer.GetCommandData(Command, actionIndex, interactionNum, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
+            result.NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
+            result.PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
+            return result;
         }
 
 

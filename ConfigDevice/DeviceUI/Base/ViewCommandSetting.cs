@@ -108,7 +108,7 @@ namespace ConfigDevice
                 ViewCommandTools viewCommand = ctrl as ViewCommandTools;
                 if (viewCommand.Num - 1 == commandData.ucCmdNum)
                 {
-                    viewCommand.SetCommandData(userData);
+                    viewCommand.SetCommandData(commandData);
                     break;
                 }
             }
@@ -247,6 +247,8 @@ namespace ConfigDevice
             viewNew.Dock = DockStyle.Top;
             viewNew.SyncCommandEdit += this.SyncCommandSetting;
             viewNew.DelCommandData += this.DelCommandData;
+            viewNew.GoDown += this.ChangeDown;
+            viewNew.GoUp += this.ChangeUp;
             (viewNew as Control).BringToFront();
             return viewNew;
         }
@@ -366,14 +368,17 @@ namespace ConfigDevice
             foreach (Control view in xscCommands.Controls)
             {
                 ViewCommandTools commandView = view as ViewCommandTools;
-                if (!commandView.HasChanged) continue;
-                CommandData command = commandView.GetCommandData();
-                if (command == null) continue;
-                command.ucCmdType = 0;
-                command.ucCmdKey = cbxGroup.SelectedIndex;
-                command.ucCmdNum = commandView.Num - 1;
-                CommandEdit.SaveCommandData(command);
-                commandView.DataCommandSetting.AcceptChanges();
+                if (commandView.HasChanged || commandView.QuickSetting)
+                {
+                    CommandData command = commandView.GetCommandData();
+                    if (command == null) continue;
+                    command.ucCmdType = 0;
+                    command.ucCmdKey = cbxGroup.SelectedIndex;
+                    command.ucCmdNum = commandView.Num - 1;
+                    CommandEdit.SaveCommandData(command);
+                    commandView.QuickSetting = false;//---恢复快速配置初值------
+                    commandView.DataCommandSetting.AcceptChanges();
+                }
             }
         }
         
@@ -416,8 +421,70 @@ namespace ConfigDevice
             this.CommandEdit.TestCommands(cbxGroup.SelectedIndex);
         }
 
+        /// <summary>
+        /// 找出对应的命令对象
+        /// </summary>
+        /// <param name="commandNum">指令序号</param>
+        /// <returns></returns>
+        private ViewCommandTools findViewCommandTools(int commandNum)
+        {
+            foreach (Control view in xscCommands.Controls)
+            {
+                ViewCommandTools commandView = view as ViewCommandTools;
+                if (commandView.Num == commandNum)
+                    return commandView;
+            }
+            return null;
+        }
 
+        /// <summary>
+        /// 向上更换触发
+        /// </summary>
+        /// <param name="triggerNum">命令ID</param>
+        public void ChangeUp(int commandNum)
+        {
+            if (commandNum <= edtBeginNum.Value) return;
+            int changeNum = commandNum - 1;
 
+            ViewCommandTools sourViewCommandTools = findViewCommandTools(commandNum);
+            ViewCommandTools desViewCommandTools = findViewCommandTools(changeNum);
+            if (sourViewCommandTools == null || desViewCommandTools == null) return;
+
+            desViewCommandTools.QuickSetting = true;
+            sourViewCommandTools.QuickSetting = true;
+
+            CommandData sourCommandData = sourViewCommandTools.GetCommandData();
+            CommandData desCommandData = desViewCommandTools.GetCommandData();
+            desViewCommandTools.SetCommandData(sourCommandData);
+            sourViewCommandTools.SetCommandData(desCommandData);
+
+    
+        }
+
+        /// <summary>
+        /// 向下更换触发
+        /// </summary>
+        /// <param name="triggerNum">命令ID</param>
+        public void ChangeDown(int commandNum)
+        {
+            if (commandNum >= edtEndNum.Value) return;
+            int changeNum = commandNum + 1;
+
+            ViewCommandTools sourViewCommandTools = findViewCommandTools(commandNum);
+            ViewCommandTools desViewCommandTools = findViewCommandTools(changeNum);
+            if (sourViewCommandTools == null || desViewCommandTools == null) return;
+
+            desViewCommandTools.QuickSetting = true;
+            sourViewCommandTools.QuickSetting = true;
+
+            CommandData sourCommandData = sourViewCommandTools.GetCommandData();
+            CommandData desCommandData = desViewCommandTools.GetCommandData();
+            desViewCommandTools.SetCommandData(sourCommandData);
+            sourViewCommandTools.SetCommandData(desCommandData);
+
+ 
+
+        }
 
 
 

@@ -62,7 +62,10 @@ namespace ConfigDevice
             ViewSetting.PostEditor();
             DataRow dr = ViewSetting.GetDataRow(0);
             byte[]  Command = ServerControlObj.NameAndCommand[dr[dcCommand.FieldName].ToString()];//-----命令-----------------     
-            return server.GetCommandData( Command,dr[dcEmailContent.FieldName].ToString() );
+            CommandData result =  server.GetCommandData( Command,dr[dcEmailContent.FieldName].ToString() );
+            result.NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
+            result.PCAddress =  dr[DeviceConfig.DC_PC_ADDRESS].ToString();
+            return result;
         }
 
 

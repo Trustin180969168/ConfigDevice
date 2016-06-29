@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gcCommands = new DevExpress.XtraGrid.GridControl();
             this.gvCommands = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.ID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -50,6 +51,9 @@
             this.meeEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             this.hyperLinkEdit1 = new DevExpress.XtraEditors.HyperLinkEdit();
             this.cedtNum = new DevExpress.XtraEditors.CheckEdit();
+            this.cmsLogic = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btGoUp = new System.Windows.Forms.ToolStripMenuItem();
+            this.btGoDown = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
@@ -61,10 +65,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).BeginInit();
+            this.cmsLogic.SuspendLayout();
             this.SuspendLayout();
             // 
             // gcCommands
             // 
+            this.gcCommands.ContextMenuStrip = this.cmsLogic;
             this.gcCommands.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcCommands.EmbeddedNavigator.Name = "";
             this.gcCommands.FormsUseDefaultLookAndFeel = false;
@@ -435,6 +441,30 @@
             this.cedtNum.Size = new System.Drawing.Size(47, 53);
             this.cedtNum.TabIndex = 13;
             // 
+            // cmsLogic
+            // 
+            this.cmsLogic.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btGoUp,
+            this.btGoDown});
+            this.cmsLogic.Name = "cmsLogic";
+            this.cmsLogic.Size = new System.Drawing.Size(95, 48);
+            // 
+            // btGoUp
+            // 
+            this.btGoUp.Image = global::ConfigDevice.Properties.Resources.up;
+            this.btGoUp.Name = "btGoUp";
+            this.btGoUp.Size = new System.Drawing.Size(94, 22);
+            this.btGoUp.Text = "向上";
+            this.btGoUp.Click += new System.EventHandler(this.btGoUp_Click);
+            // 
+            // btGoDown
+            // 
+            this.btGoDown.Image = global::ConfigDevice.Properties.Resources.down;
+            this.btGoDown.Name = "btGoDown";
+            this.btGoDown.Size = new System.Drawing.Size(94, 22);
+            this.btGoDown.Text = "向下";
+            this.btGoDown.Click += new System.EventHandler(this.btGoDown_Click);
+            // 
             // ViewCommandTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -455,6 +485,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hyperLinkEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cedtNum.Properties)).EndInit();
+            this.cmsLogic.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -483,5 +514,8 @@
         private DevExpress.XtraEditors.CheckEdit cedtNum;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit numEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit meeEdit;
+        private System.Windows.Forms.ContextMenuStrip cmsLogic;
+        private System.Windows.Forms.ToolStripMenuItem btGoUp;
+        private System.Windows.Forms.ToolStripMenuItem btGoDown;
     }
 }

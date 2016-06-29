@@ -187,9 +187,12 @@ namespace ConfigDevice
             if (openDelaySeconds > 64800)
             { CommonTools.MessageShow("开延迟不能大于18小时!", 2, ""); return null; }
             if (closeDelaySeconds > 64800)
-            { CommonTools.MessageShow("关延迟不能大于18小时!", 2, ""); return null; }
-
-            return circuit.GetCommandData(circuitCommand, percent, circuitIndex, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
+            { CommonTools.MessageShow("关延迟不能大于18小时!", 2, ""); return null; }                        
+            
+            CommandData result = circuit.GetCommandData(circuitCommand, percent, circuitIndex, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
+            result.NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
+            result.PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
+            return result;
         }
 
 

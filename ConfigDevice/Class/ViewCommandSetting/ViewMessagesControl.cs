@@ -165,7 +165,10 @@ namespace ConfigDevice
             }else
                 playCount = Convert.ToInt16(dr[dcPlayCount.FieldName]);//---------播放次数-------------------
 
-            return message.GetCommandData(command, volume, sourceIndex, kindIndex, playNum, playCount);
+            CommandData result = message.GetCommandData(command, volume, sourceIndex, kindIndex, playNum, playCount);
+            result.NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
+            result.PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
+            return result;
         }
 
 

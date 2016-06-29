@@ -19,7 +19,13 @@ namespace ConfigDevice
         public byte[] Data = new byte[30];//数据最长30字节
         public int Len { get { return DataLen + 3 + 3 + 2 + 1; } }
 
+ 
         public string ValueStr { get { return ConvertTools.ByteToHexStr(GetValue()); } }
+
+        //------补充信息成员------
+        public string PCAddress = "";//-----PC地址-----
+        public string NetworkIP = "";//----IP地址----- 
+
 
         /// <summary>
         /// 构造函数
@@ -46,6 +52,9 @@ namespace ConfigDevice
             DataLen = (int)userData.Data[8];
 
             Buffer.BlockCopy(userData.Data, 9, Data, 0, (int)DataLen);
+
+            PCAddress = userData.Target[0].ToString();
+            NetworkIP = userData.IP;
         }
 
         /// <summary>

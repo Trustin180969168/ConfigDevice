@@ -165,11 +165,17 @@ namespace ConfigDevice
             catch { return null; }
         }
 
+        /// <summary>
+        /// 向上移动
+        /// </summary> 
         private void btGoUp_Click(object sender, EventArgs e)
         {
             this.GoUp(this.num);
         }
 
+        /// <summary>
+        /// 向下移动
+        /// </summary> 
         private void btGoDown_Click(object sender, EventArgs e)
         {
             this.GoDown(this.num);
