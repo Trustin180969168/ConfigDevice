@@ -13,7 +13,7 @@ namespace ConfigDevice
     /// </summary>
     public class ViewLogicFlamableGasProbe : BaseViewLogicControl
     { 
-        private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
+        private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---        
         public ViewLogicFlamableGasProbe(Device _device, GridView gv)
             : base(_device, gv)
         {
@@ -25,9 +25,12 @@ namespace ConfigDevice
 
             cbxKind.Items.Clear();//----清空触发类型(探头只有等级)---
             cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//--触发类型(等级)---- 
+            //-------初始化设备列表选择-----
+            initGridLookupDevice();
 
-            cbxPosition.Items.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL);//---添加外设---
+            cbxPosition.Items.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL);//---添加外设--- 
         }
+           
 
         public override void InitViewSetting()
         {
@@ -56,6 +59,16 @@ namespace ConfigDevice
         {
             DataRow dr = gvLogic.GetDataRow(0);
             TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            if (triggerData.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//----外设/差值---
+            {
+                try
+                {
+                    triggerData.DeviceID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_ID].ToString());
+                    triggerData.DeviceKindID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_KIND_ID].ToString());
+                    triggerData.DeviceNetworkID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_NETWORK_ID].ToString());
+                }
+                catch { triggerData.DeviceID = 0; triggerData.DeviceKindID = 0; triggerData.DeviceNetworkID = 0; }
+            }
             //--------泄漏/正常--------------
             string size1Str = dr[dcStartValue.FieldName].ToString(); 
             triggerData.Size1 =  FlamableGasProbeSensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
@@ -83,12 +96,49 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
+            if (td.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//--外设/差值的情况---
+            {
+                positionChanged();//---触发选择设备----
+                string deviceValue = td.DeviceKindID.ToString() + td.DeviceNetworkID.ToString() + td.DeviceID.ToString();
+                if (deviceValue == "000")//----没有保存差异设备----
+                    dr[ViewConfig.DC_DEVICE_VALUE] = null;
+                else
+                {
+
+                    DataRow[] rows = dtSelectDevices.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
+                    if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
+                    {
+                        DataRow drInsert = dtSelectDevices.Rows.Add();
+                        drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;
+                        drInsert[DeviceConfig.DC_KIND_ID] = (int)td.DeviceKindID;
+                        drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[td.DeviceKindID];
+                        drInsert[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                        drInsert[DeviceConfig.DC_NETWORK_ID] = (int)td.DeviceNetworkID;
+                        drInsert[DeviceConfig.DC_ID] = (int)td.DeviceID;
+                        drInsert.EndEdit();
+                        dtSelectDevices.AcceptChanges();
+                    }
+                    dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                    dr[ViewConfig.DC_DEVICE_ID] = td.DeviceID;
+                    dr[ViewConfig.DC_DEVICE_NETWORK_ID] = td.DeviceNetworkID;
+                    dr[ViewConfig.DC_DEVICE_KIND_ID] = td.DeviceKindID;
+                    dr.EndEdit();
+                }
+            }
             dr[dcStartValue.FieldName] = FlamableGasProbeSensor.LEVEL_ID_NAME[td.Size1];
             string nowDateStr = DateTime.Now.ToShortDateString();
             dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
             dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
             dr.EndEdit();
             dr.AcceptChanges();
+        }
+
+        public override void KindChanged()
+        { 
+        }
+
+        public override void OperateChanged()
+        { 
         }
     }
 
@@ -278,6 +328,16 @@ namespace ConfigDevice
             dr.EndEdit();
             dr.AcceptChanges();
         }
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 
@@ -323,6 +383,16 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
         }
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -363,6 +433,16 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
+        }
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -405,6 +485,16 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
+        }
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -462,6 +552,16 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
 
+        }
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -545,7 +645,17 @@ namespace ConfigDevice
             dr.EndEdit();
             dr.AcceptChanges();
         }
-    
+
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 
@@ -628,6 +738,16 @@ namespace ConfigDevice
             dr[dcEndValue.FieldName] = dtEndValue;      //----结束时间---
             dr.EndEdit();
             dr.AcceptChanges();
+        }
+
+        public override void KindChanged()
+        {
+             
+        }
+
+        public override void OperateChanged()
+        {
+ 
         }
     }
 
@@ -717,6 +837,16 @@ namespace ConfigDevice
 
             dr.EndEdit();
             dr.AcceptChanges();
+        }
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -840,10 +970,17 @@ namespace ConfigDevice
             }
         }
 
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
+        }
     }
-
-
-
 
 
     /// <summary>
@@ -921,6 +1058,14 @@ namespace ConfigDevice
 
             dr.EndEdit();
             dr.AcceptChanges();
+        }
+
+        public override void KindChanged()
+        {
+        }
+
+        public override void OperateChanged()
+        {
         }
     }
 
@@ -1000,6 +1145,16 @@ namespace ConfigDevice
             dr.EndEdit();
             dr.AcceptChanges();
         }
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
+        }
     }
     
     /// <summary>
@@ -1031,7 +1186,17 @@ namespace ConfigDevice
         {
 
         }
- 
+
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

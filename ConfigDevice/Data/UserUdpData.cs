@@ -50,6 +50,7 @@ namespace ConfigDevice
         public string UdpInfo { get { return this.GetUdpInfo(); } }
         public string TargetID {get{return Convert.ToInt16(Target[0]).ToString();}}
         public string SourceID { get { return Convert.ToInt16(Source[0]).ToString(); } }
+        public string NetworkID { get { return Convert.ToInt16(Source[1]).ToString(); } }
 
         public UserUdpData(UdpData udp)
         {

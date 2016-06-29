@@ -15,8 +15,8 @@ namespace ConfigDevice
         GridViewDigitalEdit temperatureEdit = new GridViewDigitalEdit();//--温度编辑控件---
         GridViewComboBox cbxOperateLevel = new GridViewComboBox();//---操作运算--
         GridViewComboBox cbxTemperatureLevelEdit = new GridViewComboBox();//---温度级别编辑控件--- 
-        GridViewGridLookupEdit gridLookupDevice1;//---查找设备列表---
-        DataTable dtSelectDevices1;//---选择的设备列表---
+        GridViewGridLookupEdit gridLookupDevice;//---查找设备列表---
+        DataTable dtSelectDevices;//---选择的设备列表---
         public ViewLogicTemperature(Device _device, GridView gv)
             : base(_device, gv)
         {
@@ -28,9 +28,9 @@ namespace ConfigDevice
             cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
             dcTriggerKind.ColumnEdit = cbxKind;
             //-------初始化设备列表选择-----
-            gridLookupDevice1 = ViewEditCtrl.GetLogicDevicesLookupEdit();
-            gridLookupDevice1.EditValueChanged += this.lookUpEdit_EditValueChanged;
-            dtSelectDevices1 = gridLookupDevice1.DataSource as DataTable;
+            gridLookupDevice = ViewEditCtrl.GetLogicDevicesLookupEdit();
+            gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
+            dtSelectDevices = gridLookupDevice.DataSource as DataTable;
             //--------触发运算选择------
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_LESS_THAN);
@@ -84,8 +84,8 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             dr.EndEdit();
             //int i = lookupDevice.GetDataSourceRowIndex(ViewConfig.DC_DEVICE_VALUE, dr[ViewConfig.DC_DEVICE_VALUE].ToString());
-            int i = gridLookupDevice1.GetIndexByKeyValue(dr[ViewConfig.DC_DEVICE_VALUE].ToString());
-            DataRow drSelect = dtSelectDevices1.Rows[i];
+            int i = gridLookupDevice.GetIndexByKeyValue(dr[ViewConfig.DC_DEVICE_VALUE].ToString());
+            DataRow drSelect = dtSelectDevices.Rows[i];
             dr[ViewConfig.DC_DEVICE_ID] = drSelect[DeviceConfig.DC_ID];
             dr[ViewConfig.DC_DEVICE_KIND_ID] = drSelect[DeviceConfig.DC_KIND_ID];
             dr[ViewConfig.DC_DEVICE_NETWORK_ID] = drSelect[DeviceConfig.DC_NETWORK_ID];
@@ -107,11 +107,11 @@ namespace ConfigDevice
             string positionName = dr[ViewConfig.DC_POSITION].ToString();
             dr.EndEdit();
             //------根据触发位置值,选择触发类型编辑-----
-            if (positionName == SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT)
+            if (positionName == SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT || positionName == SensorConfig.SENSOR_POSITION_PERIPHERAL)
             {
                 gvLogic.SetRowCellValue(0, dcTriggerKind, cbxKind.Items[0].ToString());//---第一个运算符-----
                 RemoveKindName(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//-----外设差值,只有触发值----
-                setGridColumnValid(dcDifferentDevice, gridLookupDevice1);//------选择设备有效----
+                setGridColumnValid(dcDifferentDevice, gridLookupDevice);//------选择设备有效----
             }
             else
             {
@@ -198,7 +198,7 @@ namespace ConfigDevice
             DataRow dr = gvLogic.GetDataRow(0);
             dr.EndEdit();
             TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
-            if (triggerData.TriggerPositionID == SensorConfig.LG_SENSOR_DIF_FLAG_VALUE)//----外设差值---
+            if (triggerData.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//----外设/差值---
             {
                 try
                 {
@@ -244,7 +244,7 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行---      
-            if (td.TriggerPositionID == SensorConfig.LG_SENSOR_DIF_FLAG_VALUE)//--外设差值的情况---
+            if (td.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//--外设差值的情况---
             {
                 positionChanged();//---触发选择设备----
                 string deviceValue = td.DeviceKindID.ToString() + td.DeviceNetworkID.ToString() + td.DeviceID.ToString();
@@ -253,10 +253,10 @@ namespace ConfigDevice
                 else
                 {
 
-                    DataRow[] rows = dtSelectDevices1.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
+                    DataRow[] rows = dtSelectDevices.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
                     if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
                     {
-                        DataRow drInsert = dtSelectDevices1.Rows.Add();
+                        DataRow drInsert = dtSelectDevices.Rows.Add();
                         drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;
                         drInsert[DeviceConfig.DC_KIND_ID] = (int)td.DeviceKindID;
                         drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[td.DeviceKindID];
@@ -264,7 +264,7 @@ namespace ConfigDevice
                         drInsert[DeviceConfig.DC_NETWORK_ID] = (int)td.DeviceNetworkID;
                         drInsert[DeviceConfig.DC_ID] = (int)td.DeviceID;
                         drInsert.EndEdit();
-                        dtSelectDevices1.AcceptChanges();
+                        dtSelectDevices.AcceptChanges();
                     }
                     dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
                     dr[ViewConfig.DC_DEVICE_ID] = td.DeviceID;
@@ -296,5 +296,15 @@ namespace ConfigDevice
             dr.AcceptChanges();
         }
 
+
+        public override void KindChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OperateChanged()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

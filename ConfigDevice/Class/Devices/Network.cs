@@ -140,13 +140,12 @@ namespace ConfigDevice
           
         }
 
-
         /// <summary>
         /// 获取设备列表
         /// </summary>
         public void GetPositionList()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PC_WRITE_LOCALL_NAME, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PC_WRITE_LOCALL_NAME, NetworkID, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, NetworkID, getWriteEnd);//---注册结束回调---
             ListPosition.Clear();
             UdpData udpSend = createGetPositionListUdp();
@@ -206,9 +205,9 @@ namespace ConfigDevice
         private void callbackGetPositions(UdpData udpPosition, object[] values)
         {
             //-----------回复RJ45,已经获取了一个设备位置-------
-            UdpTools.ReplyDeviceDataUdp(udpPosition);
-
             UserUdpData userData = new UserUdpData(udpPosition);
+            if (userData.NetworkID != this.NetworkID) return;
+            UdpTools.ReplyDeviceDataUdp(udpPosition);           
             byte value = userData.Data[0];//第一个字节
             bool numHas = (int)(value >> 7) == 1 ? true : false;//是否有密码
             int num = 0x7F & value + 1; //序号,从位置从1开始

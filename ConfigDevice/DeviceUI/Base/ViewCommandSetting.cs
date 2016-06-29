@@ -64,7 +64,8 @@ namespace ConfigDevice
             this.btSaveCommands.Visible = false;
             btRefresh.Visible = false;
             cbxGroup.Visible = false;
-            lblGroupName.Visible = false; 
+            lblGroupName.Visible = false;
+            btTest.Visible = true;
         }
 
         public List<string> CommmandGroups = new List<string>();

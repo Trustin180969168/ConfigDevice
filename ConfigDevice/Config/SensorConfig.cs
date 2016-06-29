@@ -36,6 +36,7 @@ namespace ConfigDevice
         public const UInt16 LG_SENSOR_LVL_FLAG = 0x4000;        //传感器[级别][标志位]->如:温度,27℃(数值),舒适(级别)
         public const UInt16 LG_SENSOR_DIF_FLAG = 0x2000;        //传感器[差值][标志位]->只针对[本设备]与[外设]同类传感器的[差值],所以须要有[LG_SENSOR_DEV_FLAG]标志
         public const UInt16 LG_SENSOR_DIF_FLAG_VALUE = 0xA000;  //外设差值  0x8000 | 0x2000
+        public const UInt16 LG_SENSOR_FLAG_VALUE = 0xE000;      //外设标识值  0x8000 | 0x4000 | 0x2000 ---用于获取设备触发位置信息-----
         public const UInt16 LG_SENSOR_MASK = 0xBFFF;            //[同一个]传感器[掩码]->如:本设备的温度传感器,外设的温度传感器
         public const UInt16 LG_SENSOR_TYP_MASK = 0x3FFF;        //[同类型]传感器[掩码]->如:温度,湿度
         public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;        //传感器结束符 

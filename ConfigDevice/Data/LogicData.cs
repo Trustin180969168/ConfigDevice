@@ -90,9 +90,9 @@ namespace ConfigDevice
                 TriggerList[i] = new TriggerData();
                 Int16 objKindInfo = ConvertTools.Bytes2ToInt16(data[i * 31 + 2], data[i * 31 + 3]);
 
-                TriggerList[i].TriggerObjectID = (UInt16)(objKindInfo & 0x3FF);     //---低10位为传感器类型-----
-                TriggerList[i].TriggerPositionID = (UInt16)(objKindInfo & SensorConfig.LG_SENSOR_DIF_FLAG_VALUE);     //---获取外设标识值----
-                TriggerList[i].TriggerKindID = (UInt16)(objKindInfo & SensorConfig.LG_SENSOR_LVL_FLAG);     //---获取级别标识值-----
+                TriggerList[i].TriggerObjectID = (UInt16)(objKindInfo & 0x3FF);                                     //---低10位为传感器类型-----
+                TriggerList[i].TriggerPositionID = (UInt16)(objKindInfo & SensorConfig.LG_SENSOR_DIF_FLAG_VALUE);   //---获取位置:外设还是外设差值----
+                TriggerList[i].TriggerKindID = (UInt16)(objKindInfo & SensorConfig.LG_SENSOR_LVL_FLAG);             //---获取级别标识值-----
 
                 TriggerList[i].CompareID = data[4 + i * 31];//---比较符-----
                 TriggerList[i].Size1 = ConvertTools.Bytes4ToInt(data[5 + i * 31], data[6 + i * 31], data[7 + i * 31], data[8 + i * 31]);        //---开始值---

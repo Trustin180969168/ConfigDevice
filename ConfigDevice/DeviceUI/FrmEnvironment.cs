@@ -37,7 +37,7 @@ namespace ConfigDevice
             dtSensorState.Rows.Add(new object[] { "温度", "", "" });
             dtSensorState.Rows.Add(new object[] { "湿度", "", "" });
             dtSensorState.Rows.Add(new object[] { "亮度", "", "" });
-            dtSensorState.Rows.Add(new object[] { "环境噪声", "", "" });
+            //dtSensorState.Rows.Add(new object[] { "环境噪声", "", "" });
             dtSensorState.Rows.Add(new object[] { "空气质量", "", "" });
             dtSensorState.Rows.Add(new object[] { "TVOC有害气体","", "" });
             dtSensorState.Rows.Add(new object[] { "二氧化碳(等效)", "", "" });
@@ -74,8 +74,8 @@ namespace ConfigDevice
             viewLogicSetting.ShowToolBar = false;//不显示工具栏  
             //viewCommandEdit.ShowCommandBar = true;//不显示指令栏
 
-            viewCommandSetting.ShowLogicToolBarSetting();
-            viewCommandSetting.ShowToolBar = false;
+            viewCommandSetting.ShowCommandBar = true;
+            viewCommandSetting.ShowLogicToolBarSetting();     
             //----------快速配置-----
             logicQuickSetting = new LogicQuickSetting("EQUIPMENT_AIR_QUALITY");
             initLogicQuitSetting();
@@ -142,12 +142,12 @@ namespace ConfigDevice
                     dtSensorState.Rows[0][1] = environment.temperatureSensor.ValueAndUnit; dtSensorState.Rows[0][2] = environment.temperatureSensor.LevelValue;//温度
                     dtSensorState.Rows[1][1] = environment.humiditySensor.ValueAndUnit; dtSensorState.Rows[1][2] = environment.humiditySensor.LevelValue;//湿度
                     dtSensorState.Rows[2][1] = environment.luminanceSensor.ValueAndUnit; dtSensorState.Rows[2][2] = environment.luminanceSensor.LevelValue;//亮度
-                    dtSensorState.Rows[3][1] = ""; dtSensorState.Rows[3][2] = "";                                                                   //环境噪声
-                    dtSensorState.Rows[4][1] = ""; dtSensorState.Rows[4][2] = environment.AQISensor.LevelValue;//空气质量,只显示等级
-                    dtSensorState.Rows[5][1] = environment.TVOCSensor.ValueAndUnit; dtSensorState.Rows[5][2] = environment.TVOCSensor.LevelValue;//TVOC有害气体
-                    dtSensorState.Rows[6][1] = environment.CO2Sensor.ValueAndUnit; dtSensorState.Rows[6][2] = environment.CO2Sensor.LevelValue;//二氧化碳(等效)
-                    dtSensorState.Rows[7][1] = environment.CH2OSensor.ValueAndUnit; dtSensorState.Rows[7][2] = environment.CH2OSensor.LevelValue;//甲醛
-                    dtSensorState.Rows[8][1] = environment.PM25Sensor.ValueAndUnit; dtSensorState.Rows[8][2] = environment.PM25Sensor.LevelValue;//PM2.5
+                    //dtSensorState.Rows[3][1] = ""; dtSensorState.Rows[3][2] = "";                                                                   //环境噪声
+                    dtSensorState.Rows[3][1] = ""; dtSensorState.Rows[3][2] = environment.AQISensor.LevelValue;//空气质量,只显示等级
+                    dtSensorState.Rows[4][1] = environment.TVOCSensor.ValueAndUnit; dtSensorState.Rows[4][2] = environment.TVOCSensor.LevelValue;//TVOC有害气体
+                    dtSensorState.Rows[5][1] = environment.CO2Sensor.ValueAndUnit; dtSensorState.Rows[5][2] = environment.CO2Sensor.LevelValue;//二氧化碳(等效)
+                    dtSensorState.Rows[6][1] = environment.CH2OSensor.ValueAndUnit; dtSensorState.Rows[6][2] = environment.CH2OSensor.LevelValue;//甲醛
+                    dtSensorState.Rows[7][1] = environment.PM25Sensor.ValueAndUnit; dtSensorState.Rows[7][2] = environment.PM25Sensor.LevelValue;//PM2.5
                //     dtSensorState.Rows[9][1] = environment.O2Sensor.ValueAndUnit; dtSensorState.Rows[9][2] = environment.O2Sensor.LevelValue;//氧气浓度           
                     dtSensorState.AcceptChanges();
 

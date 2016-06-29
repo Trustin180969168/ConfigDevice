@@ -83,9 +83,9 @@ namespace ConfigDevice
             //----------逻辑配置控件----
             viewLogicSetting.ShowToolBar = false;//不显示工具栏  
             //viewCommandEdit.ShowCommandBar = true;//不显示指令栏
-            
-            viewCommandSetting.ShowLogicToolBarSetting();
-            viewCommandSetting.ShowToolBar = false;
+
+            viewCommandSetting.ShowCommandBar = true;
+            viewCommandSetting.ShowLogicToolBarSetting();     
             //----------快速配置-----
             logicQuickSetting = new LogicQuickSetting("EQUIPMENT_FUEL_GAS");
             initLogicQuitSetting();

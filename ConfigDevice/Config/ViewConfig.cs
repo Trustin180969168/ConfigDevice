@@ -61,19 +61,20 @@ namespace ConfigDevice
                    "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
                    ")";
 
-        public static string SELECT_LOGIC_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
-                   "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_SWIT_4 + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_SWIT_6 + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_SWIT_8 + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_2 + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_4 + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_6 + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_8 + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
-                   ")";
+        public static string SELECT_LOGIC_DEVICE_QUERY_CONDITION = " 1 = 1 ";
+            //DeviceConfig.DC_KIND_ID + " in (" +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_SWIT_4 + "'," +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_SWIT_6 + "'," +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_SWIT_8 + "'," +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_2 + "'," +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_4 + "'," +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_6 + "'," +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_8 + "'," +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
+            //       "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
+            //       ")";
 
         static ViewConfig()
         {
