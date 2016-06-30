@@ -407,6 +407,9 @@
             this.lookUpEdit2.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.lookUpEdit2.Size = new System.Drawing.Size(136, 21);
             this.lookUpEdit2.TabIndex = 17;
+            this.lookUpEdit2.EditValueChanged += new System.EventHandler(this.lookUpEdit2_EditValueChanged);
+            this.lookUpEdit2.Closed += new DevExpress.XtraEditors.Controls.ClosedEventHandler(this.lookUpEdit2_Closed);
+            this.lookUpEdit2.TextChanged += new System.EventHandler(this.lookUpEdit2_TextChanged);
             // 
             // gridLookUpEdit1
             // 

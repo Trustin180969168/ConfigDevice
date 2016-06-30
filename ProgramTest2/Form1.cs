@@ -68,7 +68,7 @@ namespace ProgramTest2
             lookUpEdit2.Properties.ValueMember = "UniqueValue";
             lookUpEdit2.Properties.Columns.Add(new LookUpColumnInfo("ID"));
             lookUpEdit2.Properties.Columns.Add(new LookUpColumnInfo("NAME"));
-            lookUpEdit2.Properties.Columns.Add(new LookUpColumnInfo("VALUE"));
+            lookUpEdit2.Properties.Columns.Add(new LookUpColumnInfo("UniqueValue"));
             //lookUpEdit2.Properties.Columns.Add(new LookUpColumnInfo("UniqueValue"));
             //lookUpEdit2.Properties.Columns[3].Visible = false;
 
@@ -124,6 +124,9 @@ namespace ProgramTest2
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "2", 2 });
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "3", 3 });
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "4", 4 });
+
+
+            lookUpEdit2.ItemIndex = 0;
 
         }
 
@@ -260,6 +263,23 @@ namespace ProgramTest2
         private void checkedComboBoxEdit1_QueryResultValue(object sender, QueryResultValueEventArgs e)
         {
             
+        }
+
+
+        private void lookUpEdit2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lookUpEdit2_EditValueChanged(object sender, EventArgs e)
+        {
+            if (lookUpEdit2.EditValue != null)
+                MessageBox.Show(lookUpEdit2.EditValue.ToString());
+        }
+
+        private void lookUpEdit2_Closed(object sender, ClosedEventArgs e)
+        {
+
         }
 
    
