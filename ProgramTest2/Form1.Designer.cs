@@ -239,7 +239,7 @@
             this.edtNum.AutoHeight = false;
             this.edtNum.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.edtNum.Mask.EditMask = "d";
+            this.edtNum.Mask.EditMask = "p1";
             this.edtNum.Name = "edtNum";
             this.edtNum.Leave += new System.EventHandler(this.Edit_Leave);
             this.edtNum.Enter += new System.EventHandler(this.Edit_Enter);

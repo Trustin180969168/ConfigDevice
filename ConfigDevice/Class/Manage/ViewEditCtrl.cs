@@ -241,7 +241,9 @@ namespace ConfigDevice
             gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).Caption = "设备ID";
             gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).Caption = "设备名称";
             gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).Caption = "网段";
-            gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).Caption = "设备类型";
+            gridLookupDevice.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).Caption = "设备类型";           
+
+            gridLookupDevice.PopupFormMinSize = new System.Drawing.Size(500, 500);
             gridLookupDevice.View.BestFitColumns();
 
             return gridLookupDevice;
@@ -296,6 +298,8 @@ namespace ConfigDevice
                 commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).Caption = "设备名称";
                 commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).Caption = "网段";
                 commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).Caption = "设备类型";
+
+                commandDevicesLookupEdit.PopupFormMinSize = new System.Drawing.Size(500, 500);
                 commandDevicesLookupEdit.View.BestFitColumns();
 
                 return commandDevicesLookupEdit;

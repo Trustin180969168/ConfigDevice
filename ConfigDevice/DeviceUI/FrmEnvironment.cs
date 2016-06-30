@@ -282,8 +282,10 @@ namespace ConfigDevice
             if (!viewLogicSetting.NeedInit)
                 viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
             if (!viewCommandSetting.NeedInit)
-                //viewCommandEdit.ReadCommandData(lookUpEdit.ItemIndex);//---获取指令配置列表----
+            {
+                if(viewCommandSetting.CbxCommandGroup.Items.Count - 1 >= lookUpEdit.ItemIndex && lookUpEdit.ItemIndex != -1)
                 viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
+            }
             environment.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
 
         }
