@@ -29,12 +29,12 @@ namespace ConfigDevice
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
             //-------初始化温度编辑控件------
-            sensorValueEdit.DisplayFormat.FormatString = "#0 Lux";
+            sensorValueEdit.DisplayFormat.FormatString = "#####0 Lux";
             sensorValueEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            sensorValueEdit.Mask.EditMask = "#0 Lux";
+            sensorValueEdit.Mask.EditMask = "#####0 Lux";
             sensorValueEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             sensorValueEdit.Mask.UseMaskAsDisplayFormat = true;
-            sensorValueEdit.MaxValue = 10000;
+            sensorValueEdit.MaxValue = 25000;
             sensorValueEdit.MinValue = 0;
             //-------初始化级别编辑控件------
             foreach (string value in LuminanceSensor.LEVEL_ID_NAME.Values)

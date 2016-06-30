@@ -95,7 +95,7 @@ namespace ConfigDevice
         /// <param name="values"></param>
         public void getCommandData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
             CallbackUI(new CallbackParameter( new object[] { userData }));//----界面回调------
         }
@@ -111,7 +111,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == device.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_COMMAND))
             {
-                UdpTools.ReplyDeviceDataUdp(data);//----回复确认----- 
+                UdpTools.ReplyDataUdp(data);//----回复确认----- 
             }
         }
 

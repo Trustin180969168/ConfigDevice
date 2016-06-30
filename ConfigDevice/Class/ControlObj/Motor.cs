@@ -304,7 +304,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
             //----翻译数据------------
             this.MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[1], userData.Data[2] });//---最大运行时间---
             this.MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[3], userData.Data[4] });//----最大停止电流---
@@ -327,7 +327,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_CONFIG)) 
             {
-                UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+                UdpTools.ReplyDataUdp(data);//----回复确认-----
                 this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME));//---回调UI---
             }
         }

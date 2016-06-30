@@ -119,7 +119,7 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getStateInfoData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
        
             //------找出数据段------
@@ -206,7 +206,7 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getAdditionLogicData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
             byte[] value = userData.Data;
             SetAdditionLogicData(value);
@@ -237,7 +237,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
-                UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+                UdpTools.ReplyDataUdp(data);//----回复确认-----
                 this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
             }
         }

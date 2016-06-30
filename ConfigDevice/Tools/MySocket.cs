@@ -11,8 +11,6 @@ using System.IO;
 namespace ConfigDevice
 {
 
-
-
     /// <summary>
     /// 单例服务类
     /// </summary>
@@ -67,7 +65,8 @@ namespace ConfigDevice
         {
             lock (rj45SendList)
             {
-                rj45SendList.Remove(key);
+                if (rj45SendList.ContainsKey(key))
+                    rj45SendList.Remove(key);
             }
         }
 
@@ -126,15 +125,11 @@ namespace ConfigDevice
         /// <param name="receivePort">接收接口</param>
         public void ReplyData(UdpData udp, string receiveIP, int receivePort)
         {
-            //lock (obj)
-            //{
-                IPAddress ip = getValidIP(receiveIP);
-                IPEndPoint ipep = new IPEndPoint(ip, receivePort);
-                EndPoint remotePoint = (EndPoint)(ipep);
-                CallbackFromUDP state = new CallbackFromUDP(udp, null, null,null);//创建返回结果
-                mySocket.BeginSendTo(udp.GetUdpData(), 0, udp.Length, SocketFlags.None, remotePoint, new AsyncCallback(SendCallback), state);//--异步发送--- 
-
-            //}
+            IPAddress ip = getValidIP(receiveIP);
+            IPEndPoint ipep = new IPEndPoint(ip, receivePort);
+            EndPoint remotePoint = (EndPoint)(ipep);
+            CallbackFromUDP state = new CallbackFromUDP(udp, null, null, null);//创建返回结果
+            mySocket.BeginSendTo(udp.GetUdpData(), 0, udp.Length, SocketFlags.None, remotePoint, new AsyncCallback(SendCallback), state);//--异步发送---
         }
 
         /// <summary>
@@ -207,8 +202,8 @@ namespace ConfigDevice
                     CallbackFromUDP state = (CallbackFromUDP)asyncResult.AsyncState;
                     if (state.Udp.PacketKind[0] == PackegeSendReply.SEND)//----发送包添加到回复列表---
                         AddPCCallbackList(state.Udp.PacketCodeStr, state);
-                    else
-                        RemoveRJ45SendList(state.Udp.PacketCodeStr);//----回复包移除对相应数据接收列表
+                    //else
+                    //    RemoveRJ45SendList(state.Udp.PacketCodeStr);//----回复包移除对相应数据接收列表
                 }
                 mySocket.EndSendTo(asyncResult);
             }
@@ -247,7 +242,10 @@ namespace ConfigDevice
                 while (true)
                 {
                     if (mySocket == null || mySocket.Available < 1)//----等待数据接收-----
-                    { Thread.Sleep(20); continue; }
+                    { 
+                        Thread.Sleep(10);
+                        continue; 
+                    }
                     UdpData udpReceive = ReceiveData(remotePoint);//-----接收UDP数据------
                    
                     if (udpReceive.PacketKind[0] == PackegeSendReply.REPLY)//------回复的UDP-----
@@ -274,17 +272,11 @@ namespace ConfigDevice
                     else if (udpReceive.PacketKind[0] == PackegeSendReply.SEND)//-------添加到RJ45设备发送表---------
                     {
                         if (!crcUdpData(udpReceive)) continue; //---crc校验失败则忽略----
-                        AddRJ45SendList(udpReceive.PacketCodeStr, udpReceive);
-                        UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据----- 
-                
+                        ReplyUdpData(udpReceive);//----回复RJ45主动包----
+                        AddRJ45SendList(udpReceive.PacketCodeStr, udpReceive);//---添加到RJ45主动包回调表     
+                        UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据-----  
                         rj45CallBack(userData.CommandStr, udpReceive);//--找到回调并执行
-                        //string keyStr = userData.CommandStr;
-                        //if (SysConfig.RJ45CallBackList.ContainsKey(keyStr))//------是否存在被动回调列表----
-                        //{
-                        //    state = SysConfig.RJ45CallBackList[keyStr];
-                        //    if (state != null)
-                        //        state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----        
-                        //}
+        
                     }
                 }
             }
@@ -301,11 +293,12 @@ namespace ConfigDevice
             {
                 CallbackFromUDP state;//回调对象
                 List<string> delList = new List<string>();
+                bool found = false;//是否找到接收RJ45主动包的回调
                 foreach (string key in SysConfig.RJ45CallBackList.Keys)
                 {
+                    state = SysConfig.RJ45CallBackList[key];
                     if (key.StartsWith(commandStr))
-                    {           
-                        state = SysConfig.RJ45CallBackList[key];
+                    {   
                         if (state != null)
                         {
                             if (state.ActionCount > 0)
@@ -315,9 +308,12 @@ namespace ConfigDevice
                             }
                         }
                         else
-                            delList.Add(key);
+                            delList.Add(key);//-----已经没有回调内容,删除-----
+                        found = true;
                     }
                 }
+                if (!found)//---没有RJ45主动包回调,忽略/删除-----
+                    delList.Add(commandStr);
                 foreach (string key in delList)
                     SysConfig.RJ45CallBackList.Remove(key);
             }
@@ -395,6 +391,24 @@ namespace ConfigDevice
             return lip;
         }
 
+        /// <summary>
+        /// 根据设备发送包生成回复包
+        /// </summary>
+        /// <param name="udpDevice">发送的包</param>
+        /// <returns>设备回复包</returns>
+        public void ReplyUdpData(UdpData udpData)
+        {
+            UdpData udpReply = new UdpData();
+            udpReply.PacketCode = udpData.PacketCode;
+            udpReply.PacketKind[0] = PackegeSendReply.REPLY;
+            udpReply.PacketProperty[0] = BroadcastKind.Broadcast;
+            udpReply.SendPort = SysConfig.ByteLocalPort;
+            udpReply.Protocol = udpData.Protocol;
+            udpReply.ProtocolData = new byte[] { REPLY_RESULT.CMD_TRUE };
+            udpReply.CheckCodeAdd[0] = udpData.ProtocolData[1];
+            udpReply.Length = 30;
 
+            MySocket.GetInstance().ReplyData(udpReply, udpData.IP, SysConfig.RemotePort);
+        }
     }
 }

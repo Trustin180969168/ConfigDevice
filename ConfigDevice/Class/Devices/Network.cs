@@ -207,7 +207,7 @@ namespace ConfigDevice
             //-----------回复RJ45,已经获取了一个设备位置-------
             UserUdpData userData = new UserUdpData(udpPosition);
             if (userData.NetworkID != this.NetworkID) return;
-            UdpTools.ReplyDeviceDataUdp(udpPosition);           
+            UdpTools.ReplyDataUdp(udpPosition);           
             byte value = userData.Data[0];//第一个字节
             bool numHas = (int)(value >> 7) == 1 ? true : false;//是否有密码
             int num = 0x7F & value + 1; //序号,从位置从1开始
@@ -238,7 +238,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == this.NetworkID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PC_WRITE_LOCALL_NAME))
             {
-                UdpTools.ReplyDeviceDataUdp(data);//----回复确认----- 
+                UdpTools.ReplyDataUdp(data);//----回复确认----- 
             }
         }
 

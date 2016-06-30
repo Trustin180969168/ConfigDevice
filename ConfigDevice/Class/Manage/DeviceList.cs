@@ -97,8 +97,8 @@ namespace ConfigDevice
 
             byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PC, network.ByteNetworkID, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
             byte[] source = new byte[] { network.BytePCAddress, network.ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
-            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
-            byte[] cmd = DeviceConfig.CMD_PUBLIC_START_SEARCH;//----用户命令-----
+            byte page = UdpDataConfig.DEFAULT_PAGE;             //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_START_SEARCH;  //----用户命令-----
             byte len = 0x06;//---数据长度---
 
             //--------添加到用户数据--------
@@ -135,7 +135,7 @@ namespace ConfigDevice
                 DeviceData deviceData = new DeviceData(userData);
                 //-----回复反馈的设备信息-------
                 UdpData udpReply = createReplyUdp(data);
-                UdpTools.ReplyDeviceDataUdp(data);
+                UdpTools.ReplyDataUdp(data);
                 //-----排查重复项-------
                 string temp = DeviceConfig.DC_MAC + "='" + deviceData.MAC + "'";
                 DataRow[] rows = SysConfig.DtDevice.Select(temp);
@@ -203,7 +203,7 @@ namespace ConfigDevice
             searching = false;//---搜索完毕----
             //------回复停止搜索-------               
             UdpData udpReply = createReplyUdp(data);
-            mySocket.ReplyData(udpReply, data.IP, SysConfig.RemotePort);
+            UdpTools.ReplyDataUdp(data);
             if (CallBackUI != null) 
                 CallBackUI(new CallbackParameter(ActionKind.SearchDevice,   SearchingNetwork  ));
         }

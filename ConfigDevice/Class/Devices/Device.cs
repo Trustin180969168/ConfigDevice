@@ -207,7 +207,7 @@ namespace ConfigDevice
         private void getVer(UdpData data, object[] values)
         {
             //------回复反馈的设备信息-------
-            UdpTools.ReplyDeviceDataUdp(data);
+            UdpTools.ReplyDataUdp(data);
             string name = this.Name;
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);
@@ -372,7 +372,7 @@ namespace ConfigDevice
                 if (resultDevice.DeviceID == deviceData.DeviceID)//---相同则成功----
                 {
                     this.DeviceID = resultDevice.DeviceID;//---新ID-----    
-                    UdpTools.ReplyDeviceDataUdp(data);//---回复UDP----
+                    UdpTools.ReplyDataUdp(data);//---回复UDP----
                     SaveDeviceName(deviceData.Name, deviceData.ByteAddressID, deviceData.AddressName);//---保存设备名称------                  
                 }
                 else
@@ -507,7 +507,7 @@ namespace ConfigDevice
 
             if (device.MAC == this.MAC)
             {
-                UdpTools.ReplyDeviceDataUdp(data);//----由主界面接收反馈----
+                UdpTools.ReplyDataUdp(data);//----由主界面接收反馈----
                 this.DeviceID = device.DeviceID;
                 this.NetworkID = device.NetworkID;
                 this.KindID = device.KindID;

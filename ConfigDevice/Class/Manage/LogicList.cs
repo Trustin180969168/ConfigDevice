@@ -97,7 +97,7 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getLogicData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
             LogicData logicData = new LogicData(userData);
             CallbackUI(new CallbackParameter(logicData));//----界面回调-----
@@ -166,7 +166,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == device.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_CONFIG))//不是本设备ID不接收.
             {
-                UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----  
+                UdpTools.ReplyDataUdp(data);//----回复确认-----  
             }
         }
 

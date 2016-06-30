@@ -128,7 +128,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
-            UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
             //----翻译数据------------
             byte value = userData.Data[1];
             if ((int)(value & 1) == 1)
@@ -151,7 +151,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_CONFIG))
             {
-                UdpTools.ReplyDeviceDataUdp(data);//----回复确认-----
+                UdpTools.ReplyDataUdp(data);//----回复确认-----
             
             }
         }

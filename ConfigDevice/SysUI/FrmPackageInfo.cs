@@ -139,16 +139,17 @@ namespace ConfigDevice
 
         private void btClear_Click(object sender, EventArgs e)
         {
+            getDataTimer.Stop();
             if (sendKind == ENUM_PackageSendKind.PC_SEND)
             {
+               
                 mySocket.PCCallBackList.Clear();
             }
             else
             {
                 mySocket.RJ45SendList.Clear();
-
             }
-            getData();
+            getDataTimer.Start();
         }
 
 

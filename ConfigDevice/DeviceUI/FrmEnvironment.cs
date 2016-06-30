@@ -135,6 +135,9 @@ namespace ConfigDevice
                     }
                     lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
                     viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+
+                    initLogicAndCommand();
+ 
                 }
                 //-----读取完探头参数----- 
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Environment.CLASS_NAME)
@@ -162,6 +165,28 @@ namespace ConfigDevice
                 {
                     cedtOpenHealthLight.Checked = environment.PointLight.OpenHealthLight;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 初始化逻辑和指令配置
+        /// </summary>
+        private void initLogicAndCommand()
+        {
+            if (viewLogicSetting.NeedInit)
+            {
+                viewLogicSetting.InitLogicList(environment,
+                    SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_LUMINANCE, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_AQI,
+                    SensorConfig.SENSOR_TVOC, SensorConfig.SENSOR_CO2, SensorConfig.SENSOR_CH20, SensorConfig.SENSOR_PM25, SensorConfig.SENSOR_O2,
+                    SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_INNER_INTERACTION,
+                    SensorConfig.SENSOR_INVALID);
+                viewLogicSetting.ReadLogicList(0);//-默认读取第一个组
+                edtTriggerActionName.Text = environment.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
+            }
+            if (viewCommandSetting.NeedInit)
+            {
+                viewCommandSetting.InitViewCommand(environment);//初始化
+                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
             }
         }
         /// <summary>
@@ -203,20 +228,8 @@ namespace ConfigDevice
         {
             if (tctrlEdit.SelectedTabPageIndex == 2)
             {
-                if (viewLogicSetting.NeedInit)
-                {
-                    viewLogicSetting.InitLogicList( environment,
-                        SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY,SensorConfig.SENSOR_LUMINANCE, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_AQI,
-                        SensorConfig.SENSOR_TVOC, SensorConfig.SENSOR_CO2, SensorConfig.SENSOR_CH20, SensorConfig.SENSOR_PM25,SensorConfig.SENSOR_O2,
-                        SensorConfig.SENSOR_TIME,SensorConfig.SENSOR_DATE,SensorConfig.SENSOR_WEEK,SensorConfig.SENSOR_SYSTEM_INTERACTION,SensorConfig.SENSOR_INNER_INTERACTION, 
-                        SensorConfig.SENSOR_INVALID);
-                    lookUpEdit.ItemIndex = 0;
-                }
-                if (viewCommandSetting.NeedInit)
-                {
-                    viewCommandSetting.InitViewCommand(environment);//初始化
-                    viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
-                }
+
+
             }
         }
 

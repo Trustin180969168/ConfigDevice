@@ -144,6 +144,8 @@ namespace ConfigDevice
                     }
                     lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
                     viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+
+                    initLogicAndCommand();//---初始化指令配置,逻辑配置
                 }
                 //-----读取完探头参数----- 
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == FlammableGasProbe.CLASS_NAME)
@@ -173,6 +175,28 @@ namespace ConfigDevice
                 }
             }
         }
+
+        /// <summary>
+        /// 初始化逻辑和指令配置
+        /// </summary>
+        private void initLogicAndCommand()
+        {
+
+            if (viewLogicSetting.NeedInit)
+            {
+                viewLogicSetting.InitLogicList(flammableGasProbe, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE,
+                    SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.SENSOR_SYSTEM_INTERACTION      );
+                viewLogicSetting.ReadLogicList(0);//-默认读取第一个组
+                edtTriggerActionName.Text = flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[1];//----默认显示第一个组名
+            }
+            if (viewCommandSetting.NeedInit)
+            {
+                viewCommandSetting.InitViewCommand(flammableGasProbe);//初始化
+                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
+            }       
+        }
+
+
         /// <summary>
         /// 自动刷新
         /// </summary> 
@@ -237,21 +261,7 @@ namespace ConfigDevice
         {
             if (tctrlEdit.SelectedTabPageIndex == 2)
             {
-                if (viewLogicSetting.NeedInit)
-                {                    
-                    viewLogicSetting.InitLogicList(flammableGasProbe, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE,
-                        SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.SENSOR_SYSTEM_INTERACTION
-                        //------以下是界面测试,非本设备的触发对象选择-----
-                        //, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_RADAR, SensorConfig.SENSOR_SWIT_TAMPER,
-                        //SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_WINDY
-                          );
-                    lookUpEdit.ItemIndex = 0;
-                }
-                if (viewCommandSetting.NeedInit)
-                {
-                    viewCommandSetting.InitViewCommand(flammableGasProbe);//初始化
-                    viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
-                }       
+
             }
         } 
 
