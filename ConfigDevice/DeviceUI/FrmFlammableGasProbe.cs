@@ -133,18 +133,9 @@ namespace ConfigDevice
             lock (lockObject)
             {
                 //---读取完回路----
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)
+                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME
+                    && callbackParameter.Parameters[1].ToString() == flammableGasProbe.DeviceID)
                 {
-                    viewCommandSetting.CbxCommandGroup.Items.Clear();
-                    dtIDName.Rows.Clear();
-                    foreach (int key in flammableGasProbe.ProbeCircuit.ListCircuitIDAndName.Keys)
-                    {
-                        viewCommandSetting.CommmandGroups.Add(flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key]);//----指令组选择----
-                        dtIDName.Rows.Add(new object[] { key, flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key] });//初始化逻辑项 
-                    }
-                    lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
-                    viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
-
                     initLogicAndCommand();//---初始化指令配置,逻辑配置
                 }
                 //-----读取完探头参数----- 
@@ -181,21 +172,55 @@ namespace ConfigDevice
         /// </summary>
         private void initLogicAndCommand()
         {
-
-            if (viewLogicSetting.NeedInit)
+            viewCommandSetting.CbxCommandGroup.Items.Clear();
+            dtIDName.Rows.Clear();
+            foreach (int key in flammableGasProbe.ProbeCircuit.ListCircuitIDAndName.Keys)
+            {
+                viewCommandSetting.CommmandGroups.Add(flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key]);    //---指令组选择----
+                dtIDName.Rows.Add(new object[] { key, flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
+            }
+            lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+            viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+            edtTriggerActionName.Text = flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[1];//----默认显示第一个组名
+            if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
             {
                 viewLogicSetting.InitLogicList(flammableGasProbe, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE,
                     SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.SENSOR_SYSTEM_INTERACTION      );
-                viewLogicSetting.ReadLogicList(0);//-默认读取第一个组
-                edtTriggerActionName.Text = flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[1];//----默认显示第一个组名
+                viewLogicSetting.ReadLogicList(0);//-默认读取第一个组,需要调用ReadLogicList(0)获取         
             }
-            if (viewCommandSetting.NeedInit)
-            {
-                viewCommandSetting.InitViewCommand(flammableGasProbe);//初始化
-                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
-            }       
+            if (viewCommandSetting.NeedInit)//----初始化指令配置-------
+            {              
+                viewCommandSetting.InitViewCommand(flammableGasProbe);//初始化       
+                viewCommandSetting.ReadCommandData(0);
+            }
+  
         }
 
+        /// <summary>
+        /// 刷新
+        /// </summary>
+        private void btRefreshTrigger_Click(object sender, EventArgs e)
+        {
+            if (lookUpEdit.ItemIndex == -1) { lookUpEdit.ItemIndex = 0; return; }
+            viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);       //---读取逻辑数据----
+            viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
+            flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
+        }
+        /// <summary>
+        /// 选择切换
+        /// </summary> 
+        private void lookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            lblNum.Text = lookUpEdit.EditValue.ToString() + "、";
+            edtTriggerActionName.Text = lookUpEdit.Text;
+            currentGroupName = edtTriggerActionName.Text;
+            if (!viewLogicSetting.NeedInit)
+                viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
+            if (!viewCommandSetting.NeedInit)
+                viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);
+            flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
+
+        }
 
         /// <summary>
         /// 自动刷新
@@ -271,6 +296,8 @@ namespace ConfigDevice
         private void btSaveTrigger_Click(object sender, EventArgs e)
         {
             //-----保存附加动作----
+            lookUpEdit.ItemIndex = lookUpEdit.ItemIndex == -1 ? 0 : lookUpEdit.ItemIndex;
+            //-----保存附加动作----
             if (hasChangedAdditionLogic() || isQuickSetting)
             {
                 flammableGasProbe.Valve.ValAct = (byte)cbxValveAction.SelectedIndex;
@@ -286,7 +313,7 @@ namespace ConfigDevice
 
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
             viewLogicSetting.IsSystemSetting = false;//---恢复标志位---
-            viewCommandSetting.SaveCommands();//---保存指令配置---   
+            viewCommandSetting.SaveCommands(lookUpEdit.ItemIndex);//---保存指令配置---   
             
         }
         /// <summary>
@@ -306,15 +333,6 @@ namespace ConfigDevice
         }
 
 
-        /// <summary>
-        /// 刷新
-        /// </summary>
-        private void btRefreshTrigger_Click(object sender, EventArgs e)
-        {
-            viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----读取逻辑数据----
-            viewCommandSetting.ReadCommandData();//---读取命令数据----
-            flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
-        }
 
         /// <summary>
         /// 双击打开选择
@@ -324,22 +342,7 @@ namespace ConfigDevice
             lookUpEdit.ShowPopup();
         }
 
-        /// <summary>
-        /// 选择切换
-        /// </summary> 
-        private void lookUpEdit_EditValueChanged(object sender, EventArgs e)
-        {
-            lblNum.Text = lookUpEdit.EditValue.ToString() + "、";
-            edtTriggerActionName.Text = lookUpEdit.Text;
-            currentGroupName = edtTriggerActionName.Text;
-            if (!viewLogicSetting.NeedInit)
-                viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
-            if (!viewCommandSetting.NeedInit)
-                //viewCommandEdit.ReadCommandData(lookUpEdit.ItemIndex);//---获取指令配置列表----
-                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
-            flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
 
-        }
 
         private void FrmFlammableGasProbe_FormClosing(object sender, FormClosingEventArgs e)
         {

@@ -214,7 +214,7 @@ namespace ConfigDevice
             if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME))  //不是本设备ID,并且不是被操作对象,不接收.              
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----  
-                this.deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME));//---回调UI---
+                this.deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME,deviceControled.DeviceID));//---回调UI---
                 CallbackUI(new CallbackParameter(CLASS_NAME));
             }
         }

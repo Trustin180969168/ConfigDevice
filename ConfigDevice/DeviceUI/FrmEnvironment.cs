@@ -125,20 +125,7 @@ namespace ConfigDevice
             {
                 //---读取完回路----
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)
-                {
-                    viewCommandSetting.CbxCommandGroup.Items.Clear();
-                    dtIDName.Rows.Clear();
-                    foreach (int key in environment.Circuit.ListCircuitIDAndName.Keys)
-                    {
-                        viewCommandSetting.CommmandGroups.Add(environment.Circuit.ListCircuitIDAndName[key]);//----指令组选择----
-                        dtIDName.Rows.Add(new object[] { key, environment.Circuit.ListCircuitIDAndName[key] });//初始化逻辑项 
-                    }
-                    lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
-                    viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
-
                     initLogicAndCommand();
- 
-                }
                 //-----读取完探头参数----- 
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Environment.CLASS_NAME)
                 {
@@ -173,22 +160,45 @@ namespace ConfigDevice
         /// </summary>
         private void initLogicAndCommand()
         {
-            if (viewLogicSetting.NeedInit)
+            viewCommandSetting.CbxCommandGroup.Items.Clear();
+            dtIDName.Rows.Clear();
+            foreach (int key in environment.Circuit.ListCircuitIDAndName.Keys)
+            {
+                viewCommandSetting.CommmandGroups.Add(environment.Circuit.ListCircuitIDAndName[key]);    //---指令组选择----
+                dtIDName.Rows.Add(new object[] { key, environment.Circuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
+            }
+            lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+            viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+            edtTriggerActionName.Text = environment.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
+            if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
             {
                 viewLogicSetting.InitLogicList(environment,
                     SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_LUMINANCE, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_AQI,
                     SensorConfig.SENSOR_TVOC, SensorConfig.SENSOR_CO2, SensorConfig.SENSOR_CH20, SensorConfig.SENSOR_PM25, SensorConfig.SENSOR_O2,
                     SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_INNER_INTERACTION,
                     SensorConfig.SENSOR_INVALID);
-                viewLogicSetting.ReadLogicList(0);//-默认读取第一个组
-                edtTriggerActionName.Text = environment.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
+                viewLogicSetting.ReadLogicList(0);//-默认读取第一个组,需要调用ReadLogicList(0)获取         
             }
-            if (viewCommandSetting.NeedInit)
+            if (viewCommandSetting.NeedInit)//----初始化指令配置-------
             {
-                viewCommandSetting.InitViewCommand(environment);//初始化
-                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
+                viewCommandSetting.InitViewCommand(environment);//初始化       
+                viewCommandSetting.ReadCommandData(0);
             }
+           
         }
+        /// <summary>
+        /// 刷新
+        /// </summary>
+        private void btRefreshTrigger_Click(object sender, EventArgs e)
+        {
+            if (lookUpEdit.ItemIndex == -1)
+                lookUpEdit.ItemIndex =0;
+            viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);       //---读取逻辑数据----
+            viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
+            environment.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
+        }
+
+
         /// <summary>
         /// 自动刷新
         /// </summary> 
@@ -208,7 +218,22 @@ namespace ConfigDevice
                 CommonTools.MessageShow("取消自动刷新!", 1, "");
             }
         }
-         
+
+        /// <summary>
+        /// 选择切换
+        /// </summary> 
+        private void lookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            lblNum.Text = lookUpEdit.EditValue.ToString() + "、";
+            edtTriggerActionName.Text = lookUpEdit.Text;
+            currentGroupName = edtTriggerActionName.Text;
+            if (!viewLogicSetting.NeedInit)
+                viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
+            if (!viewCommandSetting.NeedInit)
+                viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);
+            environment.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
+
+        }
 
         /// <summary>
         /// 保存参数
@@ -239,6 +264,7 @@ namespace ConfigDevice
         private void btSaveTrigger_Click(object sender, EventArgs e)
         {
             //-----保存附加动作----
+            lookUpEdit.ItemIndex = lookUpEdit.ItemIndex == -1 ? 0 : lookUpEdit.ItemIndex;
             if (hasChangedAdditionLogic() || isQuickSetting)
             {    
                 environment.PointLight.LedAct = (byte)cbxLight.SelectedIndex;
@@ -250,8 +276,7 @@ namespace ConfigDevice
 
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
             viewLogicSetting.IsSystemSetting = false;//---恢复标志位---
-            viewCommandSetting.SaveCommands();//---保存指令配置---   
-
+            viewCommandSetting.SaveCommands(lookUpEdit.ItemIndex);//---保存指令配置---   
         }
         /// <summary>
         /// 是否有修改
@@ -266,15 +291,7 @@ namespace ConfigDevice
         }
 
 
-        /// <summary>
-        /// 刷新
-        /// </summary>
-        private void btRefreshTrigger_Click(object sender, EventArgs e)
-        {
-            viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----读取逻辑数据----
-            viewCommandSetting.ReadCommandData();//---读取命令数据----
-            environment.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
-        }
+
 
         /// <summary>
         /// 双击打开选择
@@ -284,24 +301,7 @@ namespace ConfigDevice
             lookUpEdit.ShowPopup();
         }
 
-        /// <summary>
-        /// 选择切换
-        /// </summary> 
-        private void lookUpEdit_EditValueChanged(object sender, EventArgs e)
-        {
-            lblNum.Text = lookUpEdit.EditValue.ToString() + "、";
-            edtTriggerActionName.Text = lookUpEdit.Text;
-            currentGroupName = edtTriggerActionName.Text;
-            if (!viewLogicSetting.NeedInit)
-                viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
-            if (!viewCommandSetting.NeedInit)
-            {
-                if(viewCommandSetting.CbxCommandGroup.Items.Count - 1 >= lookUpEdit.ItemIndex && lookUpEdit.ItemIndex != -1)
-                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
-            }
-            environment.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
 
-        }
 
         private void FrmFlammableGasProbe_FormClosing(object sender, FormClosingEventArgs e)
         {

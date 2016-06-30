@@ -29,12 +29,12 @@ namespace ConfigDevice
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
             //-------初始化温度编辑控件------
-            sensorValueEdit.DisplayFormat.FormatString = "#####0 Lux";
+            sensorValueEdit.DisplayFormat.FormatString = "####0 Lux";
             sensorValueEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            sensorValueEdit.Mask.EditMask = "#####0 Lux";
+            sensorValueEdit.Mask.EditMask = "####0 Lux";
             sensorValueEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             sensorValueEdit.Mask.UseMaskAsDisplayFormat = true;
-            sensorValueEdit.MaxValue = 25000;
+            sensorValueEdit.MaxValue = 2500;
             sensorValueEdit.MinValue = 0;
             //-------初始化级别编辑控件------
             foreach (string value in LuminanceSensor.LEVEL_ID_NAME.Values)
@@ -61,6 +61,28 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
             gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
             gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
+        }
+
+
+
+        /// <summary>
+        /// 位置触发
+        /// </summary>
+        protected override void positionChanged()
+        {
+            base.positionChanged();
+            DataRow dr = gvLogic.GetDataRow(0);
+            string positionName = dr[ViewConfig.DC_POSITION].ToString();
+            if (positionName == SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT)//---差值变更范围
+            {
+                sensorValueEdit.MaxValue = 5000;
+                sensorValueEdit.MinValue = -2500;
+            }
+            else
+            {
+                sensorValueEdit.MaxValue = 2500;
+                sensorValueEdit.MinValue = 0;
+            }
         }
 
         /// <summary>

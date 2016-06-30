@@ -29,13 +29,13 @@ namespace ConfigDevice
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
             //-------初始化温度编辑控件------
-            sensorValueEdit.DisplayFormat.FormatString = "#0 ℃";
+            sensorValueEdit.DisplayFormat.FormatString = "##0 ℃";
             sensorValueEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            sensorValueEdit.Mask.EditMask = "#0 ℃";
+            sensorValueEdit.Mask.EditMask = "##0 ℃";
             sensorValueEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             sensorValueEdit.Mask.UseMaskAsDisplayFormat = true;
-            sensorValueEdit.MaxValue = 60;
-            sensorValueEdit.MinValue = -20;
+            sensorValueEdit.MaxValue = 300;
+            sensorValueEdit.MinValue = -100;
             //-------初始化级别编辑控件------
             foreach (string value in TemperatureSensor.LEVEL_ID_NAME.Values)
                 cbxLevelEdit.Items.Add(value);
@@ -61,6 +61,27 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
             gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
             gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
+        }
+
+
+        /// <summary>
+        /// 位置触发
+        /// </summary>
+        protected override void positionChanged()
+        {
+            base.positionChanged();
+            DataRow dr = gvLogic.GetDataRow(0);
+            string positionName = dr[ViewConfig.DC_POSITION].ToString();
+            if (positionName == SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT)//---差值变更范围
+            {
+                sensorValueEdit.MaxValue = 600;
+                sensorValueEdit.MinValue = -400;
+            }
+            else
+            {
+                sensorValueEdit.MaxValue = 300;
+                sensorValueEdit.MinValue = -100;
+            }
         }
 
         /// <summary>

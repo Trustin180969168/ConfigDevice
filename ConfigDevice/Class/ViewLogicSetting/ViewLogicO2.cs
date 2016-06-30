@@ -58,6 +58,27 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 位置触发
+        /// </summary>
+        protected override void positionChanged()
+        {
+            base.positionChanged();
+            DataRow dr = gvLogic.GetDataRow(0);
+            string positionName = dr[ViewConfig.DC_POSITION].ToString();
+            if (positionName == SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT)//---差值变更范围
+            {
+                sensorValueEdit.MaxValue = 60;
+                sensorValueEdit.MinValue = -30;
+            }
+            else
+            {
+                sensorValueEdit.MaxValue = 30;
+                sensorValueEdit.MinValue = 0;
+            }
+        }
+
+
+        /// <summary>
         /// 类型触发
         /// </summary>
         public override void KindChanged()

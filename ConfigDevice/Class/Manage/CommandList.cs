@@ -35,7 +35,6 @@ namespace ConfigDevice
         /// </summary>
         public void ReadCommandData(int groupNum, int startNum, int endNum)
         {
-
             UdpData udpSend = createReadCommandsUdp(groupNum, startNum, endNum);
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_COMMAND, callbackGetCommandData);//---注册回调----
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, ObjUuid, getWriteEnd);//---注册结束回调---

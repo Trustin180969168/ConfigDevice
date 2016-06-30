@@ -105,7 +105,10 @@ namespace ConfigDevice
                     edtNum2.Text = doorInput4.RoadMusicNum2.ToString();
                     edtNum3.Text = doorInput4.RoadMusicNum3.ToString();
                     edtNum4.Text = doorInput4.RoadMusicNum4.ToString();
- 
+
+   
+  
+                
 
                 }
             }
@@ -149,8 +152,11 @@ namespace ConfigDevice
             viewCommandEdit.CommmandGroups.Add("第4路:撤防-" + edtMcmc4.Text);
             if (doorInput4.FinishReadRoads)
             {
-                if (viewCommandEdit.NeedInit && tctrlEdit.SelectedTabPageIndex == 2 )
+                if (viewCommandEdit.NeedInit)
+                {
                     viewCommandEdit.InitViewCommand(doorInput4);
+                    viewCommandEdit.CbxCommandGroup.SelectedIndex = 0;
+                }
                 else if (!viewCommandEdit.NeedInit)
                     viewCommandEdit.UpdateGroupName();
             }
@@ -252,8 +258,7 @@ namespace ConfigDevice
         {
             if (tctrlEdit.SelectedTabPageIndex == 2)
             {
-                if (viewCommandEdit.NeedInit)
-                    viewCommandEdit.InitViewCommand(doorInput4);//初始化
+
             }
             else if (tctrlEdit.SelectedTabPageIndex == 1)
             {

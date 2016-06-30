@@ -275,13 +275,13 @@ namespace ConfigDevice
                 syncView.SyncCommandSettingEdit(value);
                 syncView.SyncCommandEdit += this.SyncCommandSetting;
             }
-        }
+        } 
 
         /// <summary>
         /// 初始化指令配置
         /// </summary>
         public void InitViewCommand(Device device)
-        {  
+        {
             ViewEditCtrl.InitCommandDevicesLookupEdit();//----初始化设备选择列表----        
             cbxGroup.SelectedIndex = -1;
             cbxGroup.Items.Clear();
@@ -292,12 +292,7 @@ namespace ConfigDevice
             CommandEdit = new CommandList(device);
             CommandEdit.OnCallbackUI_Action += this.returnCommandData;//命令的执行的界面回调
             NeedInit = false;//---标记初始化完毕
-            AddDefaultNullCommand();//----默认保留一条空指令便于添加-----
-            if (CommmandGroups.Count > 0)
-            {
-                cbxGroup.SelectedIndex = 0;//执行读取
-                cbxGroup.Text = CommmandGroups[0];//选择第一组/键      
-            }          
+            AddDefaultNullCommand();//----默认保留一条空指令便于添加----- 
         }
 
         /// <summary>
@@ -374,6 +369,27 @@ namespace ConfigDevice
                     if (command == null) continue;
                     command.ucCmdType = 0;
                     command.ucCmdKey = cbxGroup.SelectedIndex;
+                    command.ucCmdNum = commandView.Num - 1;
+                    CommandEdit.SaveCommandData(command);
+                    commandView.QuickSetting = false;//---恢复快速配置初值------
+                    commandView.DataCommandSetting.AcceptChanges();
+                }
+            }
+        }
+        /// <summary>
+        /// 保存指令
+        /// </summary>
+        public void SaveCommands(int groupNum)
+        {
+            foreach (Control view in xscCommands.Controls)
+            {
+                ViewCommandTools commandView = view as ViewCommandTools;
+                if (commandView.HasChanged || commandView.QuickSetting)
+                {
+                    CommandData command = commandView.GetCommandData();
+                    if (command == null) continue;
+                    command.ucCmdType = 0;
+                    command.ucCmdKey = groupNum;
                     command.ucCmdNum = commandView.Num - 1;
                     CommandEdit.SaveCommandData(command);
                     commandView.QuickSetting = false;//---恢复快速配置初值------

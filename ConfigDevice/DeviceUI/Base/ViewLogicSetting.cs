@@ -130,7 +130,7 @@ namespace ConfigDevice
             logicList = new LogicList(device);
             logicList.OnCallbackUI_Action += this.ReturnLogicData;//命令的执行的界面回调
             NeedInit = false;
-            lookUpEdit.ItemIndex = 0;
+            lookUpEdit.EditValue = lookUpEdit.Properties.GetDataSourceValue(lookUpEdit.Properties.ValueMember, 0);
         }
 
         /// <summary>

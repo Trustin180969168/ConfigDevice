@@ -1148,12 +1148,10 @@ namespace ConfigDevice
 
         public override void KindChanged()
         {
-            throw new NotImplementedException();
         }
 
         public override void OperateChanged()
         {
-            throw new NotImplementedException();
         }
     }
 

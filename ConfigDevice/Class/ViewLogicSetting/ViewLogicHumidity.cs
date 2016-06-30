@@ -28,8 +28,7 @@ namespace ConfigDevice
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_GREATER_THAN);
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
-
-            sensorValueEdit.MaxValue = 99;
+ 
             //-------初始化级别编辑控件------
             foreach (string value in HumiditySensor.LEVEL_ID_NAME.Values)
                 cbxLevelEdit.Items.Add(value);
@@ -55,6 +54,27 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
             gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
             gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
+        }
+
+
+        /// <summary>
+        /// 位置触发
+        /// </summary>
+        protected override void positionChanged()
+        {
+            base.positionChanged();
+            DataRow dr = gvLogic.GetDataRow(0);
+            string positionName = dr[ViewConfig.DC_POSITION].ToString();
+            if (positionName == SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT)//---差值变更范围
+            {
+                sensorValueEdit.MaxValue = 200;
+                sensorValueEdit.MinValue = -100;
+            }
+            else
+            {
+                sensorValueEdit.MaxValue = 100;
+                sensorValueEdit.MinValue = 0;
+            }
         }
 
         /// <summary>
