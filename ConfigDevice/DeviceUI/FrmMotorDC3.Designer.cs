@@ -49,6 +49,7 @@
             this.dcCurrentEC = new DevExpress.XtraGrid.Columns.GridColumn();
             this.spedtEC = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.dcAction1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.linkAction = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.dcAction2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcAction3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcAction4 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -58,7 +59,6 @@
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
-            this.linkAction = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.pagePzcl.SuspendLayout();
@@ -76,10 +76,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spedtEC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkAction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.linkAction)).BeginInit();
             this.SuspendLayout();
             // 
             // xtraTabControl1
@@ -363,6 +363,11 @@
             this.dcAction1.VisibleIndex = 3;
             this.dcAction1.Width = 94;
             // 
+            // linkAction
+            // 
+            this.linkAction.AutoHeight = false;
+            this.linkAction.Name = "linkAction";
+            // 
             // dcAction2
             // 
             this.dcAction2.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
@@ -469,11 +474,6 @@
             this.viewBaseSetting.Size = new System.Drawing.Size(783, 512);
             this.viewBaseSetting.TabIndex = 0;
             // 
-            // linkAction
-            // 
-            this.linkAction.AutoHeight = false;
-            this.linkAction.Name = "linkAction";
-            // 
             // FrmMotorDC3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -502,11 +502,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spedtEC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkAction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
             this.pageJcsz.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.linkAction)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

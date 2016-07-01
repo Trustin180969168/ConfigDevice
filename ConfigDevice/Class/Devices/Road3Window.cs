@@ -8,6 +8,7 @@ namespace ConfigDevice
 
     public class Road3Window : Device
     {
+        public Motor Motor;//---电机对象----
 
         public Road3Window(UserUdpData userUdpData)
             : base(userUdpData)
@@ -32,8 +33,11 @@ namespace ConfigDevice
         /// </summary>
         private void initControlObjs()
         {
-            ContrlObjs.Add("电机",new Motor(this));
+            this.Motor = new Motor(this);
+            ContrlObjs.Add("电机",this.Motor);
         }
+
+
 
     }
 
