@@ -19,6 +19,8 @@ namespace ConfigDevice
         private string currentGroupName = "";//当前组名
         private LogicQuickSetting logicQuickSetting;//快速配置编辑
         private bool isQuickSetting = false;//是否快速配置设定
+        private bool hasInitedLogicAndCommand = false;//---是否已经初始化逻辑配置和指令配置------
+        private bool hasLoadedLogicAndCommand = false;//-----是否已经加载指令配置和逻辑配置-----
         private DataTable dtSensorState = new DataTable("SensorState");//传感器状态
         public FrmEnvironment(Device _device)
             : base(_device)
@@ -169,33 +171,58 @@ namespace ConfigDevice
             }
             lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
             viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+
             edtTriggerActionName.Text = environment.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
             if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
-            {
                 viewLogicSetting.InitLogicList(environment,
                     SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_LUMINANCE, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_AQI,
                     SensorConfig.SENSOR_TVOC, SensorConfig.SENSOR_CO2, SensorConfig.SENSOR_CH20, SensorConfig.SENSOR_PM25, SensorConfig.SENSOR_O2,
                     SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_INNER_INTERACTION,
                     SensorConfig.SENSOR_INVALID);
-                viewLogicSetting.ReadLogicList(0);//-默认读取第一个组,需要调用ReadLogicList(0)获取         
-            }
             if (viewCommandSetting.NeedInit)//----初始化指令配置-------
-            {
                 viewCommandSetting.InitViewCommand(environment);//初始化       
-                viewCommandSetting.ReadCommandData(0);
-            }
+            hasInitedLogicAndCommand = true;//----初始化完毕-----
+            if (tctrlEdit.SelectedTabPageIndex == 2)
+            {
+                lookUpEdit.ItemIndex = 0;
+                hasLoadedLogicAndCommand = true;//----加载完毕------
+            }            
            
         }
+
+        /// <summary>
+        /// 切换分页后进行初始化
+        /// </summary> 
+        private void tctrlEdit_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            if (tctrlEdit.SelectedTabPageIndex == 2 && hasInitedLogicAndCommand && !hasLoadedLogicAndCommand)
+            {
+                btRefreshTrigger_Click(null, null);
+            }
+        }
+
         /// <summary>
         /// 刷新
         /// </summary>
         private void btRefreshTrigger_Click(object sender, EventArgs e)
         {
-            if (lookUpEdit.ItemIndex == -1)
-                lookUpEdit.ItemIndex =0;
+            if (lookUpEdit.ItemIndex == -1) { lookUpEdit.ItemIndex = 0; return; }//----
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);       //---读取逻辑数据----
             viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
             environment.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
+        }
+
+        /// <summary>
+        /// 选择切换
+        /// </summary> 
+        private void lookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            lblNum.Text = lookUpEdit.EditValue.ToString() + "、";
+            edtTriggerActionName.Text = lookUpEdit.Text;
+            currentGroupName = edtTriggerActionName.Text;
+            viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
+            viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;//----获取指令配置----
+            environment.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
         }
 
 
@@ -219,21 +246,7 @@ namespace ConfigDevice
             }
         }
 
-        /// <summary>
-        /// 选择切换
-        /// </summary> 
-        private void lookUpEdit_EditValueChanged(object sender, EventArgs e)
-        {
-            lblNum.Text = lookUpEdit.EditValue.ToString() + "、";
-            edtTriggerActionName.Text = lookUpEdit.Text;
-            currentGroupName = edtTriggerActionName.Text;
-            if (!viewLogicSetting.NeedInit)
-                viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
-            if (!viewCommandSetting.NeedInit)
-                viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);
-            environment.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
 
-        }
 
         /// <summary>
         /// 保存参数
@@ -246,17 +259,7 @@ namespace ConfigDevice
             }
         }
 
-        /// <summary>
-        /// 切换分页后进行初始化
-        /// </summary> 
-        private void tctrlEdit_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
-        {
-            if (tctrlEdit.SelectedTabPageIndex == 2)
-            {
 
-
-            }
-        }
 
         /// <summary>
         /// 保存

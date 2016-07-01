@@ -19,6 +19,8 @@ namespace ConfigDevice
         private string currentGroupName = "";//当前组名
         private LogicQuickSetting logicQuickSetting;//快速配置编辑
         private bool isQuickSetting = false;//是否快速配置设定
+        private bool hasInitedLogicAndCommand = false;//---是否已经初始化逻辑配置和指令配置------
+        private bool hasLoadedLogicAndCommand = false;//-----是否已经加载指令配置和逻辑配置-----
         public FrmFlammableGasProbe(Device _device)
             : base(_device)
         {
@@ -184,26 +186,35 @@ namespace ConfigDevice
       
             edtTriggerActionName.Text = flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[1];//----默认显示第一个组名
             if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
-            {
                 viewLogicSetting.InitLogicList(flammableGasProbe, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE,
-                    SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.SENSOR_SYSTEM_INTERACTION      );
-                viewLogicSetting.ReadLogicList(0);//-默认读取第一个组,需要调用ReadLogicList(0)获取         
-            }
+                    SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.SENSOR_SYSTEM_INTERACTION      );   
             if (viewCommandSetting.NeedInit)//----初始化指令配置-------
-            {              
                 viewCommandSetting.InitViewCommand(flammableGasProbe);//初始化       
-                viewCommandSetting.ReadCommandData(0);
-            }
-            lookUpEdit.ItemIndex = 0;
-            viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
+            hasInitedLogicAndCommand = true;//----初始化完毕-----
+            if (tctrlEdit.SelectedTabPageIndex == 2)
+            {
+                lookUpEdit.ItemIndex = 0;
+                hasLoadedLogicAndCommand = true;//----加载完毕------
+            }            
         }
+
+        /// <summary>
+        /// 切换分页后进行初始化
+        /// </summary> 
+        private void tctrlEdit_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            if (tctrlEdit.SelectedTabPageIndex == 2 && hasInitedLogicAndCommand && !hasLoadedLogicAndCommand)
+            {
+                btRefreshTrigger_Click(null, null);
+            }
+        } 
 
         /// <summary>
         /// 刷新
         /// </summary>
         private void btRefreshTrigger_Click(object sender, EventArgs e)
         {
-            if (lookUpEdit.ItemIndex == -1) { lookUpEdit.ItemIndex = 0; return; }
+            if (lookUpEdit.ItemIndex == -1) { lookUpEdit.ItemIndex = 0; return; }//----
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);       //---读取逻辑数据----
             viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
             flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
@@ -216,16 +227,9 @@ namespace ConfigDevice
             lblNum.Text = lookUpEdit.EditValue.ToString() + "、";
             edtTriggerActionName.Text = lookUpEdit.Text;
             currentGroupName = edtTriggerActionName.Text;
-            if (!viewLogicSetting.NeedInit)
-                viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
-            if (!viewCommandSetting.NeedInit)
-            {
-                viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);
-                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;  
-            }else
-                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;  
+            viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
+            viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;//----获取指令配置----
             flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
-
         }
 
         /// <summary>
@@ -286,17 +290,6 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 切换分页后进行初始化
-        /// </summary> 
-        private void tctrlEdit_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
-        {
-            if (tctrlEdit.SelectedTabPageIndex == 2)
-            {
-
-            }
-        } 
-
-        /// <summary>
         /// 保存
         /// </summary> 
         private void btSaveTrigger_Click(object sender, EventArgs e)
@@ -318,7 +311,7 @@ namespace ConfigDevice
                 flammableGasProbe.ProbeCircuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
 
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
-            viewLogicSetting.IsSystemSetting = false;//---恢复标志位---
+            viewLogicSetting.IsSystemSetting = false;           //---恢复标志位---
             viewCommandSetting.SaveCommands(lookUpEdit.ItemIndex);//---保存指令配置---   
             
         }
