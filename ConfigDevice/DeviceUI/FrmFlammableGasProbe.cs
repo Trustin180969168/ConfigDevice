@@ -181,6 +181,7 @@ namespace ConfigDevice
             }
             lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
             viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+      
             edtTriggerActionName.Text = flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[1];//----默认显示第一个组名
             if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
             {
@@ -193,7 +194,8 @@ namespace ConfigDevice
                 viewCommandSetting.InitViewCommand(flammableGasProbe);//初始化       
                 viewCommandSetting.ReadCommandData(0);
             }
-  
+            lookUpEdit.ItemIndex = 0;
+            viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;
         }
 
         /// <summary>
@@ -217,7 +219,11 @@ namespace ConfigDevice
             if (!viewLogicSetting.NeedInit)
                 viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
             if (!viewCommandSetting.NeedInit)
+            {
                 viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);
+                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;  
+            }else
+                viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;  
             flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
 
         }

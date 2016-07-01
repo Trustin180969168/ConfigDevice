@@ -114,45 +114,6 @@ namespace ConfigDevice
             }
         }
 
-        /// <summary>
-        /// 获取指令
-        /// </summary>
-        public void ReadCommandData()
-        {
-            if (!NeedInit)
-            {
-                if (DateTime.Now < actionTime.AddSeconds(1)) return;
-                actionTime = DateTime.Now;
-                if (edtBeginNum.Value > edtEndNum.Value) return;
-                int count = (int)edtEndNum.Value;
-                while (count > commandCount)
-                    addViewCommandSetting();
-                while (count < commandCount)
-                    removeViewCommandSetting();
-                //------清空------
-                foreach (Control view in xscCommands.Controls)
-                {
-                    ViewCommandTools commandView = view as ViewCommandTools;
-                    if (commandView.Num > count)
-                        continue;
-                    else if (commandView.Num >= edtBeginNum.Value && commandView.Num <= count)
-                        commandView.CleanCommandSetting();
-                }
-                //------隐藏不符合查询的条目----
-                foreach (Control view in xscCommands.Controls)
-                {
-                    ViewCommandTools commandView = view as ViewCommandTools;
-                    if (commandView.Num < edtBeginNum.Value)
-                        commandView.Visible = false;
-                    else
-                        commandView.Visible = true;
-                }
-                //while (xscCommands.Controls.Count > 0)
-                //    removeViewCommandSetting();
-                AddDefaultNullCommand();//----默认添加一条空指令
-                CommandEdit.ReadCommandData(cbxGroup.SelectedIndex, (int)edtBeginNum.Value - 1, (int)edtEndNum.Value - 1);//序号从0开始
-            }
-        }
 
         /// <summary>
         /// 获取指令
@@ -333,19 +294,19 @@ namespace ConfigDevice
         /// </summary>
         private void btRefresh_Click(object sender, EventArgs e)
         {
-            ReadCommandData();
+            ReadCommandData(cbxGroup.SelectedIndex);
         }
         private void cbxGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbxGroup.SelectedIndex == -1)
             { cbxGroup.Text = CommmandGroups[0]; cbxGroup.SelectedIndex = 0; }//----由选择框获取指令---
             else
-                ReadCommandData();
+                ReadCommandData(cbxGroup.SelectedIndex);
         }
 
         private void edtEndNum_ValueChanged(object sender, EventArgs e)
         {
-            ReadCommandData();
+            ReadCommandData(cbxGroup.SelectedIndex);
         }
 
         /// <summary>
