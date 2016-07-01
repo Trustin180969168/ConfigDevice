@@ -60,7 +60,7 @@
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.frmSetting = new ConfigDevice.ViewBaseEdit();
+            this.BaseViewSetting = new ConfigDevice.ViewBaseEdit();
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandSetting = new ConfigDevice.ViewCommandSetting();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -467,18 +467,18 @@
             // 
             // pageJcsz
             // 
-            this.pageJcsz.Controls.Add(this.frmSetting);
+            this.pageJcsz.Controls.Add(this.BaseViewSetting);
             this.pageJcsz.Name = "pageJcsz";
             this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
             this.pageJcsz.Text = "基础配置";
             // 
-            // frmSetting
+            // BaseViewSetting
             // 
-            this.frmSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmSetting.Location = new System.Drawing.Point(0, 0);
-            this.frmSetting.Name = "frmSetting";
-            this.frmSetting.Size = new System.Drawing.Size(1009, 682);
-            this.frmSetting.TabIndex = 0;
+            this.BaseViewSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BaseViewSetting.Location = new System.Drawing.Point(0, 0);
+            this.BaseViewSetting.Name = "BaseViewSetting";
+            this.BaseViewSetting.Size = new System.Drawing.Size(1009, 682);
+            this.BaseViewSetting.TabIndex = 0;
             // 
             // pageLogic
             // 
@@ -495,8 +495,8 @@
             this.viewCommandSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandSetting.Location = new System.Drawing.Point(0, 336);
             this.viewCommandSetting.Name = "viewCommandSetting";
-            this.viewCommandSetting.ShowCommandBar = true;
-            this.viewCommandSetting.ShowToolBar = true;
+            this.viewCommandSetting.ShowCommandBar = false;
+            this.viewCommandSetting.ShowToolBar = false;
             this.viewCommandSetting.Size = new System.Drawing.Size(1009, 346);
             this.viewCommandSetting.TabIndex = 1;
             // 
@@ -950,7 +950,7 @@
 
         private DevExpress.XtraTab.XtraTabControl tctrlEdit;
         private DevExpress.XtraTab.XtraTabPage pageJcsz;
-        private ViewBaseEdit frmSetting;
+        private ViewBaseEdit BaseViewSetting;
         private DevExpress.XtraTab.XtraTabPage pagePzjm;
         private System.Windows.Forms.ToolStrip tsDoorInput;
         private System.Windows.Forms.ToolStripButton btSave;

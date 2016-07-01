@@ -45,7 +45,7 @@ namespace ConfigDevice
             dtSensorState.Rows.Add(new object[] { "二氧化碳(等效)", "", "" });
             dtSensorState.Rows.Add(new object[] { "甲醛", "", "" });
             dtSensorState.Rows.Add(new object[] { "PM2.5", "", "" });
-           // dtSensorState.Rows.Add(new object[] { "氧气浓度", "", "" });
+            //dtSensorState.Rows.Add(new object[] { "氧气浓度", "", "" });
             gcEnvironment.DataSource = dtSensorState;
             //----------指示灯-------
             sptLightSeconds.Properties.MaxValue = 65535;
@@ -79,11 +79,10 @@ namespace ConfigDevice
         /// 加载数据
         /// </summary>
         private void FrmFlammableGasProbe_Load(object sender, EventArgs e)
-        {
-            //----------可燃气体回调----------- 
+        { 
             environment.OnCallbackUI_Action += this.CallbackUI;
-            environment.OnCallbackUI_Action += frmSetting.CallBackUI;
-            frmSetting.DeviceEdit = environment;           //---基础配置编辑
+            environment.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
+            BaseViewSetting.DeviceEdit = environment;           //---基础配置编辑
             base.InitSelectDevice();//初始化选择列表     
             loadData();
         }
@@ -100,8 +99,6 @@ namespace ConfigDevice
             edtLogicLocalSetting.Text = "";
         }
 
-
-
         /// <summary>
         /// 加载界面数据
         /// </summary>
@@ -110,8 +107,7 @@ namespace ConfigDevice
             environment.SearchVer();          //---获取版本号-----   
             environment.Circuit.ReadRoadTitle();//----读取回路---- 
             environment.ReadState();          //---读取状态----            
-            environment.PointLight.ReadParameter();//---读取参数----
-           
+            environment.PointLight.ReadParameter();//---读取参数----           
         }
 
         /// <summary>
@@ -185,7 +181,10 @@ namespace ConfigDevice
             hasInitedLogicAndCommand = true;//----初始化完毕-----
             if (tctrlEdit.SelectedTabPageIndex == 2)
             {
-                lookUpEdit.ItemIndex = 0;
+                if (lookUpEdit.ItemIndex == 0)
+                    btRefreshTrigger_Click(null, null);
+                else
+                    lookUpEdit.ItemIndex = 0;              
                 hasLoadedLogicAndCommand = true;//----加载完毕------
             }            
            
@@ -199,6 +198,7 @@ namespace ConfigDevice
             if (tctrlEdit.SelectedTabPageIndex == 2 && hasInitedLogicAndCommand && !hasLoadedLogicAndCommand)
             {
                 btRefreshTrigger_Click(null, null);
+                hasLoadedLogicAndCommand = true;
             }
         }
 
@@ -218,12 +218,13 @@ namespace ConfigDevice
         /// </summary> 
         private void lookUpEdit_EditValueChanged(object sender, EventArgs e)
         {
-            lblNum.Text = lookUpEdit.EditValue.ToString() + "、";
-            edtTriggerActionName.Text = lookUpEdit.Text;
-            currentGroupName = edtTriggerActionName.Text;
-            viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
+            lblNum.Text = lookUpEdit.EditValue.ToString() + "、";   //---当前组序号---
+            edtTriggerActionName.Text = lookUpEdit.Text;            //---触发组名-----
+            currentGroupName = edtTriggerActionName.Text;           //---当前触发组名
+            environment.ReadAdditionLogic(lookUpEdit.ItemIndex);    //---获取逻辑附加---
+            viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);   //---获取逻辑列表----
             viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;//----获取指令配置----
-            environment.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
+
         }
 
 
@@ -388,7 +389,7 @@ namespace ConfigDevice
             byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
             environment.SetAdditionLogicData(adittionData);
             this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
-            //----------手头变更修改状态------
+            //-------手头变更修改状态------
             isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
         }
 
@@ -399,14 +400,21 @@ namespace ConfigDevice
         {
             Environment _environment = new Environment(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
             if (environment.MAC == _environment.MAC) return;
-
             _environment.OnCallbackUI_Action += this.CallbackUI;
-            _environment.OnCallbackUI_Action += frmSetting.CallBackUI;
-            frmSetting.DeviceEdit = _environment;           //---基础配置编辑  
-            viewCommandSetting.NeedInit = true;//----重新初始化,通过回调实现------
-            viewLogicSetting.NeedInit = true;//---重新初始化逻辑配置
+            _environment.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
+            BaseViewSetting.DeviceEdit = _environment;           //---基础配置编辑  
+            base.Device = _environment;                         //---父类设备对象-----
+            hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
+            hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
+            viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------
+            viewLogicSetting.NeedInit = true;                   //---重新初始化逻辑配置
             environment = _environment;
-            this.Text = _environment.Name;
+            BaseViewSetting.DeviceEdit = environment;            //---基础配置编辑
+
+            lookUpEdit.Properties.DataSource = new DataTable(); //----初始化列表选择-------
+            lookUpEdit.ItemIndex = -1;     
+            this.Text = _environment.Name;                      //----界面标题------
+            base.InitSelectDevice();                            //---初始化选择列表     
             loadData();
         }
 

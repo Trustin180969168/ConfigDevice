@@ -80,8 +80,8 @@ namespace ConfigDevice
             lookUpEdit.Properties.DataSource = dtIDName;
             //----------可燃气体回调----------- 
             flammableGasProbe.OnCallbackUI_Action += this.CallbackUI;
-            flammableGasProbe.OnCallbackUI_Action += frmSetting.CallBackUI;
-            frmSetting.DeviceEdit = flammableGasProbe;           //---基础配置编辑
+            flammableGasProbe.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
+            BaseViewSetting.DeviceEdit = flammableGasProbe;           //---基础配置编辑
             //----------逻辑配置控件----
             viewLogicSetting.ShowToolBar = false;//不显示工具栏  
             //viewCommandEdit.ShowCommandBar = true;//不显示指令栏
@@ -193,7 +193,10 @@ namespace ConfigDevice
             hasInitedLogicAndCommand = true;//----初始化完毕-----
             if (tctrlEdit.SelectedTabPageIndex == 2)
             {
-                lookUpEdit.ItemIndex = 0;
+                if (lookUpEdit.ItemIndex == 0)
+                    btRefreshTrigger_Click(null, null);
+                else
+                    lookUpEdit.ItemIndex = 0;
                 hasLoadedLogicAndCommand = true;//----加载完毕------
             }            
         }
@@ -206,6 +209,7 @@ namespace ConfigDevice
             if (tctrlEdit.SelectedTabPageIndex == 2 && hasInitedLogicAndCommand && !hasLoadedLogicAndCommand)
             {
                 btRefreshTrigger_Click(null, null);
+                hasLoadedLogicAndCommand = true;
             }
         } 
 
@@ -454,15 +458,22 @@ namespace ConfigDevice
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
             FlammableGasProbe _flammableGasProbe = new FlammableGasProbe(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
-            if (flammableGasProbe.MAC == _flammableGasProbe.MAC) return;
-
+            if (_flammableGasProbe.MAC == _flammableGasProbe.MAC) return;
             _flammableGasProbe.OnCallbackUI_Action += this.CallbackUI;
-            _flammableGasProbe.OnCallbackUI_Action += frmSetting.CallBackUI;
-            frmSetting.DeviceEdit = _flammableGasProbe;           //---基础配置编辑  
-            viewCommandSetting.NeedInit = true;//----重新初始化,通过回调实现------
-            viewLogicSetting.NeedInit = true;//---重新初始化逻辑配置
+            _flammableGasProbe.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
+            BaseViewSetting.DeviceEdit = _flammableGasProbe;           //---基础配置编辑  
+            base.Device = _flammableGasProbe;                         //---父类设备对象-----
+            hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
+            hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
+            viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------
+            viewLogicSetting.NeedInit = true;                   //---重新初始化逻辑配置
             flammableGasProbe = _flammableGasProbe;
-            this.Text = _flammableGasProbe.Name;
+            BaseViewSetting.DeviceEdit = flammableGasProbe;            //---基础配置编辑
+
+            lookUpEdit.Properties.DataSource = new DataTable(); //----初始化列表选择-------
+            lookUpEdit.ItemIndex = -1;
+            this.Text = _flammableGasProbe.Name;                      //----界面标题------
+            base.InitSelectDevice();                            //---初始化选择列表     
             loadData();
         }
 

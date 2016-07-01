@@ -17,8 +17,10 @@ namespace ConfigDevice
         protected  static readonly object lockObject = new object();
         public FrmDevice(Device _device)
         {
-            this.Device = _device;      
-            InitializeComponent();      
+
+            InitializeComponent();
+            this.Device = _device;
+            this.Text = _device.Name;
         }
 
         public FrmDevice()
@@ -73,8 +75,8 @@ namespace ConfigDevice
         {
             for (int i = 0; i < CbxSelectDevice.Items.Count; i++)
             {
-                if (CbxSelectDevice.Items[0].ToString().Contains(this.Device.Name) &&
-                    CbxSelectDevice.Items[0].ToString().Contains(this.Device.DeviceID))
+                string itemValue = CbxSelectDevice.Items[i].ToString();
+                if (itemValue.Contains(this.Device.Name) && itemValue.Contains(this.Device.DeviceID))
                 { CbxSelectDevice.SelectedIndex = i; break; }
             }
         }

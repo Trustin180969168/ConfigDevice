@@ -274,7 +274,6 @@ namespace ConfigDevice
                 SysConfig.ListNetworks[device.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
             {
                 FrmDevice frm = FactoryDevice.GetFactoryDeviceEdit(device.ByteKindID).CreateDevice(dr);
-                frm.Text = device.Name;
                 frm.Show(this);
             }
             else { CommonTools.MessageShow("网络链接已断开,请重新链接!", 2, ""); return; }
