@@ -57,30 +57,35 @@ namespace ConfigDevice
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_ORANGE_ON);
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_ON); 
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_GLINT); 
-
             //----------回路查询选择------
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, "回路", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_NAME, 380));
-
             lookUpEdit.Properties.Name = "lookupEdit";
             lookUpEdit.Properties.DisplayMember = ViewConfig.DC_NAME;
             lookUpEdit.Properties.ValueMember = ViewConfig.DC_ID;
             lookUpEdit.Properties.ShowFooter = false;
             lookUpEdit.Properties.ShowHeader = false;
             lookUpEdit.Properties.DataSource = dtIDName;
+            //--------逻辑配置,命令配置界面配置           
+            viewLogicSetting.ShowToolBar = false;// -----逻辑配置控件不显示工具栏  
+            viewCommandSetting.ShowCommandBar = true;// -----命令配置控件配置工具栏  
+            viewCommandSetting.ShowLogicToolBarSetting();     
+            //--------初始化快速配置------------
+            logicQuickSetting = new LogicQuickSetting("EQUIPMENT_AIR_QUALITY");
+            initLogicQuitSetting();
+        }
+
+        /// <summary>
+        /// 加载数据
+        /// </summary>
+        private void FrmFlammableGasProbe_Load(object sender, EventArgs e)
+        {
             //----------可燃气体回调----------- 
             environment.OnCallbackUI_Action += this.CallbackUI;
             environment.OnCallbackUI_Action += frmSetting.CallBackUI;
             frmSetting.DeviceEdit = environment;           //---基础配置编辑
-            //----------逻辑配置控件----
-            viewLogicSetting.ShowToolBar = false;//不显示工具栏  
-            //viewCommandEdit.ShowCommandBar = true;//不显示指令栏
-
-            viewCommandSetting.ShowCommandBar = true;
-            viewCommandSetting.ShowLogicToolBarSetting();     
-            //----------快速配置-----
-            logicQuickSetting = new LogicQuickSetting("EQUIPMENT_AIR_QUALITY");
-            initLogicQuitSetting();
+            base.InitSelectDevice();//初始化选择列表     
+            loadData();
         }
 
         /// <summary>
@@ -95,11 +100,7 @@ namespace ConfigDevice
             edtLogicLocalSetting.Text = "";
         }
 
-        private void FrmFlammableGasProbe_Load(object sender, EventArgs e)
-        {
-            base.InitSelectDevice();//初始化选择列表     
-            loadData();
-        }
+
 
         /// <summary>
         /// 加载界面数据
