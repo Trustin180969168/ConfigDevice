@@ -25,6 +25,13 @@ namespace ConfigDevice
         public const string STATE_VALVE_TOTAL = "总数";
         public Int16 MaxStopCE = 0;//卡停电流
         public Int16 MaxRunTime = 0;//最大运行秒数
+        public Int16 Road1MaxStopCE = 0;//卡停电流
+        public Int16 Road1MaxRunTime = 0;//最大运行秒数
+        public Int16 Road2MaxStopCE = 0;//卡停电流
+        public Int16 Road2MaxRunTime = 0;//最大运行秒数
+        public Int16 Road3MaxStopCE = 0;//卡停电流
+        public Int16 Road3MaxRunTime = 0;//最大运行秒数
+
         public bool OpenValve = false;//是否开阀门
         public bool ClearLight = false;//是否关闭指示灯
         public bool ClearBuzzer = false;//是否关闭蜂鸣器 
@@ -55,7 +62,8 @@ namespace ConfigDevice
 
 
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
-        private CallbackFromUDP getParameter;//-------每参数名称----
+        private CallbackFromUDP getValveParameter;//-------每参数名称---- 
+        private CallbackFromUDP getMotorParameter;//-------每参数名称---- 
         private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
         public Motor(Device _deviceCtrl)
         {
@@ -70,7 +78,8 @@ namespace ConfigDevice
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_OPEN_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION);
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_CLOSE_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION);
             }
-            getParameter = new CallbackFromUDP(getParameterData);                 
+            getValveParameter = new CallbackFromUDP(getValveParameterData);
+            getMotorParameter = new CallbackFromUDP(getMotorParameterData);           
             getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
 
         } 
@@ -246,11 +255,23 @@ namespace ConfigDevice
         /// <summary>
         /// 读参数
         /// </summary>
-        public void ReadParameter()
+        public void ReadValveParameter()
         {
             finishReadParameter = false;
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, this.UUID, getParameter);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, this.UUID, getValveParameter);//----注册回调---
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, getWriteEnd); 
+            UdpData udpSend = createReadParameterUdp();
+            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
+                new CallbackUdpAction(callbackReadParameterUdp), null);
+        }
+        /// <summary>
+        /// 读参数
+        /// </summary>
+        public void ReadMotorParameter()
+        {
+            finishReadParameter = false;
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, this.UUID, getMotorParameter);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, getWriteEnd);
             UdpData udpSend = createReadParameterUdp();
             MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadParameterUdp), null);
@@ -299,7 +320,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="data">数据包</param>
         /// <param name="values"></param>
-        private void getParameterData(UdpData data, object[] values)
+        private void getValveParameterData(UdpData data, object[] values)
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
@@ -312,6 +333,29 @@ namespace ConfigDevice
             OpenValve = (int)(userData.Data[5] & 1) == 1 ? true : false;//---是否开阀门
             ClearLight = (int)(userData.Data[5] & 2) == 2 ? true : false;//---是否关闭指示灯
             ClearBuzzer = (int)(userData.Data[5] & 4) == 4 ? true : false;//---是否关闭蜂鸣器     
+            finishReadParameter = true;
+        }
+
+        /// <summary>
+        /// 获取电机参数
+        /// </summary>
+        /// <param name="data">数据包</param>
+        /// <param name="values"></param>
+        private void getMotorParameterData(UdpData data, object[] values)
+        {
+            UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
+
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            //----翻译数据------------
+ 
+            this.Road1MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[1], userData.Data[2] });//---最大运行时间---
+            this.Road1MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[3], userData.Data[4] });//----最大停止电流---
+            this.Road2MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[5], userData.Data[6] });//---最大运行时间---
+            this.Road2MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[7], userData.Data[8] });//----最大停止电流---
+            this.Road3MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[9], userData.Data[10] });//---最大运行时间---
+            this.Road3MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[11], userData.Data[12] });//----最大停止电流---
+ 
             finishReadParameter = true;
         }
 

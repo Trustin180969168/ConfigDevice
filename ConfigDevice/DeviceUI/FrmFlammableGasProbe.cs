@@ -119,7 +119,7 @@ namespace ConfigDevice
             flammableGasProbe.SearchVer();          //---获取版本号-----   
             flammableGasProbe.ProbeCircuit.ReadRoadTitle();//----读取回路---- 
             flammableGasProbe.ReadState();          //---读取状态----     
-            flammableGasProbe.Valve.ReadParameter();//---读取参数---            
+            flammableGasProbe.Valve.ReadValveParameter();//---读取参数---            
         }
 
         /// <summary>
@@ -360,7 +360,7 @@ namespace ConfigDevice
         private void btRefresh_Click(object sender, EventArgs e)
         {
             flammableGasProbe.ReadState();//---读取状态----     
-            flammableGasProbe.Valve.ReadParameter();//---读取参数---
+            flammableGasProbe.Valve.ReadValveParameter();//---读取参数---
         }
 
 

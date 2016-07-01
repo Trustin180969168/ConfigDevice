@@ -43,7 +43,7 @@ namespace ConfigDevice
         private void loadData()
         {
             road3Window.SearchVer();          //---获取版本号-----    
-            road3Window.Motor.ReadParameter();//---读取参数-----
+            road3Window.Motor.ReadValveParameter();//---读取参数-----
 
         }
 

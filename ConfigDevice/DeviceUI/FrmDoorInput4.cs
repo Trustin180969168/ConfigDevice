@@ -93,8 +93,6 @@ namespace ConfigDevice
                     }
                     for (int i = 0; i < 4; i++)
                         clbcWldkpb.Items[i].CheckState = doorInput4.PhysicalShieldingPortsValue[i] == true ? CheckState.Checked : CheckState.Unchecked;
-
-
                     
                     cedtAfpb1.Checked = doorInput4.RoadShield1;
                     cedtAfpb2.Checked = doorInput4.RoadShield2;
@@ -105,9 +103,6 @@ namespace ConfigDevice
                     edtNum2.Text = doorInput4.RoadMusicNum2.ToString();
                     edtNum3.Text = doorInput4.RoadMusicNum3.ToString();
                     edtNum4.Text = doorInput4.RoadMusicNum4.ToString();
-
-   
-  
                 
 
                 }
