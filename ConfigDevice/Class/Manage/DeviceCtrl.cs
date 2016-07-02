@@ -125,6 +125,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_FUEL_GAS: return new FactoryFlammableGasProbeEdit();//----可燃气体-----
                 case DeviceConfig.EQUIPMENT_WEATHER: return new FactoryWeatherStationEdit();//-----气象站-----
                 case DeviceConfig.EQUIPMENT_AIR_QUALITY: return new FactoryEnvironmentEdit();//-----环境-----
+                case DeviceConfig.EQUIPMENT_AIR_O2: return new FactoryO2Edit();//-----氧气传感器-----
                 default: return new FactoryBaseDeviceEdit();
             }
         }
@@ -234,6 +235,22 @@ namespace ConfigDevice
         }
         #endregion
     }
+
+
+    /// <summary>
+    /// 氧气传感器
+    /// </summary>
+    public class FactoryO2Edit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            Environment environment = new Environment(data);
+            return new FrmO2(environment);
+        }
+        #endregion
+    }
+
 
 
     //**********************设备***************************

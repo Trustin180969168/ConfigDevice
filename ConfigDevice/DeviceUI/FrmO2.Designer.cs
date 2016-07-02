@@ -1,6 +1,6 @@
 ﻿namespace ConfigDevice
 {
-    partial class FrmEnvironment
+    partial class FrmO2
     {
         /// <summary>
         /// 必需的设计器变量。

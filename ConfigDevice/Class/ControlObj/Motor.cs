@@ -60,7 +60,6 @@ namespace ConfigDevice
         public const int ACTION_ROAD_FRONT_3 = 4;
         public const int ACTION_ROAD_BACK_3 = 5; 
 
-
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         private CallbackFromUDP getValveParameter;//-------每参数名称---- 
         private CallbackFromUDP getMotorParameter;//-------每参数名称---- 
@@ -349,12 +348,12 @@ namespace ConfigDevice
             UdpTools.ReplyDataUdp(data);//----回复确认-----
             //----翻译数据------------
  
-            this.Road1MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[1], userData.Data[2] });//---最大运行时间---
-            this.Road1MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[3], userData.Data[4] });//----最大停止电流---
-            this.Road2MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[5], userData.Data[6] });//---最大运行时间---
-            this.Road2MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[7], userData.Data[8] });//----最大停止电流---
-            this.Road3MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[9], userData.Data[10] });//---最大运行时间---
-            this.Road3MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[11], userData.Data[12] });//----最大停止电流---
+            this.Road1MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[1], userData.Data[2] });   //---最大运行时间---
+            this.Road1MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[3], userData.Data[4] });    //---最大停止电流---
+            this.Road2MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[5], userData.Data[6] });   //---最大运行时间---
+            this.Road2MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[7], userData.Data[8] });    //---最大停止电流---
+            this.Road3MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[9], userData.Data[10] });  //---最大运行时间---
+            this.Road3MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[11], userData.Data[12] });  //---最大停止电流---
  
             finishReadParameter = true;
         }
@@ -421,8 +420,83 @@ namespace ConfigDevice
 
             return udp;
         }
-    
+
+
+        /// <summary>
+        /// 读参数
+        /// </summary>
+        public void ReadPowerAndCurrent()
+        {
+            finishReadParameter = false;
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, this.UUID, getMotorParameter);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, getWriteEnd);
+            UdpData udpSend = createReadParameterUdp();
+            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
+                new CallbackUdpAction(callbackPowerAndCurrentUdp), null);
+        }
+        private void callbackPowerAndCurrentUdp(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("读取参数失败!", udpReply.ReplyByte);
+        }
+        private UdpData createReadPowerAndCurrentUdp()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
+            byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_CONFIG;//----用户命令-----
+            byte len = 4 + 2;//---数据长度---- 
+
+            byte[] crcData = new byte[12];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            crcData[10] = 0;
+            crcData[11] = 0;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+
+        /// <summary>
+        /// 获取阀门参数
+        /// </summary>
+        /// <param name="data">数据包</param>
+        /// <param name="values"></param>
+        private void getReadPowerAndCurrentData(UdpData data, object[] values)
+        {
+            UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
+
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            //----翻译数据------------
+            this.MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[1], userData.Data[2] });//---最大运行时间---
+            this.MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[3], userData.Data[4] });//----最大停止电流---
+
+            OpenValve = (int)(userData.Data[5] & 1) == 1 ? true : false;//---是否开阀门
+            ClearLight = (int)(userData.Data[5] & 2) == 2 ? true : false;//---是否关闭指示灯
+            ClearBuzzer = (int)(userData.Data[5] & 4) == 4 ? true : false;//---是否关闭蜂鸣器     
+            finishReadParameter = true;
+        }
     }
+
+       
+
 
 
 

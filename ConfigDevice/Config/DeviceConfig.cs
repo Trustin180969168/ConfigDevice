@@ -154,6 +154,8 @@ namespace ConfigDevice
         public const byte EQUIPMENT_ENV_SENSOR_C = 0x83;        //环境传感器C
         public const byte EQUIPMENT_ENV_SENSOR_D = 0x84;        //环境传感器D
         public const byte EQUIPMENT_ENV_SENSOR_E = 0x85;        //环境传感器E
+        public const byte EQUIPMENT_AIR_O2 = 0x3d;     //氧气传感器
+
 
         public const byte EQUIPMENT_PANEL = 0xE0;        //通用控制面板
         public const byte EQUIPMENT_RSP = 0x90;         //雷达
@@ -451,7 +453,7 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_ENV_SENSOR_D, "环境传感器D");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_ENV_SENSOR_E, "环境传感器E");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_AIR_QUALITY, "环境传感器");
-
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_AIR_O2, "氧气传感器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_WEATHER, "智能气象");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_TEMP, "温度模块"); 
 
