@@ -100,7 +100,7 @@ namespace ConfigDevice
             CommandData commandData = new CommandData(userData);
             //----暂时不用多一条的情况
             //while (commandCount < commandData.ucCmdNum + 2)
-            //    addViewCommandSetting();
+            //    addViewCommandSetting();                                                                                                                                                                                                                       
             while (commandCount < commandData.ucCmdNum + 1)
                 addViewCommandSetting();
             foreach (Control ctrl in xscCommands.Controls)
