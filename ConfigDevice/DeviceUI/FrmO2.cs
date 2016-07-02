@@ -118,8 +118,7 @@ namespace ConfigDevice
                     initLogicAndCommand();
                 //-----读取完探头参数----- 
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Environment.CLASS_NAME)
-                {
- 
+                { 
                     dtSensorState.Rows[0][1] = (environment.O2Sensor.Value / 10.0).ToString()+" "+environment.O2Sensor.Unit; dtSensorState.Rows[0][2] = environment.O2Sensor.LevelValue;//氧气浓度           
                     dtSensorState.AcceptChanges();
 
