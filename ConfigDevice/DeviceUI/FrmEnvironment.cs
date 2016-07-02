@@ -66,6 +66,7 @@ namespace ConfigDevice
             lookUpEdit.Properties.ShowFooter = false;
             lookUpEdit.Properties.ShowHeader = false;
             lookUpEdit.Properties.DataSource = dtIDName;
+            lookUpEdit.Properties.DropDownRows = environment.Circuit.CircuitCount;
             //--------逻辑配置,命令配置界面配置           
             viewLogicSetting.ShowToolBar = false;// -----逻辑配置控件不显示工具栏  
             viewCommandSetting.ShowCommandBar = true;// -----命令配置控件配置工具栏  
@@ -174,8 +175,8 @@ namespace ConfigDevice
                 viewLogicSetting.InitLogicList(environment,
                     SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_LUMINANCE, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_AQI,
                     SensorConfig.SENSOR_TVOC, SensorConfig.SENSOR_CO2, SensorConfig.SENSOR_CH20, SensorConfig.SENSOR_PM25, SensorConfig.SENSOR_O2,
-                    SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_INNER_INTERACTION,
-                    SensorConfig.SENSOR_INVALID);
+                    SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_INNER_INTERACTION
+                    );
             if (viewCommandSetting.NeedInit)//----初始化指令配置-------
                 viewCommandSetting.InitViewCommand(environment);//初始化       
             hasInitedLogicAndCommand = true;//----初始化完毕-----

@@ -58,9 +58,9 @@ namespace ConfigDevice
         /// <param name="network">搜索设备</param>
         public void SearchDevices(Network network)
         {         
-            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF);//----清空所有获取设备回调----
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackGetSearchDevices);//---回调设备-----
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_STOP_SEARCH, callbackGetStopSearchDevices);//---回调停止搜索----
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF);                              //----清空所有获取设备回调----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, callbackGetSearchDevices);       //---回调设备-----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_STOP_SEARCH, callbackGetStopSearchDevices); //---回调停止搜索----
             searching = true;
             this.SearchingNetwork = network;
             initDataTableDevices();//----初始化列表-----
@@ -192,22 +192,19 @@ namespace ConfigDevice
             }
         }
 
-
-
-
         /// <summary>
         /// 监听设备停止
         /// </summary>
         private void callbackStopSearch(UdpData data, object[] values)
         {
-            searching = false;//---搜索完毕----
+            if (!searching) return;
+            searching = false;//---搜索完毕----         
             //------回复停止搜索-------               
             UdpData udpReply = createReplyUdp(data);
             UdpTools.ReplyDataUdp(data);
             if (CallBackUI != null) 
                 CallBackUI(new CallbackParameter(ActionKind.SearchDevice,   SearchingNetwork  ));
         }
-
 
         /// <summary>
         /// 根据设备发送包生成回复包

@@ -566,7 +566,7 @@
             this.lookUpEdit.Properties.AppearanceReadOnly.Options.UseFont = true;
             this.lookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpEdit.Properties.DropDownRows = 8;
+            this.lookUpEdit.Properties.DropDownRows = 16;
             this.lookUpEdit.Properties.PopupWidth = 500;
             this.lookUpEdit.Size = new System.Drawing.Size(406, 26);
             this.lookUpEdit.TabIndex = 14;

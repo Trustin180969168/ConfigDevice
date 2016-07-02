@@ -566,7 +566,7 @@
             this.lookUpEdit.Properties.AppearanceReadOnly.Options.UseFont = true;
             this.lookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpEdit.Properties.DropDownRows = 8;
+            this.lookUpEdit.Properties.DropDownRows = 16;
             this.lookUpEdit.Properties.PopupWidth = 500;
             this.lookUpEdit.Size = new System.Drawing.Size(406, 26);
             this.lookUpEdit.TabIndex = 14;
@@ -627,12 +627,12 @@
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
-            // FrmEnvironment
+            // FrmO2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(1018, 743);
             this.Controls.Add(this.tctrlEdit);
-            this.Name = "FrmEnvironment";
+            this.Name = "FrmO2";
             this.Load += new System.EventHandler(this.FrmFlammableGasProbe_Load);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();

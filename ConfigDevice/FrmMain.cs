@@ -107,9 +107,7 @@ namespace ConfigDevice
                     else if (callbackParameter.Action == ActionKind.SearchDevice)//-----搜索完设备----
                     {
                         searchingDevice = false;
-
                         listRrefreshDevices.Remove((callbackParameter.Parameters[0] as Network).MAC);
-
                         gvDevices.BestFitColumns();
                         networkSearchDevices.Width = 50;
                         if (listRrefreshDevices.Count > 0)

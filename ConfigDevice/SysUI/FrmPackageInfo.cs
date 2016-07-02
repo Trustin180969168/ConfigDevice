@@ -141,13 +141,14 @@ namespace ConfigDevice
         {
             getDataTimer.Stop();
             if (sendKind == ENUM_PackageSendKind.PC_SEND)
-            {
-               
+            {               
                 mySocket.PCCallBackList.Clear();
+                dtPackage.Rows.Clear();
             }
             else
             {
                 mySocket.RJ45SendList.Clear();
+                dtPackage.Rows.Clear();
             }
             getDataTimer.Start();
         }
