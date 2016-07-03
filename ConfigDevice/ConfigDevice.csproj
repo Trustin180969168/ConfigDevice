@@ -107,12 +107,6 @@
     <Compile Include="DeviceUI\FrmDoorInput4.designer.cs">
       <DependentUpon>FrmDoorInput4.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeviceUI\FrmWeatherStation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DeviceUI\FrmWeatherStation.Designer.cs">
-      <DependentUpon>FrmWeatherStation.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DeviceUI\Base\ViewLogicTools.resx">
@@ -139,10 +133,6 @@
       <DependentUpon>FrmCurtainsThreeRoad.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\FrmWeatherStation.resx">
-      <DependentUpon>FrmWeatherStation.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\Base\ViewCommandSetting.resx">
       <DependentUpon>ViewCommandSetting.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -157,6 +147,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\FrmDriver.resx">
       <DependentUpon>FrmDriver.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmWeather.resx">
+      <DependentUpon>FrmWeather.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
@@ -477,6 +471,12 @@
     </Compile>
     <Compile Include="DeviceUI\FrmDriver.Designer.cs">
       <DependentUpon>FrmDriver.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmWeather.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmWeather.Designer.cs">
+      <DependentUpon>FrmWeather.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Tools\PortTools.cs" />
