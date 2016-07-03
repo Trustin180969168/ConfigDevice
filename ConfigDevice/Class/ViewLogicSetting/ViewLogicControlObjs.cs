@@ -502,7 +502,6 @@ namespace ConfigDevice
                     dr[ViewConfig.DC_DEVICE_VALUE] = null;
                 else
                 {
-
                     DataRow[] rows = dtSelectDevices.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
                     if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
                     {
