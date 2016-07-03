@@ -31,8 +31,6 @@
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.cedtOpenHealthLight = new DevExpress.XtraEditors.CheckEdit();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.gcEnvironment = new DevExpress.XtraGrid.GridControl();
             this.gvEnvironment = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -75,9 +73,6 @@
             this.pagePzjm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cedtOpenHealthLight.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcEnvironment)).BeginInit();
@@ -134,7 +129,6 @@
             this.panelControl1.Appearance.BackColor = System.Drawing.Color.Transparent;
             this.panelControl1.Appearance.Options.UseBackColor = true;
             this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.panelControl1.Controls.Add(this.groupControl2);
             this.panelControl1.Controls.Add(this.groupControl1);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 31);
@@ -142,31 +136,11 @@
             this.panelControl1.Size = new System.Drawing.Size(1009, 651);
             this.panelControl1.TabIndex = 2;
             // 
-            // groupControl2
-            // 
-            this.groupControl2.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.groupControl2.Appearance.Options.UseBackColor = true;
-            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.cedtOpenHealthLight);
-            this.groupControl2.Location = new System.Drawing.Point(47, 19);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(567, 69);
-            this.groupControl2.TabIndex = 3;
-            this.groupControl2.Text = "环境配置";
-            // 
-            // cedtOpenHealthLight
-            // 
-            this.cedtOpenHealthLight.Location = new System.Drawing.Point(26, 35);
-            this.cedtOpenHealthLight.Name = "cedtOpenHealthLight";
-            this.cedtOpenHealthLight.Properties.Caption = "开启室内空气健康指标指示灯";
-            this.cedtOpenHealthLight.Size = new System.Drawing.Size(185, 19);
-            this.cedtOpenHealthLight.TabIndex = 2;
-            // 
             // groupControl1
             // 
             this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.groupControl1.Controls.Add(this.gcEnvironment);
-            this.groupControl1.Location = new System.Drawing.Point(47, 94);
+            this.groupControl1.Location = new System.Drawing.Point(41, 37);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(567, 334);
             this.groupControl1.TabIndex = 1;
@@ -311,6 +285,7 @@
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(76, 28);
             this.btSave.Text = "保存 ";
+            this.btSave.Visible = false;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btAutoRefresh
@@ -627,12 +602,12 @@
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
-            // FrmEnvironment
+            // FrmWeather
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(1018, 743);
             this.Controls.Add(this.tctrlEdit);
-            this.Name = "FrmEnvironment";
+            this.Name = "FrmWeather";
             this.Load += new System.EventHandler(this.FrmFlammableGasProbe_Load);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
@@ -641,9 +616,6 @@
             this.pagePzjm.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cedtOpenHealthLight.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcEnvironment)).EndInit();
@@ -721,7 +693,5 @@
         public System.Windows.Forms.ToolStrip ToolBar;
         private System.Windows.Forms.ToolStripButton btSaveTrigger;
         private System.Windows.Forms.ToolStripButton btRefreshTrigger;
-        private DevExpress.XtraEditors.CheckEdit cedtOpenHealthLight;
-        private DevExpress.XtraEditors.GroupControl groupControl2;
     }
 }

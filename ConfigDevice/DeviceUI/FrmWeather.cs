@@ -242,10 +242,7 @@ namespace ConfigDevice
         /// </summary> 
         private void btSave_Click(object sender, EventArgs e)
         {
-            if (environment.PointLight.OpenHealthLight != cedtOpenHealthLight.Checked)
-            {
-                environment.PointLight.WriteParameter(new LightParameter(cedtOpenHealthLight.Checked));
-            }
+
         }
 
 
