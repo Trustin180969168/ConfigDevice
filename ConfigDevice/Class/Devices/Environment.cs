@@ -5,6 +5,9 @@ using System.Data;
 
 namespace ConfigDevice
 { 
+    /// <summary>
+    /// 目前由于共性，环境和气象站同一个对象使用，界面则分开
+    /// </summary>
     public class Environment:Device
     {
         public const string CLASS_NAME = "FlammableGasProbe";
@@ -25,6 +28,8 @@ namespace ConfigDevice
         public CH2OSensor CH2OSensor;               //---甲醛----
         public PM25Sensor PM25Sensor;               //---PM2.5----
         public O2Sensor O2Sensor;                   //---氧气-----
+        public RainSensor RainSensor;               //---雨感-----
+        public WindySensor WindySensor;               //---雨感-----
 
         public Environment(UserUdpData userUdpData)
             : base(userUdpData)
@@ -141,7 +146,9 @@ namespace ConfigDevice
             this.CH2OSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_CH2O, dataByte1) as CH2OSensor;//甲醛
             this.PM25Sensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_PM25, dataByte1) as PM25Sensor;//PM2.5
             this.O2Sensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_O2, dataByte1) as O2Sensor;//氧气浓度
-         
+            this.RainSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_RAIN, dataByte1) as RainSensor;//雨感
+            this.WindySensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_WIND, dataByte1) as WindySensor;//风速
+
             CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//----读完状态信息,回调界面----
         }
 

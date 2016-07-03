@@ -410,49 +410,137 @@ namespace ConfigDevice
     /// </summary>
     public class ViewLogicRain : BaseViewLogicControl
     {
-        private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
+        private GridViewComboBox cbxLevelEdit = new GridViewComboBox();//----开始值---        
         public ViewLogicRain(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
-            cbxStart.Items.Add("有雨");
-            cbxStart.Items.Add("无雨"); 
-            dcStartValue.ColumnEdit = cbxStart;
+
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--    
+            dcStartValue.ColumnEdit = cbxLevelEdit;
+
+            cbxKind.Items.Clear();//----清空触发类型(探头只有等级)---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//--触发类型(等级)---- 
+            //-------初始化设备列表选择-----
+            initGridLookupDevice();
+            cbxPosition.Items.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL);//---添加外设--- 
+            //-------初始化级别编辑控件------
+            foreach (string value in RainSensor.LEVEL_ID_NAME.Values)
+                cbxLevelEdit.Items.Add(value);
         }
 
-        public override TriggerData GetLogicData()
-        {
-            return null;
-        }
-
-        public override void SetLogicData(TriggerData td)
-        {
-
-        }
 
         public override void InitViewSetting()
         {
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
-            setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
+            setGridColumnValid(dcStartValue, cbxLevelEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
-            setGridColumnInvalid(dcValid);//---持续时间----
-            setGridColumnInvalid(dcInvalid);//----失效时间-----  
+            setGridColumnValid(dcValid, this.ValidTimeEdit);//---持续时间----
+            setGridColumnValid(dcInvalid, this.InvalidTimeEdit);//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
-            gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
+            gvLogic.SetRowCellValue(0, dcStartValue, cbxLevelEdit.Items[0].ToString());//--默认第一个开始值---
+            gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
+            gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
+        }
 
+
+        /// <summary>
+        /// 获取逻辑配置数据
+        /// </summary>
+        /// <returns>TriggerData</returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            if (triggerData.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//----外设/差值---
+            {
+                try
+                {
+                    triggerData.DeviceID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_ID].ToString());
+                    triggerData.DeviceKindID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_KIND_ID].ToString());
+                    triggerData.DeviceNetworkID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_NETWORK_ID].ToString());
+                }
+                catch { triggerData.DeviceID = 0; triggerData.DeviceKindID = 0; triggerData.DeviceNetworkID = 0; }
+            }
+            //--------级别--------------
+            string size1Str = dr[dcStartValue.FieldName].ToString();
+            triggerData.Size1 = RainSensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
+            triggerData.Size2 = 0;//----无效------
+            //-----有效持续,无效持续------            
+            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
+            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //无效秒数       
+            triggerData.ValidSeconds = (UInt16)validSeconds;
+            triggerData.InvalidSeconds = (UInt16)invalidSeconds;
+            string nowDateStr = DateTime.Now.ToShortDateString();
+            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
+
+            dr.EndEdit();
+            dr.AcceptChanges();//----再次修改才保存-----
+            gvLogic.RefreshData();
+
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
+            
+            if (td.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//--外设/差值的情况---
+            {
+                positionChanged();//---触发选择设备----
+                string deviceValue = td.DeviceKindID.ToString() + td.DeviceNetworkID.ToString() + td.DeviceID.ToString();
+                if (deviceValue == "000")//----没有保存差异设备----
+                    dr[ViewConfig.DC_DEVICE_VALUE] = null;
+                else
+                {
+
+                    DataRow[] rows = dtSelectDevices.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
+                    if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
+                    {
+                        DataRow drInsert = dtSelectDevices.Rows.Add();
+                        drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;
+                        drInsert[DeviceConfig.DC_KIND_ID] = (int)td.DeviceKindID;
+                        drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[td.DeviceKindID];
+                        drInsert[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                        drInsert[DeviceConfig.DC_NETWORK_ID] = (int)td.DeviceNetworkID;
+                        drInsert[DeviceConfig.DC_ID] = (int)td.DeviceID;
+                        drInsert.EndEdit();
+                        dtSelectDevices.AcceptChanges();
+                    }
+                    dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                    dr[ViewConfig.DC_DEVICE_ID] = td.DeviceID;
+                    dr[ViewConfig.DC_DEVICE_NETWORK_ID] = td.DeviceNetworkID;
+                    dr[ViewConfig.DC_DEVICE_KIND_ID] = td.DeviceKindID;
+                    dr.EndEdit();
+                }
+            }
+            try
+            {
+                dr[dcStartValue.FieldName] = RainSensor.LEVEL_ID_NAME[td.Size1];
+            }
+            catch {  dr[dcStartValue.FieldName] = RainSensor.LEVEL_ID_NAME[0];}
+            string nowDateStr = DateTime.Now.ToShortDateString();
+            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
+            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
+            dr.EndEdit();
+            dr.AcceptChanges();
         }
 
         public override void KindChanged()
         {
-            throw new NotImplementedException();
         }
 
         public override void OperateChanged()
         {
-            throw new NotImplementedException();
         }
     }
 
@@ -796,138 +884,6 @@ namespace ConfigDevice
             dr.EndEdit();
             dr.AcceptChanges();
         }
-
-        public override void KindChanged()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void OperateChanged()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    
-    /// <summary>
-    /// 风速
-    /// </summary>
-    public class ViewLogicWindy : BaseViewLogicControl
-    {
-        GridViewDigitalEdit windyEdit = new GridViewDigitalEdit();//--风速编辑控件---
-        GridViewComboBox cbxOperateLevel = new GridViewComboBox();//---级别运算--
-        GridViewComboBox cbxHumidityLevelEdit = new GridViewComboBox();//---湿度级别编辑控件---
-        public ViewLogicWindy(Device _device, GridView gv)
-            : base(_device, gv)
-        { 
-            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//---加上级别---
-            cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
-
-            //-------触发运算选择------
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_LESS_THAN);
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_GREATER_THAN);
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHIN);
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_WITHOUT);
-            cbxOperate.SelectedIndexChanged += new System.EventHandler(this.cbxOperate_SelectedIndexChanged);
-            //-------级别运算选择------
-            cbxOperateLevel.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);
-
-            //-------初始化温度编辑控件------
-            windyEdit.DisplayFormat.FormatString = "#0.0 米/秒";
-            windyEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            windyEdit.Mask.EditMask = "#0.0 米/秒";
-            windyEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            windyEdit.Mask.UseMaskAsDisplayFormat = true;
-         //   windyEdit.Increment = 0.1;
-
-            //-------初始化级别编辑控件------
-            cbxHumidityLevelEdit.Items.Add("无风");
-            cbxHumidityLevelEdit.Items.Add("微风");
-            cbxHumidityLevelEdit.Items.Add("小风");
-            cbxHumidityLevelEdit.Items.Add("大风"); 
-
-        }
-
-
-        public override TriggerData GetLogicData()
-        {
-            return null;
-        }
-
-        public override void SetLogicData(TriggerData td)
-        {
-
-        }
-
-        /// <summary>
-        /// 设置初始值
-        /// </summary>
-        public override void InitViewSetting()
-        {
-            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
-            setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
-            setGridColumnValid(dcStartValue, windyEdit);//---开始值有效
-            setGridColumnInvalid(dcEndValue);//----结束值无效--- 
-            setGridColumnValid(dcValid, new GridViewTimeEdit());//---持续时间----
-            setGridColumnValid(dcInvalid, new GridViewTimeEdit());//失效时间----- 
-
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-            gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
-
-            gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
-            gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
-        }
-
-        /// <summary>
-        /// 触发类型选择
-        /// </summary> 
-        private void cbxKind_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string kindName = (string)cbxKind.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            gvLogic.PostEditor();
-            DataRow dr = gvLogic.GetDataRow(0);
-            dr[ViewConfig.DC_KIND] = kindName;
-            dr.EndEdit();
-            if (kindName == SensorConfig.SENSOR_VALUE_KIND_VALUE)
-            {
-                setGridColumnValid(dcOperate, cbxOperate);
-                setGridColumnValid(dcStartValue, windyEdit);
-                setGridColumnValid(dcEndValue, windyEdit);
-
-                gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-                gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
-                gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
-            }
-            else if (kindName == SensorConfig.SENSOR_VALUE_KIND_LEVEL)
-            {
-                setGridColumnValid(dcOperate, cbxOperateLevel);
-                setGridColumnValid(dcStartValue, cbxHumidityLevelEdit);
-                setGridColumnInvalid(dcEndValue);
-
-                gvLogic.SetRowCellValue(0, dcOperate, cbxOperate.Items[0].ToString());//---第一个运算符-----
-                gvLogic.SetRowCellValue(0, dcStartValue, cbxHumidityLevelEdit.Items[0].ToString());//---开始值---         
-            }
-        }
-
-        /// <summary>
-        /// 运算符触发
-        /// </summary> 
-        private void cbxOperate_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string operateName = (string)cbxOperate.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
-            if (operateName == SensorConfig.LG_MATH_NAME_EQUAL_TO || operateName == SensorConfig.LG_MATH_NAME_LESS_THAN ||
-                operateName == SensorConfig.LG_MATH_NAME_GREATER_THAN)
-                setGridColumnInvalid(dcEndValue);//---设置结束值无效----
-            else
-            {
-                setGridColumnValid(dcEndValue, windyEdit);//----设置结束值有效----
-                gvLogic.SetRowCellValue(0, dcStartValue, 0);//---开始值---
-                gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束值---
-            }
-        }
-
 
         public override void KindChanged()
         {

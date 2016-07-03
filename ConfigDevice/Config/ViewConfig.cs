@@ -88,7 +88,7 @@ namespace ConfigDevice
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_PM25, SensorConfig.LG_SENSOR_PM25);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_CH20, SensorConfig.LG_SENSOR_CH2O);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_O2, SensorConfig.LG_SENSOR_O2);
-            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_RAIN_SENSOR, SensorConfig.LG_SENSOR_RAIN);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_RAIN, SensorConfig.LG_SENSOR_RAIN);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_WINDY, SensorConfig.LG_SENSOR_WIND);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_LUMINANCE, SensorConfig.LG_SENSOR_LUMI);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE, SensorConfig.LG_SENSOR_LEL);
@@ -109,7 +109,7 @@ namespace ConfigDevice
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_PM25, SensorConfig.SENSOR_PM25);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_CH2O, SensorConfig.SENSOR_CH20);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_O2, SensorConfig.SENSOR_O2);
-            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_RAIN, SensorConfig.SENSOR_RAIN_SENSOR);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_RAIN, SensorConfig.SENSOR_RAIN);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_WIND, SensorConfig.SENSOR_WINDY);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_LUMI, SensorConfig.SENSOR_LUMINANCE);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TVOC, SensorConfig.SENSOR_TVOC);

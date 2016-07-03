@@ -265,6 +265,52 @@ namespace ConfigDevice
     }
 
     /// <summary>
+    /// 风速传感器
+    /// </summary>
+    public class WindySensor : SensorStateData
+    {
+        public static Dictionary<int, string> LEVEL_ID_NAME = new Dictionary<int, string>();
+        public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
+
+        static WindySensor()
+        {
+            LEVEL_ID_NAME.Add(SensorConfig.WIND_LV_NOT, SensorConfig.WIND_LV_NAME_NOT);
+            LEVEL_ID_NAME.Add(SensorConfig.WIND_LV_TINY, SensorConfig.RAIN_LV_NAME_OWN);
+            LEVEL_ID_NAME.Add(SensorConfig.WIND_LV_SMALL, SensorConfig.WIND_LV_NAME_SMALL);
+            LEVEL_ID_NAME.Add(SensorConfig.WIND_LV_HIGH, SensorConfig.WIND_LV_NAME_HIGH);
+
+            LEVEL_NAME_ID.Add(SensorConfig.WIND_LV_NAME_NOT, SensorConfig.WIND_LV_NOT);
+            LEVEL_NAME_ID.Add(SensorConfig.RAIN_LV_NAME_OWN, SensorConfig.WIND_LV_TINY);
+            LEVEL_NAME_ID.Add(SensorConfig.WIND_LV_NAME_SMALL, SensorConfig.WIND_LV_SMALL);
+            LEVEL_NAME_ID.Add(SensorConfig.WIND_LV_NAME_HIGH, SensorConfig.WIND_LV_HIGH);
+        }
+
+        public WindySensor(byte[] value)
+            : base(value)
+        {
+            Init();
+        }
+
+        public WindySensor()
+        {
+            Init();
+        }
+
+        public override void Init()
+        {
+            KindName = "风速传感器";
+            Unit = "分米/秒";
+
+
+            foreach (int key in LEVEL_ID_NAME.Keys)
+                LevelIDName.Add(key, LEVEL_ID_NAME[key]);
+            foreach (string key in LEVEL_NAME_ID.Keys)
+                LevelNameID.Add(key, LEVEL_NAME_ID[key]);
+        }
+
+    }
+
+    /// <summary>
     /// 亮度传感器
     /// </summary>
     public class LuminanceSensor : SensorStateData

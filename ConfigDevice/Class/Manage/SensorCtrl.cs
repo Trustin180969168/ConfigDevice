@@ -60,6 +60,10 @@ namespace ConfigDevice
                 return new CH2OSensor(value);
             if (kindID == SensorConfig.LG_SENSOR_PM25)//---PM2.5
                 return new PM25Sensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_WIND)//---风速
+                return new WindySensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_RAIN)//---雨感
+                return new RainSensor(value);
             if (kindID == SensorConfig.LG_SENSOR_O2)
                 return new O2Sensor(value); 
 

@@ -239,8 +239,8 @@ namespace ConfigDevice
         #region IFactory 成员
         FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
         {
-            FlammableGasProbe flammableGasProbe = new FlammableGasProbe(data);
-            return new FrmFlammableGasProbe(flammableGasProbe);
+            Environment environment = new Environment(data);
+            return new FrmWeather(environment);
         }
         #endregion
     }

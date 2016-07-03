@@ -55,7 +55,8 @@ namespace ConfigDevice
             DataRow dr = dtLogicData.Rows[index];
             dr[ViewConfig.DC_NAME] = name;
             dr[ViewConfig.DC_LOGIC_VALUE] = ConvertTools.ByteToHexStr(logicData);
-            dr[ViewConfig.DC_LOGIC_ADDITION_VALUE] = ConvertTools.ByteToHexStr(additionData);
+            if(additionData != null)
+                dr[ViewConfig.DC_LOGIC_ADDITION_VALUE] = ConvertTools.ByteToHexStr(additionData);
             dr.EndEdit();
             dtLogicData.AcceptChanges();
             dtLogicData.WriteXml(FileName, XmlWriteMode.WriteSchema);

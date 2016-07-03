@@ -36,16 +36,11 @@ namespace ConfigDevice
             dtSensorState.Columns.Add(ViewConfig.DC_SENSOR_NAME, System.Type.GetType("System.String"));
             dtSensorState.Columns.Add(ViewConfig.DC_SENSOR_VALUE, System.Type.GetType("System.String"));
             dtSensorState.Columns.Add(ViewConfig.DC_SENSOR_LEVEL, System.Type.GetType("System.String"));
-            dtSensorState.Rows.Add(new object[] { "温度", "", "" });
-            dtSensorState.Rows.Add(new object[] { "湿度", "", "" });
+            dtSensorState.Rows.Add(new object[] { "风速", "", "" });
+            dtSensorState.Rows.Add(new object[] { "雨感", "", "" });
+            dtSensorState.Rows.Add(new object[] { "温度", "", "" }); 
+            dtSensorState.Rows.Add(new object[] { "湿度", "", "" }); 
             dtSensorState.Rows.Add(new object[] { "亮度", "", "" });
-            //dtSensorState.Rows.Add(new object[] { "环境噪声", "", "" });
-            dtSensorState.Rows.Add(new object[] { "空气质量", "", "" });
-            dtSensorState.Rows.Add(new object[] { "TVOC有害气体","", "" });
-            dtSensorState.Rows.Add(new object[] { "二氧化碳(等效)", "", "" });
-            dtSensorState.Rows.Add(new object[] { "甲醛", "", "" });
-            dtSensorState.Rows.Add(new object[] { "PM2.5", "", "" });
-            //dtSensorState.Rows.Add(new object[] { "氧气浓度", "", "" });
             gcEnvironment.DataSource = dtSensorState;
             //----------指示灯-------
             sptLightSeconds.Properties.MaxValue = 65535;
@@ -57,9 +52,7 @@ namespace ConfigDevice
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_ORANGE_ON);
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_ON); 
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_GLINT);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_NONE); 
-
- 
+            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_NONE);  
             //----------回路查询选择------
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, "回路", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_NAME, 380));
@@ -132,16 +125,12 @@ namespace ConfigDevice
                 //-----读取完探头参数----- 
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Environment.CLASS_NAME)
                 {
-                    dtSensorState.Rows[0][1] = environment.temperatureSensor.ValueAndUnit; dtSensorState.Rows[0][2] = environment.temperatureSensor.LevelValue;//温度
-                    dtSensorState.Rows[1][1] = environment.humiditySensor.ValueAndUnit; dtSensorState.Rows[1][2] = environment.humiditySensor.LevelValue;//湿度
-                    dtSensorState.Rows[2][1] = environment.luminanceSensor.ValueAndUnit; dtSensorState.Rows[2][2] = environment.luminanceSensor.LevelValue;//亮度
-                    //dtSensorState.Rows[3][1] = ""; dtSensorState.Rows[3][2] = "";                                                                   //环境噪声
-                    dtSensorState.Rows[3][1] = ""; dtSensorState.Rows[3][2] = environment.AQISensor.LevelValue;//空气质量,只显示等级
-                    dtSensorState.Rows[4][1] = environment.TVOCSensor.ValueAndUnit; dtSensorState.Rows[4][2] = environment.TVOCSensor.LevelValue;//TVOC有害气体
-                    dtSensorState.Rows[5][1] = environment.CO2Sensor.ValueAndUnit; dtSensorState.Rows[5][2] = environment.CO2Sensor.LevelValue;//二氧化碳(等效)
-                    dtSensorState.Rows[6][1] = environment.CH2OSensor.ValueAndUnit; dtSensorState.Rows[6][2] = environment.CH2OSensor.LevelValue;//甲醛
-                    dtSensorState.Rows[7][1] = environment.PM25Sensor.ValueAndUnit; dtSensorState.Rows[7][2] = environment.PM25Sensor.LevelValue;//PM2.5
-               //     dtSensorState.Rows[9][1] = environment.O2Sensor.ValueAndUnit; dtSensorState.Rows[9][2] = environment.O2Sensor.LevelValue;//氧气浓度           
+                    dtSensorState.Rows[0][1] = environment.WindySensor.ValueAndUnit; dtSensorState.Rows[0][2] = environment.WindySensor.LevelValue;//风速    
+                    dtSensorState.Rows[1][1] = environment.RainSensor.ValueAndUnit; dtSensorState.Rows[1][2] = environment.RainSensor.LevelValue;//雨感
+                    dtSensorState.Rows[2][1] = environment.temperatureSensor.ValueAndUnit; dtSensorState.Rows[2][2] = environment.temperatureSensor.LevelValue;//温度
+                    dtSensorState.Rows[3][1] = environment.humiditySensor.ValueAndUnit; dtSensorState.Rows[3][2] = environment.humiditySensor.LevelValue;//湿度
+                    dtSensorState.Rows[4][1] = environment.luminanceSensor.ValueAndUnit; dtSensorState.Rows[4][2] = environment.luminanceSensor.LevelValue;//亮度
+ 
                     dtSensorState.AcceptChanges();
 
                     gcEnvironment.DataSource = dtSensorState;
@@ -150,11 +139,7 @@ namespace ConfigDevice
                     this.cbxLight.SelectedIndex = environment.PointLight.LedAct;
                     this.sptLightSeconds.Text = environment.PointLight.LedTim.ToString(); 
                 }
-                //-----读取指示灯参数----------
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Light.CLASS_NAME)
-                {
-                    cedtOpenHealthLight.Checked = environment.PointLight.OpenHealthLight;
-                }
+               
             }
         }
 
@@ -176,9 +161,9 @@ namespace ConfigDevice
             edtTriggerActionName.Text = environment.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
             if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
                 viewLogicSetting.InitLogicList(environment,
-                    SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_LUMINANCE, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_AQI,
-                    SensorConfig.SENSOR_TVOC, SensorConfig.SENSOR_CO2, SensorConfig.SENSOR_CH20, SensorConfig.SENSOR_PM25, SensorConfig.SENSOR_O2,
-                    SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_INNER_INTERACTION
+                    SensorConfig.SENSOR_WINDY, SensorConfig.SENSOR_RAIN, SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_LUMINANCE,
+                     SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_SYSTEM_INTERACTION,
+                    SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_INNER_INTERACTION
                     );
             if (viewCommandSetting.NeedInit)//----初始化指令配置-------
                 viewCommandSetting.InitViewCommand(environment);//初始化       
@@ -188,10 +173,10 @@ namespace ConfigDevice
                 if (lookUpEdit.ItemIndex == 0)
                     btRefreshTrigger_Click(null, null);
                 else
-                    lookUpEdit.ItemIndex = 0;              
+                    lookUpEdit.ItemIndex = 0;
                 hasLoadedLogicAndCommand = true;//----加载完毕------
-            }            
-           
+            }
+
         }
 
         /// <summary>
@@ -214,7 +199,6 @@ namespace ConfigDevice
             if (lookUpEdit.ItemIndex == -1) { lookUpEdit.ItemIndex = 0; return; }//----
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);       //---读取逻辑数据----
             viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
-            environment.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
         }
 
         /// <summary>
@@ -225,7 +209,6 @@ namespace ConfigDevice
             lblNum.Text = lookUpEdit.EditValue.ToString() + "、";   //---当前组序号---
             edtTriggerActionName.Text = lookUpEdit.Text;            //---触发组名-----
             currentGroupName = edtTriggerActionName.Text;           //---当前触发组名
-            environment.ReadAdditionLogic(lookUpEdit.ItemIndex);    //---获取逻辑附加---
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);   //---获取逻辑列表----
             viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;//----获取指令配置----
 
@@ -274,11 +257,10 @@ namespace ConfigDevice
         {
             //-----保存附加动作----
             lookUpEdit.ItemIndex = lookUpEdit.ItemIndex == -1 ? 0 : lookUpEdit.ItemIndex;
-            if (hasChangedAdditionLogic() || isQuickSetting)
+            if ( isQuickSetting)
             {    
                 environment.PointLight.LedAct = (byte)cbxLight.SelectedIndex;
                 environment.PointLight.LedTim = (ushort)this.sptLightSeconds.Value; 
-                environment.SaveAdditionLogic(lookUpEdit.ItemIndex);//---保存附加动作---
             }
             if (currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----
                 environment.Circuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
@@ -287,17 +269,7 @@ namespace ConfigDevice
             viewLogicSetting.IsSystemSetting = false;//---恢复标志位---
             viewCommandSetting.SaveCommands(lookUpEdit.ItemIndex);//---保存指令配置---   
         }
-        /// <summary>
-        /// 是否有修改
-        /// </summary>
-        /// <returns></returns>
-        private bool hasChangedAdditionLogic()
-        { 
-            if (environment.PointLight.LedAct != cbxLight.SelectedIndex) return true;
-            if (environment.PointLight.LedTim != (ushort)this.sptLightSeconds.Value) return true; 
 
-            return false;
-        }
 
 
 
@@ -318,17 +290,6 @@ namespace ConfigDevice
         }
 
 
-        /// <summary>
-        /// 获取附加动作值
-        /// </summary>
-        /// <returns></returns>
-        private byte[] getAdditionValue()
-        {
-            //-----保存附加动作----    
-            environment.PointLight.LedAct = (byte)cbxLight.SelectedIndex;
-            environment.PointLight.LedTim = (ushort)this.sptLightSeconds.Value; 
-            return environment.GetAdditionValue();
-        }
 
 
         /// <summary>
@@ -342,13 +303,13 @@ namespace ConfigDevice
             {
                 cbxQuickSetting.Properties.Items.Add(name);
                 logicQuickSetting.SaveLogicLocalSetting(cbxQuickSetting.Properties.Items.Count - 1, name,
-                    this.viewLogicSetting.GetLogicData(), this.getAdditionValue());
+                    this.viewLogicSetting.GetLogicData(), null);
                 cbxQuickSetting.Text = edtLogicLocalSetting.Text;
             }
             else
             {
                 logicQuickSetting.SaveLogicLocalSetting(cbxQuickSetting.SelectedIndex, name,
-                    this.viewLogicSetting.GetLogicData(), this.getAdditionValue());
+                    this.viewLogicSetting.GetLogicData(), null);
             }
         }
 
@@ -389,10 +350,6 @@ namespace ConfigDevice
             viewLogicSetting.ClearTrggerData();
             LogicData logicData = new LogicData(logicQuickSetting.GetLogicData(cbxQuickSetting.SelectedIndex));
             viewLogicSetting.ReturnLogicData(new CallbackParameter(logicData));
-            //-------附加动作------
-            byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
-            environment.SetAdditionLogicData(adittionData);
-            this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
             //-------手头变更修改状态------
             isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
         }

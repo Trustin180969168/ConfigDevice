@@ -57,7 +57,7 @@ namespace ConfigDevice
         public const string SENSOR_CH20 = "甲醛";
         public const string SENSOR_PM25 = "PM2.5";
         public const string SENSOR_O2 = "氧气浓度";
-        public const string SENSOR_RAIN_SENSOR = "雨感";
+        public const string SENSOR_RAIN = "雨感";
         public const string SENSOR_WINDY = "风速";
         public const string SENSOR_LUMINANCE = "亮度";
         public const string SENSOR_FLAMMABLE_GAS_PROBE = "可燃气体探头";

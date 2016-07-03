@@ -86,8 +86,10 @@ namespace ConfigDevice
                 return new ViewLogicDateOfMonthDay(device, gv);
             else if (TriggerID == SensorConfig.LG_EXT_SENSOR_WEEK_CYC)
                 return new ViewLogicWeek(device, gv);
-            else if (TriggerID == SensorConfig.LG_SENSOR_WIND)
+            else if (TriggerID == SensorConfig.LG_SENSOR_WIND)//---风速---
                 return new ViewLogicWindy(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_RAIN)//---雨感---
+                return new ViewLogicRain(device, gv);
             else
                 return new ViewLogicInvalid(device, gv); 
         }
