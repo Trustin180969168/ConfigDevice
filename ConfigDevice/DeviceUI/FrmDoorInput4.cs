@@ -67,10 +67,9 @@ namespace ConfigDevice
 
         private void loadData()
         {
-            doorInput4.SearchVer();//---获取版本号-----   
-            doorInput4.ReadRoadTitle();//---读取回路名称----           
-            doorInput4.ReadSettingInfo();//----读取配置信息-----
-
+            doorInput4.SearchVer();         //---获取版本号-----   
+            doorInput4.ReadRoadTitle();     //---读取回路名称----           
+            doorInput4.ReadSettingInfo();   //----读取配置信息----
         }
 
         /// <summary>
@@ -103,8 +102,6 @@ namespace ConfigDevice
                     edtNum2.Text = doorInput4.RoadMusicNum2.ToString();
                     edtNum3.Text = doorInput4.RoadMusicNum3.ToString();
                     edtNum4.Text = doorInput4.RoadMusicNum4.ToString();
-                
-
                 }
             }
             catch { }

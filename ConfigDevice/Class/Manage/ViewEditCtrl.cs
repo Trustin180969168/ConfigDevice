@@ -9,8 +9,7 @@ using DevExpress.XtraGrid.Columns;
 namespace ConfigDevice
 {
     public static class ViewEditCtrl
-    {         
-    
+    {             
         private static DataTable dtCommandDevices = new DataTable();
         /// <summary>
         /// 获取指令配置

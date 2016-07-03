@@ -9,7 +9,6 @@ namespace ConfigDevice
     public class Road8FrontDimming : Device
     {
         private const int circuitCount =8;//回路数
-        public Dictionary<int, string> ListCircuitIDAndName = new Dictionary<int, string>();//回路ID和名称对应表用于指令配置
         public int CircuitCount
         {
             get { return circuitCount; }
@@ -44,9 +43,7 @@ namespace ConfigDevice
             ContrlObjs.Add("时序", new Timing(this));
             ContrlObjs.Add("全部", new Swit(this));
 
-            //-----初始化列表---------
-            for (int i = 1; i <= circuitCount; i++)
-                ListCircuitIDAndName.Add(i, "");
+
         }
 
     }

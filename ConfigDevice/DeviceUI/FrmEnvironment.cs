@@ -56,7 +56,10 @@ namespace ConfigDevice
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_GREEN_ON);
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_ORANGE_ON);
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_ON); 
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_GLINT); 
+            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_GLINT);
+            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_NONE); 
+
+ 
             //----------回路查询选择------
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, "回路", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_NAME, 380));

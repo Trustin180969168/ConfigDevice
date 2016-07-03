@@ -116,11 +116,18 @@ namespace ConfigDevice
         /// <param name="kindId">类型</param>
         /// <returns></returns>
         public static IFactoryDeviceEdit GetFactoryDeviceEdit(byte kindId)
-        {
+        {        
+
             switch (kindId)
             {
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
                 case DeviceConfig.EQUIPMENT_RJ45: return new FactoryBaseDeviceEdit();//-------RJ45,wifi功放---------
+                case DeviceConfig.EQUIPMENT_SWIT_4:
+                case DeviceConfig.EQUIPMENT_SWIT_6:
+                case DeviceConfig.EQUIPMENT_SWIT_8:
+                case DeviceConfig.EQUIPMENT_SWIT_12: return new FactoryDriver();//----创建驱动器（4路，6路，8路，12路）-----
+
+
                 case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryDoor4InputEdit();//------门输入4--------
                 case DeviceConfig.EQUIPMENT_FUEL_GAS: return new FactoryFlammableGasProbeEdit();//----可燃气体-----
                 case DeviceConfig.EQUIPMENT_WEATHER: return new FactoryWeatherStationEdit();//-----气象站-----
@@ -145,6 +152,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_SWIT_4: return new FactoryRoad4Relay();//4路继电器
                 case DeviceConfig.EQUIPMENT_SWIT_8: return new FactoryRoad8Relay();//6路继电器
                 case DeviceConfig.EQUIPMENT_SWIT_6: return new FactoryRoad6Relay();//8路继电器
+                case DeviceConfig.EQUIPMENT_SWIT_12: return new FactoryRoad12Relay();//12路继电器
                 case DeviceConfig.EQUIPMENT_TRAILING_2: return new FactoryRoad2FrontDimming();//2路前沿调光
                 case DeviceConfig.EQUIPMENT_TRAILING_4: return new FactoryRoad4FrontDimming();//4路前沿调光
                 case DeviceConfig.EQUIPMENT_TRAILING_6: return new FactoryRoad6FrontDimming();//6路前沿调光
@@ -190,6 +198,21 @@ namespace ConfigDevice
         {
             DoorInput4 input4 = new DoorInput4(data);
             return new FrmDoorInput4(input4);
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// 驱动器
+    /// </summary>
+    public class FactoryDriver : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {         
+            DeviceData deviceData = new DeviceData(data);//设备数据
+            Device driver = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--根据类型新建设备对象---
+            return new FrmDriver(driver);
         }
         #endregion
     }
@@ -355,6 +378,21 @@ namespace ConfigDevice
         #endregion
     }
 
+    /// <summary>
+    /// 12路继电器
+    /// </summary>
+    public class FactoryRoad12Relay : IFactoryDevice
+    {
+        #region IFactoryDevice 成员
+
+        public Device CreateDevice(DeviceData data)
+        {
+            Device device = new Road6Relay(data);
+            return device;
+        }
+
+        #endregion
+    }
 
     /// <summary>
     /// 2路前沿调光

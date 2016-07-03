@@ -243,7 +243,7 @@ namespace ConfigDevice
                 {
                     if (mySocket == null || mySocket.Available < 1)//----等待数据接收-----
                     { 
-                        Thread.Sleep(10);
+                        Thread.Sleep(15);
                         continue; 
                     }
                     UdpData udpReceive = ReceiveData(remotePoint);//-----接收UDP数据------
@@ -358,7 +358,7 @@ namespace ConfigDevice
         /// </summary>
         public void Close()
         {            
-            receiveThread.Abort();
+            receiveThread.Abort();           
             mySocket.Close();
         }
 

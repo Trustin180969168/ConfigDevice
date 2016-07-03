@@ -182,6 +182,7 @@ namespace ConfigDevice
             foreach (Network network in SysConfig.ListNetworks.Values)
                 if (network.State == NetworkConfig.STATE_CONNECTED) network.DisconnectNetwork();
             socket.Close();
+            Thread.Sleep(100);
         }
 
         /// <summary>
@@ -580,9 +581,7 @@ namespace ConfigDevice
         /// 保存网络名称
         /// </summary>
         private void btSaveNetwork_Click(object sender, EventArgs e)
-        {
-
-
+        { 
             listRrefreshDevices.Clear();
             if (gvNetwork.RowCount == 0) return;
             gvNetwork.PostEditor();
