@@ -34,6 +34,36 @@ namespace ConfigDevice
         public const string DC_SENSOR_NAME = "Name";//传感器名称
         public const string DC_SENSOR_VALUE = "Value";//传感器值
         public const string DC_SENSOR_LEVEL = "Level";//传感器级别
+        public const string DC_STATE = "State";//状态
+        public const string DC_CURRENT = "Current";//电流
+        public const string DC_VALUE1 = "Value1";//值1 
+        public const string DC_VALUE2 = "Value2";//值2 
+        public const string DC_VALUE3 = "Value3";//值3 
+        public const string DC_VALUE4 = "Value4";//值4 
+        public const string DC_VALUE5 = "Value5";//值5 
+        public const string DC_VALUE6 = "Value6";//值6 
+        public const string DC_VALUE7 = "Value7";//值7 
+        public const string DC_VALUE8 = "Value8";//值8 
+        public const string DC_VALUE9 = "Value9";//值9 
+        public const string DC_ACTION1 = "Action1";//动作1 
+        public const string DC_ACTION2 = "Action2";//动作2 
+        public const string DC_ACTION3 = "Action3";//动作3 
+        public const string DC_ACTION4 = "Action4";//动作4 
+        public const string DC_ACTION5 = "Action5";//动作5 
+        public const string DC_ACTION6 = "Action6";//动作6 
+        public const string DC_ACTION7 = "Action7";//动作7 
+        public const string DC_ACTION8 = "Action8";//动作8 
+        public const string DC_ACTION9 = "Action9";//动作9 
+        public const string DC_PARAMETER1 = "PARAMETER1";//参数1 
+        public const string DC_PARAMETER2 = "PARAMETER2";//参数2 
+        public const string DC_PARAMETER3 = "PARAMETER3";//参数3 
+        public const string DC_PARAMETER4 = "PARAMETER4";//参数4 
+        public const string DC_PARAMETER5 = "PARAMETER5";//参数5 
+        public const string DC_PARAMETER6 = "PARAMETER6";//参数6 
+        public const string DC_PARAMETER7 = "PARAMETER7";//参数7 
+        public const string DC_PARAMETER8 = "PARAMETER8";//参数8 
+        public const string DC_PARAMETER9 = "PARAMETER9";//参数9 
+
         //public const string DC_DEVICE_VALUE = "DeviceValue";//设备唯一值
 
         public const string NAME_INVALID_DEVICE = "未知设备";

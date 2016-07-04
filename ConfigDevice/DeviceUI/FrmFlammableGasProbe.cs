@@ -291,7 +291,7 @@ namespace ConfigDevice
             if (chkOpenValve.Checked) flag = flag | 1;
             if (chkClearLight.Checked) flag = flag | 2;
             if (chkClearLoudly.Checked) flag = flag | 4;
-            flammableGasProbe.Valve.WriteParameter((short)spePreTime.Value, (short)speProbeEC.Value, flag);
+            flammableGasProbe.Valve.SaveValveParameter((short)spePreTime.Value, (short)speProbeEC.Value, flag);
         }
 
         /// <summary>

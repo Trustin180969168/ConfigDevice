@@ -19,7 +19,7 @@ namespace ConfigDevice
         {
             initControlObjs();
         }
-                public Road12FrontDimming(DeviceData data)
+        public Road12FrontDimming(DeviceData data)
             : base(data)
         {
             initControlObjs();

@@ -116,8 +116,7 @@ namespace ConfigDevice
         /// <param name="kindId">类型</param>
         /// <returns></returns>
         public static IFactoryDeviceEdit GetFactoryDeviceEdit(byte kindId)
-        {        
-
+        {
             switch (kindId)
             {
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
@@ -125,12 +124,16 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_SWIT_4:
                 case DeviceConfig.EQUIPMENT_SWIT_6:
                 case DeviceConfig.EQUIPMENT_SWIT_8:
-                case DeviceConfig.EQUIPMENT_SWIT_12: return new FactoryDriver();//----创建驱动器（4路，6路，8路，12路）-----
-
-
+                case DeviceConfig.EQUIPMENT_SWIT_12:
+                case DeviceConfig.EQUIPMENT_TRAILING_2:
+                case DeviceConfig.EQUIPMENT_TRAILING_4: 
+                case DeviceConfig.EQUIPMENT_TRAILING_6: 
+                case DeviceConfig.EQUIPMENT_TRAILING_8: 
+                case DeviceConfig.EQUIPMENT_TRAILING_12: return new FactoryDriver();//----创建驱动器（4路，6路，8路，12路,前12,前6.....）-----     
                 case DeviceConfig.EQUIPMENT_DOOR_IN_4: return new FactoryDoor4InputEdit();//------门输入4--------
                 case DeviceConfig.EQUIPMENT_FUEL_GAS: return new FactoryFlammableGasProbeEdit();//----可燃气体-----
                 case DeviceConfig.EQUIPMENT_WEATHER: return new FactoryWeatherStationEdit();//-----气象站-----
+                case DeviceConfig.EQUIPMENT_CURTAIN_3CH: return new FactoryMotorDC3EditEdit();//----3路直流电机-----
                 case DeviceConfig.EQUIPMENT_AIR_QUALITY: return new FactoryEnvironmentEdit();//-----环境-----
                 case DeviceConfig.EQUIPMENT_AIR_O2: return new FactoryO2Edit();//-----氧气传感器-----
                 default: return new FactoryBaseDeviceEdit();
@@ -255,6 +258,20 @@ namespace ConfigDevice
         {
             Environment environment = new Environment(data);
             return new FrmEnvironment(environment);
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// 3路直流电机
+    /// </summary>
+    public class FactoryMotorDC3EditEdit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            Road3Window device = new Road3Window(data);
+            return new FrmMotorDC3(device);
         }
         #endregion
     }

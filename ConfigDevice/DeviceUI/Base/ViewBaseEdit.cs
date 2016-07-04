@@ -38,6 +38,7 @@ namespace ConfigDevice
 
 
                     edtName.Text = DeviceEdit.Name;
+                    (this.ParentForm as FrmDevice).Text = DeviceEdit.Name;
                     edtDeviceID.Text = DeviceEdit.DeviceID;
                     edtNetworkID.Text = DeviceEdit.NetworkID;
                     cbxDeviceKind.Text = DeviceEdit.KindName;
