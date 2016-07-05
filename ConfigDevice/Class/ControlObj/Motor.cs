@@ -8,8 +8,9 @@ namespace ConfigDevice
     public class Motor : ControlObj
     {
         public const string CLASS_NAME = "Motor";
-        public const string ACTION_NAME_CURRENT_STATE = "Current";//---执行获取电流----
-        public const string ACTION_NAME_CURRENT_PARAMETER = "Parameter";//---执行获取参数-----
+        public const string ACTION_NAME_CURRENT_CURRENT = "Current";//---执行获取当前电流----
+        public const string ACTION_NAME_CURRENT_ACTION = "Action";//---执行获取当前动作----
+        public const string ACTION_NAME_PARAMETER = "Parameter";//---执行获取参数----- 
         /// <summary>
         /// 默认3路电机
         /// </summary>
@@ -19,8 +20,10 @@ namespace ConfigDevice
             get { return circuitCount; }
             set { circuitCount = value; }
         }
-        public byte[] ConfigData;//----保持配置数据------
-        public byte[] StateData;//----保持状态数据------
+        public byte[] ConfigData;//----保存配置数据------
+        public byte[] StateData;//----保存状态数据------
+        public byte[] CurrentData;//----保持电流数据------
+        public byte[] ActionData;//----保持电流数据------
         //-----阀门定义-----
         public const int LEL_VALACT_CLOSE = 0;        //【关阀门】
         public const int LEL_VALACT_OPEN = 1;        //【开阀门】
@@ -77,16 +80,19 @@ namespace ConfigDevice
         public const int ACTION_ROAD_BACK_3 = 5;
 
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
-        private CallbackFromUDP getValveParameter;//-------每参数名称---- 
-        private CallbackFromUDP getMotorParameter;//-------每参数名称---- 
+        private CallbackFromUDP getValveParameter;//-------阀门参数--- 
+        private CallbackFromUDP getMotorParameter;//-------电机参数---- 
         private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
-        private CallbackFromUDP getMotorState;//----获取电机状态----
+        private CallbackFromUDP getMotorCurrent;//----获取电机电流----
+        private CallbackFromUDP getMotorAction;//----获取电机电流----
         public Motor(Device _deviceCtrl)
         {
             Name = "电机";
             deviceControled = _deviceCtrl;
             ConfigData = new byte[circuitCount * 4];
             StateData = new byte[circuitCount * 2];
+            CurrentData = new byte[circuitCount * 2];
+            ActionData = new byte[circuitCount * 2];
             if (NameAndCommand.Count == 0)
             {
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP, DeviceConfig.CMD_SW_SWIT_LOOP);
@@ -95,11 +101,12 @@ namespace ConfigDevice
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_OPEN_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION);
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP_CLOSE_CONDITION, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION);
             }
-            getValveParameter = new CallbackFromUDP(getValveParameterData);
-            getMotorParameter = new CallbackFromUDP(getMotorParameterData);
-            getMotorState = new CallbackFromUDP(getMotorStateData);
-            getWriteEnd = new CallbackFromUDP(getWriteEndData);
-
+            getValveParameter = new CallbackFromUDP(getValveParameterData);//---阀门参数----
+            getMotorParameter = new CallbackFromUDP(getMotorParameterData);//---电机参数(最大电流,最长启动时间)----
+            getMotorCurrent = new CallbackFromUDP(getMotorCurrentData);//---电机当前电流----
+            getWriteEnd = new CallbackFromUDP(getWriteEndData);//----获取电机参数读取结束---
+            getMotorAction = new CallbackFromUDP(getMotorCurrentActionData);//----获取电机当前动作-----
+     
         }
 
         /// <summary>
@@ -446,7 +453,7 @@ namespace ConfigDevice
             if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_CONFIG))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME, ACTION_NAME_CURRENT_PARAMETER));//---回调UI---
+                this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME, ACTION_NAME_PARAMETER));//---回调UI---
             }
         }
 
@@ -497,21 +504,21 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 读状态
+        /// 读电机电流状态
         /// </summary>
-        public void ReadMotorState()
+        public void ReadMotorCurrent()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE, this.UUID, getMotorState);//----注册回调--- 
-            UdpData udpSend = createReadStateUdp();
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_WINDOWS_WRITE_POWER, this.UUID, getMotorCurrent);//----注册回调--- 
+            UdpData udpSend = createReadCurrentUdp();
             MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
-                new CallbackUdpAction(callbackReadStateUdp), null);
+                new CallbackUdpAction(callbackReadCurrentUdp), null);
         }
-        private void callbackReadStateUdp(UdpData udpReply, object[] values)
+        private void callbackReadCurrentUdp(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("读取状态失败!", udpReply.ReplyByte);
         }
-        private UdpData createReadStateUdp()
+        private UdpData createReadCurrentUdp()
         {
             UdpData udp = new UdpData();
 
@@ -523,7 +530,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
             byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_CONFIG;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_WINDOWS_READ_POWER;//----用户命令-----
             byte len = 4;//---数据长度---- 
 
             byte[] crcData = new byte[10];
@@ -547,7 +554,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="data">数据包</param>
         /// <param name="values"></param>
-        private void getMotorStateData(UdpData data, object[] values)
+        private void getMotorCurrentData(UdpData data, object[] values)
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
@@ -558,9 +565,114 @@ namespace ConfigDevice
             this.Road2Current = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[2], userData.Data[3] });   //---2路电流
             this.Road3Current = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[4], userData.Data[5] });   //---3路电流  
  
-            this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME, ACTION_NAME_CURRENT_STATE));//---回调UI---
+            this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME, ACTION_NAME_CURRENT_CURRENT));//---回调UI---
         }
 
+
+        /// <summary>
+        /// 读当前动作
+        /// </summary>
+        public void ReadMotorCurrentAction()
+        {
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE, this.UUID, getMotorAction);//----注册回调--- 
+            UdpData udpSend = createReadMotorCurrentActionUdp();
+            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
+                new CallbackUdpAction(callbackReadCurrentActionUdp), null);
+        }
+        private void callbackReadCurrentActionUdp(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("读取动作状态失败!", udpReply.ReplyByte);
+        }
+        private UdpData createReadMotorCurrentActionUdp()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
+            byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_STATE;//----用户命令-----
+            byte len = 4;//---数据长度---- 
+
+            byte[] crcData = new byte[10];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+        /// <summary>
+        /// 获取当前电流
+        /// </summary>
+        /// <param name="data">数据包</param>
+        /// <param name="values"></param>
+        private void getMotorCurrentActionData(UdpData data, object[] values)
+        {
+            UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            //----翻译数据------------ 
+            //public const string NAME_ACTION_ROAD_FRONT_1 = "1路正转";
+            //public const string NAME_ACTION_ROAD_BACK_1 = "1路反转";
+            //public const string NAME_ACTION_ROAD_FRONT_2 = "2路正转";
+            //public const string NAME_ACTION_ROAD_BACK_2 = "2路反转";
+            //public const string NAME_ACTION_ROAD_FRONT_3 = "3路正转";
+            //public const string NAME_ACTION_ROAD_BACK_3 = "3路反转";
+
+            //第1路正转状态，0人为停转，1正转自停，2正转卡停，≥3正转
+            //第1路反转状态，0人为停转，1反转自停，2反转卡停，≥3反转
+            //第2路正转状态，0人为停转，1正转自停，2正转卡停，≥3正转
+            //第2路反转状态，0人为停转，1反转自停，2反转卡停，≥3反转
+            //......
+            //......
+            byte[] value = userData.Data;
+            Int16[] actionValue = { (Int16)value[0], (Int16)value[1],
+                                      (Int16)value[2], (Int16)value[3], 
+                                      (Int16)value[4], (Int16)value[5] };
+            
+            string[] actionResult = new string[]{"","",""};
+            //--------1路结果------
+            if (actionValue[0] == 0 && actionValue[1] == 0) actionResult[0] = "停转";
+            if (actionValue[0] == 1 && actionValue[1] == 0) actionResult[0] = "正转自停";
+            if (actionValue[0] == 2 && actionValue[1] == 0) actionResult[0] = "正转卡停";
+            if (actionValue[0] == 3 && actionValue[1] == 0) actionResult[0] = "正转";
+            if (actionValue[0] == 0 && actionValue[1] == 1) actionResult[0] = "反转自停";
+            if (actionValue[0] == 0 && actionValue[1] == 2) actionResult[0] = "反转卡停";
+            if (actionValue[0] == 0 && actionValue[1] == 3) actionResult[0] = "反转";
+            //--------2路结果------
+            if (actionValue[2] == 0 && actionValue[3] == 0) actionResult[1] = "停转";
+            if (actionValue[2] == 1 && actionValue[3] == 0) actionResult[1] = "正转自停";
+            if (actionValue[2] == 2 && actionValue[3] == 0) actionResult[1] = "正转卡停";
+            if (actionValue[2] == 3 && actionValue[3] == 0) actionResult[1] = "正转";
+            if (actionValue[2] == 0 && actionValue[3] == 1) actionResult[1] = "反转自停";
+            if (actionValue[2] == 0 && actionValue[3] == 2) actionResult[1] = "反转卡停";
+            if (actionValue[2] == 0 && actionValue[3] == 3) actionResult[1] = "反转";
+            //--------3路结果------
+            if (actionValue[4] == 0 && actionValue[5] == 0) actionResult[2] = "停转";
+            if (actionValue[4] == 1 && actionValue[5] == 0) actionResult[2] = "正转自停";
+            if (actionValue[4] == 2 && actionValue[5] == 0) actionResult[2] = "正转卡停";
+            if (actionValue[4] == 3 && actionValue[5] == 0) actionResult[2] = "正转";
+            if (actionValue[4] == 0 && actionValue[5] == 1) actionResult[2] = "反转自停";
+            if (actionValue[4] == 0 && actionValue[5] == 2) actionResult[2] = "反转卡停";
+            if (actionValue[4] == 0 && actionValue[5] == 3) actionResult[2] = "反转";    
+
+            ActionData = CommonTools.CopyBytes(userData.Data, 0, ActionData.Length);//---保存所有动作----
+            this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME, ACTION_NAME_CURRENT_ACTION, actionResult));//---回调UI---
+        }
 
     }
 

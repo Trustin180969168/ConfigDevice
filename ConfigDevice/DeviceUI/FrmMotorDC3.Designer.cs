@@ -47,16 +47,16 @@
             this.dcPosition2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcState = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcCurrentEC = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.spedtEC = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.dcAction1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.linkAction = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.dcAction2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcAction3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcAction4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.spedtEC = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
-            this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
@@ -75,8 +75,8 @@
             this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcMotorAction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMotorAction)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spedtEC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkAction)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spedtEC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
@@ -166,6 +166,7 @@
             this.dcPosition.Caption = "位置";
             this.dcPosition.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.dcPosition.Name = "dcPosition";
+            this.dcPosition.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcPosition.OptionsColumn.ReadOnly = true;
             this.dcPosition.Visible = true;
             this.dcPosition.VisibleIndex = 0;
@@ -184,6 +185,7 @@
             this.dcName.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
             this.dcName.Caption = "电机名称";
             this.dcName.Name = "dcName";
+            this.dcName.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcName.Visible = true;
             this.dcName.VisibleIndex = 1;
             this.dcName.Width = 156;
@@ -203,6 +205,7 @@
             this.dcMotorStopEC.Caption = "电机卡停电流";
             this.dcMotorStopEC.ColumnEdit = this.speEC;
             this.dcMotorStopEC.Name = "dcMotorStopEC";
+            this.dcMotorStopEC.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcMotorStopEC.Visible = true;
             this.dcMotorStopEC.VisibleIndex = 2;
             this.dcMotorStopEC.Width = 156;
@@ -230,6 +233,7 @@
             this.dcMotorTurnTime.Caption = "最长转动时间";
             this.dcMotorTurnTime.ColumnEdit = this.speSecond;
             this.dcMotorTurnTime.Name = "dcMotorTurnTime";
+            this.dcMotorTurnTime.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcMotorTurnTime.Visible = true;
             this.dcMotorTurnTime.VisibleIndex = 3;
             this.dcMotorTurnTime.Width = 160;
@@ -286,6 +290,8 @@
             this.dcAction4});
             this.gvMotorAction.GridControl = this.gcMotorAction;
             this.gvMotorAction.Name = "gvMotorAction";
+            this.gvMotorAction.OptionsSelection.EnableAppearanceFocusedRow = false;
+            this.gvMotorAction.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
             this.gvMotorAction.OptionsView.ShowGroupPanel = false;
             this.gvMotorAction.OptionsView.ShowIndicator = false;
             // 
@@ -300,6 +306,7 @@
             this.dcPosition2.Caption = "位置";
             this.dcPosition2.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.dcPosition2.Name = "dcPosition2";
+            this.dcPosition2.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcPosition2.OptionsColumn.ReadOnly = true;
             this.dcPosition2.Visible = true;
             this.dcPosition2.VisibleIndex = 0;
@@ -315,6 +322,7 @@
             this.dcState.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcState.Caption = "当前状态";
             this.dcState.Name = "dcState";
+            this.dcState.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcState.OptionsColumn.ReadOnly = true;
             this.dcState.Visible = true;
             this.dcState.VisibleIndex = 1;
@@ -329,20 +337,12 @@
             this.dcCurrentEC.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcCurrentEC.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcCurrentEC.Caption = "当前电流";
-            this.dcCurrentEC.ColumnEdit = this.spedtEC;
             this.dcCurrentEC.Name = "dcCurrentEC";
+            this.dcCurrentEC.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcCurrentEC.OptionsColumn.ReadOnly = true;
             this.dcCurrentEC.Visible = true;
             this.dcCurrentEC.VisibleIndex = 2;
             this.dcCurrentEC.Width = 135;
-            // 
-            // spedtEC
-            // 
-            this.spedtEC.AutoHeight = false;
-            this.spedtEC.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.spedtEC.Mask.EditMask = "d";
-            this.spedtEC.Name = "spedtEC";
             // 
             // dcAction1
             // 
@@ -359,6 +359,7 @@
             this.dcAction1.Caption = "动作1";
             this.dcAction1.ColumnEdit = this.linkAction;
             this.dcAction1.Name = "dcAction1";
+            this.dcAction1.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcAction1.Visible = true;
             this.dcAction1.VisibleIndex = 3;
             this.dcAction1.Width = 94;
@@ -384,6 +385,7 @@
             this.dcAction2.Caption = "动作2";
             this.dcAction2.ColumnEdit = this.linkAction;
             this.dcAction2.Name = "dcAction2";
+            this.dcAction2.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcAction2.Visible = true;
             this.dcAction2.VisibleIndex = 4;
             this.dcAction2.Width = 79;
@@ -403,6 +405,7 @@
             this.dcAction3.Caption = "动作3";
             this.dcAction3.ColumnEdit = this.linkAction;
             this.dcAction3.Name = "dcAction3";
+            this.dcAction3.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcAction3.Visible = true;
             this.dcAction3.VisibleIndex = 5;
             this.dcAction3.Width = 79;
@@ -422,9 +425,18 @@
             this.dcAction4.Caption = "动作4";
             this.dcAction4.ColumnEdit = this.linkAction;
             this.dcAction4.Name = "dcAction4";
+            this.dcAction4.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcAction4.Visible = true;
             this.dcAction4.VisibleIndex = 6;
             this.dcAction4.Width = 85;
+            // 
+            // spedtEC
+            // 
+            this.spedtEC.AutoHeight = false;
+            this.spedtEC.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spedtEC.Mask.EditMask = "d";
+            this.spedtEC.Name = "spedtEC";
             // 
             // gridView4
             // 
@@ -437,7 +449,7 @@
             this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
-            this.btRefresh});
+            this.btAutoRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
             this.tsDoorInput.Size = new System.Drawing.Size(783, 31);
@@ -453,14 +465,14 @@
             this.btSave.Text = "保存 ";
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
-            // btRefresh
+            // btAutoRefresh
             // 
-            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
-            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(100, 28);
-            this.btRefresh.Text = "刷新数据";
-            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            this.btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btAutoRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btAutoRefresh.Name = "btAutoRefresh";
+            this.btAutoRefresh.Size = new System.Drawing.Size(100, 28);
+            this.btAutoRefresh.Text = "自动刷新";
+            this.btAutoRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // pageJcsz
             // 
@@ -505,8 +517,8 @@
             this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcMotorAction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMotorAction)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spedtEC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkAction)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spedtEC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
@@ -547,7 +559,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView4;
         private System.Windows.Forms.ToolStrip tsDoorInput;
         private System.Windows.Forms.ToolStripButton btSave;
-        private System.Windows.Forms.ToolStripButton btRefresh;
+        private System.Windows.Forms.ToolStripButton btAutoRefresh;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkAction;
 
 

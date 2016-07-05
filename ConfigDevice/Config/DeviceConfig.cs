@@ -283,7 +283,11 @@ namespace ConfigDevice
         public static readonly byte[] CMD_PUBLIC_SIMULATE_KEY = new byte[] { 0x29, EQUIPMENT_PUBLIC };//模拟键盘
         public static readonly byte[] CMD_PUBLIC_WINDOWS_PLAY = new byte[] { 0x2a, EQUIPMENT_PUBLIC };//门窗播放指令
         public static readonly byte[] CMD_PUBLIC_SAFETY_STATE = new byte[] { 0xa0, EQUIPMENT_PUBLIC };//安防状态 
-        public static readonly byte[] CMD_PUBLIC_RESET_HOST = new byte[] { 0xb2, EQUIPMENT_PUBLIC };       //复位与主机连接  
+        public static readonly byte[] CMD_PUBLIC_RESET_HOST = new byte[] { 0xb2, EQUIPMENT_PUBLIC };       //复位与主机连接  ++
+        //------------窗帘电机------
+        public static readonly byte[] CMD_WINDOWS_RUN_STATE = new byte[] { 0x01, CMD_TYPE_WINDOWS };       //窗帘电机电流读取  
+        public static readonly byte[] CMD_WINDOWS_READ_POWER = new byte[] { 0x02, CMD_TYPE_WINDOWS };       //窗帘电机电流读取  
+        public static readonly byte[] CMD_WINDOWS_WRITE_POWER = new byte[] { 0x03, CMD_TYPE_WINDOWS };       //窗帘电机电流读取   
         //-------------服务器指令--------------------
         public static readonly byte[] CMD_SERVER_SEARCH = new byte[] { 0x30, CMD_TYPE_SERVER };//服务器搜索转换器
         public static readonly byte[] CMD_SERVER_CONNECT = new byte[] { 0x31, CMD_TYPE_SERVER };//申请连接

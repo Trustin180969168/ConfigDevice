@@ -14,6 +14,8 @@ namespace ConfigDevice
     public partial class FrmMotorDC3 : FrmDevice
     {
         private Road3Window road3Window;
+        private bool autoRefresh = false;
+        private ThreadActionTimer refreshSateTimer;//---动态刷新---
         private GridViewDigitalEdit edtCurrent = new GridViewDigitalEdit();
         private GridViewDigitalEdit edtSecond = new GridViewDigitalEdit();
         private DataTable dtMotorSetting = new DataTable("电机配置");
@@ -22,15 +24,18 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
+            refreshSateTimer = new ThreadActionTimer(2000, new Action(this.loadData));//---自动刷新---- 
             //-----配置表数据------
+            dtMotorSetting.Columns.Add(ViewConfig.DC_ID, System.Type.GetType("System.String"));
             dtMotorSetting.Columns.Add(ViewConfig.DC_POSITION, System.Type.GetType("System.String"));
             dtMotorSetting.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
             dtMotorSetting.Columns.Add(ViewConfig.DC_VALUE1, System.Type.GetType("System.String"));
             dtMotorSetting.Columns.Add(ViewConfig.DC_VALUE2, System.Type.GetType("System.String"));
-            dtMotorSetting.Rows.Add("1路电机", "", "", "");
-            dtMotorSetting.Rows.Add("2路电机", "", "", "");
-            dtMotorSetting.Rows.Add("3路电机", "", "", "");
+            dtMotorSetting.Rows.Add("0","1路电机", "", "", "");
+            dtMotorSetting.Rows.Add("1","2路电机", "", "", "");
+            dtMotorSetting.Rows.Add("2","3路电机", "", "", "");
             //----动作表数据-----
+            dtMotorAction.Columns.Add(ViewConfig.DC_ID, System.Type.GetType("System.String"));
             dtMotorAction.Columns.Add(ViewConfig.DC_POSITION, System.Type.GetType("System.String"));
             dtMotorAction.Columns.Add(ViewConfig.DC_STATE, System.Type.GetType("System.String"));
             dtMotorAction.Columns.Add(ViewConfig.DC_CURRENT, System.Type.GetType("System.String"));
@@ -38,6 +43,9 @@ namespace ConfigDevice
             dtMotorAction.Columns.Add(ViewConfig.DC_ACTION2, System.Type.GetType("System.String"));
             dtMotorAction.Columns.Add(ViewConfig.DC_ACTION3, System.Type.GetType("System.String"));
             dtMotorAction.Columns.Add(ViewConfig.DC_ACTION4, System.Type.GetType("System.String"));
+            dtMotorAction.Rows.Add("0", "1路电机", "", "", "停转", "正转", "反转", "测试");
+            dtMotorAction.Rows.Add("1", "2路电机", "", "", "停转", "正转", "反转", "测试");
+            dtMotorAction.Rows.Add("2", "3路电机", "", "", "停转", "正转", "反转", "测试");
             //----配置绑定----
             dcPosition.FieldName = ViewConfig.DC_POSITION;
             dcName.FieldName = ViewConfig.DC_NAME;    
@@ -66,7 +74,6 @@ namespace ConfigDevice
             edtSecond.MinValue = 0;
             edtSecond.MaxValue = 900;
             //----绑定控件------
-            dcCurrentEC.ColumnEdit = edtCurrent;
             dcMotorStopEC.ColumnEdit = edtCurrent;
             dcMotorTurnTime.ColumnEdit = edtSecond;
             //----列表绑定------
@@ -97,10 +104,10 @@ namespace ConfigDevice
         /// </summary>
         private void loadData()
         {
-            road3Window.Circuit.ReadRoadTitle();//---读取回路名称---
-            road3Window.Motor.ReadMotorParameter();//---读取参数-----
-            //road3Window.Motor.ReadMotorState();//---读取状态-----
-
+            road3Window.Circuit.ReadRoadTitle();        //---读取回路名称---
+            road3Window.Motor.ReadMotorParameter();     //---读取参数-----
+            road3Window.Motor.ReadMotorCurrent();       //---读取电流-----
+            road3Window.Motor.ReadMotorCurrentAction(); //---读取动作---
         }
 
         /// <summary>
@@ -118,7 +125,7 @@ namespace ConfigDevice
                     if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Motor.CLASS_NAME)//---电机操作-----
                     {
                         //-----最大电流,最大开关时间-----
-                        if (callbackParameter.Parameters[1].ToString() == Motor.ACTION_NAME_CURRENT_PARAMETER)
+                        if (callbackParameter.Parameters[1].ToString() == Motor.ACTION_NAME_PARAMETER)
                         {
                             dtMotorSetting.Rows[0][dcMotorTurnTime.FieldName] = road3Window.Motor.Road1MaxRunTime;  //1路参数
                             dtMotorSetting.Rows[0][dcMotorStopEC.FieldName] = road3Window.Motor.Road1MaxStopCE;     //1路参数
@@ -129,9 +136,21 @@ namespace ConfigDevice
                             dtMotorSetting.AcceptChanges();
                         }
                         //-----当前电流状态-------
-                        if (callbackParameter.Parameters[1].ToString() == Motor.ACTION_NAME_CURRENT_STATE)
+                        if (callbackParameter.Parameters[1].ToString() == Motor.ACTION_NAME_CURRENT_CURRENT)
                         {
-                            
+                            dtMotorAction.Rows[0][3] = road3Window.Motor.Road1Current;
+                            dtMotorAction.Rows[1][3] = road3Window.Motor.Road2Current;
+                            dtMotorAction.Rows[2][3] = road3Window.Motor.Road3Current;
+                            dtMotorAction.AcceptChanges();
+                        }
+                        //-----当前动作状态-------
+                        if (callbackParameter.Parameters[1].ToString() == Motor.ACTION_NAME_CURRENT_ACTION)
+                        {
+                            string[] actionResult = callbackParameter.Parameters[2] as string[];
+                            dtMotorAction.Rows[0][2] = actionResult[0];
+                            dtMotorAction.Rows[1][2] = actionResult[1];
+                            dtMotorAction.Rows[2][2] = actionResult[2];
+                            dtMotorAction.AcceptChanges();
                         }
                     }
                     else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)//---电机回路名称--
@@ -168,7 +187,19 @@ namespace ConfigDevice
         /// </summary> 
         private void btRefresh_Click(object sender, EventArgs e)
         {
-            loadData();//---加载数据----
+            autoRefresh = !autoRefresh;
+            if (autoRefresh)
+            {
+                btAutoRefresh.Checked = true;
+                refreshSateTimer.Start();
+                CommonTools.MessageShow("自动 2秒 刷新一次!", 1, "");
+            }
+            else
+            {
+                btAutoRefresh.Checked = false;
+                refreshSateTimer.Stop();
+                CommonTools.MessageShow("取消自动刷新!", 1, "");
+            }
         }
 
         /// <summary>
@@ -186,7 +217,7 @@ namespace ConfigDevice
             else
             {
                 foreach (DataRow dr in dtModify.Rows)
-                    this.road3Window.Circuit.SaveRoadSetting(Convert.ToInt16(dr[ViewConfig.DC_ID].ToString()) - 1, dr[ViewConfig.DC_NAME].ToString());//--保存回路名称---
+                    this.road3Window.Circuit.SaveRoadSetting(Convert.ToInt16(dr[ViewConfig.DC_ID].ToString()), dr[ViewConfig.DC_NAME].ToString());//--保存回路名称---
                 //------保存电机参数-------         
                 road3Window.Motor.Road1MaxRunTime = Convert.ToInt16(dtMotorSetting.Rows[0][dcMotorTurnTime.FieldName]);
                 road3Window.Motor.Road2MaxRunTime = Convert.ToInt16(dtMotorSetting.Rows[1][dcMotorTurnTime.FieldName]);
@@ -213,10 +244,39 @@ namespace ConfigDevice
         /// </summary>
         private void linkAction_Click(object sender, EventArgs e)
         {
+            string actionName = gvMotorAction.GetRowCellValue(gvMotorAction.FocusedRowHandle, gvMotorAction.FocusedColumn).ToString();
+
+            int roadNum = gvMotorAction.FocusedRowHandle;
+            if (roadNum == 0)
+            {
+                if (actionName == "停转")
+                    road3Window.Motor.MotorAction(Motor.ACTION_ROAD_FRONT_1, Motor.ACTION_STOP);
+                else if (actionName == "正转")
+                    road3Window.Motor.MotorAction(Motor.ACTION_ROAD_FRONT_1, Motor.ACTION_RUN);
+                else if (actionName == "反转")
+                    road3Window.Motor.MotorAction(Motor.ACTION_ROAD_BACK_1, Motor.ACTION_RUN);
+            }
+            else if (roadNum == 1)
+            {
+                if (actionName == "停转")
+                    road3Window.Motor.MotorAction(Motor.ACTION_ROAD_FRONT_2, Motor.ACTION_STOP);
+                else if (actionName == "正转")
+                    road3Window.Motor.MotorAction(Motor.ACTION_ROAD_FRONT_2, Motor.ACTION_RUN);
+                else if (actionName == "反转")
+                    road3Window.Motor.MotorAction(Motor.ACTION_ROAD_BACK_2, Motor.ACTION_RUN);
+            }
+            else if (roadNum == 2)
+            {
+                if (actionName == "停转")
+                    road3Window.Motor.MotorAction(Motor.ACTION_ROAD_FRONT_3, Motor.ACTION_STOP);
+                else if (actionName == "正转")
+                    road3Window.Motor.MotorAction(Motor.ACTION_ROAD_FRONT_3, Motor.ACTION_RUN);
+                else if (actionName == "反转")
+                    road3Window.Motor.MotorAction(Motor.ACTION_ROAD_BACK_3, Motor.ACTION_RUN);
+            }
 
         }
         
- 
 
  
     }

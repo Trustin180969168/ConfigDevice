@@ -49,7 +49,7 @@ namespace ConfigDevice
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG);
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME);
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER);
-
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_WINDOWS_WRITE_POWER);
         }
 
     }

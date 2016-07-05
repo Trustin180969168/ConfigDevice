@@ -430,6 +430,11 @@ namespace ConfigDevice
                 sptLightSeconds.Enabled = true;
         }
 
+        private void FrmEnvironment_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            environment.RemoveRJ45Callback();
+        }
+
 
     }
 }
