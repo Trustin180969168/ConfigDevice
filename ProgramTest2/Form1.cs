@@ -72,11 +72,9 @@ namespace ProgramTest2
             //lookUpEdit2.Properties.Columns.Add(new LookUpColumnInfo("UniqueValue"));
             //lookUpEdit2.Properties.Columns[3].Visible = false;
 
-
             gridLookUpEdit1.Properties.DataSource = dtSelect;
             gridLookUpEdit1.Properties.DisplayMember = "NAME";
-            gridLookUpEdit1.Properties.ValueMember = "UniqueValue";
-          
+            gridLookUpEdit1.Properties.ValueMember = "UniqueValue";          
 
             //----时间编辑控件------
             dateEdit.DisplayFormat.FormatString = "d";
@@ -84,10 +82,8 @@ namespace ProgramTest2
             dateEdit.Mask.EditMask = "yyyy-MM-dd";
             dateEdit.Mask.UseMaskAsDisplayFormat = true; 
 
-
             Application.AddMessageFilter(this);   
-            
-            
+
         }
         int i = 1;
         private void simpleButton1_Click(object sender, EventArgs e)
