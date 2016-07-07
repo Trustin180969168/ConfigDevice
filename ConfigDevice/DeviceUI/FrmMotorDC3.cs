@@ -24,6 +24,7 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
+            road3Window = this.Device as Road3Window;
             refreshSateTimer = new ThreadActionTimer(2000, new Action(this.loadData));//---自动刷新---- 
             //-----配置表数据------
             dtMotorSetting.Columns.Add(ViewConfig.DC_ID, System.Type.GetType("System.String"));
@@ -31,9 +32,8 @@ namespace ConfigDevice
             dtMotorSetting.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
             dtMotorSetting.Columns.Add(ViewConfig.DC_VALUE1, System.Type.GetType("System.String"));
             dtMotorSetting.Columns.Add(ViewConfig.DC_VALUE2, System.Type.GetType("System.String"));
-            dtMotorSetting.Rows.Add("0","1路电机", "", "", "");
-            dtMotorSetting.Rows.Add("1","2路电机", "", "", "");
-            dtMotorSetting.Rows.Add("2","3路电机", "", "", "");
+            for (int i = 0; i < road3Window.Circuit.CircuitCount; i++)
+                dtMotorSetting.Rows.Add(i, i+1+"路电机", "", "", "");
             //----动作表数据-----
             dtMotorAction.Columns.Add(ViewConfig.DC_ID, System.Type.GetType("System.String"));
             dtMotorAction.Columns.Add(ViewConfig.DC_POSITION, System.Type.GetType("System.String"));
@@ -43,9 +43,10 @@ namespace ConfigDevice
             dtMotorAction.Columns.Add(ViewConfig.DC_ACTION2, System.Type.GetType("System.String"));
             dtMotorAction.Columns.Add(ViewConfig.DC_ACTION3, System.Type.GetType("System.String"));
             dtMotorAction.Columns.Add(ViewConfig.DC_ACTION4, System.Type.GetType("System.String"));
-            dtMotorAction.Rows.Add("0", "1路电机", "", "", "停转", "正转", "反转", "测试");
-            dtMotorAction.Rows.Add("1", "2路电机", "", "", "停转", "正转", "反转", "测试");
-            dtMotorAction.Rows.Add("2", "3路电机", "", "", "停转", "正转", "反转", "测试");
+            for (int i = 0; i < road3Window.Circuit.CircuitCount; i++)
+                dtMotorAction.Rows.Add(i, i+1+"路电机", "", "", "停转", "正转", "反转", "测试");
+            //dtMotorAction.Rows.Add("1", "2路电机", "", "", "停转", "正转", "反转", "测试");
+            //dtMotorAction.Rows.Add("2", "3路电机", "", "", "停转", "正转", "反转", "测试");
             //----配置绑定----
             dcPosition.FieldName = ViewConfig.DC_POSITION;
             dcName.FieldName = ViewConfig.DC_NAME;    
@@ -92,7 +93,6 @@ namespace ConfigDevice
             this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
             this.Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
             viewBaseSetting.DeviceEdit = this.Device;
-            road3Window = this.Device as Road3Window;
 
             viewBaseSetting.DeviceEdit.SearchVer();//---获取版本号-----   
             InitSelectDevice();//----初始化选择设备列表---

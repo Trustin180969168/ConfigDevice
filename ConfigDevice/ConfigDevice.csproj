@@ -153,6 +153,10 @@
       <DependentUpon>FrmWeather.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmRadar.resx">
+      <DependentUpon>FrmRadar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -478,6 +482,12 @@
     </Compile>
     <Compile Include="DeviceUI\FrmWeather.Designer.cs">
       <DependentUpon>FrmWeather.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmRadar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmRadar.Designer.cs">
+      <DependentUpon>FrmRadar.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Tools\PortTools.cs" />

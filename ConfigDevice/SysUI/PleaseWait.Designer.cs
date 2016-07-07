@@ -56,12 +56,8 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.UseWaitCursor = true;
-            // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Interval = 1000;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+   
+
             // 
             // PleaseWait
             // 
@@ -92,6 +88,6 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblMsg;
-        private System.Windows.Forms.Timer timer;
+    
     }
 }

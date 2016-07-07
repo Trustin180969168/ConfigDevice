@@ -470,9 +470,9 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SHORT_IN_4, "短路输入4");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SHORT_IN_8, "短路输入8");
 
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_1, "SCDW01（008：安全信号处理器，最多1路）");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_2, "SCDW02（008：安全信号处理器，最多2路）");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_4, "SCDW04（008：安全信号处理器，最多4路）");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_1, "安全信号处理器(1路)");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_2, "安全信号处理器(2路)");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_DOOR_IN_4, "安全信号处理器(4路)");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_WINDOWS_2, "2路门窗");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_WINDOWS_3, "3路门窗");

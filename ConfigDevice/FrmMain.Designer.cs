@@ -427,7 +427,7 @@
             this.btQryDevices.Name = "btQryDevices";
             this.btQryDevices.Size = new System.Drawing.Size(105, 28);
             this.btQryDevices.Text = "设备搜索 ";
-            this.btQryDevices.Click += new System.EventHandler(this.btRefreshDevices_Click);
+            this.btQryDevices.Click += new System.EventHandler(this.btSearchDevices_Click);
             // 
             // btClearDevice
             // 

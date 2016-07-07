@@ -27,6 +27,7 @@ namespace ConfigDevice
         private Dictionary<string, Network> listRrefreshDevices = new Dictionary<string, Network>();//-----刷新设备列表--
         private bool searchingDevice = false;//是否正在搜索设备,需要加锁限制
         private Object lockObject = new object();
+        private int MaxWaittingSeconds = 1;//最大等待时间
 
         public FrmMain()
         {
@@ -49,8 +50,7 @@ namespace ConfigDevice
             networkDeviceMac.FieldName = NetworkConfig.DC_MAC;
             networkState.FieldName = NetworkConfig.DC_STATE;
             networkRemark.FieldName = NetworkConfig.DC_REMARK;
-            networkKindName.FieldName = NetworkConfig.DC_KINDNAME;
-            // networkSearchDevices.FieldName = NetworkConfig.DC_MAC;
+            networkKindName.FieldName = NetworkConfig.DC_KINDNAME; 
 
             xh.FieldName = DeviceConfig.DC_NUM;
             deviceID.FieldName = DeviceConfig.DC_ID;
@@ -61,8 +61,6 @@ namespace ConfigDevice
             deviceState.FieldName = DeviceConfig.DC_STATE;
             deviceRemark.FieldName = DeviceConfig.DC_REMARK;
             image1.FieldName = DeviceConfig.DC_IMAGE1;
-
-
         }
 
         /// <summary>
@@ -125,7 +123,7 @@ namespace ConfigDevice
                         else
                         {
                             searchingDevice = true;
-                            pw.ShowWaittingInfo(5, "正在加载...");
+                            pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
                             deviceCtrl.SearchDevices(network);
                         }
                     }
@@ -135,7 +133,7 @@ namespace ConfigDevice
                         gvNetwork.PostEditor(); gvNetwork.RefreshData();
                         searchingDevice = true;
                         SetDevicesFilter();//---设置筛选---
-                        pw.ShowWaittingInfo(5, "正在加载...");
+                        pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
                         deviceCtrl.SearchDevices(network);//---自动搜索设备
                     }
                     else if ((callbackParameter.Action == ActionKind.DisConnectNetwork))//---断开连接----
@@ -165,7 +163,7 @@ namespace ConfigDevice
                 {
                     Thread.Sleep(1000);
                     searchingDevice = true;
-                    pw.ShowWaittingInfo(5, "正在加载...");
+                    pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
                     deviceCtrl.SearchDevices(network1);
                     break;//---执行一条退出,剩下的回调执行.
                 }
@@ -227,7 +225,7 @@ namespace ConfigDevice
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
             }
-            pw.ShowWaittingInfo(5, "正在加载...");
+            pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
             deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);
         }
 
@@ -290,7 +288,7 @@ namespace ConfigDevice
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             if (network.State == NetworkConfig.STATE_CONNECTED)
             {
-                pw.ShowWaittingInfo(5, "正在加载...");
+                pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
                 deviceCtrl.SearchDevices(network);
             }
             else
@@ -654,6 +652,7 @@ namespace ConfigDevice
             }
 
         }
+ 
 
         /// <summary>
         /// 刷新设备列表
@@ -666,7 +665,7 @@ namespace ConfigDevice
             Network network = SysConfig.ListNetworks[dr[DeviceConfig.DC_NETWORK_IP].ToString()];
             if (network.State == NetworkConfig.STATE_CONNECTED)
             {
-                pw.ShowWaittingInfo(5, "正在加载...");
+                pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
                 deviceCtrl.SearchDevices(network);
             }
             else
@@ -728,7 +727,6 @@ namespace ConfigDevice
                 CommonTools.MessageShow("请先连接网络" + network.DeviceName, 3, "");
 
         }
-
  
         /// <summary>
         /// 控制鼠标滚动
@@ -743,8 +741,7 @@ namespace ConfigDevice
                     return true;
             }
             return false;
-        } 
-
+        }
 
         /// <summary>
         /// 根据鼠标位置执行对应的点击事件

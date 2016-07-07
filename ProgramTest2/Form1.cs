@@ -25,6 +25,9 @@ namespace ProgramTest2
         {
             InitializeComponent();
 
+            DataSet ds = new DataSet("Test");
+            ds.Tables.Add(dtSelect);
+
             dt.Columns.Add("time1", System.Type.GetType("System.String"));
             dt.Columns.Add("time2", System.Type.GetType("System.String"));
             dt.Columns.Add("week", System.Type.GetType("System.String"));
@@ -50,7 +53,6 @@ namespace ProgramTest2
             lookupEdit.DataSource = dtSelect;
             lookupEdit.DisplayMember = "ID";
             lookupEdit.ValueMember = "ID";
-
           
             glookupEdit.DataSource = dtSelect;
             glookupEdit.DisplayMember = "NAME";
@@ -82,7 +84,9 @@ namespace ProgramTest2
             dateEdit.Mask.EditMask = "yyyy-MM-dd";
             dateEdit.Mask.UseMaskAsDisplayFormat = true; 
 
-            Application.AddMessageFilter(this);   
+            Application.AddMessageFilter(this);
+
+            ds.WriteXml("d:\\test.xml", XmlWriteMode.WriteSchema);
 
         }
         int i = 1;
@@ -96,18 +100,15 @@ namespace ProgramTest2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             temperatureEdit.Properties.DisplayFormat.FormatString = "#0 ℃";
             temperatureEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-              temperatureEdit.Properties.Mask.EditMask = "#0 ℃";
+            temperatureEdit.Properties.Mask.EditMask = "#0 ℃";
             temperatureEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             temperatureEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             temperatureEdit.Properties.MaxValue = 60;
             temperatureEdit.Properties.MinValue = -20;
             gcTime.DataSource = dt;
 
-
-
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "1", 1 });
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "2", 2 });
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "3", 3 });
@@ -120,10 +121,8 @@ namespace ProgramTest2
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "2", 2 });
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "3", 3 });
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "4", 4 });
-
-
+            
             lookUpEdit2.ItemIndex = 0;
-
         }
 
         private void simpleButton2_Click(object sender, EventArgs e)
