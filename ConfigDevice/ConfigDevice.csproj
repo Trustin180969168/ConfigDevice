@@ -157,6 +157,10 @@
       <DependentUpon>FrmRadar.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmButton2.resx">
+      <DependentUpon>FrmButton2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -369,6 +373,8 @@
     <Compile Include="Class\Devices\SystemInteraction.cs" />
     <Compile Include="Class\Devices\Environment.cs" />
     <Compile Include="Class\Devices\Road12Relay.cs" />
+    <Compile Include="Class\Devices\Radar.cs" />
+    <Compile Include="Class\Devices\Button2.cs" />
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
     <Compile Include="Class\Devices\Road6FrontDimming.cs" />
@@ -488,6 +494,12 @@
     </Compile>
     <Compile Include="DeviceUI\FrmRadar.Designer.cs">
       <DependentUpon>FrmRadar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmButton2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmButton2.Designer.cs">
+      <DependentUpon>FrmButton2.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Tools\PortTools.cs" />

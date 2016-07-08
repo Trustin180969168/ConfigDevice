@@ -75,7 +75,7 @@ namespace ConfigDevice
             viewCommandSetting.ShowCommandBar = true;// -----命令配置控件配置工具栏  
             viewCommandSetting.ShowLogicToolBarSetting();     
             //--------初始化快速配置------------
-            logicQuickSetting = new LogicQuickSetting("EQUIPMENT_AIR_QUALITY");
+            logicQuickSetting = new LogicQuickSetting(DeviceConfig.LOCAL_LOGIC_SETTING_EVI);
             initLogicQuitSetting();
         }
 

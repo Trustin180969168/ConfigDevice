@@ -90,7 +90,7 @@ namespace ConfigDevice
             viewCommandSetting.ShowCommandBar = true;
             viewCommandSetting.ShowLogicToolBarSetting();     
             //----------快速配置-----
-            logicQuickSetting = new LogicQuickSetting("EQUIPMENT_FUEL_GAS");
+            logicQuickSetting = new LogicQuickSetting(DeviceConfig.LOCAL_LOGIC_SETTING_GAS);
             initLogicQuitSetting();
         }
 

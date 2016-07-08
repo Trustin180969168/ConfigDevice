@@ -136,6 +136,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_CURTAIN_3CH: return new FactoryMotorDC3EditEdit();//----3路直流电机-----
                 case DeviceConfig.EQUIPMENT_AIR_QUALITY: return new FactoryEnvironmentEdit();//-----环境-----
                 case DeviceConfig.EQUIPMENT_AIR_O2: return new FactoryO2Edit();//-----氧气传感器-----
+                case DeviceConfig.EQUIPMENT_RSP: return new FactoryRadarEdit();//----雷达----
                 default: return new FactoryBaseDeviceEdit();
             }
         }
@@ -291,7 +292,19 @@ namespace ConfigDevice
         #endregion
     }
 
-
+    /// <summary>
+    /// 雷达传感器
+    /// </summary>
+    public class FactoryRadarEdit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            Radar radar = new Radar(data);
+            return new FrmRadar(radar);
+        }
+        #endregion
+    }
 
     //**********************设备***************************
 

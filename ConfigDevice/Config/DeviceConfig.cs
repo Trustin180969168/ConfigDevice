@@ -6,6 +6,12 @@ namespace ConfigDevice
 {
     public class DeviceConfig
     {
+        //----------本地配置表名称-------
+        public const string LOCAL_LOGIC_SETTING_EVI = "EQUIPMENT_AIR_QUALITY";//---环境质量-----
+        public const string LOCAL_LOGIC_SETTING_GAS = "EQUIPMENT_FUEL_GAS";//----煤气探头---
+        public const string LOCAL_LOGIC_SETTING_RADAR = "EQUIPMENT_RSP";//----雷达-----
+        public const string LOCAL_LOGIC_SETTING_O2 = "EQUIPMENT_AIR_O2";//---氧气-----
+
         //设备ID 0~100,  101以上为指定设备的ID
         public enum SpecicalID
         {
@@ -20,7 +26,6 @@ namespace ConfigDevice
             ID_PUBLIC = 255      //公共地址
         };
 
-
         //特殊网段
         public enum NetworkSpecialID
         {
@@ -28,9 +33,6 @@ namespace ConfigDevice
             NET_SERVER = 254,     //服务器网段
             NET_PUBLIC = 255      //公共地址
         };
-
-
-
 
         //-----------回应启动搜索设备-------------
         public const byte RETSTARTSEARCH_TRUE = 0x0;        // 成功启动搜索设备
@@ -288,7 +290,7 @@ namespace ConfigDevice
         public static readonly byte[] CMD_WINDOWS_RUN_STATE = new byte[] { 0x01, CMD_TYPE_WINDOWS };       //窗帘电机电流读取  
         public static readonly byte[] CMD_WINDOWS_READ_POWER = new byte[] { 0x02, CMD_TYPE_WINDOWS };       //窗帘电机电流读取  
         public static readonly byte[] CMD_WINDOWS_WRITE_POWER = new byte[] { 0x03, CMD_TYPE_WINDOWS };       //窗帘电机电流读取   
-        //-------------服务器指令--------------------
+        //------------服务器指令--------------------
         public static readonly byte[] CMD_SERVER_SEARCH = new byte[] { 0x30, CMD_TYPE_SERVER };//服务器搜索转换器
         public static readonly byte[] CMD_SERVER_CONNECT = new byte[] { 0x31, CMD_TYPE_SERVER };//申请连接
         public static readonly byte[] CMD_SERVER_RET_CONNECT = new byte[] { 0xb2, CMD_TYPE_SERVER };//回复连接
@@ -460,7 +462,6 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_AIR_O2, "氧气传感器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_WEATHER, "智能气象");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_TEMP, "温度模块"); 
-
             
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PRI_1, "人体感应1个方向");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PRI_2, "人体感应2个方向");

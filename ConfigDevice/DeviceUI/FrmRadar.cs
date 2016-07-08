@@ -14,7 +14,7 @@ namespace ConfigDevice
     {
         private ThreadActionTimer refreshSateTimer;//---动态刷新---
         private bool autoRefresh = false;
-        private FlammableGasProbe flammableGasProbe;
+        private Radar radar;
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
         private string currentGroupName = "";//当前组名
         private LogicQuickSetting logicQuickSetting;//快速配置编辑
@@ -25,21 +25,9 @@ namespace ConfigDevice
             : base(_device)
         {
             InitializeComponent();
-            flammableGasProbe = this.Device as FlammableGasProbe;
-            //-----------初始化编辑控件-------
-            //edtFireCtrlTemperatue.Properties.DisplayFormat.FormatString = "#0.0 ℃";
-            //edtFireCtrlTemperatue.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            //edtFireCtrlTemperatue.Properties.Mask.EditMask = "#0.0 ℃";
-            //edtFireCtrlTemperatue.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            //edtFireCtrlTemperatue.Properties.Mask.UseMaskAsDisplayFormat = true;
+            radar = this.Device as Radar;
 
-            edtVavleEC.Properties.DisplayFormat.FormatString = "#0 mA";
-            edtVavleEC.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            edtVavleEC.Properties.Mask.EditMask = "#0 mA";
-            edtVavleEC.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            edtVavleEC.Properties.Mask.UseMaskAsDisplayFormat = true;
-
-            refreshSateTimer = new ThreadActionTimer(2000, new Action(flammableGasProbe.ReadState));//---自动刷新----
+            refreshSateTimer = new ThreadActionTimer(2000, new Action(radar.ReadState));//---自动刷新----
             //----------蜂鸣器-------
             sptBuzzerSeconds.Properties.MaxValue = 65535;
             sptBuzzerSeconds.Properties.MinValue = 1;
@@ -57,14 +45,7 @@ namespace ConfigDevice
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_ON);
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_GLINT);
             cbxLight.Properties.Items.Add(Light.STATE_LEDACT_NONE);
-            //----------阀门-------
-            sptValveSeconds.Properties.MaxValue = 65535;
-            sptValveSeconds.Properties.MinValue = 1;
-            sptValveSeconds.Enter += SysConfig.Edit_Enter;
-            sptValveSeconds.Leave += SysConfig.Edit_Leave;
-            cbxValveAction.Properties.Items.Add(Motor.STATE_VALVE_CLOSE);
-            cbxValveAction.Properties.Items.Add(Motor.STATE_VALVE_OPEN);
-            cbxValveAction.Properties.Items.Add(Motor.STATE_VALVE_NONE); 
+
             //----------回路查询选择------
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, "回路", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_NAME, 380));
@@ -75,11 +56,11 @@ namespace ConfigDevice
             lookUpEdit.Properties.ShowFooter = false;
             lookUpEdit.Properties.ShowHeader = false;
             lookUpEdit.Properties.DataSource = dtIDName;
-            lookUpEdit.Properties.DropDownRows = flammableGasProbe.ProbeCircuit.CircuitCount;
+            lookUpEdit.Properties.DropDownRows = radar.Circuit.CircuitCount;
             //----------可燃气体回调----------- 
-            flammableGasProbe.OnCallbackUI_Action += this.CallbackUI;
-            flammableGasProbe.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
-            BaseViewSetting.DeviceEdit = flammableGasProbe;           //---基础配置编辑
+            radar.OnCallbackUI_Action += this.CallbackUI;
+            radar.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
+            BaseViewSetting.DeviceEdit = radar;           //---基础配置编辑
             //----------逻辑配置控件----
             viewLogicSetting.ShowToolBar = false;//不显示工具栏  
             //viewCommandEdit.ShowCommandBar = true;//不显示指令栏
@@ -87,7 +68,7 @@ namespace ConfigDevice
             viewCommandSetting.ShowCommandBar = true;
             viewCommandSetting.ShowLogicToolBarSetting();     
             //----------快速配置-----
-            logicQuickSetting = new LogicQuickSetting("EQUIPMENT_FUEL_GAS");
+            logicQuickSetting = new LogicQuickSetting(DeviceConfig.LOCAL_LOGIC_SETTING_RADAR);
             initLogicQuitSetting();
         }
 
@@ -103,7 +84,7 @@ namespace ConfigDevice
             edtLogicLocalSetting.Text = "";
         }
 
-        private void FrmFlammableGasProbe_Load(object sender, EventArgs e)
+        private void FrmRadar_Load(object sender, EventArgs e)
         {
             base.InitSelectDevice();//初始化选择列表     
             loadData();
@@ -114,10 +95,9 @@ namespace ConfigDevice
         /// </summary>
         private void loadData()
         {
-            flammableGasProbe.SearchVer();          //---获取版本号-----   
-            flammableGasProbe.ProbeCircuit.ReadRoadTitle();//----读取回路---- 
-            flammableGasProbe.ReadState();          //---读取状态----     
-            flammableGasProbe.Valve.ReadValveParameter();//---读取参数---            
+            radar.SearchVer();          //---获取版本号-----   
+            radar.Circuit.ReadRoadTitle();//----读取回路---- 
+           // radar.ReadState();          //---读取状态----                
         }
 
         /// <summary>
@@ -132,31 +112,20 @@ namespace ConfigDevice
             }
             lock (lockObject)
             {
-                //---读取完回路----
+                //-----读取完回路----
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME
-                    && callbackParameter.Parameters[1].ToString() == flammableGasProbe.DeviceID)
-                {
+                    && callbackParameter.Parameters[1].ToString() == radar.DeviceID)
                     initLogicAndCommand();//---初始化指令配置,逻辑配置
-                }
                 //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == FlammableGasProbe.CLASS_NAME)
-                {
-                    //-----刷新探头内容-------
-                    edtValveState.Text = flammableGasProbe.Valve.ValveState;
-                    edtVavleEC.Text = flammableGasProbe.Valve.ValveElectricCurrent.ToString();
+                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Radar.CLASS_NAME)
+                { 
                     //-----逻辑附加动作-------
-                    cbxBuzzer.SelectedIndex = flammableGasProbe.FGP_Buzzer.BuzAct;
-                    sptBuzzerSeconds.Text = flammableGasProbe.FGP_Buzzer.BuzTim.ToString();
-                    this.cbxLight.SelectedIndex = flammableGasProbe.FGP_Light.LedAct;
-                    this.sptLightSeconds.Text = flammableGasProbe.FGP_Light.LedTim.ToString();
-                    this.cbxValveAction.SelectedIndex = flammableGasProbe.Valve.ValAct;
-                    this.sptValveSeconds.Text = flammableGasProbe.Valve.ValTim.ToString();
+                    cbxBuzzer.SelectedIndex = radar.Buzzer.BuzAct;
+                    sptBuzzerSeconds.Text = radar.Buzzer.BuzTim.ToString();
+                    this.cbxLight.SelectedIndex = radar.Light.LedAct;
+                    this.sptLightSeconds.Text = radar.Light.LedTim.ToString();
                 }
-                //-----读取完阀门参数----------
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Motor.CLASS_NAME)
-                {
-
-                }
+ 
             }
         }
 
@@ -167,20 +136,20 @@ namespace ConfigDevice
         {
             viewCommandSetting.CbxCommandGroup.Items.Clear();
             dtIDName.Rows.Clear();
-            foreach (int key in flammableGasProbe.ProbeCircuit.ListCircuitIDAndName.Keys)
+            foreach (int key in radar.Circuit.ListCircuitIDAndName.Keys)
             {
-                viewCommandSetting.CommmandGroups.Add(flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key]);    //---指令组选择----
-                dtIDName.Rows.Add(new object[] { key, flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
+                viewCommandSetting.CommmandGroups.Add(radar.Circuit.ListCircuitIDAndName[key]);    //---指令组选择----
+                dtIDName.Rows.Add(new object[] { key, radar.Circuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
             }
             lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
             viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
-      
-            edtTriggerActionName.Text = flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[1];//----默认显示第一个组名
+
+            edtTriggerActionName.Text = radar.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
             if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
-                viewLogicSetting.InitLogicList(flammableGasProbe, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE,
+                viewLogicSetting.InitLogicList(radar, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE,
                     SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.SENSOR_SYSTEM_INTERACTION      );   
             if (viewCommandSetting.NeedInit)//----初始化指令配置-------
-                viewCommandSetting.InitViewCommand(flammableGasProbe);//初始化       
+                viewCommandSetting.InitViewCommand(radar);//初始化       
             hasInitedLogicAndCommand = true;//----初始化完毕-----
             if (tctrlEdit.SelectedTabPageIndex == 2)
             {
@@ -212,7 +181,7 @@ namespace ConfigDevice
             if (lookUpEdit.ItemIndex == -1) { lookUpEdit.ItemIndex = 0; return; }//----
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);       //---读取逻辑数据----
             viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
-            flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
+            radar.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
         }
         /// <summary>
         /// 选择切换
@@ -224,7 +193,7 @@ namespace ConfigDevice
             currentGroupName = edtTriggerActionName.Text;
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
             viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;//----获取指令配置----
-            flammableGasProbe.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
+            radar.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
         }
 
         /// <summary>
@@ -247,40 +216,8 @@ namespace ConfigDevice
             }
         }
 
-        /// <summary>
-        /// 开阀门
-        /// </summary> 
-        private void btOpenValve_Click(object sender, EventArgs e)
-        {
-            flammableGasProbe.Valve.MotorAction(Motor.ACTION_ROAD_FRONT_1, Motor.ACTION_RUN);
-        }
+    
 
-        /// <summary>
-        /// 关阀门
-        /// </summary> 
-        private void btCloseValve_Click(object sender, EventArgs e)
-        {
-            flammableGasProbe.Valve.MotorAction(Motor.ACTION_ROAD_BACK_1, Motor.ACTION_RUN);
-        }
-        /// <summary>
-        /// 停止阀门
-        /// </summary> 
-        private void btStopValve_Click(object sender, EventArgs e)
-        {
-            flammableGasProbe.Valve.MotorAction(Motor.ACTION_ROAD_BACK_1, Motor.ACTION_STOP);
-        }
-
-        /// <summary>
-        /// 保存参数
-        /// </summary> 
-        private void btSave_Click(object sender, EventArgs e)
-        {
-            //UInt32 flag = 0;
-            //if (chkOpenValve.Checked) flag = flag | 1;
-            //if (chkClearLight.Checked) flag = flag | 2;
-            //if (chkClearLoudly.Checked) flag = flag | 4;
-            //flammableGasProbe.Valve.SaveValveParameter((short)spePreTime.Value, (short)speProbeEC.Value, flag);
-        }
 
         /// <summary>
         /// 保存
@@ -291,17 +228,14 @@ namespace ConfigDevice
             lookUpEdit.ItemIndex = lookUpEdit.ItemIndex == -1 ? 0 : lookUpEdit.ItemIndex;
             //-----保存附加动作----
             if (hasChangedAdditionLogic() || isQuickSetting)
-            {
-                flammableGasProbe.Valve.ValAct = (byte)cbxValveAction.SelectedIndex;
-                flammableGasProbe.Valve.ValTim = (ushort)sptValveSeconds.Value;
-                flammableGasProbe.FGP_Light.LedAct = (byte)cbxLight.SelectedIndex;
-                flammableGasProbe.FGP_Light.LedTim = (ushort)this.sptLightSeconds.Value;
-                flammableGasProbe.FGP_Buzzer.BuzAct = (byte)cbxBuzzer.SelectedIndex;
-                flammableGasProbe.FGP_Buzzer.BuzTim = (ushort)sptValveSeconds.Value;
-                flammableGasProbe.SaveAdditionLogic(lookUpEdit.ItemIndex);//---保存附加动作---
+            {                
+                radar.Light.LedAct = (byte)cbxLight.SelectedIndex;
+                radar.Light.LedTim = (ushort)this.sptLightSeconds.Value;
+                radar.Buzzer.BuzAct = (byte)cbxBuzzer.SelectedIndex;
+                radar.SaveAdditionLogic(lookUpEdit.ItemIndex);//---保存附加动作---
             }
             if (currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----
-                flammableGasProbe.ProbeCircuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
+                radar.Circuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
 
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
             viewLogicSetting.IsSystemSetting = false;           //---恢复标志位---
@@ -314,12 +248,11 @@ namespace ConfigDevice
         /// <returns></returns>
         private bool hasChangedAdditionLogic()
         {
-            if (flammableGasProbe.Valve.ValAct != cbxValveAction.SelectedIndex) return true;
-            if (flammableGasProbe.Valve.ValTim != (ushort)sptValveSeconds.Value) return true;
-            if (flammableGasProbe.FGP_Light.LedAct != cbxLight.SelectedIndex) return true;
-            if (flammableGasProbe.FGP_Light.LedTim != (ushort)this.sptLightSeconds.Value) return true;
-            if (flammableGasProbe.FGP_Buzzer.BuzAct != cbxBuzzer.SelectedIndex) return true;
-            if (flammableGasProbe.FGP_Buzzer.BuzTim != (ushort)this.sptBuzzerSeconds.Value) return true;
+
+            if (radar.Light.LedAct != cbxLight.SelectedIndex) return true;
+            if (radar.Light.LedTim != (ushort)this.sptLightSeconds.Value) return true;
+            if (radar.Buzzer.BuzAct != cbxBuzzer.SelectedIndex) return true;
+            if (radar.Buzzer.BuzTim != (ushort)this.sptBuzzerSeconds.Value) return true;
 
             return false;
         }
@@ -338,7 +271,7 @@ namespace ConfigDevice
 
         private void FrmFlammableGasProbe_FormClosing(object sender, FormClosingEventArgs e)
         {
-            flammableGasProbe.RemoveRJ45Callback();//----清空回调-----
+            radar.RemoveRJ45Callback();//----清空回调-----
         }
 
         /// <summary>
@@ -348,8 +281,19 @@ namespace ConfigDevice
         /// <param name="e"></param>
         private void btRefresh_Click(object sender, EventArgs e)
         {
-            flammableGasProbe.ReadState();//---读取状态----     
-            flammableGasProbe.Valve.ReadValveParameter();//---读取参数---
+            autoRefresh = !autoRefresh;
+            if (autoRefresh)
+            {
+                btAutoRefresh.Checked = true;
+                refreshSateTimer.Start();
+                CommonTools.MessageShow("自动 2秒 刷新一次!", 1, "");
+            }
+            else
+            {
+                btAutoRefresh.Checked = false;
+                refreshSateTimer.Stop();
+                CommonTools.MessageShow("取消自动刷新!", 1, "");
+            }
         }
 
 
@@ -360,15 +304,12 @@ namespace ConfigDevice
         /// <returns></returns>
         private byte[] getAdditionValue()
         {
-            //-----保存附加动作----  
-            flammableGasProbe.Valve.ValAct = (byte)cbxValveAction.SelectedIndex;
-            flammableGasProbe.Valve.ValTim = (ushort)sptValveSeconds.Value;
-            flammableGasProbe.FGP_Light.LedAct = (byte)cbxLight.SelectedIndex;
-            flammableGasProbe.FGP_Light.LedTim = (ushort)this.sptLightSeconds.Value;
-            flammableGasProbe.FGP_Buzzer.BuzAct = (byte)cbxBuzzer.SelectedIndex;
-            flammableGasProbe.FGP_Buzzer.BuzTim = (ushort)sptValveSeconds.Value;
 
-            return flammableGasProbe.GetAdditionValue();
+            radar.Light.LedAct = (byte)cbxLight.SelectedIndex;
+            radar.Light.LedTim = (ushort)this.sptLightSeconds.Value;
+            radar.Buzzer.BuzAct = (byte)cbxBuzzer.SelectedIndex;
+
+            return radar.GetAdditionValue();
         }
 
  
@@ -434,8 +375,8 @@ namespace ConfigDevice
             viewLogicSetting.ReturnLogicData(new CallbackParameter(logicData));
             //-------附加动作------
             byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
-            flammableGasProbe.SetAdditionLogicData(adittionData);
-            this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
+            radar.SetAdditionLogicData(adittionData);
+            this.CallbackUI(new CallbackParameter(Radar.CLASS_NAME));//---回调UI---
             //----------手头变更修改状态------
             isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
 
@@ -446,7 +387,7 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FlammableGasProbe _flammableGasProbe = new FlammableGasProbe(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            Radar _flammableGasProbe = new Radar(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
             if (_flammableGasProbe.MAC == _flammableGasProbe.MAC) return;
             _flammableGasProbe.OnCallbackUI_Action += this.CallbackUI;
             _flammableGasProbe.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
@@ -456,8 +397,8 @@ namespace ConfigDevice
             hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
             viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------
             viewLogicSetting.NeedInit = true;                   //---重新初始化逻辑配置
-            flammableGasProbe = _flammableGasProbe;
-            BaseViewSetting.DeviceEdit = flammableGasProbe;            //---基础配置编辑
+            radar = _flammableGasProbe;
+            BaseViewSetting.DeviceEdit = radar;            //---基础配置编辑
 
             lookUpEdit.Properties.DataSource = new DataTable(); //----初始化列表选择-------
             lookUpEdit.ItemIndex = -1;
@@ -468,10 +409,7 @@ namespace ConfigDevice
 
         private void cbxAction_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbxValveAction.Text == Motor.STATE_VALVE_NONE)
-                sptValveSeconds.Enabled = false;
-            else
-                sptValveSeconds.Enabled = true;
+ 
 
             if (cbxLight.Text == Light.STATE_LEDACT_OFF ||cbxLight.Text ==  Light.STATE_LEDACT_NONE)
                 sptLightSeconds.Enabled = false;
@@ -483,6 +421,14 @@ namespace ConfigDevice
             else
                 sptBuzzerSeconds.Enabled = true;
 
+
+        }
+
+        /// <summary>
+        /// 保存配置
+        /// </summary>
+        private void btSave_Click(object sender, EventArgs e)
+        {
 
         }
    

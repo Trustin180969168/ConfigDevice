@@ -48,16 +48,11 @@
             this.sptLightSeconds = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl16 = new DevExpress.XtraEditors.LabelControl();
-            this.sptValveSeconds = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
             this.cbxBuzzer = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
             this.cbxLight = new DevExpress.XtraEditors.ComboBoxEdit();
             this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
-            this.cbxValveAction = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
             this.viewLogicSetting = new ConfigDevice.ViewLogicSetting();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
@@ -86,10 +81,8 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sptBuzzerSeconds.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sptValveSeconds.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxBuzzer.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxLight.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxValveAction.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
             this.panelControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -203,7 +196,7 @@
             this.btAutoRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btAutoRefresh.Name = "btAutoRefresh";
             this.btAutoRefresh.Size = new System.Drawing.Size(100, 28);
-            this.btAutoRefresh.Text = "刷新数据";
+            this.btAutoRefresh.Text = "自动刷新";
             this.btAutoRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // pageJcsz
@@ -234,11 +227,11 @@
             // viewCommandSetting
             // 
             this.viewCommandSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandSetting.Location = new System.Drawing.Point(0, 336);
+            this.viewCommandSetting.Location = new System.Drawing.Point(0, 365);
             this.viewCommandSetting.Name = "viewCommandSetting";
             this.viewCommandSetting.ShowCommandBar = false;
             this.viewCommandSetting.ShowToolBar = false;
-            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 346);
+            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 317);
             this.viewCommandSetting.TabIndex = 1;
             // 
             // groupBox1
@@ -248,21 +241,16 @@
             this.groupBox1.Controls.Add(this.sptLightSeconds);
             this.groupBox1.Controls.Add(this.labelControl14);
             this.groupBox1.Controls.Add(this.labelControl16);
-            this.groupBox1.Controls.Add(this.sptValveSeconds);
             this.groupBox1.Controls.Add(this.labelControl13);
             this.groupBox1.Controls.Add(this.cbxBuzzer);
-            this.groupBox1.Controls.Add(this.labelControl11);
             this.groupBox1.Controls.Add(this.cbxLight);
             this.groupBox1.Controls.Add(this.labelControl15);
-            this.groupBox1.Controls.Add(this.labelControl10);
             this.groupBox1.Controls.Add(this.labelControl12);
-            this.groupBox1.Controls.Add(this.cbxValveAction);
-            this.groupBox1.Controls.Add(this.labelControl9);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("宋体", 9F);
             this.groupBox1.Location = new System.Drawing.Point(0, 284);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1009, 52);
+            this.groupBox1.Size = new System.Drawing.Size(1009, 81);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "阀门动作";
@@ -274,7 +262,7 @@
             0,
             0,
             0});
-            this.sptBuzzerSeconds.Location = new System.Drawing.Point(843, 17);
+            this.sptBuzzerSeconds.Location = new System.Drawing.Point(230, 47);
             this.sptBuzzerSeconds.Name = "sptBuzzerSeconds";
             this.sptBuzzerSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -284,7 +272,7 @@
             // 
             // labelControl17
             // 
-            this.labelControl17.Location = new System.Drawing.Point(902, 20);
+            this.labelControl17.Location = new System.Drawing.Point(289, 50);
             this.labelControl17.Name = "labelControl17";
             this.labelControl17.Size = new System.Drawing.Size(12, 14);
             this.labelControl17.TabIndex = 2;
@@ -297,7 +285,7 @@
             0,
             0,
             0});
-            this.sptLightSeconds.Location = new System.Drawing.Point(556, 17);
+            this.sptLightSeconds.Location = new System.Drawing.Point(230, 20);
             this.sptLightSeconds.Name = "sptLightSeconds";
             this.sptLightSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -307,7 +295,7 @@
             // 
             // labelControl14
             // 
-            this.labelControl14.Location = new System.Drawing.Point(615, 20);
+            this.labelControl14.Location = new System.Drawing.Point(288, 23);
             this.labelControl14.Name = "labelControl14";
             this.labelControl14.Size = new System.Drawing.Size(12, 14);
             this.labelControl14.TabIndex = 2;
@@ -315,38 +303,23 @@
             // 
             // labelControl16
             // 
-            this.labelControl16.Location = new System.Drawing.Point(812, 20);
+            this.labelControl16.Location = new System.Drawing.Point(200, 50);
             this.labelControl16.Name = "labelControl16";
-            this.labelControl16.Size = new System.Drawing.Size(28, 14);
+            this.labelControl16.Size = new System.Drawing.Size(24, 14);
             this.labelControl16.TabIndex = 2;
-            this.labelControl16.Text = "时间:";
-            // 
-            // sptValveSeconds
-            // 
-            this.sptValveSeconds.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.sptValveSeconds.Location = new System.Drawing.Point(254, 17);
-            this.sptValveSeconds.Name = "sptValveSeconds";
-            this.sptValveSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.sptValveSeconds.Properties.Mask.EditMask = "d";
-            this.sptValveSeconds.Size = new System.Drawing.Size(53, 21);
-            this.sptValveSeconds.TabIndex = 3;
+            this.labelControl16.Text = "时间";
             // 
             // labelControl13
             // 
-            this.labelControl13.Location = new System.Drawing.Point(525, 20);
+            this.labelControl13.Location = new System.Drawing.Point(200, 23);
             this.labelControl13.Name = "labelControl13";
-            this.labelControl13.Size = new System.Drawing.Size(28, 14);
+            this.labelControl13.Size = new System.Drawing.Size(24, 14);
             this.labelControl13.TabIndex = 2;
-            this.labelControl13.Text = "时间:";
+            this.labelControl13.Text = "时间";
             // 
             // cbxBuzzer
             // 
-            this.cbxBuzzer.Location = new System.Drawing.Point(723, 17);
+            this.cbxBuzzer.Location = new System.Drawing.Point(110, 47);
             this.cbxBuzzer.Name = "cbxBuzzer";
             this.cbxBuzzer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -355,17 +328,9 @@
             this.cbxBuzzer.TabIndex = 1;
             this.cbxBuzzer.SelectedIndexChanged += new System.EventHandler(this.cbxAction_SelectedIndexChanged);
             // 
-            // labelControl11
-            // 
-            this.labelControl11.Location = new System.Drawing.Point(313, 20);
-            this.labelControl11.Name = "labelControl11";
-            this.labelControl11.Size = new System.Drawing.Size(12, 14);
-            this.labelControl11.TabIndex = 2;
-            this.labelControl11.Text = "秒";
-            // 
             // cbxLight
             // 
-            this.cbxLight.Location = new System.Drawing.Point(437, 17);
+            this.cbxLight.Location = new System.Drawing.Point(110, 20);
             this.cbxLight.Name = "cbxLight";
             this.cbxLight.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -376,46 +341,19 @@
             // 
             // labelControl15
             // 
-            this.labelControl15.Location = new System.Drawing.Point(679, 20);
+            this.labelControl15.Location = new System.Drawing.Point(68, 50);
             this.labelControl15.Name = "labelControl15";
-            this.labelControl15.Size = new System.Drawing.Size(40, 14);
+            this.labelControl15.Size = new System.Drawing.Size(36, 14);
             this.labelControl15.TabIndex = 0;
-            this.labelControl15.Text = "蜂鸣器:";
-            // 
-            // labelControl10
-            // 
-            this.labelControl10.Location = new System.Drawing.Point(223, 20);
-            this.labelControl10.Name = "labelControl10";
-            this.labelControl10.Size = new System.Drawing.Size(28, 14);
-            this.labelControl10.TabIndex = 2;
-            this.labelControl10.Text = "时间:";
+            this.labelControl15.Text = "蜂鸣器";
             // 
             // labelControl12
             // 
-            this.labelControl12.Location = new System.Drawing.Point(370, 20);
+            this.labelControl12.Location = new System.Drawing.Point(44, 23);
             this.labelControl12.Name = "labelControl12";
-            this.labelControl12.Size = new System.Drawing.Size(64, 14);
+            this.labelControl12.Size = new System.Drawing.Size(60, 14);
             this.labelControl12.TabIndex = 0;
-            this.labelControl12.Text = "指示灯指示:";
-            // 
-            // cbxValveAction
-            // 
-            this.cbxValveAction.Location = new System.Drawing.Point(134, 17);
-            this.cbxValveAction.Name = "cbxValveAction";
-            this.cbxValveAction.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxValveAction.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbxValveAction.Size = new System.Drawing.Size(80, 21);
-            this.cbxValveAction.TabIndex = 1;
-            this.cbxValveAction.SelectedIndexChanged += new System.EventHandler(this.cbxAction_SelectedIndexChanged);
-            // 
-            // labelControl9
-            // 
-            this.labelControl9.Location = new System.Drawing.Point(79, 20);
-            this.labelControl9.Name = "labelControl9";
-            this.labelControl9.Size = new System.Drawing.Size(52, 14);
-            this.labelControl9.TabIndex = 0;
-            this.labelControl9.Text = "阀门动作:";
+            this.labelControl12.Text = "指示灯指示";
             // 
             // viewLogicSetting
             // 
@@ -627,7 +565,7 @@
             this.ClientSize = new System.Drawing.Size(1018, 743);
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmRadar";
-            this.Load += new System.EventHandler(this.FrmFlammableGasProbe_Load);
+            this.Load += new System.EventHandler(this.FrmRadar_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmFlammableGasProbe_FormClosing);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
@@ -648,10 +586,8 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sptBuzzerSeconds.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sptValveSeconds.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxBuzzer.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxLight.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxValveAction.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
             this.panelControl5.ResumeLayout(false);
             this.panelControl5.PerformLayout();
@@ -702,21 +638,16 @@
         private System.Windows.Forms.ToolStripButton btSaveTrigger;
         private System.Windows.Forms.ToolStripButton btRefreshTrigger;
         private System.Windows.Forms.GroupBox groupBox1;
-        private DevExpress.XtraEditors.LabelControl labelControl9;
         private DevExpress.XtraEditors.SpinEdit sptBuzzerSeconds;
         private DevExpress.XtraEditors.LabelControl labelControl17;
         private DevExpress.XtraEditors.SpinEdit sptLightSeconds;
         private DevExpress.XtraEditors.LabelControl labelControl14;
         private DevExpress.XtraEditors.LabelControl labelControl16;
-        private DevExpress.XtraEditors.SpinEdit sptValveSeconds;
         private DevExpress.XtraEditors.LabelControl labelControl13;
         private DevExpress.XtraEditors.ComboBoxEdit cbxBuzzer;
-        private DevExpress.XtraEditors.LabelControl labelControl11;
         private DevExpress.XtraEditors.ComboBoxEdit cbxLight;
         private DevExpress.XtraEditors.LabelControl labelControl15;
-        private DevExpress.XtraEditors.LabelControl labelControl10;
         private DevExpress.XtraEditors.LabelControl labelControl12;
-        private DevExpress.XtraEditors.ComboBoxEdit cbxValveAction;
         private DevExpress.XtraEditors.LabelControl labelControl18;
         private DevExpress.XtraEditors.ComboBoxEdit cbxQuickSetting;
         private DevExpress.XtraEditors.TextEdit edtLogicLocalSetting;
