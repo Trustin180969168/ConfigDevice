@@ -416,7 +416,6 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_TFT_LCD, "液晶多功能面板");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_1, "1键按键");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_2, "多功能控制面板(2键)");
-
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_3, "3键按键");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_4, "4键按键");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_5, "5键按键");

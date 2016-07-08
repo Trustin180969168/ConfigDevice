@@ -28,62 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
-            this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
-            this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
+            this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pageJmpz = new DevExpress.XtraTab.XtraTabPage();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.gcCircuit = new DevExpress.XtraGrid.GridControl();
+            this.gvCircuit = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.num = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
-            this.edtButton2Name = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.edtButton1Name = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
+            this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
             this.pageZlpz = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
-            this.xtraTabControl1.SuspendLayout();
-            this.pageJcsz.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
+            this.tctrlEdit.SuspendLayout();
             this.pageJmpz.SuspendLayout();
-            this.tsDoorInput.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edtButton2Name.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtButton1Name.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCircuit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCircuit)).BeginInit();
+            this.tsDoorInput.SuspendLayout();
+            this.pageJcsz.SuspendLayout();
             this.pageZlpz.SuspendLayout();
             this.SuspendLayout();
             // 
-            // xtraTabControl1
+            // tctrlEdit
             // 
-            this.xtraTabControl1.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.xtraTabControl1.AppearancePage.Header.Options.UseFont = true;
-            this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xtraTabControl1.Location = new System.Drawing.Point(0, 24);
-            this.xtraTabControl1.Name = "xtraTabControl1";
-            this.xtraTabControl1.SelectedTabPage = this.pageJcsz;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1018, 718);
-            this.xtraTabControl1.TabIndex = 1;
-            this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.tctrlEdit.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.tctrlEdit.AppearancePage.Header.Options.UseFont = true;
+            this.tctrlEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
+            this.tctrlEdit.Name = "tctrlEdit";
+            this.tctrlEdit.SelectedTabPage = this.pageJmpz;
+            this.tctrlEdit.Size = new System.Drawing.Size(1018, 718);
+            this.tctrlEdit.TabIndex = 1;
+            this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
             this.pageJmpz,
             this.pageZlpz});
-            this.xtraTabControl1.Text = "xtraTabControl1";
-            // 
-            // pageJcsz
-            // 
-            this.pageJcsz.Controls.Add(this.viewBaseSetting);
-            this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(1009, 681);
-            this.pageJcsz.Text = "基础配置";
-            // 
-            // viewBaseSetting
-            // 
-            this.viewBaseSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewBaseSetting.Location = new System.Drawing.Point(0, 0);
-            this.viewBaseSetting.Name = "viewBaseSetting";
-            this.viewBaseSetting.Size = new System.Drawing.Size(1009, 681);
-            this.viewBaseSetting.TabIndex = 0;
+            this.tctrlEdit.Text = "xtraTabControl1";
             // 
             // pageJmpz
             // 
@@ -92,6 +80,111 @@
             this.pageJmpz.Name = "pageJmpz";
             this.pageJmpz.Size = new System.Drawing.Size(1009, 681);
             this.pageJmpz.Text = "配置界面";
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl1.Controls.Add(this.gcCircuit);
+            this.groupControl1.Location = new System.Drawing.Point(36, 53);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(613, 141);
+            this.groupControl1.TabIndex = 13;
+            this.groupControl1.Text = "按键配置";
+            // 
+            // gcCircuit
+            // 
+            this.gcCircuit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcCircuit.EmbeddedNavigator.Name = "";
+            this.gcCircuit.FormsUseDefaultLookAndFeel = false;
+            this.gcCircuit.Location = new System.Drawing.Point(2, 21);
+            this.gcCircuit.MainView = this.gvCircuit;
+            this.gcCircuit.Name = "gcCircuit";
+            this.gcCircuit.Size = new System.Drawing.Size(609, 118);
+            this.gcCircuit.TabIndex = 22;
+            this.gcCircuit.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvCircuit});
+            // 
+            // gvCircuit
+            // 
+            this.gvCircuit.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.num,
+            this.name,
+            this.gridColumn5,
+            this.gridColumn3,
+            this.gridColumn4});
+            this.gvCircuit.GridControl = this.gcCircuit;
+            this.gvCircuit.Name = "gvCircuit";
+            this.gvCircuit.OptionsView.ShowGroupPanel = false;
+            this.gvCircuit.OptionsView.ShowIndicator = false;
+            // 
+            // num
+            // 
+            this.num.AppearanceCell.Options.UseTextOptions = true;
+            this.num.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.num.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.num.AppearanceHeader.Options.UseTextOptions = true;
+            this.num.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.num.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.num.Caption = "编号";
+            this.num.Name = "num";
+            this.num.OptionsColumn.ReadOnly = true;
+            this.num.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
+            this.num.Visible = true;
+            this.num.VisibleIndex = 0;
+            this.num.Width = 50;
+            // 
+            // name
+            // 
+            this.name.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.name.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.name.AppearanceCell.Options.UseBackColor = true;
+            this.name.AppearanceCell.Options.UseForeColor = true;
+            this.name.AppearanceCell.Options.UseTextOptions = true;
+            this.name.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.name.AppearanceHeader.Options.UseTextOptions = true;
+            this.name.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.name.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.name.Caption = "名称";
+            this.name.Name = "name";
+            this.name.Visible = true;
+            this.name.VisibleIndex = 1;
+            this.name.Width = 213;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn5.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn5.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn5.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn5.Caption = "gridColumn5";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.OptionsColumn.ReadOnly = true;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn3.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn3.Caption = "gridColumn3";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.OptionsColumn.ReadOnly = true;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn4.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn4.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn4.Caption = "gridColumn4";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.OptionsColumn.ReadOnly = true;
             // 
             // tsDoorInput
             // 
@@ -113,6 +206,7 @@
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(76, 28);
             this.btSave.Text = "保存 ";
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btRefresh
             // 
@@ -121,49 +215,22 @@
             this.btRefresh.Name = "btRefresh";
             this.btRefresh.Size = new System.Drawing.Size(100, 28);
             this.btRefresh.Text = "刷新数据";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
-            // edtButton2Name
+            // pageJcsz
             // 
-            this.edtButton2Name.Location = new System.Drawing.Point(86, 64);
-            this.edtButton2Name.Name = "edtButton2Name";
-            this.edtButton2Name.Size = new System.Drawing.Size(300, 21);
-            this.edtButton2Name.TabIndex = 11;
+            this.pageJcsz.Controls.Add(this.viewBaseSetting);
+            this.pageJcsz.Name = "pageJcsz";
+            this.pageJcsz.Size = new System.Drawing.Size(1009, 681);
+            this.pageJcsz.Text = "基础配置";
             // 
-            // labelControl3
+            // viewBaseSetting
             // 
-            this.labelControl3.Location = new System.Drawing.Point(49, 67);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(31, 14);
-            this.labelControl3.TabIndex = 10;
-            this.labelControl3.Text = "按键2";
-            // 
-            // edtButton1Name
-            // 
-            this.edtButton1Name.Location = new System.Drawing.Point(86, 37);
-            this.edtButton1Name.Name = "edtButton1Name";
-            this.edtButton1Name.Size = new System.Drawing.Size(300, 21);
-            this.edtButton1Name.TabIndex = 12;
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Location = new System.Drawing.Point(49, 40);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(31, 14);
-            this.labelControl1.TabIndex = 9;
-            this.labelControl1.Text = "按键1";
-            // 
-            // groupControl1
-            // 
-            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl1.Controls.Add(this.labelControl1);
-            this.groupControl1.Controls.Add(this.edtButton2Name);
-            this.groupControl1.Controls.Add(this.edtButton1Name);
-            this.groupControl1.Controls.Add(this.labelControl3);
-            this.groupControl1.Location = new System.Drawing.Point(36, 53);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(613, 103);
-            this.groupControl1.TabIndex = 13;
-            this.groupControl1.Text = "按键配置";
+            this.viewBaseSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.viewBaseSetting.Location = new System.Drawing.Point(0, 0);
+            this.viewBaseSetting.Name = "viewBaseSetting";
+            this.viewBaseSetting.Size = new System.Drawing.Size(1009, 681);
+            this.viewBaseSetting.TabIndex = 0;
             // 
             // pageZlpz
             // 
@@ -177,8 +244,8 @@
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandEdit.Location = new System.Drawing.Point(0, 0);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.ShowCommandBar = false;
-            this.viewCommandEdit.ShowToolBar = false;
+            this.viewCommandEdit.ShowCommandBar = true;
+            this.viewCommandEdit.ShowToolBar = true;
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 681);
             this.viewCommandEdit.TabIndex = 1;
             // 
@@ -187,23 +254,22 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 742);
-            this.Controls.Add(this.xtraTabControl1);
+            this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmButton2";
             this.Text = "FrmBaseDevice";
             this.Load += new System.EventHandler(this.FrmBaseDevice_Load);
-            this.Controls.SetChildIndex(this.xtraTabControl1, 0);
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
-            this.xtraTabControl1.ResumeLayout(false);
-            this.pageJcsz.ResumeLayout(false);
+            this.Controls.SetChildIndex(this.tctrlEdit, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
+            this.tctrlEdit.ResumeLayout(false);
             this.pageJmpz.ResumeLayout(false);
             this.pageJmpz.PerformLayout();
-            this.tsDoorInput.ResumeLayout(false);
-            this.tsDoorInput.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edtButton2Name.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtButton1Name.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
-            this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCircuit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCircuit)).EndInit();
+            this.tsDoorInput.ResumeLayout(false);
+            this.tsDoorInput.PerformLayout();
+            this.pageJcsz.ResumeLayout(false);
             this.pageZlpz.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -212,7 +278,7 @@
 
         #endregion
 
-        private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
+        private DevExpress.XtraTab.XtraTabControl tctrlEdit;
         private DevExpress.XtraTab.XtraTabPage pageJcsz;
         private ViewBaseEdit viewBaseSetting;
         private DevExpress.XtraTab.XtraTabPage pageJmpz;
@@ -220,12 +286,15 @@
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.TextEdit edtButton2Name;
-        private DevExpress.XtraEditors.TextEdit edtButton1Name;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraTab.XtraTabPage pageZlpz;
         private ViewCommandSetting viewCommandEdit;
+        private DevExpress.XtraGrid.GridControl gcCircuit;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvCircuit;
+        private DevExpress.XtraGrid.Columns.GridColumn num;
+        private DevExpress.XtraGrid.Columns.GridColumn name;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
 
 
     }

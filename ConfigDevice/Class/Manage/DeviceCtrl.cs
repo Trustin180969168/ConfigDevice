@@ -137,6 +137,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_AIR_QUALITY: return new FactoryEnvironmentEdit();//-----环境-----
                 case DeviceConfig.EQUIPMENT_AIR_O2: return new FactoryO2Edit();//-----氧气传感器-----
                 case DeviceConfig.EQUIPMENT_RSP: return new FactoryRadarEdit();//----雷达----
+                case DeviceConfig.EQUIPMENT_KEY_2: return new FactoryButton2Edit();//----2按键----
                 default: return new FactoryBaseDeviceEdit();
             }
         }
@@ -302,6 +303,20 @@ namespace ConfigDevice
         {
             Radar radar = new Radar(data);
             return new FrmRadar(radar);
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// 2按键
+    /// </summary>
+    public class FactoryButton2Edit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            Button2 button = new Button2(data);
+            return new FrmButton2(button);
         }
         #endregion
     }
