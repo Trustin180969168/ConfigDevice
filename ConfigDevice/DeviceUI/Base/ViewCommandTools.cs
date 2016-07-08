@@ -255,6 +255,10 @@ namespace ConfigDevice
             cbxControlObj.Items.Clear();
             command.Visible = false;
 
+            gridLookupDevice = ViewEditCtrl.GetCommandDevicesLookupEdit;//-----下拉选择------
+            gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
+            deviceName.ColumnEdit = gridLookupDevice;
+
             DataCommandSetting.AcceptChanges();
             gvCommands.RefreshData();
         }
@@ -345,7 +349,9 @@ namespace ConfigDevice
         /// <param name="data">命令</param>
         /// <returns></returns>
         public void SetCommandData(CommandData data)
-        {            
+        {
+
+
             allowSync = false;
             DataRow dr = gvCommands.GetDataRow(0);
             //----判断是否为空,非空则提示清除----

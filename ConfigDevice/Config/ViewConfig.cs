@@ -25,6 +25,7 @@ namespace ConfigDevice
         public const string DC_VALID_TIME = "ValidTime";//有效就
         public const string DC_INVALID_TIME = "InvalidTime";//无效时间 
         public const string DC_NAME = "Name";
+        public const string DC_NUM = "Num";//---序号--
         public const string DC_ID = "ID";
         public const string DC_DEVICE_ID = "DeviceID";//设备ID
         public const string DC_DEVICE_NETWORK_ID = "DeviceNetworkID";//设备的网络ID

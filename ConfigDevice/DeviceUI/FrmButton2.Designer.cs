@@ -244,8 +244,8 @@
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandEdit.Location = new System.Drawing.Point(0, 0);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.ShowCommandBar = true;
-            this.viewCommandEdit.ShowToolBar = true;
+            this.viewCommandEdit.ShowCommandBar = false;
+            this.viewCommandEdit.ShowToolBar = false;
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 681);
             this.viewCommandEdit.TabIndex = 1;
             // 
@@ -258,6 +258,7 @@
             this.Name = "FrmButton2";
             this.Text = "FrmBaseDevice";
             this.Load += new System.EventHandler(this.FrmBaseDevice_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmButton2_FormClosing);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);

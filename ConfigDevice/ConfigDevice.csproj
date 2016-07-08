@@ -129,10 +129,6 @@
       <DependentUpon>FrmDoorInput4.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeviceUI\FrmCurtainsThreeRoad.resx">
-      <DependentUpon>FrmCurtainsThreeRoad.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\Base\ViewCommandSetting.resx">
       <DependentUpon>ViewCommandSetting.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -299,12 +295,6 @@
     </Compile>
     <Compile Include="SysUI\FrmTest.Designer.cs">
       <DependentUpon>FrmTest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DeviceUI\FrmCurtainsThreeRoad.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DeviceUI\FrmCurtainsThreeRoad.Designer.cs">
-      <DependentUpon>FrmCurtainsThreeRoad.cs</DependentUpon>
     </Compile>
     <Compile Include="SysUI\PleaseWait.cs">
       <SubType>Form</SubType>

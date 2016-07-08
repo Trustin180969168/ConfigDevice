@@ -330,6 +330,8 @@ namespace ConfigDevice
             foreach (DataRow dr in dtCommandDevices.Rows)
                 dr[ViewConfig.DC_DEVICE_VALUE] = dr[DeviceConfig.DC_KIND_ID].ToString() +"_"+ dr[DeviceConfig.DC_NETWORK_ID].ToString() + "_" + dr[DeviceConfig.DC_ID].ToString();
             dtCommandDevices.AcceptChanges();
+
+            
      
         }
 

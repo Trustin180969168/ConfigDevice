@@ -32,7 +32,10 @@ namespace ConfigDevice
         private void initControlObjs()
         {
             Circuit = new Circuit(this, 2);
+            ContrlObjs.Add("回路", this.Circuit);
         }
+
+ 
 
     }
 

@@ -45,8 +45,7 @@ namespace ConfigDevice
             dtMotorAction.Columns.Add(ViewConfig.DC_ACTION4, System.Type.GetType("System.String"));
             for (int i = 0; i < road3Window.Circuit.CircuitCount; i++)
                 dtMotorAction.Rows.Add(i, i+1+"路电机", "", "", "停转", "正转", "反转", "测试");
-            //dtMotorAction.Rows.Add("1", "2路电机", "", "", "停转", "正转", "反转", "测试");
-            //dtMotorAction.Rows.Add("2", "3路电机", "", "", "停转", "正转", "反转", "测试");
+
             //----配置绑定----
             dcPosition.FieldName = ViewConfig.DC_POSITION;
             dcName.FieldName = ViewConfig.DC_NAME;    
@@ -170,16 +169,24 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Device DeviceSelect = new BaseDevice(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+
+            this.Device.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
+            this.Device.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----退订回调事件
+            DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
+            Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
             if (Device.MAC == DeviceSelect.MAC) return;
 
-            DeviceSelect.OnCallbackUI_Action += this.callbackUI;
-            DeviceSelect.OnCallbackUI_Action += viewBaseSetting.CallBackUI;
-            viewBaseSetting.DeviceEdit = DeviceSelect;
-            Device = DeviceSelect;
-            this.Text = Device.Name;
-            Device.SearchVer();
-            loadData();
+            viewBaseSetting.DeviceEdit = DeviceSelect;              //---基础配置编辑  
+            this.Device = DeviceSelect;                             //---父类设备对象-----              
+            road3Window = this.Device as Road3Window;               //---本界面编辑-----    
+            road3Window.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
+            road3Window.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
+
+            this.Text = road3Window.Name;                   //---界面标题----
+            viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
+            InitSelectDevice();                         //---初始化选择设备---
+
+            loadData();                                 //---加载数据-----
         }
 
         /// <summary>
