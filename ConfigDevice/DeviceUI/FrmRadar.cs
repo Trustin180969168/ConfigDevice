@@ -98,6 +98,7 @@ namespace ConfigDevice
             radar.SearchVer();          //---获取版本号-----   
             radar.Circuit.ReadRoadTitle();//----读取回路---- 
             radar.ReadState();          //---读取状态----      
+           
         }
 
         /// <summary>
@@ -118,8 +119,7 @@ namespace ConfigDevice
                     initLogicAndCommand();//---初始化指令配置,逻辑配置
                 //-----读取完探头参数----- 
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Radar.CLASS_NAME)
-                {
-                    
+                {                    
                     edtRadarState.Text = radar.RadarSensorObj.LevelValue;
                     edtSwitState.Text = radar.SwitTamperObj.LevelValue;
                     //-----逻辑附加动作-------
@@ -129,6 +129,12 @@ namespace ConfigDevice
                         sptBuzzerSeconds.Text = radar.Buzzer.BuzTim.ToString();
                         cbxLight.SelectedIndex = radar.Light.LedAct;
                         sptLightSeconds.Text = radar.Light.LedTim.ToString();
+                    }
+                    //-----安防配置-------
+                    if (callbackParameter.Parameters[1].ToString() == Radar.ACTION_SAFE)
+                    {
+                        for (int i = 0; i < radar.SaftFlags.Length; i++)
+                            ceSafeSetting.Items[i].CheckState = radar.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
                     }
                 }
  
@@ -189,6 +195,7 @@ namespace ConfigDevice
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);       //---读取逻辑数据----
             viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
             radar.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
+            radar.ReadSafeSetting(lookUpEdit.ItemIndex);  //---安防配置---
         }
         /// <summary>
         /// 选择切换
@@ -201,6 +208,7 @@ namespace ConfigDevice
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
             viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;//----获取指令配置----
             radar.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
+            radar.ReadSafeSetting(lookUpEdit.ItemIndex);  //---安防配置---
         }
 
         /// <summary>
@@ -223,8 +231,6 @@ namespace ConfigDevice
             }
         }
 
-    
-
 
         /// <summary>
         /// 保存
@@ -244,6 +250,12 @@ namespace ConfigDevice
             }
             if (currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----
                 radar.Circuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
+            if (hasChangedSafeLogic())//---保存安防配置------
+            {
+                for (int i = 0; i < radar.SaftFlags.Length; i++)
+                    radar.SaftFlags[i] = ceSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
+                radar.SaveSafeSetting(lookUpEdit.ItemIndex);
+            }
 
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
             viewLogicSetting.IsSystemSetting = false;           //---恢复标志位---
@@ -265,6 +277,22 @@ namespace ConfigDevice
             return false;
         }
 
+        /// <summary>
+        /// 是否有修改安防配置
+        /// </summary>
+        /// <returns></returns>
+        private bool hasChangedSafeLogic()
+        {
+            for (int i = 0; i < radar.SaftFlags.Length; i++)
+            {
+                if (ceSafeSetting.Items[i].CheckState == CheckState.Checked && !radar.SaftFlags[i])
+                    return true;
+                if (ceSafeSetting.Items[i].CheckState == CheckState.Unchecked && radar.SaftFlags[i])
+                    return true;
+            }
+            return false;
+        }
+
 
 
         /// <summary>
@@ -274,7 +302,6 @@ namespace ConfigDevice
         {
             lookUpEdit.ShowPopup();
         }
-
 
 
         private void FrmFlammableGasProbe_FormClosing(object sender, FormClosingEventArgs e)
@@ -304,8 +331,6 @@ namespace ConfigDevice
             }
         }
 
-
-
         /// <summary>
         /// 获取附加动作值
         /// </summary>
@@ -319,8 +344,6 @@ namespace ConfigDevice
 
             return radar.GetAdditionValue();
         }
-
- 
 
         /// <summary>
         /// 保存本地逻辑配置
@@ -340,10 +363,8 @@ namespace ConfigDevice
             {
                 logicQuickSetting.SaveLogicLocalSetting(cbxQuickSetting.SelectedIndex, name,
                     this.viewLogicSetting.GetLogicData(), this.getAdditionValue());
-            }
-           
+            }           
         }
-
 
         /// <summary>
         /// 双击打开快速选择
@@ -352,7 +373,6 @@ namespace ConfigDevice
         {
             cbxQuickSetting.ShowPopup();
         }
-
 
         /// <summary>
         /// 保存本地逻辑
@@ -387,7 +407,6 @@ namespace ConfigDevice
             this.CallbackUI(new CallbackParameter(Radar.CLASS_NAME));//---回调UI---
             //----------手头变更修改状态------
             isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
-
         }
 
         /// <summary>
@@ -417,8 +436,6 @@ namespace ConfigDevice
 
         private void cbxAction_SelectedIndexChanged(object sender, EventArgs e)
         {
- 
-
             if (cbxLight.Text == Light.STATE_LEDACT_OFF ||cbxLight.Text ==  Light.STATE_LEDACT_NONE)
                 sptLightSeconds.Enabled = false;
             else
@@ -428,17 +445,37 @@ namespace ConfigDevice
                 sptBuzzerSeconds.Enabled = false;
             else
                 sptBuzzerSeconds.Enabled = true;
-
-
         }
 
-        /// <summary>
-        /// 保存配置
-        /// </summary>
         private void btSave_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void ceSafeSetting_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ceSafeSetting_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
+        {
+
+            if (e.Index == 15)
+            {
+                if (ceSafeSetting.Items[15].CheckState == CheckState.Checked)
+                {
+                    for (int i = 0; i < radar.SaftFlags.Length; i++)
+                        ceSafeSetting.Items[i].CheckState = CheckState.Checked;
+                }
+                if (ceSafeSetting.Items[15].CheckState == CheckState.Unchecked)
+                {
+                    for (int i = 0; i < radar.SaftFlags.Length; i++)
+                        ceSafeSetting.Items[i].CheckState = CheckState.Unchecked;
+                }
+            }
+        }
+
+
    
     }
 }

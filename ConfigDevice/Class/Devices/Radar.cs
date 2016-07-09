@@ -13,6 +13,9 @@ namespace ConfigDevice
         public const string ACTION_SAFE = "Safe";//---安全配置回调
         public const string ACTION_STATE = "State";//---状态---
 
+        private byte[] securityLevel = new byte[4];//----安全级别------
+        public bool[] SaftFlags  =  new bool[] { false, false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false };//---安防标志位------
         public Circuit Circuit;//回路对象
         private CallbackFromUDP getStateInfo;//----获取设置信息---- 
         private CallbackFromUDP getAdditionLogic;//----获取附加逻辑信息---- 
@@ -139,10 +142,10 @@ namespace ConfigDevice
         /// <summary>
         /// 安防动作关联
         /// </summary>
-        public void ReadSafeSetting()
+        public void ReadSafeSetting(int groupNum)
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_SAFETY_STATE, this.DeviceID, getSafeSetting);
-            UdpData udpSend = createReadSafeSettingUdp();
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_SECURITY, this.DeviceID, getSafeSetting);
+            UdpData udpSend = createReadSafeSettingUdp(groupNum);
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadSafeSetting), null);
         }
         private void callbackReadSafeSetting(UdpData udpReply, object[] values)
@@ -150,7 +153,7 @@ namespace ConfigDevice
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("申请读取安全配置失败!", udpReply.ReplyByte);
         }
-        private UdpData createReadSafeSettingUdp()
+        private UdpData createReadSafeSettingUdp(int groupNum)
         {
             UdpData udp = new UdpData();
 
@@ -162,15 +165,17 @@ namespace ConfigDevice
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_STATE;//----用户命令-----
-            byte len = 0x04;//---数据长度----
-            byte[] crcData = new byte[10];
+            byte[] cmd = DeviceConfig.CMD_LOGIC_READ_SECURITY;//----用户命令-----
+            byte len = 4 + 2;//---数据长度----
+            byte[] crcData = new byte[10 + 2];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
 
+            crcData[10] = (byte)groupNum;
+            crcData[11] = (byte)groupNum;
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
             Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
@@ -190,18 +195,82 @@ namespace ConfigDevice
         {
             UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
+            //------找出数据,并翻译------
+            securityLevel = CommonTools.CopyBytes(userData.Data, 1, 4);
+            byte b1 = securityLevel[0];
+            byte b2 = securityLevel[1];
+            int num = 0;
+            for (int i = 1; i <= 128; i *= 2)
+                SaftFlags[num++] = (int)(b1 & i) == i ? true : false;
+            num = 8;
+            for (int i = 1; i <= 64; i *= 2)
+                SaftFlags[num++] = (int)(b2 & i) == i ? true : false;
 
-            //------找出数据段------
-            string dataStr = ConvertTools.ByteToHexStr(userData.Data);
-            string dataStr1 = dataStr.Split(new string[] { "FF FF" }, StringSplitOptions.RemoveEmptyEntries)[0];
-
-            byte[] dataByte1 = ConvertTools.StrToToHexByte(dataStr1);
-            this.RadarSensorObj = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_RSP, dataByte1) as RadarSensor;//获取雷达
-            this.SwitTamperObj = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_TAMPER, dataByte1) as SwitTamperSensor;//防拆开关
-
-            CallbackUI(new CallbackParameter(Radar.CLASS_NAME,ACTION_SAFE));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(Radar.CLASS_NAME, ACTION_SAFE));//----读完状态信息,回调界面----
         }
 
+
+        /// <summary>
+        /// 保存安防配置
+        /// </summary>
+        public void SaveSafeSetting(int groupNum)
+        {
+            UdpData udpSend = createWriteSafeLogicUdp(groupNum);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackWriteSafeLogic), null);
+        }
+        private void callbackWriteSafeLogic(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("申请写逻辑附加动作失败!", udpReply.ReplyByte);
+        }
+        private UdpData createWriteSafeLogicUdp(int groupNum)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_LOGIC_WRITE_SECURITY;//----用户命令-----
+
+            byte len = 4 + 9;//---数据长度----
+            byte[] crcData = new byte[10 + 9];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+
+            crcData[10] = (byte)groupNum;
+            //-------安防级别-----------------
+            byte b1 = 0;
+            byte b2 = 0;
+            int num = 0;
+            for (int i = 1; i <= 128; i *= 2)
+                if (SaftFlags[num++])
+                    b1 = (byte)(b1 | i);
+            num = 8;
+            for (int i = 1; i <= 64; i *= 2)
+                if (SaftFlags[num++])
+                    b2 = (byte)(b2 | i);
+            securityLevel[0] = b1;
+            securityLevel[1] = b2;
+            Buffer.BlockCopy(securityLevel, 0, crcData, 11, 4);
+            //---其他字节默认为0,保留-----
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------            
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
 
 
         /// <summary>

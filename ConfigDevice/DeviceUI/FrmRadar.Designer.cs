@@ -43,6 +43,8 @@
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandSetting = new ConfigDevice.ViewCommandSetting();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ceSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.sptBuzzerSeconds = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
             this.sptLightSeconds = new DevExpress.XtraEditors.SpinEdit();
@@ -68,8 +70,6 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkedListBoxControl1 = new DevExpress.XtraEditors.CheckedListBoxControl();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -81,6 +81,8 @@
             this.pageJcsz.SuspendLayout();
             this.pageLogic.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ceSafeSetting)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sptBuzzerSeconds.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxBuzzer.Properties)).BeginInit();
@@ -98,8 +100,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.plToolBar)).BeginInit();
             this.plToolBar.SuspendLayout();
             this.ToolBar.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -259,6 +259,49 @@
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "附加动作";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ceSafeSetting);
+            this.groupBox2.Location = new System.Drawing.Point(343, 10);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(641, 66);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "安防动作关联";
+            // 
+            // ceSafeSetting
+            // 
+            this.ceSafeSetting.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.ceSafeSetting.CheckOnClick = true;
+            this.ceSafeSetting.ColumnWidth = 60;
+            this.ceSafeSetting.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
+            this.ceSafeSetting.HorzScrollStep = 3;
+            this.ceSafeSetting.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("1"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("2"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("3"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("4"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("5"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("6"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("7"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("8"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("9"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("10"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("11"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("12"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("13"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("14"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("15"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("全部")});
+            this.ceSafeSetting.LeftCoord = 0;
+            this.ceSafeSetting.Location = new System.Drawing.Point(19, 20);
+            this.ceSafeSetting.MultiColumn = true;
+            this.ceSafeSetting.Name = "ceSafeSetting";
+            this.ceSafeSetting.Size = new System.Drawing.Size(493, 38);
+            this.ceSafeSetting.TabIndex = 0;
+            this.ceSafeSetting.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.ceSafeSetting_ItemCheck);
+            this.ceSafeSetting.Click += new System.EventHandler(this.ceSafeSetting_Click);
             // 
             // sptBuzzerSeconds
             // 
@@ -564,46 +607,6 @@
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.checkedListBoxControl1);
-            this.groupBox2.Location = new System.Drawing.Point(343, 10);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(641, 66);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "安防动作关联";
-            // 
-            // checkedListBoxControl1
-            // 
-            this.checkedListBoxControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.checkedListBoxControl1.ColumnWidth = 60;
-            this.checkedListBoxControl1.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
-            this.checkedListBoxControl1.HorzScrollStep = 3;
-            this.checkedListBoxControl1.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("1"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("2"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("3"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("4"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("5"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("6"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("7"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("8"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("9"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("10"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("11"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("12"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("13"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("14"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("15"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("全部")});
-            this.checkedListBoxControl1.LeftCoord = 0;
-            this.checkedListBoxControl1.Location = new System.Drawing.Point(19, 20);
-            this.checkedListBoxControl1.MultiColumn = true;
-            this.checkedListBoxControl1.Name = "checkedListBoxControl1";
-            this.checkedListBoxControl1.Size = new System.Drawing.Size(493, 38);
-            this.checkedListBoxControl1.TabIndex = 0;
-            // 
             // FrmRadar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -629,6 +632,8 @@
             this.pageLogic.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ceSafeSetting)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sptBuzzerSeconds.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxBuzzer.Properties)).EndInit();
@@ -649,8 +654,6 @@
             this.plToolBar.PerformLayout();
             this.ToolBar.ResumeLayout(false);
             this.ToolBar.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -699,6 +702,6 @@
         private DevExpress.XtraEditors.ComboBoxEdit cbxQuickSetting;
         private DevExpress.XtraEditors.TextEdit edtLogicLocalSetting;
         private System.Windows.Forms.GroupBox groupBox2;
-        protected DevExpress.XtraEditors.CheckedListBoxControl checkedListBoxControl1;
+        protected DevExpress.XtraEditors.CheckedListBoxControl ceSafeSetting;
     }
 }
