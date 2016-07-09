@@ -38,6 +38,7 @@ namespace ConfigDevice
                 return new ViewInnerInteractionControl(controlObj, gv);
             else if (controlObj is ConfigDevice.OuterInteraction)
                 return new ViewOuterInteractionControl(controlObj, gv);
+
             else return null;
         }
 
@@ -90,6 +91,10 @@ namespace ConfigDevice
                 return new ViewLogicWindy(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_RAIN)//---雨感---
                 return new ViewLogicRain(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_TAMPER)//---防拆开关---
+                return new ViewLogicSwitTamper(device, gv);
+            else if (TriggerID == SensorConfig.LG_EXT_SENSOR_SECURITY)//---安防联动---
+                return new ViewLogicSecurityInteraction(device, gv);
             else
                 return new ViewLogicInvalid(device, gv); 
         }

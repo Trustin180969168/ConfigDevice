@@ -97,7 +97,7 @@ namespace ConfigDevice
         {
             radar.SearchVer();          //---获取版本号-----   
             radar.Circuit.ReadRoadTitle();//----读取回路---- 
-           // radar.ReadState();          //---读取状态----                
+            radar.ReadState();          //---读取状态----      
         }
 
         /// <summary>
@@ -118,12 +118,18 @@ namespace ConfigDevice
                     initLogicAndCommand();//---初始化指令配置,逻辑配置
                 //-----读取完探头参数----- 
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Radar.CLASS_NAME)
-                { 
+                {
+                    
+                    edtRadarState.Text = radar.RadarSensorObj.LevelValue;
+                    edtSwitState.Text = radar.SwitTamperObj.LevelValue;
                     //-----逻辑附加动作-------
-                    cbxBuzzer.SelectedIndex = radar.Buzzer.BuzAct;
-                    sptBuzzerSeconds.Text = radar.Buzzer.BuzTim.ToString();
-                    this.cbxLight.SelectedIndex = radar.Light.LedAct;
-                    this.sptLightSeconds.Text = radar.Light.LedTim.ToString();
+                    if (callbackParameter.Parameters[1].ToString() == Radar.ACTION_ADDITION)
+                    {
+                        cbxBuzzer.SelectedIndex = radar.Buzzer.BuzAct;
+                        sptBuzzerSeconds.Text = radar.Buzzer.BuzTim.ToString();
+                        cbxLight.SelectedIndex = radar.Light.LedAct;
+                        sptLightSeconds.Text = radar.Light.LedTim.ToString();
+                    }
                 }
  
             }
@@ -146,8 +152,9 @@ namespace ConfigDevice
 
             edtTriggerActionName.Text = radar.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
             if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
-                viewLogicSetting.InitLogicList(radar, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE,
-                    SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.SENSOR_SYSTEM_INTERACTION      );   
+                viewLogicSetting.InitLogicList(radar, SensorConfig.SENSOR_RADAR, SensorConfig.SENSOR_SWIT_TAMPER,
+                       SensorConfig.SENSOR_TIME,SensorConfig.SENSOR_DATE,SensorConfig.SENSOR_WEEK,
+                       SensorConfig.SENSOR_SECURITY_INTERACTION,SensorConfig.SENSOR_SYSTEM_INTERACTION );   
             if (viewCommandSetting.NeedInit)//----初始化指令配置-------
                 viewCommandSetting.InitViewCommand(radar);//初始化       
             hasInitedLogicAndCommand = true;//----初始化完毕-----
@@ -232,6 +239,7 @@ namespace ConfigDevice
                 radar.Light.LedAct = (byte)cbxLight.SelectedIndex;
                 radar.Light.LedTim = (ushort)this.sptLightSeconds.Value;
                 radar.Buzzer.BuzAct = (byte)cbxBuzzer.SelectedIndex;
+                radar.Buzzer.BuzTim = (ushort)this.sptBuzzerSeconds.Value;
                 radar.SaveAdditionLogic(lookUpEdit.ItemIndex);//---保存附加动作---
             }
             if (currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----

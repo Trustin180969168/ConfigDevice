@@ -602,7 +602,87 @@ namespace ConfigDevice
             foreach (string key in LEVEL_NAME_ID.Keys)
                 LevelNameID.Add(key, LEVEL_NAME_ID[key]);
         }
-    } 
+    }
+
+
+    /// <summary>
+    /// 雷达
+    /// </summary>
+    public class RadarSensor : SensorStateData
+    {
+        public static Dictionary<int, string> LEVEL_ID_NAME = new Dictionary<int, string>();
+        public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
+
+        static RadarSensor()
+        {
+            LEVEL_ID_NAME.Add(SensorConfig.RSP_LV_NORMAL, SensorConfig.RSP_LV_NAME_NORMAL);
+            LEVEL_ID_NAME.Add(SensorConfig.RSP_LV_TRIGGERED, SensorConfig.RSP_LV_NAME_TRIGGERED); 
+
+            LEVEL_NAME_ID.Add(SensorConfig.RSP_LV_NAME_NORMAL, SensorConfig.RSP_LV_NORMAL);
+            LEVEL_NAME_ID.Add(SensorConfig.RSP_LV_NAME_TRIGGERED, SensorConfig.RSP_LV_TRIGGERED); 
+        }
+        public RadarSensor(byte[] value)
+            : base(value)
+        {
+            Init();
+        }
+
+        public RadarSensor()
+        {
+            Init();
+        }
+
+        public override void Init()
+        {
+            KindName = "雷达传感器";
+
+            foreach (int key in LEVEL_ID_NAME.Keys)
+                LevelIDName.Add(key, LEVEL_ID_NAME[key]);
+            foreach (string key in LEVEL_NAME_ID.Keys)
+                LevelNameID.Add(key, LEVEL_NAME_ID[key]);
+        }
+    }
+
+    /// <summary>
+    /// 防拆开关
+    /// </summary>
+    public class SwitTamperSensor : SensorStateData
+    {
+        public static Dictionary<int, string> LEVEL_ID_NAME = new Dictionary<int, string>();
+        public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
+
+
+        static SwitTamperSensor()
+        {
+            LEVEL_ID_NAME.Add(SensorConfig.TAMPER_LV_NORMAL, SensorConfig.TAMPER_LV_NAME_NORMAL);
+            LEVEL_ID_NAME.Add(SensorConfig.TAMPER_LV_TRIGGERED, SensorConfig.TAMPER_LV_NAME_TRIGGERED);
+
+            LEVEL_NAME_ID.Add(SensorConfig.TAMPER_LV_NAME_NORMAL, SensorConfig.TAMPER_LV_NORMAL);
+            LEVEL_NAME_ID.Add(SensorConfig.TAMPER_LV_NAME_TRIGGERED, SensorConfig.TAMPER_LV_TRIGGERED);
+        }
+        public SwitTamperSensor(byte[] value)
+            : base(value)
+        {
+            Init();
+        }
+
+        public SwitTamperSensor()
+        {
+            Init();
+        }
+
+        public override void Init()
+        {
+            KindName = "防拆开关";
+
+            foreach (int key in LEVEL_ID_NAME.Keys)
+                LevelIDName.Add(key, LEVEL_ID_NAME[key]);
+            foreach (string key in LEVEL_NAME_ID.Keys)
+                LevelNameID.Add(key, LEVEL_NAME_ID[key]);
+        }
+    }
+
+   
 
     /// <summary>
     /// 无效的传感器

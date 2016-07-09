@@ -72,24 +72,6 @@ namespace ConfigDevice
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-
-
-            //DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
-            //Device circuitDevice = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
-            //if (this.Device.MAC == circuitDevice.MAC) return;       //----相同忽略------
-            //circuitDevice.OnCallbackUI_Action += this.CallbackUI;
-            //circuitDevice.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
-            //BaseViewSetting.DeviceEdit = circuitDevice;             //---基础配置编辑  
-            //base.Device = circuitDevice;                            //---父类设备对象-----         
-
-            //this.Text = circuitDevice.Name;                         //----界面标题------
-            //circuitCtrl = this.Device.ContrlObjs["回路"] as Circuit;     //获取回路控制对象
-            //BaseViewSetting.DeviceEdit.SearchVer();                 //---获取版本号-----   
-            //InitSelectDevice();
-            //circuitCtrl.ReadRoadTitle();                            //读取回路列表
-
-
-
             this.Device.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
             this.Device.OnCallbackUI_Action -= BaseViewSetting.CallBackUI;//----退订回调事件
             DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据

@@ -64,8 +64,12 @@ namespace ConfigDevice
                 return new WindySensor(value);
             if (kindID == SensorConfig.LG_SENSOR_RAIN)//---雨感
                 return new RainSensor(value);
-            if (kindID == SensorConfig.LG_SENSOR_O2)
-                return new O2Sensor(value); 
+            if (kindID == SensorConfig.LG_SENSOR_O2)//-----氧气
+                return new O2Sensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_TAMPER)//-----防拆开关
+                return new SwitTamperSensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_RSP)//-----雷达
+                return new RadarSensor(value); 
 
             return null;
         }

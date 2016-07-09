@@ -61,7 +61,7 @@ namespace ConfigDevice
         public const string SENSOR_WINDY = "风速";
         public const string SENSOR_LUMINANCE = "亮度";
         public const string SENSOR_FLAMMABLE_GAS_PROBE = "可燃气体探头";
-        public const string SENSOR_RADAR = "雷达";
+        public const string SENSOR_RADAR = "雷达探头";
         public const string SENSOR_SWIT_TAMPER = "防拆开关";
         public const string SENSOR_SYSTEM_INTERACTION = "系统联动";
         public const string SENSOR_INNER_INTERACTION = "内部联动";
@@ -276,6 +276,17 @@ namespace ConfigDevice
         public const string O2_LV_NAME_LOW = "过低";          //【过低】
         public const string O2_LV_NAME_MEDIUM = "适宜";          //【适宜】
         public const string O2_LV_NAME_HIGH = "富氧";          //【富氧】
+        //-----安防联动级别----
+        public const string LG_NAME_SAF_SYST_DI = "系统被撤防";          //         (系统全部的安防标志全部被清除)   ──┐
+        public const string LG_NAME_SAF_SYST_EN_DLY = "系统进入布防延时中";          // (系统安防标志只要任一个被置位)       │
+        public const string LG_NAME_SAF_SYST_EN = "系统进入布防";          //       (系统安防标志只要任一个被置位)       ├←┐
+        public const string LG_NAME_SAF_SYST_WAR = "系统触发预警";          //                                            │  │
+        public const string LG_NAME_SAF_SYST_ALM = "系统触发报警";          //                                        ──┘  │补充说明:系统安防都是由[本机/它机]触发的
+        public const string LG_NAME_SAF_SELF_DI = "本机被撤防";         //         (本机关联的安防标志全部被清除)   ──┐  ↑
+        public const string LG_NAME_SAF_SELF_EN_DLY = "本机进入布防延时中";       // (本机关联的安防标志只要任一个被置位) │  │
+        public const string LG_NAME_SAF_SELF_EN = "本机进入布防";        //       (本机关联的安防标志只要任一个被置位) ├─┘
+        public const string LG_NAME_SAF_SELF_WAR = "本机触发预警";          //                                            │
+        public const string LG_NAME_SAF_SELF_ALM = "本机触发报警";          //         
 
     }
 

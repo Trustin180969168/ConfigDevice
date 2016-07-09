@@ -9,13 +9,18 @@ namespace ConfigDevice
     public class Radar:Device
     {
         public const string CLASS_NAME = "Radar";
-        
+        public const string ACTION_ADDITION = "Addition";//---附加动作回调
+        public const string ACTION_SAFE = "Safe";//---安全配置回调
+        public const string ACTION_STATE = "State";//---状态---
+
         public Circuit Circuit;//回路对象
         private CallbackFromUDP getStateInfo;//----获取设置信息---- 
         private CallbackFromUDP getAdditionLogic;//----获取附加逻辑信息---- 
         private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
-        public FlamableGasProbeSensor Probe;//--探头----
-        public FireControlTemperatureSensor Temperature;//--消防温控----
+        private CallbackFromUDP getSafeSetting;//---获取安全配置----
+
+        public RadarSensor RadarSensorObj;//----雷达----
+        public SwitTamperSensor SwitTamperObj;//--防拆开关----
         public Buzzer Buzzer;//蜂鸣器
         public Light Light;//指示灯
 
@@ -61,6 +66,7 @@ namespace ConfigDevice
             getStateInfo = new CallbackFromUDP(this.getStateInfoData);
             getAdditionLogic = new CallbackFromUDP(this.getAdditionLogicData);
             getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
+            getSafeSetting = new CallbackFromUDP(this.getSafeSettingData);
         }
 
         /// <summary>
@@ -75,7 +81,7 @@ namespace ConfigDevice
         private void callbackReadState(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                CommonTools.ShowReplyInfo("申请读取探头状态失败!", udpReply.ReplyByte);
+                CommonTools.ShowReplyInfo("申请读取状态失败!", udpReply.ReplyByte);
         }
         private UdpData createReadStateUdp()
         {
@@ -121,15 +127,82 @@ namespace ConfigDevice
             //------找出数据段------
             string dataStr = ConvertTools.ByteToHexStr(userData.Data);
             string dataStr1 = dataStr.Split(new string[] { "FF FF" }, StringSplitOptions.RemoveEmptyEntries)[0];
-            string dataStr2 = dataStr.Split(new string[] { "FF FF" }, StringSplitOptions.RemoveEmptyEntries)[1];
+
             byte[] dataByte1 = ConvertTools.StrToToHexByte(dataStr1);
-            byte[] dataByte2 = ConvertTools.StrToToHexByte(dataStr2);
-            this.Probe = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_LEL, dataByte1) as FlamableGasProbeSensor;//获取探头
-            this.Temperature = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_TEMP_FC, dataByte1) as FireControlTemperatureSensor;//获取消防温控
-            //-------阀门状态-----
-            int temp = (int)dataByte2[0];
-            CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//----读完状态信息,回调界面----
+            this.RadarSensorObj = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_RSP, dataByte1) as RadarSensor;//获取雷达
+            this.SwitTamperObj = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_TAMPER, dataByte1) as SwitTamperSensor;//防拆开关
+ 
+            CallbackUI(new CallbackParameter(Radar.CLASS_NAME,ACTION_STATE));//----读完状态信息,回调界面----
         }
+
+
+        /// <summary>
+        /// 安防动作关联
+        /// </summary>
+        public void ReadSafeSetting()
+        {
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_SAFETY_STATE, this.DeviceID, getSafeSetting);
+            UdpData udpSend = createReadSafeSettingUdp();
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadSafeSetting), null);
+        }
+        private void callbackReadSafeSetting(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("申请读取安全配置失败!", udpReply.ReplyByte);
+        }
+        private UdpData createReadSafeSettingUdp()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_STATE;//----用户命令-----
+            byte len = 0x04;//---数据长度----
+            byte[] crcData = new byte[10];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+
+        /// <summary>
+        /// 获取安全数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="values"></param>
+        private void getSafeSettingData(UdpData data, object[] values)
+        {
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UserUdpData userData = new UserUdpData(data);
+
+            //------找出数据段------
+            string dataStr = ConvertTools.ByteToHexStr(userData.Data);
+            string dataStr1 = dataStr.Split(new string[] { "FF FF" }, StringSplitOptions.RemoveEmptyEntries)[0];
+
+            byte[] dataByte1 = ConvertTools.StrToToHexByte(dataStr1);
+            this.RadarSensorObj = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_RSP, dataByte1) as RadarSensor;//获取雷达
+            this.SwitTamperObj = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_TAMPER, dataByte1) as SwitTamperSensor;//防拆开关
+
+            CallbackUI(new CallbackParameter(Radar.CLASS_NAME,ACTION_SAFE));//----读完状态信息,回调界面----
+        }
+
+
 
         /// <summary>
         /// 申请读取附加动作
@@ -192,8 +265,10 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getAdditionLogicData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != this.DeviceID) return;
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
+
             byte[] value = userData.Data;
             SetAdditionLogicData(value);
         }
@@ -204,10 +279,10 @@ namespace ConfigDevice
         /// <param name="value"></param>
         public void SetAdditionLogicData(byte[] value)
         {
-            this.Light.LedAct = value[4];//动作类型
-            this.Light.LedTim = ConvertTools.Bytes2ToUInt16(new byte[] { value[5], value[6] });//动作时间
-            this.Buzzer.BuzAct = value[7];//动作类型
-            this.Buzzer.BuzTim = ConvertTools.Bytes2ToUInt16(new byte[] { value[8], value[9] });//动作时间
+            this.Light.LedAct = value[1];//动作类型
+            this.Light.LedTim = ConvertTools.Bytes2ToUInt16(new byte[] { value[2], value[3] });//动作时间
+            this.Buzzer.BuzAct = value[4];//动作类型
+            this.Buzzer.BuzTim = ConvertTools.Bytes2ToUInt16(new byte[] { value[5], value[6] });//动作时间
         }
 
         /// <summary>
@@ -222,7 +297,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
+                this.CallbackUI(new CallbackParameter(Radar.CLASS_NAME,ACTION_ADDITION));//---回调UI---
             }
         }
 
@@ -253,8 +328,9 @@ namespace ConfigDevice
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_LOGIC_WRITE_EXACTION;//----用户命令-----
-            byte len = 14;//---数据长度----
-            byte[] crcData = new byte[10 + 10];
+
+            byte len = 4 + 7;//---数据长度----
+            byte[] crcData = new byte[10 + 7];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
@@ -262,6 +338,13 @@ namespace ConfigDevice
             crcData[9] = len;
 
             crcData[10] = (byte)groupNum;
+            crcData[11] = (byte)this.Light.LedAct;//----指示灯---
+            byte[] byteSeconds = ConvertTools.GetByteFromUInt16(Light.LedTim);
+            Buffer.BlockCopy(byteSeconds, 0, crcData, 12, 2);
+            crcData[14] = (byte)this.Buzzer.BuzAct;//----蜂鸣器---
+            byteSeconds = ConvertTools.GetByteFromUInt16(this.Buzzer.BuzTim);
+            Buffer.BlockCopy(byteSeconds, 0, crcData, 15, 2);
+
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------            
             //---------拼接到包中------
             Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---

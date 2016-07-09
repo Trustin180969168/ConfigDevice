@@ -31,9 +31,9 @@
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.edtVavleEC = new DevExpress.XtraEditors.TextEdit();
+            this.edtSwitState = new DevExpress.XtraEditors.TextEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.edtValveState = new DevExpress.XtraEditors.TextEdit();
+            this.edtRadarState = new DevExpress.XtraEditors.TextEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
@@ -68,13 +68,15 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkedListBoxControl1 = new DevExpress.XtraEditors.CheckedListBoxControl();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edtVavleEC.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtValveState.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtSwitState.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtRadarState.Properties)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
             this.pageLogic.SuspendLayout();
@@ -96,6 +98,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.plToolBar)).BeginInit();
             this.plToolBar.SuspendLayout();
             this.ToolBar.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -126,9 +130,9 @@
             // groupControl1
             // 
             this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl1.Controls.Add(this.edtVavleEC);
+            this.groupControl1.Controls.Add(this.edtSwitState);
             this.groupControl1.Controls.Add(this.labelControl2);
-            this.groupControl1.Controls.Add(this.edtValveState);
+            this.groupControl1.Controls.Add(this.edtRadarState);
             this.groupControl1.Controls.Add(this.labelControl1);
             this.groupControl1.Location = new System.Drawing.Point(29, 43);
             this.groupControl1.Name = "groupControl1";
@@ -136,13 +140,13 @@
             this.groupControl1.TabIndex = 2;
             this.groupControl1.Text = "设备状态";
             // 
-            // edtVavleEC
+            // edtSwitState
             // 
-            this.edtVavleEC.Location = new System.Drawing.Point(261, 33);
-            this.edtVavleEC.Name = "edtVavleEC";
-            this.edtVavleEC.Properties.ReadOnly = true;
-            this.edtVavleEC.Size = new System.Drawing.Size(100, 21);
-            this.edtVavleEC.TabIndex = 1;
+            this.edtSwitState.Location = new System.Drawing.Point(261, 33);
+            this.edtSwitState.Name = "edtSwitState";
+            this.edtSwitState.Properties.ReadOnly = true;
+            this.edtSwitState.Size = new System.Drawing.Size(100, 21);
+            this.edtSwitState.TabIndex = 1;
             // 
             // labelControl2
             // 
@@ -152,13 +156,13 @@
             this.labelControl2.TabIndex = 0;
             this.labelControl2.Text = "防拆状态";
             // 
-            // edtValveState
+            // edtRadarState
             // 
-            this.edtValveState.Location = new System.Drawing.Point(81, 33);
-            this.edtValveState.Name = "edtValveState";
-            this.edtValveState.Properties.ReadOnly = true;
-            this.edtValveState.Size = new System.Drawing.Size(100, 21);
-            this.edtValveState.TabIndex = 1;
+            this.edtRadarState.Location = new System.Drawing.Point(81, 33);
+            this.edtRadarState.Name = "edtRadarState";
+            this.edtRadarState.Properties.ReadOnly = true;
+            this.edtRadarState.Size = new System.Drawing.Size(100, 21);
+            this.edtRadarState.TabIndex = 1;
             // 
             // labelControl1
             // 
@@ -227,15 +231,16 @@
             // viewCommandSetting
             // 
             this.viewCommandSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandSetting.Location = new System.Drawing.Point(0, 365);
+            this.viewCommandSetting.Location = new System.Drawing.Point(0, 367);
             this.viewCommandSetting.Name = "viewCommandSetting";
             this.viewCommandSetting.ShowCommandBar = false;
             this.viewCommandSetting.ShowToolBar = false;
-            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 317);
+            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 315);
             this.viewCommandSetting.TabIndex = 1;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.sptBuzzerSeconds);
             this.groupBox1.Controls.Add(this.labelControl17);
             this.groupBox1.Controls.Add(this.sptLightSeconds);
@@ -250,10 +255,10 @@
             this.groupBox1.Font = new System.Drawing.Font("宋体", 9F);
             this.groupBox1.Location = new System.Drawing.Point(0, 284);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1009, 81);
+            this.groupBox1.Size = new System.Drawing.Size(1009, 83);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "阀门动作";
+            this.groupBox1.Text = "附加动作";
             // 
             // sptBuzzerSeconds
             // 
@@ -559,6 +564,46 @@
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.checkedListBoxControl1);
+            this.groupBox2.Location = new System.Drawing.Point(343, 10);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(641, 66);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "安防动作关联";
+            // 
+            // checkedListBoxControl1
+            // 
+            this.checkedListBoxControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.checkedListBoxControl1.ColumnWidth = 60;
+            this.checkedListBoxControl1.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
+            this.checkedListBoxControl1.HorzScrollStep = 3;
+            this.checkedListBoxControl1.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("1"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("2"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("3"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("4"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("5"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("6"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("7"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("8"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("9"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("10"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("11"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("12"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("13"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("14"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("15"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("全部")});
+            this.checkedListBoxControl1.LeftCoord = 0;
+            this.checkedListBoxControl1.Location = new System.Drawing.Point(19, 20);
+            this.checkedListBoxControl1.MultiColumn = true;
+            this.checkedListBoxControl1.Name = "checkedListBoxControl1";
+            this.checkedListBoxControl1.Size = new System.Drawing.Size(493, 38);
+            this.checkedListBoxControl1.TabIndex = 0;
+            // 
             // FrmRadar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -575,8 +620,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edtVavleEC.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtValveState.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtSwitState.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtRadarState.Properties)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
             this.pageJcsz.ResumeLayout(false);
@@ -604,6 +649,8 @@
             this.plToolBar.PerformLayout();
             this.ToolBar.ResumeLayout(false);
             this.ToolBar.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -620,9 +667,9 @@
         private System.Windows.Forms.ToolStripButton btAutoRefresh;
         private DevExpress.XtraTab.XtraTabPage pageLogic;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private DevExpress.XtraEditors.TextEdit edtVavleEC;
+        private DevExpress.XtraEditors.TextEdit edtSwitState;
         private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.TextEdit edtValveState;
+        private DevExpress.XtraEditors.TextEdit edtRadarState;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private ViewLogicSetting viewLogicSetting;
         private ViewCommandSetting viewCommandSetting;
@@ -651,5 +698,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl18;
         private DevExpress.XtraEditors.ComboBoxEdit cbxQuickSetting;
         private DevExpress.XtraEditors.TextEdit edtLogicLocalSetting;
+        private System.Windows.Forms.GroupBox groupBox2;
+        protected DevExpress.XtraEditors.CheckedListBoxControl checkedListBoxControl1;
     }
 }

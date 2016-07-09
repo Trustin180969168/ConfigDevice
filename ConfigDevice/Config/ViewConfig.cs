@@ -127,11 +127,12 @@ namespace ConfigDevice
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SWIT_TAMPER, SensorConfig.LG_SENSOR_TAMPER);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.LG_EXT_SENSOR_SYS_LKID);//系统联动
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_INNER_INTERACTION, SensorConfig.LG_EXT_SENSOR_SLF_LKID);//内部联动
-            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SECURITY_INTERACTION, SensorConfig.LG_EXT_SENSOR_SECURITY);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SECURITY_INTERACTION, SensorConfig.LG_EXT_SENSOR_SECURITY);//---安防联动
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_TIME, SensorConfig.LG_EXT_SENSOR_TIME_SEG);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_DATE, SensorConfig.LG_EXT_SENSOR_DATE_SEG);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_WEEK, SensorConfig.LG_EXT_SENSOR_WEEK_CYC);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.LG_SENSOR_TEMP_FC);
+
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_VOID, SensorConfig.SENSOR_INVALID);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TEMP, SensorConfig.SENSOR_TEMPERATURE);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_HUMI, SensorConfig.SENSOR_HUMIDITY);
@@ -146,10 +147,10 @@ namespace ConfigDevice
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TVOC, SensorConfig.SENSOR_TVOC);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_LEL, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_RSP, SensorConfig.SENSOR_RADAR);
-            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TAMPER, SensorConfig.SENSOR_SWIT_TAMPER);
-            TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_SYS_LKID, SensorConfig.SENSOR_SYSTEM_INTERACTION);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TAMPER, SensorConfig.SENSOR_SWIT_TAMPER);//----防拆开关---
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_SYS_LKID, SensorConfig.SENSOR_SYSTEM_INTERACTION);//系统联动
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_SLF_LKID, SensorConfig.SENSOR_INNER_INTERACTION);//内部联动
-            TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_SECURITY, SensorConfig.SENSOR_SECURITY_INTERACTION);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_SECURITY, SensorConfig.SENSOR_SECURITY_INTERACTION);//---安防联动
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_TIME_SEG, SensorConfig.SENSOR_TIME);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_DATE_SEG, SensorConfig.SENSOR_DATE);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_WEEK_CYC, SensorConfig.SENSOR_WEEK);

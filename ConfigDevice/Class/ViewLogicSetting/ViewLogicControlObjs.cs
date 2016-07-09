@@ -300,107 +300,259 @@ namespace ConfigDevice
 
 
 
-
     /// <summary>
     /// 雷达探头
     /// </summary>
     public class ViewLogicRadar : BaseViewLogicControl
     {
-        private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
+        private GridViewComboBox cbxLevelEdit = new GridViewComboBox();//----开始值---        
         public ViewLogicRadar(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
-            cbxStart.Items.Add("正常");
-            cbxStart.Items.Add("触发");
-            dcStartValue.ColumnEdit = cbxStart;
+
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--    
+            dcStartValue.ColumnEdit = cbxLevelEdit;
+
+            cbxKind.Items.Clear();//----清空触发类型(探头只有等级)---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//--触发类型(等级)---- 
+            //-------初始化设备列表选择-----
+            initGridLookupDevice();
+            cbxPosition.Items.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL);//---添加外设--- 
+            //-------初始化级别编辑控件------
+            foreach (string value in RadarSensor.LEVEL_ID_NAME.Values)
+                cbxLevelEdit.Items.Add(value);
         }
 
-        public override TriggerData GetLogicData()
-        {
-            return null;
-        }
-
-        public override void SetLogicData(TriggerData td)
-        {
-
-        }
 
         public override void InitViewSetting()
         {
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
-            setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
+            setGridColumnValid(dcStartValue, cbxLevelEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
-
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
-            gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
+            gvLogic.SetRowCellValue(0, dcStartValue, cbxLevelEdit.Items[0].ToString());//--默认第一个开始值---
 
+        }
+
+
+        /// <summary>
+        /// 获取逻辑配置数据
+        /// </summary>
+        /// <returns>TriggerData</returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            if (triggerData.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//----外设/差值---
+            {
+                try
+                {
+                    triggerData.DeviceID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_ID].ToString());
+                    triggerData.DeviceKindID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_KIND_ID].ToString());
+                    triggerData.DeviceNetworkID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_NETWORK_ID].ToString());
+                }
+                catch { triggerData.DeviceID = 0; triggerData.DeviceKindID = 0; triggerData.DeviceNetworkID = 0; }
+            }
+            //--------级别--------------
+            string size1Str = dr[dcStartValue.FieldName].ToString();
+            triggerData.Size1 = RadarSensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
+            triggerData.Size2 = 0;//----无效------
+
+            dr.EndEdit();
+            dr.AcceptChanges();//----再次修改才保存-----
+            gvLogic.RefreshData();
+
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
+
+            if (td.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//--外设/差值的情况---
+            {
+                positionChanged();//---触发选择设备----
+                string deviceValue = td.DeviceKindID.ToString() + td.DeviceNetworkID.ToString() + td.DeviceID.ToString();
+                if (deviceValue == "000")//----没有保存差异设备----
+                    dr[ViewConfig.DC_DEVICE_VALUE] = null;
+                else
+                {
+                    DataRow[] rows = dtSelectDevices.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
+                    if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
+                    {
+                        DataRow drInsert = dtSelectDevices.Rows.Add();
+                        drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;
+                        drInsert[DeviceConfig.DC_KIND_ID] = (int)td.DeviceKindID;
+                        drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[td.DeviceKindID];
+                        drInsert[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                        drInsert[DeviceConfig.DC_NETWORK_ID] = (int)td.DeviceNetworkID;
+                        drInsert[DeviceConfig.DC_ID] = (int)td.DeviceID;
+                        drInsert.EndEdit();
+                        dtSelectDevices.AcceptChanges();
+                    }
+                    dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                    dr[ViewConfig.DC_DEVICE_ID] = td.DeviceID;
+                    dr[ViewConfig.DC_DEVICE_NETWORK_ID] = td.DeviceNetworkID;
+                    dr[ViewConfig.DC_DEVICE_KIND_ID] = td.DeviceKindID;
+                    dr.EndEdit();
+                }
+            }
+            try
+            {
+                dr[dcStartValue.FieldName] = RadarSensor.LEVEL_ID_NAME[td.Size1];
+            }
+            catch { dr[dcStartValue.FieldName] = RadarSensor.LEVEL_ID_NAME[0]; }
+
+            dr.EndEdit();
+            dr.AcceptChanges();
         }
 
         public override void KindChanged()
         {
-            throw new NotImplementedException();
         }
 
         public override void OperateChanged()
         {
-            throw new NotImplementedException();
         }
     }
+
+
 
     /// <summary>
     /// 防拆开关
     /// </summary>
     public class ViewLogicSwitTamper : BaseViewLogicControl
     {
-        private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
-        public ViewLogicSwitTamper(Device _device, GridView gv)
+       private GridViewComboBox cbxLevelEdit = new GridViewComboBox();//----开始值---        
+       public ViewLogicSwitTamper(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
-            cbxStart.Items.Add("安全");
-            cbxStart.Items.Add("被拆");
-            dcStartValue.ColumnEdit = cbxStart; 
+
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--    
+            dcStartValue.ColumnEdit = cbxLevelEdit;
+
+            cbxKind.Items.Clear();//----清空触发类型(探头只有等级)---
+            cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL);//--触发类型(等级)---- 
+            //-------初始化设备列表选择-----
+            initGridLookupDevice();
+            cbxPosition.Items.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL);//---添加外设--- 
+            //-------初始化级别编辑控件------
+            foreach (string value in SwitTamperSensor.LEVEL_ID_NAME.Values)
+                cbxLevelEdit.Items.Add(value);
         }
 
-        public override TriggerData GetLogicData()
-        {
-            return null;
-        }
-
-        public override void SetLogicData(TriggerData td)
-        {
-
-        }
 
         public override void InitViewSetting()
         {
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
-            setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
+            setGridColumnValid(dcStartValue, cbxLevelEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
+            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
-            gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
+            gvLogic.SetRowCellValue(0, dcStartValue, cbxLevelEdit.Items[0].ToString());//--默认第一个开始值---
 
+        }
+
+
+        /// <summary>
+        /// 获取逻辑配置数据
+        /// </summary>
+        /// <returns>TriggerData</returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            if (triggerData.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//----外设/差值---
+            {
+                try
+                {
+                    triggerData.DeviceID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_ID].ToString());
+                    triggerData.DeviceKindID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_KIND_ID].ToString());
+                    triggerData.DeviceNetworkID = (byte)Convert.ToInt16(dr[ViewConfig.DC_DEVICE_NETWORK_ID].ToString());
+                }
+                catch { triggerData.DeviceID = 0; triggerData.DeviceKindID = 0; triggerData.DeviceNetworkID = 0; }
+            }
+            //--------级别--------------
+            string size1Str = dr[dcStartValue.FieldName].ToString();
+            triggerData.Size1 = SwitTamperSensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
+            triggerData.Size2 = 0;//----无效------
+
+            dr.EndEdit();
+            dr.AcceptChanges();//----再次修改才保存-----
+            gvLogic.RefreshData();
+
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
+            
+            if (td.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//--外设/差值的情况---
+            {
+                positionChanged();//---触发选择设备----
+                string deviceValue = td.DeviceKindID.ToString() + td.DeviceNetworkID.ToString() + td.DeviceID.ToString();
+                if (deviceValue == "000")//----没有保存差异设备----
+                    dr[ViewConfig.DC_DEVICE_VALUE] = null;
+                else
+                {
+                    DataRow[] rows = dtSelectDevices.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
+                    if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
+                    {
+                        DataRow drInsert = dtSelectDevices.Rows.Add();
+                        drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;
+                        drInsert[DeviceConfig.DC_KIND_ID] = (int)td.DeviceKindID;
+                        drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[td.DeviceKindID];
+                        drInsert[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                        drInsert[DeviceConfig.DC_NETWORK_ID] = (int)td.DeviceNetworkID;
+                        drInsert[DeviceConfig.DC_ID] = (int)td.DeviceID;
+                        drInsert.EndEdit();
+                        dtSelectDevices.AcceptChanges();
+                    }
+                    dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                    dr[ViewConfig.DC_DEVICE_ID] = td.DeviceID;
+                    dr[ViewConfig.DC_DEVICE_NETWORK_ID] = td.DeviceNetworkID;
+                    dr[ViewConfig.DC_DEVICE_KIND_ID] = td.DeviceKindID;
+                    dr.EndEdit();
+                }
+            }
+            try
+            {
+                dr[dcStartValue.FieldName] = SwitTamperSensor.LEVEL_ID_NAME[td.Size1];
+            }
+            catch { dr[dcStartValue.FieldName] = SwitTamperSensor.LEVEL_ID_NAME[0]; }
+
+            dr.EndEdit();
+            dr.AcceptChanges();
         }
 
         public override void KindChanged()
         {
-            throw new NotImplementedException();
         }
 
         public override void OperateChanged()
         {
-            throw new NotImplementedException();
         }
     }
 
@@ -551,64 +703,82 @@ namespace ConfigDevice
     /// </summary>
     public class ViewLogicSecurityInteraction : BaseViewLogicControl
     {
-        private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---
+
+        public string[] LevelValues = { SensorConfig.LG_NAME_SAF_SYST_DI,SensorConfig.LG_NAME_SAF_SYST_EN_DLY,
+             SensorConfig.LG_NAME_SAF_SYST_EN,SensorConfig.LG_NAME_SAF_SYST_WAR,
+             SensorConfig.LG_NAME_SAF_SYST_ALM,SensorConfig.LG_NAME_SAF_SELF_DI,
+             SensorConfig.LG_NAME_SAF_SELF_EN_DLY,SensorConfig.LG_NAME_SAF_SELF_EN,
+             SensorConfig.LG_NAME_SAF_SELF_WAR,SensorConfig.LG_NAME_SAF_SELF_ALM };
+        private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值选择---
+        private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//----数字------
         public ViewLogicSecurityInteraction(Device _device, GridView gv)
             : base(_device, gv)
         {
-            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
-            cbxStart.Items.Add("系统被撤防");
-            cbxStart.Items.Add("系统进入布放延时中");
-            cbxStart.Items.Add("系统进入布放");
-            cbxStart.Items.Add("系统触发预警");
-            cbxStart.Items.Add("系统触发报警");
-            cbxStart.Items.Add("本机被撤防");
-            cbxStart.Items.Add("本机进入布防延时中");
-            cbxStart.Items.Add("本机进入布防");
-            cbxStart.Items.Add("本机触发预警");
-            cbxStart.Items.Add("本机触发报警"); 
-
-            dcStartValue.ColumnEdit = cbxStart;
-        }
-
-        public override TriggerData GetLogicData()
-        {
-            DataRow dr = gvLogic.GetDataRow(0);
-            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
-            triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_AND_TRUE;  //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
-
-            return triggerData;
-        }
-
-        public override void SetLogicData(TriggerData td)
-        {
-        
+            setGridColumnValid(dcTriggerPosition, cbxPosition);//-------设置触发位置有效---
+            cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//----触发 运算符---
+            //---开始为下拉----
+            foreach (string value in LevelValues)
+                cbxStart.Items.Add(value);
+            cbxStart.DropDownRows = LevelValues.Length;
         }
 
         public override void InitViewSetting()
         {
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
-            setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
-            setGridColumnInvalid(dcEndValue);//----结束值无效---
-            setGridColumnInvalid(dcValid);//---持续时间----
-            setGridColumnInvalid(dcInvalid);//----失效时间-----  
+            setGridColumnValid(dcStartValue, cbxStart);//---开始值有效 
+            setGridColumnInvalid(dcEndValue);//---结束值无效---
+            setGridColumnInvalid(dcValid);//---取消有效持续---
+            setGridColumnInvalid(dcInvalid); //---取消无效持续---
 
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
-            gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
+            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
+            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
+            gvLogic.SetRowCellValue(0, dcOperate, this.cbxOperate.Items[0].ToString());//---第一个触发运算---
+            gvLogic.SetRowCellValue(0, dcStartValue, this.cbxStart.Items[0].ToString());//---第一个开始选择运算---
 
+        }
+
+        /// <summary>
+        /// 获取逻辑数据
+        /// </summary>
+        /// <returns></returns>
+        public override TriggerData GetLogicData()
+        {
+            DataRow dr = gvLogic.GetDataRow(0);
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_TO;//系统联动号为5的比较符号值
+            //--------关闭/打开--------------
+            string size1Str = dr[dcStartValue.FieldName].ToString();
+            triggerData.Size1 = FindLevelIndex(LevelValues, size1Str);
+            dr.AcceptChanges();//----再次修改才保存-----
+
+            return triggerData;
+        }
+
+        /// <summary>
+        /// 设置逻辑数据
+        /// </summary>
+        /// <param name="td"></param>
+        public override void SetLogicData(TriggerData td)
+        {
+            DataRow dr = this.GetInitDataRow(td);//---初始化行---
+            //-----联动号操作----
+            dr[dcStartValue.FieldName] = LevelValues[td.Size1];
+
+            dr.EndEdit();
+            dr.AcceptChanges();
         }
 
         public override void KindChanged()
         {
-            throw new NotImplementedException();
         }
 
         public override void OperateChanged()
         {
-            throw new NotImplementedException();
         }
+
     }
+
 
 
     /// <summary>
@@ -899,9 +1069,8 @@ namespace ConfigDevice
     /// <summary>
     /// 系统联动号
     /// </summary>
-    public partial class ViewLogicSystemInteraction : BaseViewLogicControl
+    public  class ViewLogicSystemInteraction : BaseViewLogicControl
     {
-
         public string[] LevelValues = { SensorConfig.LG_SYSLKID_NAME_ACT_OFF,SensorConfig.LG_SYSLKID_NAME_ACT_ON };
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值选择---
         private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//----数字------

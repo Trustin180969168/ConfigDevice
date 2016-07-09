@@ -99,19 +99,6 @@ namespace ConfigDevice
                 viewCommandEdit.UpdateGroupName();
         }
 
-        /// <summary>
-        /// 更新组名
-        /// </summary>
-        public void UpdateGroupName()
-        {
-            viewCommandEdit.NeedInit = true;
-            int index = this.viewCommandEdit.CbxCommandGroup.SelectedIndex;
-            for(int i = 0;i< button2.Circuit.CircuitCount;i++)
-                viewCommandEdit.CbxCommandGroup.Items[i] = button2.Circuit.ListCircuitIDAndName[i + 1];
-            viewCommandEdit.CbxCommandGroup.SelectedIndex = index;
-            viewCommandEdit.NeedInit = false;
-        }
-
 
         /// <summary>
         /// 选择事件
