@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Repository;
 
 namespace ProgramTest2
 {
@@ -21,6 +22,8 @@ namespace ProgramTest2
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit lookupEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
          DataTable dt = new DataTable();
         DataTable dtSelect = new DataTable();
+       
+
         public Form1()
         {
             InitializeComponent();
@@ -32,6 +35,7 @@ namespace ProgramTest2
             dt.Columns.Add("time2", System.Type.GetType("System.String"));
             dt.Columns.Add("week", System.Type.GetType("System.String"));
             dt.Columns.Add("select", System.Type.GetType("System.String"));
+            dt.Columns.Add("select2", System.Type.GetType("System.String"));
             dt.Columns.Add("num", System.Type.GetType("System.Int16"));
 
             dcTime1.FieldName = "time1";
@@ -122,7 +126,7 @@ namespace ProgramTest2
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "3", 3 });
             dt.Rows.Add(new object[] { "00:00:00", "1900-01-01", "4", 4 });
             
-            lookUpEdit2.ItemIndex = 0;
+          
         }
 
         private void simpleButton2_Click(object sender, EventArgs e)
@@ -275,6 +279,17 @@ namespace ProgramTest2
         private void lookUpEdit2_Closed(object sender, ClosedEventArgs e)
         {
 
+        }
+
+        private void gvTime_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            if (gvTime.FocusedRowHandle >= 0)
+            {
+                if (gvTime.FocusedRowHandle % 2 == 0)
+                    dcSelect2.ColumnEdit = cbxSelect2;
+                else
+                    dcSelect2.ColumnEdit = cbxSelect3;
+            }
         }
 
    

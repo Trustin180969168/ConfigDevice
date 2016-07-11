@@ -76,14 +76,27 @@ namespace ConfigDevice
 
         public const string NAME_INVALID_DEVICE = "未知设备";
 
-        public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的值---- 
-        public static Dictionary<UInt16, string> TRIGGER_ID_NAME = new Dictionary<UInt16, string>(); //-----触发对象对应的值---- 
+        //--------按键类型定义----------
+        public const byte KEY_TYPE_LIGHT = 0x00;//--灯光
+        public const byte KEY_TYPE_SOUND = 0x10;//--音响
+        public const byte KEY_TYPE_CURTAIN = 0x20;//--窗帘
+        public const byte KEY_TYPE_HELP = 0x30;//--求助
+        public const string KEY_TYPE_NAME_LIGHT = "灯光";//--灯光
+        public const string KEY_TYPE_NAME_SOUND = "音响";//--音响
+        public const string KEY_TYPE_NAME_CURTAIN = "窗帘";//--窗帘
+        public const string KEY_TYPE_NAME_HELP = "求助";//--求助
+
+        public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的ID---- 
+        public static Dictionary<UInt16, string> TRIGGER_ID_NAME = new Dictionary<UInt16, string>(); //-----触发对象ID对应的值---- 
         public static Dictionary<string, UInt16> TRIGGER_KIND_NAME_ID = new Dictionary<string, UInt16>(); //-----触发级别ID对应的值---- 
         public static Dictionary<UInt16, string> TRIGGER_KIND_ID_NAME = new Dictionary<UInt16, string>(); //-----触发级别值对应的ID---- 
         public static Dictionary<string, UInt16> MATH_NAME_ID = new Dictionary<string, UInt16>(); //-----运算ID值---- 
         public static Dictionary<UInt16, string> MATH_ID_NAME = new Dictionary<UInt16, string>(); //-----运算ID对应的名称---- 
         public static Dictionary<string, UInt16> TRIGGER_POSITION_NAME_ID = new Dictionary<string, UInt16>(); //-----触发位置ID---- 
         public static Dictionary<UInt16, string> TRIGGER_POSITION_ID_NAME = new Dictionary<UInt16, string>(); //-----触发位置名称---- 
+        public static Dictionary<string, byte> KEY_TYPE_NAME_ID = new Dictionary<string, byte>(); //-----按键类型名称ID---- 
+        public static Dictionary<byte, string> KEY_TYPE_ID_NAME = new Dictionary<byte, string>(); //-----按键类型ID名称---- 
+
 
         public static  string SELECT_COMMAND_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
                    "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
@@ -198,6 +211,15 @@ namespace ConfigDevice
             MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_WITHOUT, SensorConfig.LG_MATH_WITHOUT);
             MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_TOTAL, SensorConfig.LG_MATH_TOTAL);
 
+            //-------控制键类型关系------
+            KEY_TYPE_NAME_ID.Add(KEY_TYPE_NAME_LIGHT ,KEY_TYPE_LIGHT);
+            KEY_TYPE_NAME_ID.Add(KEY_TYPE_NAME_SOUND ,KEY_TYPE_SOUND);
+            KEY_TYPE_NAME_ID.Add( KEY_TYPE_NAME_CURTAIN,KEY_TYPE_CURTAIN);
+            KEY_TYPE_NAME_ID.Add( KEY_TYPE_NAME_HELP,KEY_TYPE_HELP);
+            KEY_TYPE_ID_NAME.Add(KEY_TYPE_LIGHT ,KEY_TYPE_NAME_LIGHT);
+            KEY_TYPE_ID_NAME.Add(KEY_TYPE_SOUND ,KEY_TYPE_NAME_SOUND);
+            KEY_TYPE_ID_NAME.Add(KEY_TYPE_CURTAIN, KEY_TYPE_NAME_CURTAIN);
+            KEY_TYPE_ID_NAME.Add(KEY_TYPE_HELP ,KEY_TYPE_NAME_HELP);
         }
 
 

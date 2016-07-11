@@ -30,6 +30,7 @@
         {
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pageJmpz = new DevExpress.XtraTab.XtraTabPage();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.gcCircuit = new DevExpress.XtraGrid.GridControl();
             this.gvCircuit = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -45,17 +46,12 @@
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
             this.pageZlpz = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.gcBoardSetting = new DevExpress.XtraGrid.GridControl();
-            this.gvBoardSetting = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.keySettingTools1 = new ConfigDevice.KeySettingTools();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pageJmpz.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCircuit)).BeginInit();
@@ -63,10 +59,6 @@
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
             this.pageZlpz.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gcBoardSetting)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvBoardSetting)).BeginInit();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -93,6 +85,17 @@
             this.pageJmpz.Name = "pageJmpz";
             this.pageJmpz.Size = new System.Drawing.Size(1009, 681);
             this.pageJmpz.Text = "配置界面";
+            // 
+            // groupControl2
+            // 
+            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl2.Controls.Add(this.keySettingTools1);
+            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupControl2.Location = new System.Drawing.Point(0, 274);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(1009, 407);
+            this.groupControl2.TabIndex = 14;
+            this.groupControl2.Text = "面板配置";
             // 
             // groupControl1
             // 
@@ -262,110 +265,13 @@
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 681);
             this.viewCommandEdit.TabIndex = 1;
             // 
-            // groupControl2
+            // keySettingTools1
             // 
-            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.gcBoardSetting);
-            this.groupControl2.Location = new System.Drawing.Point(38, 236);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(613, 192);
-            this.groupControl2.TabIndex = 14;
-            this.groupControl2.Text = "面板配置";
-            // 
-            // gcBoardSetting
-            // 
-            this.gcBoardSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcBoardSetting.EmbeddedNavigator.Name = "";
-            this.gcBoardSetting.FormsUseDefaultLookAndFeel = false;
-            this.gcBoardSetting.Location = new System.Drawing.Point(2, 21);
-            this.gcBoardSetting.MainView = this.gvBoardSetting;
-            this.gcBoardSetting.Name = "gcBoardSetting";
-            this.gcBoardSetting.Size = new System.Drawing.Size(609, 169);
-            this.gcBoardSetting.TabIndex = 22;
-            this.gcBoardSetting.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvBoardSetting});
-            // 
-            // gvBoardSetting
-            // 
-            this.gvBoardSetting.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn1,
-            this.gridColumn2,
-            this.gridColumn6,
-            this.gridColumn7,
-            this.gridColumn8});
-            this.gvBoardSetting.GridControl = this.gcBoardSetting;
-            this.gvBoardSetting.Name = "gvBoardSetting";
-            this.gvBoardSetting.OptionsView.ShowGroupPanel = false;
-            this.gvBoardSetting.OptionsView.ShowIndicator = false;
-            // 
-            // gridColumn1
-            // 
-            this.gridColumn1.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn1.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn1.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn1.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn1.Caption = "编号";
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.OptionsColumn.ReadOnly = true;
-            this.gridColumn1.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 0;
-            this.gridColumn1.Width = 50;
-            // 
-            // gridColumn2
-            // 
-            this.gridColumn2.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.gridColumn2.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.gridColumn2.AppearanceCell.Options.UseBackColor = true;
-            this.gridColumn2.AppearanceCell.Options.UseForeColor = true;
-            this.gridColumn2.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn2.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn2.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn2.Caption = "名称";
-            this.gridColumn2.Name = "gridColumn2";
-            this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 1;
-            this.gridColumn2.Width = 213;
-            // 
-            // gridColumn6
-            // 
-            this.gridColumn6.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn6.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn6.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn6.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn6.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn6.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn6.Caption = "gridColumn5";
-            this.gridColumn6.Name = "gridColumn6";
-            this.gridColumn6.OptionsColumn.ReadOnly = true;
-            // 
-            // gridColumn7
-            // 
-            this.gridColumn7.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn7.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn7.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn7.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn7.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn7.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn7.Caption = "gridColumn3";
-            this.gridColumn7.Name = "gridColumn7";
-            this.gridColumn7.OptionsColumn.ReadOnly = true;
-            // 
-            // gridColumn8
-            // 
-            this.gridColumn8.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn8.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn8.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn8.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn8.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn8.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn8.Caption = "gridColumn4";
-            this.gridColumn8.Name = "gridColumn8";
-            this.gridColumn8.OptionsColumn.ReadOnly = true;
+            this.keySettingTools1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.keySettingTools1.Location = new System.Drawing.Point(2, 21);
+            this.keySettingTools1.Name = "keySettingTools1";
+            this.keySettingTools1.Size = new System.Drawing.Size(1005, 384);
+            this.keySettingTools1.TabIndex = 0;
             // 
             // FrmButton2
             // 
@@ -382,6 +288,8 @@
             this.tctrlEdit.ResumeLayout(false);
             this.pageJmpz.ResumeLayout(false);
             this.pageJmpz.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcCircuit)).EndInit();
@@ -390,10 +298,6 @@
             this.tsDoorInput.PerformLayout();
             this.pageJcsz.ResumeLayout(false);
             this.pageZlpz.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gcBoardSetting)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvBoardSetting)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,13 +323,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private DevExpress.XtraGrid.GridControl gcBoardSetting;
-        private DevExpress.XtraGrid.Views.Grid.GridView gvBoardSetting;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private KeySettingTools keySettingTools1;
 
 
     }

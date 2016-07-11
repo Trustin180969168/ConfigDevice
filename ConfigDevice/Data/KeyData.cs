@@ -83,6 +83,10 @@ namespace ConfigDevice
             KeyKindIDName.Add((int)DeviceConfig.KeyKind.KEY_TYPE_PRESS, "开关");
         }
 
+        public KeyData()
+        {
+        }
+
     }
 
 
