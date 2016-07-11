@@ -34,6 +34,22 @@ namespace ConfigDevice
             NET_PUBLIC = 255      //公共地址
         };
 
+        /// <summary>
+        /// 按键类型
+        /// </summary>
+        public enum KeyKind //高4位指出功能按键的状态，低4位指出方向键状态
+        {
+            KEY_TYPE_NULL = 0,//按键无效	       0
+            KEY_TYPE_HIT = 1,//按下有效	       1
+            KEY_TYPE_LOOSEN = 2,//松开有效	       2
+            KEY_TYPE_SHORT = 3,//短按有效 (1S)   3
+            KEY_TYPE_LONG = 4,//长按有效 (3S)   4
+            KEY_TYPE_DBLCLICK = 5,//双击有效	       5
+            KEY_TYPE_SERIAL = 6,//连续按键有效    6
+            KEY_TYPE_LAMP = 7,//灯光类型	       7
+            KEY_TYPE_PRESS = 8                 //点动，按下开，松开关  8
+        };
+
         //-----------回应启动搜索设备-------------
         public const byte RETSTARTSEARCH_TRUE = 0x0;        // 成功启动搜索设备
         public const byte RETSTARTSEARCH_NET_ER = 0x1;      // 错误,网段参数错误

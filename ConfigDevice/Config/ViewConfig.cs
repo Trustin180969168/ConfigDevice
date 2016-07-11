@@ -65,7 +65,14 @@ namespace ConfigDevice
         public const string DC_PARAMETER8 = "PARAMETER8";//参数8 
         public const string DC_PARAMETER9 = "PARAMETER9";//参数9 
 
-        //public const string DC_DEVICE_VALUE = "DeviceValue";//设备唯一值
+        public const string DC_CONTROL_OBJ = "ControlObj";//控制对象
+        public const string DC_CONTROL_KIND = "ControlKind";//控制类型
+        public const string DC_COMMUNICATE_KIND = "CommunicateKind";//通信模式
+        public const string DC_DIRECTION_MAX = "DirectionMax";//方向最大值
+        public const string DC_DIRECTION_Min = "DirectionMin";//方向最小值
+        public const string DC_DIRECTION_Step = "DirectionStep";//方向步进
+        public const string DC_RELEVANCE_NUM = "RelevanceNum";//关联号
+        public const string DC_MUTEX_NUM = "MutexNum";//互斥号 
 
         public const string NAME_INVALID_DEVICE = "未知设备";
 
