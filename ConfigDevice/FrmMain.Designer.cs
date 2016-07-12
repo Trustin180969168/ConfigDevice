@@ -942,6 +942,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panel2);
+            this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "设备配置管理系统";

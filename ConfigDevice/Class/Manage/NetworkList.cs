@@ -73,8 +73,13 @@ namespace ConfigDevice
                 if (rows.Length > 0)
                 {
                     foreach (DataRow dr in rows)
-                        dr[NetworkConfig.DC_REMARK] = NetworkConfig.ERROR_SAME_NETWORKID;
-                    network.Remark = NetworkConfig.ERROR_SAME_NETWORKID;
+                    {
+                        if (Convert.ToInt16(dr[NetworkConfig.DC_NETWORK_ID]) < 200)
+                        {
+                            dr[NetworkConfig.DC_REMARK] = NetworkConfig.ERROR_SAME_NETWORKID;
+                            network.Remark = NetworkConfig.ERROR_SAME_NETWORKID;
+                        }
+                    }                    
                 }
                 //-----排查网段名称冲突------------------
                 //temp = NetworkConfig.DC_DEVICE_NAME + "='" + network.DeviceName + "'";

@@ -29,20 +29,19 @@
         private void InitializeComponent()
         {
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.cbxPage = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.gcKeyData = new DevExpress.XtraGrid.GridControl();
-            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gvKeyData = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcNum = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcCtrlObj = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcCtrlKind = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dcComunication = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcDectMax = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcDectMin = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcStep = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcRelevance = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcMutex = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dcStep = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcComunication = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -51,31 +50,30 @@
             this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcKeyData)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvKeyData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cbxPage});
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1024, 25);
             this.toolStrip1.TabIndex = 16;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // cbxPage
+            // toolStripButton1
             // 
-            this.cbxPage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxPage.Items.AddRange(new object[] {
-            "第一页",
-            "第二页",
-            "第三页"});
-            this.cbxPage.Name = "cbxPage";
-            this.cbxPage.Size = new System.Drawing.Size(121, 25);
+            this.toolStripButton1.Image = global::ConfigDevice.Properties.Resources.section;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(63, 22);
+            this.toolStripButton1.Text = "第一页";
             // 
             // gcKeyData
             // 
@@ -89,12 +87,8 @@
             this.gcKeyData.Size = new System.Drawing.Size(1024, 314);
             this.gcKeyData.TabIndex = 17;
             this.gcKeyData.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvKeyData});
-            // 
-            // gridView2
-            // 
-            this.gridView2.GridControl = this.gcKeyData;
-            this.gridView2.Name = "gridView2";
+            this.gvKeyData,
+            this.gridView2});
             // 
             // gvKeyData
             // 
@@ -125,6 +119,7 @@
             this.gvKeyData.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.gvKeyData.OptionsView.ShowGroupPanel = false;
             this.gvKeyData.OptionsView.ShowIndicator = false;
+            this.gvKeyData.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvKeyData_FocusedRowChanged);
             // 
             // dcNum
             // 
@@ -143,7 +138,7 @@
             this.dcNum.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
             this.dcNum.Visible = true;
             this.dcNum.VisibleIndex = 0;
-            this.dcNum.Width = 77;
+            this.dcNum.Width = 80;
             // 
             // dcName
             // 
@@ -161,7 +156,7 @@
             this.dcName.OptionsFilter.AllowFilter = false;
             this.dcName.Visible = true;
             this.dcName.VisibleIndex = 1;
-            this.dcName.Width = 147;
+            this.dcName.Width = 120;
             // 
             // dcCtrlObj
             // 
@@ -178,8 +173,8 @@
             this.dcCtrlObj.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcCtrlObj.OptionsFilter.AllowFilter = false;
             this.dcCtrlObj.Visible = true;
-            this.dcCtrlObj.VisibleIndex = 1;
-            this.dcCtrlObj.Width = 154;
+            this.dcCtrlObj.VisibleIndex = 2;
+            this.dcCtrlObj.Width = 120;
             // 
             // dcCtrlKind
             // 
@@ -197,23 +192,7 @@
             this.dcCtrlKind.OptionsFilter.AllowFilter = false;
             this.dcCtrlKind.Visible = true;
             this.dcCtrlKind.VisibleIndex = 3;
-            this.dcCtrlKind.Width = 147;
-            // 
-            // dcComunication
-            // 
-            this.dcComunication.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcComunication.AppearanceCell.Options.UseForeColor = true;
-            this.dcComunication.AppearanceCell.Options.UseTextOptions = true;
-            this.dcComunication.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcComunication.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcComunication.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcComunication.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcComunication.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcComunication.Caption = "通讯模式";
-            this.dcComunication.Name = "dcComunication";
-            this.dcComunication.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.dcComunication.OptionsFilter.AllowFilter = false;
-            this.dcComunication.Width = 147;
+            this.dcCtrlKind.Width = 120;
             // 
             // dcDectMax
             // 
@@ -231,6 +210,7 @@
             this.dcDectMax.OptionsFilter.AllowFilter = false;
             this.dcDectMax.Visible = true;
             this.dcDectMax.VisibleIndex = 4;
+            this.dcDectMax.Width = 120;
             // 
             // dcDectMin
             // 
@@ -247,8 +227,24 @@
             this.dcDectMin.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcDectMin.OptionsFilter.AllowFilter = false;
             this.dcDectMin.Visible = true;
-            this.dcDectMin.VisibleIndex = 4;
-            this.dcDectMin.Width = 154;
+            this.dcDectMin.VisibleIndex = 5;
+            this.dcDectMin.Width = 120;
+            // 
+            // dcStep
+            // 
+            this.dcStep.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcStep.AppearanceCell.Options.UseForeColor = true;
+            this.dcStep.AppearanceCell.Options.UseTextOptions = true;
+            this.dcStep.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcStep.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcStep.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcStep.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcStep.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcStep.Caption = "方向步进";
+            this.dcStep.Name = "dcStep";
+            this.dcStep.Visible = true;
+            this.dcStep.VisibleIndex = 6;
+            this.dcStep.Width = 120;
             // 
             // dcRelevance
             // 
@@ -266,6 +262,7 @@
             this.dcRelevance.OptionsFilter.AllowFilter = false;
             this.dcRelevance.Visible = true;
             this.dcRelevance.VisibleIndex = 7;
+            this.dcRelevance.Width = 120;
             // 
             // dcMutex
             // 
@@ -280,22 +277,24 @@
             this.dcMutex.Caption = "互斥号";
             this.dcMutex.Name = "dcMutex";
             this.dcMutex.Visible = true;
-            this.dcMutex.VisibleIndex = 5;
+            this.dcMutex.VisibleIndex = 8;
+            this.dcMutex.Width = 120;
             // 
-            // dcStep
+            // dcComunication
             // 
-            this.dcStep.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcStep.AppearanceCell.Options.UseForeColor = true;
-            this.dcStep.AppearanceCell.Options.UseTextOptions = true;
-            this.dcStep.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcStep.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcStep.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcStep.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcStep.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcStep.Caption = "方向步进";
-            this.dcStep.Name = "dcStep";
-            this.dcStep.Visible = true;
-            this.dcStep.VisibleIndex = 6;
+            this.dcComunication.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcComunication.AppearanceCell.Options.UseForeColor = true;
+            this.dcComunication.AppearanceCell.Options.UseTextOptions = true;
+            this.dcComunication.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcComunication.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcComunication.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcComunication.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcComunication.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcComunication.Caption = "通讯模式";
+            this.dcComunication.Name = "dcComunication";
+            this.dcComunication.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcComunication.OptionsFilter.AllowFilter = false;
+            this.dcComunication.Width = 120;
             // 
             // gridColumn3
             // 
@@ -401,19 +400,25 @@
             this.gridColumn10.Caption = "gridColumn10";
             this.gridColumn10.Name = "gridColumn10";
             // 
+            // gridView2
+            // 
+            this.gridView2.GridControl = this.gcKeyData;
+            this.gridView2.Name = "gridView2";
+            // 
             // KeySettingTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gcKeyData);
             this.Controls.Add(this.toolStrip1);
+            this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.Name = "KeySettingTools";
             this.Size = new System.Drawing.Size(1024, 339);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcKeyData)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvKeyData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -422,7 +427,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripComboBox cbxPage;
         private DevExpress.XtraGrid.GridControl gcKeyData;
         private DevExpress.XtraGrid.Views.Grid.GridView gvKeyData;
         private DevExpress.XtraGrid.Columns.GridColumn dcNum;
@@ -444,6 +448,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
 
 
     }

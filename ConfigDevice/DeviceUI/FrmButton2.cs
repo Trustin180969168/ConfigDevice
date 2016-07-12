@@ -19,14 +19,16 @@ namespace ConfigDevice
             button2 = this.Device as Button2;
 
             //-----初始化回路选择----
-            dtCircuit.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.String"));
-            dtCircuit.Columns.Add(ViewConfig.DC_ID, System.Type.GetType("System.String"));
-            dtCircuit.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
-            for (int i = 0; i < button2.Circuit.CircuitCount; i++)
-                dtCircuit.Rows.Add(i+1,i + 1 + "按键", "");
-            num.FieldName = ViewConfig.DC_ID;
-            name.FieldName = ViewConfig.DC_NAME;
-            gcCircuit.DataSource = dtCircuit;
+            //dtCircuit.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.String"));
+            //dtCircuit.Columns.Add(ViewConfig.DC_ID, System.Type.GetType("System.String")); 
+            //for (int i = 0; i < button2.Circuit.CircuitCount; i++)
+            //    dtCircuit.Rows.Add(i+1,i + 1 + "按键", "");
+            //num.FieldName = ViewConfig.DC_ID;
+            //name.FieldName = ViewConfig.DC_NAME;
+            //gcCircuit.DataSource = dtCircuit;
+
+
+
             //----指令配置----
             viewCommandEdit.ShowToolBar = true;
             viewCommandEdit.ShowCommandBar = true;
@@ -39,6 +41,8 @@ namespace ConfigDevice
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {
+            keySettingTools.InitKeySettingList(button2); 
+          
             this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
             this.Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
             viewBaseSetting.DeviceEdit = this.Device;//----配置编辑对象----
@@ -62,12 +66,15 @@ namespace ConfigDevice
                 {
                     if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)//---电机回路名称--
                     {                       
-                        foreach (int key in button2.Circuit.ListCircuitIDAndName.Keys)
-                            dtCircuit.Rows[key - 1][name.FieldName] = button2.Circuit.ListCircuitIDAndName[key];
-                        dtCircuit.AcceptChanges();
-                        gcCircuit.Refresh();
-                        gvCircuit.RefreshData();
+                        //foreach (int key in button2.Circuit.ListCircuitIDAndName.Keys)
+                        //    dtCircuit.Rows[key - 1][name.FieldName] = button2.Circuit.ListCircuitIDAndName[key];
+                        //dtCircuit.AcceptChanges();
+                        //gcCircuit.Refresh();
+                        //gvCircuit.RefreshData();
                         initLogicAndCommand();
+                        //foreach (int key in button2.Circuit.ListCircuitIDAndName.Keys)
+                        //    keySettingTools.SetKeyName(key,button2.Circuit.ListCircuitIDAndName[key]);
+                      
                     }
                 }
             }
@@ -80,6 +87,7 @@ namespace ConfigDevice
         private void loadData()
         {
             button2.Circuit.ReadRoadTitle();
+            keySettingTools.ReadKeyData(0, 1);
         }
 
         /// <summary>
@@ -130,15 +138,17 @@ namespace ConfigDevice
         /// </summary>
         private void btSave_Click(object sender, EventArgs e)
         {
-            gvCircuit.PostEditor();
-            DataRow drCurrent = gvCircuit.GetDataRow(gvCircuit.FocusedRowHandle);
-            if (drCurrent != null)
-                drCurrent.EndEdit();
-            DataTable dtModify = dtCircuit.GetChanges(DataRowState.Modified);
-            if (dtModify == null) return;
-            foreach (DataRow dr in dtModify.Rows)
-                button2.Circuit.SaveRoadSetting(Convert.ToInt16(dr[ViewConfig.DC_NUM].ToString()) - 1, dr[ViewConfig.DC_NAME].ToString());//--保存回路名称---
-            dtModify.AcceptChanges();//---提交修改---
+            //gvCircuit.PostEditor();
+            //DataRow drCurrent = gvCircuit.GetDataRow(gvCircuit.FocusedRowHandle);
+            //if (drCurrent != null)
+            //    drCurrent.EndEdit();
+            //DataTable dtModify = dtCircuit.GetChanges(DataRowState.Modified);
+            //if (dtModify == null) return;
+            //foreach (DataRow dr in dtModify.Rows)
+            //    button2.Circuit.SaveRoadSetting(Convert.ToInt16(dr[ViewConfig.DC_NUM].ToString()) - 1, dr[ViewConfig.DC_NAME].ToString());//--保存回路名称---
+            //dtModify.AcceptChanges();//---提交修改---
+
+            keySettingTools.SaveKeyData();
         }
 
         /// <summary>

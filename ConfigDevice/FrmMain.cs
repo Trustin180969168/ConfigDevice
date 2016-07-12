@@ -180,7 +180,7 @@ namespace ConfigDevice
             foreach (Network network in SysConfig.ListNetworks.Values)
                 if (network.State == NetworkConfig.STATE_CONNECTED) network.DisconnectNetwork();
             socket.Close();
-            Thread.Sleep(100);
+    
         }
 
         /// <summary>

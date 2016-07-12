@@ -26,9 +26,9 @@ namespace ConfigDevice
     public class KeyData
     {
         public byte KeyNum = 0;         //第几个按键
-        public byte KeyCtrlKind = 0;    //按键类型
-        public byte KeyKindID = 0;        //指令类型
-        public byte DeviceKind = 0;     //设备类型
+        public byte KeyKind = 0;    //按键类型
+        public byte CommandKind = 0;        //指令类型
+        public byte ControlObj = 0;     //控制对象
 
         public byte FunctionInitialValue = 0;   //功能键初值
         public byte FunctionDataFloatingStep = 0;   //浮动步进
@@ -43,16 +43,18 @@ namespace ConfigDevice
         public byte MutexNum = 0;   //互斥   (0表示没互斥，是同一个控制面板，多个按键之间同一时刻，最多只有一个被选中)
 
 
-
-        public KeyData(UdpData udp)
+        public KeyData()
         {
-            byte[] data = udp.ProtocolData;
+        }
 
-            KeyNum = data[0];
+        public KeyData(UserUdpData userData)
+        {
+            byte[] data = userData.Data;
 
-            KeyCtrlKind = data[1];    //按键类型
-            KeyKindID = data[2];        //指令类型
-            DeviceKind = data[3];     //设备类型
+            KeyNum = data[0];       //按键编号,从0开始
+            KeyKind = data[1];      //按键类型
+            CommandKind = data[2];  //指令类型
+            ControlObj = data[3];     //设备类型
 
             FunctionInitialValue = data[4];   //功能键初值
             FunctionDataFloatingStep = data[5];   //浮动步进
@@ -64,8 +66,7 @@ namespace ConfigDevice
             DirectionMinValue = data[10];   //方向键最小值
             DirectionMaxValue = data[11];   //方向键最大值
             RelevanceNum = data[12];   //关联号 (0表示没有关联号，关联号是告诉知另一个控制按键已改变)
-            MutexNum = data[13];   //互斥   (0表示没互 
-
+            MutexNum = data[13];   //互斥   (0表示没互) 
         } 
 
         public static Dictionary<int, string> KeyKindIDName = new Dictionary<int, string>();
@@ -83,9 +84,33 @@ namespace ConfigDevice
             KeyKindIDName.Add((int)DeviceConfig.KeyKind.KEY_TYPE_PRESS, "开关");
         }
 
-        public KeyData()
+        /// <summary>
+        /// 获取按键值
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetKeyDataValue()
         {
+            byte[] value = new byte[14];
+            value[0] = KeyNum;
+            value[1] = KeyKind;
+            value[2] = CommandKind;
+            value[3] = ControlObj;
+            value[4] = FunctionInitialValue;
+            value[5] = FunctionDataFloatingStep;
+            value[6] = FunctionDataMinValue;
+            value[7] = FunctionDataMaxValue;
+            value[8] = DirectionInitialValue;
+            value[9] = DirectionDataFloatingStep;
+            value[10] = DirectionMinValue;
+            value[11] = DirectionMaxValue;
+            value[12] = RelevanceNum;
+            value[13] = MutexNum;
+
+            return value;
+
         }
+
+
 
     }
 

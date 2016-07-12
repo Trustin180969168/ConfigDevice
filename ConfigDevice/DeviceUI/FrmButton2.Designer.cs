@@ -30,7 +30,7 @@
         {
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pageJmpz = new DevExpress.XtraTab.XtraTabPage();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.keySettingTools = new ConfigDevice.KeySettingTools();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.gcCircuit = new DevExpress.XtraGrid.GridControl();
             this.gvCircuit = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -46,12 +46,9 @@
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
             this.pageZlpz = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
-            this.keySettingTools1 = new ConfigDevice.KeySettingTools();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pageJmpz.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCircuit)).BeginInit();
@@ -79,23 +76,20 @@
             // 
             // pageJmpz
             // 
-            this.pageJmpz.Controls.Add(this.groupControl2);
+            this.pageJmpz.Controls.Add(this.keySettingTools);
             this.pageJmpz.Controls.Add(this.groupControl1);
             this.pageJmpz.Controls.Add(this.tsDoorInput);
             this.pageJmpz.Name = "pageJmpz";
             this.pageJmpz.Size = new System.Drawing.Size(1009, 681);
             this.pageJmpz.Text = "配置界面";
             // 
-            // groupControl2
+            // keySettingTools
             // 
-            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.keySettingTools1);
-            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupControl2.Location = new System.Drawing.Point(0, 274);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(1009, 407);
-            this.groupControl2.TabIndex = 14;
-            this.groupControl2.Text = "面板配置";
+            this.keySettingTools.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.keySettingTools.Location = new System.Drawing.Point(0, 31);
+            this.keySettingTools.Name = "keySettingTools";
+            this.keySettingTools.Size = new System.Drawing.Size(1009, 650);
+            this.keySettingTools.TabIndex = 14;
             // 
             // groupControl1
             // 
@@ -265,14 +259,6 @@
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 681);
             this.viewCommandEdit.TabIndex = 1;
             // 
-            // keySettingTools1
-            // 
-            this.keySettingTools1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.keySettingTools1.Location = new System.Drawing.Point(2, 21);
-            this.keySettingTools1.Name = "keySettingTools1";
-            this.keySettingTools1.Size = new System.Drawing.Size(1005, 384);
-            this.keySettingTools1.TabIndex = 0;
-            // 
             // FrmButton2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -288,8 +274,6 @@
             this.tctrlEdit.ResumeLayout(false);
             this.pageJmpz.ResumeLayout(false);
             this.pageJmpz.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcCircuit)).EndInit();
@@ -322,8 +306,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
-        private DevExpress.XtraEditors.GroupControl groupControl2;
-        private KeySettingTools keySettingTools1;
+        private KeySettingTools keySettingTools;
+ 
 
 
     }

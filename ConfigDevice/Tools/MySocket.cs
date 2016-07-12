@@ -358,7 +358,8 @@ namespace ConfigDevice
         /// </summary>
         public void Close()
         {            
-            receiveThread.Abort();           
+            receiveThread.Abort();
+            Thread.Sleep(100);
             mySocket.Close();
         }
 

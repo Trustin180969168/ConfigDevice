@@ -9,6 +9,8 @@ using System.Data;
 
 namespace ConfigDevice
 {
+
+
     public static class ViewConfig
     {
         //---执行操作名称----
@@ -69,18 +71,18 @@ namespace ConfigDevice
         public const string DC_CONTROL_KIND = "ControlKind";//控制类型
         public const string DC_COMMUNICATE_KIND = "CommunicateKind";//通信模式
         public const string DC_DIRECTION_MAX = "DirectionMax";//方向最大值
-        public const string DC_DIRECTION_Min = "DirectionMin";//方向最小值
-        public const string DC_DIRECTION_Step = "DirectionStep";//方向步进
+        public const string DC_DIRECTION_MIN = "DirectionMin";//方向最小值
+        public const string DC_DIRECTION_STEP = "DirectionStep";//方向步进
         public const string DC_RELEVANCE_NUM = "RelevanceNum";//关联号
         public const string DC_MUTEX_NUM = "MutexNum";//互斥号 
 
         public const string NAME_INVALID_DEVICE = "未知设备";
 
         //--------按键类型定义----------
-        public const byte KEY_TYPE_LIGHT = 0x00;//--灯光
-        public const byte KEY_TYPE_SOUND = 0x10;//--音响
-        public const byte KEY_TYPE_CURTAIN = 0x20;//--窗帘
-        public const byte KEY_TYPE_HELP = 0x30;//--求助
+        public const byte KEY_TYPE_LIGHT = 2;//--灯光
+        public const byte KEY_TYPE_SOUND = 17;//--音响
+        public const byte KEY_TYPE_CURTAIN = 33;//--窗帘
+        public const byte KEY_TYPE_HELP = 49;//--求助
         public const string KEY_TYPE_NAME_LIGHT = "灯光";//--灯光
         public const string KEY_TYPE_NAME_SOUND = "音响";//--音响
         public const string KEY_TYPE_NAME_CURTAIN = "窗帘";//--窗帘
@@ -225,13 +227,10 @@ namespace ConfigDevice
 
     }
 
-   
-
-
     /// <summary>
     /// 触发对象列表数据
     /// </summary>
-    public class LookupIDAndNameTable : DataTable
+    public  class LookupIDAndNameTable : DataTable
     {
         public LookupIDAndNameTable()
             : base()
@@ -241,6 +240,7 @@ namespace ConfigDevice
             Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
         }
     }
+
 
     /// <summary>
     /// 下拉控件

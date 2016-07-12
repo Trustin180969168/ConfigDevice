@@ -363,8 +363,8 @@
     <Compile Include="Class\ControlObj\Light.cs" />
     <Compile Include="Class\ControlObj\InnerInteraction.cs" />
     <Compile Include="Class\ControlObj\OuterInteraction.cs" />
+    <Compile Include="Class\Manage\KeyList.cs" />
     <Compile Include="Class\ViewKeySetting\BaseKeySetting.cs" />
-    <Compile Include="Class\ViewKeySetting\KeySound.cs" />
     <Compile Include="Class\Devices\FlammableGasProbe.cs" />
     <Compile Include="Class\Devices\SystemInteraction.cs" />
     <Compile Include="Class\Devices\Environment.cs" />
