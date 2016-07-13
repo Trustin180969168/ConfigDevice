@@ -35,14 +35,13 @@ namespace ConfigDevice
         }
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
 
-        public Circuit(Device _deviceCtrl,int _circuitCount)
+        public Circuit(Device _deviceCtrl,int _circuitCount):base(_deviceCtrl)
         {
             Name = "回路"; 
             circuitCount = _circuitCount;
             //-----初始化列表---------
             for (int i = 1; i <= circuitCount; i++)
-                ListCircuitIDAndName.Add(i, "");
-            deviceControled = _deviceCtrl;
+                ListCircuitIDAndName.Add(i, ""); 
 
             if (NameAndCommand.Count == 0)
             {

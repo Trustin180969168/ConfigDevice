@@ -12,9 +12,9 @@ namespace ConfigDevice
         public const string NAME_CMD_SW_SWIT_TIMING_CLOSE = "关时序";
 
         public Timing(Device _deviceCtrl)
+            : base(_deviceCtrl)
         {
-            Name = "时序";
-            deviceControled = _deviceCtrl;
+            Name = "时序"; 
         }
 
 

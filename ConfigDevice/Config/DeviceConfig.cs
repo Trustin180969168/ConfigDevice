@@ -326,8 +326,15 @@ namespace ConfigDevice
         public static readonly byte[] CMD_MMSG_WRITE_KEY_CFG = new byte[] { 0xE6, CMD_TYPE_SERVER };//写菜单按键类型配置
         public static readonly byte[] CMD_MMSG_READ_BDEV_CFG = new byte[] { 0x67, CMD_TYPE_SERVER };//读绑定的设备设置
         public static readonly byte[] CMD_MMSG_WRITE_BDEV_CFG = new byte[] { 0xE7, CMD_TYPE_SERVER };//写绑定的设备设置
+        //------------按键参数设置-------
+        public static readonly byte[] CMD_KB_READ_OPTIONS = new byte[] { 0x0E, CMD_TYPE_KEY };//读键盘参数设置
+        public static readonly byte[] CMD_KB_WRITE_OPTIONS = new byte[] { 0x8E, CMD_TYPE_KEY };//写键盘参数设置	
+        public static readonly byte[] CMD_KB_READ_STARTUP_LIGHT_SET = new byte[] { 0x0c, CMD_TYPE_KEY };//读开机灯光显示设置     0x96  ─┐
+        public static readonly byte[] CMD_KB_WRITE_STARTUP_LIGHT_SET = new byte[] { 0x8c, CMD_TYPE_KEY };//写开机灯光显示设置     0x97  ─┴┐
+        public static readonly byte[] CMD_KB_READ_STARTUP_KEY_STATE = new byte[] { 0x0c, CMD_TYPE_KEY };//读开机按键显示设置     0x96  ─┬┴→协议文档说是要改，但头文件没有，廖超庭
+        public static readonly byte[] CMD_KB_WRITE_STARTUP_KEY_STATE = new byte[] { 0x8c, CMD_TYPE_KEY };//写开机按键显示设置     0x97  ─┘    于2015年04月01日更改，但旧定义宏保留着
 
-        //---------继电器，调光器指令  CMD_TYPE_SWITCH,电机--------------
+        //------------继电器，调光器指令  CMD_TYPE_SWITCH,电机--------------
         public static readonly byte[] CMD_SW_READ_GROUP_NAME = new byte[] { 0x01, CMD_TYPE_SWITCH };//读分组名称    
         public static readonly byte[] CMD_SW_WRITE_GROUP_NAME = new byte[] { 0x81, CMD_TYPE_SWITCH };//写分组名称     
         public static readonly byte[] CMD_SW_READ_SCENE_NAME = new byte[] { 0x02, CMD_TYPE_SWITCH };//读场景名称    
@@ -476,8 +483,8 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_AIR_QUALITY, "环境传感器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_AIR_O2, "氧气传感器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_WEATHER, "智能气象");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_TEMP, "温度模块"); 
-            
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_TEMP, "温度模块");
+
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PRI_1, "人体感应1个方向");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PRI_2, "人体感应2个方向");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_PRI_3, "人体感应3个方向");

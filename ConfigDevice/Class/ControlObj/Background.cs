@@ -13,10 +13,9 @@ namespace ConfigDevice
         public const string NAME_CMD_SWIT_CLOSE_MUSIC = "关音乐";
 
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
-        public Background(Device _deviceCtrl)
+        public Background(Device _deviceCtrl):base(_deviceCtrl)
         {
             Name = "背景";
-            deviceControled = _deviceCtrl;
             if (NameAndCommand.Count == 0)
             {
                 NameAndCommand.Add(NAME_CMD_SWIT_ALL_MUSIC, DeviceConfig.CMD_SW_SWIT_LOOP);

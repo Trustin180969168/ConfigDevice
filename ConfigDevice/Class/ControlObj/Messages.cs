@@ -13,9 +13,9 @@ namespace ConfigDevice
 
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public Messages(Device _deviceCtrl)
+            : base(_deviceCtrl)
         {
-            Name = "消息";
-            deviceControled = _deviceCtrl;
+            Name = "消息"; 
             if (NameAndCommand.Count == 0)
             {
                 NameAndCommand.Add(NAME_CMD_SWIT_ALL_MUSIC, DeviceConfig.CMD_SW_SWIT_LOOP);

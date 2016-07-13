@@ -24,10 +24,9 @@ namespace ConfigDevice
         public byte BuzAct = 0;               //蜂鸣器动作类型：打开、关闭等   (如:LEL_BUZACT_CLOSE)
         public ushort BuzTim = 0;               //蜂鸣器动作时间：单位秒         (如:10->10秒，0->无限) 
 
-        public Buzzer(Device _deviceCtrl)
+        public Buzzer(Device _deviceCtrl):base(_deviceCtrl)
         {
-            Name = "蜂鸣器";
-            deviceControled = _deviceCtrl;
+            Name = "蜂鸣器"; 
         }
 
     }

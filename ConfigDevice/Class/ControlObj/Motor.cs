@@ -85,10 +85,9 @@ namespace ConfigDevice
         private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
         private CallbackFromUDP getMotorCurrent;//----获取电机电流----
         private CallbackFromUDP getMotorAction;//----获取电机电流----
-        public Motor(Device _deviceCtrl)
+        public Motor(Device _deviceCtrl):base(_deviceCtrl)
         {
-            Name = "电机";
-            deviceControled = _deviceCtrl;
+            Name = "电机"; 
             ConfigData = new byte[circuitCount * 4];
             StateData = new byte[circuitCount * 2];
             CurrentData = new byte[circuitCount * 2];

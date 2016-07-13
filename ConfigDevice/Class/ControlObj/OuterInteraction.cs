@@ -13,9 +13,9 @@ namespace ConfigDevice
 
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public OuterInteraction(Device _deviceCtrl)
+            : base(_deviceCtrl)
         {
-            Name = "系统联动";
-            deviceControled = _deviceCtrl;
+            Name = "系统联动"; 
             if (NameAndCommand.Count == 0)
             {
                 NameAndCommand.Add(NAME_CMD_LOGIC_WRITE_SYSLKID, DeviceConfig.CMD_LOGIC_WRITE_SYSLKID);

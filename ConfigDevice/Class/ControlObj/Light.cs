@@ -58,9 +58,9 @@ namespace ConfigDevice
         }
 
         public Light(Device _deviceCtrl)
+            : base(_deviceCtrl)
         {
-            Name = "指示灯";
-            deviceControled = _deviceCtrl;
+            Name = "指示灯"; 
 
             getParameter = new CallbackFromUDP(getParameterData);
             getWriteEnd = new CallbackFromUDP(getWriteEndData);

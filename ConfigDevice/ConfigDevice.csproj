@@ -362,6 +362,7 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\Election11.png" />
     <None Include="Resources\Traces1.png" />
+    <Compile Include="Class\ControlObj\KeyCtrl.cs" />
     <Compile Include="Class\ControlObj\Buzzer.cs" />
     <Compile Include="Class\ControlObj\Light.cs" />
     <Compile Include="Class\ControlObj\InnerInteraction.cs" />

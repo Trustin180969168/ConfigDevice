@@ -22,7 +22,10 @@ namespace ConfigDevice
                 OnCallbackUI_Action(callbackParameter);
         }
 
-
+        public ControlObj(Device device)
+        {
+            deviceControled = device;
+        }
 
          
     }

@@ -13,9 +13,9 @@ namespace ConfigDevice
         
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public Swit(Device _deviceCtrl)
+            : base(_deviceCtrl)
         {
-            Name = "全部";
-            deviceControled = _deviceCtrl;
+            Name = "全部"; 
             if (NameAndCommand.Count == 0)
             {
                 NameAndCommand.Add(NAME_CMD_SW_SWIT_ALL, DeviceConfig.CMD_SW_SWIT_ALL);

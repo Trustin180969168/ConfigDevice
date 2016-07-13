@@ -10,10 +10,9 @@ namespace ConfigDevice
         public const string NAME_CMD_SEND_WEIXIN = "发微信";
 
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
-        public ServerControlObj(Device _deviceCtrl)
+        public ServerControlObj(Device _deviceCtrl):base(_deviceCtrl)
         {
-            Name = "服务器";
-            deviceControled = _deviceCtrl;
+            Name = "服务器"; 
 
             if (NameAndCommand.Count == 0)
             {
