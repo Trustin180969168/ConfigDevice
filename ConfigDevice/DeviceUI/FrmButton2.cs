@@ -137,6 +137,16 @@ namespace ConfigDevice
             this.Device.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----注册回调事件
         }
 
+        private void labelControl2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbcLight_Modified(object sender, EventArgs e)
+        {
+            lblLightSize.Text = tbcLight.Value.ToString();
+        }
+
 
     }
 }
