@@ -8,6 +8,7 @@ namespace ConfigDevice
     public class Button2 : Device
     {
         public Circuit Circuit;//回路对象
+        public KeyCtrl KeyCtrl;//按键对象
         public Button2(UserUdpData userUdpData)
             : base(userUdpData)
         {
@@ -32,7 +33,8 @@ namespace ConfigDevice
         private void initControlObjs()
         {
             Circuit = new Circuit(this, 2);
-            ContrlObjs.Add("回路", this.Circuit);
+            KeyCtrl = new KeyCtrl(this);
+            ContrlObjs.Add("回路", this.Circuit); 
         }
 
  

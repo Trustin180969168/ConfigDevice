@@ -12,6 +12,7 @@ namespace ConfigDevice
     {
         private Button2 button2;
         private DataTable dtCircuit = new DataTable("按键选择");
+        private KeyOptionData optionData;//---按键配置----
         public FrmButton2(Device _device)
             : base(_device)
         {          
@@ -56,6 +57,23 @@ namespace ConfigDevice
                     {   
                         initLogicAndCommand();
                     }
+                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == KeyCtrl.CLASS_NAME)//---电机回路名称--
+                    {
+                        if (callbackParameter.Parameters[1].ToString() == KeyCtrl.ACTION_STATE_NAME)
+                        {
+
+                        }
+                        else if (callbackParameter.Parameters[1].ToString() == KeyCtrl.ACTION_OPTION_NAME)
+                        {
+                            optionData = callbackParameter.Parameters[2] as KeyOptionData;
+                            
+
+
+
+
+                        }
+
+                    }
                 }
             }
             catch { }
@@ -67,7 +85,9 @@ namespace ConfigDevice
         private void loadData()
         {
             button2.Circuit.ReadRoadTitle();
+            button2.KeyCtrl.ReadKeyOption();
             keySettingTools.ReadKeyData(0, 1);
+
         }
 
         /// <summary>

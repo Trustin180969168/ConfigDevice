@@ -101,7 +101,21 @@ namespace ConfigDevice
         public const string LCD_CAPTION_LIGHT = "灯光";
         public const string LCD_CAPTION_CURTAIN = "窗帘";
         public const string LCD_CAPTION_LEAVE_BACK = "离、回家";
-        
+        //--------按键布防选择-----
+        public const string KEY_LEAVE_SAFE_OUTSIDE = "室外布防";
+        public const string KEY_LEAVE_SAFE_ALL = "全部布防";
+        public const string KET_LEAVE_DOOR_WINDOW_SHOW = "门窗显示";
+        public const string KET_LEAVE_DOOR_WINDOW_HINT_SOUND = "门窗提示音";
+
+        public const string KEY_BACK_SAFE_NONE = "回家撤防";
+        public const string KEY_BACK_SAFE_ALARM_SOUND = "预警报提示音";
+        public const string KET_BACK_SAFE_RED_SWIT = "红外线开关";
+        public const string KET_BACK_SAFE_LCD_SAVE = "时间屏保";
+        public const string KET_BACK_DOOR_WINDOW_SHOW = "门窗显示 关窗提示音";
+        public const string KET_BACK_DOOR_WINDOW_HINT_SOUND = "门窗显示 锁窗提示音";
+ 
+
+
         public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的ID---- 
         public static Dictionary<UInt16, string> TRIGGER_ID_NAME = new Dictionary<UInt16, string>(); //-----触发对象ID对应的值---- 
         public static Dictionary<string, UInt16> TRIGGER_KIND_NAME_ID = new Dictionary<string, UInt16>(); //-----触发级别ID对应的值---- 
