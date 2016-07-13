@@ -331,6 +331,9 @@
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
     <Content Include="Config\SmartLight.h" />
+    <None Include="Resources\scene.png" />
+    <None Include="Resources\lights.png" />
+    <None Include="Resources\curtain.png" />
     <None Include="Resources\down.png" />
     <None Include="Resources\up.png" />
     <None Include="Resources\logic4OR.bmp" />

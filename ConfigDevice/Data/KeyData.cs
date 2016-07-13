@@ -54,7 +54,7 @@ namespace ConfigDevice
             KeyNum = data[0];       //按键编号,从0开始
             KeyKind = data[1];      //按键类型
             CommandKind = data[2];  //指令类型
-            ControlObj = data[3];     //设备类型
+            ControlObj = (byte)(data[3] & 0xf0) ;     //设备类型
 
             FunctionInitialValue = data[4];   //功能键初值
             FunctionDataFloatingStep = data[5];   //浮动步进

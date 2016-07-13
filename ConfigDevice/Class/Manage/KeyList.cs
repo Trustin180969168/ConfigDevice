@@ -138,7 +138,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
             byte[] values = keyData.GetKeyDataValue();
-            Buffer.BlockCopy(values, 2, crcData, 10, values.Length);
+            Buffer.BlockCopy(values, 0, crcData, 10, values.Length);
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
             Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---

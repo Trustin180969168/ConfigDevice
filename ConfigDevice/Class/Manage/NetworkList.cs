@@ -177,10 +177,6 @@ namespace ConfigDevice
         }
 
 
-
-
-
-
         /// <summary>
         /// 根据接收的包生成回复刷新的包
         /// </summary>

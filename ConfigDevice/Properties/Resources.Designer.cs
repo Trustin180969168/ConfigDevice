@@ -123,6 +123,13 @@ namespace ConfigDevice.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap curtain {
+            get {
+                object obj = ResourceManager.GetObject("curtain", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap del1 {
             get {
                 object obj = ResourceManager.GetObject("del1", resourceCulture);
@@ -189,6 +196,13 @@ namespace ConfigDevice.Properties {
         internal static System.Drawing.Bitmap goyi {
             get {
                 object obj = ResourceManager.GetObject("goyi", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap lights {
+            get {
+                object obj = ResourceManager.GetObject("lights", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -343,6 +357,13 @@ namespace ConfigDevice.Properties {
         internal static System.Drawing.Bitmap save {
             get {
                 object obj = ResourceManager.GetObject("save", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap scene {
+            get {
+                object obj = ResourceManager.GetObject("scene", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

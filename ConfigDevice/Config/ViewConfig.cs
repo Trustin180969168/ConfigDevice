@@ -75,19 +75,33 @@ namespace ConfigDevice
         public const string DC_DIRECTION_STEP = "DirectionStep";//方向步进
         public const string DC_RELEVANCE_NUM = "RelevanceNum";//关联号
         public const string DC_MUTEX_NUM = "MutexNum";//互斥号 
-
         public const string NAME_INVALID_DEVICE = "未知设备";
 
         //--------按键类型定义----------
-        public const byte KEY_TYPE_LIGHT = 2;//--灯光
-        public const byte KEY_TYPE_SOUND = 17;//--音响
-        public const byte KEY_TYPE_CURTAIN = 33;//--窗帘
-        public const byte KEY_TYPE_HELP = 49;//--求助
+        public const byte KEY_TYPE_LIGHT = 0;//--灯光
+        public const byte KEY_TYPE_SOUND = 16;//--音响
+        public const byte KEY_TYPE_CURTAIN = 32;//--窗帘
+        public const byte KEY_TYPE_HELP = 48;//--求助
         public const string KEY_TYPE_NAME_LIGHT = "灯光";//--灯光
         public const string KEY_TYPE_NAME_SOUND = "音响";//--音响
         public const string KEY_TYPE_NAME_CURTAIN = "窗帘";//--窗帘
         public const string KEY_TYPE_NAME_HELP = "求助";//--求助
 
+        //-------按键的控制类型选择-----
+        public const string KEY_CONTROL_KIND_NAME_OPEN_CLOSE = "开关";
+        public const string KEY_CONTROL_KIND_NAME_OPEN = "开";
+        public const string KEY_CONTROL_KIND_NAME_CLOSE = "关";
+        public const string KEY_CONTROL_KIND_NAME_LOOP_LIGHT = "循环调光";
+        public const string KEY_CONTROL_KIND_NAME_OPEN_CLOSE_LOOP_LIGHT = "开关+循环调光";
+        public const string KEY_CONTROL_KIND_NAME_OPEN_LOOP_LIGHT = "开+循环调光";
+        public const string KEY_CONTROL_KIND_NAME_CLOSE_LOOP_LIGHT = "关+循环调光";
+
+        //-------液晶面板标题-----
+        public const string LCD_CAPTION_SCENE = "场景";
+        public const string LCD_CAPTION_LIGHT = "灯光";
+        public const string LCD_CAPTION_CURTAIN = "窗帘";
+        public const string LCD_CAPTION_LEAVE_BACK = "离、回家";
+        
         public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的ID---- 
         public static Dictionary<UInt16, string> TRIGGER_ID_NAME = new Dictionary<UInt16, string>(); //-----触发对象ID对应的值---- 
         public static Dictionary<string, UInt16> TRIGGER_KIND_NAME_ID = new Dictionary<string, UInt16>(); //-----触发级别ID对应的值---- 
@@ -98,8 +112,7 @@ namespace ConfigDevice
         public static Dictionary<UInt16, string> TRIGGER_POSITION_ID_NAME = new Dictionary<UInt16, string>(); //-----触发位置名称---- 
         public static Dictionary<string, byte> KEY_TYPE_NAME_ID = new Dictionary<string, byte>(); //-----按键类型名称ID---- 
         public static Dictionary<byte, string> KEY_TYPE_ID_NAME = new Dictionary<byte, string>(); //-----按键类型ID名称---- 
-
-
+        
         public static  string SELECT_COMMAND_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
                    "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
                    "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +

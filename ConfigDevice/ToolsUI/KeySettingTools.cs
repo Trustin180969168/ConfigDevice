@@ -27,9 +27,7 @@ namespace ConfigDevice
             dtKeyData = new DataTable("按键列表");
             cbxControlObj = new GridViewComboBox();//---灯的下拉选择--
             cbxLightControlKind = new GridViewComboBox();//---灯的下拉选择--
-            cbxElseControlKind = new GridViewComboBox();//----其他的下拉选择---
-        
-
+            cbxElseControlKind = new GridViewComboBox();//----其他的下拉选择--- 
 
             dtKeyData.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.Int16"));          //----按键编号
             dtKeyData.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));        //---名称---
@@ -52,27 +50,43 @@ namespace ConfigDevice
             dcStep.FieldName = ViewConfig.DC_DIRECTION_STEP;
             dcRelevance.FieldName = ViewConfig.DC_RELEVANCE_NUM;
             dcMutex.FieldName = ViewConfig.DC_MUTEX_NUM;
-
-            cbxLightControlKind.Items.Add("开关");
-            cbxLightControlKind.Items.Add("开");
-            cbxLightControlKind.Items.Add("关");
-            cbxLightControlKind.Items.Add("循环调光");
-            cbxLightControlKind.Items.Add("开关循环调光");
-            cbxLightControlKind.Items.Add("开循环调光");
-            cbxLightControlKind.Items.Add("关循环调光");
-            cbxElseControlKind.Items.Add("开关");
-            cbxElseControlKind.Items.Add("开");
-            cbxElseControlKind.Items.Add("关");
-
-
+            
+            cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE);
+            cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN);
+            cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE);
+            cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT);
+            cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE_LOOP_LIGHT);
+            cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_LOOP_LIGHT);
+            cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE_LOOP_LIGHT);
+            cbxElseControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE);
+            cbxElseControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN);
+            cbxElseControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE);
         }
 
         /// <summary>
         /// 初始化配置按键配置列表
         /// </summary>
         /// <param name="deviceControled"></param>
-        public void InitKeySettingList(Device deviceControled)
-        {            
+        public void InitKeySettingList(Device deviceControled, params string[] pageTitles)
+        {
+            tsPages.Items.Clear();
+            for (int i = 0; i < pageTitles.Length; i++)
+            {
+                ToolStripButton tsb = new ToolStripButton(pageTitles[i]);
+                tsb.Tag = i + 1;
+                tsb.Click += this.PageSelect;
+                tsb.Checked = true;
+
+                if(pageTitles[i] == ViewConfig.LCD_CAPTION_SCENE)
+                    tsb.Image = global::ConfigDevice.Properties.Resources.scene;
+                else if (pageTitles[i] == ViewConfig.LCD_CAPTION_LIGHT)
+                    tsb.Image = global::ConfigDevice.Properties.Resources.lights;
+                else if (pageTitles[i] == ViewConfig.LCD_CAPTION_CURTAIN)
+                    tsb.Image = global::ConfigDevice.Properties.Resources.curtain; 
+
+                this.tsPages.Items.Add(tsb);
+            }
+
             dtKeyData.Rows.Clear();
             for (int i = 0; i < KeyCount; i++)
                 dtKeyData.Rows.Add(i+1);
@@ -95,7 +109,17 @@ namespace ConfigDevice
 
         }
 
- 
+        /// <summary>
+        /// 按键页选择
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PageSelect(object sender, EventArgs e)
+        {
+            foreach (ToolStripItem tsi in tsPages.Items)
+                (tsi as ToolStripButton).Checked = false;
+            (sender as ToolStripButton).Checked = true;
+        }
 
         /// <summary>
         /// 读取并显示按键数据
@@ -165,7 +189,12 @@ namespace ConfigDevice
                 keyList.SaveKeyData(keySetting.GetKeyData(dr));
             //----保存名称-----
             foreach (DataRow dr in dtModify.Rows)
-                KeyCircuit.SaveRoadSetting(Convert.ToInt16(dr[ViewConfig.DC_NUM].ToString()) - 1, dr[ViewConfig.DC_NAME].ToString());//--保存回路名称---
+            {
+                string changeName = dr[ViewConfig.DC_NAME].ToString();
+                int changeID = Convert.ToInt16(dr[ViewConfig.DC_NUM]);
+                if(KeyCircuit.ListCircuitIDAndName[changeID] != changeName)
+                    KeyCircuit.SaveRoadSetting(changeID - 1, changeName);//--保存回路名称---
+            }
             dtKeyData.AcceptChanges();
         }
 

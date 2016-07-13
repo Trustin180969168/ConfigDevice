@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.tsPages = new System.Windows.Forms.ToolStrip();
             this.gcKeyData = new DevExpress.XtraGrid.GridControl();
             this.gvKeyData = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcNum = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -51,29 +50,19 @@
             this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcKeyData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvKeyData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             this.SuspendLayout();
             // 
-            // toolStrip1
+            // tsPages
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1024, 25);
-            this.toolStrip1.TabIndex = 16;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Image = global::ConfigDevice.Properties.Resources.section;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(63, 22);
-            this.toolStripButton1.Text = "第一页";
+            this.tsPages.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.tsPages.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.tsPages.Location = new System.Drawing.Point(0, 0);
+            this.tsPages.Name = "tsPages";
+            this.tsPages.Size = new System.Drawing.Size(1024, 25);
+            this.tsPages.TabIndex = 16;
             // 
             // gcKeyData
             // 
@@ -410,12 +399,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gcKeyData);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.tsPages);
             this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.Name = "KeySettingTools";
             this.Size = new System.Drawing.Size(1024, 339);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcKeyData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvKeyData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
@@ -426,7 +413,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip tsPages;
         private DevExpress.XtraGrid.GridControl gcKeyData;
         private DevExpress.XtraGrid.Views.Grid.GridView gvKeyData;
         private DevExpress.XtraGrid.Columns.GridColumn dcNum;
@@ -448,7 +435,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
 
 
     }
