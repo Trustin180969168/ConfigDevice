@@ -218,7 +218,7 @@ namespace ConfigDevice
         private void btSearchDevices_Click(object sender, EventArgs e)
         {
             searchingDevice = true;
-            if (gvNetwork.FocusedRowHandle == -1) return;
+            if (gvNetwork.FocusedRowHandle <= -1) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
             {
