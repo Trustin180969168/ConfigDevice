@@ -95,14 +95,13 @@ namespace ConfigDevice
         public void SaveKeyOption(KeyOptionData optionData)
         {
             UdpData udpSend = createSaveOptionUdp(optionData);
-            mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
-                 new CallbackUdpAction(callbackSaveOption), null);
+            mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,new CallbackUdpAction(callbackSaveOption), null);
         }
         private void callbackSaveOption(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
             {
-                CommonTools.ShowReplyInfo("保存回路失败!", udpReply.ReplyByte);
+                CommonTools.ShowReplyInfo("保存面板配置失败!", udpReply.ReplyByte);
                 ReadKeyOption();//---重新获取,回调回界面----
             }
         }
@@ -209,14 +208,13 @@ namespace ConfigDevice
         public void SaveKeyState(int option)
         {
             UdpData udpSend = createSaveStateUdp(option);
-            mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
-                 new CallbackUdpAction(callbackSaveKeyState), null);
+            mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,new CallbackUdpAction(callbackSaveKeyState), null);
         }
         private void callbackSaveKeyState(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
             {
-                CommonTools.ShowReplyInfo("保存回路失败!", udpReply.ReplyByte);
+                CommonTools.ShowReplyInfo("保存面板初始化状态失败!", udpReply.ReplyByte);
                 ReadKeyState();//---重新获取,回调回界面----
             }
         }
@@ -234,7 +232,7 @@ namespace ConfigDevice
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_KB_WRITE_STARTUP_KEY_STATE;//----用户命令----- 
             byte len = 4;//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----  
-            byte[] crcData = new byte[10 + 26];//10 固定长度:源+目标+命令+长度+分页
+            byte[] crcData = new byte[10 + 17];//10 固定长度:源+目标+命令+长度+分页
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;

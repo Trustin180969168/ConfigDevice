@@ -83,7 +83,6 @@ namespace ConfigDevice
                     tsb.Image = global::ConfigDevice.Properties.Resources.lights;
                 else if (pageTitles[i] == ViewConfig.LCD_CAPTION_CURTAIN)
                     tsb.Image = global::ConfigDevice.Properties.Resources.curtain; 
-
                 this.tsPages.Items.Add(tsb);
             }
 
@@ -106,6 +105,7 @@ namespace ConfigDevice
 
             KeyCircuit = deviceControled.ContrlObjs["回路"] as Circuit;
             KeyCircuit.OnCallbackUI_Action += ReturnKeyName;
+
 
         }
 
@@ -136,6 +136,7 @@ namespace ConfigDevice
             keySetting.SetKeyData(keyData, dr);//---赋值到行----
 
             gvKeyData.BestFitColumns();
+            gvKeyData_FocusedRowChanged(null, null);
         }
 
         /// <summary>

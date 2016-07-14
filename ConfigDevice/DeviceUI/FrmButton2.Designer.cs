@@ -285,7 +285,7 @@
             this.speHintVolume.Name = "speHintVolume";
             this.speHintVolume.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.speHintVolume.Properties.Mask.EditMask = "p0";
+            this.speHintVolume.Properties.Mask.EditMask = "P0";
             this.speHintVolume.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.speHintVolume.Properties.MaxValue = new decimal(new int[] {
             100,
@@ -411,6 +411,7 @@
             this.tbcLight.Size = new System.Drawing.Size(180, 42);
             this.tbcLight.TabIndex = 1;
             this.tbcLight.Modified += new System.EventHandler(this.tbcLight_Modified);
+            this.tbcLight.EditValueChanged += new System.EventHandler(this.tbcLight_Modified);
             // 
             // ceLittleLight
             // 

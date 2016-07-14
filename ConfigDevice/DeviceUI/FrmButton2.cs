@@ -196,7 +196,7 @@ namespace ConfigDevice
         /// </summary>
         private void tbcLight_Modified(object sender, EventArgs e)
         {
-            lblLightSize.Text = tbcLight.Value.ToString();
+            lblLightSize.Text = (tbcLight.Value * 10).ToString() + "%";
         }
  
         /// <summary>
