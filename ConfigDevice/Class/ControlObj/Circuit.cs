@@ -23,7 +23,7 @@ namespace ConfigDevice
         private bool finishReadRoads = false;
         public bool FinishReadRoads
         {
-            get { return finishReadRoads; }
+            get { return finishReadRoads; } 
         }
 
         /// <summary>
@@ -32,6 +32,7 @@ namespace ConfigDevice
         public int CircuitCount
         {
             get { return circuitCount; }
+            set { circuitCount = value; }
         }
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
 

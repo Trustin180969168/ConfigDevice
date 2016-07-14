@@ -18,10 +18,22 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
+ 
+            DataTable dt = SysConfig.DtDevice.Clone();
+            DataRow[] amps = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID+ "= '" + DeviceConfig.EQUIPMENT_AMP_MP3 + "' ");
+            foreach (DataRow dr in amps)
+                dt.Rows.Add(dr.ItemArray);
+            lookUpEditAmp.Properties.DataSource = dt;
+            lookUpEditAmp.Properties.DisplayMember = DeviceConfig.DC_NAME;
+            lookUpEditAmp.Properties.ValueMember = DeviceConfig.DC_ID;
+
             button2 = this.Device as PanelKey;
+            button2.Circuit.CircuitCount = 2;
             //----指令配置----
             viewCommandEdit.ShowToolBar = true;
             viewCommandEdit.ShowCommandBar = true;
+
+            keySettingTools.ShowToolbar = false;
         }
 
         public FrmButton2()
@@ -31,7 +43,7 @@ namespace ConfigDevice
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {
-            keySettingTools.InitKeySettingList(button2,2, ViewConfig.LCD_CAPTION_SCENE); 
+            keySettingTools.InitKeySettingList(button2, 2, ViewConfig.LCD_CAPTION_SCENE);
           
             this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
             this.Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
@@ -75,7 +87,7 @@ namespace ConfigDevice
                             speSecurityDelay.Value = button2OptionData.SetSecurityDelayTime;   //---布防延时---
                             speAlarmDelay.Value = button2OptionData.AlarmDelayTime;            //---预警延时---
                             speHintVolume.Value = button2OptionData.HintVolume;                //---提示音量---
-                            speSpeakerAddress.Value = button2OptionData.SoundAddress;          //---功放地址---
+                            lookUpEditAmp.Text = button2OptionData.SoundAddress.ToString();          //---功放地址---
                             ceBackSafeSetting.Items[0].CheckState = button2OptionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
                             //------安防配置---------------
                             for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
@@ -133,7 +145,7 @@ namespace ConfigDevice
             button2.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
 
             this.Text = button2.Name;                   //---界面标题----
-            keySettingTools.InitKeySettingList(button2,2, ViewConfig.LCD_CAPTION_SCENE);//---重新初始化按键配置控件----
+            keySettingTools.InitKeySettingList(button2, 2, ViewConfig.LCD_CAPTION_SCENE);//---重新初始化按键配置控件----
             viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
             InitSelectDevice();                         //---初始化选择设备---
             viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------      
@@ -156,7 +168,7 @@ namespace ConfigDevice
             keySettingData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
             keySettingData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
             keySettingData.HintVolume = (byte)speHintVolume.Value;                //---提示音量---
-            keySettingData.SoundAddress = (byte)speSpeakerAddress.Value;          //---功放地址---
+            keySettingData.SoundAddress = (byte)Convert.ToInt16( lookUpEditAmp.Text);          //---功放地址---
             keySettingData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防---- 
             //---安防配置---------------
             bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
@@ -181,6 +193,7 @@ namespace ConfigDevice
         private void btRefresh_Click(object sender, EventArgs e)
         {
             loadData();
+            keySettingTools.RefreshData();
         }
 
         private void FrmButton2_FormClosing(object sender, FormClosingEventArgs e)

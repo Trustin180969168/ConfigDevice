@@ -54,7 +54,7 @@ namespace ConfigDevice
             byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_KB_READ_OPTIONS;//----用户命令-----
-            byte len = 0x04;//---数据长度----
+            byte len = 4;//---数据长度----
             byte[] crcData = new byte[10];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
@@ -118,7 +118,7 @@ namespace ConfigDevice
             byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_KB_WRITE_OPTIONS;//----用户命令----- 
-            byte len = 4;//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----  
+            byte len = 26 + 4;//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----  
             byte[] crcData = new byte[10 + 26];//10 固定长度:源+目标+命令+长度+分页
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
@@ -166,7 +166,7 @@ namespace ConfigDevice
             byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_KB_READ_STARTUP_KEY_STATE;//----用户命令-----
-            byte len = 0x04;//---数据长度----
+            byte len = 4;//---数据长度----
             byte[] crcData = new byte[10];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
@@ -231,7 +231,7 @@ namespace ConfigDevice
             byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_KB_WRITE_STARTUP_KEY_STATE;//----用户命令----- 
-            byte len = 4;//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----  
+            byte len = 17 + 4;//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----  
             byte[] crcData = new byte[10 + 17];//10 固定长度:源+目标+命令+长度+分页
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);

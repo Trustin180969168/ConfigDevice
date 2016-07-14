@@ -138,6 +138,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_AIR_O2: return new FactoryO2Edit();//-----氧气传感器-----
                 case DeviceConfig.EQUIPMENT_RSP: return new FactoryRadarEdit();//----雷达----
                 case DeviceConfig.EQUIPMENT_KEY_2: return new FactoryButton2Edit();//----2按键----
+                case DeviceConfig.EQUIPMENT_KEY_TFT_LCD: return new FactoryFunctionsBoardEdit();//---多功能液晶面板---
                 default: return new FactoryBaseDeviceEdit();
             }
         }
@@ -164,7 +165,8 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_TRAILING_8: return new FactoryRoad8FrontDimming();//8路前沿调光
                 case DeviceConfig.EQUIPMENT_TRAILING_12: return new FactoryRoad12FrontDimming();//12路前沿调光
                 case DeviceConfig.EQUIPMENT_SERVER: return new FactoryServers();//服务器
-                case DeviceConfig.EQUIPMENT_KEY_2: return new FactoryButton2();//2按键
+                case DeviceConfig.EQUIPMENT_KEY_2: return new FactoryButton2();//2按键 
+
                 case DeviceConfig.EQUIPMENT_LINKID: return new FactorySystemInteraction();//系统联动号
                 default: return new FactoryBaseDevice();
             }
@@ -318,6 +320,20 @@ namespace ConfigDevice
         {
             PanelKey button = new PanelKey(data);
             return new FrmButton2(button);
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// 多功能液晶面板
+    /// </summary>
+    public class FactoryFunctionsBoardEdit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            PanelKey button = new PanelKey(data);
+            return new FrmFunctionsBoard(button);
         }
         #endregion
     }

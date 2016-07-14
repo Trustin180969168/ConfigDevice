@@ -19,7 +19,16 @@ namespace ConfigDevice
         private GridViewComboBox cbxLightControlKind;//---灯的下拉选择--
         private GridViewComboBox cbxElseControlKind;//----其他的下拉选择---
         private BaseKeySetting keySetting;//---按键配置对象---
- 
+
+        public bool ShowToolbar
+        {
+            set
+            {
+                tsPages.Visible = value;
+            }
+
+        }
+
         public KeySettingTools()
         {
             InitializeComponent();
@@ -78,7 +87,7 @@ namespace ConfigDevice
                 ToolStripButton tsb = new ToolStripButton(pageTitles[i]);
                 tsb.Tag = i*8;
                 tsb.Click += this.PageSelect;
-                tsb.Checked = true;
+                tsb.Checked = false;
 
                 if(pageTitles[i] == ViewConfig.LCD_CAPTION_SCENE)
                     tsb.Image = global::ConfigDevice.Properties.Resources.scene;
@@ -91,9 +100,9 @@ namespace ConfigDevice
                 this.tsPages.Items.Add(tsb);
             }
 
-            dtKeyData.Rows.Clear();
-            for (int i = 0; i < showCount; i++)
-                dtKeyData.Rows.Add(i+1);
+            //dtKeyData.Rows.Clear();
+            //for (int i = 0; i < showCount; i++)
+            //    dtKeyData.Rows.Add(i+1);
             dtKeyData.AcceptChanges();
 
             keySetting = new BaseKeySetting(gvKeyData);//---按键配置对象---
@@ -140,6 +149,10 @@ namespace ConfigDevice
             }
             KeyData keyData = parameter.Parameters[0] as KeyData;
             int index = keyData.KeyNum % 8;
+
+            while (dtKeyData.Rows.Count < index+1)
+                dtKeyData.Rows.Add(index+1);
+
             DataRow dr = gvKeyData.GetDataRow(index);//---获取分页的对应行
             if (dr != null)
             {
@@ -168,11 +181,25 @@ namespace ConfigDevice
                 if (parameter.Parameters != null && parameter.Parameters[0].ToString() == Circuit.CLASS_NAME)//---回路名称--
                 {
                     NeedInit = false;//----回路读取完毕为初始化完毕----       
-                    keyList.ReadKeyData(0, showCount - 1);//---默认自动读取第一个----
+                    if (tsPages.Items.Count == 0) return;
+                    PageSelect(tsPages.Items[0], null);//---默认自动读取第一个----
+                   // keyList.ReadKeyData(0, showCount - 1);
                 }
             }
         }
 
+        /// <summary>
+        /// 刷新数据
+        /// </summary>
+        public void RefreshData()
+        {
+            foreach (ToolStripItem tsi in tsPages.Items)
+                if ((tsi as ToolStripButton).Checked)
+                {
+                    PageSelect(tsi, null);
+                    break;
+                }
+        }
 
         /// <summary>
         /// 申请读取按键配置
@@ -180,7 +207,8 @@ namespace ConfigDevice
         /// <param name="startKey">开始按键</param>
         /// <param name="endKey">结束按键</param>
         public void ReadKeyData(int startKey,int endKey)
-        {   
+        {
+            dtKeyData.Rows.Clear();
             keyList.ReadKeyData(startKey, endKey);//---读取按键配置----
         }
 

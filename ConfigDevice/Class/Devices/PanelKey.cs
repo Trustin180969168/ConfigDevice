@@ -34,7 +34,7 @@ namespace ConfigDevice
         /// </summary>
         private void initControlObjs()
         {
-            Circuit = new Circuit(this, 2);
+            Circuit = new Circuit(this, 26);
             KeyCtrl = new PanelCtrl(this);
             ContrlObjs.Add("回路", this.Circuit); 
         }

@@ -34,6 +34,7 @@
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.rgInitState = new DevExpress.XtraEditors.RadioGroup();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.lookUpEditAmp = new DevExpress.XtraEditors.LookUpEdit();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ceBackSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -42,7 +43,6 @@
             this.ceDoorWindowSound = new DevExpress.XtraEditors.CheckEdit();
             this.speAlarmDelay = new DevExpress.XtraEditors.SpinEdit();
             this.speHintVolume = new DevExpress.XtraEditors.SpinEdit();
-            this.speSpeakerAddress = new DevExpress.XtraEditors.SpinEdit();
             this.speSecurityDelay = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
@@ -71,6 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.rgInitState.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditAmp.Properties)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ceBackSafeSetting)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -79,7 +80,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ceDoorWindowSound.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speAlarmDelay.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speHintVolume.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speSpeakerAddress.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speSecurityDelay.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -148,19 +148,19 @@
             new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "指示灯开，并执行控制"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "恢复关机前指示灯状态，并执行相应的控制"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "只恢复关机前指示灯状态，但不执行控制")});
-            this.rgInitState.Size = new System.Drawing.Size(318, 132);
+            this.rgInitState.Size = new System.Drawing.Size(297, 132);
             this.rgInitState.TabIndex = 0;
             // 
             // groupControl3
             // 
             this.groupControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl3.Controls.Add(this.lookUpEditAmp);
             this.groupControl3.Controls.Add(this.groupBox1);
             this.groupControl3.Controls.Add(this.groupBox2);
             this.groupControl3.Controls.Add(this.ceAlarmSound);
             this.groupControl3.Controls.Add(this.ceDoorWindowSound);
             this.groupControl3.Controls.Add(this.speAlarmDelay);
             this.groupControl3.Controls.Add(this.speHintVolume);
-            this.groupControl3.Controls.Add(this.speSpeakerAddress);
             this.groupControl3.Controls.Add(this.speSecurityDelay);
             this.groupControl3.Controls.Add(this.labelControl7);
             this.groupControl3.Controls.Add(this.labelControl5);
@@ -171,6 +171,19 @@
             this.groupControl3.Size = new System.Drawing.Size(864, 177);
             this.groupControl3.TabIndex = 0;
             this.groupControl3.Text = "安防";
+            // 
+            // lookUpEditAmp
+            // 
+            this.lookUpEditAmp.EditValue = "";
+            this.lookUpEditAmp.Location = new System.Drawing.Point(104, 145);
+            this.lookUpEditAmp.Name = "lookUpEditAmp";
+            this.lookUpEditAmp.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+            this.lookUpEditAmp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEditAmp.Properties.NullText = "";
+            this.lookUpEditAmp.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.lookUpEditAmp.Size = new System.Drawing.Size(317, 21);
+            this.lookUpEditAmp.TabIndex = 7;
             // 
             // groupBox1
             // 
@@ -240,7 +253,7 @@
             // 
             // ceAlarmSound
             // 
-            this.ceAlarmSound.Location = new System.Drawing.Point(36, 122);
+            this.ceAlarmSound.Location = new System.Drawing.Point(36, 120);
             this.ceAlarmSound.Name = "ceAlarmSound";
             this.ceAlarmSound.Properties.Caption = "预警提示音";
             this.ceAlarmSound.Size = new System.Drawing.Size(85, 19);
@@ -248,7 +261,7 @@
             // 
             // ceDoorWindowSound
             // 
-            this.ceDoorWindowSound.Location = new System.Drawing.Point(36, 145);
+            this.ceDoorWindowSound.Location = new System.Drawing.Point(158, 120);
             this.ceDoorWindowSound.Name = "ceDoorWindowSound";
             this.ceDoorWindowSound.Properties.Caption = "门窗提示音";
             this.ceDoorWindowSound.Size = new System.Drawing.Size(85, 19);
@@ -261,7 +274,7 @@
             0,
             0,
             0});
-            this.speAlarmDelay.Location = new System.Drawing.Point(191, 145);
+            this.speAlarmDelay.Location = new System.Drawing.Point(502, 145);
             this.speAlarmDelay.Name = "speAlarmDelay";
             this.speAlarmDelay.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -285,34 +298,15 @@
             this.speHintVolume.Name = "speHintVolume";
             this.speHintVolume.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.speHintVolume.Properties.Mask.EditMask = "P0";
+            this.speHintVolume.Properties.Mask.EditMask = "d";
             this.speHintVolume.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.speHintVolume.Properties.MaxValue = new decimal(new int[] {
-            100,
+            30,
             0,
             0,
             0});
             this.speHintVolume.Size = new System.Drawing.Size(60, 21);
             this.speHintVolume.TabIndex = 2;
-            // 
-            // speSpeakerAddress
-            // 
-            this.speSpeakerAddress.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.speSpeakerAddress.Location = new System.Drawing.Point(361, 145);
-            this.speSpeakerAddress.Name = "speSpeakerAddress";
-            this.speSpeakerAddress.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.speSpeakerAddress.Properties.MaxValue = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.speSpeakerAddress.Size = new System.Drawing.Size(60, 21);
-            this.speSpeakerAddress.TabIndex = 2;
             // 
             // speSecurityDelay
             // 
@@ -321,7 +315,7 @@
             0,
             0,
             0});
-            this.speSecurityDelay.Location = new System.Drawing.Point(191, 118);
+            this.speSecurityDelay.Location = new System.Drawing.Point(502, 118);
             this.speSecurityDelay.Name = "speSecurityDelay";
             this.speSecurityDelay.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -336,15 +330,15 @@
             // 
             // labelControl7
             // 
-            this.labelControl7.Location = new System.Drawing.Point(271, 148);
+            this.labelControl7.Location = new System.Drawing.Point(38, 148);
             this.labelControl7.Name = "labelControl7";
-            this.labelControl7.Size = new System.Drawing.Size(84, 14);
+            this.labelControl7.Size = new System.Drawing.Size(60, 14);
             this.labelControl7.TabIndex = 0;
-            this.labelControl7.Text = "提示音功放地址";
+            this.labelControl7.Text = "提示音功放";
             // 
             // labelControl5
             // 
-            this.labelControl5.Location = new System.Drawing.Point(137, 148);
+            this.labelControl5.Location = new System.Drawing.Point(448, 148);
             this.labelControl5.Name = "labelControl5";
             this.labelControl5.Size = new System.Drawing.Size(48, 14);
             this.labelControl5.TabIndex = 0;
@@ -360,7 +354,7 @@
             // 
             // labelControl4
             // 
-            this.labelControl4.Location = new System.Drawing.Point(137, 121);
+            this.labelControl4.Location = new System.Drawing.Point(448, 121);
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(48, 14);
             this.labelControl4.TabIndex = 0;
@@ -516,6 +510,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.groupControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditAmp.Properties)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ceBackSafeSetting)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -524,7 +519,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ceDoorWindowSound.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speAlarmDelay.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speHintVolume.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speSpeakerAddress.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speSecurityDelay.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
@@ -566,7 +560,6 @@
         private DevExpress.XtraEditors.CheckEdit ceDoorWindowSound;
         private DevExpress.XtraEditors.SpinEdit speAlarmDelay;
         private DevExpress.XtraEditors.SpinEdit speHintVolume;
-        private DevExpress.XtraEditors.SpinEdit speSpeakerAddress;
         private DevExpress.XtraEditors.SpinEdit speSecurityDelay;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl5;
@@ -576,6 +569,7 @@
         protected DevExpress.XtraEditors.CheckedListBoxControl ceLeaveSafeSetting;
         private System.Windows.Forms.GroupBox groupBox1;
         protected DevExpress.XtraEditors.CheckedListBoxControl ceBackSafeSetting;
+        private DevExpress.XtraEditors.LookUpEdit lookUpEditAmp;
  
 
 

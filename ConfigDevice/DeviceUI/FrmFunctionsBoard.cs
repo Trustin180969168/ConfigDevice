@@ -20,6 +20,7 @@ namespace ConfigDevice
             InitializeComponent();
             button2 = this.Device as PanelKey;
             //----指令配置----
+            button2.Circuit.CircuitCount = 26;
             viewCommandEdit.ShowToolBar = true;
             viewCommandEdit.ShowCommandBar = true;
         }
@@ -31,7 +32,8 @@ namespace ConfigDevice
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {
-            keySettingTools.InitKeySettingList(button2,8, ViewConfig.LCD_CAPTION_SCENE);
+            keySettingTools.InitKeySettingList(button2, 8, ViewConfig.LCD_CAPTION_SCENE, ViewConfig.LCD_CAPTION_LIGHT,
+                ViewConfig.LCD_CAPTION_CURTAIN, ViewConfig.LCD_CAPTION_LEAVE_BACK);//---重新初始化按键配置控件----
 
             Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
             Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
@@ -63,7 +65,6 @@ namespace ConfigDevice
                         if (callbackParameter.Parameters[1].ToString() == PanelCtrl.ACTION_STATE_NAME)//------状态选择------
                         {
                             InitSelectIndex = (int)callbackParameter.Parameters[2];
-                            rgInitState.SelectedIndex = InitSelectIndex;
                         }
                         else if (callbackParameter.Parameters[1].ToString() == PanelCtrl.ACTION_OPTION_NAME)
                         {
@@ -167,9 +168,7 @@ namespace ConfigDevice
             //---判断是否更改,更改执行保存----
             if (!CommonTools.BytesEuqals(keySettingData.GetKeyOptionValue(), button2OptionData.GetKeyOptionValue()))
                 button2.KeyCtrl.SaveKeyOption(keySettingData);
-            //---保存初始化配置-----
-            if (rgInitState.SelectedIndex != InitSelectIndex)
-                button2.KeyCtrl.SaveKeyState(rgInitState.SelectedIndex);
+
 
             //---保存按键配置---------
             keySettingTools.SaveKeyData();

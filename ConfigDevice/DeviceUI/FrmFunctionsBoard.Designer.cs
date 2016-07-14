@@ -32,7 +32,6 @@
             this.pageJmpz = new DevExpress.XtraTab.XtraTabPage();
             this.plKeyOption = new DevExpress.XtraEditors.PanelControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.rgInitState = new DevExpress.XtraEditors.RadioGroup();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ceBackSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
@@ -49,8 +48,11 @@
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.lblLightSize = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.trackBarControl1 = new DevExpress.XtraEditors.TrackBarControl();
             this.tbcLight = new DevExpress.XtraEditors.TrackBarControl();
             this.ceLittleLight = new DevExpress.XtraEditors.CheckEdit();
             this.keySettingTools = new ConfigDevice.KeySettingTools();
@@ -67,8 +69,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.plKeyOption)).BeginInit();
             this.plKeyOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rgInitState.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -83,6 +83,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.speSecurityDelay.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarControl1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceLittleLight.Properties)).BeginInit();
@@ -131,25 +133,11 @@
             // groupControl2
             // 
             this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.rgInitState);
-            this.groupControl2.Location = new System.Drawing.Point(262, 11);
+            this.groupControl2.Location = new System.Drawing.Point(502, 11);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(626, 164);
+            this.groupControl2.Size = new System.Drawing.Size(344, 143);
             this.groupControl2.TabIndex = 1;
-            this.groupControl2.Text = "面板上电初始状态";
-            // 
-            // rgInitState
-            // 
-            this.rgInitState.Location = new System.Drawing.Point(28, 25);
-            this.rgInitState.Name = "rgInitState";
-            this.rgInitState.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.rgInitState.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(0, "指示灯开，并执行控制"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "指示灯开，并执行控制"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "恢复关机前指示灯状态，并执行相应的控制"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "只恢复关机前指示灯状态，但不执行控制")});
-            this.rgInitState.Size = new System.Drawing.Size(318, 132);
-            this.rgInitState.TabIndex = 0;
+            this.groupControl2.Text = "密码页面设置";
             // 
             // groupControl3
             // 
@@ -240,7 +228,7 @@
             // 
             // ceAlarmSound
             // 
-            this.ceAlarmSound.Location = new System.Drawing.Point(36, 122);
+            this.ceAlarmSound.Location = new System.Drawing.Point(33, 119);
             this.ceAlarmSound.Name = "ceAlarmSound";
             this.ceAlarmSound.Properties.Caption = "预警提示音";
             this.ceAlarmSound.Size = new System.Drawing.Size(85, 19);
@@ -248,7 +236,7 @@
             // 
             // ceDoorWindowSound
             // 
-            this.ceDoorWindowSound.Location = new System.Drawing.Point(36, 145);
+            this.ceDoorWindowSound.Location = new System.Drawing.Point(33, 147);
             this.ceDoorWindowSound.Name = "ceDoorWindowSound";
             this.ceDoorWindowSound.Properties.Caption = "门窗提示音";
             this.ceDoorWindowSound.Size = new System.Drawing.Size(85, 19);
@@ -285,10 +273,10 @@
             this.speHintVolume.Name = "speHintVolume";
             this.speHintVolume.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.speHintVolume.Properties.Mask.EditMask = "P0";
+            this.speHintVolume.Properties.Mask.EditMask = "d";
             this.speHintVolume.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.speHintVolume.Properties.MaxValue = new decimal(new int[] {
-            100,
+            30,
             0,
             0,
             0});
@@ -369,15 +357,33 @@
             // groupControl1
             // 
             this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl1.Controls.Add(this.labelControl3);
             this.groupControl1.Controls.Add(this.lblLightSize);
-            this.groupControl1.Controls.Add(this.labelControl1);
+            this.groupControl1.Controls.Add(this.labelControl8);
+            this.groupControl1.Controls.Add(this.labelControl2);
+            this.groupControl1.Controls.Add(this.trackBarControl1);
             this.groupControl1.Controls.Add(this.tbcLight);
             this.groupControl1.Controls.Add(this.ceLittleLight);
             this.groupControl1.Location = new System.Drawing.Point(24, 11);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(232, 164);
+            this.groupControl1.Size = new System.Drawing.Size(472, 143);
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "指示灯";
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.Blue;
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Appearance.Options.UseForeColor = true;
+            this.labelControl3.Appearance.Options.UseTextOptions = true;
+            this.labelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.labelControl3.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl3.Location = new System.Drawing.Point(262, 56);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(31, 24);
+            this.labelControl3.TabIndex = 3;
             // 
             // lblLightSize
             // 
@@ -389,23 +395,42 @@
             this.lblLightSize.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.lblLightSize.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.lblLightSize.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblLightSize.Location = new System.Drawing.Point(104, 87);
+            this.lblLightSize.Location = new System.Drawing.Point(262, 96);
             this.lblLightSize.Name = "lblLightSize";
-            this.lblLightSize.Size = new System.Drawing.Size(42, 24);
+            this.lblLightSize.Size = new System.Drawing.Size(31, 24);
             this.lblLightSize.TabIndex = 3;
             // 
-            // labelControl1
+            // labelControl8
             // 
-            this.labelControl1.Location = new System.Drawing.Point(38, 92);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(60, 14);
-            this.labelControl1.TabIndex = 2;
-            this.labelControl1.Text = "指示灯亮度";
+            this.labelControl8.Location = new System.Drawing.Point(14, 98);
+            this.labelControl8.Name = "labelControl8";
+            this.labelControl8.Size = new System.Drawing.Size(60, 14);
+            this.labelControl8.TabIndex = 2;
+            this.labelControl8.Text = "指示灯亮度";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Location = new System.Drawing.Point(14, 64);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(60, 14);
+            this.labelControl2.TabIndex = 2;
+            this.labelControl2.Text = "指示灯亮度";
+            // 
+            // trackBarControl1
+            // 
+            this.trackBarControl1.EditValue = null;
+            this.trackBarControl1.Location = new System.Drawing.Point(80, 58);
+            this.trackBarControl1.Name = "trackBarControl1";
+            this.trackBarControl1.Properties.LargeChange = 10;
+            this.trackBarControl1.Size = new System.Drawing.Size(180, 42);
+            this.trackBarControl1.TabIndex = 1;
+            this.trackBarControl1.Modified += new System.EventHandler(this.tbcLight_Modified);
+            this.trackBarControl1.EditValueChanged += new System.EventHandler(this.tbcLight_Modified);
             // 
             // tbcLight
             // 
             this.tbcLight.EditValue = null;
-            this.tbcLight.Location = new System.Drawing.Point(35, 111);
+            this.tbcLight.Location = new System.Drawing.Point(80, 96);
             this.tbcLight.Name = "tbcLight";
             this.tbcLight.Properties.LargeChange = 10;
             this.tbcLight.Size = new System.Drawing.Size(180, 42);
@@ -415,7 +440,7 @@
             // 
             // ceLittleLight
             // 
-            this.ceLittleLight.Location = new System.Drawing.Point(36, 45);
+            this.ceLittleLight.Location = new System.Drawing.Point(12, 33);
             this.ceLittleLight.Name = "ceLittleLight";
             this.ceLittleLight.Properties.Caption = "指示灯熄灭时微亮";
             this.ceLittleLight.Size = new System.Drawing.Size(128, 19);
@@ -493,13 +518,13 @@
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 681);
             this.viewCommandEdit.TabIndex = 1;
             // 
-            // FrmButton2
+            // FrmFunctionsBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 742);
             this.Controls.Add(this.tctrlEdit);
-            this.Name = "FrmButton2";
+            this.Name = "FrmFunctionsBoard";
             this.Text = "FrmBaseDevice";
             this.Load += new System.EventHandler(this.FrmBaseDevice_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmButton2_FormClosing);
@@ -511,8 +536,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.plKeyOption)).EndInit();
             this.plKeyOption.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.rgInitState.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.groupControl3.PerformLayout();
@@ -529,6 +552,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarControl1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceLittleLight.Properties)).EndInit();
@@ -554,14 +579,11 @@
         private ViewCommandSetting viewCommandEdit;
         private KeySettingTools keySettingTools;
         private DevExpress.XtraEditors.PanelControl plKeyOption;
-        private DevExpress.XtraEditors.GroupControl groupControl2;
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.CheckEdit ceLittleLight;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.TrackBarControl tbcLight;
         private DevExpress.XtraEditors.LabelControl lblLightSize;
-        private DevExpress.XtraEditors.RadioGroup rgInitState;
         private DevExpress.XtraEditors.CheckEdit ceAlarmSound;
         private DevExpress.XtraEditors.CheckEdit ceDoorWindowSound;
         private DevExpress.XtraEditors.SpinEdit speAlarmDelay;
@@ -576,6 +598,11 @@
         protected DevExpress.XtraEditors.CheckedListBoxControl ceLeaveSafeSetting;
         private System.Windows.Forms.GroupBox groupBox1;
         protected DevExpress.XtraEditors.CheckedListBoxControl ceBackSafeSetting;
+        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.TrackBarControl trackBarControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl8;
  
 
 
