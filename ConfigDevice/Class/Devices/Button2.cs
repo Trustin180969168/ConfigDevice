@@ -9,6 +9,8 @@ namespace ConfigDevice
     {
         public Circuit Circuit;//回路对象
         public KeyCtrl KeyCtrl;//按键对象
+
+
         public Button2(UserUdpData userUdpData)
             : base(userUdpData)
         {

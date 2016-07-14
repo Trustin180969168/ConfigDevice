@@ -31,23 +31,23 @@
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pageJmpz = new DevExpress.XtraTab.XtraTabPage();
             this.plKeyOption = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.rgInitState = new DevExpress.XtraEditors.RadioGroup();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ceBackSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ceLeaveSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.ceAlarmSound = new DevExpress.XtraEditors.CheckEdit();
             this.ceDoorWindowSound = new DevExpress.XtraEditors.CheckEdit();
             this.speAlarmDelay = new DevExpress.XtraEditors.SpinEdit();
             this.speHintVolume = new DevExpress.XtraEditors.SpinEdit();
             this.speSpeakerAddress = new DevExpress.XtraEditors.SpinEdit();
             this.speSecurityDelay = new DevExpress.XtraEditors.SpinEdit();
-            this.cbxKeySecurity2 = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.cbxKeySecurity1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.rgInitState = new DevExpress.XtraEditors.RadioGroup();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.lblLightSize = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -66,19 +66,21 @@
             this.pageJmpz.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.plKeyOption)).BeginInit();
             this.plKeyOption.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rgInitState.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ceBackSafeSetting)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ceLeaveSafeSetting)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceAlarmSound.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceDoorWindowSound.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speAlarmDelay.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speHintVolume.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speSpeakerAddress.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speSecurityDelay.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxKeySecurity2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxKeySecurity1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rgInitState.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight)).BeginInit();
@@ -117,41 +119,128 @@
             // plKeyOption
             // 
             this.plKeyOption.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.plKeyOption.Controls.Add(this.groupControl3);
             this.plKeyOption.Controls.Add(this.groupControl2);
+            this.plKeyOption.Controls.Add(this.groupControl3);
             this.plKeyOption.Controls.Add(this.groupControl1);
             this.plKeyOption.Dock = System.Windows.Forms.DockStyle.Fill;
             this.plKeyOption.Location = new System.Drawing.Point(0, 31);
             this.plKeyOption.Name = "plKeyOption";
-            this.plKeyOption.Size = new System.Drawing.Size(1009, 324);
+            this.plKeyOption.Size = new System.Drawing.Size(1009, 358);
             this.plKeyOption.TabIndex = 15;
+            // 
+            // groupControl2
+            // 
+            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl2.Controls.Add(this.rgInitState);
+            this.groupControl2.Location = new System.Drawing.Point(262, 11);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(626, 164);
+            this.groupControl2.TabIndex = 1;
+            this.groupControl2.Text = "面板上电初始状态";
+            // 
+            // rgInitState
+            // 
+            this.rgInitState.Location = new System.Drawing.Point(28, 25);
+            this.rgInitState.Name = "rgInitState";
+            this.rgInitState.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.rgInitState.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(0, "指示灯开，并执行控制"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "指示灯开，并执行控制"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "恢复关机前指示灯状态，并执行相应的控制"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "只恢复关机前指示灯状态，但不执行控制")});
+            this.rgInitState.Size = new System.Drawing.Size(318, 132);
+            this.rgInitState.TabIndex = 0;
             // 
             // groupControl3
             // 
             this.groupControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl3.Controls.Add(this.groupBox1);
+            this.groupControl3.Controls.Add(this.groupBox2);
             this.groupControl3.Controls.Add(this.ceAlarmSound);
             this.groupControl3.Controls.Add(this.ceDoorWindowSound);
             this.groupControl3.Controls.Add(this.speAlarmDelay);
             this.groupControl3.Controls.Add(this.speHintVolume);
             this.groupControl3.Controls.Add(this.speSpeakerAddress);
             this.groupControl3.Controls.Add(this.speSecurityDelay);
-            this.groupControl3.Controls.Add(this.cbxKeySecurity2);
-            this.groupControl3.Controls.Add(this.cbxKeySecurity1);
             this.groupControl3.Controls.Add(this.labelControl7);
             this.groupControl3.Controls.Add(this.labelControl5);
             this.groupControl3.Controls.Add(this.labelControl6);
-            this.groupControl3.Controls.Add(this.labelControl3);
             this.groupControl3.Controls.Add(this.labelControl4);
-            this.groupControl3.Controls.Add(this.labelControl2);
-            this.groupControl3.Location = new System.Drawing.Point(24, 202);
+            this.groupControl3.Location = new System.Drawing.Point(24, 181);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(864, 102);
+            this.groupControl3.Size = new System.Drawing.Size(864, 177);
             this.groupControl3.TabIndex = 0;
             this.groupControl3.Text = "安防";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.ceBackSafeSetting);
+            this.groupBox1.Location = new System.Drawing.Point(442, 29);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(386, 82);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "回家撤防";
+            // 
+            // ceBackSafeSetting
+            // 
+            this.ceBackSafeSetting.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.ceBackSafeSetting.CheckOnClick = true;
+            this.ceBackSafeSetting.ColumnWidth = 100;
+            this.ceBackSafeSetting.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
+            this.ceBackSafeSetting.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("全部撤防")});
+            this.ceBackSafeSetting.LeftCoord = 0;
+            this.ceBackSafeSetting.Location = new System.Drawing.Point(6, 16);
+            this.ceBackSafeSetting.MultiColumn = true;
+            this.ceBackSafeSetting.Name = "ceBackSafeSetting";
+            this.ceBackSafeSetting.Size = new System.Drawing.Size(374, 60);
+            this.ceBackSafeSetting.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ceLeaveSafeSetting);
+            this.groupBox2.Location = new System.Drawing.Point(35, 29);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(386, 82);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "离家安防";
+            // 
+            // ceLeaveSafeSetting
+            // 
+            this.ceLeaveSafeSetting.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.ceLeaveSafeSetting.CheckOnClick = true;
+            this.ceLeaveSafeSetting.ColumnWidth = 60;
+            this.ceLeaveSafeSetting.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
+            this.ceLeaveSafeSetting.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("1"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("2"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("3"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("4"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("5"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("6"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("7"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("8"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("9"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("10"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("11"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("12"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("13"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("14"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("15"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("全部")});
+            this.ceLeaveSafeSetting.LeftCoord = 0;
+            this.ceLeaveSafeSetting.Location = new System.Drawing.Point(6, 16);
+            this.ceLeaveSafeSetting.MultiColumn = true;
+            this.ceLeaveSafeSetting.Name = "ceLeaveSafeSetting";
+            this.ceLeaveSafeSetting.Size = new System.Drawing.Size(374, 60);
+            this.ceLeaveSafeSetting.TabIndex = 0;
+            this.ceLeaveSafeSetting.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.ceLeaveSafeSetting_ItemCheck);
+            // 
             // ceAlarmSound
             // 
-            this.ceAlarmSound.Location = new System.Drawing.Point(242, 41);
+            this.ceAlarmSound.Location = new System.Drawing.Point(36, 122);
             this.ceAlarmSound.Name = "ceAlarmSound";
             this.ceAlarmSound.Properties.Caption = "预警提示音";
             this.ceAlarmSound.Size = new System.Drawing.Size(85, 19);
@@ -159,7 +248,7 @@
             // 
             // ceDoorWindowSound
             // 
-            this.ceDoorWindowSound.Location = new System.Drawing.Point(242, 68);
+            this.ceDoorWindowSound.Location = new System.Drawing.Point(36, 145);
             this.ceDoorWindowSound.Name = "ceDoorWindowSound";
             this.ceDoorWindowSound.Properties.Caption = "门窗提示音";
             this.ceDoorWindowSound.Size = new System.Drawing.Size(85, 19);
@@ -172,13 +261,13 @@
             0,
             0,
             0});
-            this.speAlarmDelay.Location = new System.Drawing.Point(429, 68);
+            this.speAlarmDelay.Location = new System.Drawing.Point(191, 145);
             this.speAlarmDelay.Name = "speAlarmDelay";
             this.speAlarmDelay.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.speAlarmDelay.Properties.Mask.EditMask = "d";
             this.speAlarmDelay.Properties.MaxValue = new decimal(new int[] {
-            3600,
+            255,
             0,
             0,
             0});
@@ -192,12 +281,17 @@
             0,
             0,
             0});
-            this.speHintVolume.Location = new System.Drawing.Point(641, 40);
+            this.speHintVolume.Location = new System.Drawing.Point(361, 118);
             this.speHintVolume.Name = "speHintVolume";
             this.speHintVolume.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.speHintVolume.Properties.Mask.EditMask = "p0";
             this.speHintVolume.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.speHintVolume.Properties.MaxValue = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.speHintVolume.Size = new System.Drawing.Size(60, 21);
             this.speHintVolume.TabIndex = 2;
             // 
@@ -208,7 +302,7 @@
             0,
             0,
             0});
-            this.speSpeakerAddress.Location = new System.Drawing.Point(641, 67);
+            this.speSpeakerAddress.Location = new System.Drawing.Point(361, 145);
             this.speSpeakerAddress.Name = "speSpeakerAddress";
             this.speSpeakerAddress.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -227,113 +321,50 @@
             0,
             0,
             0});
-            this.speSecurityDelay.Location = new System.Drawing.Point(429, 41);
+            this.speSecurityDelay.Location = new System.Drawing.Point(191, 118);
             this.speSecurityDelay.Name = "speSecurityDelay";
             this.speSecurityDelay.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.speSecurityDelay.Properties.Mask.EditMask = "d";
             this.speSecurityDelay.Properties.MaxValue = new decimal(new int[] {
-            3600,
+            255,
             0,
             0,
             0});
             this.speSecurityDelay.Size = new System.Drawing.Size(61, 21);
             this.speSecurityDelay.TabIndex = 2;
             // 
-            // cbxKeySecurity2
-            // 
-            this.cbxKeySecurity2.Location = new System.Drawing.Point(96, 66);
-            this.cbxKeySecurity2.Name = "cbxKeySecurity2";
-            this.cbxKeySecurity2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxKeySecurity2.Size = new System.Drawing.Size(100, 21);
-            this.cbxKeySecurity2.TabIndex = 1;
-            // 
-            // cbxKeySecurity1
-            // 
-            this.cbxKeySecurity1.Location = new System.Drawing.Point(96, 39);
-            this.cbxKeySecurity1.Name = "cbxKeySecurity1";
-            this.cbxKeySecurity1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxKeySecurity1.Size = new System.Drawing.Size(100, 21);
-            this.cbxKeySecurity1.TabIndex = 1;
-            // 
             // labelControl7
             // 
-            this.labelControl7.Location = new System.Drawing.Point(551, 70);
+            this.labelControl7.Location = new System.Drawing.Point(271, 148);
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(84, 14);
             this.labelControl7.TabIndex = 0;
             this.labelControl7.Text = "提示音功放地址";
-            this.labelControl7.Click += new System.EventHandler(this.labelControl2_Click);
             // 
             // labelControl5
             // 
-            this.labelControl5.Location = new System.Drawing.Point(375, 70);
+            this.labelControl5.Location = new System.Drawing.Point(137, 148);
             this.labelControl5.Name = "labelControl5";
             this.labelControl5.Size = new System.Drawing.Size(48, 14);
             this.labelControl5.TabIndex = 0;
             this.labelControl5.Text = "预警延时";
-            this.labelControl5.Click += new System.EventHandler(this.labelControl2_Click);
             // 
             // labelControl6
             // 
-            this.labelControl6.Location = new System.Drawing.Point(563, 44);
+            this.labelControl6.Location = new System.Drawing.Point(283, 122);
             this.labelControl6.Name = "labelControl6";
             this.labelControl6.Size = new System.Drawing.Size(72, 14);
             this.labelControl6.TabIndex = 0;
             this.labelControl6.Text = "门窗提示音量";
-            this.labelControl6.Click += new System.EventHandler(this.labelControl2_Click);
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Location = new System.Drawing.Point(23, 69);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(63, 14);
-            this.labelControl3.TabIndex = 0;
-            this.labelControl3.Text = "按键2  安防";
-            this.labelControl3.Click += new System.EventHandler(this.labelControl2_Click);
             // 
             // labelControl4
             // 
-            this.labelControl4.Location = new System.Drawing.Point(375, 43);
+            this.labelControl4.Location = new System.Drawing.Point(137, 121);
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(48, 14);
             this.labelControl4.TabIndex = 0;
             this.labelControl4.Text = "布防延时";
-            this.labelControl4.Click += new System.EventHandler(this.labelControl2_Click);
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Location = new System.Drawing.Point(23, 42);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(63, 14);
-            this.labelControl2.TabIndex = 0;
-            this.labelControl2.Text = "按键1  安防";
-            this.labelControl2.Click += new System.EventHandler(this.labelControl2_Click);
-            // 
-            // groupControl2
-            // 
-            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.rgInitState);
-            this.groupControl2.Location = new System.Drawing.Point(345, 11);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(477, 179);
-            this.groupControl2.TabIndex = 1;
-            this.groupControl2.Text = "面板上电初始状态";
-            // 
-            // rgInitState
-            // 
-            this.rgInitState.Location = new System.Drawing.Point(28, 27);
-            this.rgInitState.Name = "rgInitState";
-            this.rgInitState.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.rgInitState.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(0, "指示灯开，并执行控制"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "指示灯开，并执行控制"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "恢复关机前指示灯状态，并执行相应的控制"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "只恢复关机前指示灯状态，但不执行控制")});
-            this.rgInitState.Size = new System.Drawing.Size(378, 133);
-            this.rgInitState.TabIndex = 0;
             // 
             // groupControl1
             // 
@@ -344,7 +375,7 @@
             this.groupControl1.Controls.Add(this.ceLittleLight);
             this.groupControl1.Location = new System.Drawing.Point(24, 11);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(300, 179);
+            this.groupControl1.Size = new System.Drawing.Size(232, 164);
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "指示灯";
             // 
@@ -393,9 +424,9 @@
             // 
             this.keySettingTools.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.keySettingTools.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.keySettingTools.Location = new System.Drawing.Point(0, 355);
+            this.keySettingTools.Location = new System.Drawing.Point(0, 389);
             this.keySettingTools.Name = "keySettingTools";
-            this.keySettingTools.Size = new System.Drawing.Size(1009, 326);
+            this.keySettingTools.Size = new System.Drawing.Size(1009, 292);
             this.keySettingTools.TabIndex = 14;
             // 
             // tsDoorInput
@@ -478,20 +509,22 @@
             this.pageJmpz.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.plKeyOption)).EndInit();
             this.plKeyOption.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.rgInitState.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.groupControl3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ceBackSafeSetting)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ceLeaveSafeSetting)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceAlarmSound.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceDoorWindowSound.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speAlarmDelay.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speHintVolume.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speSpeakerAddress.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speSecurityDelay.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxKeySecurity2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxKeySecurity1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.rgInitState.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
@@ -528,10 +561,6 @@
         private DevExpress.XtraEditors.TrackBarControl tbcLight;
         private DevExpress.XtraEditors.LabelControl lblLightSize;
         private DevExpress.XtraEditors.RadioGroup rgInitState;
-        private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.ComboBoxEdit cbxKeySecurity2;
-        private DevExpress.XtraEditors.ComboBoxEdit cbxKeySecurity1;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.CheckEdit ceAlarmSound;
         private DevExpress.XtraEditors.CheckEdit ceDoorWindowSound;
         private DevExpress.XtraEditors.SpinEdit speAlarmDelay;
@@ -542,6 +571,10 @@
         private DevExpress.XtraEditors.LabelControl labelControl5;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.LabelControl labelControl4;
+        private System.Windows.Forms.GroupBox groupBox2;
+        protected DevExpress.XtraEditors.CheckedListBoxControl ceLeaveSafeSetting;
+        private System.Windows.Forms.GroupBox groupBox1;
+        protected DevExpress.XtraEditors.CheckedListBoxControl ceBackSafeSetting;
  
 
 

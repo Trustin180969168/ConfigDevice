@@ -84,7 +84,7 @@ namespace ConfigDevice
 
             UdpTools.ReplyDataUdp(data);//----回复确认-----
             KeyOptionData option = new KeyOptionData(userData);
-            deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME,ACTION_OPTION_NAME, option));//---回调UI---
+            deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME, ACTION_OPTION_NAME, option));//---回调UI---
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_OPTIONS, this.UUID);    //---取消订阅---
  
         }
@@ -103,7 +103,7 @@ namespace ConfigDevice
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
             {
                 CommonTools.ShowReplyInfo("保存回路失败!", udpReply.ReplyByte);
-                ReadKeyOption();
+                ReadKeyOption();//---重新获取,回调回界面----
             }
         }
         private UdpData createSaveOptionUdp(KeyOptionData optionData)
@@ -126,8 +126,8 @@ namespace ConfigDevice
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
-            byte[] value = optionData.GetKeyOptionValue();
-            Buffer.BlockCopy(value, 0, crcData, 10, value.Length);
+            byte[] value = optionData.GetKeyOptionValue();//---配置数据---
+            Buffer.BlockCopy(value, 0, crcData, 10, value.Length);//---配置数据---
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
@@ -217,7 +217,7 @@ namespace ConfigDevice
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
             {
                 CommonTools.ShowReplyInfo("保存回路失败!", udpReply.ReplyByte);
-                ReadKeyOption();
+                ReadKeyState();//---重新获取,回调回界面----
             }
         }
         private UdpData createSaveStateUdp(int option)
@@ -232,7 +232,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
             byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_KB_WRITE_OPTIONS;//----用户命令----- 
+            byte[] cmd = DeviceConfig.CMD_KB_WRITE_STARTUP_KEY_STATE;//----用户命令----- 
             byte len = 4;//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----  
             byte[] crcData = new byte[10 + 26];//10 固定长度:源+目标+命令+长度+分页
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
