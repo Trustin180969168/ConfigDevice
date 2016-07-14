@@ -367,7 +367,7 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\Election11.png" />
     <None Include="Resources\Traces1.png" />
-    <Compile Include="Class\ControlObj\KeyCtrl.cs" />
+    <Compile Include="Class\ControlObj\PanelCtrl.cs" />
     <Compile Include="Class\ControlObj\Buzzer.cs" />
     <Compile Include="Class\ControlObj\Light.cs" />
     <Compile Include="Class\ControlObj\InnerInteraction.cs" />
@@ -405,7 +405,7 @@
     <Compile Include="Class\ViewLogicSetting\ViewLogicLuminance.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicWindy.cs" />
     <Compile Include="Data\KeyData.cs" />
-    <Compile Include="Data\KeyOptionData.cs" />
+    <Compile Include="Data\PanelOptionData.cs" />
     <Compile Include="Data\SensorStateData.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
     <Compile Include="Class\Manage\ViewEditCtrl.cs" />

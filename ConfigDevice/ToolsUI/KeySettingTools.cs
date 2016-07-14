@@ -145,7 +145,7 @@ namespace ConfigDevice
             {
                 keySetting.SetKeyData(keyData, dr);//---赋值到行----
                 //----添加名称------- 
-                dr[ViewConfig.DC_NAME] = KeyCircuit.ListCircuitIDAndName[keyData.KeyNum+1];
+                dr[ViewConfig.DC_NAME] = KeyCircuit.ListCircuitIDAndName[keyData.KeyNum + 1];
                 dr.AcceptChanges();
 
                 gvKeyData.RefreshData();

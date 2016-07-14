@@ -8,7 +8,7 @@ namespace ConfigDevice
     public class PanelKey : Device
     {
         public Circuit Circuit;//回路对象
-        public KeyCtrl KeyCtrl;//按键对象
+        public PanelCtrl KeyCtrl;//按键对象
 
 
         public PanelKey(UserUdpData userUdpData)
@@ -35,7 +35,7 @@ namespace ConfigDevice
         private void initControlObjs()
         {
             Circuit = new Circuit(this, 2);
-            KeyCtrl = new KeyCtrl(this);
+            KeyCtrl = new PanelCtrl(this);
             ContrlObjs.Add("回路", this.Circuit); 
         }
 

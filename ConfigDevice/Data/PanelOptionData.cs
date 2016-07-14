@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConfigDevice
 {
-    public class KeyOptionData
+    public class PanelOptionData
     {
         /*
  
@@ -164,12 +164,12 @@ namespace ConfigDevice
         }
 
 
-        public KeyOptionData(UserUdpData userData):this(userData.Data)
+        public PanelOptionData(UserUdpData userData):this(userData.Data)
         { 
       
         }
 
-        public KeyOptionData(byte[] value)
+        public PanelOptionData(byte[] value)
         {          
             OpenClosePassword = value[0];//1.开密码;2.关
             Content = value[1];//内容,

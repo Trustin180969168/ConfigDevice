@@ -7,7 +7,7 @@ namespace ConfigDevice
     /// <summary>
     /// 用于配置按键的控制的类
     /// </summary>
-    public class KeyCtrl : ControlObj
+    public class PanelCtrl : ControlObj
     {
         public const string CLASS_NAME = "KeyCtrl";
         public const string ACTION_STATE_NAME = "ActionState";
@@ -20,7 +20,7 @@ namespace ConfigDevice
         /// 按键控制
         /// </summary>
         /// <param name="device"></param>
-        public KeyCtrl(Device device)
+        public PanelCtrl(Device device)
             : base(device)
         {
             getKeyOption = new CallbackFromUDP(this.getKeyOptionData);
@@ -83,7 +83,7 @@ namespace ConfigDevice
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
             UdpTools.ReplyDataUdp(data);//----回复确认-----
-            KeyOptionData option = new KeyOptionData(userData);
+            PanelOptionData option = new PanelOptionData(userData);
             deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME, ACTION_OPTION_NAME, option));//---回调UI---
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_OPTIONS, this.UUID);    //---取消订阅---
  
@@ -92,7 +92,7 @@ namespace ConfigDevice
         /// <summary>
         /// 保存按键配置
         /// </summary>
-        public void SaveKeyOption(KeyOptionData optionData)
+        public void SaveKeyOption(PanelOptionData optionData)
         {
             UdpData udpSend = createSaveOptionUdp(optionData);
             mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,new CallbackUdpAction(callbackSaveOption), null);
@@ -105,7 +105,7 @@ namespace ConfigDevice
                 ReadKeyOption();//---重新获取,回调回界面----
             }
         }
-        private UdpData createSaveOptionUdp(KeyOptionData optionData)
+        private UdpData createSaveOptionUdp(PanelOptionData optionData)
         {
             UdpData udp = new UdpData();
 

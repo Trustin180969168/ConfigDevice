@@ -12,7 +12,7 @@ namespace ConfigDevice
     {
         private PanelKey button2;
         private DataTable dtCircuit = new DataTable("按键选择");
-        private KeyOptionData button2OptionData;//---按键配置----
+        private PanelOptionData button2OptionData;//---按键配置----
         private int InitSelectIndex = 0;//初始化选择配置项ID
         public FrmButton2(Device _device)
             : base(_device)
@@ -58,16 +58,16 @@ namespace ConfigDevice
                     {   
                         initLogicAndCommand();
                     }
-                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == KeyCtrl.CLASS_NAME)//---电机回路名称--
+                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == PanelCtrl.CLASS_NAME)//---电机回路名称--
                     {
-                        if (callbackParameter.Parameters[1].ToString() == KeyCtrl.ACTION_STATE_NAME)//------状态选择------
+                        if (callbackParameter.Parameters[1].ToString() == PanelCtrl.ACTION_STATE_NAME)//------状态选择------
                         {
                             InitSelectIndex = (int)callbackParameter.Parameters[2];
                             rgInitState.SelectedIndex = InitSelectIndex;
                         }
-                        else if (callbackParameter.Parameters[1].ToString() == KeyCtrl.ACTION_OPTION_NAME)
+                        else if (callbackParameter.Parameters[1].ToString() == PanelCtrl.ACTION_OPTION_NAME)
                         {
-                            button2OptionData = callbackParameter.Parameters[2] as KeyOptionData; 
+                            button2OptionData = callbackParameter.Parameters[2] as PanelOptionData; 
                             ceLittleLight.Checked = button2OptionData.CLoseLightWithBrightness;//---关灯微亮---
                             tbcLight.Value = button2OptionData.Luminance;                      //---亮度----
                             ceAlarmSound.Checked = button2OptionData.AlarmHintSound;           //---预警提示音---
@@ -148,7 +148,7 @@ namespace ConfigDevice
         private void btSave_Click(object sender, EventArgs e)
         {
             //---保存面板配置-------
-            KeyOptionData keySettingData = new KeyOptionData(button2OptionData.GetKeyOptionValue());
+            PanelOptionData keySettingData = new PanelOptionData(button2OptionData.GetKeyOptionValue());
             keySettingData.CLoseLightWithBrightness = ceLittleLight.Checked;//---关灯微亮---
             keySettingData.Luminance = (byte)tbcLight.Value;                      //---亮度----
             keySettingData.AlarmHintSound = ceAlarmSound.Checked;           //---预警提示音---
