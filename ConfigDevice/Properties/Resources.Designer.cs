@@ -200,6 +200,13 @@ namespace ConfigDevice.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Leave_Back {
+            get {
+                object obj = ResourceManager.GetObject("Leave_Back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap lights {
             get {
                 object obj = ResourceManager.GetObject("lights", resourceCulture);

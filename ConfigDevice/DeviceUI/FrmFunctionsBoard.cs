@@ -8,13 +8,13 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public partial class FrmButton2 : FrmDevice
+    public partial class FrmFunctionsBoard : FrmDevice
     {
         private PanelKey button2;
         private DataTable dtCircuit = new DataTable("按键选择");
         private KeyOptionData button2OptionData;//---按键配置----
         private int InitSelectIndex = 0;//初始化选择配置项ID
-        public FrmButton2(Device _device)
+        public FrmFunctionsBoard(Device _device)
             : base(_device)
         {          
             InitializeComponent();
@@ -24,17 +24,17 @@ namespace ConfigDevice
             viewCommandEdit.ShowCommandBar = true;
         }
 
-        public FrmButton2()
+        public FrmFunctionsBoard()
         {
             InitializeComponent();
         }
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {
-            keySettingTools.InitKeySettingList(button2,2, ViewConfig.LCD_CAPTION_SCENE); 
-          
-            this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
-            this.Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
+            keySettingTools.InitKeySettingList(button2,8, ViewConfig.LCD_CAPTION_SCENE);
+
+            Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
+            Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
             viewBaseSetting.DeviceEdit = this.Device;//----配置编辑对象----
             viewBaseSetting.DeviceEdit.SearchVer();//---获取版本号-----   
             InitSelectDevice();//----初始化选择设备---
@@ -81,7 +81,6 @@ namespace ConfigDevice
                             for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
                                 ceLeaveSafeSetting.Items[i].CheckState = button2OptionData.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
                         }
-
                     }
                 }
             }
@@ -95,7 +94,7 @@ namespace ConfigDevice
         {
             button2.Circuit.ReadRoadTitle();    //读取回路,完毕后自动读取第一个列按键
             button2.KeyCtrl.ReadKeyOption();    //读取面板配置
-            button2.KeyCtrl.ReadKeyState();     //读取状态
+            button2.KeyCtrl.ReadKeyState();     //读取状态 
         }
 
         /// <summary>
@@ -133,7 +132,8 @@ namespace ConfigDevice
             button2.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
 
             this.Text = button2.Name;                   //---界面标题----
-            keySettingTools.InitKeySettingList(button2,2, ViewConfig.LCD_CAPTION_SCENE);//---重新初始化按键配置控件----
+            keySettingTools.InitKeySettingList(button2,8, ViewConfig.LCD_CAPTION_SCENE,ViewConfig.LCD_CAPTION_LIGHT,
+                ViewConfig.LCD_CAPTION_CURTAIN,ViewConfig.LCD_CAPTION_LEAVE_BACK);//---重新初始化按键配置控件----
             viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
             InitSelectDevice();                         //---初始化选择设备---
             viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------      

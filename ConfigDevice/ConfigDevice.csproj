@@ -109,6 +109,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DeviceUI\FrmFunctionsBoard.resx">
+      <DependentUpon>FrmFunctionsBoard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ToolsUI\KeySettingTools.resx">
       <DependentUpon>KeySettingTools.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -331,6 +335,7 @@
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
     <Content Include="Config\SmartLight.h" />
+    <None Include="Resources\Leave_Back.png" />
     <None Include="Resources\scene.png" />
     <None Include="Resources\lights.png" />
     <None Include="Resources\curtain.png" />
@@ -374,7 +379,7 @@
     <Compile Include="Class\Devices\Environment.cs" />
     <Compile Include="Class\Devices\Road12Relay.cs" />
     <Compile Include="Class\Devices\Radar.cs" />
-    <Compile Include="Class\Devices\Button2.cs" />
+    <Compile Include="Class\Devices\PanelKey.cs" />
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
     <Compile Include="Class\Devices\Road6FrontDimming.cs" />
@@ -437,6 +442,12 @@
     <Compile Include="Data\DeviceData.cs" />
     <Compile Include="Data\NetworkData.cs" />
     <Compile Include="Data\LogicData.cs" />
+    <Compile Include="DeviceUI\FrmFunctionsBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmFunctionsBoard.Designer.cs">
+      <DependentUpon>FrmFunctionsBoard.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolsUI\KeySettingTools.cs">
       <SubType>UserControl</SubType>
     </Compile>

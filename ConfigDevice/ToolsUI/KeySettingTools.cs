@@ -14,7 +14,7 @@ namespace ConfigDevice
         public KeyList keyList; //---逻辑配置----          
         public Circuit KeyCircuit;//---按键回路,由调用者(设备提供)----
         private DataTable dtKeyData;//---按键列表
-        public int KeyCount = 2;//---按键个数----
+        private int showCount = 2;//---显示按键个数----
         private GridViewComboBox cbxControlObj;//---灯的下拉选择--
         private GridViewComboBox cbxLightControlKind;//---灯的下拉选择--
         private GridViewComboBox cbxElseControlKind;//----其他的下拉选择---
@@ -66,14 +66,17 @@ namespace ConfigDevice
         /// <summary>
         /// 初始化配置按键配置列表
         /// </summary>
-        /// <param name="deviceControled"></param>
-        public void InitKeySettingList(Device deviceControled, params string[] pageTitles)
+        /// <param name="deviceControled">设备对象</param>
+        /// <param name="_showCount">显示个数</param>
+        /// <param name="deviceControled">分页标题</param>
+        public void InitKeySettingList(Device deviceControled,int _showCount, params string[] pageTitles)
         {
+            showCount = _showCount;
             tsPages.Items.Clear();
             for (int i = 0; i < pageTitles.Length; i++)
             {
                 ToolStripButton tsb = new ToolStripButton(pageTitles[i]);
-                tsb.Tag = i + 1;
+                tsb.Tag = i*8;
                 tsb.Click += this.PageSelect;
                 tsb.Checked = true;
 
@@ -82,12 +85,14 @@ namespace ConfigDevice
                 else if (pageTitles[i] == ViewConfig.LCD_CAPTION_LIGHT)
                     tsb.Image = global::ConfigDevice.Properties.Resources.lights;
                 else if (pageTitles[i] == ViewConfig.LCD_CAPTION_CURTAIN)
-                    tsb.Image = global::ConfigDevice.Properties.Resources.curtain; 
+                    tsb.Image = global::ConfigDevice.Properties.Resources.curtain;
+                else if (pageTitles[i] == ViewConfig.LCD_CAPTION_LEAVE_BACK)
+                    tsb.Image = global::ConfigDevice.Properties.Resources.Leave_Back; 
                 this.tsPages.Items.Add(tsb);
             }
 
             dtKeyData.Rows.Clear();
-            for (int i = 0; i < KeyCount; i++)
+            for (int i = 0; i < showCount; i++)
                 dtKeyData.Rows.Add(i+1);
             dtKeyData.AcceptChanges();
 
@@ -106,7 +111,6 @@ namespace ConfigDevice
             KeyCircuit = deviceControled.ContrlObjs["回路"] as Circuit;
             KeyCircuit.OnCallbackUI_Action += ReturnKeyName;
 
-
         }
 
         /// <summary>
@@ -118,7 +122,10 @@ namespace ConfigDevice
         {
             foreach (ToolStripItem tsi in tsPages.Items)
                 (tsi as ToolStripButton).Checked = false;
-            (sender as ToolStripButton).Checked = true;
+            ToolStripButton tsb = (sender as ToolStripButton);
+            tsb.Checked = true;   
+            int startNum = (int)tsb.Tag;
+            ReadKeyData(startNum, startNum + showCount - 1);
         }
 
         /// <summary>
@@ -132,11 +139,18 @@ namespace ConfigDevice
                 return;
             }
             KeyData keyData = parameter.Parameters[0] as KeyData;
-            DataRow dr = gvKeyData.GetDataRow(keyData.KeyNum);
-            keySetting.SetKeyData(keyData, dr);//---赋值到行----
+            int index = keyData.KeyNum % 8;
+            DataRow dr = gvKeyData.GetDataRow(index);//---获取分页的对应行
+            if (dr != null)
+            {
+                keySetting.SetKeyData(keyData, dr);//---赋值到行----
+                //----添加名称------- 
+                dr[ViewConfig.DC_NAME] = KeyCircuit.ListCircuitIDAndName[keyData.KeyNum+1];
+                dr.AcceptChanges();
 
-            gvKeyData.BestFitColumns();
-            gvKeyData_FocusedRowChanged(null, null);
+                gvKeyData.RefreshData();
+                gvKeyData.BestFitColumns();
+            }
         }
 
         /// <summary>
@@ -152,11 +166,9 @@ namespace ConfigDevice
             else
             {
                 if (parameter.Parameters != null && parameter.Parameters[0].ToString() == Circuit.CLASS_NAME)//---回路名称--
-                { 
-                    foreach (int key in KeyCircuit.ListCircuitIDAndName.Keys)
-                        dtKeyData.Rows[key - 1][ViewConfig.DC_NAME] = KeyCircuit.ListCircuitIDAndName[key];
-                    dtKeyData.AcceptChanges();
-                    gvKeyData.RefreshData();
+                {
+                    NeedInit = false;//----回路读取完毕为初始化完毕----       
+                    keyList.ReadKeyData(0, showCount - 1);//---默认自动读取第一个----
                 }
             }
         }
@@ -168,8 +180,7 @@ namespace ConfigDevice
         /// <param name="startKey">开始按键</param>
         /// <param name="endKey">结束按键</param>
         public void ReadKeyData(int startKey,int endKey)
-        {
-            KeyCircuit.ReadRoadTitle();     //---读取名称
+        {   
             keyList.ReadKeyData(startKey, endKey);//---读取按键配置----
         }
 
