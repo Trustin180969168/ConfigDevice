@@ -18,7 +18,20 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
- 
+
+            speSecurityDelay.Properties.DisplayFormat.FormatString = "##0 秒";
+            speSecurityDelay.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            speSecurityDelay.Properties.Mask.EditMask = "##0 秒";
+            speSecurityDelay.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            speSecurityDelay.Properties.Mask.UseMaskAsDisplayFormat = true;
+
+            speAlarmDelay.Properties.DisplayFormat.FormatString = "##0 秒";
+            speAlarmDelay.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            speAlarmDelay.Properties.Mask.EditMask = "##0 秒";
+            speAlarmDelay.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            speAlarmDelay.Properties.Mask.UseMaskAsDisplayFormat = true;
+            
+
             DataTable dt = SysConfig.DtDevice.Clone();
             DataRow[] amps = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID+ "= '" + DeviceConfig.EQUIPMENT_AMP_MP3 + "' ");
             foreach (DataRow dr in amps)

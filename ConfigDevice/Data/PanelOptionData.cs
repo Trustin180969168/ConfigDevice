@@ -102,7 +102,27 @@ namespace ConfigDevice
                 for (int i = 1; i <= 64; i *= 2)
                     if (value[num++])
                         b2 = (byte)(b2 | i);
+                //----为兼容旧的布防协议,设置离家键的标志位-----
+                if (value[0])
+                    LeaveHome = (byte)(LeaveHome | 1);
+                else
+                    LeaveHome = (byte)(LeaveHome & 254);//1111 1110
+                if (value[1])
+                    LeaveHome = (byte)(LeaveHome | 2);
+                else
+                    LeaveHome = (byte)(LeaveHome & 253);//1111 1101
+
                 Security = ConvertTools.Bytes2ToUInt16(b1, b2);
+            }
+        }
+
+        public bool[] PagePasswordSetting
+        {
+            get {
+
+                bool[] b = { false };
+                return b;
+
             }
         }
 
@@ -162,6 +182,7 @@ namespace ConfigDevice
                     LeaveHome = (byte)(LeaveHome & 247);//1111 0111
             }
         }
+
 
 
         public PanelOptionData(UserUdpData userData):this(userData.Data)

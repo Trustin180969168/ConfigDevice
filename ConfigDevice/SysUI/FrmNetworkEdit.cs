@@ -148,6 +148,8 @@ namespace ConfigDevice
         private void btSaveInfo_Click(object sender, EventArgs e)
         {
             NetworkEdit.SaveNetworkName(edtNetworkName.Text);
+
+            edtNetworkIP.IP = edtNetworkIP.IP;
             NetworkEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
                 ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text));
         }

@@ -634,7 +634,6 @@
             this.networkDeviceName.Caption = "设备名称";
             this.networkDeviceName.ColumnEdit = this.edtNetworkName;
             this.networkDeviceName.Name = "networkDeviceName";
-            this.networkDeviceName.OptionsColumn.ReadOnly = true;
             this.networkDeviceName.Visible = true;
             this.networkDeviceName.VisibleIndex = 0;
             this.networkDeviceName.Width = 278;
@@ -657,6 +656,7 @@
             this.networkDeviceID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.networkDeviceID.Caption = "设备ID";
             this.networkDeviceID.Name = "networkDeviceID";
+            this.networkDeviceID.OptionsColumn.ReadOnly = true;
             // 
             // network
             // 
@@ -671,7 +671,6 @@
             this.network.Caption = "网段";
             this.network.ColumnEdit = this.edtNetworkID;
             this.network.Name = "network";
-            this.network.OptionsColumn.ReadOnly = true;
             this.network.Visible = true;
             this.network.VisibleIndex = 1;
             this.network.Width = 103;

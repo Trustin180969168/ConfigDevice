@@ -20,8 +20,6 @@ namespace ConfigDevice
         protected GridColumn dcRelevance;                                       //---关联号
         protected GridColumn dcMutex;                                           //---互斥号
 
-
-
  
         /// <summary>
         /// 设置按键配置
@@ -39,8 +37,7 @@ namespace ConfigDevice
             dcDirectionMin = gv.Columns.ColumnByFieldName(ViewConfig.DC_DIRECTION_MIN);
             dcDirectionStep = gv.Columns.ColumnByFieldName(ViewConfig.DC_DIRECTION_STEP);
             dcRelevance = gv.Columns.ColumnByFieldName(ViewConfig.DC_RELEVANCE_NUM);
-            dcMutex = gv.Columns.ColumnByFieldName(ViewConfig.DC_MUTEX_NUM);
-                
+            dcMutex = gv.Columns.ColumnByFieldName(ViewConfig.DC_MUTEX_NUM);                
        
             dcDirectionMax.ColumnEdit = percentEdit;
             dcDirectionMin.ColumnEdit = percentEdit;

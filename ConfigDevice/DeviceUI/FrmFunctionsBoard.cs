@@ -69,7 +69,7 @@ namespace ConfigDevice
                         else if (callbackParameter.Parameters[1].ToString() == PanelCtrl.ACTION_OPTION_NAME)
                         {
                             button2OptionData = callbackParameter.Parameters[2] as PanelOptionData; 
-                            ceLittleLight.Checked = button2OptionData.CLoseLightWithBrightness;//---关灯微亮---
+   
                             tbcLight.Value = button2OptionData.Luminance;                      //---亮度----
                             ceAlarmSound.Checked = button2OptionData.AlarmHintSound;           //---预警提示音---
                             ceDoorWindowSound.Checked = button2OptionData.DoorWindowHintSound; //---门窗提示音---
@@ -150,7 +150,7 @@ namespace ConfigDevice
         {
             //---保存面板配置-------
             PanelOptionData keySettingData = new PanelOptionData(button2OptionData.GetKeyOptionValue());
-            keySettingData.CLoseLightWithBrightness = ceLittleLight.Checked;//---关灯微亮---
+
             keySettingData.Luminance = (byte)tbcLight.Value;                      //---亮度----
             keySettingData.AlarmHintSound = ceAlarmSound.Checked;           //---预警提示音---
             keySettingData.DoorWindowHintSound = ceDoorWindowSound.Checked; //---门窗提示音---

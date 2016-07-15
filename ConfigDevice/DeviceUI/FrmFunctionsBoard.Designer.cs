@@ -48,13 +48,11 @@
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.lblLightSize = new DevExpress.XtraEditors.LabelControl();
             this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.trackBarControl1 = new DevExpress.XtraEditors.TrackBarControl();
             this.tbcLight = new DevExpress.XtraEditors.TrackBarControl();
-            this.ceLittleLight = new DevExpress.XtraEditors.CheckEdit();
             this.keySettingTools = new ConfigDevice.KeySettingTools();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
@@ -63,12 +61,18 @@
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
             this.pageZlpz = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
+            this.trackBarControl2 = new DevExpress.XtraEditors.TrackBarControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
+            this.checkedListBoxControl1 = new DevExpress.XtraEditors.CheckedListBoxControl();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pageJmpz.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.plKeyOption)).BeginInit();
             this.plKeyOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -87,10 +91,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarControl1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceLittleLight.Properties)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
             this.pageZlpz.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarControl2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarControl2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -133,7 +139,8 @@
             // groupControl2
             // 
             this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Location = new System.Drawing.Point(502, 11);
+            this.groupControl2.Controls.Add(this.checkedListBoxControl1);
+            this.groupControl2.Location = new System.Drawing.Point(355, 11);
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(344, 143);
             this.groupControl2.TabIndex = 1;
@@ -357,33 +364,20 @@
             // groupControl1
             // 
             this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl1.Controls.Add(this.labelControl9);
             this.groupControl1.Controls.Add(this.labelControl3);
             this.groupControl1.Controls.Add(this.lblLightSize);
             this.groupControl1.Controls.Add(this.labelControl8);
+            this.groupControl1.Controls.Add(this.labelControl1);
             this.groupControl1.Controls.Add(this.labelControl2);
+            this.groupControl1.Controls.Add(this.trackBarControl2);
             this.groupControl1.Controls.Add(this.trackBarControl1);
             this.groupControl1.Controls.Add(this.tbcLight);
-            this.groupControl1.Controls.Add(this.ceLittleLight);
             this.groupControl1.Location = new System.Drawing.Point(24, 11);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(472, 143);
+            this.groupControl1.Size = new System.Drawing.Size(305, 136);
             this.groupControl1.TabIndex = 0;
-            this.groupControl1.Text = "指示灯";
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.Blue;
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Appearance.Options.UseForeColor = true;
-            this.labelControl3.Appearance.Options.UseTextOptions = true;
-            this.labelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.labelControl3.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl3.Location = new System.Drawing.Point(262, 56);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(31, 24);
-            this.labelControl3.TabIndex = 3;
+            this.groupControl1.Text = "灯光";
             // 
             // lblLightSize
             // 
@@ -395,14 +389,14 @@
             this.lblLightSize.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.lblLightSize.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.lblLightSize.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblLightSize.Location = new System.Drawing.Point(262, 96);
+            this.lblLightSize.Location = new System.Drawing.Point(253, 96);
             this.lblLightSize.Name = "lblLightSize";
-            this.lblLightSize.Size = new System.Drawing.Size(31, 24);
+            this.lblLightSize.Size = new System.Drawing.Size(31, 20);
             this.lblLightSize.TabIndex = 3;
             // 
             // labelControl8
             // 
-            this.labelControl8.Location = new System.Drawing.Point(14, 98);
+            this.labelControl8.Location = new System.Drawing.Point(14, 96);
             this.labelControl8.Name = "labelControl8";
             this.labelControl8.Size = new System.Drawing.Size(60, 14);
             this.labelControl8.TabIndex = 2;
@@ -410,19 +404,20 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(14, 64);
+            this.labelControl2.Location = new System.Drawing.Point(26, 68);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(60, 14);
+            this.labelControl2.Size = new System.Drawing.Size(48, 14);
             this.labelControl2.TabIndex = 2;
-            this.labelControl2.Text = "指示灯亮度";
+            this.labelControl2.Text = "运行亮度";
             // 
             // trackBarControl1
             // 
             this.trackBarControl1.EditValue = null;
-            this.trackBarControl1.Location = new System.Drawing.Point(80, 58);
+            this.trackBarControl1.Location = new System.Drawing.Point(76, 68);
             this.trackBarControl1.Name = "trackBarControl1";
+            this.trackBarControl1.Properties.AutoSize = false;
             this.trackBarControl1.Properties.LargeChange = 10;
-            this.trackBarControl1.Size = new System.Drawing.Size(180, 42);
+            this.trackBarControl1.Size = new System.Drawing.Size(180, 22);
             this.trackBarControl1.TabIndex = 1;
             this.trackBarControl1.Modified += new System.EventHandler(this.tbcLight_Modified);
             this.trackBarControl1.EditValueChanged += new System.EventHandler(this.tbcLight_Modified);
@@ -430,21 +425,14 @@
             // tbcLight
             // 
             this.tbcLight.EditValue = null;
-            this.tbcLight.Location = new System.Drawing.Point(80, 96);
+            this.tbcLight.Location = new System.Drawing.Point(76, 96);
             this.tbcLight.Name = "tbcLight";
+            this.tbcLight.Properties.AutoSize = false;
             this.tbcLight.Properties.LargeChange = 10;
-            this.tbcLight.Size = new System.Drawing.Size(180, 42);
+            this.tbcLight.Size = new System.Drawing.Size(180, 24);
             this.tbcLight.TabIndex = 1;
             this.tbcLight.Modified += new System.EventHandler(this.tbcLight_Modified);
             this.tbcLight.EditValueChanged += new System.EventHandler(this.tbcLight_Modified);
-            // 
-            // ceLittleLight
-            // 
-            this.ceLittleLight.Location = new System.Drawing.Point(12, 33);
-            this.ceLittleLight.Name = "ceLittleLight";
-            this.ceLittleLight.Properties.Caption = "指示灯熄灭时微亮";
-            this.ceLittleLight.Size = new System.Drawing.Size(128, 19);
-            this.ceLittleLight.TabIndex = 0;
             // 
             // keySettingTools
             // 
@@ -518,6 +506,88 @@
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 681);
             this.viewCommandEdit.TabIndex = 1;
             // 
+            // trackBarControl2
+            // 
+            this.trackBarControl2.EditValue = null;
+            this.trackBarControl2.Location = new System.Drawing.Point(76, 37);
+            this.trackBarControl2.Name = "trackBarControl2";
+            this.trackBarControl2.Properties.AutoSize = false;
+            this.trackBarControl2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.trackBarControl2.Properties.LargeChange = 10;
+            this.trackBarControl2.Size = new System.Drawing.Size(180, 20);
+            this.trackBarControl2.TabIndex = 1;
+            this.trackBarControl2.Modified += new System.EventHandler(this.tbcLight_Modified);
+            this.trackBarControl2.EditValueChanged += new System.EventHandler(this.tbcLight_Modified);
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(26, 37);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(48, 14);
+            this.labelControl1.TabIndex = 2;
+            this.labelControl1.Text = "待机背光";
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.Blue;
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Appearance.Options.UseForeColor = true;
+            this.labelControl3.Appearance.Options.UseTextOptions = true;
+            this.labelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.labelControl3.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl3.Location = new System.Drawing.Point(252, 64);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(31, 20);
+            this.labelControl3.TabIndex = 3;
+            // 
+            // labelControl9
+            // 
+            this.labelControl9.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControl9.Appearance.ForeColor = System.Drawing.Color.Blue;
+            this.labelControl9.Appearance.Options.UseFont = true;
+            this.labelControl9.Appearance.Options.UseForeColor = true;
+            this.labelControl9.Appearance.Options.UseTextOptions = true;
+            this.labelControl9.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.labelControl9.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.labelControl9.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl9.Location = new System.Drawing.Point(252, 33);
+            this.labelControl9.Name = "labelControl9";
+            this.labelControl9.Size = new System.Drawing.Size(31, 20);
+            this.labelControl9.TabIndex = 3;
+            // 
+            // checkedListBoxControl1
+            // 
+            this.checkedListBoxControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.checkedListBoxControl1.CheckOnClick = true;
+            this.checkedListBoxControl1.ColumnWidth = 60;
+            this.checkedListBoxControl1.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
+            this.checkedListBoxControl1.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("1"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("2"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("3"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("4"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("5"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("6"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("7"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("8"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("9"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("10"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("11"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("12"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("13"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("14"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("15"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("全部")});
+            this.checkedListBoxControl1.LeftCoord = 0;
+            this.checkedListBoxControl1.Location = new System.Drawing.Point(30, 50);
+            this.checkedListBoxControl1.MultiColumn = true;
+            this.checkedListBoxControl1.Name = "checkedListBoxControl1";
+            this.checkedListBoxControl1.Size = new System.Drawing.Size(265, 60);
+            this.checkedListBoxControl1.TabIndex = 0;
+            this.checkedListBoxControl1.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.ceLeaveSafeSetting_ItemCheck);
+            // 
             // FrmFunctionsBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -536,6 +606,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.plKeyOption)).EndInit();
             this.plKeyOption.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.groupControl3.PerformLayout();
@@ -556,11 +627,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceLittleLight.Properties)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
             this.pageJcsz.ResumeLayout(false);
             this.pageZlpz.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarControl2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarControl2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -581,7 +654,6 @@
         private DevExpress.XtraEditors.PanelControl plKeyOption;
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private DevExpress.XtraEditors.CheckEdit ceLittleLight;
         private DevExpress.XtraEditors.TrackBarControl tbcLight;
         private DevExpress.XtraEditors.LabelControl lblLightSize;
         private DevExpress.XtraEditors.CheckEdit ceAlarmSound;
@@ -599,10 +671,14 @@
         private System.Windows.Forms.GroupBox groupBox1;
         protected DevExpress.XtraEditors.CheckedListBoxControl ceBackSafeSetting;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.TrackBarControl trackBarControl1;
         private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.TrackBarControl trackBarControl2;
+        protected DevExpress.XtraEditors.CheckedListBoxControl checkedListBoxControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
  
 
 
