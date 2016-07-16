@@ -29,8 +29,6 @@ namespace ConfigDevice
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PC_CONNECTING, callbackRefreshNetwork);
         }
 
- 
-
 
         /// <summary>
         /// 搜索网络
@@ -104,7 +102,6 @@ namespace ConfigDevice
                 {
                     NetworkCtrl.UpdateNetworkDataTable(network);//----更新网络列表-----                    
                 }
-
                 
             //    CallBackUI(new CallbackParameter(null));
             }
