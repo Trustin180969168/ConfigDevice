@@ -42,9 +42,11 @@
             this.ceAlarmSound = new DevExpress.XtraEditors.CheckEdit();
             this.ceDoorWindowSound = new DevExpress.XtraEditors.CheckEdit();
             this.speAlarmDelay = new DevExpress.XtraEditors.SpinEdit();
+            this.speAmp = new DevExpress.XtraEditors.SpinEdit();
             this.speHintVolume = new DevExpress.XtraEditors.SpinEdit();
             this.speSecurityDelay = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
@@ -79,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ceAlarmSound.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceDoorWindowSound.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speAlarmDelay.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speAmp.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speHintVolume.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speSecurityDelay.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -160,9 +163,11 @@
             this.groupControl3.Controls.Add(this.ceAlarmSound);
             this.groupControl3.Controls.Add(this.ceDoorWindowSound);
             this.groupControl3.Controls.Add(this.speAlarmDelay);
+            this.groupControl3.Controls.Add(this.speAmp);
             this.groupControl3.Controls.Add(this.speHintVolume);
             this.groupControl3.Controls.Add(this.speSecurityDelay);
             this.groupControl3.Controls.Add(this.labelControl7);
+            this.groupControl3.Controls.Add(this.labelControl2);
             this.groupControl3.Controls.Add(this.labelControl5);
             this.groupControl3.Controls.Add(this.labelControl6);
             this.groupControl3.Controls.Add(this.labelControl4);
@@ -175,15 +180,15 @@
             // lookUpEditAmp
             // 
             this.lookUpEditAmp.EditValue = "";
-            this.lookUpEditAmp.Location = new System.Drawing.Point(104, 145);
+            this.lookUpEditAmp.Location = new System.Drawing.Point(105, 145);
             this.lookUpEditAmp.Name = "lookUpEditAmp";
             this.lookUpEditAmp.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.lookUpEditAmp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpEditAmp.Properties.NullText = "";
-            this.lookUpEditAmp.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lookUpEditAmp.Size = new System.Drawing.Size(317, 21);
+            this.lookUpEditAmp.Properties.NullText = "选择功放设备";
+            this.lookUpEditAmp.Size = new System.Drawing.Size(196, 21);
             this.lookUpEditAmp.TabIndex = 7;
+            this.lookUpEditAmp.EditValueChanged += new System.EventHandler(this.lookUpEditAmp_EditValueChanged);
             // 
             // groupBox1
             // 
@@ -287,6 +292,27 @@
             this.speAlarmDelay.Size = new System.Drawing.Size(61, 21);
             this.speAlarmDelay.TabIndex = 2;
             // 
+            // speAmp
+            // 
+            this.speAmp.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.speAmp.Location = new System.Drawing.Point(361, 145);
+            this.speAmp.Name = "speAmp";
+            this.speAmp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.speAmp.Properties.Mask.EditMask = "d";
+            this.speAmp.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.speAmp.Properties.MaxValue = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.speAmp.Size = new System.Drawing.Size(60, 21);
+            this.speAmp.TabIndex = 2;
+            // 
             // speHintVolume
             // 
             this.speHintVolume.EditValue = new decimal(new int[] {
@@ -335,6 +361,14 @@
             this.labelControl7.Size = new System.Drawing.Size(60, 14);
             this.labelControl7.TabIndex = 0;
             this.labelControl7.Text = "提示音功放";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Location = new System.Drawing.Point(307, 148);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(48, 14);
+            this.labelControl2.TabIndex = 0;
+            this.labelControl2.Text = "功放地址";
             // 
             // labelControl5
             // 
@@ -518,6 +552,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ceAlarmSound.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceDoorWindowSound.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speAlarmDelay.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speAmp.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speHintVolume.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speSecurityDelay.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
@@ -570,6 +605,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         protected DevExpress.XtraEditors.CheckedListBoxControl ceBackSafeSetting;
         private DevExpress.XtraEditors.LookUpEdit lookUpEditAmp;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.SpinEdit speAmp;
  
 
 

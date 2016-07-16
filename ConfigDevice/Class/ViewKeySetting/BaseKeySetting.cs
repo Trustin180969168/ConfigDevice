@@ -177,7 +177,8 @@ namespace ConfigDevice
         public void SetKeyData(KeyData keyData, DataRow drKeyData)
         {
             drKeyData[ViewConfig.DC_NUM] = (int)keyData.KeyNum + 1;         //---第几个按键
-            drKeyData[ViewConfig.DC_CONTROL_OBJ] = ViewConfig.KEY_TYPE_ID_NAME[keyData.ControlObj];  //控制对象(设备类型)
+            if(ViewConfig.KEY_TYPE_ID_NAME.ContainsKey(keyData.ControlObj))
+                drKeyData[ViewConfig.DC_CONTROL_OBJ] = ViewConfig.KEY_TYPE_ID_NAME[keyData.ControlObj];  //控制对象(设备类型)
             drKeyData[ViewConfig.DC_CONTROL_KIND] = this.GetKeyKindName(keyData);//操作类型
 
             drKeyData[ViewConfig.DC_DIRECTION_MAX] = (int)keyData.DirectionMaxValue;//方向最大值

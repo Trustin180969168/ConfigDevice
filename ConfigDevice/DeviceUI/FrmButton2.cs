@@ -14,6 +14,7 @@ namespace ConfigDevice
         private DataTable dtCircuit = new DataTable("按键选择");
         private PanelOptionData button2OptionData;//---按键配置----
         private int InitSelectIndex = 0;//初始化选择配置项ID
+        private string AmpAddress = "0";
         public FrmButton2(Device _device)
             : base(_device)
         {          
@@ -100,7 +101,8 @@ namespace ConfigDevice
                             speSecurityDelay.Value = button2OptionData.SetSecurityDelayTime;   //---布防延时---
                             speAlarmDelay.Value = button2OptionData.AlarmDelayTime;            //---预警延时---
                             speHintVolume.Value = button2OptionData.HintVolume;                //---提示音量---
-                            lookUpEditAmp.Text = button2OptionData.SoundAddress.ToString();          //---功放地址---
+                            speAmp.Text = button2OptionData.SoundAddress.ToString();          //---功放地址---
+              
                             ceBackSafeSetting.Items[0].CheckState = button2OptionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
                             //------安防配置---------------
                             for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
@@ -181,7 +183,11 @@ namespace ConfigDevice
             keySettingData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
             keySettingData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
             keySettingData.HintVolume = (byte)speHintVolume.Value;                //---提示音量---
-            keySettingData.SoundAddress = (byte)Convert.ToInt16( lookUpEditAmp.Text);          //---功放地址---
+
+            if (lookUpEditAmp.Text == "")
+                lookUpEditAmp.Text = AmpAddress;
+            else
+                keySettingData.SoundAddress = (byte)speAmp.Value;          //---功放地址---
             keySettingData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防---- 
             //---安防配置---------------
             bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
@@ -243,6 +249,12 @@ namespace ConfigDevice
             }
         }
 
+        private void lookUpEditAmp_EditValueChanged(object sender, EventArgs e)
+        {
+            speAmp.Text = lookUpEditAmp.Text;
+        }
+
+ 
 
     }
 }

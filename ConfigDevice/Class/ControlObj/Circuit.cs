@@ -198,7 +198,7 @@ namespace ConfigDevice
 
             int num = userData.Data[0];
             string roadName = Encoding.GetEncoding("GB2312").GetString(byteName);
-            if (ListCircuitIDAndName.ContainsKey(num + 1)) ListCircuitIDAndName[num + 1] = roadName;
+            if (ListCircuitIDAndName.ContainsKey(num + 1)) ListCircuitIDAndName[num + 1] = roadName.Replace(" ", "");
             if (num + 1 == this.circuitCount) 
                 finishReadRoads = true;//---表示回路已经读取完毕----
         }
