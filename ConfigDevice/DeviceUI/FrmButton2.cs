@@ -102,7 +102,7 @@ namespace ConfigDevice
                             speAlarmDelay.Value = button2OptionData.AlarmDelayTime;            //---预警延时---
                             speHintVolume.Value = button2OptionData.HintVolume;                //---提示音量---
                             speAmp.Text = button2OptionData.SoundAddress.ToString();          //---功放地址---
-              
+                            lookUpEditAmp.Text = button2OptionData.SoundAddress.ToString();         //---功放地址---
                             ceBackSafeSetting.Items[0].CheckState = button2OptionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
                             //------安防配置---------------
                             for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
@@ -182,17 +182,13 @@ namespace ConfigDevice
             keySettingData.DoorWindowHintSound = ceDoorWindowSound.Checked; //---门窗提示音---
             keySettingData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
             keySettingData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
-            keySettingData.HintVolume = (byte)speHintVolume.Value;                //---提示音量---
-
-            if (lookUpEditAmp.Text == "")
-                lookUpEditAmp.Text = AmpAddress;
-            else
-                keySettingData.SoundAddress = (byte)speAmp.Value;          //---功放地址---
+            keySettingData.HintVolume = (byte)speHintVolume.Value;                //---提示音量--- 
+            keySettingData.SoundAddress = (byte)speAmp.Value;          //---功放地址---
             keySettingData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防---- 
             //---安防配置---------------
             bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
                     false, false, false, false, false };
-            for (int i = 0; i < keySettingData.SaftFlags.Length; i++)   
+            for (int i = 0; i < keySettingData.SaftFlags.Length; i++)
                 safeFlags[i] = ceLeaveSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
             keySettingData.SaftFlags = safeFlags;
             //---判断是否更改,更改执行保存----
