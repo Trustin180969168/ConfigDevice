@@ -55,11 +55,11 @@ namespace ConfigDevice
             sptLightSeconds.Properties.MaxValue = 65535;
             sptLightSeconds.Properties.MinValue = 1;
             sptLightSeconds.Enter += SysConfig.Edit_Enter;
-            sptLightSeconds.Leave += SysConfig.Edit_Leave;
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_OFF);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_ON);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_GLINT);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_NONE);
+            sptLightSeconds.Leave += SysConfig.Edit_Leave;      
+            cbxLight.Properties.Items.Add(FlammableGasProbeLight.STATE_LEDACT_OFF);
+            cbxLight.Properties.Items.Add(FlammableGasProbeLight.STATE_LEDACT_ON_R);
+            cbxLight.Properties.Items.Add(FlammableGasProbeLight.STATE_LEDACT_GL_R);
+            cbxLight.Properties.Items.Add(FlammableGasProbeLight.STATE_LEDACT_NONE);
             //----------阀门-------
             sptValveSeconds.Properties.MaxValue = 65535;
             sptValveSeconds.Properties.MinValue = 1;
@@ -485,7 +485,7 @@ namespace ConfigDevice
             else
                 sptValveSeconds.Enabled = true;
 
-            if (cbxLight.Text == Light.STATE_LEDACT_OFF ||cbxLight.Text ==  Light.STATE_LEDACT_NONE)
+            if (cbxLight.Text == FlammableGasProbeLight.STATE_LEDACT_OFF || cbxLight.Text == FlammableGasProbeLight.STATE_LEDACT_NONE)
                 sptLightSeconds.Enabled = false;
             else
                 sptLightSeconds.Enabled = true;

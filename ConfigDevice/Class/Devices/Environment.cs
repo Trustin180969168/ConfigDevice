@@ -58,7 +58,7 @@ namespace ConfigDevice
         private void initControlObjs()
         {
 
-            PointLight = new Light(this);
+            PointLight = new EnvironmentLight(this);
             Circuit = new Circuit(this,16);            
 
             ContrlObjs.Add("回路", Circuit);

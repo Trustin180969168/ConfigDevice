@@ -222,6 +222,10 @@
       <DependentUpon>ViewCommandTools.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\KeyBaseSetting.resx">
+      <DependentUpon>KeyBaseSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -519,6 +523,12 @@
     </Compile>
     <Compile Include="DeviceUI\FrmButton2.Designer.cs">
       <DependentUpon>FrmButton2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\KeyBaseSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\KeyBaseSetting.Designer.cs">
+      <DependentUpon>KeyBaseSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Tools\PortTools.cs" />

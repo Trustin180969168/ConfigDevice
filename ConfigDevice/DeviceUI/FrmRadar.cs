@@ -41,11 +41,12 @@ namespace ConfigDevice
             sptLightSeconds.Properties.MinValue = 1;
             sptLightSeconds.Enter += SysConfig.Edit_Enter;
             sptLightSeconds.Leave += SysConfig.Edit_Leave;
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_OFF);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_ON);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_GLINT);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_NONE);
-
+ 
+            cbxLight.Properties.Items.Add(RadarLight.STATE_LEDACT_OFF);
+            cbxLight.Properties.Items.Add(RadarLight.STATE_LEDACT_ON_R);
+            cbxLight.Properties.Items.Add(RadarLight.STATE_LEDACT_GL_R);
+            cbxLight.Properties.Items.Add(RadarLight.STATE_LEDACT_GL_RB);
+            cbxLight.Properties.Items.Add(RadarLight.STATE_LEDACT_NONE);
             //----------回路查询选择------
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, "回路", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_NAME, 380));
@@ -436,7 +437,7 @@ namespace ConfigDevice
 
         private void cbxAction_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbxLight.Text == Light.STATE_LEDACT_OFF ||cbxLight.Text ==  Light.STATE_LEDACT_NONE)
+            if (cbxLight.Text == RadarLight.STATE_LEDACT_OFF || cbxLight.Text == RadarLight.STATE_LEDACT_NONE)
                 sptLightSeconds.Enabled = false;
             else
                 sptLightSeconds.Enabled = true;

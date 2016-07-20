@@ -9,12 +9,10 @@ namespace ConfigDevice
     /// </summary>
     public class LightParameter
     {
-        public bool OpenHealthLight = false; //是否开启空气健康指标指示灯
-        
+        public bool OpenHealthLight = false; //是否开启空气健康指标指示灯        
         public LightParameter()
         {
         }
-
         public LightParameter(bool openLight)
         {
             OpenHealthLight = openLight;
@@ -22,49 +20,170 @@ namespace ConfigDevice
     }
 
     /// <summary>
+    /// 环境指示灯
+    /// </summary>
+    public class EnvironmentLight : Light
+    {
+        public const int LEL_LEDACT_OFF = 0;        //【熄灭(全灭)】
+        public const int LEL_LEDACT_ON_G = 1;        //【绿灯点亮】
+        public const int LEL_LEDACT_ON_O = 2;        //【橙灯点亮】
+        public const int LEL_LEDACT_ON_R = 3;        //【红灯点亮】
+        public const int LEL_LEDACT_GL_R = 4;        //【红灯闪烁】
+        public const int LEL_LEDACT_NONE = 5;        //【不动作】
+        public const int LEL_LEDACT_TOTAL = 6;        //【总数】  
+        public const int LEL_LEDACT_DEFAULT = LEL_LEDACT_OFF;
+
+        public const string STATE_LEDACT_OFF = "熄灭";     
+        public const string STATE_LEDACT_ON_G = "绿灯点亮";
+        public const string STATE_LEDACT_ON_O = "橙灯点亮";
+        public const string STATE_LEDACT_ON_R = "红灯点亮";
+        public const string STATE_LEDACT_GL_R = "红灯闪烁";
+        public const string STATE_LEDACT_NONE = "不动作"; 
+
+        public EnvironmentLight(Device deviceControled)
+            : base(deviceControled)
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// 气象站指示灯
+    /// </summary>
+    public class WeatherLight : Light
+    {
+        public const int LEL_LEDACT_OFF = 0;        //【熄灭(全灭)】
+        public const int LEL_LEDACT_ON_G = 1;        //【绿灯点亮】
+        public const int LEL_LEDACT_ON_O = 2;        //【橙灯点亮】
+        public const int LEL_LEDACT_ON_R = 3;        //【红灯点亮】
+        public const int LEL_LEDACT_GL_R = 4;        //【红灯闪烁】
+        public const int LEL_LEDACT_NONE = 5;        //【不动作】
+        public const int LEL_LEDACT_TOTAL = 6;        //【总数】  
+        public const int LEL_LEDACT_DEFAULT = LEL_LEDACT_OFF;
+
+        public const string STATE_LEDACT_OFF = "熄灭";
+        public const string STATE_LEDACT_ON_G = "绿灯点亮";
+        public const string STATE_LEDACT_ON_O = "橙灯点亮";
+        public const string STATE_LEDACT_ON_R = "红灯点亮";
+        public const string STATE_LEDACT_GL_R = "红灯闪烁";
+        public const string STATE_LEDACT_NONE = "不动作";
+
+        public WeatherLight(Device deviceControled)
+            : base(deviceControled)
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// 雷达指示灯
+    /// </summary>
+    public class RadarLight : Light
+    {
+
+        public const int LEL_LEDACT_OFF = 0;        //【熄灭(全灭)】
+        public const int LEL_LEDACT_ON_R = 1;        //【点亮(红灯)】
+        public const int LEL_LEDACT_GL_R = 2;        //【红灯闪烁】
+        public const int LEL_LEDACT_GL_RB = 3;        //【闪烁(红蓝灯)】
+        public const int LEL_LEDACT_NONE = 4;        //【不动作】
+
+        public const string STATE_LEDACT_OFF = "熄灭";
+        public const string STATE_LEDACT_ON_R = "红灯点亮";
+        public const string STATE_LEDACT_GL_R = "红灯闪烁";
+        public const string STATE_LEDACT_GL_RB = "红蓝灯闪烁";
+        public const string STATE_LEDACT_NONE = "不动作";
+
+        public RadarLight(Device deviceControled)
+            : base(deviceControled)
+        {
+
+        }
+    }
+     
+
+    /// <summary>
+    /// 氧气指示灯
+    /// </summary>
+    public class O2Light : Light
+    {
+
+        public const int LEL_LEDACT_OFF = 0;        //【熄灭(全灭)】
+        public const int LEL_LEDACT_ON_G = 1;        //【绿灯点亮】
+        public const int LEL_LEDACT_ON_O = 2;        //【橙灯点亮】
+        public const int LEL_LEDACT_ON_R = 3;        //【红灯点亮】
+        public const int LEL_LEDACT_GL_R = 4;        //【红灯闪烁】
+        public const int LEL_LEDACT_NONE = 5;        //【不动作】
+        public const int LEL_LEDACT_TOTAL = 6;        //【总数】  
+        public const int LEL_LEDACT_DEFAULT = LEL_LEDACT_OFF;
+
+        public const string STATE_LEDACT_OFF = "熄灭";
+        public const string STATE_LEDACT_ON_G = "绿灯点亮";
+        public const string STATE_LEDACT_ON_O = "橙灯点亮";
+        public const string STATE_LEDACT_ON_R = "红灯点亮";
+        public const string STATE_LEDACT_GL_R = "红灯闪烁";
+        public const string STATE_LEDACT_NONE = "不动作";
+
+        public O2Light(Device deviceControled)
+            : base(deviceControled)
+        {
+
+        }
+    }
+
+
+    /// <summary>
+    /// 可燃气体探头指示灯
+    /// </summary>
+    public class FlammableGasProbeLight : Light
+    {
+
+        public const int LEL_LEDACT_OFF = 0;        //【熄灭(全灭)】
+        public const int LEL_LEDACT_ON_R = 1;        //【点亮(红灯)】
+        public const int LEL_LEDACT_GL_R = 2;        //【红灯闪烁】
+        public const int LEL_LEDACT_NONE = 3;        //【不动作】
+        public const string STATE_LEDACT_OFF = "熄灭";
+        public const string STATE_LEDACT_ON_R = "红灯点亮";
+        public const string STATE_LEDACT_GL_R = "红灯闪烁";
+        public const string STATE_LEDACT_NONE = "不动作";
+
+        public FlammableGasProbeLight(Device deviceControled)
+            : base(deviceControled)
+        {
+
+        }
+    }
+
+    /// <summary>
     /// 指示灯
     /// </summary>
-    public class Light : ControlObj
+    public abstract class Light:ControlObj
     {
         public const string CLASS_NAME = "Light";
-        public const int LEL_LEDACT_OFF = 0;        //【熄灭(全灭)】
-        public const int LEL_LEDACT_ON = 1;        //【点亮(红灯)】
-        public const int LEL_LEDACT_GLINT = 2;        //【闪烁(红灯)】
-        public const int LEL_LEDACT_NOT = 3;        //【不动作】
-        public const int LEL_LEDACT_TOTAL = 4;        //【总数】
-        public const int LEL_LEDACT_DEFAULT = LEL_LEDACT_ON;
-
-        public const string STATE_LEDACT_OFF = "熄灭";        //【熄灭(全灭)】
-        public const string STATE_LEDACT_ON = "点亮";        //【点亮(红灯)】
-        public const string STATE_LEDACT_GLINT = "闪烁";        //【闪烁(红灯)】
-        public const string STATE_LEDACT_NONE = "不动作";        //【不动作】
-        public const string STATE_LEDACT_GREEN_ON="绿灯点亮";//绿灯点亮
-        public const string STATE_LEDACT_ORANGE_ON = "橙灯点亮";
-        public const string STATE_LEDACT_RED_ON = "红灯点亮";
-        public const string STATE_LEDACT_RED_GLINT = "红灯闪烁";
-
-
-
 
         public byte LedAct = 0;               //指示灯指示动作：熄灭、闪烁等   (如:LEL_LEDACT_OFF)
         public ushort LedTim = 0;               //指示灯指示时间：单位秒         (如:10->10秒，0->无限)
-        private CallbackFromUDP getParameter;//-------每参数名称----
-        private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
+
 
         private bool openHealthLight = false; //是否开启空气健康指标指示灯
         public bool OpenHealthLight
         {
-            get { return openHealthLight; }            
+            get { return openHealthLight; }
         }
 
-        public Light(Device _deviceCtrl)
-            : base(_deviceCtrl)
-        {
-            Name = "指示灯"; 
+        private CallbackFromUDP getParameter;//-------每参数名称----
+        private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
+ 
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="deviceControled">控制设备</param>
+        public Light(Device deviceControled):base(deviceControled)
+        {
             getParameter = new CallbackFromUDP(getParameterData);
             getWriteEnd = new CallbackFromUDP(getWriteEndData);
         }
+
 
         private bool finishReadParameter = false;//---判断是否读取完参数----
         /// <summary>
@@ -152,7 +271,7 @@ namespace ConfigDevice
             if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_CONFIG))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-            
+
             }
         }
 
@@ -207,9 +326,10 @@ namespace ConfigDevice
 
             return udp;
         }
-
     }
 
+  
+ 
 
 
 }

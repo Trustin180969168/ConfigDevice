@@ -329,15 +329,16 @@ namespace ConfigDevice
             setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
             setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
-            setGridColumnValid(dcStartValue, cbxLevelEdit);//---开始值有效
+            setGridColumnValid(dcStartValue, cbxLevelEdit);//---触发级别----
             setGridColumnInvalid(dcEndValue);//----结束值无效---
-            setGridColumnInvalid(dcValid);//---持续时间----
-            setGridColumnInvalid(dcInvalid);//----失效时间-----  
+            setGridColumnInvalid(dcValid);//---触发时间----
+            setGridColumnValid(dcInvalid,InvalidTimeEdit);//----恢复时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
-            gvLogic.SetRowCellValue(0, dcStartValue, cbxLevelEdit.Items[0].ToString());//--默认第一个开始值---
+            gvLogic.SetRowCellValue(0, dcStartValue, cbxLevelEdit.Items[0].ToString());//--默认第一个开始值---      
+            gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
 
         }
 
@@ -364,6 +365,12 @@ namespace ConfigDevice
             string size1Str = dr[dcStartValue.FieldName].ToString();
             triggerData.Size1 = RadarSensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
             triggerData.Size2 = 0;//----无效------
+            //-----有效持续,无效持续------             
+            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //恢复时间      
+            triggerData.InvalidSeconds = (UInt16)invalidSeconds; //恢复时间      
+            string nowDateStr = DateTime.Now.ToShortDateString(); 
+            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            triggerData.ValidSeconds = 0;//----触发时间无效,设置为0
 
             dr.EndEdit();
             dr.AcceptChanges();//----再次修改才保存-----
@@ -414,6 +421,9 @@ namespace ConfigDevice
             }
             catch { dr[dcStartValue.FieldName] = RadarSensor.LEVEL_ID_NAME[0]; }
 
+            string nowDateStr = DateTime.Now.ToShortDateString();
+            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
+            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
             dr.EndEdit();
             dr.AcceptChanges();
         }

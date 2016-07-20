@@ -52,12 +52,13 @@ namespace ConfigDevice
             sptLightSeconds.Properties.MinValue = 1;
             sptLightSeconds.Enter += SysConfig.Edit_Enter;
             sptLightSeconds.Leave += SysConfig.Edit_Leave;
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_OFF);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_GREEN_ON);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_ORANGE_ON);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_ON); 
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_RED_GLINT);
-            cbxLight.Properties.Items.Add(Light.STATE_LEDACT_NONE); 
+ 
+            cbxLight.Properties.Items.Add(EnvironmentLight.STATE_LEDACT_OFF);
+            cbxLight.Properties.Items.Add(EnvironmentLight.STATE_LEDACT_ON_G);
+            cbxLight.Properties.Items.Add(EnvironmentLight.STATE_LEDACT_ON_O);
+            cbxLight.Properties.Items.Add(EnvironmentLight.STATE_LEDACT_ON_R);
+            cbxLight.Properties.Items.Add(EnvironmentLight.STATE_LEDACT_GL_R);
+            cbxLight.Properties.Items.Add(EnvironmentLight.STATE_LEDACT_NONE); 
 
  
             //----------回路查询选择------
@@ -424,7 +425,7 @@ namespace ConfigDevice
 
         private void cbxLight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbxLight.Text == Light.STATE_LEDACT_OFF || cbxLight.Text == Light.STATE_LEDACT_NONE)
+            if (cbxLight.Text == EnvironmentLight.STATE_LEDACT_OFF || cbxLight.Text == EnvironmentLight.STATE_LEDACT_NONE)
                 sptLightSeconds.Enabled = false;
             else
                 sptLightSeconds.Enabled = true;

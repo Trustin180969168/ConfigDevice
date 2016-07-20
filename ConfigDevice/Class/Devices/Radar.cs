@@ -54,7 +54,7 @@ namespace ConfigDevice
         private void initControlObjs()
         {
             Buzzer = new Buzzer(this);
-            Light = new Light(this);
+            Light = new RadarLight(this);
             Circuit = new Circuit(this,16);            
 
             ContrlObjs.Add("回路", Circuit);

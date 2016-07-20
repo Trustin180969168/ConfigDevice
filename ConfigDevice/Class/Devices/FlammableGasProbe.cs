@@ -49,7 +49,7 @@ namespace ConfigDevice
         {
             Valve = new Motor(this);
             FGP_Buzzer = new Buzzer(this);
-            FGP_Light = new Light(this);
+            FGP_Light = new FlammableGasProbeLight(this);
             ProbeCircuit = new Circuit(this,8);            
 
             ContrlObjs.Add("阀门", Valve);
