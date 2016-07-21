@@ -117,6 +117,10 @@
       <DependentUpon>KeySettingTools.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\LCDUI\KeySecuritySetting.resx">
+      <DependentUpon>KeySecuritySetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ToolsUI\ViewLogicTools.resx">
       <DependentUpon>ViewLogicTools.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -222,7 +226,7 @@
       <DependentUpon>ViewCommandTools.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolsUI\KeyBaseSetting.resx">
+    <EmbeddedResource Include="ToolsUI\LCDUI\KeyBaseSetting.resx">
       <DependentUpon>KeyBaseSetting.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -458,6 +462,12 @@
     <Compile Include="ToolsUI\KeySettingTools.Designer.cs">
       <DependentUpon>KeySettingTools.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolsUI\LCDUI\KeySecuritySetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\LCDUI\KeySecuritySetting.Designer.cs">
+      <DependentUpon>KeySecuritySetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolsUI\ViewCommandSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -524,10 +534,10 @@
     <Compile Include="DeviceUI\FrmButton2.Designer.cs">
       <DependentUpon>FrmButton2.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolsUI\KeyBaseSetting.cs">
+    <Compile Include="ToolsUI\LCDUI\KeyBaseSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ToolsUI\KeyBaseSetting.Designer.cs">
+    <Compile Include="ToolsUI\LCDUI\KeyBaseSetting.Designer.cs">
       <DependentUpon>KeyBaseSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ImageHelper.cs" />

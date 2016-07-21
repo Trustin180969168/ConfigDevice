@@ -299,7 +299,7 @@ namespace ConfigDevice
         public override void Init()
         {
             KindName = "风速传感器";
-            Unit = "分米/秒";
+            Unit = "米/秒";
 
 
             foreach (int key in LEVEL_ID_NAME.Keys)

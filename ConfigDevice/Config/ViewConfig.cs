@@ -206,6 +206,7 @@ namespace ConfigDevice
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_WEEK_CYC, SensorConfig.SENSOR_WEEK);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TEMP_FC, SensorConfig.SENSOR_FIRE_TEMPERATURE);
             //------触发位置的对应关系--------
+            TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_INVALID, SensorConfig.LG_SENSOR_VOID);//-------无效-----
             TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_LOCAL, 0);//-------本地-----
             TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL, SensorConfig.LG_SENSOR_DEV_FLAG);//----外设----
             TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT, SensorConfig.LG_SENSOR_DIF_FLAG_VALUE);//----外设差值----
@@ -213,12 +214,12 @@ namespace ConfigDevice
             TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DEV_FLAG, SensorConfig.SENSOR_POSITION_PERIPHERAL);//----外设----
             TRIGGER_POSITION_ID_NAME.Add(SensorConfig.LG_SENSOR_DIF_FLAG_VALUE, SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT);//----外设差值----
             //-------触发类型-------
+            TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_INVALID, SensorConfig.LG_SENSOR_VOID);//-------无效-----
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE, SensorConfig.LG_SENSOR_DEF_FLAG);//---默认触发类别---
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_LEVEL, SensorConfig.LG_SENSOR_LVL_FLAG);//----级别-----
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_SAME_UNIT, SensorConfig.LG_SENSOR_MASK);
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_VALUE_KIND_SAME_TYPE, SensorConfig.LG_SENSOR_TYP_MASK);
             TRIGGER_KIND_NAME_ID.Add(SensorConfig.SENSOR_END_MASK, SensorConfig.LG_SENSOR_END_MARK);
-
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_DEF_FLAG, SensorConfig.SENSOR_VALUE_KIND_VALUE);//---默认触发类别---
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_LVL_FLAG, SensorConfig.SENSOR_VALUE_KIND_LEVEL);//----级别-----
             TRIGGER_KIND_ID_NAME.Add(SensorConfig.LG_SENSOR_MASK, SensorConfig.SENSOR_VALUE_KIND_SAME_UNIT);

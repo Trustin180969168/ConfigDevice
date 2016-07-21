@@ -34,12 +34,12 @@ namespace ConfigDevice
                 cbxLevelEdit.Items.Add(value);
 
             //-------初始化温度编辑控件------
-            sensorValueEdit.DisplayFormat.FormatString = "####0 分米/秒";
+            sensorValueEdit.DisplayFormat.FormatString = "####0.# 米/秒";
             sensorValueEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            sensorValueEdit.Mask.EditMask = "####0 分米/秒";
+            sensorValueEdit.Mask.EditMask = "####0.# 米/秒";
             sensorValueEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             sensorValueEdit.Mask.UseMaskAsDisplayFormat = true;
-            sensorValueEdit.MaxValue = 10000;
+            sensorValueEdit.MaxValue = 1000;
             sensorValueEdit.MinValue = 0;
         }
 
@@ -175,11 +175,11 @@ namespace ConfigDevice
             {
                 try
                 {
-                    triggerData.Size1 = Convert.ToInt32(dr[dcStartValue.FieldName].ToString());
+                    triggerData.Size1 = Convert.ToInt32(dr[dcStartValue.FieldName].ToString()) * 10;
                 }
                 catch { triggerData.Size1 = 0; }
                 if (dcEndValue.OptionsColumn.AllowEdit)//---有效则添加到结束值-----
-                    triggerData.Size2 = Convert.ToInt32(dr[ViewConfig.DC_END_VALUE].ToString());
+                    triggerData.Size2 = Convert.ToInt32(dr[ViewConfig.DC_END_VALUE].ToString()) * 10;
             }
 
             //-----有效持续,无效持续------            
@@ -221,9 +221,9 @@ namespace ConfigDevice
             }
             else
             {
-                dr[dcStartValue.FieldName] = td.Size1;//---为触发值类型
+                dr[dcStartValue.FieldName] = td.Size1 / 10.0;//---为触发值类型
                 if (dcEndValue.OptionsColumn.AllowEdit)
-                    dr[dcEndValue.FieldName] = td.Size2;
+                    dr[dcEndValue.FieldName] = td.Size2 / 10.0;
             }
             string nowDateStr = DateTime.Now.ToShortDateString();
             dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---

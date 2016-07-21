@@ -422,7 +422,6 @@ namespace ConfigDevice
             catch { dr[dcStartValue.FieldName] = RadarSensor.LEVEL_ID_NAME[0]; }
 
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
             dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
             dr.EndEdit();
             dr.AcceptChanges();
@@ -734,15 +733,21 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            //setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            //setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
+
+            setGridColumnInvalid(dcTriggerPosition);//---触发位置无效
+            setGridColumnInvalid(dcDifferentDevice);//---触发设备无效----
+            setGridColumnInvalid(dcTriggerKind);//---触发类型----       
+
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效 
             setGridColumnInvalid(dcEndValue);//---结束值无效---
             setGridColumnInvalid(dcValid);//---取消有效持续---
             setGridColumnInvalid(dcInvalid); //---取消无效持续---
 
-            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
+            //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
+            //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
             gvLogic.SetRowCellValue(0, dcOperate, this.cbxOperate.Items[0].ToString());//---第一个触发运算---
             gvLogic.SetRowCellValue(0, dcStartValue, this.cbxStart.Items[0].ToString());//---第一个开始选择运算---
 
@@ -772,6 +777,10 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行---
+            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
+
             //-----联动号操作----
             dr[dcStartValue.FieldName] = LevelValues[td.Size1];
 
@@ -815,16 +824,21 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
-            setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
+            //setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            //setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
+
+            setGridColumnInvalid(dcTriggerPosition);//---触发位置无效
+            setGridColumnInvalid(dcDifferentDevice);//---触发设备无效----
+            setGridColumnInvalid(dcTriggerKind);//---触发类型----            
+
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, timeEdit);//---开始值有效
             setGridColumnValid(dcEndValue, timeEdit);//----结束值有效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----   
 
-            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----   
+            //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
+            //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----   
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_WITHIN);//---默认以内----
             gvLogic.SetRowCellValue(0, dcStartValue,"00:00");//--默认第一个开始值---
             gvLogic.SetRowCellValue(0, dcEndValue, "00:00");//--默认第一个开始值--- 
@@ -858,8 +872,11 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
-            string nowDateStr = DateTime.Now.ToShortDateString();
+            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
 
+            string nowDateStr = DateTime.Now.ToShortDateString();
             byte[] dtStartTime = ConvertTools.GetByteFromInt32(td.Size1);
             byte[] dtEndTime = ConvertTools.GetByteFromInt32(td.Size2);
             int dtStartSeconds = (int)dtStartTime[2] * 60 * 60 + (int)dtStartTime[1] * 60;
@@ -874,12 +891,10 @@ namespace ConfigDevice
 
         public override void KindChanged()
         {
-            throw new NotImplementedException();
         }
 
         public override void OperateChanged()
         {
-            throw new NotImplementedException();
         }
     }
 
@@ -907,16 +922,21 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
-            setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
+            //setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            //setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
+
+            setGridColumnInvalid(dcTriggerPosition);//---触发位置无效
+            setGridColumnInvalid(dcDifferentDevice);//---触发设备无效----
+            setGridColumnInvalid(dcTriggerKind);//---触发类型----       
+
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, dateEdit);//---开始值有效
             setGridColumnValid(dcEndValue, dateEdit);//----结束值有效---
             setGridColumnInvalid(dcValid);//---持续时间----
             setGridColumnInvalid(dcInvalid);//----失效时间-----   
 
-            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----   
+            //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
+            //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----   
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_WITHIN);//---默认以内---- 
             gvLogic.SetRowCellValue(0, dcStartValue, "01-01");//----默认为1号
             gvLogic.SetRowCellValue(0, dcEndValue, "01-01");//----默认为1号
@@ -932,6 +952,10 @@ namespace ConfigDevice
         {
             DataRow dr = gvLogic.GetDataRow(0);
             TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
+
             //--------开始秒数,结束秒数-------------- 
             DateTime dtStartTime = DateTime.Parse(dr[dcStartValue.FieldName].ToString());
             DateTime dtEndTime = DateTime.Parse(dr[dcEndValue.FieldName].ToString());
@@ -992,15 +1016,21 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            //setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            //setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
+
+            setGridColumnInvalid(dcTriggerPosition);//---触发位置无效
+            setGridColumnInvalid(dcDifferentDevice);//---触发设备无效----
+            setGridColumnInvalid(dcTriggerKind);//---触发类型----       
+
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, iccbWeek);//---开始值有效
             setGridColumnInvalid(dcEndValue);//---结束为无效---
             setGridColumnInvalid(dcValid);//---取消有效持续---
             setGridColumnInvalid(dcInvalid); //---取消无效持续---
 
-            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
+            //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
+            //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
             gvLogic.SetRowCellValue(0, dcOperate, this.cbxOperate.Items[0].ToString());//---第一个触发运算---
             gvLogic.SetRowCellValue(0, dcStartValue, "");//---第一个开始选择运算---
             
@@ -1043,7 +1073,10 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
-             
+            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
+
             byte[] weekByteValue = ConvertTools.GetByteFromInt32(td.Size1);
             byte byteWeeks = weekByteValue[0];
             string weekValue = "";
@@ -1105,15 +1138,21 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            //setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            //setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
+
+            setGridColumnInvalid(dcTriggerPosition);//---触发位置无效
+            setGridColumnInvalid(dcDifferentDevice);//---触发设备无效----
+            setGridColumnInvalid(dcTriggerKind);//---触发类型----       
+
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnValid(dcEndValue, edtNum);//---结束为数字编辑---
             setGridColumnInvalid(dcValid);//---取消有效持续---
             setGridColumnInvalid(dcInvalid); //---取消无效持续---
 
-            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
+            //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
+            //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
             gvLogic.SetRowCellValue(0, dcOperate, this.cbxOperate.Items[0].ToString());//---第一个触发运算---
             gvLogic.SetRowCellValue(0, dcStartValue, this.cbxStart.Items[0].ToString());//---第一个开始选择运算---
             gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束范围为0---
@@ -1144,6 +1183,10 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行---
+            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
+
            //-----联动号操作----
             dr[dcStartValue.FieldName] = LevelValues[td.Size1];
             dr[dcEndValue.FieldName] = td.Size2;//联动号
@@ -1191,15 +1234,21 @@ namespace ConfigDevice
 
         public override void InitViewSetting()
         {
-            setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            //setGridColumnValid(dcTriggerKind, cbxKind);//---触发值有效----
+            //setGridColumnValid(dcTriggerPosition, cbxPosition);//---触发位置有效----
+
+            setGridColumnInvalid(dcTriggerPosition);//---触发位置无效
+            setGridColumnInvalid(dcDifferentDevice);//---触发设备无效----
+            setGridColumnInvalid(dcTriggerKind);//---触发类型----       
+
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnValid(dcEndValue, edtNum);//---结束为数字编辑---
             setGridColumnInvalid(dcValid);//---取消有效持续---
             setGridColumnInvalid(dcInvalid); //---取消无效持续---
 
-            gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
-            gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
+            //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
+            //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
             gvLogic.SetRowCellValue(0, dcOperate, this.cbxOperate.Items[0].ToString());//---第一个触发运算---
             gvLogic.SetRowCellValue(0, dcStartValue, this.cbxStart.Items[0].ToString());//---第一个开始选择运算---
             gvLogic.SetRowCellValue(0, dcEndValue, 0);//---结束范围为0---
@@ -1213,6 +1262,10 @@ namespace ConfigDevice
         {
             DataRow dr = gvLogic.GetDataRow(0);
             TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
+            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
+
             triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_TO2;//系统联动号为5的比较符号值
             //--------关闭/打开--------------
             string size1Str = dr[dcStartValue.FieldName].ToString();

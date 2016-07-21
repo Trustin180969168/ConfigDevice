@@ -127,7 +127,7 @@ namespace ConfigDevice
                 //-----读取完探头参数----- 
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Environment.CLASS_NAME)
                 {
-                    dtSensorState.Rows[0][1] = environment.WindySensor.ValueAndUnit; dtSensorState.Rows[0][2] = environment.WindySensor.LevelValue;//风速    
+                    dtSensorState.Rows[0][1] = environment.WindySensor.Value / 10.0 + " " + environment.WindySensor.Unit; dtSensorState.Rows[0][2] = environment.WindySensor.LevelValue;//风速    
                     dtSensorState.Rows[1][1] = ""; dtSensorState.Rows[1][2] = environment.RainSensor.LevelValue;//雨感
                     dtSensorState.Rows[2][1] = environment.temperatureSensor.ValueAndUnit; dtSensorState.Rows[2][2] = environment.temperatureSensor.LevelValue;//温度
                     dtSensorState.Rows[3][1] = environment.humiditySensor.ValueAndUnit; dtSensorState.Rows[3][2] = environment.humiditySensor.LevelValue;//湿度

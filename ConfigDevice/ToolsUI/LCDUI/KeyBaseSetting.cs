@@ -11,13 +11,14 @@ namespace ConfigDevice
     public partial class KeyBaseSetting : UserControl
     {
         public bool NeedInit = true;
-        public KeyList keyList; //---逻辑配置----          
+        public KeyList keyList; //---按键列表执行对象----          
         public Circuit KeyCircuit;//---按键回路,由调用者(设备提供)----
         private DataTable dtKeyData;//---按键列表
-        private int showCount = 2;//---显示按键个数----
-        private GridViewComboBox cbxControlObj;//---灯的下拉选择--
-        private GridViewComboBox cbxLightControlKind;//---灯的下拉选择--
-        private GridViewComboBox cbxElseControlKind;//----其他的下拉选择---
+        private int showCount = 8;//---默认按键个数----
+        private int startNum = 0;//---默认开始按键序号为第一个 =0
+        private GridViewComboBox cbxControlObj;//---下拉选择控制对象--
+        private GridViewComboBox cbxLightControlKind;//---灯的控制类型--
+        private GridViewComboBox cbxElseControlKind;//----其他的控制类型---
         private BaseKeySetting keySetting;//---按键配置对象---
 
         /// <summary>
@@ -77,30 +78,12 @@ namespace ConfigDevice
         /// <param name="deviceControled">设备对象</param>
         /// <param name="_showCount">显示个数</param>
         /// <param name="deviceControled">分页标题</param>
-        public void InitKeySettingList(Device deviceControled,int _showCount, params string[] pageTitles)
+        public void InitKeySettingList(Device deviceControled,int _showCount, int _startNum)
         {
             showCount = _showCount;
-            for (int i = 0; i < pageTitles.Length; i++)
-            {
-                ToolStripButton tsb = new ToolStripButton(pageTitles[i]);
-                tsb.Tag = i*8;
-                tsb.Checked = false;
+            startNum = _startNum;
 
-                if(pageTitles[i] == ViewConfig.LCD_CAPTION_SCENE)
-                    tsb.Image = global::ConfigDevice.Properties.Resources.scene;
-                else if (pageTitles[i] == ViewConfig.LCD_CAPTION_LIGHT)
-                    tsb.Image = global::ConfigDevice.Properties.Resources.lights;
-                else if (pageTitles[i] == ViewConfig.LCD_CAPTION_CURTAIN)
-                    tsb.Image = global::ConfigDevice.Properties.Resources.curtain;
-                else if (pageTitles[i] == ViewConfig.LCD_CAPTION_LEAVE_BACK)
-                    tsb.Image = global::ConfigDevice.Properties.Resources.Leave_Back; 
-    
-            }
 
-            //dtKeyData.Rows.Clear();
-            //for (int i = 0; i < showCount; i++)
-            //    dtKeyData.Rows.Add(i+1);
-            dtKeyData.AcceptChanges();
 
             keySetting = new BaseKeySetting(gvKeyData);//---按键配置对象---
             keyList = new KeyList(deviceControled);
@@ -184,10 +167,10 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="startKey">开始按键</param>
         /// <param name="endKey">结束按键</param>
-        public void ReadKeyData(int startKey,int endKey)
+        public void ReadKeyData( )
         {
             dtKeyData.Rows.Clear();
-            keyList.ReadKeyData(startKey, endKey);//---读取按键配置----
+            keyList.ReadKeyData(startNum, startNum + showCount - 1);//---读取按键配置----
         }
 
         /// <summary>

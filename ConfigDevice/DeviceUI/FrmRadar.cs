@@ -160,8 +160,8 @@ namespace ConfigDevice
             edtTriggerActionName.Text = radar.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
             if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
                 viewLogicSetting.InitLogicList(radar, SensorConfig.SENSOR_RADAR, SensorConfig.SENSOR_SWIT_TAMPER,
-                       SensorConfig.SENSOR_TIME,SensorConfig.SENSOR_DATE,SensorConfig.SENSOR_WEEK,
-                       SensorConfig.SENSOR_SECURITY_INTERACTION,SensorConfig.SENSOR_SYSTEM_INTERACTION );   
+                       SensorConfig.SENSOR_TIME,SensorConfig.SENSOR_DATE,SensorConfig.SENSOR_WEEK,SensorConfig.SENSOR_SECURITY_INTERACTION,
+                       SensorConfig.SENSOR_SYSTEM_INTERACTION,SensorConfig.SENSOR_INNER_INTERACTION );   
             if (viewCommandSetting.NeedInit)//----初始化指令配置-------
                 viewCommandSetting.InitViewCommand(radar);//初始化       
             hasInitedLogicAndCommand = true;//----初始化完毕-----
