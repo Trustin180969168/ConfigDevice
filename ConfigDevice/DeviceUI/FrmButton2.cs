@@ -14,7 +14,7 @@ namespace ConfigDevice
         private DataTable dtCircuit = new DataTable("按键选择");
         private PanelOptionData button2OptionData;//---按键配置----
         private int InitSelectIndex = 0;//初始化选择配置项ID
-        private string AmpAddress = "0";
+    
         public FrmButton2(Device _device)
             : base(_device)
         {          
@@ -34,7 +34,8 @@ namespace ConfigDevice
             
 
             DataTable dt = SysConfig.DtDevice.Clone();
-            DataRow[] amps = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID+ "= '" + DeviceConfig.EQUIPMENT_AMP_MP3 + "' ");
+            DataRow[] amps = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID + "= '" + DeviceConfig.EQUIPMENT_AMP_MP3 + "' and " +
+                DeviceConfig.DC_NETWORK_ID + " = '" + button2.NetworkID + "'");
             foreach (DataRow dr in amps)
                 dt.Rows.Add(dr.ItemArray);
             lookUpEditAmp.Properties.DataSource = dt;
@@ -175,7 +176,7 @@ namespace ConfigDevice
         private void btSave_Click(object sender, EventArgs e)
         {
             //---保存面板配置-------
-            PanelOptionData keySettingData = new PanelOptionData(button2OptionData.GetKeyOptionValue());
+            PanelOptionData keySettingData = new PanelOptionData(button2OptionData.GetPanelOptionValue());
             keySettingData.CLoseLightWithBrightness = ceLittleLight.Checked;//---关灯微亮---
             keySettingData.Luminance = (byte)tbcLight.Value;                      //---亮度----
             keySettingData.AlarmHintSound = ceAlarmSound.Checked;           //---预警提示音---
@@ -192,7 +193,7 @@ namespace ConfigDevice
                 safeFlags[i] = ceLeaveSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
             keySettingData.SaftFlags = safeFlags;
             //---判断是否更改,更改执行保存----
-            if (!CommonTools.BytesEuqals(keySettingData.GetKeyOptionValue(), button2OptionData.GetKeyOptionValue()))
+            if (!CommonTools.BytesEuqals(keySettingData.GetPanelOptionValue(), button2OptionData.GetPanelOptionValue()))
                 button2.KeyCtrl.SaveKeyOption(keySettingData);
             //---保存初始化配置-----
             if (rgInitState.SelectedIndex != InitSelectIndex)

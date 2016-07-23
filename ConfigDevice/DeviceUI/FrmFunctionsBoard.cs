@@ -32,8 +32,8 @@ namespace ConfigDevice
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {
-            keySettingTools.InitKeySettingList(button2, 8, ViewConfig.LCD_CAPTION_SCENE, ViewConfig.LCD_CAPTION_LIGHT,
-                ViewConfig.LCD_CAPTION_CURTAIN, ViewConfig.LCD_CAPTION_LEAVE_BACK);//---重新初始化按键配置控件----
+            //keySettingTools.InitKeySettingList(button2, 8, ViewConfig.LCD_CAPTION_SCENE, ViewConfig.LCD_CAPTION_LIGHT,
+            //    ViewConfig.LCD_CAPTION_CURTAIN, ViewConfig.LCD_CAPTION_LEAVE_BACK);//---重新初始化按键配置控件----
 
             Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
             Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
@@ -71,16 +71,16 @@ namespace ConfigDevice
                             button2OptionData = callbackParameter.Parameters[2] as PanelOptionData; 
    
                             tbcLight.Value = button2OptionData.Luminance;                      //---亮度----
-                            ceAlarmSound.Checked = button2OptionData.AlarmHintSound;           //---预警提示音---
-                            ceDoorWindowSound.Checked = button2OptionData.DoorWindowHintSound; //---门窗提示音---
-                            speSecurityDelay.Value = button2OptionData.SetSecurityDelayTime;   //---布防延时---
-                            speAlarmDelay.Value = button2OptionData.AlarmDelayTime;            //---预警延时---
-                            speHintVolume.Value = button2OptionData.HintVolume;                //---提示音量---
-                            speSpeakerAddress.Value = button2OptionData.SoundAddress;          //---功放地址---
-                            ceBackSafeSetting.Items[0].CheckState = button2OptionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
-                            //------安防配置---------------
-                            for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
-                                ceLeaveSafeSetting.Items[i].CheckState = button2OptionData.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
+                            //ceAlarmSound.Checked = button2OptionData.AlarmHintSound;           //---预警提示音---
+                            //ceDoorWindowSound.Checked = button2OptionData.DoorWindowHintSound; //---门窗提示音---
+                            //speSecurityDelay.Value = button2OptionData.SetSecurityDelayTime;   //---布防延时---
+                            //speAlarmDelay.Value = button2OptionData.AlarmDelayTime;            //---预警延时---
+                            //speHintVolume.Value = button2OptionData.HintVolume;                //---提示音量---
+                            //speSpeakerAddress.Value = button2OptionData.SoundAddress;          //---功放地址---
+                            //ceBackSafeSetting.Items[0].CheckState = button2OptionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
+                            ////------安防配置---------------
+                            //for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
+                            //    ceLeaveSafeSetting.Items[i].CheckState = button2OptionData.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
                         }
                     }
                 }
@@ -133,8 +133,8 @@ namespace ConfigDevice
             button2.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
 
             this.Text = button2.Name;                   //---界面标题----
-            keySettingTools.InitKeySettingList(button2, 8, ViewConfig.LCD_CAPTION_SCENE, ViewConfig.LCD_CAPTION_LIGHT,
-                ViewConfig.LCD_CAPTION_CURTAIN, ViewConfig.LCD_CAPTION_LEAVE_BACK);//---重新初始化按键配置控件----
+            //keySettingTools.InitKeySettingList(button2, 8, ViewConfig.LCD_CAPTION_SCENE, ViewConfig.LCD_CAPTION_LIGHT,
+            //    ViewConfig.LCD_CAPTION_CURTAIN, ViewConfig.LCD_CAPTION_LEAVE_BACK);//---重新初始化按键配置控件----
             viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
             InitSelectDevice();                         //---初始化选择设备---
             viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------      
@@ -149,29 +149,29 @@ namespace ConfigDevice
         private void btSave_Click(object sender, EventArgs e)
         {
             //---保存面板配置-------
-            PanelOptionData keySettingData = new PanelOptionData(button2OptionData.GetKeyOptionValue());
+            PanelOptionData keySettingData = new PanelOptionData(button2OptionData.GetPanelOptionValue());
 
             keySettingData.Luminance = (byte)tbcLight.Value;                      //---亮度----
-            keySettingData.AlarmHintSound = ceAlarmSound.Checked;           //---预警提示音---
-            keySettingData.DoorWindowHintSound = ceDoorWindowSound.Checked; //---门窗提示音---
-            keySettingData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
-            keySettingData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
-            keySettingData.HintVolume = (byte)speHintVolume.Value;                //---提示音量---
-            keySettingData.SoundAddress = (byte)speSpeakerAddress.Value;          //---功放地址---
-            keySettingData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防---- 
+            //keySettingData.AlarmHintSound = ceAlarmSound.Checked;           //---预警提示音---
+            //keySettingData.DoorWindowHintSound = ceDoorWindowSound.Checked; //---门窗提示音---
+            //keySettingData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
+            //keySettingData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
+            //keySettingData.HintVolume = (byte)speHintVolume.Value;                //---提示音量---
+            //keySettingData.SoundAddress = (byte)speSpeakerAddress.Value;          //---功放地址---
+            //keySettingData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防---- 
             //---安防配置---------------
             bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
                     false, false, false, false, false };
-            for (int i = 0; i < keySettingData.SaftFlags.Length; i++)   
-                safeFlags[i] = ceLeaveSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
+            //for (int i = 0; i < keySettingData.SaftFlags.Length; i++)   
+            //    safeFlags[i] = ceLeaveSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
             keySettingData.SaftFlags = safeFlags;
             //---判断是否更改,更改执行保存----
-            if (!CommonTools.BytesEuqals(keySettingData.GetKeyOptionValue(), button2OptionData.GetKeyOptionValue()))
+            if (!CommonTools.BytesEuqals(keySettingData.GetPanelOptionValue(), button2OptionData.GetPanelOptionValue()))
                 button2.KeyCtrl.SaveKeyOption(keySettingData);
 
 
             //---保存按键配置---------
-            keySettingTools.SaveKeyData();
+            //keySettingTools.SaveKeyData();
         }
 
         /// <summary>
@@ -203,17 +203,27 @@ namespace ConfigDevice
         {
             if (e.Index == 15)
             {
-                if (ceLeaveSafeSetting.Items[15].CheckState == CheckState.Checked)
-                {
-                    for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
-                        ceLeaveSafeSetting.Items[i].CheckState = CheckState.Checked;
-                }
-                if (ceLeaveSafeSetting.Items[15].CheckState == CheckState.Unchecked)
-                {
-                    for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
-                        ceLeaveSafeSetting.Items[i].CheckState = CheckState.Unchecked;
-                }
+                //if (ceLeaveSafeSetting.Items[15].CheckState == CheckState.Checked)
+                //{
+                //    for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
+                //        ceLeaveSafeSetting.Items[i].CheckState = CheckState.Checked;
+                //}
+                //if (ceLeaveSafeSetting.Items[15].CheckState == CheckState.Unchecked)
+                //{
+                //    for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
+                //        ceLeaveSafeSetting.Items[i].CheckState = CheckState.Unchecked;
+                //}
             }
+        }
+
+        private void keyBaseSetting1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
         }
 
 

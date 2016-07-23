@@ -83,8 +83,6 @@ namespace ConfigDevice
             showCount = _showCount;
             startNum = _startNum;
 
-
-
             keySetting = new BaseKeySetting(gvKeyData);//---按键配置对象---
             keyList = new KeyList(deviceControled);
             keyList.OnCallbackUI_Action += this.ReturnKeyData;
@@ -159,7 +157,7 @@ namespace ConfigDevice
         /// </summary>
         public void RefreshData()
         {
-
+            ReadKeyData();
         }
 
         /// <summary>
@@ -167,7 +165,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="startKey">开始按键</param>
         /// <param name="endKey">结束按键</param>
-        public void ReadKeyData( )
+        public void ReadKeyData()
         {
             dtKeyData.Rows.Clear();
             keyList.ReadKeyData(startNum, startNum + showCount - 1);//---读取按键配置----

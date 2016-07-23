@@ -20,6 +20,7 @@ namespace ConfigDevice
         public const string DC_OBJECT = "Object";//触发对象
         public const string DC_POSITION = "Position";//触发位置
         public const string DC_KIND = "Kind";//内容类型
+        public const string DC_KIND_NAME = "KindName";//内容类型
         public const string DC_DEVICE_VALUE = "DeviceValue";//差异设备
         public const string DC_OPERATION = "Operation";//运算操作
         public const string DC_START_VALUE = "StartValue";//开始值
@@ -156,6 +157,11 @@ namespace ConfigDevice
             //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
             //       "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
             //       ")";
+
+        public static string SELECT_ENVIRONMENT_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
+ 
+           "'" + (int)DeviceConfig.EQUIPMENT_AIR_QUALITY + "'" +
+           ")";
 
         static ViewConfig()
         {

@@ -4,6 +4,47 @@ using System.Text;
 
 namespace ConfigDevice
 {
+    /// <summary>
+    /// 面板传感器配置
+    /// </summary>
+    public class PanelSensorInfo
+    {
+        public UInt16 SensorKind = 0;//传感器1,0为无效
+        public byte DeviceNetworkID = 0;//设备1网段
+        public byte DeviceID = 0;//设备1ID
+
+        public PanelSensorInfo()
+        {
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="value"></param>
+        public PanelSensorInfo(byte[] value)
+        {
+            SensorKind = ConvertTools.Bytes2ToUInt16(value[0], value[1]);
+            DeviceNetworkID = value[2];
+            DeviceID = value[3];
+        }
+
+        /// <summary>
+        /// 获取值
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetValue()
+        {
+            byte[] values = new byte[4];
+            values[0] = ConvertTools.GetByteFromUInt16(SensorKind)[0];
+            values[1] = ConvertTools.GetByteFromUInt16(SensorKind)[1];
+            values[2] = this.DeviceNetworkID;
+            values[3] = this.DeviceID;
+
+            return values;
+        }
+
+    }
+
     public class PanelOptionData
     {
         /*
@@ -45,6 +86,7 @@ namespace ConfigDevice
             原来显示分为：全部显示、只显示没关没锁，现在固定为只显示没关没锁。
  
         */
+        public const int Length = 58;
 
         public byte OpenClosePassword = 0;
         public byte Content = 0;//内容,
@@ -71,7 +113,9 @@ namespace ConfigDevice
         public UInt16 Security = 0;//安防
         public byte SetSecurityDelayTime = 0;//布防延时
         public byte AlarmDelayTime = 0;//预警时间 
-               
+        //-------最多8个传感器数据-----
+        public PanelSensorInfo[] PanelSensors = new PanelSensorInfo[8];
+
         //-----安防标志----目前为两个字节------
         public bool[] SaftFlags
         {
@@ -183,8 +227,20 @@ namespace ConfigDevice
             }
         }
 
+        /// <summary>
+        /// 面板传感器设定
+        /// </summary>
+        public void SetPanenlSensor(PanelSensorInfo panelSensor, int sensorNum)
+        {
+            this.PanelSensors[sensorNum].SensorKind = panelSensor.SensorKind;
+            this.PanelSensors[sensorNum].DeviceNetworkID = panelSensor.DeviceNetworkID;
+            this.PanelSensors[sensorNum].DeviceID = panelSensor.DeviceID;
+        }
 
-
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="userData"></param>
         public PanelOptionData(UserUdpData userData):this(userData.Data)
         { 
       
@@ -227,15 +283,19 @@ namespace ConfigDevice
 
             SetSecurityDelayTime = value[24];//布防延时
             AlarmDelayTime = value[25];//预警时间 
+            //-----传感器列表-----
+            for (int i = 0; i < 8; i++)
+                PanelSensors[i] = new PanelSensorInfo(CommonTools.CopyBytes(value, i * 4 + 26, 4));
+
         }
 
         /// <summary>
         /// 获取按键值
         /// </summary>
         /// <returns></returns>
-        public byte[] GetKeyOptionValue()
+        public byte[] GetPanelOptionValue()
         {
-            byte[] value = new byte[26];
+            byte[] value = new byte[26 + 4 * 8];
 
             value[0] = OpenClosePassword;//1.开密码;2.关
             value[1] = Content;//内容,
@@ -264,7 +324,9 @@ namespace ConfigDevice
             value[23] = ConvertTools.GetByteFromUInt16(Security)[1];//安防
             value[24] = SetSecurityDelayTime;//布防延时
             value[25] = AlarmDelayTime;//预警时间 
-
+            //-----传感器数组-----
+            for (int i = 0; i < 8; i++)
+                Buffer.BlockCopy(PanelSensors[i].GetValue(), 0, value, i * 4 + 26, 4); 
             return value;
         }
     }

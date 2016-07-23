@@ -197,7 +197,7 @@ namespace ConfigDevice
         /// 获取设备表选择控件
         /// </summary>
         /// <returns></returns>
-        public static GridViewGridLookupEdit GetLogicDevicesLookupEdit()
+        public static GridViewGridLookupEdit GetDevicesLookupEdit(string filerExpression)
         {
             GridViewGridLookupEdit gridLookupDevice = new GridViewGridLookupEdit();//设备列表选择编辑
             gridLookupDevice.Name = "gridLookupEdit";
@@ -206,13 +206,13 @@ namespace ConfigDevice
             gridLookupDevice.ValueMember = ViewConfig.DC_DEVICE_VALUE;
             //-----获取选择的设备数据---
             DataTable dtSelectDevices = SysConfig.DtDevice.Clone();
-            DataRow[] rows = SysConfig.DtDevice.Select(ViewConfig.SELECT_LOGIC_DEVICE_QUERY_CONDITION);
+            DataRow[] rows = SysConfig.DtDevice.Select(filerExpression);
             foreach (DataRow dr in rows)
                 dtSelectDevices.Rows.Add(dr.ItemArray);
             //----初始化新的设备值----
             dtSelectDevices.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
             foreach (DataRow dr in dtSelectDevices.Rows)
-                dr[ViewConfig.DC_DEVICE_VALUE] = dr[DeviceConfig.DC_KIND_ID].ToString() + dr[DeviceConfig.DC_NETWORK_ID].ToString() + dr[DeviceConfig.DC_ID].ToString();
+                dr[ViewConfig.DC_DEVICE_VALUE] = dr[DeviceConfig.DC_KIND_ID].ToString() +"_" + dr[DeviceConfig.DC_NETWORK_ID].ToString() +"_"+ dr[DeviceConfig.DC_ID].ToString();
             dtSelectDevices.AcceptChanges();
             //----初始化下拉界面------
             gridLookupDevice.DataSource = dtSelectDevices;
@@ -256,62 +256,7 @@ namespace ConfigDevice
             return gridLookupDevice;
         }
 
-        /// <summary>
-        /// 获取命令列表的设备选择
-        /// </summary>
-        public static GridViewGridLookupEdit GetCommandDevicesLookupEdit
-        {
-            get
-            {
-                if (dtCommandDevices.Rows.Count == 0)//----判断是否初始化-----
-                   InitCommandDevicesLookupEdit(); 
-                GridViewGridLookupEdit commandDevicesLookupEdit = new GridViewGridLookupEdit();//设备列表选择编辑
-                commandDevicesLookupEdit.Name = "gridLookupEdit";
-                commandDevicesLookupEdit.NullText = "选择设备";
-                commandDevicesLookupEdit.DisplayMember = DeviceConfig.DC_NAME;
-                commandDevicesLookupEdit.ValueMember = ViewConfig.DC_DEVICE_VALUE;
-                //----初始化下拉界面------
-                commandDevicesLookupEdit.DataSource = dtCommandDevices;
-                foreach (GridColumn gc in commandDevicesLookupEdit.View.Columns)
-                {
-                    if (gc.FieldName != DeviceConfig.DC_ID && gc.FieldName != DeviceConfig.DC_NETWORK_ID &&
-                        gc.FieldName != DeviceConfig.DC_KIND_NAME && gc.FieldName != DeviceConfig.DC_NAME)
-                        gc.Visible = false;
-                }
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).SortIndex = 0;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).SortIndex = 1;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).VisibleIndex = 0;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).VisibleIndex = 1;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).VisibleIndex = 2;
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).VisibleIndex = 3;
-
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_ID).Caption = "设备ID";
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NAME).Caption = "设备名称";
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).Caption = "网段";
-                commandDevicesLookupEdit.View.Columns.ColumnByFieldName(DeviceConfig.DC_KIND_NAME).Caption = "设备类型";
-
-                commandDevicesLookupEdit.PopupFormMinSize = new System.Drawing.Size(500, 500);
-                commandDevicesLookupEdit.View.BestFitColumns();
-
-                return commandDevicesLookupEdit;
-            }
-        }
+     
         /// <summary>
         /// 获取命令设备表选择控件
         /// </summary>
@@ -335,9 +280,7 @@ namespace ConfigDevice
             dtCommandDevices.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
             foreach (DataRow dr in dtCommandDevices.Rows)
                 dr[ViewConfig.DC_DEVICE_VALUE] = dr[DeviceConfig.DC_KIND_ID].ToString() +"_"+ dr[DeviceConfig.DC_NETWORK_ID].ToString() + "_" + dr[DeviceConfig.DC_ID].ToString();
-            dtCommandDevices.AcceptChanges();
-
-            
+            dtCommandDevices.AcceptChanges(); 
      
         }
 

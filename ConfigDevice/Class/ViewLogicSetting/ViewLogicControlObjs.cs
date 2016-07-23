@@ -99,8 +99,8 @@ namespace ConfigDevice
             if (td.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//--外设/差值的情况---
             {
                 positionChanged();//---触发选择设备----
-                string deviceValue = td.DeviceKindID.ToString() + td.DeviceNetworkID.ToString() + td.DeviceID.ToString();
-                if (deviceValue == "000")//----没有保存差异设备----
+                string deviceValue = td.DeviceKindID.ToString() + "_" + td.DeviceNetworkID.ToString() + "_" +td.DeviceID.ToString();
+                if (deviceValue == "0_0_0")//----没有保存差异设备----
                     dr[ViewConfig.DC_DEVICE_VALUE] = null;
                 else
                 {
@@ -391,7 +391,7 @@ namespace ConfigDevice
             {
                 positionChanged();//---触发选择设备----
                 string deviceValue = td.DeviceKindID.ToString() + td.DeviceNetworkID.ToString() + td.DeviceID.ToString();
-                if (deviceValue == "000")//----没有保存差异设备----
+                if (deviceValue == "0_0_0")//----没有保存差异设备----
                     dr[ViewConfig.DC_DEVICE_VALUE] = null;
                 else
                 {
@@ -521,8 +521,8 @@ namespace ConfigDevice
             if (td.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//--外设/差值的情况---
             {
                 positionChanged();//---触发选择设备----
-                string deviceValue = td.DeviceKindID.ToString() + td.DeviceNetworkID.ToString() + td.DeviceID.ToString();
-                if (deviceValue == "000")//----没有保存差异设备----
+                string deviceValue = td.DeviceKindID.ToString() +"_"+ td.DeviceNetworkID.ToString() + "_"+td.DeviceID.ToString();
+                if (deviceValue == "0_0_0")//----没有保存差异设备----
                     dr[ViewConfig.DC_DEVICE_VALUE] = null;
                 else
                 {
@@ -658,8 +658,8 @@ namespace ConfigDevice
             if (td.TriggerPositionID == SensorConfig.LG_SENSOR_DEV_FLAG)//--外设/差值的情况---
             {
                 positionChanged();//---触发选择设备----
-                string deviceValue = td.DeviceKindID.ToString() + td.DeviceNetworkID.ToString() + td.DeviceID.ToString();
-                if (deviceValue == "000")//----没有保存差异设备----
+                string deviceValue = td.DeviceKindID.ToString() + "_" + td.DeviceNetworkID.ToString() + "_" + td.DeviceID.ToString();
+                if (deviceValue == "0_0_0")//----没有保存差异设备----
                     dr[ViewConfig.DC_DEVICE_VALUE] = null;
                 else
                 {

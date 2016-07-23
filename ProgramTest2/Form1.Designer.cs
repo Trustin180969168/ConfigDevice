@@ -48,6 +48,7 @@
             this.dcSelect2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cbxSelect2 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.cbxSelect3 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             this.imageComboBoxEdit1 = new DevExpress.XtraEditors.ImageComboBoxEdit();
@@ -60,7 +61,7 @@
             this.lookUpEdit2 = new DevExpress.XtraEditors.LookUpEdit();
             this.gridLookUpEdit1 = new DevExpress.XtraEditors.GridLookUpEdit();
             this.gridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.cbxSelect3 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.zoomTrackBarControl1 = new DevExpress.XtraEditors.ZoomTrackBarControl();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
@@ -73,6 +74,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxSelect2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxSelect3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).BeginInit();
@@ -82,7 +84,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1View)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxSelect3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // timeEdit1
@@ -314,6 +317,17 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemLookUpEdit1.Name = "repositoryItemLookUpEdit1";
             // 
+            // cbxSelect3
+            // 
+            this.cbxSelect3.AutoHeight = false;
+            this.cbxSelect3.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxSelect3.Items.AddRange(new object[] {
+            "select1",
+            "select2",
+            "select3"});
+            this.cbxSelect3.Name = "cbxSelect3";
+            // 
             // simpleButton2
             // 
             this.simpleButton2.Location = new System.Drawing.Point(33, 61);
@@ -460,22 +474,22 @@
             this.gridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
             // 
-            // cbxSelect3
+            // zoomTrackBarControl1
             // 
-            this.cbxSelect3.AutoHeight = false;
-            this.cbxSelect3.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxSelect3.Items.AddRange(new object[] {
-            "select1",
-            "select2",
-            "select3"});
-            this.cbxSelect3.Name = "cbxSelect3";
+            this.zoomTrackBarControl1.EditValue = null;
+            this.zoomTrackBarControl1.Location = new System.Drawing.Point(25, 297);
+            this.zoomTrackBarControl1.Name = "zoomTrackBarControl1";
+            this.zoomTrackBarControl1.Properties.Maximum = 100;
+            this.zoomTrackBarControl1.Properties.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
+            this.zoomTrackBarControl1.Size = new System.Drawing.Size(104, 18);
+            this.zoomTrackBarControl1.TabIndex = 19;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 466);
+            this.Controls.Add(this.zoomTrackBarControl1);
             this.Controls.Add(this.gridLookUpEdit1);
             this.Controls.Add(this.lookUpEdit2);
             this.Controls.Add(this.checkedComboBoxEdit1);
@@ -504,6 +518,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxSelect2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxSelect3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageComboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).EndInit();
@@ -513,7 +528,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1View)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxSelect3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -551,6 +567,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn dcSelect2;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxSelect2;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxSelect3;
+        private DevExpress.XtraEditors.ZoomTrackBarControl zoomTrackBarControl1;
     }
 }
 

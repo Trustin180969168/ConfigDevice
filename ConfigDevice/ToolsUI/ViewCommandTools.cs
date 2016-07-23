@@ -100,7 +100,7 @@ namespace ConfigDevice
             : this()
         {
            this.Num = num;
-           gridLookupDevice = ViewEditCtrl.GetCommandDevicesLookupEdit;//-----下拉选择------
+           gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit(ViewConfig.SELECT_COMMAND_DEVICE_QUERY_CONDITION);//-----下拉选择------
     
            gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
            deviceName.ColumnEdit = gridLookupDevice;
@@ -255,7 +255,7 @@ namespace ConfigDevice
             cbxControlObj.Items.Clear();
             command.Visible = false;
 
-            gridLookupDevice = ViewEditCtrl.GetCommandDevicesLookupEdit;//-----下拉选择------
+            gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit(ViewConfig.SELECT_COMMAND_DEVICE_QUERY_CONDITION);//-----下拉选择------
             gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
             deviceName.ColumnEdit = gridLookupDevice;
 

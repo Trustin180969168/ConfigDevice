@@ -263,7 +263,7 @@ namespace ConfigDevice
         /// </summary>
         protected void initGridLookupDevice()
         {
-            gridLookupDevice = ViewEditCtrl.GetLogicDevicesLookupEdit();
+            gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit(ViewConfig.SELECT_LOGIC_DEVICE_QUERY_CONDITION);
             dtSelectDevices = gridLookupDevice.DataSource as DataTable;
             gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
         }
@@ -319,8 +319,8 @@ namespace ConfigDevice
         /// <param name="dr">行</param>
         protected void setDeviceData(TriggerData td, DataRow dr)
         {
-            string deviceValue = td.DeviceKindID.ToString() + td.DeviceNetworkID.ToString() + td.DeviceID.ToString();
-            if (deviceValue == "000")//----没有保存差异设备----
+            string deviceValue = td.DeviceKindID.ToString() +"_" + td.DeviceNetworkID.ToString() +"_" +td.DeviceID.ToString();
+            if (deviceValue == "0_0_0")//----没有保存差异设备----
                 dr[ViewConfig.DC_DEVICE_VALUE] = null;
             else
             {

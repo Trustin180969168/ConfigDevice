@@ -118,14 +118,14 @@ namespace ConfigDevice
             byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_KB_WRITE_OPTIONS;//----用户命令----- 
-            byte len = 26 + 4;//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----  
-            byte[] crcData = new byte[10 + 26];//10 固定长度:源+目标+命令+长度+分页
+            byte len = PanelOptionData.Length + 4;//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----  
+            byte[] crcData = new byte[10 + PanelOptionData.Length];//10 固定长度:源+目标+命令+长度+分页
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
-            byte[] value = optionData.GetKeyOptionValue();//---配置数据---
+            byte[] value = optionData.GetPanelOptionValue();//---配置数据---
             Buffer.BlockCopy(value, 0, crcData, 10, value.Length);//---配置数据---
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
