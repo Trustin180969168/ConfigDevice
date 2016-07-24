@@ -78,7 +78,7 @@ namespace ConfigDevice
         /// <param name="deviceControled">设备对象</param>
         /// <param name="_showCount">显示个数</param>
         /// <param name="deviceControled">分页标题</param>
-        public void InitKeySettingList(Device deviceControled,int _showCount, int _startNum)
+        public void InitKeySettingList(Device deviceControled, int _startNum,int _showCount)
         {
             showCount = _showCount;
             startNum = _startNum;

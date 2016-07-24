@@ -101,7 +101,7 @@ namespace ConfigDevice
                             ceDoorWindowSound.Checked = button2OptionData.DoorWindowHintSound; //---门窗提示音---
                             speSecurityDelay.Value = button2OptionData.SetSecurityDelayTime;   //---布防延时---
                             speAlarmDelay.Value = button2OptionData.AlarmDelayTime;            //---预警延时---
-                            speHintVolume.Value = button2OptionData.HintVolume;                //---提示音量---
+                            speHintVolume.Value = button2OptionData.Volume;                //---提示音量---
                             speAmp.Text = button2OptionData.SoundAddress.ToString();          //---功放地址---
                             lookUpEditAmp.Text = button2OptionData.SoundAddress.ToString();         //---功放地址---
                             ceBackSafeSetting.Items[0].CheckState = button2OptionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
@@ -122,8 +122,8 @@ namespace ConfigDevice
         private void loadData()
         {
             button2.Circuit.ReadRoadTitle();    //读取回路,完毕后自动读取第一个列按键
-            button2.KeyCtrl.ReadKeyOption();    //读取面板配置
-            button2.KeyCtrl.ReadKeyState();     //读取状态
+            button2.PanelCtrl.ReadKeyOption();    //读取面板配置
+            button2.PanelCtrl.ReadKeyState();     //读取状态
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace ConfigDevice
             keySettingData.DoorWindowHintSound = ceDoorWindowSound.Checked; //---门窗提示音---
             keySettingData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
             keySettingData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
-            keySettingData.HintVolume = (byte)speHintVolume.Value;                //---提示音量--- 
+            keySettingData.Volume = (byte)speHintVolume.Value;                //---提示音量--- 
             keySettingData.SoundAddress = (byte)speAmp.Value;          //---功放地址---
             keySettingData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防---- 
             //---安防配置---------------
@@ -194,10 +194,10 @@ namespace ConfigDevice
             keySettingData.SaftFlags = safeFlags;
             //---判断是否更改,更改执行保存----
             if (!CommonTools.BytesEuqals(keySettingData.GetPanelOptionValue(), button2OptionData.GetPanelOptionValue()))
-                button2.KeyCtrl.SaveKeyOption(keySettingData);
+                button2.PanelCtrl.SaveKeyOption(keySettingData);
             //---保存初始化配置-----
             if (rgInitState.SelectedIndex != InitSelectIndex)
-                button2.KeyCtrl.SaveKeyState(rgInitState.SelectedIndex);
+                button2.PanelCtrl.SaveKeyState(rgInitState.SelectedIndex);
 
             //---保存按键配置---------
             keySettingTools.SaveKeyData();

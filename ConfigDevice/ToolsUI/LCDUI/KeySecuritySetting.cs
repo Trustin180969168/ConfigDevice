@@ -41,9 +41,9 @@ namespace ConfigDevice.ToolsUI.LCDUI
             ceDoorWindowSound.Checked = optionData.DoorWindowHintSound; //---门窗提示音---
             speSecurityDelay.Value = optionData.SetSecurityDelayTime;   //---布防延时---
             speAlarmDelay.Value = optionData.AlarmDelayTime;            //---预警延时---
-            speHintVolume.Value = optionData.HintVolume;                //---提示音量---
-            speAmp.Value = optionData.SoundAddress;                     //---功放地址---
-            lookUpEditAmp.EditValue = optionData.SoundAddress;          //---功放名称---
+          //  speHintVolume.Value = optionData.Volume;                //---提示音量---
+          //  speAmp.Value = optionData.SoundAddress;                     //---功放地址---
+          //  lookUpEditAmp.EditValue = optionData.SoundAddress;          //---功放名称---
             ceBackSafeSetting.Items[0].CheckState = optionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
             //------安防配置---------------
             for (int i = 0; i < optionData.SaftFlags.Length; i++)

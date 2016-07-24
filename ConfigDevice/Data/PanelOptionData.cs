@@ -88,8 +88,7 @@ namespace ConfigDevice
         */
         public const int Length = 58;
 
-        public byte OpenClosePassword = 0;
-        public byte Content = 0;//内容,
+        public UInt16 PagePassword = 0;//密码设置
         public byte PageContent = 0;//页面显示   0---空调，1---门窗
         public byte LeaveHome = 0;//离家键
         public byte GoHome = 0;//回家键
@@ -99,6 +98,16 @@ namespace ConfigDevice
         public byte AirConditionAddress2 = 0;//空调地址2
         public byte AirConditionKind2 = 0;//空调类型2
         public byte DoorWindowShowSetting = 0;//门窗显示设置
+        /*
+        门窗显示设置 
+Bit0~bit1   0 关窗锁窗(第一页显示关窗，第二页显示锁窗)
+            1 锁窗关窗(第一页显示锁窗，第二页显示关窗)
+            2 关窗    (只为示关窗)
+            3 锁窗    (只显示锁窗)
+Bit7        1    全部房间显示，
+            0    只显示本房间
+原来显示分为：全部显示、只显示没关没锁，现在固定为只显示没关没锁。
+        */
         public byte StandbyLight = 0;//待机背光     0~10
         public byte Luminance = 0;//亮度
         public byte PointLightLuminance = 0;//指示灯亮度
@@ -109,7 +118,7 @@ namespace ConfigDevice
         public byte AUXAddress2 = 0;//红外线地址
         public byte AUXKind2 = 0;//类型
         public byte AUXControlKind2 = 0;//红外控制对象类型
-        public byte HintVolume = 0;//提示音量
+        public byte Volume = 0;//音量
         public UInt16 Security = 0;//安防
         public byte SetSecurityDelayTime = 0;//布防延时
         public byte AlarmDelayTime = 0;//预警时间 
@@ -160,13 +169,69 @@ namespace ConfigDevice
             }
         }
 
-        public bool[] PagePasswordSetting
+        //-----密码设置也----目前为两个字节------
+        public bool[] SaftPageFlags
         {
-            get {
+            get
+            {
+                byte[] value = ConvertTools.GetByteFromUInt16(PagePassword);
+                byte b1 = value[0];
+                byte b2 = value[1];
+                int num = 0;
+                bool[] passwordFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
+                    false, false, false, false, false };
+                for (int i = 1; i <= 128; i *= 2)
+                    passwordFlags[num++] = (int)(b1 & i) == i ? true : false;
+                num = 8;
+                for (int i = 1; i <= 64; i *= 2)
+                    passwordFlags[num++] = (int)(b2 & i) == i ? true : false;
+                return passwordFlags;
+            }
+            set
+            {
+                byte b1 = 0;
+                byte b2 = 0;
+                int num = 0;
+                for (int i = 1; i <= 128; i *= 2)
+                    if (value[num++])
+                        b1 = (byte)(b1 | i);
+                num = 8;
+                for (int i = 1; i <= 64; i *= 2)
+                    if (value[num++])
+                        b2 = (byte)(b2 | i); 
 
-                bool[] b = { false };
-                return b;
+                PagePassword = ConvertTools.Bytes2ToUInt16(b1, b2);
+            }
+        }
+ 
 
+        /// <summary>
+        /// 开启红外线
+        /// </summary>
+        public bool OpenRedLine
+        {
+            get { return ((GoHome & 4) == 4) ? true : false; }
+            set
+            {
+                if (value)
+                    GoHome = (byte)(GoHome | 4);//0000 0100
+                else
+                    GoHome = (byte)(GoHome & 251);//1111 1011
+            }
+        }
+
+        /// <summary>
+        /// 时间屏保
+        /// </summary>
+        public bool OpenScreenProtect
+        {
+            get { return ((GoHome & 8) == 8) ? true : false; }
+            set
+            {
+                if (value)
+                    GoHome = (byte)(GoHome | 8);//0000 1000
+                else
+                    GoHome = (byte)(GoHome & 247);//1111 0111
             }
         }
 
@@ -198,6 +263,7 @@ namespace ConfigDevice
                     GoHome = (byte)(GoHome & 253);//1111 1101
             }
         }
+
         /// <summary>
         /// 全部撤防
         /// </summary>
@@ -228,6 +294,44 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 门窗显示
+        /// </summary>
+        public int DoorWindowShowAllID
+        {
+            get { return ((DoorWindowShowSetting & 128) == 128) ? 1 : 0; }
+            set
+            {
+                if (value == 1)
+                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting | 128);//1000 0000
+                else
+                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 127);//0111 1111
+            }
+        }
+
+        /// <summary>
+        /// 门窗显示
+        /// </summary>
+        public int DoorWindowShowKindID
+        {
+            get
+            {
+                return DoorWindowShowSetting & 15; // 0000 1111
+                
+            }
+            set
+            {
+                if (value == 0)
+                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 240 | 1);//1111 0000 | 0000 0001
+                else if (value == 1)
+                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 240 | 2);//1111 0000 | 0000 0010
+                else if (value == 2)
+                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 240 | 4);//1111 0000 | 0000 0100
+                else if (value == 3)
+                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 240 | 8);//1111 0000 | 0000 1000
+            }
+        }
+
+        /// <summary>
         /// 面板传感器设定
         /// </summary>
         public void SetPanenlSensor(PanelSensorInfo panelSensor, int sensorNum)
@@ -247,9 +351,8 @@ namespace ConfigDevice
         }
 
         public PanelOptionData(byte[] value)
-        {          
-            OpenClosePassword = value[0];//1.开密码;2.关
-            Content = value[1];//内容,
+        {
+            PagePassword = ConvertTools.Bytes2ToUInt16(value[0], value[1]);//密码设置页
             PageContent = value[2];//页面显示   0---空调，1---门窗
             LeaveHome = value[3];//离家键
             GoHome = value[4];//回家键
@@ -269,7 +372,7 @@ namespace ConfigDevice
             AUXAddress2 = value[18];//红外线地址
             AUXKind2 = value[19];//类型
             AUXControlKind2 = value[20];//红外控制对象类型
-            HintVolume = value[21];//提示音量
+            Volume = value[21];//提示音量
 
             Security = ConvertTools.Bytes2ToUInt16(value[22], value[23]);//安防
             byte b1 = value[22];
@@ -297,8 +400,8 @@ namespace ConfigDevice
         {
             byte[] value = new byte[26 + 4 * 8];
 
-            value[0] = OpenClosePassword;//1.开密码;2.关
-            value[1] = Content;//内容,
+            value[0] = ConvertTools.GetByteFromUInt16(PagePassword)[0];//页面密码
+            value[1] = ConvertTools.GetByteFromUInt16(PagePassword)[1];//页面密码
             value[2] = PageContent;//页面显示   0---空调，1---门窗
             value[3] = LeaveHome;//离家键
             value[4] = GoHome;//回家键
@@ -318,7 +421,7 @@ namespace ConfigDevice
             value[18] = AUXAddress2;//红外线地址
             value[19] = AUXKind2;//类型
             value[20] = AUXControlKind2;//红外控制对象类型
-            value[21] = HintVolume;//红外线地址
+            value[21] = Volume;//红外线地址
 
             value[22] = ConvertTools.GetByteFromUInt16(Security)[0];//安防
             value[23] = ConvertTools.GetByteFromUInt16(Security)[1];//安防

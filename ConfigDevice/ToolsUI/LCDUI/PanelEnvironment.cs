@@ -12,6 +12,7 @@ namespace ConfigDevice
     {
         private GridViewGridLookupEdit gridLookupDevice;//设备下拉选择
         private GridViewComboBox cbxSensor;//传感器选择
+        private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//地址编辑
         public DataTable DataSensorSetting;//---传感器配置表-----
         public PanelEnvironment()
         {
@@ -31,6 +32,9 @@ namespace ConfigDevice
             dcNetwork.FieldName = ViewConfig.DC_DEVICE_NETWORK_ID;
             dcDeviceValue.FieldName = ViewConfig.DC_DEVICE_VALUE;
             dcKindName.FieldName = ViewConfig.DC_KIND_NAME;
+
+            edtNum.MinValue = 0;
+            edtNum.MaxValue = 200;
         }
 
         /// <summary>
@@ -52,12 +56,16 @@ namespace ConfigDevice
             cbxSensor.Items.Add(SensorConfig.SENSOR_CH20);
             cbxSensor.Items.Add(SensorConfig.SENSOR_PM25);
             cbxSensor.Items.Add(SensorConfig.SENSOR_O2);
+            cbxSensor.DropDownRows = 16;
             cbxSensor.EditValueChanged += this.CbxSensorKind_EditValueChanged;
             dcKindName.ColumnEdit = cbxSensor;
 
             gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit(ViewConfig.SELECT_ENVIRONMENT_DEVICE_QUERY_CONDITION);//-----下拉选择------        
             gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
             dcDeviceValue.ColumnEdit = gridLookupDevice;
+
+            dcID.ColumnEdit = edtNum;
+            dcNetwork.ColumnEdit = edtNum;
         }
 
         /// <summary>

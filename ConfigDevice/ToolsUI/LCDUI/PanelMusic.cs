@@ -40,8 +40,7 @@ namespace ConfigDevice
  
             speAmp.Value = optionData.SoundAddress;                     //---功放地址---
             lookUpEditAmp.EditValue = optionData.SoundAddress;          //---功放名称---  
-
-
+            speMusicVolume.Value = optionData.Volume;                //---音乐音量---
         }
 
         /// <summary>
@@ -50,8 +49,18 @@ namespace ConfigDevice
         /// <param name="optionData"></param>
         public void GetOptionData(ref PanelOptionData optionData)
         {
- 
             optionData.SoundAddress = (byte)speAmp.Value;
+            optionData.Volume = (byte)speMusicVolume.Value;
+        }
+
+        /// <summary>
+        /// 音乐面板
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void speHintVolume_EditValueChanged(object sender, EventArgs e)
+        {
+            lblSoundValue.Text = speMusicVolume.Value.ToString();
         }
  
 
