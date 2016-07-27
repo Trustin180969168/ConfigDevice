@@ -35,22 +35,20 @@ namespace ConfigDevice
         /// 设置安防参数
         /// </summary>
         /// <param name="optionData"></param>
-        public void SetOptionData(PanelOptionData optionData)
+        public void SetOptionData(ref LCDPanelOptionData optionData)
         {
  
             speAmp.Value = optionData.SoundAddress;                     //---功放地址---
-            lookUpEditAmp.EditValue = optionData.SoundAddress;          //---功放名称---  
-            speMusicVolume.Value = optionData.Volume;                //---音乐音量---
+            lookUpEditAmp.EditValue = optionData.SoundAddress;          //---功放名称---   
         }
 
         /// <summary>
         /// 获取安防设置参数
         /// </summary>
         /// <param name="optionData"></param>
-        public void GetOptionData(ref PanelOptionData optionData)
+        public void GetOptionData(ref LCDPanelOptionData optionData)
         {
-            optionData.SoundAddress = (byte)speAmp.Value;
-            optionData.Volume = (byte)speMusicVolume.Value;
+            optionData.SoundAddress = (byte)speAmp.Value; 
         }
 
         /// <summary>
@@ -59,8 +57,7 @@ namespace ConfigDevice
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void speHintVolume_EditValueChanged(object sender, EventArgs e)
-        {
-            lblSoundValue.Text = speMusicVolume.Value.ToString();
+        { 
         }
  
 

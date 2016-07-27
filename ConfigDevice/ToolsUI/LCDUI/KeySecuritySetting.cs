@@ -35,15 +35,15 @@ namespace ConfigDevice.ToolsUI.LCDUI
         /// 设置安防参数
         /// </summary>
         /// <param name="optionData"></param>
-        public void SetOptionData(PanelOptionData optionData)
+        public void SetOptionData(LCDPanelOptionData optionData)
         {
             ceAlarmSound.Checked = optionData.AlarmHintSound;           //---预警提示音---
             ceDoorWindowSound.Checked = optionData.DoorWindowHintSound; //---门窗提示音---
             speSecurityDelay.Value = optionData.SetSecurityDelayTime;   //---布防延时---
             speAlarmDelay.Value = optionData.AlarmDelayTime;            //---预警延时---
-          //  speHintVolume.Value = optionData.Volume;                //---提示音量---
-          //  speAmp.Value = optionData.SoundAddress;                     //---功放地址---
-          //  lookUpEditAmp.EditValue = optionData.SoundAddress;          //---功放名称---
+            speHintVolume.Value = optionData.Volume;                //---提示音量---
+            speAmp.Value = optionData.SoundAddress;                     //---功放地址---
+            lookUpEditAmp.EditValue = optionData.SoundAddress;          //---功放名称---
             ceBackSafeSetting.Items[0].CheckState = optionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
             //------安防配置---------------
             for (int i = 0; i < optionData.SaftFlags.Length; i++)
@@ -56,11 +56,14 @@ namespace ConfigDevice.ToolsUI.LCDUI
         /// 获取安防设置参数
         /// </summary>
         /// <param name="optionData"></param>
-        public void GetOptionData(ref PanelOptionData optionData)
+        public void GetOptionData(ref LCDPanelOptionData optionData)
         {
+            optionData.AlarmHintSound = ceAlarmSound.Checked;//预警提示音
+            optionData.DoorWindowHintSound = ceDoorWindowSound.Checked;//门窗提示音
+            //-------安防配置-----
             bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
                     false, false, false, false, false };
-            for (int i = 0; i < optionData.SaftFlags.Length; i++)
+            for (int i = 0; i < ceLeaveSafeSetting.Items.Count - 1; i++)
                 safeFlags[i] = ceLeaveSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
             optionData.SaftFlags = safeFlags;                                                                   //---离家设防
             optionData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false; //---回家撤防---- 
@@ -77,7 +80,25 @@ namespace ConfigDevice.ToolsUI.LCDUI
             lblSoundValue.Text = speHintVolume.Value.ToString();
         }
 
-
+        /// <summary>
+        /// 选择安防
+        /// </summary>
+        private void ceLeaveSafeSetting_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
+        {
+            if (e.Index == 15)
+            {
+                if (ceLeaveSafeSetting.Items[15].CheckState == CheckState.Checked)
+                {
+                    for (int i = 0; i < ceLeaveSafeSetting.Items.Count - 1; i++)
+                        ceLeaveSafeSetting.Items[i].CheckState = CheckState.Checked;
+                }
+                if (ceLeaveSafeSetting.Items[15].CheckState == CheckState.Unchecked)
+                {
+                    for (int i = 0; i < ceLeaveSafeSetting.Items.Count - 1; i++)
+                        ceLeaveSafeSetting.Items[i].CheckState = CheckState.Unchecked;
+                }
+            }
+        }
 
     }
 }

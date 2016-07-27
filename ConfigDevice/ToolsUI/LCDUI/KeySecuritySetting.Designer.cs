@@ -316,6 +316,7 @@
             this.ceLeaveSafeSetting.Name = "ceLeaveSafeSetting";
             this.ceLeaveSafeSetting.Size = new System.Drawing.Size(374, 60);
             this.ceLeaveSafeSetting.TabIndex = 0;
+            this.ceLeaveSafeSetting.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.ceLeaveSafeSetting_ItemCheck);
             // 
             // KeySecuritySetting
             // 

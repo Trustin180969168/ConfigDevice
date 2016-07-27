@@ -5,25 +5,25 @@ using System.Data;
 
 namespace ConfigDevice
 {
-    public class PanelKey : Device
+    public class LCDPanelKey : Device
     {
         public Circuit Circuit;//回路对象
-        public PanelCtrl PanelCtrl;//按键对象
+        public LCDPanelCtrl PanelCtrl;//按键对象
 
 
-        public PanelKey(UserUdpData userUdpData)
+        public LCDPanelKey(UserUdpData userUdpData)
             : base(userUdpData)
         {
             initControlObjs();
         }
 
-        public PanelKey(DeviceData data)
+        public LCDPanelKey(DeviceData data)
             : base(data)
         {
             initControlObjs();
         }
 
-        public PanelKey(DataRow dr)
+        public LCDPanelKey(DataRow dr)
             : base(dr)
         {
             initControlObjs();
@@ -35,7 +35,7 @@ namespace ConfigDevice
         private void initControlObjs()
         {
             Circuit = new Circuit(this, 26);
-            PanelCtrl = new PanelCtrl(this);
+            PanelCtrl = new LCDPanelCtrl(this);
             ContrlObjs.Add("回路", this.Circuit); 
         }
 

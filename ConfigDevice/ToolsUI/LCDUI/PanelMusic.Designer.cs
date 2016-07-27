@@ -33,23 +33,15 @@
             this.speAmp = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.lblSoundValue = new DevExpress.XtraEditors.LabelControl();
-            this.speMusicVolume = new DevExpress.XtraEditors.ZoomTrackBarControl();
-            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEditAmp.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speAmp.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speMusicVolume)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speMusicVolume.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControl3
             // 
             this.groupControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl3.Controls.Add(this.lblSoundValue);
-            this.groupControl3.Controls.Add(this.speMusicVolume);
-            this.groupControl3.Controls.Add(this.labelControl6);
             this.groupControl3.Controls.Add(this.lookUpEditAmp);
             this.groupControl3.Controls.Add(this.speAmp);
             this.groupControl3.Controls.Add(this.labelControl7);
@@ -110,38 +102,6 @@
             this.labelControl2.TabIndex = 16;
             this.labelControl2.Text = "提示音功放地址";
             // 
-            // lblSoundValue
-            // 
-            this.lblSoundValue.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.lblSoundValue.Appearance.ForeColor = System.Drawing.Color.Blue;
-            this.lblSoundValue.Appearance.Options.UseFont = true;
-            this.lblSoundValue.Appearance.Options.UseForeColor = true;
-            this.lblSoundValue.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblSoundValue.Location = new System.Drawing.Point(347, 81);
-            this.lblSoundValue.Name = "lblSoundValue";
-            this.lblSoundValue.Size = new System.Drawing.Size(31, 21);
-            this.lblSoundValue.TabIndex = 21;
-            this.lblSoundValue.Text = "0";
-            // 
-            // speMusicVolume
-            // 
-            this.speMusicVolume.EditValue = null;
-            this.speMusicVolume.Location = new System.Drawing.Point(116, 84);
-            this.speMusicVolume.Name = "speMusicVolume";
-            this.speMusicVolume.Properties.Maximum = 100;
-            this.speMusicVolume.Properties.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
-            this.speMusicVolume.Size = new System.Drawing.Size(225, 18);
-            this.speMusicVolume.TabIndex = 20;
-            this.speMusicVolume.EditValueChanged += new System.EventHandler(this.speHintVolume_EditValueChanged);
-            // 
-            // labelControl6
-            // 
-            this.labelControl6.Location = new System.Drawing.Point(62, 86);
-            this.labelControl6.Name = "labelControl6";
-            this.labelControl6.Size = new System.Drawing.Size(48, 14);
-            this.labelControl6.TabIndex = 19;
-            this.labelControl6.Text = "功放音量";
-            // 
             // PanelMusic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -154,8 +114,6 @@
             this.groupControl3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lookUpEditAmp.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speAmp.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speMusicVolume.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speMusicVolume)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -167,8 +125,5 @@
         private DevExpress.XtraEditors.SpinEdit speAmp;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.LabelControl lblSoundValue;
-        private DevExpress.XtraEditors.ZoomTrackBarControl speMusicVolume;
-        private DevExpress.XtraEditors.LabelControl labelControl6;
     }
 }

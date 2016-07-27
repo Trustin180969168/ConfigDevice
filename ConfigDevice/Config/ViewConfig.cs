@@ -77,7 +77,7 @@ namespace ConfigDevice
         public const string DC_RELEVANCE_NUM = "RelevanceNum";//关联号
         public const string DC_MUTEX_NUM = "MutexNum";//互斥号 
         public const string NAME_INVALID_DEVICE = "未知设备";
-
+        public const string NAME_INVALID_KIND = "未知类型";
         //--------按键类型定义----------
         public const byte KEY_TYPE_LIGHT = 0;//--灯光
         public const byte KEY_TYPE_SOUND = 16;//--音响

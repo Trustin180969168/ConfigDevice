@@ -4,48 +4,9 @@ using System.Text;
 
 namespace ConfigDevice
 {
-    /// <summary>
-    /// 面板传感器配置
-    /// </summary>
-    public class PanelSensorInfo
-    {
-        public UInt16 SensorKind = 0;//传感器1,0为无效
-        public byte DeviceNetworkID = 0;//设备1网段
-        public byte DeviceID = 0;//设备1ID
+   
 
-        public PanelSensorInfo()
-        {
-        }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="value"></param>
-        public PanelSensorInfo(byte[] value)
-        {
-            SensorKind = ConvertTools.Bytes2ToUInt16(value[0], value[1]);
-            DeviceNetworkID = value[2];
-            DeviceID = value[3];
-        }
-
-        /// <summary>
-        /// 获取值
-        /// </summary>
-        /// <returns></returns>
-        public byte[] GetValue()
-        {
-            byte[] values = new byte[4];
-            values[0] = ConvertTools.GetByteFromUInt16(SensorKind)[0];
-            values[1] = ConvertTools.GetByteFromUInt16(SensorKind)[1];
-            values[2] = this.DeviceNetworkID;
-            values[3] = this.DeviceID;
-
-            return values;
-        }
-
-    }
-
-    public class PanelOptionData
+    public class ButtonPanelOptionData
     {
         /*
  
@@ -86,7 +47,7 @@ namespace ConfigDevice
             原来显示分为：全部显示、只显示没关没锁，现在固定为只显示没关没锁。
  
         */
-        public const int Length = 58;
+        public const int Length = 26;
 
         public UInt16 PagePassword = 0;//密码设置
         public byte PageContent = 0;//页面显示   0---空调，1---门窗
@@ -122,8 +83,7 @@ Bit7        1    全部房间显示，
         public UInt16 Security = 0;//安防
         public byte SetSecurityDelayTime = 0;//布防延时
         public byte AlarmDelayTime = 0;//预警时间 
-        //-------最多8个传感器数据-----
-        public PanelSensorInfo[] PanelSensors = new PanelSensorInfo[8];
+
 
         //-----安防标志----目前为两个字节------
         public bool[] SaftFlags
@@ -294,6 +254,21 @@ Bit7        1    全部房间显示，
         }
 
         /// <summary>
+        /// 门窗提示音
+        /// </summary>
+        public bool NotCloseWindowPlayMusic
+        {
+            get { return ((GoHome & 60) == 60) ? true : false; }
+            set
+            {
+                if (value)
+                    GoHome = (byte)(GoHome | 48);//0011 0000
+                else
+                    GoHome = (byte)(GoHome & 207);//1100 1111
+            }
+        }
+
+        /// <summary>
         /// 门窗显示
         /// </summary>
         public int DoorWindowShowAllID
@@ -311,46 +286,33 @@ Bit7        1    全部房间显示，
         /// <summary>
         /// 门窗显示
         /// </summary>
-        public int DoorWindowShowKindID
+        public int DoorWindowShowModelID
         {
             get
             {
-                return DoorWindowShowSetting & 15; // 0000 1111
+                return DoorWindowShowSetting & 3; // 0000 0011
                 
             }
             set
             {
-                if (value == 0)
-                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 240 | 1);//1111 0000 | 0000 0001
-                else if (value == 1)
-                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 240 | 2);//1111 0000 | 0000 0010
-                else if (value == 2)
-                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 240 | 4);//1111 0000 | 0000 0100
-                else if (value == 3)
-                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 240 | 8);//1111 0000 | 0000 1000
+            
+                DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 252 | value);//1111 1100  
+ 
             }
         }
 
-        /// <summary>
-        /// 面板传感器设定
-        /// </summary>
-        public void SetPanenlSensor(PanelSensorInfo panelSensor, int sensorNum)
-        {
-            this.PanelSensors[sensorNum].SensorKind = panelSensor.SensorKind;
-            this.PanelSensors[sensorNum].DeviceNetworkID = panelSensor.DeviceNetworkID;
-            this.PanelSensors[sensorNum].DeviceID = panelSensor.DeviceID;
-        }
+
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="userData"></param>
-        public PanelOptionData(UserUdpData userData):this(userData.Data)
+        public ButtonPanelOptionData(UserUdpData userData):this(userData.Data)
         { 
       
         }
 
-        public PanelOptionData(byte[] value)
+        public ButtonPanelOptionData(byte[] value)
         {
             PagePassword = ConvertTools.Bytes2ToUInt16(value[0], value[1]);//密码设置页
             PageContent = value[2];//页面显示   0---空调，1---门窗
@@ -386,9 +348,7 @@ Bit7        1    全部房间显示，
 
             SetSecurityDelayTime = value[24];//布防延时
             AlarmDelayTime = value[25];//预警时间 
-            //-----传感器列表-----
-            for (int i = 0; i < 8; i++)
-                PanelSensors[i] = new PanelSensorInfo(CommonTools.CopyBytes(value, i * 4 + 26, 4));
+
 
         }
 
@@ -398,7 +358,7 @@ Bit7        1    全部房间显示，
         /// <returns></returns>
         public byte[] GetPanelOptionValue()
         {
-            byte[] value = new byte[26 + 4 * 8];
+            byte[] value = new byte[ButtonPanelOptionData.Length];
 
             value[0] = ConvertTools.GetByteFromUInt16(PagePassword)[0];//页面密码
             value[1] = ConvertTools.GetByteFromUInt16(PagePassword)[1];//页面密码
@@ -427,9 +387,7 @@ Bit7        1    全部房间显示，
             value[23] = ConvertTools.GetByteFromUInt16(Security)[1];//安防
             value[24] = SetSecurityDelayTime;//布防延时
             value[25] = AlarmDelayTime;//预警时间 
-            //-----传感器数组-----
-            for (int i = 0; i < 8; i++)
-                Buffer.BlockCopy(PanelSensors[i].GetValue(), 0, value, i * 4 + 26, 4); 
+
             return value;
         }
     }

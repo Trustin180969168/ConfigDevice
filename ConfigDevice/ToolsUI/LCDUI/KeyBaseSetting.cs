@@ -128,6 +128,15 @@ namespace ConfigDevice
 
                 gvKeyData.RefreshData();
                 gvKeyData.BestFitColumns();
+
+                if (index == 0)
+                {
+                    string controlObj = dr[dcCtrlObj.FieldName].ToString();
+                    if (controlObj == ViewConfig.KEY_TYPE_NAME_LIGHT)
+                        dcCtrlKind.ColumnEdit = cbxLightControlKind;
+                    else
+                        dcCtrlKind.ColumnEdit = cbxElseControlKind;
+                }
             }
         }
 

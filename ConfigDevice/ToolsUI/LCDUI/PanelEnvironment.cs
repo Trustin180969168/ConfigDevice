@@ -25,6 +25,7 @@ namespace ConfigDevice
             DataSensorSetting.Columns.Add(ViewConfig.DC_DEVICE_NETWORK_ID, System.Type.GetType("System.Int16"));
             DataSensorSetting.Columns.Add(ViewConfig.DC_KIND, System.Type.GetType("System.Int16"));
             DataSensorSetting.Columns.Add(ViewConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
+            DataSensorSetting.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
             DataSensorSetting.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
 
             dcNum.FieldName = ViewConfig.DC_NUM;
@@ -56,6 +57,7 @@ namespace ConfigDevice
             cbxSensor.Items.Add(SensorConfig.SENSOR_CH20);
             cbxSensor.Items.Add(SensorConfig.SENSOR_PM25);
             cbxSensor.Items.Add(SensorConfig.SENSOR_O2);
+            cbxSensor.Items.Add(SensorConfig.SENSOR_INVALID);
             cbxSensor.DropDownRows = 16;
             cbxSensor.EditValueChanged += this.CbxSensorKind_EditValueChanged;
             dcKindName.ColumnEdit = cbxSensor;
@@ -74,16 +76,16 @@ namespace ConfigDevice
         private void lookUpEdit_EditValueChanged(object sender, EventArgs e)
         {
             this.gvSensors.PostEditor(); 
-            DataRow drCommand = gvSensors.GetDataRow(gvSensors.FocusedRowHandle);
-            drCommand.EndEdit();
-            string deviceValue = drCommand[ViewConfig.DC_DEVICE_VALUE].ToString();
+            DataRow drSensor = gvSensors.GetDataRow(gvSensors.FocusedRowHandle);
+            drSensor.EndEdit();
+            string deviceValue = drSensor[ViewConfig.DC_DEVICE_VALUE].ToString();
             //-----获取选择的设备-------------
             int i = gridLookupDevice.GetIndexByKeyValue(deviceValue);
             DataRow drSelect = (gridLookupDevice.DataSource as DataTable).Rows[i];
             //-----添加选择设备信息到指令列表-------
-            drCommand[ViewConfig.DC_ID] = drSelect[DeviceConfig.DC_ID];
-            drCommand[ViewConfig.DC_DEVICE_NETWORK_ID] = drSelect[DeviceConfig.DC_NETWORK_ID]; 
-            drCommand.EndEdit();
+            drSensor[ViewConfig.DC_DEVICE_ID] = drSelect[DeviceConfig.DC_ID];
+            drSensor[ViewConfig.DC_DEVICE_NETWORK_ID] = drSelect[DeviceConfig.DC_NETWORK_ID]; 
+            drSensor.EndEdit();
             gvSensors.BestFitColumns();
         }
 
@@ -95,9 +97,9 @@ namespace ConfigDevice
         public void CbxSensorKind_EditValueChanged(object sender, EventArgs e)
         {
             this.gvSensors.PostEditor();
-            DataRow drCommand = gvSensors.GetDataRow(gvSensors.FocusedRowHandle);
-            drCommand.EndEdit();
-            drCommand[ViewConfig.DC_KIND] = ViewConfig.TRIGGER_NAME_ID[drCommand[ViewConfig.DC_KIND_NAME].ToString()];            
+            DataRow drSensor = gvSensors.GetDataRow(gvSensors.FocusedRowHandle);
+            drSensor.EndEdit();
+            drSensor[ViewConfig.DC_KIND] = ViewConfig.TRIGGER_NAME_ID[drSensor[ViewConfig.DC_KIND_NAME].ToString()];            
         }
 
 
@@ -105,19 +107,19 @@ namespace ConfigDevice
         /// 设置参数
         /// </summary>
         /// <param name="optionData"></param>
-        public void SetOptionData(PanelOptionData optionData)
+        public void SetOptionData(ref LCDPanelOptionData optionData)
         {
             for (int i = 0; i < 8; i++)
             {
                 PanelSensorInfo panelSensor = optionData.PanelSensors[i];
                 string deviceValue = panelSensor.DeviceNetworkID.ToString() + "_" + panelSensor.DeviceID.ToString();
-
                 DataTable dtSelect = this.gridLookupDevice.DataSource as DataTable;
                 DataRow[] rows = dtSelect.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
                 if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
                 {
                     DataRow drInsert = dtSelect.Rows.Add();
-                    drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;
+                    drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;//---未知设备-----
+                    drInsert[DeviceConfig.DC_KIND_NAME] = ViewConfig.NAME_INVALID_KIND;//---未知类型
                     drInsert[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
                     drInsert[DeviceConfig.DC_NETWORK_ID] = (int)panelSensor.DeviceNetworkID;//---网络ID---
                     drInsert[DeviceConfig.DC_ID] = (int)panelSensor.DeviceID;//-----设备ID---
@@ -128,7 +130,8 @@ namespace ConfigDevice
                 DataRow dr = gvSensors.GetDataRow(i);
                 dr[ViewConfig.DC_DEVICE_ID] = panelSensor.DeviceID;
                 dr[ViewConfig.DC_DEVICE_NETWORK_ID] = panelSensor.DeviceNetworkID;
-                dr[ViewConfig.DC_NAME] = ViewConfig.TRIGGER_ID_NAME[panelSensor.SensorKind];
+                dr[ViewConfig.DC_KIND_NAME] = ViewConfig.TRIGGER_ID_NAME[panelSensor.SensorKind];
+                dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
                 dr.EndEdit();
             }
 
@@ -138,8 +141,12 @@ namespace ConfigDevice
         /// 获取设置参数
         /// </summary>
         /// <param name="optionData"></param>
-        public void GetOptionData(ref PanelOptionData optionData)
+        public void GetOptionData(ref LCDPanelOptionData optionData)
         {
+            this.gvSensors.PostEditor();
+            DataRow drSensor = gvSensors.GetDataRow(gvSensors.FocusedRowHandle);
+            drSensor.EndEdit();
+
             for (int i = 0; i < 8; i++)
             {
                 PanelSensorInfo panelSensor = optionData.PanelSensors[i]; 
@@ -147,7 +154,7 @@ namespace ConfigDevice
                 DataRow dr = gvSensors.GetDataRow(i);
                 panelSensor.DeviceID=Convert.ToByte( dr[ViewConfig.DC_DEVICE_ID]);
                 panelSensor.DeviceNetworkID= Convert.ToByte(dr[ViewConfig.DC_DEVICE_NETWORK_ID]);
-                panelSensor.SensorKind = ViewConfig.TRIGGER_NAME_ID[dr[ViewConfig.DC_NAME].ToString()];
+                panelSensor.SensorKind = ViewConfig.TRIGGER_NAME_ID[dr[ViewConfig.DC_KIND_NAME].ToString()];
        
             }
         }

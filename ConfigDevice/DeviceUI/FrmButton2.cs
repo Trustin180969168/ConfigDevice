@@ -10,15 +10,18 @@ namespace ConfigDevice
 {
     public partial class FrmButton2 : FrmDevice
     {
-        private PanelKey button2;
+        private ButtonPanelKey button2;
         private DataTable dtCircuit = new DataTable("按键选择");
-        private PanelOptionData button2OptionData;//---按键配置----
+        private ButtonPanelOptionData button2OptionData;//---按键配置----
         private int InitSelectIndex = 0;//初始化选择配置项ID
     
         public FrmButton2(Device _device)
             : base(_device)
         {          
             InitializeComponent();
+
+            button2 = this.Device as ButtonPanelKey;
+            button2.Circuit.CircuitCount = 2;
 
             speSecurityDelay.Properties.DisplayFormat.FormatString = "##0 秒";
             speSecurityDelay.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -42,8 +45,7 @@ namespace ConfigDevice
             lookUpEditAmp.Properties.DisplayMember = DeviceConfig.DC_NAME;
             lookUpEditAmp.Properties.ValueMember = DeviceConfig.DC_ID;
 
-            button2 = this.Device as PanelKey;
-            button2.Circuit.CircuitCount = 2;
+
             //----指令配置----
             viewCommandEdit.ShowToolBar = true;
             viewCommandEdit.ShowCommandBar = true;
@@ -85,16 +87,16 @@ namespace ConfigDevice
                     {   
                         initLogicAndCommand();
                     }
-                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == PanelCtrl.CLASS_NAME)//---电机回路名称--
+                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == ButtonPanelCtrl.CLASS_NAME)//---电机回路名称--
                     {
-                        if (callbackParameter.Parameters[1].ToString() == PanelCtrl.ACTION_STATE_NAME)//------状态选择------
+                        if (callbackParameter.Parameters[1].ToString() == ButtonPanelCtrl.ACTION_STATE_NAME)//------状态选择------
                         {
                             InitSelectIndex = (int)callbackParameter.Parameters[2];
                             rgInitState.SelectedIndex = InitSelectIndex;
                         }
-                        else if (callbackParameter.Parameters[1].ToString() == PanelCtrl.ACTION_OPTION_NAME)
+                        else if (callbackParameter.Parameters[1].ToString() == ButtonPanelCtrl.ACTION_OPTION_NAME)
                         {
-                            button2OptionData = callbackParameter.Parameters[2] as PanelOptionData; 
+                            button2OptionData = callbackParameter.Parameters[2] as ButtonPanelOptionData; 
                             ceLittleLight.Checked = button2OptionData.CLoseLightWithBrightness;//---关灯微亮---
                             tbcLight.Value = button2OptionData.Luminance;                      //---亮度----
                             ceAlarmSound.Checked = button2OptionData.AlarmHintSound;           //---预警提示音---
@@ -156,7 +158,7 @@ namespace ConfigDevice
 
             viewBaseSetting.DeviceEdit = DeviceSelect;          //---基础配置编辑  
             this.Device = DeviceSelect;                         //---父类设备对象-----              
-            button2 = this.Device as PanelKey;                   //---本界面编辑-----    
+            button2 = this.Device as ButtonPanelKey;                   //---本界面编辑-----    
             button2.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
             button2.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
 
@@ -176,7 +178,7 @@ namespace ConfigDevice
         private void btSave_Click(object sender, EventArgs e)
         {
             //---保存面板配置-------
-            PanelOptionData keySettingData = new PanelOptionData(button2OptionData.GetPanelOptionValue());
+            ButtonPanelOptionData keySettingData = new ButtonPanelOptionData(button2OptionData.GetPanelOptionValue());
             keySettingData.CLoseLightWithBrightness = ceLittleLight.Checked;//---关灯微亮---
             keySettingData.Luminance = (byte)tbcLight.Value;                      //---亮度----
             keySettingData.AlarmHintSound = ceAlarmSound.Checked;           //---预警提示音---

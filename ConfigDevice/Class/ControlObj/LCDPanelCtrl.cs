@@ -7,7 +7,7 @@ namespace ConfigDevice
     /// <summary>
     /// 用于配置按键的控制的类
     /// </summary>
-    public class PanelCtrl : ControlObj
+    public class LCDPanelCtrl : ControlObj
     {
         public const string CLASS_NAME = "KeyCtrl";
         public const string ACTION_STATE_NAME = "ActionState";
@@ -20,7 +20,7 @@ namespace ConfigDevice
         /// 按键控制
         /// </summary>
         /// <param name="device"></param>
-        public PanelCtrl(Device device)
+        public LCDPanelCtrl(Device device)
             : base(device)
         {
             getKeyOption = new CallbackFromUDP(this.getKeyOptionData);
@@ -83,7 +83,7 @@ namespace ConfigDevice
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
             UdpTools.ReplyDataUdp(data);//----回复确认-----
-            PanelOptionData option = new PanelOptionData(userData);
+            LCDPanelOptionData option = new LCDPanelOptionData(userData);
             deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME, ACTION_OPTION_NAME, option));//---回调UI---
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_OPTIONS, this.UUID);    //---取消订阅---
  
@@ -92,7 +92,7 @@ namespace ConfigDevice
         /// <summary>
         /// 保存按键配置
         /// </summary>
-        public void SaveKeyOption(PanelOptionData optionData)
+        public void SaveKeyOption(LCDPanelOptionData optionData)
         {
             UdpData udpSend = createSaveOptionUdp(optionData);
             mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,new CallbackUdpAction(callbackSaveOption), null);
@@ -105,7 +105,7 @@ namespace ConfigDevice
                 ReadKeyOption();//---重新获取,回调回界面----
             }
         }
-        private UdpData createSaveOptionUdp(PanelOptionData optionData)
+        private UdpData createSaveOptionUdp(LCDPanelOptionData optionData)
         {
             UdpData udp = new UdpData();
 
@@ -118,8 +118,8 @@ namespace ConfigDevice
             byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_KB_WRITE_OPTIONS;//----用户命令----- 
-            byte len = PanelOptionData.Length + 4;//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----  
-            byte[] crcData = new byte[10 + PanelOptionData.Length];//10 固定长度:源+目标+命令+长度+分页
+            byte len = LCDPanelOptionData.Length + 4;//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----  
+            byte[] crcData = new byte[10 + LCDPanelOptionData.Length];//10 固定长度:源+目标+命令+长度+分页
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;

@@ -10,15 +10,14 @@ namespace ConfigDevice
 {
     public partial class FrmFunctionsBoard : FrmDevice
     {
-        private PanelKey panelKey;
+        private LCDPanelKey panelKey;
         private DataTable dtCircuit = new DataTable("按键选择");
-        private PanelOptionData panelOptionData;//---面板配置----
-        private int InitSelectIndex = 0;//初始化选择配置项ID
+        private LCDPanelOptionData panelOptionData;//---面板配置---- 
         public FrmFunctionsBoard(Device _device)
             : base(_device)
         {          
             InitializeComponent();
-            panelKey = this.Device as PanelKey;
+            panelKey = this.Device as LCDPanelKey;
             panelKey.Circuit.CircuitCount = 26;
             viewCommandEdit.ShowToolBar = true;
             viewCommandEdit.ShowCommandBar = true;
@@ -32,7 +31,7 @@ namespace ConfigDevice
             pageLeaveBack.Tag = true;
             pageCurTain.Tag = false;
             listLeaveBack.InitKeySettingList(panelKey, 24, 2);
-            listScene.InitKeySettingList(panelKey, 0, 8);
+            listScene.InitKeySettingList(panelKey, 0, 8);//---场景---
             listLight.InitKeySettingList(panelKey, 8, 8);
             listCurtain.InitKeySettingList(panelKey, 16, 8);
             listEnvironment.Init();     //----初始化环境---
@@ -74,15 +73,15 @@ namespace ConfigDevice
                     {   
                         initLogicAndCommand();
                     }
-                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == PanelCtrl.CLASS_NAME)//---电机回路名称--
+                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == LCDPanelCtrl.CLASS_NAME)//---电机回路名称--
                     {
-                        if (callbackParameter.Parameters[1].ToString() == PanelCtrl.ACTION_STATE_NAME)//------状态选择------
+                        if (callbackParameter.Parameters[1].ToString() == LCDPanelCtrl.ACTION_STATE_NAME)//------状态选择------
                         {
-                            InitSelectIndex = (int)callbackParameter.Parameters[2];
+                   
                         }
-                        else if (callbackParameter.Parameters[1].ToString() == PanelCtrl.ACTION_OPTION_NAME)
+                        else if (callbackParameter.Parameters[1].ToString() == LCDPanelCtrl.ACTION_OPTION_NAME)
                         {
-                            panelOptionData = callbackParameter.Parameters[2] as PanelOptionData;
+                            panelOptionData = callbackParameter.Parameters[2] as LCDPanelOptionData;
                             keySecuritySetting.SetOptionData(panelOptionData);
 
                             tbcSleep.Value = panelOptionData.StandbyLight;//---待机亮度
@@ -92,9 +91,10 @@ namespace ConfigDevice
                             ceTimeScreenProtect.Checked = panelOptionData.OpenScreenProtect;//---开启时间屏保
                             ceRedLine.Checked = panelOptionData.OpenRedLine;//---开启红外线
                             cbxShowContent.SelectedIndex = panelOptionData.DoorWindowShowAllID;//---门窗显示设置
-                            cbxShowModel.SelectedIndex = panelOptionData.DoorWindowShowKindID;//---全部房间显示设置
-
-                            panelMusic.SetOptionData(panelOptionData);
+                            cbxShowModel.SelectedIndex = panelOptionData.DoorWindowShowModelID;//---全部房间显示设置
+                            ceIfOpenMusic.Checked = panelOptionData.NotCloseWindowPlayMusic;//---没关，没锁门是否播放音乐----
+                            listEnvironment.SetOptionData(ref panelOptionData);//----环境-----
+                            panelMusic.SetOptionData(ref panelOptionData);//----音乐面板----
                             //------密码页配置---------------
                             for (int i = 0; i < celPassword.Items.Count; i++)
                                 this.celPassword.Items[i].CheckState = panelOptionData.SaftPageFlags[i] ? CheckState.Checked : CheckState.Unchecked; //---密码页
@@ -111,10 +111,7 @@ namespace ConfigDevice
         private void loadData()
         {
             panelKey.Circuit.ReadRoadTitle();    //读取回路,完毕后自动读取第一个列按键
-            panelKey.PanelCtrl.ReadKeyOption();    //读取面板配置
-            panelKey.PanelCtrl.ReadKeyState();     //读取状态 
-
-
+            panelKey.PanelCtrl.ReadKeyOption();    //读取面板配置 
         }
 
         /// <summary>
@@ -147,18 +144,33 @@ namespace ConfigDevice
 
             viewBaseSetting.DeviceEdit = DeviceSelect;          //---基础配置编辑  
             this.Device = DeviceSelect;                         //---父类设备对象-----              
-            panelKey = this.Device as PanelKey;                   //---本界面编辑-----    
+            panelKey = this.Device as LCDPanelKey;                   //---本界面编辑-----    
             panelKey.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
             panelKey.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
 
             this.Text = panelKey.Name;                   //---界面标题----
-            //keySettingTools.InitKeySettingList(button2, 8, ViewConfig.LCD_CAPTION_SCENE, ViewConfig.LCD_CAPTION_LIGHT,
-            //    ViewConfig.LCD_CAPTION_CURTAIN, ViewConfig.LCD_CAPTION_LEAVE_BACK);//---重新初始化按键配置控件----
             viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
             InitSelectDevice();                         //---初始化选择设备---
-            viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------      
-            loadData();                                 //---加载数据----
-
+            viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------ 
+            //----各个页面设置未加载----
+            pageJcsz.Tag = false;
+            pageJmpz.Tag = false;
+            pageLight.Tag = false;
+            pageLock.Tag = false;
+            pageMusic.Tag = false;
+            pageScene.Tag = false;
+            pageLeaveBack.Tag = false;
+            pageCurTain.Tag = false;
+            listLeaveBack.InitKeySettingList(panelKey, 24, 2);//----离家,回家
+            listScene.InitKeySettingList(panelKey, 0, 8);//---场景---
+            listLight.InitKeySettingList(panelKey, 8, 8);//----灯光-----
+            listCurtain.InitKeySettingList(panelKey, 16, 8);//---窗帘
+            listEnvironment.Init();     //----初始化环境---
+            panelMusic.Init(panelKey);//音乐面板
+            keySecuritySetting.Init(panelKey);
+            
+            loadData();//---加载数据(回路名称,及面板配置)-----
+            xtcPage_SelectedPageChanged(sender, null);//---加载当前页数据---
         }
 
  
@@ -167,8 +179,9 @@ namespace ConfigDevice
         /// </summary>
         private void btSave_Click(object sender, EventArgs e)
         {
-            //---保存面板配置-------
-            PanelOptionData panelOptionDataValue = new PanelOptionData(panelOptionData.GetPanelOptionValue());
+
+            //---系统配置配置-------
+            LCDPanelOptionData panelOptionDataValue = new LCDPanelOptionData(panelOptionData.GetPanelOptionValue());
             panelOptionDataValue.PointLightLuminance = (byte)tbcLight.Value;        //---指示灯亮度----
             panelOptionDataValue.Luminance = (byte)this.tbcRun.Value;       //---运行亮度
             panelOptionDataValue.StandbyLight = (byte)this.tbcSleep.Value;    //---待机亮度
@@ -176,27 +189,48 @@ namespace ConfigDevice
             panelOptionDataValue.OpenScreenProtect = ceTimeScreenProtect.Checked;//---开启时间屏保
             panelOptionDataValue.OpenRedLine = ceRedLine.Checked;//---开启时间屏保
             panelOptionDataValue.DoorWindowShowAllID = cbxShowContent.SelectedIndex;//---门窗显示设置
-            panelOptionDataValue.DoorWindowShowKindID = cbxShowModel.SelectedIndex;//---全部房间显示设置
+            panelOptionDataValue.DoorWindowShowModelID = cbxShowModel.SelectedIndex;//---全部房间显示设置
+            panelOptionDataValue.NotCloseWindowPlayMusic = ceIfOpenMusic.Checked;//---没关，没锁门是否播放音乐
             //------密码页配置---------------
             bool[] flags = new bool[] { false, false, false, false, false, false, false, false, 
             false, false, false, false, false, false, false, false};
             for (int i = 0; i < celPassword.Items.Count; i++)
                 flags[i] = celPassword.Items[i].CheckState == CheckState.Checked ? true : false;
             panelOptionDataValue.SaftPageFlags = flags;
+            listEnvironment.GetOptionData(ref panelOptionDataValue);//---环境页
+            keySecuritySetting.GetOptionData(ref panelOptionDataValue);//------安全页----
+
             //---判断是否更改,更改执行保存----
             if (!CommonTools.BytesEuqals(panelOptionDataValue.GetPanelOptionValue(), panelOptionData.GetPanelOptionValue()))
                 panelKey.PanelCtrl.SaveKeyOption(panelOptionDataValue);
 
-            //---保存按键配置---------
-            listLeaveBack.SaveKeyData();
+            //*************************按键列表**************************
+            listCurtain.SaveKeyData();//---窗帘页---
+            listScene.SaveKeyData();//---场景页----
+            listLight.SaveKeyData();//----灯光页----
+            listLeaveBack.SaveKeyData();//---离家回家页----
+            listLeaveBack.SaveKeyData();//---保存按键配置---------
+            
         }
 
         /// <summary>
         /// 刷新
         /// </summary>
         private void btRefresh_Click(object sender, EventArgs e)
-        {
-            loadData();
+        {            
+            panelKey.Circuit.ReadRoadTitle();    //读取回路,完毕后自动读取第一个列按键
+            panelKey.PanelCtrl.ReadKeyOption();    //读取面板配置
+            //-----触发刷新----
+            pageJcsz.Tag = false;
+            pageJmpz.Tag = false;
+            pageLight.Tag = false;
+            pageLock.Tag = false;
+            pageMusic.Tag = false;
+            pageScene.Tag = false;
+            pageLeaveBack.Tag = false;
+            pageCurTain.Tag = false;
+                        
+            xtcPage_SelectedPageChanged(sender, null);
         }
 
         private void FrmButton2_FormClosing(object sender, FormClosingEventArgs e)
@@ -213,25 +247,7 @@ namespace ConfigDevice
             lblRunLum.Text = (tbcLight.Value * 10).ToString() + "%";
         }
  
-        /// <summary>
-        /// 选择安防
-        /// </summary>
-        private void ceLeaveSafeSetting_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
-        {
-            if (e.Index == 15)
-            {
-                //if (ceLeaveSafeSetting.Items[15].CheckState == CheckState.Checked)
-                //{
-                //    for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
-                //        ceLeaveSafeSetting.Items[i].CheckState = CheckState.Checked;
-                //}
-                //if (ceLeaveSafeSetting.Items[15].CheckState == CheckState.Unchecked)
-                //{
-                //    for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
-                //        ceLeaveSafeSetting.Items[i].CheckState = CheckState.Unchecked;
-                //}
-            }
-        }
+
 
         private void keyBaseSetting1_Load(object sender, EventArgs e)
         {
@@ -248,6 +264,8 @@ namespace ConfigDevice
         {
             switch (xtcPage.SelectedTabPageIndex)
             {
+                case 0: if (!(bool)(this.pageLeaveBack.Tag))
+                        this.listLeaveBack.ReadKeyData(); pageLeaveBack.Tag = true; break;
                 case 1: if (!(bool)(pageScene.Tag))
                         listScene.ReadKeyData(); pageScene.Tag = true; break;
                 case 2: if (!(bool)(pageLight.Tag))

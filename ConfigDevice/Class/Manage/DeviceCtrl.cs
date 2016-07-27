@@ -318,7 +318,7 @@ namespace ConfigDevice
         #region IFactory 成员
         FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
         {
-            PanelKey button = new PanelKey(data);
+            ButtonPanelKey button = new ButtonPanelKey(data);
             return new FrmButton2(button);
         }
         #endregion
@@ -332,7 +332,7 @@ namespace ConfigDevice
         #region IFactory 成员
         FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
         {
-            PanelKey button = new PanelKey(data);
+            LCDPanelKey button = new LCDPanelKey(data);
             return new FrmFunctionsBoard(button);
         }
         #endregion
@@ -579,7 +579,7 @@ namespace ConfigDevice
 
         public Device CreateDevice(DeviceData data)
         {
-            Device device = new PanelKey(data);
+            Device device = new LCDPanelKey(data);
             return device;
         }
 
