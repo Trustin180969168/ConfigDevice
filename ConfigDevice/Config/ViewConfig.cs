@@ -240,6 +240,7 @@ namespace ConfigDevice
             MATH_ID_NAME.Add(SensorConfig.LG_MATH_WITHOUT, SensorConfig.LG_MATH_NAME_WITHOUT);
             MATH_ID_NAME.Add(SensorConfig.LG_MATH_EQUAL_TO2, SensorConfig.LG_MATH_NAME_EQUAL_TO2);
             MATH_ID_NAME.Add(SensorConfig.LG_MATH_EQUAL_AND_TRUE, SensorConfig.LG_MATH_NAME_EQUAL_AND_TRUE);
+            MATH_ID_NAME.Add(SensorConfig.LG_MATH_EQUAL_AND_TRUE2, SensorConfig.LG_MATH_NAME_EQUAL_AND_TRUE);
             MATH_ID_NAME.Add(SensorConfig.LG_MATH_TOTAL, SensorConfig.LG_MATH_NAME_TOTAL);
             MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO, SensorConfig.LG_MATH_EQUAL_TO);
             MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_LESS_THAN, SensorConfig.LG_MATH_LESS_THAN);
@@ -408,8 +409,7 @@ namespace ConfigDevice
     /// 周编辑
     /// </summary>
     public class GridViewWeekEdit : DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit
-    {
-
+    {        
         private string weekValue = ""; 
         private bool allowEdit = true;
         public GridViewWeekEdit()
@@ -480,13 +480,97 @@ namespace ConfigDevice
             allowEdit = true;
         }
 
-   
-
     }
 
-      
 
 
+    /// <summary>
+    /// 多项选择
+    /// </summary>
+    public class GridViewMultipleCheckEdit : DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit
+    {
+        /// <summary>
+        /// 选择行的前序
+        /// </summary>
+        private string prefixName = "";
+        public string PrefixName
+        {
+            get { return prefixName; }
+            set
+            {
+                prefixName = value;
+                this.Items.Clear();
+                for (int i = 1; i <= count; i++)
+                    this.Items.Add(new DevExpress.XtraEditors.Controls.CheckedListBoxItem(prefixName + i));
+            }
+        }
+        private string weekValue = "";
+        private bool allowEdit = true;
+        public GridViewMultipleCheckEdit(string _prefixName,int count)
+            : base()
+        {
+            this.Name = "MultipleCheckEdit";
+            PrefixName = _prefixName;
+            if (count >= 30)
+                this.PopupFormMinSize = new System.Drawing.Size(50, 25 * 30);
+            else
+                this.PopupFormMinSize = new System.Drawing.Size(50, 25 * count);
+            this.ShowAllItemCaption = "全选";
+     
+            this.EditValueChanged += checkedComboBoxEdit_EditValueChanged;
+            this.Closed += checkedComboBoxEdit_Closed;
+            this.QueryPopUp += checkedComboBoxEdit_Properties_QueryPopUp;
+            this.ShowPopupCloseButton = false;
+        }
+
+        private void checkedComboBoxEdit_EditValueChanged(object sender, EventArgs e)
+        {
+
+            if (!allowEdit) return;
+            if ((sender as CheckedComboBoxEdit).Text != "")
+            {
+                if ((sender as CheckedComboBoxEdit).Text.Contains(prefixName))
+                {
+                    weekValue = (sender as CheckedComboBoxEdit).Text;
+                    (sender as CheckedComboBoxEdit).Text = weekValue;
+                    (sender as CheckedComboBoxEdit).Text = (sender as CheckedComboBoxEdit).Text.Replace(prefixName, "");
+                }
+            }
+            else
+            {
+                weekValue = "";
+                (sender as CheckedComboBoxEdit).Text = "";
+                (sender as CheckedComboBoxEdit).Text = (sender as CheckedComboBoxEdit).Text.Replace(prefixName, "");
+            }
+        }
+
+        private void checkedComboBoxEdit_Closed(object sender, ClosedEventArgs e)
+        {
+            allowEdit = false;
+
+            if ((sender as CheckedComboBoxEdit).Text.Contains(prefixName))
+            {
+                weekValue = (sender as CheckedComboBoxEdit).Text;
+                (sender as CheckedComboBoxEdit).Text = weekValue;
+                (sender as CheckedComboBoxEdit).Text = (sender as CheckedComboBoxEdit).Text.Replace(prefixName, "");
+            }
+            allowEdit = true;
+        }
+
+
+
+        private void checkedComboBoxEdit_Properties_QueryPopUp(object sender, CancelEventArgs e)
+        {
+            allowEdit = false;
+            if ((sender as CheckedComboBoxEdit).Text == "") return;
+
+            string temp1 = (sender as CheckedComboBoxEdit).EditValue.ToString().Replace(", ", ", " + prefixName);
+            string temp2 = prefixName + temp1;
+            (sender as CheckedComboBoxEdit).Text = temp2;
+            allowEdit = true;
+        }
+
+    }
 
 
 

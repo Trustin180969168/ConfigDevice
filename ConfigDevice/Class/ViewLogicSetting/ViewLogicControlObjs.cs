@@ -502,7 +502,8 @@ namespace ConfigDevice
             string size1Str = dr[dcStartValue.FieldName].ToString();
             triggerData.Size1 = SwitTamperSensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
             triggerData.Size2 = 0;//----无效------
-
+            triggerData.ValidSeconds = 0;//--无效强制为0
+            triggerData.InvalidSeconds = 0;//---无效强制为0
             dr.EndEdit();
             dr.AcceptChanges();//----再次修改才保存-----
             gvLogic.RefreshData();
@@ -761,10 +762,12 @@ namespace ConfigDevice
         {
             DataRow dr = gvLogic.GetDataRow(0);
             TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
-            triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_TO;//系统联动号为5的比较符号值
+            triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_AND_TRUE2;//系统联动号为5的比较符号值
             //--------关闭/打开--------------
             string size1Str = dr[dcStartValue.FieldName].ToString();
             triggerData.Size1 = FindLevelIndex(LevelValues, size1Str);
+            triggerData.InvalidSeconds = 0;//---强制为0
+            triggerData.ValidSeconds = 0;//----强制为0
             dr.AcceptChanges();//----再次修改才保存-----
 
             return triggerData;
@@ -861,7 +864,8 @@ namespace ConfigDevice
             byte[] endSeconds = new byte[] { 0, (byte)dtEndTime.Minute, (byte)dtEndTime.Hour, 0 };
             triggerData.Size1 = ConvertTools.Bytes4ToInt(startSeconds);
             triggerData.Size2 = ConvertTools.Bytes4ToInt(endSeconds);
-
+            triggerData.ValidSeconds = 0;//--无效强制为0
+            triggerData.InvalidSeconds = 0;//---无效强制为0
             return triggerData;
         }
 
@@ -964,7 +968,8 @@ namespace ConfigDevice
             byte[] endDate = new byte[] {(byte)dtEndTime.Day, (byte)dtEndTime.Month,0,0 };
             triggerData.Size1 = ConvertTools.Bytes4ToInt(startDate);
             triggerData.Size2 = ConvertTools.Bytes4ToInt(endDate);
-
+            triggerData.ValidSeconds = 0;//--无效强制为0
+            triggerData.InvalidSeconds = 0;//---无效强制为0
             return triggerData;
         }
 
@@ -1063,6 +1068,8 @@ namespace ConfigDevice
                 }
             }
             triggerData.Size1 =  (int)value;
+            triggerData.ValidSeconds = 0;//--无效强制为0
+            triggerData.InvalidSeconds = 0;//---无效强制为0
             return triggerData;
         }
 
@@ -1171,8 +1178,10 @@ namespace ConfigDevice
             string size1Str = dr[dcStartValue.FieldName].ToString(); 
             triggerData.Size1 =  FindLevelIndex(LevelValues,size1Str); 
             triggerData.Size2 = Convert.ToInt16(dr[dcEndValue.FieldName]);
-            dr.AcceptChanges();//----再次修改才保存-----
+            triggerData.ValidSeconds = 0;//--无效强制为0
+            triggerData.InvalidSeconds = 0;//---无效强制为0
 
+            dr.AcceptChanges();//----再次修改才保存-----
             return triggerData;
         }        
 
@@ -1271,6 +1280,8 @@ namespace ConfigDevice
             string size1Str = dr[dcStartValue.FieldName].ToString();
             triggerData.Size1 = FindLevelIndex(LevelValues, size1Str);
             triggerData.Size2 = Convert.ToInt16(dr[dcEndValue.FieldName]);
+            triggerData.ValidSeconds = 0;//--无效强制为0
+            triggerData.InvalidSeconds = 0;//---无效强制为0
             dr.AcceptChanges();//----再次修改才保存-----
 
             return triggerData;

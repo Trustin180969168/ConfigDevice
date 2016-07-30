@@ -97,7 +97,8 @@ namespace ConfigDevice
         public const int LG_MATH_WITHOUT = 4;          //以外(范围外)                 (判断[slSiz1]和[slSiz2]) <- if (val1 <  slSiz1) || if (val1 >  slSiz2)
         public const int LG_MATH_EQUAL_TO2 = 5;          //等于(判断[slSiz1]和[slSiz2])                          <- if (val2 == slSiz2)  { if (val1 == slSiz1) }
         public const int LG_MATH_EQUAL_AND_TRUE = 6;          //等于("与"运算后如果为"真") (只判断[slSiz1])           <- if (val1 &  slSiz1)
-        public const int LG_MATH_TOTAL = 7;
+        public const int LG_MATH_EQUAL_AND_TRUE2 = 7;          //等于("与"运算后如果为"真")   (判断[slSiz1]和[slSiz2]) <- if (val2 &  slSiz2)  { if (val1 &  slSiz1)  {逻辑1} else {逻辑0}}
+        public const int LG_MATH_TOTAL = 8;//等于("与"运算后如果为"真")   (判断[slSiz1]和[slSiz2]) <- if (val2 &  slSiz2)  { if (val1 &  slSiz1)  {逻辑1} else {逻辑0}}
         public const int LG_MATH_DEFAULT = LG_MATH_EQUAL_TO;
 
         public const string LG_MATH_NAME_EQUAL_TO = "等于";          //等于(只判断[slSiz1])                                  <- if (val1 == slSiz1)
