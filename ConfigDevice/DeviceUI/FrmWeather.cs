@@ -165,7 +165,7 @@ namespace ConfigDevice
                 viewLogicSetting.InitLogicList(environment,
                     SensorConfig.SENSOR_WINDY, SensorConfig.SENSOR_RAIN, SensorConfig.SENSOR_TEMPERATURE, SensorConfig.SENSOR_HUMIDITY, SensorConfig.SENSOR_LUMINANCE,
                      SensorConfig.SENSOR_TIME, SensorConfig.SENSOR_DATE, SensorConfig.SENSOR_WEEK, SensorConfig.SENSOR_SYSTEM_INTERACTION,
-                    SensorConfig.SENSOR_SYSTEM_INTERACTION, SensorConfig.SENSOR_INNER_INTERACTION
+                     SensorConfig.SENSOR_INNER_INTERACTION
                     );
             if (viewCommandSetting.NeedInit)//----初始化指令配置-------
                 viewCommandSetting.InitViewCommand(environment);//初始化       

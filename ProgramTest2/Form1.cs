@@ -292,6 +292,11 @@ namespace ProgramTest2
             }
         }
 
+        private void spinEdit2_EditValueChanged(object sender, EventArgs e)
+        {
+            andResult.Text = ((int)spinEdit2.Value & (int)spinEdit3.Value).ToString();
+        }
+
    
 
 

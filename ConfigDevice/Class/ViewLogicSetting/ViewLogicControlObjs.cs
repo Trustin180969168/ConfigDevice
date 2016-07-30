@@ -732,7 +732,8 @@ namespace ConfigDevice
                 cbxStart.Items.Add(value);
             cbxStart.SelectedIndexChanged += CbxSecurityKindChanged;
             cbxStart.DropDownRows = LevelValues.Length;
-            circuitCount = (deviceTrigger.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit).CircuitCount;
+            circuitCount = (deviceTrigger.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit).CircuitCount;//----获取回路数----
+
         }
 
 
@@ -767,11 +768,22 @@ namespace ConfigDevice
             string securityKindName = dr[dcStartValue.FieldName].ToString();
             if (securityKindName == SensorConfig.LG_NAME_SAF_SYST_DI || securityKindName == SensorConfig.LG_NAME_SAF_SYST_EN_DLY ||
                 securityKindName == SensorConfig.LG_NAME_SAF_SYST_EN || securityKindName == SensorConfig.LG_NAME_SAF_SYST_WAR ||
-                securityKindName ==  SensorConfig.LG_NAME_SAF_SYST_ALM)
+                securityKindName == SensorConfig.LG_NAME_SAF_SYST_ALM)
                 setGridColumnInvalid(dcEndValue);//---结束值无效----
             else
             {
-                 
+                dr[dcEndValue.FieldName] = "";//---清空选择----
+                dr.EndEdit();
+                switch (securityKindName)
+                {     
+                    case SensorConfig.LG_NAME_SAF_SELF_DI: setGridColumnValid(dcEndValue, new GridViewMultipleCheckEdit("被撤防者:逻辑动作", circuitCount)); break;//---结束值有效  
+                    case SensorConfig.LG_NAME_SAF_SELF_EN_DLY: setGridColumnValid(dcEndValue, new GridViewMultipleCheckEdit("被布防者:逻辑动作", circuitCount)); break;//---结束值有效  
+                    case SensorConfig.LG_NAME_SAF_SELF_EN: setGridColumnValid(dcEndValue, new GridViewMultipleCheckEdit("被布防者:逻辑动作", circuitCount)); break;//---结束值有效  
+                    case SensorConfig.LG_NAME_SAF_SELF_WAR: setGridColumnValid(dcEndValue, new GridViewMultipleCheckEdit("触发者:逻辑动作", circuitCount)); break;//---结束值有效  
+                    case SensorConfig.LG_NAME_SAF_SELF_ALM: setGridColumnValid(dcEndValue, new GridViewMultipleCheckEdit("触发者:逻辑动作", circuitCount)); break;//---结束值有效  
+
+                    default: setGridColumnValid(dcEndValue, new GridViewMultipleCheckEdit(securityKindName, circuitCount)); break;
+                }
             }
         }
 
@@ -788,6 +800,22 @@ namespace ConfigDevice
             //--------关闭/打开--------------
             string size1Str = dr[dcStartValue.FieldName].ToString();
             triggerData.Size1 = FindLevelIndex(LevelValues, size1Str);
+            if (dcEndValue.OptionsColumn.AllowEdit)
+            {
+                string endValueStr = dr[dcEndValue.FieldName].ToString();//----选择---
+                Int32 endValue = 0;
+                if (endValueStr != "")
+                {
+                    string[] arrValueStr = endValueStr.Replace(" ", "").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);          
+                    foreach (string valueStr in arrValueStr)
+                        endValue = endValue | (int)Math.Pow(2.0, Convert.ToDouble(valueStr) - 1.0);
+
+                }
+                triggerData.Size2 = (int)endValue;
+            }
+            else
+                triggerData.Size2 = Int32.MinValue;//无效强制为0x80000000
+
             triggerData.InvalidSeconds = 0;//---强制为0
             triggerData.ValidSeconds = 0;//----强制为0
             dr.AcceptChanges();//----再次修改才保存-----
@@ -806,8 +834,26 @@ namespace ConfigDevice
             dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
             dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
 
-            //-----联动号操作----
+            //-----安防号操作----
             dr[dcStartValue.FieldName] = LevelValues[td.Size1];
+            CbxSecurityKindChanged(null,null);//----设置结束值是否有效---
+            if (dcEndValue.OptionsColumn.AllowEdit)//---结束值有效----
+            {
+                Int32 endValue = td.Size2;
+                int i = 1;
+                string endValueStr = "";
+                for (int n = 1; n <= circuitCount; n++)
+                {
+                    if ((endValue & i) == i)
+                        endValueStr += ", " + n;
+                    i = i * 2;
+                }
+                if (endValueStr != "")
+                {
+                    endValueStr = endValueStr.Substring(1);
+                    dr[dcEndValue.FieldName] = endValueStr.Trim();
+                }
+            }
 
             dr.EndEdit();
             dr.AcceptChanges();

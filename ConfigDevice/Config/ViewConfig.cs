@@ -514,9 +514,9 @@ namespace ConfigDevice
             this.count = _count;
             PrefixName = _prefixName;
             if (count >= 30)
-                this.PopupFormMinSize = new System.Drawing.Size(50, 25 * 30);
+                this.PopupFormMinSize = new System.Drawing.Size(150, 25 * 30);
             else
-                this.PopupFormMinSize = new System.Drawing.Size(50, 25 * count);
+                this.PopupFormMinSize = new System.Drawing.Size(150, 25 * count);
             this.ShowAllItemCaption = "全选";
      
             this.EditValueChanged += checkedComboBoxEdit_EditValueChanged;

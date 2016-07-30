@@ -62,6 +62,10 @@
             this.gridLookUpEdit1 = new DevExpress.XtraEditors.GridLookUpEdit();
             this.gridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.zoomTrackBarControl1 = new DevExpress.XtraEditors.ZoomTrackBarControl();
+            this.spinEdit2 = new DevExpress.XtraEditors.SpinEdit();
+            this.spinEdit3 = new DevExpress.XtraEditors.SpinEdit();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.andResult = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTime)).BeginInit();
@@ -86,6 +90,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.andResult.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // timeEdit1
@@ -484,11 +491,62 @@
             this.zoomTrackBarControl1.Size = new System.Drawing.Size(104, 18);
             this.zoomTrackBarControl1.TabIndex = 19;
             // 
+            // spinEdit2
+            // 
+            this.spinEdit2.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spinEdit2.Location = new System.Drawing.Point(29, 343);
+            this.spinEdit2.Name = "spinEdit2";
+            this.spinEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spinEdit2.Properties.Mask.EditMask = "d";
+            this.spinEdit2.Size = new System.Drawing.Size(100, 21);
+            this.spinEdit2.TabIndex = 20;
+            this.spinEdit2.EditValueChanged += new System.EventHandler(this.spinEdit2_EditValueChanged);
+            // 
+            // spinEdit3
+            // 
+            this.spinEdit3.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spinEdit3.Location = new System.Drawing.Point(147, 343);
+            this.spinEdit3.Name = "spinEdit3";
+            this.spinEdit3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spinEdit3.Properties.Mask.EditMask = "d";
+            this.spinEdit3.Size = new System.Drawing.Size(100, 21);
+            this.spinEdit3.TabIndex = 21;
+            this.spinEdit3.EditValueChanged += new System.EventHandler(this.spinEdit2_EditValueChanged);
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl1.Location = new System.Drawing.Point(134, 338);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(21, 31);
+            this.labelControl1.TabIndex = 22;
+            this.labelControl1.Text = "&&";
+            // 
+            // andResult
+            // 
+            this.andResult.Location = new System.Drawing.Point(279, 343);
+            this.andResult.Name = "andResult";
+            this.andResult.Size = new System.Drawing.Size(100, 21);
+            this.andResult.TabIndex = 23;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 466);
+            this.Controls.Add(this.andResult);
+            this.Controls.Add(this.spinEdit3);
+            this.Controls.Add(this.spinEdit2);
             this.Controls.Add(this.zoomTrackBarControl1);
             this.Controls.Add(this.gridLookUpEdit1);
             this.Controls.Add(this.lookUpEdit2);
@@ -503,6 +561,7 @@
             this.Controls.Add(this.gcTime);
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.timeEdit1);
+            this.Controls.Add(this.labelControl1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -530,6 +589,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1View)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.andResult.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -568,6 +630,10 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxSelect2;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxSelect3;
         private DevExpress.XtraEditors.ZoomTrackBarControl zoomTrackBarControl1;
+        private DevExpress.XtraEditors.SpinEdit spinEdit2;
+        private DevExpress.XtraEditors.SpinEdit spinEdit3;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.TextEdit andResult;
     }
 }
 
