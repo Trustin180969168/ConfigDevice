@@ -61,7 +61,7 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(OuterInteraction.NAME_CMD_LOGIC_WRITE_SYSLKID_CLOSE);
 
             dcInteractiveNum.Caption = "联动号";
-            dcCircuitNum.Caption = "回路";
+            dcCircuitNum.Caption = DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME;
             dcCircuitNum.ColumnEdit = edtNum;
             dcRunTime.Caption = "运行时间";
             dcRunTime.ColumnEdit = tedtTime;

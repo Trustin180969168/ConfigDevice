@@ -38,7 +38,7 @@ namespace ConfigDevice
 
         public Circuit(Device _deviceCtrl,int _circuitCount):base(_deviceCtrl)
         {
-            Name = "回路"; 
+            Name = DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME; 
             circuitCount = _circuitCount;
             //-----初始化列表---------
             for (int i = 1; i <= circuitCount; i++)

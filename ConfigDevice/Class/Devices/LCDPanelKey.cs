@@ -36,7 +36,7 @@ namespace ConfigDevice
         {
             Circuit = new Circuit(this, 26);
             PanelCtrl = new LCDPanelCtrl(this);
-            ContrlObjs.Add("回路", this.Circuit); 
+            ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, this.Circuit); 
         }
 
  

@@ -15,7 +15,7 @@ namespace ConfigDevice
         public Swit(Device _deviceCtrl)
             : base(_deviceCtrl)
         {
-            Name = "全部"; 
+            Name = DeviceConfig.CONTROL_OBJECT_SWIT_NAME; 
             if (NameAndCommand.Count == 0)
             {
                 NameAndCommand.Add(NAME_CMD_SW_SWIT_ALL, DeviceConfig.CMD_SW_SWIT_ALL);

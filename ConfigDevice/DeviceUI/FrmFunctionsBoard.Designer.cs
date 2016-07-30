@@ -512,7 +512,7 @@
             this.pageScene.ImageIndex = 1;
             this.pageScene.Name = "pageScene";
             this.pageScene.Size = new System.Drawing.Size(996, 514);
-            this.pageScene.Text = "场景";
+            this.pageScene.Text = DeviceConfig.CONTROL_OBJECT_SCENE_NAME;
             // 
             // listScene
             // 

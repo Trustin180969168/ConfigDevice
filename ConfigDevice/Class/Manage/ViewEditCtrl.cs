@@ -128,30 +128,30 @@ namespace ConfigDevice
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP))
-                            return "回路";
+                            return DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME;
                         if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_OPEN) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_CLOSE) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_SCENE_NOT) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP))
-                            return "场景";
+                            return DeviceConfig.CONTROL_OBJECT_SCENE_NAME;
                         if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_OPEN) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_CLOSE) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LIST_NOT) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_LOOP))
-                            return "时序";
+                            return DeviceConfig.CONTROL_OBJECT_TIMING_NAME;
                         if (CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_OPEN) ||
                         CommonTools.BytesEuqals(cmdData.Cmd, DeviceConfig.CMD_SW_SWIT_ALL_CLOSE))
-                            return "全部";
+                            return DeviceConfig.CONTROL_OBJECT_SWIT_NAME;
                     } break;
                 case DeviceConfig.EQUIPMENT_AMP_MP3:
                     {
                         if (cmdData.Data[2] == (byte)AudioKind.GENERAL_BGM)
-                            return "背景";
+                            return DeviceConfig.CONTROL_OBJECT_BGM_NAME;
                         if (cmdData.Data[2] == (byte)AudioKind.TG_MESSAGE)
-                            return "消息";
+                            return DeviceConfig.CONTROL_OBJECT_MESSAGE_NAME;
                     } break;
                 case DeviceConfig.EQUIPMENT_LINKID:
                     {

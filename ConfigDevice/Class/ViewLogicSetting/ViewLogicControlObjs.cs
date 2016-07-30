@@ -721,6 +721,7 @@ namespace ConfigDevice
              SensorConfig.LG_NAME_SAF_SELF_WAR,SensorConfig.LG_NAME_SAF_SELF_ALM };
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值选择---
         private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//----数字------
+        private int circuitCount = 0;//回路数
         public ViewLogicSecurityInteraction(Device _device, GridView gv)
             : base(_device, gv)
         {
@@ -729,8 +730,12 @@ namespace ConfigDevice
             //---开始为下拉----
             foreach (string value in LevelValues)
                 cbxStart.Items.Add(value);
+            cbxStart.SelectedIndexChanged += CbxSecurityKindChanged;
             cbxStart.DropDownRows = LevelValues.Length;
+            circuitCount = (deviceTrigger.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit).CircuitCount;
         }
+
+
 
         public override void InitViewSetting()
         {
@@ -753,6 +758,23 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcStartValue, this.cbxStart.Items[0].ToString());//---第一个开始选择运算---
 
         }
+
+        public void CbxSecurityKindChanged(object sender, EventArgs e)
+        {
+            gvLogic.PostEditor();
+            DataRow dr = gvLogic.GetDataRow(0);
+            dr.EndEdit();
+            string securityKindName = dr[dcStartValue.FieldName].ToString();
+            if (securityKindName == SensorConfig.LG_NAME_SAF_SYST_DI || securityKindName == SensorConfig.LG_NAME_SAF_SYST_EN_DLY ||
+                securityKindName == SensorConfig.LG_NAME_SAF_SYST_EN || securityKindName == SensorConfig.LG_NAME_SAF_SYST_WAR ||
+                securityKindName ==  SensorConfig.LG_NAME_SAF_SYST_ALM)
+                setGridColumnInvalid(dcEndValue);//---结束值无效----
+            else
+            {
+                 
+            }
+        }
+
 
         /// <summary>
         /// 获取逻辑数据
@@ -793,10 +815,12 @@ namespace ConfigDevice
 
         public override void KindChanged()
         {
+
         }
 
         public override void OperateChanged()
         {
+
         }
 
     }

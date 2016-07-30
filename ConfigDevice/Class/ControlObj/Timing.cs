@@ -14,7 +14,7 @@ namespace ConfigDevice
         public Timing(Device _deviceCtrl)
             : base(_deviceCtrl)
         {
-            Name = "时序"; 
+            Name = DeviceConfig.CONTROL_OBJECT_TIMING_NAME; 
         }
 
 

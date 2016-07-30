@@ -53,7 +53,7 @@ namespace ConfigDevice
             ProbeCircuit = new Circuit(this,8);            
 
             ContrlObjs.Add("阀门", Valve);
-            ContrlObjs.Add("回路", ProbeCircuit);
+            ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, ProbeCircuit);
         }
 
         /// <summary>

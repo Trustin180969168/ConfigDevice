@@ -47,7 +47,7 @@ namespace ConfigDevice
             //------初始化回路列表选择-------
             lookupEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.lookupEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, "回路", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NAME, "回路名称", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None)});
             lookupEdit.Name = "lookupEdit";
             lookupEdit.DisplayMember = DeviceConfig.DC_ID;
@@ -105,7 +105,7 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWIT_LOOP_OPEN);
             cbxCommandKind.Items.Add(Circuit.NAME_CMD_SWIT_LOOP_CLOSE);
 
-            dcCircuit.Caption = "回路";      
+            dcCircuit.Caption = DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME;      
             Type type = controlObj.deviceControled.GetType(); //获取类型
             System.Reflection.PropertyInfo propertyInfo = type.GetProperty("CircuitCount"); //获取指定名称的属性
             lookupEdit.DataSource = dtCircuit;

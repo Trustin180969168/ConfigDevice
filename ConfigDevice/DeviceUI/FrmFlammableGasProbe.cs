@@ -69,7 +69,7 @@ namespace ConfigDevice
             cbxValveAction.Properties.Items.Add(Motor.STATE_VALVE_OPEN);
             cbxValveAction.Properties.Items.Add(Motor.STATE_VALVE_NONE); 
             //----------回路查询选择------
-            lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, "回路", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
+            lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_NAME, 380));
 
             lookUpEdit.Properties.Name = "lookupEdit";

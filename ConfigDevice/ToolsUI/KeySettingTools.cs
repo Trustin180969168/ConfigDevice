@@ -117,7 +117,7 @@ namespace ConfigDevice
 
             gcKeyData.DataSource = dtKeyData;
 
-            KeyCircuit = deviceControled.ContrlObjs["回路"] as Circuit;
+            KeyCircuit = deviceControled.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;
             KeyCircuit.OnCallbackUI_Action += ReturnKeyName;
 
         }

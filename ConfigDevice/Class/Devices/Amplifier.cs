@@ -31,8 +31,8 @@ namespace ConfigDevice
         /// </summary>
         private void initControlObjs()
         {
-            ContrlObjs.Add("背景",new Background(this));
-            ContrlObjs.Add("消息",new Messages(this));
+            ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_BGM_NAME,new Background(this));
+            ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_MESSAGE_NAME,new Messages(this));
         }
 
     }

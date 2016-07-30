@@ -12,7 +12,7 @@ namespace ConfigDevice
         private const int circuitCount = 4;//回路数
         public Circuit circuit
         {
-            get { return ContrlObjs["回路"] as Circuit; }
+            get { return ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit; }
         }
         public int CircuitCount
         {
@@ -48,10 +48,10 @@ namespace ConfigDevice
         /// </summary>
         private void initControlObjs()
         {
-            ContrlObjs.Add("回路", new Circuit(this,4));
-            ContrlObjs.Add("场景", new Scene(this));
-            ContrlObjs.Add("时序", new Timing(this));
-            ContrlObjs.Add("全部", new Swit(this)); 
+            ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, new Circuit(this,4));
+            ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_SCENE_NAME, new Scene(this));
+            ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_TIMING_NAME, new Timing(this));
+            ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_SWIT_NAME, new Swit(this)); 
         }
 
         /// <summary>

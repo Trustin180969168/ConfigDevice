@@ -15,7 +15,7 @@ namespace ConfigDevice
         public static Dictionary<string, byte[]> NameAndCommand = new Dictionary<string, byte[]>(); //名称与命令的对应关系
         public Background(Device _deviceCtrl):base(_deviceCtrl)
         {
-            Name = "背景";
+            Name = DeviceConfig.CONTROL_OBJECT_BGM_NAME;
             if (NameAndCommand.Count == 0)
             {
                 NameAndCommand.Add(NAME_CMD_SWIT_ALL_MUSIC, DeviceConfig.CMD_SW_SWIT_LOOP);

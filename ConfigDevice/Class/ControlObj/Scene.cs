@@ -16,7 +16,7 @@ namespace ConfigDevice
         public Scene(Device _deviceCtrl)
             : base(_deviceCtrl)
         {
-            Name = "场景"; 
+            Name = DeviceConfig.CONTROL_OBJECT_SCENE_NAME; 
         }
 
 

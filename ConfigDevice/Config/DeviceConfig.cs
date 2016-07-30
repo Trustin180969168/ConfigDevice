@@ -49,6 +49,14 @@ namespace ConfigDevice
             KEY_TYPE_LAMP = 7,//灯光类型	       7
             KEY_TYPE_PRESS = 8                 //点动，按下开，松开关  8
         };
+        //-----------控制对象名称------
+        public const string CONTROL_OBJECT_CIRCUIT_NAME = "回路";
+        public const string CONTROL_OBJECT_SCENE_NAME = "场景";
+        public const string CONTROL_OBJECT_TIMING_NAME = "时序";
+        public const string CONTROL_OBJECT_SWIT_NAME = "全部";
+                public const string CONTROL_OBJECT_BGM_NAME = "背景";
+                public const string CONTROL_OBJECT_MESSAGE_NAME = "消息";
+ 
 
         //-----------回应启动搜索设备-------------
         public const byte RETSTARTSEARCH_TRUE = 0x0;        // 成功启动搜索设备

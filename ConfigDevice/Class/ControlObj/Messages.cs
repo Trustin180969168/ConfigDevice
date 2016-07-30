@@ -15,7 +15,7 @@ namespace ConfigDevice
         public Messages(Device _deviceCtrl)
             : base(_deviceCtrl)
         {
-            Name = "消息"; 
+            Name = DeviceConfig.CONTROL_OBJECT_MESSAGE_NAME; 
             if (NameAndCommand.Count == 0)
             {
                 NameAndCommand.Add(NAME_CMD_SWIT_ALL_MUSIC, DeviceConfig.CMD_SW_SWIT_LOOP);

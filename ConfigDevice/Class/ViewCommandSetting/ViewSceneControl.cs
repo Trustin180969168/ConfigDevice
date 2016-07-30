@@ -54,7 +54,7 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE_OPEN);
             cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE_CLOSE);
 
-            dcSceneNum.Caption = "场景";
+            dcSceneNum.Caption = DeviceConfig.CONTROL_OBJECT_SCENE_NAME;
             cbxSceneNum.Items.Add("全部");
             cbxSceneNum.Items.Add("1");
             cbxSceneNum.Items.Add("2");

@@ -53,7 +53,7 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(Timing.NAME_CMD_SW_SWIT_TIMING_OPEN);
             cbxCommandKind.Items.Add(Timing.NAME_CMD_SW_SWIT_TIMING_CLOSE);
 
-            dcTimeNum.Caption = "时序";
+            dcTimeNum.Caption = DeviceConfig.CONTROL_OBJECT_TIMING_NAME;
             dcTimeNum.ColumnEdit = edtNum;
             dcGroup.Caption = "分组";
             dcGroup.ColumnEdit = edtNum;

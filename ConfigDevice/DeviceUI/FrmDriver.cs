@@ -34,7 +34,7 @@ namespace ConfigDevice
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {
             BaseViewSetting.DeviceEdit = this.Device;
-            circuitCtrl = Device.ContrlObjs["回路"] as Circuit;//获取回路控制对象
+            circuitCtrl = Device.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;//获取回路控制对象
             BaseViewSetting.DeviceEdit.SearchVer();//---获取版本号-----   
             InitSelectDevice();
             circuitCtrl.ReadRoadTitle();//读取回路列表
@@ -80,7 +80,7 @@ namespace ConfigDevice
 
             BaseViewSetting.DeviceEdit = DeviceSelect;              //---基础配置编辑  
             Device = DeviceSelect;                                 //---父类设备对象-----              
-            circuitCtrl = this.Device.ContrlObjs["回路"] as Circuit;     //获取回路控制对象
+            circuitCtrl = this.Device.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;     //获取回路控制对象
             Device.OnCallbackUI_Action += this.callbackUI;          //--注册回调事件
             Device.OnCallbackUI_Action += BaseViewSetting.CallBackUI;//----注册回调事件
 

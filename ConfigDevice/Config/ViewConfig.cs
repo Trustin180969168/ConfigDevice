@@ -98,7 +98,7 @@ namespace ConfigDevice
         public const string KEY_CONTROL_KIND_NAME_CLOSE_LOOP_LIGHT = "关+循环调光";
 
         //-------液晶面板标题-----
-        public const string LCD_CAPTION_SCENE = "场景";
+        public const string LCD_CAPTION_SCENE = DeviceConfig.CONTROL_OBJECT_SCENE_NAME;
         public const string LCD_CAPTION_LIGHT = "灯光";
         public const string LCD_CAPTION_CURTAIN = "窗帘";
         public const string LCD_CAPTION_LEAVE_BACK = "离、回家";
@@ -489,6 +489,7 @@ namespace ConfigDevice
     /// </summary>
     public class GridViewMultipleCheckEdit : DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit
     {
+        private int count = 0;//下拉选项数量
         /// <summary>
         /// 选择行的前序
         /// </summary>
@@ -506,10 +507,11 @@ namespace ConfigDevice
         }
         private string weekValue = "";
         private bool allowEdit = true;
-        public GridViewMultipleCheckEdit(string _prefixName,int count)
+        public GridViewMultipleCheckEdit(string _prefixName,int _count)
             : base()
         {
             this.Name = "MultipleCheckEdit";
+            this.count = _count;
             PrefixName = _prefixName;
             if (count >= 30)
                 this.PopupFormMinSize = new System.Drawing.Size(50, 25 * 30);
