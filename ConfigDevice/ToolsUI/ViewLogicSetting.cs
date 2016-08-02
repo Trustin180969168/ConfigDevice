@@ -128,9 +128,15 @@ namespace ConfigDevice
             foreach (Control viewlogic in plLogicList.Controls)
                 (viewlogic as ViewLogicTools).InitTriggerList(triggers);
             logicList = new LogicList(device);
+            viewLogicTools1.DeviceEdit = device;
+            viewLogicTools2.DeviceEdit = device;
+            viewLogicTools3.DeviceEdit = device;
+            viewLogicTools4.DeviceEdit = device;
             logicList.OnCallbackUI_Action += this.ReturnLogicData;//命令的执行的界面回调
             NeedInit = false;
             lookUpEdit.EditValue = lookUpEdit.Properties.GetDataSourceValue(lookUpEdit.Properties.ValueMember, 0);
+                       
+
         }
 
         /// <summary>

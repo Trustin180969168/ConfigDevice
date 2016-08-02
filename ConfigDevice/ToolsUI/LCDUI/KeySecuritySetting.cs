@@ -17,7 +17,7 @@ namespace ConfigDevice.ToolsUI.LCDUI
         {
             InitializeComponent();
         }
-
+ 
         public void Init(Device _device)
         {
             device = _device;
@@ -26,9 +26,16 @@ namespace ConfigDevice.ToolsUI.LCDUI
                 DeviceConfig.DC_NETWORK_ID + " = '" + device.NetworkID + "'");
             foreach (DataRow dr in amps)
                 dt.Rows.Add(dr.ItemArray);
-            lookUpEditAmp.Properties.DataSource = dt;
+
+            lookUpEditAmp.Properties.Columns.Clear();
+            lookUpEditAmp.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NAME, "功放", 120));
+            lookUpEditAmp.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, "地址", 120));
+            lookUpEditAmp.Properties.DataSource = dt; 
             lookUpEditAmp.Properties.DisplayMember = DeviceConfig.DC_NAME;
-            lookUpEditAmp.Properties.ValueMember = DeviceConfig.DC_ID;
+            lookUpEditAmp.Properties.ValueMember = DeviceConfig.DC_ID; 
+ 
+            lookUpEditAmp.Properties.DropDownRows = dt.Rows.Count; 
+           
         }
 
         /// <summary>
@@ -43,7 +50,8 @@ namespace ConfigDevice.ToolsUI.LCDUI
             speAlarmDelay.Value = optionData.AlarmDelayTime;            //---预警延时---
             speHintVolume.Value = optionData.Volume;                //---提示音量---
             speAmp.Value = optionData.SoundAddress;                     //---功放地址---
-            lookUpEditAmp.EditValue = optionData.SoundAddress;          //---功放名称---
+            lookUpEditAmp.EditValue = (Int16)optionData.SoundAddress;          //---功放名称---
+        
             ceBackSafeSetting.Items[0].CheckState = optionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
             //------安防配置---------------
             for (int i = 0; i < optionData.SaftFlags.Length; i++)
@@ -98,6 +106,14 @@ namespace ConfigDevice.ToolsUI.LCDUI
                         ceLeaveSafeSetting.Items[i].CheckState = CheckState.Unchecked;
                 }
             }
+        }
+
+        /// <summary>
+        /// 选择功放
+        /// </summary>
+        private void lookUpEditAmp_EditValueChanged(object sender, EventArgs e)
+        {
+            speAmp.EditValue = lookUpEditAmp.EditValue;
         }
 
     }

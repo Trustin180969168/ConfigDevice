@@ -131,9 +131,13 @@
             this.lookUpEditAmp.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.lookUpEditAmp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEditAmp.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name1", "功放", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name2", "地址", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None)});
             this.lookUpEditAmp.Properties.NullText = "选择功放设备";
             this.lookUpEditAmp.Size = new System.Drawing.Size(112, 21);
             this.lookUpEditAmp.TabIndex = 14;
+            this.lookUpEditAmp.EditValueChanged += new System.EventHandler(this.lookUpEditAmp_EditValueChanged);
             // 
             // speAmp
             // 

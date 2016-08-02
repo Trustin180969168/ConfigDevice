@@ -42,19 +42,7 @@ namespace ConfigDevice
             dtSensorState.Rows.Add(new object[] { "湿度", "", "" }); 
             dtSensorState.Rows.Add(new object[] { "亮度", "", "" });
             gcEnvironment.DataSource = dtSensorState;
-            //----------指示灯-------
-            sptLightSeconds.Properties.MaxValue = 65535;
-            sptLightSeconds.Properties.MinValue = 1;
-            sptLightSeconds.Enter += SysConfig.Edit_Enter;
-            sptLightSeconds.Leave += SysConfig.Edit_Leave;
-  
 
-            cbxLight.Properties.Items.Add(WeatherLight.STATE_LEDACT_OFF);
-            cbxLight.Properties.Items.Add(WeatherLight.STATE_LEDACT_ON_G);
-            cbxLight.Properties.Items.Add(WeatherLight.STATE_LEDACT_ON_O);
-            cbxLight.Properties.Items.Add(WeatherLight.STATE_LEDACT_ON_R); 
-            cbxLight.Properties.Items.Add(WeatherLight.STATE_LEDACT_GL_R);
-            cbxLight.Properties.Items.Add(WeatherLight.STATE_LEDACT_NONE);  
             //----------回路查询选择------
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_NAME, 380));
@@ -106,7 +94,6 @@ namespace ConfigDevice
             environment.SearchVer();          //---获取版本号-----   
             environment.Circuit.ReadRoadTitle();//----读取回路---- 
             environment.ReadState();          //---读取状态----            
-            environment.PointLight.ReadParameter();//---读取参数----           
         }
 
         /// <summary>
@@ -137,9 +124,6 @@ namespace ConfigDevice
 
                     gcEnvironment.DataSource = dtSensorState;
                     gvEnvironment.RefreshData();
-                    //-----逻辑附加动作------- 
-                    this.cbxLight.SelectedIndex = environment.PointLight.LedAct;
-                    this.sptLightSeconds.Text = environment.PointLight.LedTim.ToString(); 
                 }
                
             }
@@ -258,8 +242,7 @@ namespace ConfigDevice
             lookUpEdit.ItemIndex = lookUpEdit.ItemIndex == -1 ? 0 : lookUpEdit.ItemIndex;
             if ( isQuickSetting)
             {    
-                environment.PointLight.LedAct = (byte)cbxLight.SelectedIndex;
-                environment.PointLight.LedTim = (ushort)this.sptLightSeconds.Value; 
+
             }
             if (currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----
                 environment.Circuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
@@ -378,13 +361,6 @@ namespace ConfigDevice
             loadData();
         }
 
-        private void cbxLight_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbxLight.Text == WeatherLight.STATE_LEDACT_OFF || cbxLight.Text == WeatherLight.STATE_LEDACT_NONE)
-                sptLightSeconds.Enabled = false;
-            else
-                sptLightSeconds.Enabled = true;
-        }
 
 
     }

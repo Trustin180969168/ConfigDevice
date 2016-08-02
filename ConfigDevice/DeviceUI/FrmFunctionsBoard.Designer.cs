@@ -37,6 +37,12 @@
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             this.pageSysConfig = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ceIfOpenMusic = new DevExpress.XtraEditors.CheckEdit();
+            this.cbxShowContent = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.cbxShowModel = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblSleepLum = new System.Windows.Forms.Label();
             this.lblPointLight = new System.Windows.Forms.Label();
@@ -52,12 +58,6 @@
             this.tbcSleep = new DevExpress.XtraEditors.TrackBarControl();
             this.tbcRun = new DevExpress.XtraEditors.TrackBarControl();
             this.tbcLight = new DevExpress.XtraEditors.TrackBarControl();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ceIfOpenMusic = new DevExpress.XtraEditors.CheckEdit();
-            this.cbxShowContent = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.cbxShowModel = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.celPassword = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.pageLeaveBack = new DevExpress.XtraTab.XtraTabPage();
@@ -93,6 +93,10 @@
             this.pageSysConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ceIfOpenMusic.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShowContent.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShowModel.Properties)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ceRedLine.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceTimeScreenProtect.Properties)).BeginInit();
@@ -103,10 +107,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbcRun.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight.Properties)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ceIfOpenMusic.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxShowContent.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxShowModel.Properties)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.celPassword)).BeginInit();
             this.pageLeaveBack.SuspendLayout();
@@ -176,7 +176,7 @@
             this.xtcPage.Images = this.imageCollection1;
             this.xtcPage.Location = new System.Drawing.Point(2, 2);
             this.xtcPage.Name = "xtcPage";
-            this.xtcPage.SelectedTabPage = this.pageSysConfig;
+            this.xtcPage.SelectedTabPage = this.pageLeaveBack;
             this.xtcPage.Size = new System.Drawing.Size(1005, 579);
             this.xtcPage.TabIndex = 2;
             this.xtcPage.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
@@ -216,6 +216,72 @@
             this.groupControl3.Size = new System.Drawing.Size(996, 514);
             this.groupControl3.TabIndex = 4;
             this.groupControl3.Text = "液晶面板系统配置";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ceIfOpenMusic);
+            this.groupBox2.Controls.Add(this.cbxShowContent);
+            this.groupBox2.Controls.Add(this.cbxShowModel);
+            this.groupBox2.Controls.Add(this.labelControl6);
+            this.groupBox2.Controls.Add(this.labelControl10);
+            this.groupBox2.Location = new System.Drawing.Point(389, 37);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(244, 173);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "门窗设置";
+            // 
+            // ceIfOpenMusic
+            // 
+            this.ceIfOpenMusic.Location = new System.Drawing.Point(13, 93);
+            this.ceIfOpenMusic.Name = "ceIfOpenMusic";
+            this.ceIfOpenMusic.Properties.Caption = "没关，没锁门是否播放音乐";
+            this.ceIfOpenMusic.Size = new System.Drawing.Size(206, 19);
+            this.ceIfOpenMusic.TabIndex = 2;
+            // 
+            // cbxShowContent
+            // 
+            this.cbxShowContent.Location = new System.Drawing.Point(69, 34);
+            this.cbxShowContent.Name = "cbxShowContent";
+            this.cbxShowContent.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxShowContent.Properties.Items.AddRange(new object[] {
+            "只显示本房间",
+            "全部房间显示"});
+            this.cbxShowContent.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxShowContent.Size = new System.Drawing.Size(150, 21);
+            this.cbxShowContent.TabIndex = 1;
+            // 
+            // cbxShowModel
+            // 
+            this.cbxShowModel.Location = new System.Drawing.Point(69, 61);
+            this.cbxShowModel.Name = "cbxShowModel";
+            this.cbxShowModel.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxShowModel.Properties.Items.AddRange(new object[] {
+            "关窗锁窗",
+            "锁窗关窗",
+            "关窗",
+            "锁窗"});
+            this.cbxShowModel.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxShowModel.Size = new System.Drawing.Size(150, 21);
+            this.cbxShowModel.TabIndex = 1;
+            // 
+            // labelControl6
+            // 
+            this.labelControl6.Location = new System.Drawing.Point(15, 37);
+            this.labelControl6.Name = "labelControl6";
+            this.labelControl6.Size = new System.Drawing.Size(48, 14);
+            this.labelControl6.TabIndex = 0;
+            this.labelControl6.Text = "显示内容";
+            // 
+            // labelControl10
+            // 
+            this.labelControl10.Location = new System.Drawing.Point(15, 64);
+            this.labelControl10.Name = "labelControl10";
+            this.labelControl10.Size = new System.Drawing.Size(48, 14);
+            this.labelControl10.TabIndex = 0;
+            this.labelControl10.Text = "显示模式";
             // 
             // groupBox1
             // 
@@ -380,72 +446,6 @@
             this.tbcLight.TabIndex = 5;
             this.tbcLight.EditValueChanged += new System.EventHandler(this.tbcLight_ValueChanged);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.ceIfOpenMusic);
-            this.groupBox2.Controls.Add(this.cbxShowContent);
-            this.groupBox2.Controls.Add(this.cbxShowModel);
-            this.groupBox2.Controls.Add(this.labelControl6);
-            this.groupBox2.Controls.Add(this.labelControl10);
-            this.groupBox2.Location = new System.Drawing.Point(389, 37);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(244, 173);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "门窗设置";
-            // 
-            // ceIfOpenMusic
-            // 
-            this.ceIfOpenMusic.Location = new System.Drawing.Point(13, 93);
-            this.ceIfOpenMusic.Name = "ceIfOpenMusic";
-            this.ceIfOpenMusic.Properties.Caption = "没关，没锁门是否播放音乐";
-            this.ceIfOpenMusic.Size = new System.Drawing.Size(206, 19);
-            this.ceIfOpenMusic.TabIndex = 2;
-            // 
-            // cbxShowContent
-            // 
-            this.cbxShowContent.Location = new System.Drawing.Point(69, 34);
-            this.cbxShowContent.Name = "cbxShowContent";
-            this.cbxShowContent.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxShowContent.Properties.Items.AddRange(new object[] {
-            "只显示本房间",
-            "全部房间显示"});
-            this.cbxShowContent.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbxShowContent.Size = new System.Drawing.Size(150, 21);
-            this.cbxShowContent.TabIndex = 1;
-            // 
-            // cbxShowModel
-            // 
-            this.cbxShowModel.Location = new System.Drawing.Point(69, 61);
-            this.cbxShowModel.Name = "cbxShowModel";
-            this.cbxShowModel.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxShowModel.Properties.Items.AddRange(new object[] {
-            "关窗锁窗",
-            "锁窗关窗",
-            "关窗",
-            "锁窗"});
-            this.cbxShowModel.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbxShowModel.Size = new System.Drawing.Size(150, 21);
-            this.cbxShowModel.TabIndex = 1;
-            // 
-            // labelControl6
-            // 
-            this.labelControl6.Location = new System.Drawing.Point(15, 37);
-            this.labelControl6.Name = "labelControl6";
-            this.labelControl6.Size = new System.Drawing.Size(48, 14);
-            this.labelControl6.TabIndex = 0;
-            this.labelControl6.Text = "显示内容";
-            // 
-            // labelControl10
-            // 
-            this.labelControl10.Location = new System.Drawing.Point(15, 64);
-            this.labelControl10.Name = "labelControl10";
-            this.labelControl10.Size = new System.Drawing.Size(48, 14);
-            this.labelControl10.TabIndex = 0;
-            this.labelControl10.Text = "显示模式";
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.celPassword);
@@ -512,7 +512,7 @@
             this.pageScene.ImageIndex = 1;
             this.pageScene.Name = "pageScene";
             this.pageScene.Size = new System.Drawing.Size(996, 514);
-            this.pageScene.Text = DeviceConfig.CONTROL_OBJECT_SCENE_NAME;
+            this.pageScene.Text = "场景";
             // 
             // listScene
             // 
@@ -694,6 +694,11 @@
             this.pageSysConfig.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ceIfOpenMusic.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShowContent.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShowModel.Properties)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ceRedLine.Properties)).EndInit();
@@ -705,11 +710,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbcRun)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbcLight)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ceIfOpenMusic.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxShowContent.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxShowModel.Properties)).EndInit();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.celPassword)).EndInit();
             this.pageLeaveBack.ResumeLayout(false);

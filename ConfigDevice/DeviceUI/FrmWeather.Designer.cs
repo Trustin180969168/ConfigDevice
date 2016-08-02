@@ -42,17 +42,12 @@
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.BaseViewSetting = new ConfigDevice.ViewBaseEdit();
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandSetting = new ConfigDevice.ViewCommandSetting();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.sptLightSeconds = new DevExpress.XtraEditors.SpinEdit();
-            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
-            this.cbxLight = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
             this.viewLogicSetting = new ConfigDevice.ViewLogicSetting();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
@@ -81,9 +76,6 @@
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
             this.pageLogic.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxLight.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
             this.panelControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -271,6 +263,7 @@
             this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
+            this.btRefresh,
             this.btAutoRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
@@ -287,6 +280,14 @@
             this.btSave.Text = "保存 ";
             this.btSave.Visible = false;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
+            // btRefresh
+            // 
+            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(76, 28);
+            this.btRefresh.Text = "刷新 ";
             // 
             // btAutoRefresh
             // 
@@ -315,7 +316,6 @@
             // pageLogic
             // 
             this.pageLogic.Controls.Add(this.viewCommandSetting);
-            this.pageLogic.Controls.Add(this.groupBox1);
             this.pageLogic.Controls.Add(this.viewLogicSetting);
             this.pageLogic.Controls.Add(this.panelControl5);
             this.pageLogic.Name = "pageLogic";
@@ -325,78 +325,12 @@
             // viewCommandSetting
             // 
             this.viewCommandSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandSetting.Location = new System.Drawing.Point(0, 336);
+            this.viewCommandSetting.Location = new System.Drawing.Point(0, 284);
             this.viewCommandSetting.Name = "viewCommandSetting";
             this.viewCommandSetting.ShowCommandBar = false;
             this.viewCommandSetting.ShowToolBar = false;
-            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 346);
+            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 398);
             this.viewCommandSetting.TabIndex = 1;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.sptLightSeconds);
-            this.groupBox1.Controls.Add(this.labelControl14);
-            this.groupBox1.Controls.Add(this.labelControl13);
-            this.groupBox1.Controls.Add(this.cbxLight);
-            this.groupBox1.Controls.Add(this.labelControl12);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Font = new System.Drawing.Font("宋体", 9F);
-            this.groupBox1.Location = new System.Drawing.Point(0, 284);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1009, 52);
-            this.groupBox1.TabIndex = 22;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "指示灯动作";
-            // 
-            // sptLightSeconds
-            // 
-            this.sptLightSeconds.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.sptLightSeconds.Location = new System.Drawing.Point(241, 17);
-            this.sptLightSeconds.Name = "sptLightSeconds";
-            this.sptLightSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.sptLightSeconds.Properties.Mask.EditMask = "d";
-            this.sptLightSeconds.Size = new System.Drawing.Size(53, 21);
-            this.sptLightSeconds.TabIndex = 3;
-            // 
-            // labelControl14
-            // 
-            this.labelControl14.Location = new System.Drawing.Point(300, 20);
-            this.labelControl14.Name = "labelControl14";
-            this.labelControl14.Size = new System.Drawing.Size(12, 14);
-            this.labelControl14.TabIndex = 2;
-            this.labelControl14.Text = "秒";
-            // 
-            // labelControl13
-            // 
-            this.labelControl13.Location = new System.Drawing.Point(210, 20);
-            this.labelControl13.Name = "labelControl13";
-            this.labelControl13.Size = new System.Drawing.Size(28, 14);
-            this.labelControl13.TabIndex = 2;
-            this.labelControl13.Text = "时间:";
-            // 
-            // cbxLight
-            // 
-            this.cbxLight.Location = new System.Drawing.Point(122, 17);
-            this.cbxLight.Name = "cbxLight";
-            this.cbxLight.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxLight.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbxLight.Size = new System.Drawing.Size(80, 21);
-            this.cbxLight.TabIndex = 1;
-            this.cbxLight.SelectedIndexChanged += new System.EventHandler(this.cbxLight_SelectedIndexChanged);
-            // 
-            // labelControl12
-            // 
-            this.labelControl12.Location = new System.Drawing.Point(55, 20);
-            this.labelControl12.Name = "labelControl12";
-            this.labelControl12.Size = new System.Drawing.Size(64, 14);
-            this.labelControl12.TabIndex = 0;
-            this.labelControl12.Text = "指示灯指示:";
             // 
             // viewLogicSetting
             // 
@@ -626,10 +560,6 @@
             this.pageJcsz.ResumeLayout(false);
             this.pageLogic.ResumeLayout(false);
             this.pageLogic.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxLight.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
             this.panelControl5.ResumeLayout(false);
             this.panelControl5.PerformLayout();
@@ -672,12 +602,6 @@
         private ViewBaseEdit BaseViewSetting;
         private DevExpress.XtraTab.XtraTabPage pageLogic;
         private ViewCommandSetting viewCommandSetting;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private DevExpress.XtraEditors.SpinEdit sptLightSeconds;
-        private DevExpress.XtraEditors.LabelControl labelControl14;
-        private DevExpress.XtraEditors.LabelControl labelControl13;
-        private DevExpress.XtraEditors.ComboBoxEdit cbxLight;
-        private DevExpress.XtraEditors.LabelControl labelControl12;
         private ViewLogicSetting viewLogicSetting;
         private DevExpress.XtraEditors.PanelControl panelControl5;
         private DevExpress.XtraEditors.PanelControl panelControl3;
@@ -693,5 +617,6 @@
         public System.Windows.Forms.ToolStrip ToolBar;
         private System.Windows.Forms.ToolStripButton btSaveTrigger;
         private System.Windows.Forms.ToolStripButton btRefreshTrigger;
+        private System.Windows.Forms.ToolStripButton btRefresh;
     }
 }

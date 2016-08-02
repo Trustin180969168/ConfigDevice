@@ -34,9 +34,9 @@ namespace ConfigDevice
                 cbxLevelEdit.Items.Add(value);
 
             //-------初始化温度编辑控件------
-            sensorValueEdit.DisplayFormat.FormatString = "####0.# 米/秒";
+            sensorValueEdit.DisplayFormat.FormatString = "####0.0 米/秒";
             sensorValueEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            sensorValueEdit.Mask.EditMask = "####0.# 米/秒";
+            sensorValueEdit.Mask.EditMask = "####0.0 米/秒";
             sensorValueEdit.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             sensorValueEdit.Mask.UseMaskAsDisplayFormat = true;
             sensorValueEdit.MaxValue = 1000;
@@ -172,14 +172,10 @@ namespace ConfigDevice
                     triggerData.Size2 = WindySensor.LEVEL_NAME_ID[dr[dcEndValue.FieldName].ToString()];
             }
             else
-            {
-                try
-                {
-                    triggerData.Size1 = Convert.ToInt32(dr[dcStartValue.FieldName].ToString()) * 10;
-                }
-                catch { triggerData.Size1 = 0; }
+            {              
+                triggerData.Size1 = Convert.ToInt32(Convert.ToDouble(dr[dcStartValue.FieldName]) * 10);      
                 if (dcEndValue.OptionsColumn.AllowEdit)//---有效则添加到结束值-----
-                    triggerData.Size2 = Convert.ToInt32(dr[ViewConfig.DC_END_VALUE].ToString()) * 10;
+                    triggerData.Size2 = Convert.ToInt32(Convert.ToDouble(dr[dcEndValue.FieldName]) * 10); 
             }
 
             //-----有效持续,无效持续------            

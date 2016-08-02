@@ -112,7 +112,7 @@ namespace ConfigDevice
         {
             DataRow dr = gvLogic.GetDataRow(0);
             if(gc.FieldName != "")
-                dr[gc.FieldName] = null;
+                dr[gc.FieldName] = SensorConfig.SENSOR_INVALID;//---内容为无效
             dr.EndEdit();
             gc.ColumnEdit = InvalidEdit;            
             gc.AppearanceCell.BackColor = Color.Gainsboro;//灰色

@@ -830,9 +830,9 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行---
-            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
-            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
-            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
+            dr[dcDifferentDevice.FieldName] = SensorConfig.SENSOR_INVALID;  //---差异设备无效---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;  //---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;      //---触发级别---
 
             //-----安防号操作----
             dr[dcStartValue.FieldName] = LevelValues[td.Size1];
@@ -946,9 +946,9 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
-            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
-            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
-            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
+            dr[dcDifferentDevice.FieldName] = SensorConfig.SENSOR_INVALID;  //---差异设备无效---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;  //---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;      //---触发级别---
 
             string nowDateStr = DateTime.Now.ToShortDateString();
             byte[] dtStartTime = ConvertTools.GetByteFromInt32(td.Size1);
@@ -1025,11 +1025,7 @@ namespace ConfigDevice
         public override TriggerData GetLogicData()
         {
             DataRow dr = gvLogic.GetDataRow(0);
-            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
-            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
-            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
-            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
-
+            TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----  
             //--------开始秒数,结束秒数-------------- 
             DateTime dtStartTime = DateTime.Parse(dr[dcStartValue.FieldName].ToString());
             DateTime dtEndTime = DateTime.Parse(dr[dcEndValue.FieldName].ToString());
@@ -1050,8 +1046,10 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
+            dr[dcDifferentDevice.FieldName] = SensorConfig.SENSOR_INVALID;  //---差异设备无效---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;  //---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;      //---触发级别---
             string nowDateStr = DateTime.Now.ToShortDateString();
-
             byte[] dtStartTime = ConvertTools.GetByteFromInt32(td.Size1);
             byte[] dtEndTime = ConvertTools.GetByteFromInt32(td.Size2);
 
@@ -1150,9 +1148,9 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行--- 
-            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
-            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
-            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
+            dr[dcDifferentDevice.FieldName] = SensorConfig.SENSOR_INVALID;  //---差异设备无效---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;  //---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;      //---触发级别---
 
             byte[] weekByteValue = ConvertTools.GetByteFromInt32(td.Size1);
             byte byteWeeks = weekByteValue[0];
@@ -1262,9 +1260,9 @@ namespace ConfigDevice
         public override void SetLogicData(TriggerData td)
         {
             DataRow dr = this.GetInitDataRow(td);//---初始化行---
-            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
-            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
-            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
+            dr[dcDifferentDevice.FieldName] = SensorConfig.SENSOR_INVALID;  //---差异设备无效---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;  //---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;      //---触发级别---
 
            //-----联动号操作----
             dr[dcStartValue.FieldName] = LevelValues[td.Size1];
@@ -1341,9 +1339,9 @@ namespace ConfigDevice
         {
             DataRow dr = gvLogic.GetDataRow(0);
             TriggerData triggerData = GetInitTriggerData(dr);//----初始化触发数据----
-            dr[dcTriggerObj.FieldName] = SensorConfig.SENSOR_INVALID;                //---触发对象---
-            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;//---触发位置-----
-            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;        //---触发级别---
+            dr[dcDifferentDevice.FieldName] = SensorConfig.SENSOR_INVALID;  //---差异设备无效---
+            dr[dcTriggerPosition.FieldName] = SensorConfig.SENSOR_INVALID;  //---触发位置-----
+            dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;      //---触发级别---
 
             triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_TO2;//系统联动号为5的比较符号值
             //--------关闭/打开--------------

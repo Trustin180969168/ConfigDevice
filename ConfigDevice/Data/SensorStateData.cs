@@ -275,12 +275,12 @@ namespace ConfigDevice
         static WindySensor()
         {
             LEVEL_ID_NAME.Add(SensorConfig.WIND_LV_NOT, SensorConfig.WIND_LV_NAME_NOT);
-            LEVEL_ID_NAME.Add(SensorConfig.WIND_LV_TINY, SensorConfig.RAIN_LV_NAME_OWN);
+            LEVEL_ID_NAME.Add(SensorConfig.WIND_LV_TINY, SensorConfig.WIND_LV_NAME_TINY);
             LEVEL_ID_NAME.Add(SensorConfig.WIND_LV_SMALL, SensorConfig.WIND_LV_NAME_SMALL);
             LEVEL_ID_NAME.Add(SensorConfig.WIND_LV_HIGH, SensorConfig.WIND_LV_NAME_HIGH);
 
             LEVEL_NAME_ID.Add(SensorConfig.WIND_LV_NAME_NOT, SensorConfig.WIND_LV_NOT);
-            LEVEL_NAME_ID.Add(SensorConfig.RAIN_LV_NAME_OWN, SensorConfig.WIND_LV_TINY);
+            LEVEL_NAME_ID.Add(SensorConfig.WIND_LV_NAME_TINY, SensorConfig.WIND_LV_TINY);
             LEVEL_NAME_ID.Add(SensorConfig.WIND_LV_NAME_SMALL, SensorConfig.WIND_LV_SMALL);
             LEVEL_NAME_ID.Add(SensorConfig.WIND_LV_NAME_HIGH, SensorConfig.WIND_LV_HIGH);
         }

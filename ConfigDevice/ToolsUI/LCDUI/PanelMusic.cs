@@ -26,9 +26,15 @@ namespace ConfigDevice
                 DeviceConfig.DC_NETWORK_ID + " = '" + device.NetworkID + "'");
             foreach (DataRow dr in amps)
                 dt.Rows.Add(dr.ItemArray);
+
+            lookUpEditAmp.Properties.Columns.Clear();
+            lookUpEditAmp.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NAME, "功放", 120));
+            lookUpEditAmp.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, "地址", 120));
             lookUpEditAmp.Properties.DataSource = dt;
             lookUpEditAmp.Properties.DisplayMember = DeviceConfig.DC_NAME;
             lookUpEditAmp.Properties.ValueMember = DeviceConfig.DC_ID;
+
+            lookUpEditAmp.Properties.DropDownRows = dt.Rows.Count; 
         }
 
         /// <summary>
@@ -36,10 +42,9 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="optionData"></param>
         public void SetOptionData(ref LCDPanelOptionData optionData)
-        {
- 
+        { 
             speAmp.Value = optionData.SoundAddress;                     //---功放地址---
-            lookUpEditAmp.EditValue = optionData.SoundAddress;          //---功放名称---   
+            lookUpEditAmp.EditValue = (Int16)optionData.SoundAddress;          //---功放名称---   
         }
 
         /// <summary>
@@ -57,7 +62,8 @@ namespace ConfigDevice
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void speHintVolume_EditValueChanged(object sender, EventArgs e)
-        { 
+        {
+            speAmp.EditValue = lookUpEditAmp.EditValue;
         }
  
 
