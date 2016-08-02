@@ -37,6 +37,7 @@
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btRefrash = new System.Windows.Forms.ToolStripButton();
             this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.BaseViewSetting = new ConfigDevice.ViewBaseEdit();
@@ -178,6 +179,7 @@
             this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
+            this.btRefrash,
             this.btAutoRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
@@ -193,6 +195,15 @@
             this.btSave.Size = new System.Drawing.Size(76, 28);
             this.btSave.Text = "保存 ";
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
+            // btRefrash
+            // 
+            this.btRefrash.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefrash.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefrash.Name = "btRefrash";
+            this.btRefrash.Size = new System.Drawing.Size(76, 28);
+            this.btRefrash.Text = "刷新 ";
+            this.btRefrash.Click += new System.EventHandler(this.btRefrash_Click);
             // 
             // btAutoRefresh
             // 
@@ -703,5 +714,6 @@
         private DevExpress.XtraEditors.TextEdit edtLogicLocalSetting;
         private System.Windows.Forms.GroupBox groupBox2;
         protected DevExpress.XtraEditors.CheckedListBoxControl ceSafeSetting;
+        private System.Windows.Forms.ToolStripButton btRefrash;
     }
 }

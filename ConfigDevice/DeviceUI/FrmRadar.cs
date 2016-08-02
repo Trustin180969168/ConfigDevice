@@ -476,6 +476,14 @@ namespace ConfigDevice
             }
         }
 
+        /// <summary>
+        /// 手动刷新状态
+        /// </summary>
+        private void btRefrash_Click(object sender, EventArgs e)
+        {
+            radar.ReadState();
+        }
+
 
    
     }
