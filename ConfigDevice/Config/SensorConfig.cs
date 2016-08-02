@@ -29,7 +29,16 @@ namespace ConfigDevice
         public const int LG_EXT_SENSOR_SLF_LKID = 19;         //特殊:内部联动(                 )
         public const int LG_SENSOR_PM25 = 20;         //PM2.5        (含有外设,含有级别) 
         public const int LG_SENSOR_O2 = 21;         //氧气浓度     (含有外设,含有等级)
-        public const int LG_SENSOR_TOTAL = 22;                  //总数(★★数量以后会不断增加,必须在最尾处增加★★)
+        public const int LG_SENSOR_UW_1 = 22;         //超声波-1     (含有外设,只有等级)
+        public const int LG_SENSOR_UW_2 = 23;         //超声波-2     (含有外设,只有等级)
+        public const int LG_SENSOR_IR = 24;         //红外         (含有外设,只有等级)
+        public const int LG_SENSOR_SN_1_2 = 25;         //传感器顺序触发:1->2(   只有等级)(目前只能设备内部使用)
+        public const int LG_SENSOR_SN_1_2_3 = 26;        //传感器顺序触发:1->2->3(只有等级)(目前只能设备内部使用)
+        public const int LG_SENSOR_SCIN_1 = 27;         //短路输入1    (含有外设,只有等级)
+        public const int LG_SENSOR_SCIN_2 = 28;         //短路输入2    (含有外设,只有等级)
+        public const int LG_SENSOR_SCIN_3 = 29;         //短路输入3    (含有外设,只有等级)
+        public const int LG_SENSOR_SCIN_4 = 30;         //短路输入4    (含有外设,只有等级)
+        public const int LG_SENSOR_TOTAL = 31;         //总数(★★数量以后会不断增加,必须在最尾处增加★★)
 
         public const UInt16 LG_SENSOR_DEF_FLAG = 0;        //级别默认值0
         public const UInt16 LG_SENSOR_DEV_FLAG = 0x8000;        //[外设]传感器[标志位]->如:本设备,外设
@@ -38,7 +47,7 @@ namespace ConfigDevice
         public const UInt16 LG_SENSOR_DIF_FLAG_VALUE = 0xA000;  //外设差值  0x8000 | 0x2000
         public const UInt16 LG_SENSOR_FLAG_VALUE = 0xE000;      //外设标识值  0x8000 | 0x4000 | 0x2000 ---用于获取设备触发位置信息-----
         public const UInt16 LG_SENSOR_MASK = 0xBFFF;            //[同一个]传感器[掩码]->如:本设备的温度传感器,外设的温度传感器
-        public const UInt16 LG_SENSOR_TYP_MASK = 0x3FFF;        //[同类型]传感器[掩码]->如:温度,湿度
+        public const UInt16 LG_SENSOR_TYP_MASK = 0x03FF;        //[同类型]传感器[掩码]->如:温度,湿度
         public const UInt16 LG_SENSOR_END_MARK = 0xFFFF;        //传感器结束符 
         public const UInt16 LG_SENSOR_DEFAULT = LG_SENSOR_VOID;
         public const Int16 LG_LINKAGE_NUM = 100;
@@ -277,6 +286,14 @@ namespace ConfigDevice
         public const string O2_LV_NAME_LOW = "过低";          //【过低】
         public const string O2_LV_NAME_MEDIUM = "适宜";          //【适宜】
         public const string O2_LV_NAME_HIGH = "富氧";          //【富氧】
+
+        //短路输入
+        public const int SCIN_LV_LOW   =      0;          //【低电平】
+	    public const int SCIN_LV_HIGH    =    1;          //【高电平】
+	    public const int SCIN_LV_TOTAL    =   2;
+        public const string SCIN_LV_NAME_LOW = "过低";          //【过低】
+        public const string SCIN_LV_NAME_HIGH = "适宜";          //【适宜】
+
         //-----安防联动级别----
         public const string LG_NAME_SAF_SYST_DI = "系统被撤防";          //         (系统全部的安防标志全部被清除)   ──┐
         public const string LG_NAME_SAF_SYST_EN_DLY = "系统进入布防延时中";          // (系统安防标志只要任一个被置位)       │

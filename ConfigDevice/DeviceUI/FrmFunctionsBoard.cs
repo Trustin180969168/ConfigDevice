@@ -237,6 +237,7 @@ namespace ConfigDevice
         {
             this.Device.OnCallbackUI_Action -= this.callbackUI;//--注册回调事件
             this.Device.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----注册回调事件
+           
         }
 
         /// <summary>

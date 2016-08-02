@@ -69,8 +69,15 @@ namespace ConfigDevice
             if (kindID == SensorConfig.LG_SENSOR_TAMPER)//-----防拆开关
                 return new SwitTamperSensor(value);
             if (kindID == SensorConfig.LG_SENSOR_RSP)//-----雷达
-                return new RadarSensor(value); 
-
+                return new RadarSensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_SCIN_1)//-----短路输入1
+                return new Short4Sensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_SCIN_2)//-----短路输入2
+                return new Short4Sensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_SCIN_3)//-----短路输入3
+                return new Short4Sensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_SCIN_4)//-----短路输入4
+                return new Short4Sensor(value); 
             return null;
         }
 

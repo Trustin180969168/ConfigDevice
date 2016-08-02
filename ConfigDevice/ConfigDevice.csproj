@@ -112,6 +112,10 @@
       <DependentUpon>FrmFunctionsBoard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmShort4.resx">
+      <DependentUpon>FrmShort4.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ToolsUI\KeySettingTools.resx">
       <DependentUpon>KeySettingTools.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -388,7 +392,9 @@
     <Compile Include="Class\ControlObj\InnerInteraction.cs" />
     <Compile Include="Class\ControlObj\OuterInteraction.cs" />
     <Compile Include="Class\ControlObj\ButtonPanelCtrl.cs" />
+    <Compile Include="Class\ControlObj\ShortInput.cs" />
     <Compile Include="Class\Devices\ButtonPanelKey.cs" />
+    <Compile Include="Class\Devices\Short4.cs" />
     <Compile Include="Class\Manage\KeyList.cs" />
     <Compile Include="Class\ViewKeySetting\BaseKeySetting.cs" />
     <Compile Include="Class\Devices\FlammableGasProbe.cs" />
@@ -465,6 +471,12 @@
     </Compile>
     <Compile Include="DeviceUI\FrmFunctionsBoard.Designer.cs">
       <DependentUpon>FrmFunctionsBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmShort4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmShort4.Designer.cs">
+      <DependentUpon>FrmShort4.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolsUI\KeySettingTools.cs">
       <SubType>UserControl</SubType>

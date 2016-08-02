@@ -682,7 +682,44 @@ namespace ConfigDevice
         }
     }
 
-   
+    /// <summary>
+    /// 短路输入4
+    /// </summary>
+    public class Short4Sensor : SensorStateData
+    {
+        public static Dictionary<int, string> LEVEL_ID_NAME = new Dictionary<int, string>();
+        public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
+
+
+        static Short4Sensor()
+        {
+            LEVEL_ID_NAME.Add(SensorConfig.SCIN_LV_LOW, SensorConfig.SCIN_LV_NAME_LOW);
+            LEVEL_ID_NAME.Add(SensorConfig.SCIN_LV_HIGH, SensorConfig.SCIN_LV_NAME_HIGH);
+
+            LEVEL_NAME_ID.Add(SensorConfig.SCIN_LV_NAME_LOW, SensorConfig.SCIN_LV_LOW);
+            LEVEL_NAME_ID.Add(SensorConfig.SCIN_LV_NAME_HIGH, SensorConfig.SCIN_LV_HIGH);
+        }
+        public Short4Sensor(byte[] value)
+            : base(value)
+        {
+            Init();
+        }
+
+        public Short4Sensor()
+        {
+            Init();
+        }
+
+        public override void Init()
+        {
+            KindName = "短路输入4";
+
+            foreach (int key in LEVEL_ID_NAME.Keys)
+                LevelIDName.Add(key, LEVEL_ID_NAME[key]);
+            foreach (string key in LEVEL_NAME_ID.Keys)
+                LevelNameID.Add(key, LEVEL_NAME_ID[key]);
+        }
+    }
 
     /// <summary>
     /// 无效的传感器

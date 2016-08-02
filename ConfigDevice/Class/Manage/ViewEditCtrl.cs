@@ -49,6 +49,7 @@ namespace ConfigDevice
         /// <returns></returns>
         public static BaseViewLogicControl GetViewLogicControl(int TriggerID,Device device, GridView gv)
         {
+      
             if (TriggerID == SensorConfig.LG_SENSOR_DEFAULT)
                 return new ViewLogicInvalid(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_LEL)
@@ -95,6 +96,9 @@ namespace ConfigDevice
                 return new ViewLogicSwitTamper(device, gv);
             else if (TriggerID == SensorConfig.LG_EXT_SENSOR_SECURITY)//---安防联动---
                 return new ViewLogicSecurityInteraction(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_SCIN_1 || TriggerID == SensorConfig.LG_SENSOR_SCIN_2||
+                TriggerID == SensorConfig.LG_SENSOR_SCIN_3 || TriggerID == SensorConfig.LG_SENSOR_SCIN_4)//---短路输入---
+                return new ViewLogicShortInput(device, gv);
             else
                 return new ViewLogicInvalid(device, gv); 
         }
