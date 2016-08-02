@@ -499,7 +499,7 @@ namespace ConfigDevice
             udp.Length = 28 + crcData.Length + 4 + 1;
 
             return udp;
-        }
+        }  
 
         /// <summary>
         /// 获取指示灯参数
