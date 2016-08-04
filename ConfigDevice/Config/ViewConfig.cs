@@ -115,7 +115,7 @@ namespace ConfigDevice
         public const string KET_BACK_SAFE_LCD_SAVE = "时间屏保";
         public const string KET_BACK_DOOR_WINDOW_SHOW = "门窗显示 关窗提示音";
         public const string KET_BACK_DOOR_WINDOW_HINT_SOUND = "门窗显示 锁窗提示音";
- 
+
 
 
         public static Dictionary<string, UInt16> TRIGGER_NAME_ID = new Dictionary<string, UInt16>(); //-----触发对象对应的ID---- 
@@ -128,8 +128,8 @@ namespace ConfigDevice
         public static Dictionary<UInt16, string> TRIGGER_POSITION_ID_NAME = new Dictionary<UInt16, string>(); //-----触发位置名称---- 
         public static Dictionary<string, byte> KEY_TYPE_NAME_ID = new Dictionary<string, byte>(); //-----按键类型名称ID---- 
         public static Dictionary<byte, string> KEY_TYPE_ID_NAME = new Dictionary<byte, string>(); //-----按键类型ID名称---- 
-        
-        public static  string SELECT_COMMAND_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
+
+        public static string SELECT_COMMAND_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
                    "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
                    "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +
                    "'" + (int)DeviceConfig.EQUIPMENT_SWIT_4 + "'," +
@@ -144,22 +144,22 @@ namespace ConfigDevice
                    ")";
 
         public static string SELECT_LOGIC_DEVICE_QUERY_CONDITION = " 1 = 1 ";
-            //DeviceConfig.DC_KIND_ID + " in (" +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_SWIT_4 + "'," +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_SWIT_6 + "'," +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_SWIT_8 + "'," +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_2 + "'," +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_4 + "'," +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_6 + "'," +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_8 + "'," +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
-            //       "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
-            //       ")";
+        //DeviceConfig.DC_KIND_ID + " in (" +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_SWIT_4 + "'," +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_SWIT_6 + "'," +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_SWIT_8 + "'," +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_2 + "'," +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_4 + "'," +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_6 + "'," +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_8 + "'," +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
+        //       "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
+        //       ")";
 
         public static string SELECT_ENVIRONMENT_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
- 
+
            "'" + (int)DeviceConfig.EQUIPMENT_AIR_QUALITY + "'" +
            ")";
 
@@ -188,6 +188,11 @@ namespace ConfigDevice
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_DATE, SensorConfig.LG_EXT_SENSOR_DATE_SEG);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_WEEK, SensorConfig.LG_EXT_SENSOR_WEEK_CYC);
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.LG_SENSOR_TEMP_FC);
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SCIN_1, SensorConfig.LG_SENSOR_SCIN_1); //短路输入1    (含有外设,只有等级)
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SCIN_2, SensorConfig.LG_SENSOR_SCIN_2); //短路输入2    (含有外设,只有等级)
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SCIN_3, SensorConfig.LG_SENSOR_SCIN_3); //短路输入3    (含有外设,只有等级)
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SCIN_4, SensorConfig.LG_SENSOR_SCIN_4); //短路输入4    (含有外设,只有等级)
+
 
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_VOID, SensorConfig.SENSOR_INVALID);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TEMP, SensorConfig.SENSOR_TEMPERATURE);
@@ -211,6 +216,11 @@ namespace ConfigDevice
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_DATE_SEG, SensorConfig.SENSOR_DATE);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_EXT_SENSOR_WEEK_CYC, SensorConfig.SENSOR_WEEK);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TEMP_FC, SensorConfig.SENSOR_FIRE_TEMPERATURE);
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_SCIN_1, SensorConfig.SENSOR_SCIN_1); //短路输入1    (含有外设,只有等级)
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_SCIN_2, SensorConfig.SENSOR_SCIN_2); //短路输入2    (含有外设,只有等级)
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_SCIN_3, SensorConfig.SENSOR_SCIN_3); //短路输入3    (含有外设,只有等级)
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_SCIN_4, SensorConfig.SENSOR_SCIN_4); //短路输入4    (含有外设,只有等级)
+
             //------触发位置的对应关系--------
             TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_INVALID, SensorConfig.LG_SENSOR_VOID);//-------无效-----
             TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_POSITION_LOCAL, SensorConfig.LG_SENSOR_VOID);//-------本地-----
@@ -250,14 +260,14 @@ namespace ConfigDevice
             MATH_NAME_ID.Add(SensorConfig.LG_MATH_NAME_TOTAL, SensorConfig.LG_MATH_TOTAL);
 
             //-------控制键类型关系------
-            KEY_TYPE_NAME_ID.Add(KEY_TYPE_NAME_LIGHT ,KEY_TYPE_LIGHT);
-            KEY_TYPE_NAME_ID.Add(KEY_TYPE_NAME_SOUND ,KEY_TYPE_SOUND);
-            KEY_TYPE_NAME_ID.Add( KEY_TYPE_NAME_CURTAIN,KEY_TYPE_CURTAIN);
-            KEY_TYPE_NAME_ID.Add( KEY_TYPE_NAME_HELP,KEY_TYPE_HELP);
-            KEY_TYPE_ID_NAME.Add(KEY_TYPE_LIGHT ,KEY_TYPE_NAME_LIGHT);
-            KEY_TYPE_ID_NAME.Add(KEY_TYPE_SOUND ,KEY_TYPE_NAME_SOUND);
+            KEY_TYPE_NAME_ID.Add(KEY_TYPE_NAME_LIGHT, KEY_TYPE_LIGHT);
+            KEY_TYPE_NAME_ID.Add(KEY_TYPE_NAME_SOUND, KEY_TYPE_SOUND);
+            KEY_TYPE_NAME_ID.Add(KEY_TYPE_NAME_CURTAIN, KEY_TYPE_CURTAIN);
+            KEY_TYPE_NAME_ID.Add(KEY_TYPE_NAME_HELP, KEY_TYPE_HELP);
+            KEY_TYPE_ID_NAME.Add(KEY_TYPE_LIGHT, KEY_TYPE_NAME_LIGHT);
+            KEY_TYPE_ID_NAME.Add(KEY_TYPE_SOUND, KEY_TYPE_NAME_SOUND);
             KEY_TYPE_ID_NAME.Add(KEY_TYPE_CURTAIN, KEY_TYPE_NAME_CURTAIN);
-            KEY_TYPE_ID_NAME.Add(KEY_TYPE_HELP ,KEY_TYPE_NAME_HELP);
+            KEY_TYPE_ID_NAME.Add(KEY_TYPE_HELP, KEY_TYPE_NAME_HELP);
         }
 
 
@@ -266,7 +276,7 @@ namespace ConfigDevice
     /// <summary>
     /// 触发对象列表数据
     /// </summary>
-    public  class LookupIDAndNameTable : DataTable
+    public class LookupIDAndNameTable : DataTable
     {
         public LookupIDAndNameTable()
             : base()
@@ -281,7 +291,7 @@ namespace ConfigDevice
     /// <summary>
     /// 下拉控件
     /// </summary>
-    public class GridViewComboBox:DevExpress.XtraEditors.Repository.RepositoryItemComboBox
+    public class GridViewComboBox : DevExpress.XtraEditors.Repository.RepositoryItemComboBox
     {
         public GridViewComboBox()
             : base()
@@ -304,7 +314,7 @@ namespace ConfigDevice
             DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             Mask.EditMask = "HH:mm:ss";
             Mask.UseMaskAsDisplayFormat = true;
-            Leave += new System.EventHandler(SysConfig.Edit_Leave); 
+            Leave += new System.EventHandler(SysConfig.Edit_Leave);
             Enter += new System.EventHandler(SysConfig.Edit_Enter);
         }
     }
@@ -382,7 +392,7 @@ namespace ConfigDevice
         public GridViewLookupEdit()
             : base()
         {
-    
+
         }
     }
 
@@ -393,10 +403,10 @@ namespace ConfigDevice
     {
 
 
-        public GridViewGridLookupEdit( )
+        public GridViewGridLookupEdit()
             : base()
         {
- 
+
             this.View.OptionsView.ShowIndicator = false;
             this.View.OptionsView.ShowGroupPanel = false;
             this.View.OptionsView.ShowAutoFilterRow = true;
@@ -409,8 +419,8 @@ namespace ConfigDevice
     /// 周编辑
     /// </summary>
     public class GridViewWeekEdit : DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit
-    {        
-        private string weekValue = ""; 
+    {
+        private string weekValue = "";
         private bool allowEdit = true;
         public GridViewWeekEdit()
             : base()
@@ -426,16 +436,16 @@ namespace ConfigDevice
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期六"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("星期日")});
             this.ShowAllItemCaption = "全选";
-            this.PopupFormMinSize =  new System.Drawing.Size(50, 200);
+            this.PopupFormMinSize = new System.Drawing.Size(50, 200);
             this.EditValueChanged += checkedComboBoxEdit_EditValueChanged;
             this.Closed += checkedComboBoxEdit_Closed;
             this.QueryPopUp += checkedComboBoxEdit_Properties_QueryPopUp;
             this.ShowPopupCloseButton = false;
         }
-       
+
         private void checkedComboBoxEdit_EditValueChanged(object sender, EventArgs e)
         {
-            
+
             if (!allowEdit) return;
             if ((sender as CheckedComboBoxEdit).Text != "")
             {
@@ -507,7 +517,7 @@ namespace ConfigDevice
         }
         private string weekValue = "";
         private bool allowEdit = true;
-        public GridViewMultipleCheckEdit(string _prefixName,int _count)
+        public GridViewMultipleCheckEdit(string _prefixName, int _count)
             : base()
         {
             this.Name = "MultipleCheckEdit";
@@ -518,7 +528,7 @@ namespace ConfigDevice
             else
                 this.PopupFormMinSize = new System.Drawing.Size(150, 25 * count);
             this.ShowAllItemCaption = "全选";
-     
+
             this.EditValueChanged += checkedComboBoxEdit_EditValueChanged;
             this.Closed += checkedComboBoxEdit_Closed;
             this.QueryPopUp += checkedComboBoxEdit_Properties_QueryPopUp;

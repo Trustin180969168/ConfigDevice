@@ -318,7 +318,7 @@ namespace ConfigDevice
         /// <returns></returns>
         public byte[] GetAdditionValue()
         {
-            byte[] additionValue = new byte[10];
+            byte[] additionValue = new byte[10];//----第一个为逻辑组号,不用设置
 
             additionValue[1] = (byte)Valve.ValAct;//---阀门---
             byte[] byteSeconds = ConvertTools.GetByteFromUInt16(Valve.ValTim);

@@ -444,9 +444,12 @@ namespace ConfigDevice
         /// <returns></returns>
         public byte[] GetAdditionValue()
         {
-            byte[] additionValue = new byte[10];
+            byte[] additionValue = new byte[5]; //----第一个为逻辑组号,不用设置
 
-
+            additionValue[1] = Light.LedAct;
+            additionValue[2] = ConvertTools.GetByteFromUInt16(Light.LedTim)[0];
+            additionValue[3] = ConvertTools.GetByteFromUInt16(Light.LedTim)[1];
+            additionValue[4] = Buzzer.BuzAct;
 
             return additionValue;
         }

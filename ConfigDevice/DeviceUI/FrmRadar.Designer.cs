@@ -111,7 +111,7 @@
             this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
             this.tctrlEdit.SelectedTabPage = this.pagePzjm;
-            this.tctrlEdit.Size = new System.Drawing.Size(1018, 719);
+            this.tctrlEdit.Size = new System.Drawing.Size(1018, 647);
             this.tctrlEdit.TabIndex = 2;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
@@ -125,7 +125,7 @@
             this.pagePzjm.Controls.Add(this.groupControl1);
             this.pagePzjm.Controls.Add(this.tsDoorInput);
             this.pagePzjm.Name = "pagePzjm";
-            this.pagePzjm.Size = new System.Drawing.Size(1009, 682);
+            this.pagePzjm.Size = new System.Drawing.Size(1009, 610);
             this.pagePzjm.Text = "配置界面";
             // 
             // groupControl1
@@ -621,7 +621,7 @@
             // FrmRadar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(1018, 743);
+            this.ClientSize = new System.Drawing.Size(1018, 671);
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmRadar";
             this.Load += new System.EventHandler(this.FrmRadar_Load);

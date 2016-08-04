@@ -11,6 +11,7 @@ namespace ConfigDevice
         public const string LOCAL_LOGIC_SETTING_GAS = "EQUIPMENT_FUEL_GAS";//----煤气探头---
         public const string LOCAL_LOGIC_SETTING_RADAR = "EQUIPMENT_RSP";//----雷达-----
         public const string LOCAL_LOGIC_SETTING_O2 = "EQUIPMENT_AIR_O2";//---氧气-----
+        public const string LOCAL_LOGIC_SETTING_SHORT_IN_4 = "EQUIPMENT_SHORT_IN_4";//---短路输入4-----
 
         //设备ID 0~100,  101以上为指定设备的ID
         public enum SpecicalID

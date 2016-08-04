@@ -75,6 +75,11 @@ namespace ConfigDevice
         public const string SENSOR_SYSTEM_INTERACTION = "系统联动";
         public const string SENSOR_INNER_INTERACTION = "内部联动";
         public const string SENSOR_SECURITY_INTERACTION = "安防联动";
+        public const string SENSOR_SCIN_1 = "短路输入1";
+        public const string SENSOR_SCIN_2 = "短路输入21";
+        public const string SENSOR_SCIN_3 = "短路输入3";
+        public const string SENSOR_SCIN_4 = "短路输入4";
+
 
         public const string SENSOR_TIME = "时间段";
         public const string SENSOR_DATE = "日期段";
@@ -291,8 +296,8 @@ namespace ConfigDevice
         public const int SCIN_LV_LOW   =      0;          //【低电平】
 	    public const int SCIN_LV_HIGH    =    1;          //【高电平】
 	    public const int SCIN_LV_TOTAL    =   2;
-        public const string SCIN_LV_NAME_LOW = "过低";          //【过低】
-        public const string SCIN_LV_NAME_HIGH = "适宜";          //【适宜】
+        public const string SCIN_LV_NAME_LOW = "低电平";          //【过低】
+        public const string SCIN_LV_NAME_HIGH = "高电平";          //【适宜】
 
         //-----安防联动级别----
         public const string LG_NAME_SAF_SYST_DI = "系统被撤防";          //         (系统全部的安防标志全部被清除)   ──┐

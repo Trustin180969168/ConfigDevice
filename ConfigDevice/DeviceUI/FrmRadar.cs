@@ -433,6 +433,7 @@ namespace ConfigDevice
             this.Text = _flammableGasProbe.Name;                      //----界面标题------
             base.InitSelectDevice();                            //---初始化选择列表     
             loadData();
+            radar.ReadAdditionLogic(0);                 //----重新加载附加数据---
         }
 
         private void cbxAction_SelectedIndexChanged(object sender, EventArgs e)

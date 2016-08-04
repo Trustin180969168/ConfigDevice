@@ -30,32 +30,44 @@
         {
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.edtSwitState = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.edtRadarState = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefrash = new System.Windows.Forms.ToolStripButton();
             this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.cbxShortOut4 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.cbxShortOut3 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.cbxShortOut2 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.cbxShortOut1 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.edtShort4State4 = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            this.edtShort4State3 = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.edtShort4State2 = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.edtShort4State1 = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.BaseViewSetting = new ConfigDevice.ViewBaseEdit();
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandSetting = new ConfigDevice.ViewCommandSetting();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.gcShortOutput = new DevExpress.XtraGrid.GridControl();
+            this.gvShortOutput = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.dcPosition = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcLevel = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcDelayTime = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.speSecond = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
+            this.dcActionTime = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ceSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
-            this.sptBuzzerSeconds = new DevExpress.XtraEditors.SpinEdit();
-            this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
-            this.sptLightSeconds = new DevExpress.XtraEditors.SpinEdit();
-            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl16 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
-            this.cbxBuzzer = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.cbxLight = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
             this.viewLogicSetting = new ConfigDevice.ViewLogicSetting();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
@@ -74,20 +86,29 @@
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
+            this.tsDoorInput.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShortOut4.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShortOut3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShortOut2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShortOut1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edtSwitState.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtRadarState.Properties)).BeginInit();
-            this.tsDoorInput.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtShort4State4.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtShort4State3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtShort4State2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtShort4State1.Properties)).BeginInit();
             this.pageJcsz.SuspendLayout();
             this.pageLogic.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcShortOutput)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvShortOutput)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speSecond)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ceSafeSetting)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sptBuzzerSeconds.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxBuzzer.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxLight.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
             this.panelControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -111,7 +132,7 @@
             this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
             this.tctrlEdit.SelectedTabPage = this.pagePzjm;
-            this.tctrlEdit.Size = new System.Drawing.Size(1018, 719);
+            this.tctrlEdit.Size = new System.Drawing.Size(1018, 647);
             this.tctrlEdit.TabIndex = 2;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
@@ -122,56 +143,12 @@
             // 
             // pagePzjm
             // 
-            this.pagePzjm.Controls.Add(this.groupControl1);
             this.pagePzjm.Controls.Add(this.tsDoorInput);
+            this.pagePzjm.Controls.Add(this.groupControl2);
+            this.pagePzjm.Controls.Add(this.groupControl1);
             this.pagePzjm.Name = "pagePzjm";
-            this.pagePzjm.Size = new System.Drawing.Size(1009, 682);
+            this.pagePzjm.Size = new System.Drawing.Size(1009, 610);
             this.pagePzjm.Text = "配置界面";
-            // 
-            // groupControl1
-            // 
-            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl1.Controls.Add(this.edtSwitState);
-            this.groupControl1.Controls.Add(this.labelControl2);
-            this.groupControl1.Controls.Add(this.edtRadarState);
-            this.groupControl1.Controls.Add(this.labelControl1);
-            this.groupControl1.Location = new System.Drawing.Point(29, 43);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(543, 82);
-            this.groupControl1.TabIndex = 2;
-            this.groupControl1.Text = "设备状态";
-            // 
-            // edtSwitState
-            // 
-            this.edtSwitState.Location = new System.Drawing.Point(261, 33);
-            this.edtSwitState.Name = "edtSwitState";
-            this.edtSwitState.Properties.ReadOnly = true;
-            this.edtSwitState.Size = new System.Drawing.Size(100, 21);
-            this.edtSwitState.TabIndex = 1;
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Location = new System.Drawing.Point(207, 36);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(48, 14);
-            this.labelControl2.TabIndex = 0;
-            this.labelControl2.Text = "防拆状态";
-            // 
-            // edtRadarState
-            // 
-            this.edtRadarState.Location = new System.Drawing.Point(81, 33);
-            this.edtRadarState.Name = "edtRadarState";
-            this.edtRadarState.Properties.ReadOnly = true;
-            this.edtRadarState.Size = new System.Drawing.Size(100, 21);
-            this.edtRadarState.TabIndex = 1;
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Location = new System.Drawing.Point(27, 36);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(48, 14);
-            this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "雷      达";
             // 
             // tsDoorInput
             // 
@@ -210,9 +187,191 @@
             this.btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
             this.btAutoRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btAutoRefresh.Name = "btAutoRefresh";
-            this.btAutoRefresh.Size = new System.Drawing.Size(100, 28);
-            this.btAutoRefresh.Text = "自动刷新";
+            this.btAutoRefresh.Size = new System.Drawing.Size(132, 28);
+            this.btAutoRefresh.Text = "自动刷新状态";
             this.btAutoRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            // 
+            // groupControl2
+            // 
+            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl2.Controls.Add(this.cbxShortOut4);
+            this.groupControl2.Controls.Add(this.cbxShortOut3);
+            this.groupControl2.Controls.Add(this.cbxShortOut2);
+            this.groupControl2.Controls.Add(this.cbxShortOut1);
+            this.groupControl2.Controls.Add(this.labelControl5);
+            this.groupControl2.Controls.Add(this.labelControl6);
+            this.groupControl2.Controls.Add(this.labelControl7);
+            this.groupControl2.Controls.Add(this.labelControl8);
+            this.groupControl2.Location = new System.Drawing.Point(42, 229);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(385, 163);
+            this.groupControl2.TabIndex = 2;
+            this.groupControl2.Text = "输出配置";
+            // 
+            // cbxShortOut4
+            // 
+            this.cbxShortOut4.Location = new System.Drawing.Point(81, 114);
+            this.cbxShortOut4.Name = "cbxShortOut4";
+            this.cbxShortOut4.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxShortOut4.Properties.Items.AddRange(new object[] {
+            "上电初始-低电平",
+            "上电初始-高电平"});
+            this.cbxShortOut4.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxShortOut4.Size = new System.Drawing.Size(218, 21);
+            this.cbxShortOut4.TabIndex = 2;
+            // 
+            // cbxShortOut3
+            // 
+            this.cbxShortOut3.Location = new System.Drawing.Point(81, 87);
+            this.cbxShortOut3.Name = "cbxShortOut3";
+            this.cbxShortOut3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxShortOut3.Properties.Items.AddRange(new object[] {
+            "上电初始-低电平",
+            "上电初始-高电平"});
+            this.cbxShortOut3.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxShortOut3.Size = new System.Drawing.Size(218, 21);
+            this.cbxShortOut3.TabIndex = 2;
+            // 
+            // cbxShortOut2
+            // 
+            this.cbxShortOut2.Location = new System.Drawing.Point(81, 60);
+            this.cbxShortOut2.Name = "cbxShortOut2";
+            this.cbxShortOut2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxShortOut2.Properties.Items.AddRange(new object[] {
+            "上电初始-低电平",
+            "上电初始-高电平"});
+            this.cbxShortOut2.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxShortOut2.Size = new System.Drawing.Size(218, 21);
+            this.cbxShortOut2.TabIndex = 2;
+            // 
+            // cbxShortOut1
+            // 
+            this.cbxShortOut1.Location = new System.Drawing.Point(81, 33);
+            this.cbxShortOut1.Name = "cbxShortOut1";
+            this.cbxShortOut1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxShortOut1.Properties.Items.AddRange(new object[] {
+            "上电初始-低电平",
+            "上电初始-高电平"});
+            this.cbxShortOut1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxShortOut1.Size = new System.Drawing.Size(218, 21);
+            this.cbxShortOut1.TabIndex = 2;
+            // 
+            // labelControl5
+            // 
+            this.labelControl5.Location = new System.Drawing.Point(20, 117);
+            this.labelControl5.Name = "labelControl5";
+            this.labelControl5.Size = new System.Drawing.Size(55, 14);
+            this.labelControl5.TabIndex = 0;
+            this.labelControl5.Text = "短路输出4";
+            // 
+            // labelControl6
+            // 
+            this.labelControl6.Location = new System.Drawing.Point(20, 90);
+            this.labelControl6.Name = "labelControl6";
+            this.labelControl6.Size = new System.Drawing.Size(55, 14);
+            this.labelControl6.TabIndex = 0;
+            this.labelControl6.Text = "短路输出3";
+            // 
+            // labelControl7
+            // 
+            this.labelControl7.Location = new System.Drawing.Point(20, 63);
+            this.labelControl7.Name = "labelControl7";
+            this.labelControl7.Size = new System.Drawing.Size(55, 14);
+            this.labelControl7.TabIndex = 0;
+            this.labelControl7.Text = "短路输出2";
+            // 
+            // labelControl8
+            // 
+            this.labelControl8.Location = new System.Drawing.Point(20, 36);
+            this.labelControl8.Name = "labelControl8";
+            this.labelControl8.Size = new System.Drawing.Size(55, 14);
+            this.labelControl8.TabIndex = 0;
+            this.labelControl8.Text = "短路输出1";
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl1.Controls.Add(this.edtShort4State4);
+            this.groupControl1.Controls.Add(this.labelControl4);
+            this.groupControl1.Controls.Add(this.edtShort4State3);
+            this.groupControl1.Controls.Add(this.labelControl3);
+            this.groupControl1.Controls.Add(this.edtShort4State2);
+            this.groupControl1.Controls.Add(this.labelControl2);
+            this.groupControl1.Controls.Add(this.edtShort4State1);
+            this.groupControl1.Controls.Add(this.labelControl1);
+            this.groupControl1.Location = new System.Drawing.Point(42, 60);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(385, 163);
+            this.groupControl1.TabIndex = 2;
+            this.groupControl1.Text = "输入状态";
+            // 
+            // edtShort4State4
+            // 
+            this.edtShort4State4.Location = new System.Drawing.Point(81, 114);
+            this.edtShort4State4.Name = "edtShort4State4";
+            this.edtShort4State4.Properties.ReadOnly = true;
+            this.edtShort4State4.Size = new System.Drawing.Size(100, 21);
+            this.edtShort4State4.TabIndex = 1;
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.Location = new System.Drawing.Point(20, 117);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(55, 14);
+            this.labelControl4.TabIndex = 0;
+            this.labelControl4.Text = "短路输入4";
+            // 
+            // edtShort4State3
+            // 
+            this.edtShort4State3.Location = new System.Drawing.Point(81, 87);
+            this.edtShort4State3.Name = "edtShort4State3";
+            this.edtShort4State3.Properties.ReadOnly = true;
+            this.edtShort4State3.Size = new System.Drawing.Size(100, 21);
+            this.edtShort4State3.TabIndex = 1;
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Location = new System.Drawing.Point(20, 90);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(55, 14);
+            this.labelControl3.TabIndex = 0;
+            this.labelControl3.Text = "短路输入3";
+            // 
+            // edtShort4State2
+            // 
+            this.edtShort4State2.Location = new System.Drawing.Point(81, 60);
+            this.edtShort4State2.Name = "edtShort4State2";
+            this.edtShort4State2.Properties.ReadOnly = true;
+            this.edtShort4State2.Size = new System.Drawing.Size(100, 21);
+            this.edtShort4State2.TabIndex = 1;
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Location = new System.Drawing.Point(20, 63);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(55, 14);
+            this.labelControl2.TabIndex = 0;
+            this.labelControl2.Text = "短路输入2";
+            // 
+            // edtShort4State1
+            // 
+            this.edtShort4State1.Location = new System.Drawing.Point(81, 33);
+            this.edtShort4State1.Name = "edtShort4State1";
+            this.edtShort4State1.Properties.ReadOnly = true;
+            this.edtShort4State1.Size = new System.Drawing.Size(100, 21);
+            this.edtShort4State1.TabIndex = 1;
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(20, 36);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(55, 14);
+            this.labelControl1.TabIndex = 0;
+            this.labelControl1.Text = "短路输入1";
             // 
             // pageJcsz
             // 
@@ -242,41 +401,156 @@
             // viewCommandSetting
             // 
             this.viewCommandSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandSetting.Location = new System.Drawing.Point(0, 367);
+            this.viewCommandSetting.Location = new System.Drawing.Point(0, 437);
             this.viewCommandSetting.Name = "viewCommandSetting";
             this.viewCommandSetting.ShowCommandBar = false;
             this.viewCommandSetting.ShowToolBar = false;
-            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 315);
+            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 245);
             this.viewCommandSetting.TabIndex = 1;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.sptBuzzerSeconds);
-            this.groupBox1.Controls.Add(this.labelControl17);
-            this.groupBox1.Controls.Add(this.sptLightSeconds);
-            this.groupBox1.Controls.Add(this.labelControl14);
-            this.groupBox1.Controls.Add(this.labelControl16);
-            this.groupBox1.Controls.Add(this.labelControl13);
-            this.groupBox1.Controls.Add(this.cbxBuzzer);
-            this.groupBox1.Controls.Add(this.cbxLight);
-            this.groupBox1.Controls.Add(this.labelControl15);
-            this.groupBox1.Controls.Add(this.labelControl12);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("宋体", 9F);
             this.groupBox1.Location = new System.Drawing.Point(0, 284);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1009, 83);
+            this.groupBox1.Size = new System.Drawing.Size(1009, 153);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "附加动作";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.gcShortOutput);
+            this.groupBox3.Location = new System.Drawing.Point(23, 12);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(466, 133);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "输出动作";
+            // 
+            // gcShortOutput
+            // 
+            this.gcShortOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcShortOutput.EmbeddedNavigator.Name = "";
+            this.gcShortOutput.FormsUseDefaultLookAndFeel = false;
+            this.gcShortOutput.Location = new System.Drawing.Point(3, 17);
+            this.gcShortOutput.MainView = this.gvShortOutput;
+            this.gcShortOutput.Name = "gcShortOutput";
+            this.gcShortOutput.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.speSecond});
+            this.gcShortOutput.Size = new System.Drawing.Size(460, 113);
+            this.gcShortOutput.TabIndex = 3;
+            this.gcShortOutput.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvShortOutput,
+            this.gridView2});
+            // 
+            // gvShortOutput
+            // 
+            this.gvShortOutput.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.dcPosition,
+            this.dcLevel,
+            this.dcDelayTime,
+            this.dcActionTime});
+            this.gvShortOutput.GridControl = this.gcShortOutput;
+            this.gvShortOutput.Name = "gvShortOutput";
+            this.gvShortOutput.OptionsView.ShowGroupPanel = false;
+            this.gvShortOutput.OptionsView.ShowIndicator = false;
+            // 
+            // dcPosition
+            // 
+            this.dcPosition.AppearanceCell.Options.UseTextOptions = true;
+            this.dcPosition.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcPosition.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcPosition.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcPosition.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcPosition.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
+            this.dcPosition.Caption = "位置";
+            this.dcPosition.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.dcPosition.Name = "dcPosition";
+            this.dcPosition.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcPosition.OptionsColumn.ReadOnly = true;
+            this.dcPosition.Visible = true;
+            this.dcPosition.VisibleIndex = 0;
+            this.dcPosition.Width = 200;
+            // 
+            // dcLevel
+            // 
+            this.dcLevel.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcLevel.AppearanceCell.Options.UseForeColor = true;
+            this.dcLevel.AppearanceCell.Options.UseTextOptions = true;
+            this.dcLevel.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcLevel.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcLevel.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcLevel.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcLevel.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
+            this.dcLevel.Caption = "高/低电平";
+            this.dcLevel.Name = "dcLevel";
+            this.dcLevel.Visible = true;
+            this.dcLevel.VisibleIndex = 1;
+            this.dcLevel.Width = 92;
+            // 
+            // dcDelayTime
+            // 
+            this.dcDelayTime.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcDelayTime.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcDelayTime.AppearanceCell.Options.UseBackColor = true;
+            this.dcDelayTime.AppearanceCell.Options.UseForeColor = true;
+            this.dcDelayTime.AppearanceCell.Options.UseTextOptions = true;
+            this.dcDelayTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcDelayTime.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcDelayTime.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcDelayTime.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcDelayTime.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
+            this.dcDelayTime.Caption = "动作延时";
+            this.dcDelayTime.ColumnEdit = this.speSecond;
+            this.dcDelayTime.Name = "dcDelayTime";
+            this.dcDelayTime.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcDelayTime.Visible = true;
+            this.dcDelayTime.VisibleIndex = 2;
+            this.dcDelayTime.Width = 78;
+            // 
+            // speSecond
+            // 
+            this.speSecond.AutoHeight = false;
+            this.speSecond.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.speSecond.Mask.EditMask = "d";
+            this.speSecond.Name = "speSecond";
+            // 
+            // dcActionTime
+            // 
+            this.dcActionTime.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcActionTime.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcActionTime.AppearanceCell.Options.UseBackColor = true;
+            this.dcActionTime.AppearanceCell.Options.UseForeColor = true;
+            this.dcActionTime.AppearanceCell.Options.UseTextOptions = true;
+            this.dcActionTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcActionTime.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcActionTime.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcActionTime.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcActionTime.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
+            this.dcActionTime.Caption = "动作时间";
+            this.dcActionTime.ColumnEdit = this.speSecond;
+            this.dcActionTime.Name = "dcActionTime";
+            this.dcActionTime.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcActionTime.Visible = true;
+            this.dcActionTime.VisibleIndex = 3;
+            this.dcActionTime.Width = 84;
+            // 
+            // gridView2
+            // 
+            this.gridView2.GridControl = this.gcShortOutput;
+            this.gridView2.Name = "gridView2";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.ceSafeSetting);
-            this.groupBox2.Location = new System.Drawing.Point(343, 10);
+            this.groupBox2.Location = new System.Drawing.Point(495, 20);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(641, 66);
+            this.groupBox2.Size = new System.Drawing.Size(499, 125);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "安防动作关联";
@@ -306,113 +580,13 @@
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("15"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("全部")});
             this.ceSafeSetting.LeftCoord = 0;
-            this.ceSafeSetting.Location = new System.Drawing.Point(19, 20);
+            this.ceSafeSetting.Location = new System.Drawing.Point(6, 38);
             this.ceSafeSetting.MultiColumn = true;
             this.ceSafeSetting.Name = "ceSafeSetting";
-            this.ceSafeSetting.Size = new System.Drawing.Size(493, 38);
+            this.ceSafeSetting.Size = new System.Drawing.Size(454, 58);
             this.ceSafeSetting.TabIndex = 0;
             this.ceSafeSetting.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.ceSafeSetting_ItemCheck);
             this.ceSafeSetting.Click += new System.EventHandler(this.ceSafeSetting_Click);
-            // 
-            // sptBuzzerSeconds
-            // 
-            this.sptBuzzerSeconds.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.sptBuzzerSeconds.Location = new System.Drawing.Point(230, 47);
-            this.sptBuzzerSeconds.Name = "sptBuzzerSeconds";
-            this.sptBuzzerSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.sptBuzzerSeconds.Properties.Mask.EditMask = "d";
-            this.sptBuzzerSeconds.Size = new System.Drawing.Size(53, 21);
-            this.sptBuzzerSeconds.TabIndex = 3;
-            // 
-            // labelControl17
-            // 
-            this.labelControl17.Location = new System.Drawing.Point(289, 50);
-            this.labelControl17.Name = "labelControl17";
-            this.labelControl17.Size = new System.Drawing.Size(12, 14);
-            this.labelControl17.TabIndex = 2;
-            this.labelControl17.Text = "秒";
-            // 
-            // sptLightSeconds
-            // 
-            this.sptLightSeconds.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.sptLightSeconds.Location = new System.Drawing.Point(230, 20);
-            this.sptLightSeconds.Name = "sptLightSeconds";
-            this.sptLightSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.sptLightSeconds.Properties.Mask.EditMask = "d";
-            this.sptLightSeconds.Size = new System.Drawing.Size(53, 21);
-            this.sptLightSeconds.TabIndex = 3;
-            // 
-            // labelControl14
-            // 
-            this.labelControl14.Location = new System.Drawing.Point(288, 23);
-            this.labelControl14.Name = "labelControl14";
-            this.labelControl14.Size = new System.Drawing.Size(12, 14);
-            this.labelControl14.TabIndex = 2;
-            this.labelControl14.Text = "秒";
-            // 
-            // labelControl16
-            // 
-            this.labelControl16.Location = new System.Drawing.Point(200, 50);
-            this.labelControl16.Name = "labelControl16";
-            this.labelControl16.Size = new System.Drawing.Size(24, 14);
-            this.labelControl16.TabIndex = 2;
-            this.labelControl16.Text = "时间";
-            // 
-            // labelControl13
-            // 
-            this.labelControl13.Location = new System.Drawing.Point(200, 23);
-            this.labelControl13.Name = "labelControl13";
-            this.labelControl13.Size = new System.Drawing.Size(24, 14);
-            this.labelControl13.TabIndex = 2;
-            this.labelControl13.Text = "时间";
-            // 
-            // cbxBuzzer
-            // 
-            this.cbxBuzzer.Location = new System.Drawing.Point(110, 47);
-            this.cbxBuzzer.Name = "cbxBuzzer";
-            this.cbxBuzzer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxBuzzer.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbxBuzzer.Size = new System.Drawing.Size(80, 21);
-            this.cbxBuzzer.TabIndex = 1;
-            this.cbxBuzzer.SelectedIndexChanged += new System.EventHandler(this.cbxAction_SelectedIndexChanged);
-            // 
-            // cbxLight
-            // 
-            this.cbxLight.Location = new System.Drawing.Point(110, 20);
-            this.cbxLight.Name = "cbxLight";
-            this.cbxLight.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxLight.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbxLight.Size = new System.Drawing.Size(80, 21);
-            this.cbxLight.TabIndex = 1;
-            this.cbxLight.SelectedIndexChanged += new System.EventHandler(this.cbxAction_SelectedIndexChanged);
-            // 
-            // labelControl15
-            // 
-            this.labelControl15.Location = new System.Drawing.Point(68, 50);
-            this.labelControl15.Name = "labelControl15";
-            this.labelControl15.Size = new System.Drawing.Size(36, 14);
-            this.labelControl15.TabIndex = 0;
-            this.labelControl15.Text = "蜂鸣器";
-            // 
-            // labelControl12
-            // 
-            this.labelControl12.Location = new System.Drawing.Point(44, 23);
-            this.labelControl12.Name = "labelControl12";
-            this.labelControl12.Size = new System.Drawing.Size(60, 14);
-            this.labelControl12.TabIndex = 0;
-            this.labelControl12.Text = "指示灯指示";
             // 
             // viewLogicSetting
             // 
@@ -618,12 +792,12 @@
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
-            // FrmRadar
+            // FrmShort4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(1018, 743);
+            this.ClientSize = new System.Drawing.Size(1018, 671);
             this.Controls.Add(this.tctrlEdit);
-            this.Name = "FrmRadar";
+            this.Name = "FrmShort4";
             this.Load += new System.EventHandler(this.FrmRadar_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmFlammableGasProbe_FormClosing);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
@@ -631,24 +805,33 @@
             this.tctrlEdit.ResumeLayout(false);
             this.pagePzjm.ResumeLayout(false);
             this.pagePzjm.PerformLayout();
+            this.tsDoorInput.ResumeLayout(false);
+            this.tsDoorInput.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
+            this.groupControl2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShortOut4.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShortOut3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShortOut2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxShortOut1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edtSwitState.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtRadarState.Properties)).EndInit();
-            this.tsDoorInput.ResumeLayout(false);
-            this.tsDoorInput.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtShort4State4.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtShort4State3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtShort4State2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtShort4State1.Properties)).EndInit();
             this.pageJcsz.ResumeLayout(false);
             this.pageLogic.ResumeLayout(false);
             this.pageLogic.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcShortOutput)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvShortOutput)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speSecond)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ceSafeSetting)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sptBuzzerSeconds.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxBuzzer.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxLight.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
             this.panelControl5.ResumeLayout(false);
             this.panelControl5.PerformLayout();
@@ -681,9 +864,9 @@
         private System.Windows.Forms.ToolStripButton btAutoRefresh;
         private DevExpress.XtraTab.XtraTabPage pageLogic;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private DevExpress.XtraEditors.TextEdit edtSwitState;
+        private DevExpress.XtraEditors.TextEdit edtShort4State2;
         private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.TextEdit edtRadarState;
+        private DevExpress.XtraEditors.TextEdit edtShort4State1;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private ViewLogicSetting viewLogicSetting;
         private ViewCommandSetting viewCommandSetting;
@@ -699,21 +882,33 @@
         private System.Windows.Forms.ToolStripButton btSaveTrigger;
         private System.Windows.Forms.ToolStripButton btRefreshTrigger;
         private System.Windows.Forms.GroupBox groupBox1;
-        private DevExpress.XtraEditors.SpinEdit sptBuzzerSeconds;
-        private DevExpress.XtraEditors.LabelControl labelControl17;
-        private DevExpress.XtraEditors.SpinEdit sptLightSeconds;
-        private DevExpress.XtraEditors.LabelControl labelControl14;
-        private DevExpress.XtraEditors.LabelControl labelControl16;
-        private DevExpress.XtraEditors.LabelControl labelControl13;
-        private DevExpress.XtraEditors.ComboBoxEdit cbxBuzzer;
-        private DevExpress.XtraEditors.ComboBoxEdit cbxLight;
-        private DevExpress.XtraEditors.LabelControl labelControl15;
-        private DevExpress.XtraEditors.LabelControl labelControl12;
         private DevExpress.XtraEditors.LabelControl labelControl18;
         private DevExpress.XtraEditors.ComboBoxEdit cbxQuickSetting;
         private DevExpress.XtraEditors.TextEdit edtLogicLocalSetting;
         private System.Windows.Forms.GroupBox groupBox2;
         protected DevExpress.XtraEditors.CheckedListBoxControl ceSafeSetting;
         private System.Windows.Forms.ToolStripButton btRefrash;
+        private DevExpress.XtraEditors.TextEdit edtShort4State4;
+        private DevExpress.XtraEditors.LabelControl labelControl4;
+        private DevExpress.XtraEditors.TextEdit edtShort4State3;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private DevExpress.XtraEditors.LabelControl labelControl5;
+        private DevExpress.XtraEditors.LabelControl labelControl6;
+        private DevExpress.XtraEditors.LabelControl labelControl7;
+        private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxShortOut4;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxShortOut3;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxShortOut2;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxShortOut1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private DevExpress.XtraGrid.GridControl gcShortOutput;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvShortOutput;
+        private DevExpress.XtraGrid.Columns.GridColumn dcPosition;
+        private DevExpress.XtraGrid.Columns.GridColumn dcDelayTime;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit speSecond;
+        private DevExpress.XtraGrid.Columns.GridColumn dcActionTime;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
+        private DevExpress.XtraGrid.Columns.GridColumn dcLevel;
     }
 }

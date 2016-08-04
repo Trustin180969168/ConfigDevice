@@ -23,13 +23,15 @@ namespace ConfigDevice
             Name = "短路输入";
         }
 
+  
+
         /// <summary>
         /// 获取逻辑值
         /// </summary>
         /// <returns></returns>
         public byte[] GetValue()
         {
-            byte[] value = new byte[4];
+            byte[] value = new byte[5];
             value[0] = ucScOutAct;
             value[1] = ConvertTools.GetByteFromUInt16(usScOutDly)[0];
             value[2] = ConvertTools.GetByteFromUInt16(usScOutDly)[1];

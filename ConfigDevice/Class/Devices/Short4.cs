@@ -24,7 +24,6 @@ namespace ConfigDevice
         private CallbackFromUDP getSafeSetting;//---获取安全配置----
         private CallbackFromUDP getConfig;//-------每参数名称----
         private CallbackFromUDP getWriteEnd2;//----获取结束读取信息----
-        private bool finishReadParameter = false;//---判断是否读取完参数----
         //------逻辑传感器----
         public Short4Sensor Short4Sensor1;//----短路输入1----
         public Short4Sensor Short4Sensor2;//----短路输入2----
@@ -74,6 +73,7 @@ namespace ConfigDevice
             Short4CtrlObj2 = new ShortInput(this);
             Short4CtrlObj3 = new ShortInput(this);
             Short4CtrlObj4 = new ShortInput(this);
+
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace ConfigDevice
             this.Short4Sensor2 = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_SCIN_2, dataByte1) as Short4Sensor;//短路输入2
             this.Short4Sensor3 = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_SCIN_3, dataByte1) as Short4Sensor;//短路输入3
             this.Short4Sensor4 = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_SCIN_4, dataByte1) as Short4Sensor;//短路输入4
-            CallbackUI(new CallbackParameter(Short4.CLASS_NAME,ACTION_STATE));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(Short4.CLASS_NAME, ACTION_STATE));//----读完状态信息,回调界面----
         }
 
 
@@ -225,7 +225,7 @@ namespace ConfigDevice
             for (int i = 1; i <= 64; i *= 2)
                 SaftFlags[num++] = (int)(b2 & i) == i ? true : false;
 
-            CallbackUI(new CallbackParameter(Radar.CLASS_NAME, ACTION_SAFE));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(Short4.CLASS_NAME, ACTION_SAFE));//----读完状态信息,回调界面----
         }
 
 
@@ -393,7 +393,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(Radar.CLASS_NAME,ACTION_ADDITION));//---回调UI---
+                this.CallbackUI(new CallbackParameter(Short4.CLASS_NAME,ACTION_ADDITION));//---回调UI---
             }
         }
 
@@ -425,7 +425,7 @@ namespace ConfigDevice
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_LOGIC_WRITE_EXACTION;//----用户命令-----
 
-            byte len = 4 + 7;//---数据长度----
+            byte len = 4+21;//---数据长度----
             byte[] crcData = new byte[10 + 1 + 5 * 4];//----1:第几个逻辑组,5:附加数据长度
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
@@ -435,9 +435,9 @@ namespace ConfigDevice
 
             crcData[10] = (byte)groupNum;
             Buffer.BlockCopy(Short4CtrlObj1.GetValue(), 0, crcData, 11, 5);//---短路输入1
-            Buffer.BlockCopy(Short4CtrlObj1.GetValue(), 0, crcData, 16, 5);//---短路输入2
-            Buffer.BlockCopy(Short4CtrlObj1.GetValue(), 0, crcData, 21, 5);//---短路输入3
-            Buffer.BlockCopy(Short4CtrlObj1.GetValue(), 0, crcData, 26, 5);//---短路输入4
+            Buffer.BlockCopy(Short4CtrlObj2.GetValue(), 0, crcData, 16, 5);//---短路输入2
+            Buffer.BlockCopy(Short4CtrlObj3.GetValue(), 0, crcData, 21, 5);//---短路输入3
+            Buffer.BlockCopy(Short4CtrlObj4.GetValue(), 0, crcData, 26, 5);//---短路输入4
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------            
             //---------拼接到包中------
@@ -455,7 +455,6 @@ namespace ConfigDevice
         /// </summary>
         public void ReadConfig()
         {
-            finishReadParameter = false;
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, DeviceID, getConfig);//----注册回调---
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, DeviceID + AddressID, getWriteEnd2);//-----此处不用deviceID区别,避免冲突
             UdpData udpSend = createReadParameterUdp();
@@ -516,7 +515,7 @@ namespace ConfigDevice
             this.ShortConfigRoad2 = value[2];
             this.ShortConfigRoad3 = value[3];
             this.ShortConfigRoad4 = value[4];
-            CallbackUI(new CallbackParameter(Radar.CLASS_NAME, ACTION_CONFIG));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(Short4.CLASS_NAME, ACTION_CONFIG));//----读完状态信息,回调界面----
         }
 
         /// <summary>
@@ -532,7 +531,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(Radar.CLASS_NAME, ACTION_ADDITION));//---回调UI---
+                this.CallbackUI(new CallbackParameter(Short4.CLASS_NAME, ACTION_ADDITION));//---回调UI---
             }
         }
 
@@ -540,11 +539,11 @@ namespace ConfigDevice
         /// <summary>
         /// 写参数
         /// </summary>
-        public void SaveConfig(LightParameter value)
+        public void SaveConfig()
         {
-            UdpData udpSend = createWriteConfigUdp(value);
+            UdpData udpSend = createWriteConfigUdp();
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort,
-                new CallbackUdpAction(callbackWriteConfigUdp), new object[] { value });
+                new CallbackUdpAction(callbackWriteConfigUdp), null);
         }
         private void callbackWriteConfigUdp(UdpData udpReply, object[] values)
         {
@@ -552,7 +551,7 @@ namespace ConfigDevice
                 CommonTools.ShowReplyInfo("设置参数失败!", udpReply.ReplyByte);
  
         }
-        private UdpData createWriteConfigUdp(LightParameter value)
+        private UdpData createWriteConfigUdp()
         {
             UdpData udp = new UdpData();
 
@@ -565,7 +564,7 @@ namespace ConfigDevice
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_CONFIG;//----用户命令-----
-            byte len = 4 + 2;//---数据长度---- 
+            byte len = 4 + 5;//---数据长度---- 
 
             byte[] crcData = new byte[10 + 5];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
@@ -602,7 +601,26 @@ namespace ConfigDevice
  
         }
 
- 
+        /// <summary>
+        /// 获取附加值
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetAdditionValue()
+        {
+            byte[] additionValue = new byte[21];//----第一个为逻辑组号,不用设置
+
+       
+            byte[] temp = Short4CtrlObj1.GetValue();
+            Buffer.BlockCopy(temp, 0, additionValue, 1, 5);
+            temp = Short4CtrlObj2.GetValue();
+            Buffer.BlockCopy(temp, 0, additionValue, 6, 5);
+            temp = Short4CtrlObj3.GetValue();
+            Buffer.BlockCopy(temp, 0, additionValue, 11, 5);
+            temp = Short4CtrlObj4.GetValue();
+            Buffer.BlockCopy(temp, 0, additionValue, 16, 5);
+
+            return additionValue;
+        }
     }
 
 }
