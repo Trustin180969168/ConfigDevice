@@ -849,11 +849,7 @@ namespace ConfigDevice
     public class ViewLogicSecurityInteraction : BaseViewLogicControl
     {
 
-        public string[] LevelValues = { SensorConfig.LG_NAME_SAF_SYST_DI,SensorConfig.LG_NAME_SAF_SYST_EN_DLY,
-             SensorConfig.LG_NAME_SAF_SYST_EN,SensorConfig.LG_NAME_SAF_SYST_WAR,
-             SensorConfig.LG_NAME_SAF_SYST_ALM,SensorConfig.LG_NAME_SAF_SELF_DI,
-             SensorConfig.LG_NAME_SAF_SELF_EN_DLY,SensorConfig.LG_NAME_SAF_SELF_EN,
-             SensorConfig.LG_NAME_SAF_SELF_WAR,SensorConfig.LG_NAME_SAF_SELF_ALM };
+ 
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值选择---
         private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//----数字------
         private int circuitCount = 0;//回路数
@@ -863,10 +859,10 @@ namespace ConfigDevice
             setGridColumnValid(dcTriggerPosition, cbxPosition);//-------设置触发位置有效---
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//----触发 运算符---
             //---开始为下拉----
-            foreach (string value in LevelValues)
+            foreach (string value in SecuritySensor.LEVEL_ID_NAME.Values)
                 cbxStart.Items.Add(value);
             cbxStart.SelectedIndexChanged += CbxSecurityKindChanged;
-            cbxStart.DropDownRows = LevelValues.Length;
+            cbxStart.DropDownRows = SecuritySensor.LEVEL_ID_NAME.Count;
             circuitCount = (deviceTrigger.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit).CircuitCount;//----获取回路数----
 
         }
@@ -934,7 +930,7 @@ namespace ConfigDevice
             triggerData.CompareID = SensorConfig.LG_MATH_EQUAL_AND_TRUE2;//系统联动号为5的比较符号值
             //--------关闭/打开--------------
             string size1Str = dr[dcStartValue.FieldName].ToString();
-            triggerData.Size1 = FindLevelIndex(LevelValues, size1Str);
+            triggerData.Size1 = SecuritySensor.LEVEL_NAME_ID[size1Str];
             if (dcEndValue.OptionsColumn.AllowEdit)
             {
                 string endValueStr = dr[dcEndValue.FieldName].ToString();//----选择---
@@ -944,7 +940,6 @@ namespace ConfigDevice
                     string[] arrValueStr = endValueStr.Replace(" ", "").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);          
                     foreach (string valueStr in arrValueStr)
                         endValue = endValue | (int)Math.Pow(2.0, Convert.ToDouble(valueStr) - 1.0);
-
                 }
                 triggerData.Size2 = (int)endValue;
             }
@@ -970,7 +965,7 @@ namespace ConfigDevice
             dr[dcTriggerKind.FieldName] = SensorConfig.SENSOR_INVALID;      //---触发级别---
 
             //-----安防号操作----
-            dr[dcStartValue.FieldName] = LevelValues[td.Size1];
+            dr[dcStartValue.FieldName] = SecuritySensor.LEVEL_ID_NAME[td.Size1];
             CbxSecurityKindChanged(null,null);//----设置结束值是否有效---
             if (dcEndValue.OptionsColumn.AllowEdit)//---结束值有效----
             {

@@ -361,6 +361,17 @@ namespace ConfigDevice
             loadData();
         }
 
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+            environment.ReadState();
+        }
+
+        private void FrmWeather_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            refreshSateTimer.Stop();
+            environment.RemoveRJ45Callback();
+        }
+
 
 
     }

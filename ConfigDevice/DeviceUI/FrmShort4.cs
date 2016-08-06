@@ -350,6 +350,7 @@ namespace ConfigDevice
 
         private void FrmFlammableGasProbe_FormClosing(object sender, FormClosingEventArgs e)
         {
+            refreshSateTimer.Stop();
             short4.RemoveRJ45Callback();//----清空回调-----
         }
 

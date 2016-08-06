@@ -29,19 +29,19 @@ namespace ConfigDevice
                         edtHardwareVer.Text = DeviceEdit.HardwareVer;
                         edtSoftwareVer.Text = DeviceEdit.SoftwareVer;
 
+                        edtName.Text = DeviceEdit.Name;
+                        (this.ParentForm as FrmDevice).Text = DeviceEdit.Name;
+                        edtDeviceID.Text = DeviceEdit.DeviceID;
+                        edtNetworkID.Text = DeviceEdit.NetworkID;
+                        cbxDeviceKind.Text = DeviceEdit.KindName;
+
                         //---获取位置-----
                         getPosition();
                         cbxPosition.Text = DeviceEdit.AddressName;
                         (this.ParentForm as FrmDevice).SetSelectDevice();//----设置选择列表----
                     }else  if (callbackParameter.Action == ActionKind.SaveDeviceName)//----保存名称---
                         DeviceCtrl.UpdateDeviceData(DeviceEdit.GetDeviceData());
-
-
-                    edtName.Text = DeviceEdit.Name;
-                    (this.ParentForm as FrmDevice).Text = DeviceEdit.Name;
-                    edtDeviceID.Text = DeviceEdit.DeviceID;
-                    edtNetworkID.Text = DeviceEdit.NetworkID;
-                    cbxDeviceKind.Text = DeviceEdit.KindName;
+                    
 
                 }
             }

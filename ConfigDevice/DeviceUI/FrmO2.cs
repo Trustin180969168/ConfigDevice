@@ -411,6 +411,18 @@ namespace ConfigDevice
                 sptLightSeconds.Enabled = true;
         }
 
+        private void FrmO2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            refreshSateTimer.Stop();
+            environment.RemoveRJ45Callback();
+            
+        }
+
+        private void btRefrash_Click(object sender, EventArgs e)
+        {
+            environment.ReadState();  
+        }
+
 
     }
 }

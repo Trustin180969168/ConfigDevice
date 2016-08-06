@@ -136,20 +136,7 @@ namespace ConfigDevice
         public const string LG_SYSLKID_NAME_ACT_OFF = "关闭";          //关闭
         public const string LG_SYSLKID_NAME_ACT_ON = "打开";          //打开
 
-        //安防联动[ucCmp ]值:           LG_MATH_EQUAL_AND_TRUE  → 下面的[slSiz1]值为单选bit ─┐
-        //安防联动[slSiz1]值 ←────────────────────────────────┘
-        public const int LG_SAF_SYST_DI = 0;          //系统被撤防         (系统全部的安防标志全部被清除)   ──┐
-        public const int LG_SAF_SYST_EN_DLY = 1;          //系统进入布防延时中 (系统安防标志只要任一个被置位)       │
-        public const int LG_SAF_SYST_EN = 2;          //系统进入布防       (系统安防标志只要任一个被置位)       ├←┐
-        public const int LG_SAF_SYST_WAR = 3;          //系统触发预警                                            │  │
-        public const int LG_SAF_SYST_ALM = 4;          //系统触发报警                                        ──┘  │补充说明:系统安防都是由[本机/它机]触发的
-        public const int LG_SAF_SELF_DI = 5;          //本机被撤防         (本机关联的安防标志全部被清除)   ──┐  ↑
-        public const int LG_SAF_SELF_EN_DLY = 6;          //本机进入布防延时中 (本机关联的安防标志只要任一个被置位) │  │
-        public const int LG_SAF_SELF_EN = 7;          //本机进入布防       (本机关联的安防标志只要任一个被置位) ├─┘
-        public const int LG_SAF_SELF_WAR = 8;          //本机触发预警                                            │
-        public const int LG_SAF_SELF_ALM = 9;          //本机触发报警                                        ──┘
-        public const int LG_SAF_TOTAL = 10;         //总数
-        public const int LG_SAF_DEFAULT = LG_SAF_SELF_ALM;
+ 
 
         // [温度]级别 <- LG_SENSOR_TEMP
         public const int TEMP_LV_COLD_H = 0;          //【寒冷】
@@ -293,13 +280,25 @@ namespace ConfigDevice
         public const string O2_LV_NAME_HIGH = "富氧";          //【富氧】
 
         //短路输入
-        public const int SCIN_LV_LOW   =      0;          //【低电平】
-	    public const int SCIN_LV_HIGH    =    1;          //【高电平】
-	    public const int SCIN_LV_TOTAL    =   2;
+        public const int SCIN_LV_LOW = 0;          //【低电平】
+        public const int SCIN_LV_HIGH = 1;          //【高电平】
+        public const int SCIN_LV_TOTAL = 2;
         public const string SCIN_LV_NAME_LOW = "低电平";          //【过低】
         public const string SCIN_LV_NAME_HIGH = "高电平";          //【适宜】
 
         //-----安防联动级别----
+        public const int LG_SAF_SYST_DI = 0x1;          //系统被撤防         (系统全部的安防标志全部被清除)   ──┐
+        public const int LG_SAF_SYST_EN_DLY = 0x2;          //系统进入布防延时中 (系统安防标志只要任一个被置位)       │
+        public const int LG_SAF_SYST_EN = 0x4;          //系统进入布防       (系统安防标志只要任一个被置位)       ├←┐
+        public const int LG_SAF_SYST_WAR = 0x8;          //系统触发预警                                            │  │
+        public const int LG_SAF_SYST_ALM = 0x10;          //系统触发报警                                        ──┘  │补充说明:系统安防都是由[本机/它机]触发的
+        public const int LG_SAF_SELF_DI = 0x20;          //本机被撤防         (本机关联的安防标志全部被清除)   ──┐  ↑
+        public const int LG_SAF_SELF_EN_DLY = 0x40;          //本机进入布防延时中 (本机关联的安防标志只要任一个被置位) │  │
+        public const int LG_SAF_SELF_EN = 0x80;         //本机进入布防       (本机关联的安防标志只要任一个被置位) ├─┘
+        public const int LG_SAF_SELF_WAR = 0x100;          //本机触发预警                                            │
+        public const int LG_SAF_SELF_ALM = 0x200;          //本机触发报警                                        ──┘
+        public const int LG_SAF_TOTAL = 10;         //总数
+        public const int LG_SAF_DEFAULT = LG_SAF_SELF_ALM;
         public const string LG_NAME_SAF_SYST_DI = "系统被撤防";          //         (系统全部的安防标志全部被清除)   ──┐
         public const string LG_NAME_SAF_SYST_EN_DLY = "系统进入布防延时中";          // (系统安防标志只要任一个被置位)       │
         public const string LG_NAME_SAF_SYST_EN = "系统进入布防";          //       (系统安防标志只要任一个被置位)       ├←┐

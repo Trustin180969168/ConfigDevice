@@ -683,6 +683,67 @@ namespace ConfigDevice
     }
 
     /// <summary>
+    /// 安防级别
+    /// </summary>
+    public class SecuritySensor : SensorStateData
+    {
+        public static Dictionary<int, string> LEVEL_ID_NAME = new Dictionary<int, string>();
+        public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
+
+ 
+
+        static SecuritySensor()
+        {
+          
+
+            LEVEL_ID_NAME.Add(SensorConfig.LG_SAF_SYST_DI, SensorConfig.LG_NAME_SAF_SYST_DI);
+            LEVEL_ID_NAME.Add(SensorConfig.LG_SAF_SYST_EN_DLY, SensorConfig.LG_NAME_SAF_SYST_EN_DLY);
+            LEVEL_ID_NAME.Add(SensorConfig.LG_SAF_SYST_EN, SensorConfig.LG_NAME_SAF_SYST_EN);
+            LEVEL_ID_NAME.Add(SensorConfig.LG_SAF_SYST_WAR, SensorConfig.LG_NAME_SAF_SYST_WAR);
+            LEVEL_ID_NAME.Add(SensorConfig.LG_SAF_SYST_ALM, SensorConfig.LG_NAME_SAF_SYST_ALM);
+            LEVEL_ID_NAME.Add(SensorConfig.LG_SAF_SELF_DI, SensorConfig.LG_NAME_SAF_SELF_DI);
+            LEVEL_ID_NAME.Add(SensorConfig.LG_SAF_SELF_EN_DLY, SensorConfig.LG_NAME_SAF_SELF_EN_DLY);
+            LEVEL_ID_NAME.Add(SensorConfig.LG_SAF_SELF_EN, SensorConfig.LG_NAME_SAF_SELF_EN);
+            LEVEL_ID_NAME.Add(SensorConfig.LG_SAF_SELF_WAR, SensorConfig.LG_NAME_SAF_SELF_WAR);
+            LEVEL_ID_NAME.Add(SensorConfig.LG_SAF_SELF_ALM, SensorConfig.LG_NAME_SAF_SELF_ALM);
+
+
+            LEVEL_NAME_ID.Add(SensorConfig.LG_NAME_SAF_SYST_DI, SensorConfig.LG_SAF_SYST_DI);
+            LEVEL_NAME_ID.Add(SensorConfig.LG_NAME_SAF_SYST_EN_DLY, SensorConfig.LG_SAF_SYST_EN_DLY);
+            LEVEL_NAME_ID.Add(SensorConfig.LG_NAME_SAF_SYST_EN, SensorConfig.LG_SAF_SYST_EN );
+            LEVEL_NAME_ID.Add(SensorConfig.LG_NAME_SAF_SYST_WAR, SensorConfig.LG_SAF_SYST_WAR );
+            LEVEL_NAME_ID.Add(SensorConfig.LG_NAME_SAF_SYST_ALM, SensorConfig.LG_SAF_SYST_ALM );
+            LEVEL_NAME_ID.Add(SensorConfig.LG_NAME_SAF_SELF_DI, SensorConfig.LG_SAF_SELF_DI );
+            LEVEL_NAME_ID.Add(SensorConfig.LG_NAME_SAF_SELF_EN_DLY, SensorConfig.LG_SAF_SELF_EN_DLY );
+            LEVEL_NAME_ID.Add(SensorConfig.LG_NAME_SAF_SELF_EN, SensorConfig.LG_SAF_SELF_EN );
+            LEVEL_NAME_ID.Add(SensorConfig.LG_NAME_SAF_SELF_WAR, SensorConfig.LG_SAF_SELF_WAR );
+            LEVEL_NAME_ID.Add(SensorConfig.LG_NAME_SAF_SELF_ALM, SensorConfig.LG_SAF_SELF_ALM );
+
+ 
+        }
+        public SecuritySensor(byte[] value)
+            : base(value)
+        {
+            Init();
+        }
+
+        public SecuritySensor()
+        {
+            Init();
+        }
+
+        public override void Init()
+        {
+            KindName = "安防级别";
+
+            foreach (int key in LEVEL_ID_NAME.Keys)
+                LevelIDName.Add(key, LEVEL_ID_NAME[key]);
+            foreach (string key in LEVEL_NAME_ID.Keys)
+                LevelNameID.Add(key, LEVEL_NAME_ID[key]);
+        }
+    }
+
+    /// <summary>
     /// 短路输入4
     /// </summary>
     public class Short4Sensor : SensorStateData

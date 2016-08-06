@@ -299,7 +299,7 @@
             this.lblGroupName.Name = "lblGroupName";
             this.lblGroupName.Size = new System.Drawing.Size(98, 33);
             this.lblGroupName.TabIndex = 16;
-            this.lblGroupName.Text = "触发动作 ";
+            this.lblGroupName.Text = "逻辑动作 ";
             // 
             // plToolBar
             // 

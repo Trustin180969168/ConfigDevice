@@ -377,7 +377,7 @@
             // 
             this.pageJcsz.Controls.Add(this.BaseViewSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
+            this.pageJcsz.Size = new System.Drawing.Size(1009, 610);
             this.pageJcsz.Text = "基础配置";
             // 
             // BaseViewSetting
@@ -385,7 +385,7 @@
             this.BaseViewSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BaseViewSetting.Location = new System.Drawing.Point(0, 0);
             this.BaseViewSetting.Name = "BaseViewSetting";
-            this.BaseViewSetting.Size = new System.Drawing.Size(1009, 682);
+            this.BaseViewSetting.Size = new System.Drawing.Size(1009, 610);
             this.BaseViewSetting.TabIndex = 0;
             // 
             // pageLogic
@@ -395,7 +395,7 @@
             this.pageLogic.Controls.Add(this.viewLogicSetting);
             this.pageLogic.Controls.Add(this.panelControl5);
             this.pageLogic.Name = "pageLogic";
-            this.pageLogic.Size = new System.Drawing.Size(1009, 682);
+            this.pageLogic.Size = new System.Drawing.Size(1009, 610);
             this.pageLogic.Text = "逻辑配置";
             // 
             // viewCommandSetting
@@ -405,7 +405,7 @@
             this.viewCommandSetting.Name = "viewCommandSetting";
             this.viewCommandSetting.ShowCommandBar = false;
             this.viewCommandSetting.ShowToolBar = false;
-            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 245);
+            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 173);
             this.viewCommandSetting.TabIndex = 1;
             // 
             // groupBox1
@@ -749,7 +749,7 @@
             this.lblGroupName.Name = "lblGroupName";
             this.lblGroupName.Size = new System.Drawing.Size(99, 33);
             this.lblGroupName.TabIndex = 16;
-            this.lblGroupName.Text = "触发动作 ";
+            this.lblGroupName.Text = "逻辑动作 ";
             // 
             // plToolBar
             // 

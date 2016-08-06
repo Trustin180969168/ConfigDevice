@@ -526,7 +526,7 @@ namespace ConfigDevice
             if (count >= 30)
                 this.PopupFormMinSize = new System.Drawing.Size(150, 25 * 30);
             else
-                this.PopupFormMinSize = new System.Drawing.Size(150, 25 * count);
+                this.PopupFormMinSize = new System.Drawing.Size(150, 22 * count);
             this.ShowAllItemCaption = "全选";
 
             this.EditValueChanged += checkedComboBoxEdit_EditValueChanged;

@@ -71,6 +71,7 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -218,7 +219,7 @@
             // 
             this.pageJcsz.Controls.Add(this.BaseViewSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(1009, 682);
+            this.pageJcsz.Size = new System.Drawing.Size(1009, 610);
             this.pageJcsz.Text = "基础配置";
             // 
             // BaseViewSetting
@@ -226,7 +227,7 @@
             this.BaseViewSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BaseViewSetting.Location = new System.Drawing.Point(0, 0);
             this.BaseViewSetting.Name = "BaseViewSetting";
-            this.BaseViewSetting.Size = new System.Drawing.Size(1009, 682);
+            this.BaseViewSetting.Size = new System.Drawing.Size(1009, 610);
             this.BaseViewSetting.TabIndex = 0;
             // 
             // pageLogic
@@ -236,21 +237,22 @@
             this.pageLogic.Controls.Add(this.viewLogicSetting);
             this.pageLogic.Controls.Add(this.panelControl5);
             this.pageLogic.Name = "pageLogic";
-            this.pageLogic.Size = new System.Drawing.Size(1009, 682);
+            this.pageLogic.Size = new System.Drawing.Size(1009, 610);
             this.pageLogic.Text = "逻辑配置";
             // 
             // viewCommandSetting
             // 
             this.viewCommandSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandSetting.Location = new System.Drawing.Point(0, 367);
+            this.viewCommandSetting.Location = new System.Drawing.Point(0, 368);
             this.viewCommandSetting.Name = "viewCommandSetting";
             this.viewCommandSetting.ShowCommandBar = false;
             this.viewCommandSetting.ShowToolBar = false;
-            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 315);
+            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 242);
             this.viewCommandSetting.TabIndex = 1;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelControl3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.sptBuzzerSeconds);
             this.groupBox1.Controls.Add(this.labelControl17);
@@ -266,7 +268,7 @@
             this.groupBox1.Font = new System.Drawing.Font("宋体", 9F);
             this.groupBox1.Location = new System.Drawing.Point(0, 284);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1009, 83);
+            this.groupBox1.Size = new System.Drawing.Size(1009, 84);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "附加动作";
@@ -274,9 +276,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.ceSafeSetting);
-            this.groupBox2.Location = new System.Drawing.Point(343, 10);
+            this.groupBox2.Location = new System.Drawing.Point(414, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(641, 66);
+            this.groupBox2.Size = new System.Drawing.Size(531, 66);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "安防动作关联";
@@ -575,7 +577,7 @@
             this.lblGroupName.Name = "lblGroupName";
             this.lblGroupName.Size = new System.Drawing.Size(99, 33);
             this.lblGroupName.TabIndex = 16;
-            this.lblGroupName.Text = "触发动作 ";
+            this.lblGroupName.Text = "逻辑动作 ";
             // 
             // plToolBar
             // 
@@ -617,6 +619,16 @@
             this.btRefreshTrigger.Size = new System.Drawing.Size(101, 28);
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.labelControl3.Appearance.Options.UseForeColor = true;
+            this.labelControl3.Location = new System.Drawing.Point(307, 50);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(91, 14);
+            this.labelControl3.TabIndex = 5;
+            this.labelControl3.Text = "注: 0 秒表示无限";
             // 
             // FrmRadar
             // 
@@ -715,5 +727,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         protected DevExpress.XtraEditors.CheckedListBoxControl ceSafeSetting;
         private System.Windows.Forms.ToolStripButton btRefrash;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
     }
 }

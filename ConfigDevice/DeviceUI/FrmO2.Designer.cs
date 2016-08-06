@@ -44,6 +44,7 @@
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btRefrash = new System.Windows.Forms.ToolStripButton();
             this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.BaseViewSetting = new ConfigDevice.ViewBaseEdit();
@@ -70,6 +71,7 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -297,6 +299,7 @@
             this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
+            this.btRefrash,
             this.btAutoRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
@@ -312,6 +315,15 @@
             this.btSave.Size = new System.Drawing.Size(76, 28);
             this.btSave.Text = "保存 ";
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
+            // btRefrash
+            // 
+            this.btRefrash.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefrash.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefrash.Name = "btRefrash";
+            this.btRefrash.Size = new System.Drawing.Size(76, 28);
+            this.btRefrash.Text = "刷新 ";
+            this.btRefrash.Click += new System.EventHandler(this.btRefrash_Click);
             // 
             // btAutoRefresh
             // 
@@ -359,6 +371,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelControl1);
             this.groupBox1.Controls.Add(this.sptLightSeconds);
             this.groupBox1.Controls.Add(this.labelControl14);
             this.groupBox1.Controls.Add(this.labelControl13);
@@ -584,7 +597,7 @@
             this.lblGroupName.Name = "lblGroupName";
             this.lblGroupName.Size = new System.Drawing.Size(99, 33);
             this.lblGroupName.TabIndex = 16;
-            this.lblGroupName.Text = "触发动作 ";
+            this.lblGroupName.Text = "逻辑动作 ";
             // 
             // plToolBar
             // 
@@ -627,6 +640,16 @@
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.labelControl1.Appearance.Options.UseForeColor = true;
+            this.labelControl1.Location = new System.Drawing.Point(327, 20);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(91, 14);
+            this.labelControl1.TabIndex = 4;
+            this.labelControl1.Text = "注: 0 秒表示无限";
+            // 
             // FrmO2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -634,6 +657,7 @@
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmO2";
             this.Load += new System.EventHandler(this.FrmFlammableGasProbe_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmO2_FormClosing);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);
@@ -723,5 +747,7 @@
         private System.Windows.Forms.ToolStripButton btRefreshTrigger;
         private DevExpress.XtraEditors.CheckEdit cedtOpenHealthLight;
         private DevExpress.XtraEditors.GroupControl groupControl2;
+        private System.Windows.Forms.ToolStripButton btRefrash;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
     }
 }

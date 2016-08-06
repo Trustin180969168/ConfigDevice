@@ -197,7 +197,6 @@
             this.dcValue.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcValue.Caption = "数值";
             this.dcValue.Name = "dcValue";
-            this.dcValue.OptionsColumn.ReadOnly = true;
             this.dcValue.Visible = true;
             this.dcValue.VisibleIndex = 1;
             this.dcValue.Width = 96;
@@ -216,7 +215,6 @@
             this.dcLevel.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcLevel.Caption = "等级";
             this.dcLevel.Name = "dcLevel";
-            this.dcLevel.OptionsColumn.ReadOnly = true;
             this.dcLevel.Visible = true;
             this.dcLevel.VisibleIndex = 2;
             // 
@@ -288,6 +286,7 @@
             this.btRefresh.Name = "btRefresh";
             this.btRefresh.Size = new System.Drawing.Size(76, 28);
             this.btRefresh.Text = "刷新 ";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // btAutoRefresh
             // 
@@ -493,7 +492,7 @@
             this.lblGroupName.Name = "lblGroupName";
             this.lblGroupName.Size = new System.Drawing.Size(99, 33);
             this.lblGroupName.TabIndex = 16;
-            this.lblGroupName.Text = "触发动作 ";
+            this.lblGroupName.Text = "逻辑动作 ";
             // 
             // plToolBar
             // 
@@ -543,6 +542,7 @@
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmWeather";
             this.Load += new System.EventHandler(this.FrmFlammableGasProbe_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmWeather_FormClosing);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);
