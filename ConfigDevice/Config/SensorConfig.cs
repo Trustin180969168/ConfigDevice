@@ -76,7 +76,7 @@ namespace ConfigDevice
         public const string SENSOR_INNER_INTERACTION = "内部联动";
         public const string SENSOR_SECURITY_INTERACTION = "安防联动";
         public const string SENSOR_SCIN_1 = "短路输入1";
-        public const string SENSOR_SCIN_2 = "短路输入21";
+        public const string SENSOR_SCIN_2 = "短路输入2";
         public const string SENSOR_SCIN_3 = "短路输入3";
         public const string SENSOR_SCIN_4 = "短路输入4";
 

@@ -44,6 +44,7 @@
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandSetting = new ConfigDevice.ViewCommandSetting();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ceSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.sptBuzzerSeconds = new DevExpress.XtraEditors.SpinEdit();
@@ -71,7 +72,6 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -146,7 +146,6 @@
             // 
             this.edtSwitState.Location = new System.Drawing.Point(261, 33);
             this.edtSwitState.Name = "edtSwitState";
-            this.edtSwitState.Properties.ReadOnly = true;
             this.edtSwitState.Size = new System.Drawing.Size(100, 21);
             this.edtSwitState.TabIndex = 1;
             // 
@@ -162,7 +161,6 @@
             // 
             this.edtRadarState.Location = new System.Drawing.Point(81, 33);
             this.edtRadarState.Name = "edtRadarState";
-            this.edtRadarState.Properties.ReadOnly = true;
             this.edtRadarState.Size = new System.Drawing.Size(100, 21);
             this.edtRadarState.TabIndex = 1;
             // 
@@ -272,6 +270,16 @@
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "附加动作";
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.labelControl3.Appearance.Options.UseForeColor = true;
+            this.labelControl3.Location = new System.Drawing.Point(307, 50);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(91, 14);
+            this.labelControl3.TabIndex = 5;
+            this.labelControl3.Text = "注: 0 秒表示无限";
             // 
             // groupBox2
             // 
@@ -619,16 +627,6 @@
             this.btRefreshTrigger.Size = new System.Drawing.Size(101, 28);
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.Red;
-            this.labelControl3.Appearance.Options.UseForeColor = true;
-            this.labelControl3.Location = new System.Drawing.Point(307, 50);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(91, 14);
-            this.labelControl3.TabIndex = 5;
-            this.labelControl3.Text = "注: 0 秒表示无限";
             // 
             // FrmRadar
             // 

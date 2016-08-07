@@ -488,6 +488,7 @@
             this.dcLevel.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
             this.dcLevel.Caption = "高/低电平";
             this.dcLevel.Name = "dcLevel";
+            this.dcLevel.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcLevel.Visible = true;
             this.dcLevel.VisibleIndex = 1;
             this.dcLevel.Width = 92;

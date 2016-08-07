@@ -41,7 +41,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.edtName = new DevExpress.XtraEditors.TextEdit();
-            this.cbxDeviceKind = new DevExpress.XtraEditors.ComboBoxEdit();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.edtDeviceID = new DevExpress.XtraEditors.TextEdit();
@@ -56,11 +55,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.edtKind = new DevExpress.XtraEditors.TextEdit();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtName.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxDeviceKind.Properties)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtDeviceID.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSoftwareVer.Properties)).BeginInit();
@@ -68,6 +67,7 @@
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbxPosition.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtHardwareVer.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtKind.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -191,8 +191,8 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.edtKind, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.edtName, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.cbxDeviceKind, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 2);
@@ -222,17 +222,6 @@
             this.edtName.TabIndex = 41;
             this.edtName.Leave += new System.EventHandler(this.edtName_Leave);
             // 
-            // cbxDeviceKind
-            // 
-            this.cbxDeviceKind.Location = new System.Drawing.Point(113, 3);
-            this.cbxDeviceKind.Name = "cbxDeviceKind";
-            this.cbxDeviceKind.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxDeviceKind.Properties.Appearance.Options.UseFont = true;
-            this.cbxDeviceKind.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxDeviceKind.Size = new System.Drawing.Size(461, 26);
-            this.cbxDeviceKind.TabIndex = 41;
-            // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -241,7 +230,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 28);
             this.label1.TabIndex = 27;
-            this.label1.Text = "设  备";
+            this.label1.Text = "设备类型";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panel2
@@ -388,6 +377,19 @@
             this.label2.Text = "网段ID";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // edtKind
+            // 
+            this.edtKind.Location = new System.Drawing.Point(113, 3);
+            this.edtKind.Name = "edtKind";
+            this.edtKind.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtKind.Properties.Appearance.Options.UseFont = true;
+            this.edtKind.Properties.Mask.EditMask = "d";
+            this.edtKind.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.edtKind.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.edtKind.Properties.ReadOnly = true;
+            this.edtKind.Size = new System.Drawing.Size(461, 26);
+            this.edtKind.TabIndex = 41;
+            // 
             // ViewBaseEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -402,7 +404,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtName.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxDeviceKind.Properties)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtDeviceID.Properties)).EndInit();
@@ -412,6 +413,7 @@
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbxPosition.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtHardwareVer.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edtKind.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,7 +439,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private DevExpress.XtraEditors.TextEdit edtName;
-        private DevExpress.XtraEditors.ComboBoxEdit cbxDeviceKind;
         private DevExpress.XtraEditors.TextEdit edtSoftwareVer;
         private DevExpress.XtraEditors.TextEdit edtNetworkID;
         private DevExpress.XtraEditors.ComboBoxEdit cbxPosition;
@@ -447,5 +448,6 @@
         private System.Windows.Forms.ToolStripMenuItem btSaveID;
         private System.Windows.Forms.ToolStripMenuItem btSaveNamePosition;
         private System.Windows.Forms.ToolStripButton btSaveAll;
+        private DevExpress.XtraEditors.TextEdit edtKind;
     }
 }

@@ -148,7 +148,7 @@
             this.rgInitState.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.rgInitState.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem(0, "指示灯开，并执行控制"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "指示灯开，并执行控制"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "指示灯关，并执行控制"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "恢复关机前指示灯状态，并执行相应的控制"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "只恢复关机前指示灯状态，但不执行控制")});
             this.rgInitState.Size = new System.Drawing.Size(297, 132);
@@ -436,7 +436,7 @@
             this.tbcLight.Location = new System.Drawing.Point(35, 111);
             this.tbcLight.Name = "tbcLight";
             this.tbcLight.Properties.LargeChange = 10;
-            this.tbcLight.Size = new System.Drawing.Size(180, 42);
+            this.tbcLight.Size = new System.Drawing.Size(180, 45);
             this.tbcLight.TabIndex = 1;
             this.tbcLight.Modified += new System.EventHandler(this.tbcLight_Modified);
             this.tbcLight.EditValueChanged += new System.EventHandler(this.tbcLight_Modified);

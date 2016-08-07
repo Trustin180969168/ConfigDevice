@@ -33,7 +33,7 @@ namespace ConfigDevice
                         (this.ParentForm as FrmDevice).Text = DeviceEdit.Name;
                         edtDeviceID.Text = DeviceEdit.DeviceID;
                         edtNetworkID.Text = DeviceEdit.NetworkID;
-                        cbxDeviceKind.Text = DeviceEdit.KindName;
+                        edtKind.Text = DeviceEdit.KindName;
 
                         //---获取位置-----
                         getPosition();

@@ -81,7 +81,8 @@ namespace ConfigDevice
         {
             foreach (string trigger in Triggers)//-----初始化触发列表---
                 cbxLogicObj.Items.Add(trigger);
-            cbxLogicObj.Items.Add(SensorConfig.SENSOR_INVALID);//添加无效选择 
+            if(!cbxLogicObj.Items.Contains(SensorConfig.SENSOR_INVALID))
+                cbxLogicObj.Items.Add(SensorConfig.SENSOR_INVALID);//添加无效选择 
             //gvLogic.SetRowCellValue(0,dcObject,cbxLogicObj.Items[cbxLogicObj.Items.Count-1].ToString());
 
             gvLogic.SetRowCellValue(0,dcObject,SensorConfig.SENSOR_INVALID);//---默认选择无效---

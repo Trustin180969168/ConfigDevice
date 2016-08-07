@@ -253,8 +253,6 @@ namespace ConfigDevice
         public override void Init()
         {
             KindName = "雨水传感器";
-       
-
 
             foreach (int key in LEVEL_ID_NAME.Keys)
                 LevelIDName.Add(key, LEVEL_ID_NAME[key]);

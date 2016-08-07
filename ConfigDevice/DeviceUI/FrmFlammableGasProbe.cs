@@ -188,7 +188,8 @@ namespace ConfigDevice
             edtTriggerActionName.Text = flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[1];//----默认显示第一个组名
             if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
                 viewLogicSetting.InitLogicList(flammableGasProbe, SensorConfig.SENSOR_FLAMMABLE_GAS_PROBE,
-                    SensorConfig.SENSOR_FIRE_TEMPERATURE, SensorConfig.SENSOR_SYSTEM_INTERACTION      );   
+                    SensorConfig.SENSOR_FIRE_TEMPERATURE,SensorConfig.SENSOR_SYSTEM_INTERACTION,SensorConfig.SENSOR_INNER_INTERACTION,
+                    SensorConfig.SENSOR_INVALID);   
             if (viewCommandSetting.NeedInit)//----初始化指令配置-------
                 viewCommandSetting.InitViewCommand(flammableGasProbe);//初始化       
             hasInitedLogicAndCommand = true;//----初始化完毕-----
