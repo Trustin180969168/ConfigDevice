@@ -23,6 +23,7 @@ namespace ConfigDevice
         private bool hasLoadedLogicAndCommand = false;//-----是否已经加载指令配置和逻辑配置-----
         private DataTable dtShortOutput = new DataTable("Output");//------短路输出数据
         private GridViewComboBox cbxOutputLevel = new GridViewComboBox();//----高低电平选择
+        private GridViewTextEdit edtLevel = new GridViewTextEdit();
         public FrmShort4(Device _device)
             : base(_device)
         {
@@ -37,7 +38,12 @@ namespace ConfigDevice
             speSecond.MinValue = 0;
             cbxOutputLevel.Items.Add(SensorConfig.SCIN_LV_NAME_LOW);
             cbxOutputLevel.Items.Add(SensorConfig.SCIN_LV_NAME_HIGH);
-            cbxOutputLevel.Items.Add("不动作");            
+            cbxOutputLevel.Items.Add(SensorConfig.SCIN_LV_NAME_NONE);
+            cbxOutputLevel.SelectedIndexChanged += this.cbxAction_Changed;
+            edtLevel.ReadOnly = true;
+            edtLevel.NullText = "无效";
+            edtLevel.Appearance.BackColor = Color.Gainsboro;//灰色
+            edtLevel.Appearance.ForeColor = Color.Black;
             //-----初始化短路输出数据-----
             dtShortOutput.Columns.Add(ViewConfig.DC_NAME, typeof(String));
             dtShortOutput.Columns.Add(ViewConfig.DC_PARAMETER3, typeof(String));
@@ -540,7 +546,50 @@ namespace ConfigDevice
             short4.ReadConfig();
         }
 
+        /// <summary>
+        /// 动作切换
+        /// </summary>
+        private void cbxAction_Changed(object sender, EventArgs e)
+        {
+            gvShortOutput.PostEditor();
+            DataRow dr = gvShortOutput.GetDataRow(gvShortOutput.FocusedRowHandle);
+            dr.EndEdit();
+            string action = dr[dcLevel.FieldName].ToString();
+            if (action == SensorConfig.SCIN_LV_NAME_NONE)
+            {
+                dr[dcActionTime.FieldName] = 0;
+                dr[dcDelayTime.FieldName] = 0;
+                dr.EndEdit();
+                speSecond.ReadOnly = true;      
+            }
+            else
+            {
+                speSecond.ReadOnly = false;
+            }
 
+        }
+
+        private void gvShortOutput_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            cbxAction_Changed(sender, e);
+
+        }
+
+        private void gvShortOutput_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            if (e.RowHandle >= 0)
+            {
+                string action = gvShortOutput.GetRowCellDisplayText(e.RowHandle, dcLevel);
+                if (action == SensorConfig.SCIN_LV_NAME_NONE)
+                {
+                    
+                }
+                else
+                {
+               
+                }
+            }
+        }
    
     }
 }

@@ -157,13 +157,13 @@
             this.btCleanDevices,
             this.msiSyncNetworkID});
             this.contextMenuStripDevice.Name = "contextMenuStripNetwork";
-            this.contextMenuStripDevice.Size = new System.Drawing.Size(134, 92);
+            this.contextMenuStripDevice.Size = new System.Drawing.Size(153, 114);
             // 
             // btOpenDevice
             // 
             this.btOpenDevice.Image = global::ConfigDevice.Properties.Resources.section;
             this.btOpenDevice.Name = "btOpenDevice";
-            this.btOpenDevice.Size = new System.Drawing.Size(133, 22);
+            this.btOpenDevice.Size = new System.Drawing.Size(152, 22);
             this.btOpenDevice.Text = "打开设备";
             this.btOpenDevice.Click += new System.EventHandler(this.gvDevices_DoubleClick);
             // 
@@ -171,7 +171,7 @@
             // 
             this.btQryDevice.Image = global::ConfigDevice.Properties.Resources.refresh;
             this.btQryDevice.Name = "btQryDevice";
-            this.btQryDevice.Size = new System.Drawing.Size(133, 22);
+            this.btQryDevice.Size = new System.Drawing.Size(152, 22);
             this.btQryDevice.Text = "刷新";
             this.btQryDevice.Click += new System.EventHandler(this.btRefreshDevices_Click);
             // 
@@ -179,7 +179,7 @@
             // 
             this.btCleanDevices.Image = global::ConfigDevice.Properties.Resources.Clear;
             this.btCleanDevices.Name = "btCleanDevices";
-            this.btCleanDevices.Size = new System.Drawing.Size(133, 22);
+            this.btCleanDevices.Size = new System.Drawing.Size(152, 22);
             this.btCleanDevices.Text = "清空设备";
             this.btCleanDevices.Click += new System.EventHandler(this.btClearDevice_Click);
             // 
@@ -187,8 +187,8 @@
             // 
             this.msiSyncNetworkID.Image = global::ConfigDevice.Properties.Resources.exchange;
             this.msiSyncNetworkID.Name = "msiSyncNetworkID";
-            this.msiSyncNetworkID.Size = new System.Drawing.Size(133, 22);
-            this.msiSyncNetworkID.Text = "同步网络ID";
+            this.msiSyncNetworkID.Size = new System.Drawing.Size(152, 22);
+            this.msiSyncNetworkID.Text = "同步网段";
             this.msiSyncNetworkID.Click += new System.EventHandler(this.btSyncID_Click);
             // 
             // gvDevices
@@ -542,13 +542,13 @@
             this.btSnycTime,
             this.btSnycData});
             this.contextMenuStripNetwork.Name = "contextMenuStripNetwork";
-            this.contextMenuStripNetwork.Size = new System.Drawing.Size(123, 158);
+            this.contextMenuStripNetwork.Size = new System.Drawing.Size(125, 158);
             // 
             // btmiConnectNetwork
             // 
             this.btmiConnectNetwork.Image = global::ConfigDevice.Properties.Resources.connect1;
             this.btmiConnectNetwork.Name = "btmiConnectNetwork";
-            this.btmiConnectNetwork.Size = new System.Drawing.Size(122, 22);
+            this.btmiConnectNetwork.Size = new System.Drawing.Size(124, 22);
             this.btmiConnectNetwork.Text = "连接网络";
             this.btmiConnectNetwork.Click += new System.EventHandler(this.btConnectnetwork_Click);
             // 
@@ -556,7 +556,7 @@
             // 
             this.btmiDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect1;
             this.btmiDisconnectNetwork.Name = "btmiDisconnectNetwork";
-            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(122, 22);
+            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(124, 22);
             this.btmiDisconnectNetwork.Text = "断开网络";
             this.btmiDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
             // 
@@ -564,7 +564,7 @@
             // 
             this.btSearchDevice.Image = global::ConfigDevice.Properties.Resources.View;
             this.btSearchDevice.Name = "btSearchDevice";
-            this.btSearchDevice.Size = new System.Drawing.Size(122, 22);
+            this.btSearchDevice.Size = new System.Drawing.Size(124, 22);
             this.btSearchDevice.Text = "设备搜索";
             this.btSearchDevice.Click += new System.EventHandler(this.btSearchDevices_Click);
             // 
@@ -572,7 +572,7 @@
             // 
             this.tsmiChangePassword.Image = global::ConfigDevice.Properties.Resources.client;
             this.tsmiChangePassword.Name = "tsmiChangePassword";
-            this.tsmiChangePassword.Size = new System.Drawing.Size(122, 22);
+            this.tsmiChangePassword.Size = new System.Drawing.Size(124, 22);
             this.tsmiChangePassword.Text = "修改密码";
             this.tsmiChangePassword.Click += new System.EventHandler(this.tsmiChangePassword_Click);
             // 
@@ -580,7 +580,7 @@
             // 
             this.tsmiParameter.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.tsmiParameter.Name = "tsmiParameter";
-            this.tsmiParameter.Size = new System.Drawing.Size(122, 22);
+            this.tsmiParameter.Size = new System.Drawing.Size(124, 22);
             this.tsmiParameter.Text = "网络参数";
             this.tsmiParameter.Click += new System.EventHandler(this.tsmiParameter_Click);
             // 
@@ -588,7 +588,7 @@
             // 
             this.btSnycTime.Image = global::ConfigDevice.Properties.Resources.checkWork;
             this.btSnycTime.Name = "btSnycTime";
-            this.btSnycTime.Size = new System.Drawing.Size(122, 22);
+            this.btSnycTime.Size = new System.Drawing.Size(124, 22);
             this.btSnycTime.Text = "同步时间";
             this.btSnycTime.Click += new System.EventHandler(this.btSyncTime_Click);
             // 
@@ -596,7 +596,7 @@
             // 
             this.btSnycData.Image = global::ConfigDevice.Properties.Resources.exchange;
             this.btSnycData.Name = "btSnycData";
-            this.btSnycData.Size = new System.Drawing.Size(122, 22);
+            this.btSnycData.Size = new System.Drawing.Size(124, 22);
             this.btSnycData.Text = "同步数据";
             this.btSnycData.Click += new System.EventHandler(this.btSyncData_Click);
             // 

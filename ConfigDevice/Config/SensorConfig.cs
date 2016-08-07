@@ -283,9 +283,9 @@ namespace ConfigDevice
         public const int SCIN_LV_LOW = 0;          //【低电平】
         public const int SCIN_LV_HIGH = 1;          //【高电平】
         public const int SCIN_LV_TOTAL = 2;
-        public const string SCIN_LV_NAME_LOW = "低电平";          //【过低】
-        public const string SCIN_LV_NAME_HIGH = "高电平";          //【适宜】
-
+        public const string SCIN_LV_NAME_LOW = "低电平";          
+        public const string SCIN_LV_NAME_HIGH = "高电平";         
+        public const string SCIN_LV_NAME_NONE = "不动作";        
         //-----安防联动级别----
         public const int LG_SAF_SYST_DI = 0x1;          //系统被撤防         (系统全部的安防标志全部被清除)   ──┐
         public const int LG_SAF_SYST_EN_DLY = 0x2;          //系统进入布防延时中 (系统安防标志只要任一个被置位)       │

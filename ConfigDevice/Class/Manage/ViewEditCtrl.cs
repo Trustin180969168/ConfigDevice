@@ -5,11 +5,16 @@ using System.Windows.Forms;
 using System.Data;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Columns;
+using System.Drawing;
 
 namespace ConfigDevice
 {
     public static class ViewEditCtrl
     {             
+
+
+
+
         private static DataTable dtCommandDevices = new DataTable();
         /// <summary>
         /// 获取指令配置
@@ -288,7 +293,45 @@ namespace ConfigDevice
      
         }
 
-    
+        public static GridViewTextEdit InvalidEdit = new GridViewTextEdit();//--无效编辑----
+        static ViewEditCtrl()
+        {
+            InvalidEdit.ReadOnly = true;
+            InvalidEdit.NullText = "无效";
+            InvalidEdit.AllowFocused = false;
+        }
+
+        /// <summary>
+        /// 设置无效
+        /// </summary>
+        /// <param name="gc"></param>
+        public static void setGridColumnInvalid(GridColumn gc,GridView gv)
+        {
+
+            DataRow dr =gv.GetDataRow(0);
+            if (gc.FieldName != "")
+                dr[gc.FieldName] = SensorConfig.SENSOR_INVALID;//---内容为无效
+            dr.EndEdit();
+            gc.ColumnEdit = InvalidEdit;
+
+            gc.AppearanceCell.BackColor = Color.Gainsboro;//灰色
+            gc.AppearanceCell.ForeColor = Color.Black;
+            gc.OptionsColumn.AllowEdit = false;
+        }
+
+        /// <summary>
+        /// 设置生效
+        /// </summary>
+        /// <param name="gc"></param>
+        /// <param name="editor"></param>
+        public static void setGridColumnValid(GridColumn gc, DevExpress.XtraEditors.Repository.RepositoryItem editor)
+        {
+            gc.ColumnEdit = editor;
+            gc.AppearanceCell.BackColor = Color.LightYellow;
+            gc.AppearanceCell.ForeColor = Color.Blue;
+            gc.OptionsColumn.AllowEdit = true;
+
+        }
 
     }
 

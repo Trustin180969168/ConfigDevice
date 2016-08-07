@@ -149,13 +149,14 @@ namespace ConfigDevice
     public class ViewLogicShortInput : BaseViewLogicControl
     {
         private GridViewComboBox cbxStart = new GridViewComboBox();//----开始值---        
+        
         public ViewLogicShortInput(Device _device, GridView gv)
             : base(_device, gv)
         {
 
             cbxOperate.Items.Add(SensorConfig.LG_MATH_NAME_EQUAL_TO);//---运算--           
-            cbxStart.Items.Add(Short4Sensor.LEVEL_ID_NAME[0]);
-            cbxStart.Items.Add(Short4Sensor.LEVEL_ID_NAME[1]);
+            cbxStart.Items.Add("1 " + Short4Sensor.LEVEL_ID_NAME[0]);
+            cbxStart.Items.Add("2 " + Short4Sensor.LEVEL_ID_NAME[1]);
             dcStartValue.ColumnEdit = cbxStart;
 
             cbxKind.Items.Clear();//----清空触发类型(只有等级)---
@@ -206,8 +207,8 @@ namespace ConfigDevice
             }
             //--------泄漏/正常--------------
             string size1Str = dr[dcStartValue.FieldName].ToString();
-            triggerData.Size1 = Short4Sensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
-            triggerData.Size2 = 0;//----无效------
+            triggerData.Size1 = size1Str == "1 " + Short4Sensor.LEVEL_ID_NAME[0] ? 0 : 1;//----获取等级值---
+            triggerData.Size2 = triggerData.Size1;//----强制与开始值相同------
             //-----有效持续,无效持续------            
             int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
             int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //无效秒数       
@@ -260,7 +261,7 @@ namespace ConfigDevice
                     dr.EndEdit();
                 }
             }
-            dr[dcStartValue.FieldName] = Short4Sensor.LEVEL_ID_NAME[td.Size1];
+            dr[dcStartValue.FieldName] = cbxStart.Items[td.Size1];
             string nowDateStr = DateTime.Now.ToShortDateString();
             dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
             dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---

@@ -458,6 +458,8 @@
             this.gvShortOutput.Name = "gvShortOutput";
             this.gvShortOutput.OptionsView.ShowGroupPanel = false;
             this.gvShortOutput.OptionsView.ShowIndicator = false;
+            this.gvShortOutput.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvShortOutput_FocusedRowChanged);
+            this.gvShortOutput.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gvShortOutput_RowStyle);
             // 
             // dcPosition
             // 
@@ -478,7 +480,9 @@
             // 
             // dcLevel
             // 
+            this.dcLevel.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
             this.dcLevel.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcLevel.AppearanceCell.Options.UseBackColor = true;
             this.dcLevel.AppearanceCell.Options.UseForeColor = true;
             this.dcLevel.AppearanceCell.Options.UseTextOptions = true;
             this.dcLevel.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
