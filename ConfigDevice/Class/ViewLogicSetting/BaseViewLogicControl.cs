@@ -263,8 +263,9 @@ namespace ConfigDevice
         /// </summary>
         protected void initGridLookupDevice()
         {
-            gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit(ViewConfig.SELECT_LOGIC_DEVICE_QUERY_CONDITION);
-            dtSelectDevices = gridLookupDevice.DataSource as DataTable;
+            gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit(); 
+            dtSelectDevices = ViewEditCtrl.GetDevicesLookupData(ViewConfig.SELECT_LOGIC_DEVICE_QUERY_CONDITION);
+            gridLookupDevice.DataSource = dtSelectDevices;
             gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
         }
         /// <summary>

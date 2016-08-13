@@ -577,18 +577,26 @@ namespace ConfigDevice
 
         private void gvShortOutput_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
         {
-            if (e.RowHandle >= 0)
-            {
-                string action = gvShortOutput.GetRowCellDisplayText(e.RowHandle, dcLevel);
-                if (action == SensorConfig.SCIN_LV_NAME_NONE)
-                {
-                    
-                }
-                else
-                {
-               
-                }
-            }
+
+        }
+
+        private void gvShortOutput_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            //if (e.RowHandle >= 0)
+            //{
+            //    string action = gvShortOutput.GetRowCellDisplayText(e.RowHandle, dcLevel);
+            //    if (action == SensorConfig.SCIN_LV_NAME_NONE)
+            //    {
+            //        if (e.Column.Name == dcActionTime.Name || e.Column.Name == dcDelayTime.Name)
+            //        { e.Column.AppearanceCell.BackColor = Color.Gray; }
+
+            //    }
+            //    else
+            //    {
+            //        e.Column.AppearanceCell.BackColor = Color.LightYellow;
+            //    }
+        
+            //}
         }
    
     }

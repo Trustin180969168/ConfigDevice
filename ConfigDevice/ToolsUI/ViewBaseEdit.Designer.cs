@@ -40,6 +40,7 @@
             this.btFindOff = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.edtKind = new DevExpress.XtraEditors.TextEdit();
             this.edtName = new DevExpress.XtraEditors.TextEdit();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -55,10 +56,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.edtKind = new DevExpress.XtraEditors.TextEdit();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtKind.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtName.Properties)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtDeviceID.Properties)).BeginInit();
@@ -67,7 +68,6 @@
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbxPosition.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtHardwareVer.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtKind.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -210,6 +210,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(582, 137);
             this.tableLayoutPanel1.TabIndex = 40;
+            // 
+            // edtKind
+            // 
+            this.edtKind.Location = new System.Drawing.Point(113, 3);
+            this.edtKind.Name = "edtKind";
+            this.edtKind.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtKind.Properties.Appearance.Options.UseFont = true;
+            this.edtKind.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.edtKind.Properties.ReadOnly = true;
+            this.edtKind.Size = new System.Drawing.Size(461, 26);
+            this.edtKind.TabIndex = 41;
             // 
             // edtName
             // 
@@ -377,19 +388,6 @@
             this.label2.Text = "网段ID";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // edtKind
-            // 
-            this.edtKind.Location = new System.Drawing.Point(113, 3);
-            this.edtKind.Name = "edtKind";
-            this.edtKind.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.edtKind.Properties.Appearance.Options.UseFont = true;
-            this.edtKind.Properties.Mask.EditMask = "d";
-            this.edtKind.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.edtKind.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.edtKind.Properties.ReadOnly = true;
-            this.edtKind.Size = new System.Drawing.Size(461, 26);
-            this.edtKind.TabIndex = 41;
-            // 
             // ViewBaseEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -403,6 +401,7 @@
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtKind.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtName.Properties)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -413,7 +412,6 @@
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbxPosition.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtHardwareVer.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.edtKind.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -203,27 +203,56 @@ namespace ConfigDevice
 
 
         /// <summary>
+        /// 获取设备表选择数据
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable GetDevicesLookupData(string filerExpression)
+        {
+            //-----获取选择的设备数据---
+            DataTable dtSelectDevices = new DataTable();
+            dtSelectDevices = SysConfig.DtDevice.Clone();
+            DataRow[] rows = SysConfig.DtDevice.Select(filerExpression);
+            foreach (DataRow dr in rows)
+                dtSelectDevices.Rows.Add(dr.ItemArray);
+            //----默认加入虚拟设备"系统联动号","内部联动"------
+            DataRow drInsert = dtSelectDevices.Rows.Add();
+            drInsert[DeviceConfig.DC_KIND_ID] = DeviceConfig.EQUIPMENT_LINKID;//----系统联动号类型------
+            drInsert[DeviceConfig.DC_NETWORK_ID] = 255;//----网段ID---
+            drInsert[DeviceConfig.DC_ID] = (int)DeviceConfig.SpecicalID.ID_PKGNUM_PUBLIC;//-----特殊地址----- 
+            drInsert[DeviceConfig.DC_NAME] = "联动号";
+            drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[DeviceConfig.EQUIPMENT_LINKID];
+            //----初始化新的设备值----
+            dtSelectDevices.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
+            foreach (DataRow dr in dtSelectDevices.Rows)
+                dr[ViewConfig.DC_DEVICE_VALUE] = dr[DeviceConfig.DC_KIND_ID].ToString() + "_" + dr[DeviceConfig.DC_NETWORK_ID].ToString() + "_" + dr[DeviceConfig.DC_ID].ToString();
+                        
+            dtSelectDevices.AcceptChanges();
+            return dtSelectDevices;
+        }
+
+
+        /// <summary>
         /// 获取设备表选择控件
         /// </summary>
         /// <returns></returns>
-        public static GridViewGridLookupEdit GetDevicesLookupEdit(string filerExpression)
+        public static GridViewGridLookupEdit GetDevicesLookupEdit()
         {
             GridViewGridLookupEdit gridLookupDevice = new GridViewGridLookupEdit();//设备列表选择编辑
             gridLookupDevice.Name = "gridLookupEdit";
             gridLookupDevice.NullText = "选择设备";
             gridLookupDevice.DisplayMember = DeviceConfig.DC_NAME;
             gridLookupDevice.ValueMember = ViewConfig.DC_DEVICE_VALUE;
-            //-----获取选择的设备数据---
+            ////-----获取选择的设备数据---
             DataTable dtSelectDevices = SysConfig.DtDevice.Clone();
-            DataRow[] rows = SysConfig.DtDevice.Select(filerExpression);
-            foreach (DataRow dr in rows)
-                dtSelectDevices.Rows.Add(dr.ItemArray);
-            //----初始化新的设备值----
-            dtSelectDevices.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
-            foreach (DataRow dr in dtSelectDevices.Rows)
-                dr[ViewConfig.DC_DEVICE_VALUE] = dr[DeviceConfig.DC_KIND_ID].ToString() +"_" + dr[DeviceConfig.DC_NETWORK_ID].ToString() +"_"+ dr[DeviceConfig.DC_ID].ToString();
-            dtSelectDevices.AcceptChanges();
-            //----初始化下拉界面------
+            //DataRow[] rows = SysConfig.DtDevice.Select(filerExpression);
+            //foreach (DataRow dr in rows)
+            //    dtSelectDevices.Rows.Add(dr.ItemArray);
+            ////----初始化新的设备值----
+            //dtSelectDevices.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
+            //foreach (DataRow dr in dtSelectDevices.Rows)
+            //    dr[ViewConfig.DC_DEVICE_VALUE] = dr[DeviceConfig.DC_KIND_ID].ToString() +"_" + dr[DeviceConfig.DC_NETWORK_ID].ToString() +"_"+ dr[DeviceConfig.DC_ID].ToString();
+            //dtSelectDevices.AcceptChanges();
+            ////----初始化下拉界面------
             gridLookupDevice.DataSource = dtSelectDevices;
             foreach (GridColumn gc in gridLookupDevice.View.Columns)
             {
@@ -278,7 +307,7 @@ namespace ConfigDevice
             DataRow[] rows = SysConfig.DtDevice.Select(ViewConfig.SELECT_LOGIC_DEVICE_QUERY_CONDITION);
             foreach (DataRow dr in rows)
                 dtCommandDevices.Rows.Add(dr.ItemArray);
-            //----默认加入虚拟设备"系统联动号"------
+            //----默认加入虚拟设备"系统联动号","内部联动"------
             DataRow drInsert = dtCommandDevices.Rows.Add();
             drInsert[DeviceConfig.DC_KIND_ID] = DeviceConfig.EQUIPMENT_LINKID;//----系统联动号类型------
             drInsert[DeviceConfig.DC_NETWORK_ID] = 255;//----网段ID---

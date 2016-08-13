@@ -15,7 +15,7 @@ namespace ConfigDevice
     {
         GridColumn dcCommand;//指令
         GridColumn dcSoundSource;//音源
-        GridColumn dcVolume;//音量
+        GridColumn dcVolume;//音量 
         GridColumn dcPlayOrder;//播放方式
         GridColumn dcPlayNum;//播放曲目
         GridColumn dcPlayTime;//播放时间

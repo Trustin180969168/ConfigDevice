@@ -154,7 +154,7 @@
             this.gccSecurity.Name = "gccSecurity";
             this.gccSecurity.Size = new System.Drawing.Size(523, 206);
             this.gccSecurity.TabIndex = 5;
-            this.gccSecurity.Text = "安防级别";
+            this.gccSecurity.Text = "防区绑定";
             // 
             // gcSecurity
             // 
@@ -658,8 +658,8 @@
             this.viewCommandEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewCommandEdit.Location = new System.Drawing.Point(0, 0);
             this.viewCommandEdit.Name = "viewCommandEdit";
-            this.viewCommandEdit.ShowCommandBar = true;
-            this.viewCommandEdit.ShowToolBar = true;
+            this.viewCommandEdit.ShowCommandBar = false;
+            this.viewCommandEdit.ShowToolBar = false;
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 682);
             this.viewCommandEdit.TabIndex = 0;
             // 

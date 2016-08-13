@@ -503,6 +503,53 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 电机测试
+        /// </summary>
+        /// <param name="roadNum">回路(0为第一回路)</param>
+        public void TestMotorAction(int roadNum)
+        {
+            UdpData udpSend = createTestMotorActionUdp(roadNum);
+            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackTestMotorAction), null);
+        }
+        private void callbackTestMotorAction(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("执行运转操作失败!", udpReply.ReplyByte);
+        }
+        private UdpData createTestMotorActionUdp(int roadNum)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
+            byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_SW_TEST_LOOP;//----用户命令-----
+            byte len = 1+4;//---数据长度----
+            byte[] crcData = new byte[11];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            crcData[10] = (byte)roadNum;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+
+
+        /// <summary>
         /// 读电机电流状态
         /// </summary>
         public void ReadMotorCurrent()

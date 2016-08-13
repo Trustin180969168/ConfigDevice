@@ -62,7 +62,10 @@ namespace ConfigDevice
             cbxSensor.EditValueChanged += this.CbxSensorKind_EditValueChanged;
             dcKindName.ColumnEdit = cbxSensor;
 
-            gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit(ViewConfig.SELECT_ENVIRONMENT_DEVICE_QUERY_CONDITION);//-----下拉选择------        
+            DataTable dtSelectDevices = ViewEditCtrl.GetDevicesLookupData(ViewConfig.SELECT_ENVIRONMENT_DEVICE_QUERY_CONDITION);
+            gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit();//-----下拉选择------ 
+            gridLookupDevice.DataSource = dtSelectDevices;
+
             gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
             dcDeviceValue.ColumnEdit = gridLookupDevice;
 

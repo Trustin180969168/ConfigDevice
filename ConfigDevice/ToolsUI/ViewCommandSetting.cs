@@ -14,6 +14,7 @@ namespace ConfigDevice
         public string CommandGroupName { set { this.lblGroupName.Text = value; } }
         public ToolStripComboBox CbxCommandGroup { get { return cbxGroup; } }
         private DateTime actionTime = DateTime.Now.AddMinutes(-1);//---执行时间-----
+        private DataTable dtSelectDevices = new DataTable();//---选择设备----
         /// <summary>
         /// 是否显示组选择
         /// </summary>
@@ -203,7 +204,7 @@ namespace ConfigDevice
         /// </summary>
         private ViewCommandTools addViewCommandSetting()
         {
-            ViewCommandTools viewNew = new ViewCommandTools(++commandCount);
+            ViewCommandTools viewNew = new ViewCommandTools(++commandCount,dtSelectDevices);
             xscCommands.Controls.Add(viewNew);
             viewNew.Dock = DockStyle.Top;
             viewNew.SyncCommandEdit += this.SyncCommandSetting;
@@ -243,7 +244,8 @@ namespace ConfigDevice
         /// </summary>
         public void InitViewCommand(Device device)
         {
-            ViewEditCtrl.InitCommandDevicesLookupEdit();//----初始化设备选择列表----        
+            dtSelectDevices = ViewEditCtrl.GetDevicesLookupData(ViewConfig.SELECT_LOGIC_DEVICE_QUERY_CONDITION);//----初始化设备选择列表----     
+            
             cbxGroup.SelectedIndex = -1;
             cbxGroup.Items.Clear();
             foreach (string groupStr in CommmandGroups)

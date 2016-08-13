@@ -132,7 +132,7 @@
             this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
             this.tctrlEdit.SelectedTabPage = this.pagePzjm;
-            this.tctrlEdit.Size = new System.Drawing.Size(1018, 647);
+            this.tctrlEdit.Size = new System.Drawing.Size(1018, 722);
             this.tctrlEdit.TabIndex = 2;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
@@ -395,7 +395,7 @@
             this.pageLogic.Controls.Add(this.viewLogicSetting);
             this.pageLogic.Controls.Add(this.panelControl5);
             this.pageLogic.Name = "pageLogic";
-            this.pageLogic.Size = new System.Drawing.Size(1009, 610);
+            this.pageLogic.Size = new System.Drawing.Size(1009, 685);
             this.pageLogic.Text = "逻辑配置";
             // 
             // viewCommandSetting
@@ -405,7 +405,7 @@
             this.viewCommandSetting.Name = "viewCommandSetting";
             this.viewCommandSetting.ShowCommandBar = false;
             this.viewCommandSetting.ShowToolBar = false;
-            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 173);
+            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 248);
             this.viewCommandSetting.TabIndex = 1;
             // 
             // groupBox1
@@ -459,6 +459,7 @@
             this.gvShortOutput.OptionsView.ShowGroupPanel = false;
             this.gvShortOutput.OptionsView.ShowIndicator = false;
             this.gvShortOutput.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvShortOutput_FocusedRowChanged);
+            this.gvShortOutput.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvShortOutput_RowCellStyle);
             this.gvShortOutput.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gvShortOutput_RowStyle);
             // 
             // dcPosition
@@ -480,9 +481,7 @@
             // 
             // dcLevel
             // 
-            this.dcLevel.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
             this.dcLevel.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcLevel.AppearanceCell.Options.UseBackColor = true;
             this.dcLevel.AppearanceCell.Options.UseForeColor = true;
             this.dcLevel.AppearanceCell.Options.UseTextOptions = true;
             this.dcLevel.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -490,7 +489,7 @@
             this.dcLevel.AppearanceHeader.Options.UseTextOptions = true;
             this.dcLevel.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcLevel.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
-            this.dcLevel.Caption = "高/低电平";
+            this.dcLevel.Caption = "输出电平";
             this.dcLevel.Name = "dcLevel";
             this.dcLevel.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcLevel.Visible = true;
@@ -499,9 +498,7 @@
             // 
             // dcDelayTime
             // 
-            this.dcDelayTime.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
             this.dcDelayTime.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcDelayTime.AppearanceCell.Options.UseBackColor = true;
             this.dcDelayTime.AppearanceCell.Options.UseForeColor = true;
             this.dcDelayTime.AppearanceCell.Options.UseTextOptions = true;
             this.dcDelayTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -527,9 +524,7 @@
             // 
             // dcActionTime
             // 
-            this.dcActionTime.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
             this.dcActionTime.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcActionTime.AppearanceCell.Options.UseBackColor = true;
             this.dcActionTime.AppearanceCell.Options.UseForeColor = true;
             this.dcActionTime.AppearanceCell.Options.UseTextOptions = true;
             this.dcActionTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -800,7 +795,7 @@
             // FrmShort4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(1018, 671);
+            this.ClientSize = new System.Drawing.Size(1018, 746);
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmShort4";
             this.Load += new System.EventHandler(this.FrmRadar_Load);

@@ -262,6 +262,8 @@ namespace ConfigDevice
                     road3Window.Motor.MotorAction(Motor.ACTION_ROAD_FRONT_1, Motor.ACTION_RUN);
                 else if (actionName == "反转")
                     road3Window.Motor.MotorAction(Motor.ACTION_ROAD_BACK_1, Motor.ACTION_RUN);
+                else if (actionName == "测试")
+                    road3Window.Motor.TestMotorAction(roadNum);
             }
             else if (roadNum == 1)
             {
@@ -271,6 +273,8 @@ namespace ConfigDevice
                     road3Window.Motor.MotorAction(Motor.ACTION_ROAD_FRONT_2, Motor.ACTION_RUN);
                 else if (actionName == "反转")
                     road3Window.Motor.MotorAction(Motor.ACTION_ROAD_BACK_2, Motor.ACTION_RUN);
+                else if (actionName == "测试")
+                    road3Window.Motor.TestMotorAction(roadNum);
             }
             else if (roadNum == 2)
             {
@@ -280,8 +284,9 @@ namespace ConfigDevice
                     road3Window.Motor.MotorAction(Motor.ACTION_ROAD_FRONT_3, Motor.ACTION_RUN);
                 else if (actionName == "反转")
                     road3Window.Motor.MotorAction(Motor.ACTION_ROAD_BACK_3, Motor.ACTION_RUN);
-            }
-
+                else if (actionName == "测试")
+                    road3Window.Motor.TestMotorAction(roadNum);
+            } 
         }
         
 

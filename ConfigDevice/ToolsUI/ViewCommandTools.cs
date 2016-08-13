@@ -96,12 +96,12 @@ namespace ConfigDevice
             gcCommands.DataSource = DataCommandSetting;
 
         }
-        public ViewCommandTools(int num)
+        public ViewCommandTools(int num,DataTable dtSelectDevice)
             : this()
         {
            this.Num = num;
-           gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit(ViewConfig.SELECT_COMMAND_DEVICE_QUERY_CONDITION);//-----下拉选择------
-    
+           gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit();//-----下拉选择------
+           gridLookupDevice.DataSource = dtSelectDevice;//----选择设备-----
            gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
            deviceName.ColumnEdit = gridLookupDevice;
         }
@@ -255,7 +255,7 @@ namespace ConfigDevice
             cbxControlObj.Items.Clear();
             command.Visible = false;
 
-            gridLookupDevice = ViewEditCtrl.GetDevicesLookupEdit(ViewConfig.SELECT_COMMAND_DEVICE_QUERY_CONDITION);//-----下拉选择------
+             
             gridLookupDevice.EditValueChanged += this.lookUpEdit_EditValueChanged;
             deviceName.ColumnEdit = gridLookupDevice;
 
