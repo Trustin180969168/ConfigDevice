@@ -76,6 +76,7 @@ namespace ConfigDevice
             //----绑定控件------
             dcMotorStopEC.ColumnEdit = edtCurrent;
             dcMotorTurnTime.ColumnEdit = edtSecond;
+            dcCurrentEC.ColumnEdit = edtCurrent;
             //----列表绑定------
             gcMotorAction.DataSource = dtMotorAction;
             gcMotorSetting.DataSource = dtMotorSetting;
@@ -192,7 +193,7 @@ namespace ConfigDevice
         /// <summary>
         /// 刷新
         /// </summary> 
-        private void btRefresh_Click(object sender, EventArgs e)
+        private void btAutoRefresh_Click(object sender, EventArgs e)
         {
             autoRefresh = !autoRefresh;
             if (autoRefresh)
@@ -288,7 +289,13 @@ namespace ConfigDevice
                     road3Window.Motor.TestMotorAction(roadNum);
             } 
         }
-        
+
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+            this.loadData();
+        }
+
+
 
  
     }

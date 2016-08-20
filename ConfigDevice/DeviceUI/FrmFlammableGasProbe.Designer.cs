@@ -47,7 +47,6 @@
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.btAutoRefresh = new DevExpress.XtraEditors.CheckButton();
             this.edtFireCtrlTemperatue = new DevExpress.XtraEditors.TextEdit();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.edtVavleEC = new DevExpress.XtraEditors.TextEdit();
@@ -64,6 +63,7 @@
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandSetting = new ConfigDevice.ViewCommandSetting();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelControl19 = new DevExpress.XtraEditors.LabelControl();
             this.sptBuzzerSeconds = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
             this.sptLightSeconds = new DevExpress.XtraEditors.SpinEdit();
@@ -94,7 +94,7 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
-            this.labelControl19 = new DevExpress.XtraEditors.LabelControl();
+            this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -346,7 +346,6 @@
             // groupControl1
             // 
             this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl1.Controls.Add(this.btAutoRefresh);
             this.groupControl1.Controls.Add(this.edtFireCtrlTemperatue);
             this.groupControl1.Controls.Add(this.labelControl4);
             this.groupControl1.Controls.Add(this.edtVavleEC);
@@ -360,16 +359,6 @@
             this.groupControl1.Size = new System.Drawing.Size(543, 89);
             this.groupControl1.TabIndex = 2;
             this.groupControl1.Text = "设备状态";
-            // 
-            // btAutoRefresh
-            // 
-            this.btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh2;
-            this.btAutoRefresh.Location = new System.Drawing.Point(400, 36);
-            this.btAutoRefresh.Name = "btAutoRefresh";
-            this.btAutoRefresh.Size = new System.Drawing.Size(100, 39);
-            this.btAutoRefresh.TabIndex = 3;
-            this.btAutoRefresh.Text = "自动刷新";
-            this.btAutoRefresh.CheckedChanged += new System.EventHandler(this.btAutoRefresh_CheckedChanged);
             // 
             // edtFireCtrlTemperatue
             // 
@@ -441,7 +430,8 @@
             this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
-            this.btRefresh});
+            this.btRefresh,
+            this.btAutoRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
             this.tsDoorInput.Size = new System.Drawing.Size(1009, 31);
@@ -462,8 +452,8 @@
             this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
             this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(100, 28);
-            this.btRefresh.Text = "刷新数据";
+            this.btRefresh.Size = new System.Drawing.Size(76, 28);
+            this.btRefresh.Text = "刷新 ";
             this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // pageJcsz
@@ -527,6 +517,16 @@
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "阀门动作";
+            // 
+            // labelControl19
+            // 
+            this.labelControl19.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.labelControl19.Appearance.Options.UseForeColor = true;
+            this.labelControl19.Location = new System.Drawing.Point(893, 20);
+            this.labelControl19.Name = "labelControl19";
+            this.labelControl19.Size = new System.Drawing.Size(91, 14);
+            this.labelControl19.TabIndex = 5;
+            this.labelControl19.Text = "注: 0 秒表示无限";
             // 
             // sptBuzzerSeconds
             // 
@@ -882,15 +882,14 @@
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
-            // labelControl19
+            // btAutoRefresh
             // 
-            this.labelControl19.Appearance.ForeColor = System.Drawing.Color.Red;
-            this.labelControl19.Appearance.Options.UseForeColor = true;
-            this.labelControl19.Location = new System.Drawing.Point(893, 20);
-            this.labelControl19.Name = "labelControl19";
-            this.labelControl19.Size = new System.Drawing.Size(91, 14);
-            this.labelControl19.TabIndex = 5;
-            this.labelControl19.Text = "注: 0 秒表示无限";
+            this.btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btAutoRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btAutoRefresh.Name = "btAutoRefresh";
+            this.btAutoRefresh.Size = new System.Drawing.Size(108, 28);
+            this.btAutoRefresh.Text = "自动刷新 ";
+            this.btAutoRefresh.Click += new System.EventHandler(this.btAutoRefresh_CheckedChanged);
             // 
             // FrmFlammableGasProbe
             // 
@@ -988,7 +987,6 @@
         private DevExpress.XtraEditors.CheckEdit chkClearLoudly;
         private DevExpress.XtraEditors.CheckEdit chkClearLight;
         private DevExpress.XtraEditors.CheckEdit chkOpenValve;
-        private DevExpress.XtraEditors.CheckButton btAutoRefresh;
         private DevExpress.XtraEditors.GroupControl groupControl4;
         private DevExpress.XtraEditors.SimpleButton btStopValve;
         private DevExpress.XtraEditors.SimpleButton btCloseValve;
@@ -1026,5 +1024,6 @@
         private DevExpress.XtraEditors.ComboBoxEdit cbxQuickSetting;
         private DevExpress.XtraEditors.TextEdit edtLogicLocalSetting;
         private DevExpress.XtraEditors.LabelControl labelControl19;
+        private System.Windows.Forms.ToolStripButton btAutoRefresh;
     }
 }

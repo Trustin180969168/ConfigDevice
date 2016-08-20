@@ -24,7 +24,7 @@ namespace ConfigDevice
                     this.Invoke(new CallbackUIAction(this.CallBackUI), callbackParameter);
                 else
                 {
-                    if (callbackParameter.Action == ActionKind.GetVer)
+                    if (callbackParameter.Action == ActionKind.GetVer || callbackParameter.Parameters[0].ToString() == DeviceEdit.GetType().BaseType.Name)
                     {
                         edtHardwareVer.Text = DeviceEdit.HardwareVer;
                         edtSoftwareVer.Text = DeviceEdit.SoftwareVer;
@@ -39,10 +39,10 @@ namespace ConfigDevice
                         getPosition();
                         cbxPosition.Text = DeviceEdit.AddressName;
                         (this.ParentForm as FrmDevice).SetSelectDevice();//----设置选择列表----
-                    }else  if (callbackParameter.Action == ActionKind.SaveDeviceName)//----保存名称---
-                        DeviceCtrl.UpdateDeviceData(DeviceEdit.GetDeviceData());
-                    
-
+                    }
+                    else if (callbackParameter.Action == ActionKind.SaveDeviceName)//----保存名称---
+                        DeviceCtrl.UpdateDeviceData(DeviceEdit.GetDeviceData());                   
+                 
                 }
             }
             catch { }

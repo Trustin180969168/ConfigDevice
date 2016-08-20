@@ -57,7 +57,49 @@ namespace ConfigDevice.ToolsUI.LCDUI
             for (int i = 0; i < optionData.SaftFlags.Length; i++)
                 ceLeaveSafeSetting.Items[i].CheckState = optionData.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked; //---离家设防
 
+        }
 
+        /// <summary>
+        /// 设置二按键安防参数
+        /// </summary>
+        /// <param name="optionData"></param>
+        public void SetOptionData(ButtonPanelOptionData button2OptionData)
+        {
+            ceAlarmSound.Checked = button2OptionData.AlarmHintSound;           //---预警提示音---
+            ceDoorWindowSound.Checked = button2OptionData.DoorWindowHintSound; //---门窗提示音---
+            speSecurityDelay.Value = button2OptionData.SetSecurityDelayTime;   //---布防延时---
+            speAlarmDelay.Value = button2OptionData.AlarmDelayTime;            //---预警延时---
+            speHintVolume.Value = button2OptionData.Volume;                //---提示音量---
+            speAmp.Text = button2OptionData.SoundAddress.ToString();          //---功放地址---
+            lookUpEditAmp.Text = button2OptionData.SoundAddress.ToString();         //---功放地址---
+            ceBackSafeSetting.Items[0].CheckState = button2OptionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
+            //------安防配置---------------
+            for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
+                ceLeaveSafeSetting.Items[i].CheckState = button2OptionData.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
+        }
+
+
+        /// <summary>
+        /// 获取二按键安防设置参数
+        /// </summary>
+        /// <param name="optionData"></param>
+        public void GetOptionData(ref ButtonPanelOptionData button2OptionData)
+        {
+            
+            button2OptionData.AlarmHintSound = ceAlarmSound.Checked;           //---预警提示音---
+            button2OptionData.DoorWindowHintSound = ceDoorWindowSound.Checked; //---门窗提示音---
+            button2OptionData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
+            button2OptionData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
+            button2OptionData.Volume = (byte)speHintVolume.Value;                //---提示音量--- 
+            button2OptionData.SoundAddress = (byte)speAmp.Value;          //---功放地址---
+            button2OptionData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防----  
+
+            //---安防配置---------------
+            bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
+                    false, false, false, false, false };
+            for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
+                safeFlags[i] = ceLeaveSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
+            button2OptionData.SaftFlags = safeFlags;
         }
 
         /// <summary>
@@ -77,7 +119,6 @@ namespace ConfigDevice.ToolsUI.LCDUI
             optionData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false; //---回家撤防---- 
             optionData.SoundAddress = (byte)speAmp.Value;
         }
-
 
  
         /// <summary>

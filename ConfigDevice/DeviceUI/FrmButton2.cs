@@ -23,17 +23,7 @@ namespace ConfigDevice
             button2 = this.Device as ButtonPanelKey;
             button2.Circuit.CircuitCount = 2;
 
-            speSecurityDelay.Properties.DisplayFormat.FormatString = "##0 秒";
-            speSecurityDelay.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            speSecurityDelay.Properties.Mask.EditMask = "##0 秒";
-            speSecurityDelay.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            speSecurityDelay.Properties.Mask.UseMaskAsDisplayFormat = true;
 
-            speAlarmDelay.Properties.DisplayFormat.FormatString = "##0 秒";
-            speAlarmDelay.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            speAlarmDelay.Properties.Mask.EditMask = "##0 秒";
-            speAlarmDelay.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            speAlarmDelay.Properties.Mask.UseMaskAsDisplayFormat = true;
             
 
             DataTable dt = SysConfig.DtDevice.Clone();
@@ -41,15 +31,10 @@ namespace ConfigDevice
                 DeviceConfig.DC_NETWORK_ID + " = '" + button2.NetworkID + "'");
             foreach (DataRow dr in amps)
                 dt.Rows.Add(dr.ItemArray);
-            lookUpEditAmp.Properties.DataSource = dt;
-            lookUpEditAmp.Properties.DisplayMember = DeviceConfig.DC_NAME;
-            lookUpEditAmp.Properties.ValueMember = DeviceConfig.DC_ID;
-
-
             //----指令配置----
             viewCommandEdit.ShowToolBar = true;
             viewCommandEdit.ShowCommandBar = true;
-
+            keySecuritySetting.Init(button2);//---初始化安防配置
             keySettingTools.ShowToolbar = false;
         }
 
@@ -96,20 +81,11 @@ namespace ConfigDevice
                         }
                         else if (callbackParameter.Parameters[1].ToString() == ButtonPanelCtrl.ACTION_OPTION_NAME)
                         {
-                            button2OptionData = callbackParameter.Parameters[2] as ButtonPanelOptionData; 
+                            button2OptionData = callbackParameter.Parameters[2] as ButtonPanelOptionData;
+                            keySecuritySetting.SetOptionData(button2OptionData);//-----设置安防
                             ceLittleLight.Checked = button2OptionData.CLoseLightWithBrightness;//---关灯微亮---
                             tbcLight.Value = button2OptionData.Luminance;                      //---亮度----
-                            ceAlarmSound.Checked = button2OptionData.AlarmHintSound;           //---预警提示音---
-                            ceDoorWindowSound.Checked = button2OptionData.DoorWindowHintSound; //---门窗提示音---
-                            speSecurityDelay.Value = button2OptionData.SetSecurityDelayTime;   //---布防延时---
-                            speAlarmDelay.Value = button2OptionData.AlarmDelayTime;            //---预警延时---
-                            speHintVolume.Value = button2OptionData.Volume;                //---提示音量---
-                            speAmp.Text = button2OptionData.SoundAddress.ToString();          //---功放地址---
-                            lookUpEditAmp.Text = button2OptionData.SoundAddress.ToString();         //---功放地址---
-                            ceBackSafeSetting.Items[0].CheckState = button2OptionData.RemoveSafe ? CheckState.Checked : CheckState.Unchecked;//---回家撤防---- 
-                            //------安防配置---------------
-                            for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
-                                ceLeaveSafeSetting.Items[i].CheckState = button2OptionData.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
+                 
                         }
 
                     }
@@ -167,6 +143,7 @@ namespace ConfigDevice
             viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
             InitSelectDevice();                         //---初始化选择设备---
             viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------      
+            keySecuritySetting.Init(button2);          //---初始化安防----
             loadData();                                 //---加载数据----
 
         }
@@ -180,20 +157,9 @@ namespace ConfigDevice
             //---保存面板配置-------
             ButtonPanelOptionData keySettingData = new ButtonPanelOptionData(button2OptionData.GetPanelOptionValue());
             keySettingData.CLoseLightWithBrightness = ceLittleLight.Checked;//---关灯微亮---
-            keySettingData.Luminance = (byte)tbcLight.Value;                      //---亮度----
-            keySettingData.AlarmHintSound = ceAlarmSound.Checked;           //---预警提示音---
-            keySettingData.DoorWindowHintSound = ceDoorWindowSound.Checked; //---门窗提示音---
-            keySettingData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
-            keySettingData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
-            keySettingData.Volume = (byte)speHintVolume.Value;                //---提示音量--- 
-            keySettingData.SoundAddress = (byte)speAmp.Value;          //---功放地址---
-            keySettingData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防---- 
-            //---安防配置---------------
-            bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
-                    false, false, false, false, false };
-            for (int i = 0; i < keySettingData.SaftFlags.Length; i++)
-                safeFlags[i] = ceLeaveSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
-            keySettingData.SaftFlags = safeFlags;
+            keySettingData.Luminance = (byte)tbcLight.Value;                      //---亮度----  
+            keySecuritySetting.GetOptionData(ref keySettingData);//------安全页----
+
             //---判断是否更改,更改执行保存----
             if (!CommonTools.BytesEuqals(keySettingData.GetPanelOptionValue(), button2OptionData.GetPanelOptionValue()))
                 button2.PanelCtrl.SaveKeyOption(keySettingData);
@@ -233,24 +199,12 @@ namespace ConfigDevice
         /// </summary>
         private void ceLeaveSafeSetting_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
         {
-            if (e.Index == 15)
-            {
-                if (ceLeaveSafeSetting.Items[15].CheckState == CheckState.Checked)
-                {
-                    for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
-                        ceLeaveSafeSetting.Items[i].CheckState = CheckState.Checked;
-                }
-                if (ceLeaveSafeSetting.Items[15].CheckState == CheckState.Unchecked)
-                {
-                    for (int i = 0; i < button2OptionData.SaftFlags.Length; i++)
-                        ceLeaveSafeSetting.Items[i].CheckState = CheckState.Unchecked;
-                }
-            }
+
         }
 
         private void lookUpEditAmp_EditValueChanged(object sender, EventArgs e)
         {
-            speAmp.Text = lookUpEditAmp.Text;
+     
         }
 
  

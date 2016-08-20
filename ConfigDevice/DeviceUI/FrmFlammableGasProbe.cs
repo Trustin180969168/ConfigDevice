@@ -245,15 +245,13 @@ namespace ConfigDevice
         {
             autoRefresh = !autoRefresh;
             if (autoRefresh)
-            {
-                btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh1;
+            { 
                 refreshSateTimer.Start();
                 btAutoRefresh.Checked = true;
                 CommonTools.MessageShow("自动 2秒 刷新一次!", 1, "");
             }
             else
-            {
-                btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh2;
+            { 
                 btAutoRefresh.Checked = false;
                 refreshSateTimer.Stop();
                 CommonTools.MessageShow("取消自动刷新!", 1, "");

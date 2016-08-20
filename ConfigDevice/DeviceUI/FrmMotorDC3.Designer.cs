@@ -56,6 +56,7 @@
             this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
@@ -449,6 +450,7 @@
             this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
+            this.btRefresh,
             this.btAutoRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
@@ -465,6 +467,15 @@
             this.btSave.Text = "保存 ";
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
+            // btRefresh
+            // 
+            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(76, 28);
+            this.btRefresh.Text = "刷新 ";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            // 
             // btAutoRefresh
             // 
             this.btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
@@ -472,7 +483,7 @@
             this.btAutoRefresh.Name = "btAutoRefresh";
             this.btAutoRefresh.Size = new System.Drawing.Size(100, 28);
             this.btAutoRefresh.Text = "自动刷新";
-            this.btAutoRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            this.btAutoRefresh.Click += new System.EventHandler(this.btAutoRefresh_Click);
             // 
             // pageJcsz
             // 
@@ -561,6 +572,7 @@
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btAutoRefresh;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkAction;
+        private System.Windows.Forms.ToolStripButton btRefresh;
 
 
     }
