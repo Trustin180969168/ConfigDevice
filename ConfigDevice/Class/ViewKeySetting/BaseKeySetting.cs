@@ -142,7 +142,10 @@ namespace ConfigDevice
                     hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_HIT;
                     break;
 
-                default: break;
+                default://默认为"开关";
+                    keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 1;
+                    hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL;
+                    break;
             }
             keyData.KeyNum = (byte)(Convert.ToInt16(dr[ViewConfig.DC_NUM]) - 1);//---按键序号
             keyData.KeyKind = (byte)(((hi4 << 4) & 0xF0) | (lo4 & 0x0F));//----控制类型---
