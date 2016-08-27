@@ -154,6 +154,27 @@ namespace ConfigDevice
     }
 
     /// <summary>
+    /// 人体感应指示灯
+    /// </summary>
+    public class BodyInductionLight : Light
+    {
+        public const int LEL_LEDACT_OFF = 0;        //【熄灭】
+        public const int LEL_LEDACT_ON_R = 1;        //【点亮】
+        public const int LEL_LEDACT_GL_R = 2;        //【闪烁】
+        public const int LEL_LEDACT_NONE = 3;        //【不动作】
+        public const string STATE_LEDACT_OFF = "熄灭";
+        public const string STATE_LEDACT_ON_R = "点亮";
+        public const string STATE_LEDACT_GL_R = "闪烁";
+        public const string STATE_LEDACT_NONE = "不动作";
+
+        public BodyInductionLight(Device deviceControled)
+            : base(deviceControled)
+        {
+
+        }
+    }
+
+    /// <summary>
     /// 指示灯
     /// </summary>
     public abstract class Light:ControlObj

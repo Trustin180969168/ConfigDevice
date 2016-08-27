@@ -241,6 +241,10 @@
       <DependentUpon>KeyBaseSetting.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\ViewSecurity.resx">
+      <DependentUpon>ViewSecurity.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -393,9 +397,12 @@
     <Compile Include="Class\ControlObj\OuterInteraction.cs" />
     <Compile Include="Class\ControlObj\ButtonPanelCtrl.cs" />
     <Compile Include="Class\ControlObj\ShortInput.cs" />
+    <Compile Include="Class\ControlObj\SecurityObj.cs" />
+    <Compile Include="Class\Devices\BodyInduction.cs" />
     <Compile Include="Class\Devices\ButtonPanelKey.cs" />
     <Compile Include="Class\Devices\Short4.cs" />
     <Compile Include="Class\Manage\KeyList.cs" />
+    <Compile Include="Class\Sensor\Sensor.cs" />
     <Compile Include="Class\ViewKeySetting\BaseKeySetting.cs" />
     <Compile Include="Class\Devices\FlammableGasProbe.cs" />
     <Compile Include="Class\Devices\SystemInteraction.cs" />
@@ -501,6 +508,12 @@
     </Compile>
     <Compile Include="ToolsUI\LCDUI\PanelMusic.Designer.cs">
       <DependentUpon>PanelMusic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\ViewSecurity.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\ViewSecurity.Designer.cs">
+      <DependentUpon>ViewSecurity.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolsUI\ViewCommandSetting.cs">
       <SubType>UserControl</SubType>

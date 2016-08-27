@@ -336,7 +336,7 @@ Bit7        1    全部房间显示，
             set
             {
             
-                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 252 | value);//1111 1100  
+                DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 252 | value);//1111 1100  
  
             }
         }

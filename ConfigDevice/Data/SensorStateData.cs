@@ -781,6 +781,85 @@ namespace ConfigDevice
     }
 
     /// <summary>
+    /// 超声波
+    /// </summary>
+    public class UWSensorData : SensorStateData
+    {
+        public static Dictionary<int, string> LEVEL_ID_NAME = new Dictionary<int, string>();
+        public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
+
+
+        static UWSensorData()
+        {
+            LEVEL_ID_NAME.Add(SensorConfig.UW_LV_NORMAL, SensorConfig.UW_LV_NAME_LOW);
+            LEVEL_ID_NAME.Add(SensorConfig.UW_LV_TRIGGERED, SensorConfig.UW_LV_NAME_HIGH);
+
+            LEVEL_NAME_ID.Add(SensorConfig.UW_LV_NAME_LOW, SensorConfig.UW_LV_NORMAL);
+            LEVEL_NAME_ID.Add(SensorConfig.UW_LV_NAME_HIGH, SensorConfig.UW_LV_TRIGGERED);
+        }
+        public UWSensorData(byte[] value)
+            : base(value)
+        {
+            Init();
+        }
+
+        public UWSensorData()
+        {
+            Init();
+        }
+
+        public override void Init()
+        {
+            KindName = "超声波";
+
+            foreach (int key in LEVEL_ID_NAME.Keys)
+                LevelIDName.Add(key, LEVEL_ID_NAME[key]);
+            foreach (string key in LEVEL_NAME_ID.Keys)
+                LevelNameID.Add(key, LEVEL_NAME_ID[key]);
+        }
+    }
+
+    /// <summary>
+    /// 红外线
+    /// </summary>
+    public class IRSensorData : SensorStateData
+    {
+        public static Dictionary<int, string> LEVEL_ID_NAME = new Dictionary<int, string>();
+        public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
+
+
+        static IRSensorData()
+        {
+            LEVEL_ID_NAME.Add(SensorConfig.IR_LV_NORMAL, SensorConfig.IR_LV_NAME_LOW);
+            LEVEL_ID_NAME.Add(SensorConfig.IR_LV_TRIGGERED, SensorConfig.IR_LV_NAME_HIGH);
+
+            LEVEL_NAME_ID.Add(SensorConfig.IR_LV_NAME_LOW, SensorConfig.IR_LV_NORMAL);
+            LEVEL_NAME_ID.Add(SensorConfig.IR_LV_NAME_HIGH, SensorConfig.IR_LV_TRIGGERED);
+        }
+        public IRSensorData(byte[] value)
+            : base(value)
+        {
+            Init();
+        }
+
+        public IRSensorData()
+        {
+            Init();
+        }
+
+        public override void Init()
+        {
+            KindName = "红外线";
+
+            foreach (int key in LEVEL_ID_NAME.Keys)
+                LevelIDName.Add(key, LEVEL_ID_NAME[key]);
+            foreach (string key in LEVEL_NAME_ID.Keys)
+                LevelNameID.Add(key, LEVEL_NAME_ID[key]);
+        }
+    }
+
+
+    /// <summary>
     /// 无效的传感器
     /// </summary>
     public class InvalidSensor : SensorStateData

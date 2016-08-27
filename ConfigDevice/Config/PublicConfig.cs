@@ -70,6 +70,8 @@ namespace ConfigDevice
         SaveDeviceName,
         GetVer,
         SaveNetworkPosition,
+        ReadSafe,//获取安防
+        ReadConfig,//获取配置
         None
         
     }

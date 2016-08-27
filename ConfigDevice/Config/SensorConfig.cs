@@ -70,7 +70,7 @@ namespace ConfigDevice
         public const string SENSOR_WINDY = "风速";
         public const string SENSOR_LUMINANCE = "亮度";
         public const string SENSOR_FLAMMABLE_GAS_PROBE = "可燃气体探头";
-        public const string SENSOR_RADAR = "雷达探头";
+        public const string SENSOR_RADAR = "雷达探头";  
         public const string SENSOR_SWIT_TAMPER = "防拆开关";
         public const string SENSOR_SYSTEM_INTERACTION = "系统联动";
         public const string SENSOR_INNER_INTERACTION = "内部联动";
@@ -79,7 +79,6 @@ namespace ConfigDevice
         public const string SENSOR_SCIN_2 = "短路输入2";
         public const string SENSOR_SCIN_3 = "短路输入3";
         public const string SENSOR_SCIN_4 = "短路输入4";
-
 
         public const string SENSOR_TIME = "时间段";
         public const string SENSOR_DATE = "日期段";
@@ -285,7 +284,29 @@ namespace ConfigDevice
         public const int SCIN_LV_TOTAL = 2;
         public const string SCIN_LV_NAME_LOW = "低电平";          
         public const string SCIN_LV_NAME_HIGH = "高电平";         
-        public const string SCIN_LV_NAME_NONE = "不动作";        
+        public const string SCIN_LV_NAME_NONE = "不动作";       
+ 
+        // [超声波]等级 <- LG_SENSOR_UW_x
+	    public const int UW_LV_NORMAL    =    0;          //【正常】
+	    public const int UW_LV_TRIGGERED   =  1;          //【触发】
+	    public const int UW_LV_TOTAL     =    2;
+        public const string UW_LV_NAME_LOW = "正常";          
+        public const string UW_LV_NAME_HIGH = "触发";        
+
+        // [红外]等级 <- LG_SENSOR_IR
+	    public const int IR_LV_NORMAL    =    0;          //【正常】
+	    public const int IR_LV_TRIGGERED  =   1;          //【触发】
+	    public const int IR_LV_TOTAL     =    2;
+        public const string IR_LV_NAME_LOW = "正常";          
+        public const string IR_LV_NAME_HIGH = "触发";     
+
+        // [传感器顺序触发]等级 <- LG_SENSOR_SN_1_2, LG_SENSOR_SN_1_2_3
+        public const int SN_LV_NORMAL    =    0;          //【正常】
+        public const int SN_LV_TRIGGERED  =   1;          //【触发】
+        public const int SN_LV_TOTAL = 2;
+        public const string SN_LV_NAME_LOW = "正常";
+        public const string SN_LV_NAME_HIGH = "触发";  
+
         //-----安防联动级别----
         public const int LG_SAF_SYST_DI = 0x1;          //系统被撤防         (系统全部的安防标志全部被清除)   ──┐
         public const int LG_SAF_SYST_EN_DLY = 0x2;          //系统进入布防延时中 (系统安防标志只要任一个被置位)       │

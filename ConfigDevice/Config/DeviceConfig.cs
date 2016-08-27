@@ -55,9 +55,9 @@ namespace ConfigDevice
         public const string CONTROL_OBJECT_SCENE_NAME = "场景";
         public const string CONTROL_OBJECT_TIMING_NAME = "时序";
         public const string CONTROL_OBJECT_SWIT_NAME = "全部";
-                public const string CONTROL_OBJECT_BGM_NAME = "背景";
-                public const string CONTROL_OBJECT_MESSAGE_NAME = "消息";
- 
+        public const string CONTROL_OBJECT_BGM_NAME = "背景";
+        public const string CONTROL_OBJECT_MESSAGE_NAME = "消息";
+        public const string CONTROL_OBJECT_SECURITY = "安防联动";
 
         //-----------回应启动搜索设备-------------
         public const byte RETSTARTSEARCH_TRUE = 0x0;        // 成功启动搜索设备
@@ -435,6 +435,16 @@ namespace ConfigDevice
         public static readonly byte[] CMD_LOGIC_WRITE_SLFLKID = new byte[] { 0xC8, CMD_TYPE_LOGIC };//写逻辑内部联动号-开关 (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
         public static readonly byte[] CMD_LOGIC_WRITE_SLFLKID_OPEN = new byte[] { 0xC9, CMD_TYPE_LOGIC };//写逻辑内部联动号-开   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
         public static readonly byte[] CMD_LOGIC_WRITE_SLFLKID_CLOSE = new byte[] { 0xCA, CMD_TYPE_LOGIC };//写逻辑内部联动号-关   (注意:与[CMD_SW_SWIT_LOOP_OPEN]等指令同一格式)
+
+        //-----人体感应-------
+        public static readonly byte[] CMD_PRI_READ_CONFIG = new byte[] { 0x01, CMD_TYPE_PRI };//读传感器灵敏参数配置
+        public static readonly byte[] CMD_PRI_WRITE_CONFIG = new byte[] { 0x81, CMD_TYPE_PRI };//写传感器灵敏参数配置
+        public static readonly byte[] CMD_PRI_READ_SAFETY_CONFIG = new byte[] { 0x02, CMD_TYPE_PRI };		//读传感器安防配置
+        public static readonly byte[] CMD_PRI_WRITE_SAFETY_CONFIG = new byte[] { 0x82, CMD_TYPE_PRI };//写传感器安防配置
+        public static readonly byte[] CMD_PRI_TEST = new byte[] { 0x03, CMD_TYPE_PRI };//传感器测试指令
+        //原有	CMD_PRI_FLASH                       = ((CMD_TYPE_PRI << 8) | 0x04)         		,//传感器感应灯光开关
+        public static readonly byte[] CMD_PRI_READ_FLASH_CONFIG = new byte[] { 0x04, CMD_TYPE_PRI };//读传感器感应指示灯开关
+        public static readonly byte[] CMD_PRI_WRITE_FLASH_CONFIG = new byte[] { 0x84, CMD_TYPE_PRI };//写传感器感应指示灯开关
 
         //-----特殊部分------
         public static readonly byte[] CMD_PUBLIC_TEST_KEY_CMD = new byte[] { 0xb3, CMD_TYPE_PUBLIC }; //指令测试 
