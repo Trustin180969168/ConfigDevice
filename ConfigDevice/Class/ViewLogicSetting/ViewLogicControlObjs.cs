@@ -39,15 +39,15 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
-            setGridColumnValid(dcValid, this.ValidTimeEdit);//---持续时间----
-            setGridColumnValid(dcInvalid, this.InvalidTimeEdit);//----失效时间-----  
+            setGridColumnValid(dcContinueTime, this.ContinueTimeEdit);//---持续时间----
+            setGridColumnValid(dcRecoverTime, this.RecoverTimeEdit);//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
-            gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
-            gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
+            gvLogic.SetRowCellValue(0, dcContinueTime, "00:00:00");//----默认为0秒
+            gvLogic.SetRowCellValue(0, dcRecoverTime, "00:00:00");//----默认为0秒
         }
 
 
@@ -72,15 +72,15 @@ namespace ConfigDevice
             //--------泄漏/正常--------------
             string size1Str = dr[dcStartValue.FieldName].ToString(); 
             triggerData.Size1 =  FlamableGasProbeSensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
-            triggerData.Size2 = 0;//----无效------
+            triggerData.Size2 = triggerData.Size1;//----强制与开始值相同------
             //-----有效持续,无效持续------            
-            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
-            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //无效秒数       
+            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcContinueTime.FieldName].ToString());        //有效秒数
+            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcRecoverTime.FieldName].ToString());    //无效秒数       
             triggerData.ValidSeconds = (UInt16)validSeconds;
             triggerData.InvalidSeconds = (UInt16)invalidSeconds;
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
-            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcContinueTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcRecoverTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
 
             dr.EndEdit();
             dr.AcceptChanges();//----再次修改才保存-----
@@ -127,8 +127,8 @@ namespace ConfigDevice
             }
             dr[dcStartValue.FieldName] = FlamableGasProbeSensor.LEVEL_ID_NAME[td.Size1];
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
-            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
+            dr[dcContinueTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
+            dr[dcRecoverTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
             dr.EndEdit();
             dr.AcceptChanges();
         }
@@ -175,15 +175,15 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
-            setGridColumnValid(dcValid, this.ValidTimeEdit);//---持续时间----
-            setGridColumnValid(dcInvalid, this.InvalidTimeEdit);//----失效时间-----  
+            setGridColumnValid(dcContinueTime, this.ContinueTimeEdit);//---持续时间----
+            setGridColumnValid(dcRecoverTime, this.RecoverTimeEdit);//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxStart.Items[0].ToString());//--默认第一个开始值---
-            gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
-            gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
+            gvLogic.SetRowCellValue(0, dcContinueTime, "00:00:00");//----默认为0秒
+            gvLogic.SetRowCellValue(0, dcRecoverTime, "00:00:00");//----默认为0秒
         }
 
 
@@ -210,13 +210,13 @@ namespace ConfigDevice
             triggerData.Size1 = size1Str == "1 " + Short4Sensor.LEVEL_ID_NAME[0] ? 0 : 1;//----获取等级值---
             triggerData.Size2 = triggerData.Size1;//----强制与开始值相同------
             //-----有效持续,无效持续------            
-            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
-            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //无效秒数       
+            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcContinueTime.FieldName].ToString());        //有效秒数
+            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcRecoverTime.FieldName].ToString());    //无效秒数       
             triggerData.ValidSeconds = (UInt16)validSeconds;
             triggerData.InvalidSeconds = (UInt16)invalidSeconds;
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
-            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcContinueTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcRecoverTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
 
             dr.EndEdit();
             dr.AcceptChanges();//----再次修改才保存-----
@@ -263,8 +263,8 @@ namespace ConfigDevice
             }
             dr[dcStartValue.FieldName] = cbxStart.Items[td.Size1];
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
-            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
+            dr[dcContinueTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
+            dr[dcRecoverTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
             dr.EndEdit();
             dr.AcceptChanges();
         }
@@ -312,15 +312,15 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxLevelEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效--- 
-            setGridColumnValid(dcValid, ValidTimeEdit);//---持续时间----
-            setGridColumnValid(dcInvalid, InvalidTimeEdit);//失效时间----- 
+            setGridColumnValid(dcContinueTime, ContinueTimeEdit);//---持续时间----
+            setGridColumnValid(dcRecoverTime, RecoverTimeEdit);//失效时间----- 
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxLevelEdit.Items[0].ToString());//--默认第一个开始值---
-            gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
-            gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
+            gvLogic.SetRowCellValue(0, dcContinueTime, "00:00:00");//----默认为0秒
+            gvLogic.SetRowCellValue(0, dcRecoverTime, "00:00:00");//----默认为0秒
         }
 
 
@@ -354,13 +354,13 @@ namespace ConfigDevice
             }
 
             //-----有效持续,无效持续------            
-            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
-            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //无效秒数       
+            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcContinueTime.FieldName].ToString());        //有效秒数
+            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcRecoverTime.FieldName].ToString());    //无效秒数       
             triggerData.ValidSeconds = (UInt16)validSeconds;
             triggerData.InvalidSeconds = (UInt16)invalidSeconds;
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
-            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcContinueTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcRecoverTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
 
             dr.EndEdit();
             gvLogic.RefreshData();
@@ -397,8 +397,8 @@ namespace ConfigDevice
                     dr[dcEndValue.FieldName] = td.Size2;
             }
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
-            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
+            dr[dcContinueTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
+            dr[dcRecoverTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
             dr.EndEdit();
             dr.AcceptChanges();
         }
@@ -467,14 +467,14 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxLevelEdit);//---触发级别----
             setGridColumnInvalid(dcEndValue);//----结束值无效---
-            setGridColumnInvalid(dcValid);//---触发时间----
-            setGridColumnValid(dcInvalid,InvalidTimeEdit);//----恢复时间-----  
+            setGridColumnInvalid(dcContinueTime);//---触发时间----
+            setGridColumnValid(dcRecoverTime,RecoverTimeEdit);//----恢复时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxLevelEdit.Items[0].ToString());//--默认第一个开始值---      
-            gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
+            gvLogic.SetRowCellValue(0, dcRecoverTime, "00:00:00");//----默认为0秒
 
         }
 
@@ -502,10 +502,10 @@ namespace ConfigDevice
             triggerData.Size1 = RadarSensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
             triggerData.Size2 = 0;//----无效------
             //-----有效持续,无效持续------             
-            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //恢复时间      
+            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcRecoverTime.FieldName].ToString());    //恢复时间      
             triggerData.InvalidSeconds = (UInt16)invalidSeconds; //恢复时间      
             string nowDateStr = DateTime.Now.ToShortDateString(); 
-            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcRecoverTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
             triggerData.ValidSeconds = 0;//----触发时间无效,设置为0
 
             dr.EndEdit();
@@ -558,7 +558,7 @@ namespace ConfigDevice
             catch { dr[dcStartValue.FieldName] = RadarSensor.LEVEL_ID_NAME[0]; }
 
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
+            dr[dcRecoverTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
             dr.EndEdit();
             dr.AcceptChanges();
         }
@@ -605,8 +605,8 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxLevelEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
-            setGridColumnInvalid(dcValid);//---持续时间----
-            setGridColumnInvalid(dcInvalid);//----失效时间-----  
+            setGridColumnInvalid(dcContinueTime);//---持续时间----
+            setGridColumnInvalid(dcRecoverTime);//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
@@ -734,15 +734,15 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxLevelEdit);//---开始值有效
             setGridColumnInvalid(dcEndValue);//----结束值无效---
-            setGridColumnValid(dcValid, this.ValidTimeEdit);//---持续时间----
-            setGridColumnValid(dcInvalid, this.InvalidTimeEdit);//----失效时间-----  
+            setGridColumnValid(dcContinueTime, this.ContinueTimeEdit);//---持续时间----
+            setGridColumnValid(dcRecoverTime, this.RecoverTimeEdit);//----失效时间-----  
 
             gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             gvLogic.SetRowCellValue(0, dcOperate, SensorConfig.LG_MATH_NAME_EQUAL_TO);//---默认等于----
             gvLogic.SetRowCellValue(0, dcStartValue, cbxLevelEdit.Items[0].ToString());//--默认第一个开始值---
-            gvLogic.SetRowCellValue(0, dcValid, "00:00:00");//----默认为0秒
-            gvLogic.SetRowCellValue(0, dcInvalid, "00:00:00");//----默认为0秒
+            gvLogic.SetRowCellValue(0, dcContinueTime, "00:00:00");//----默认为0秒
+            gvLogic.SetRowCellValue(0, dcRecoverTime, "00:00:00");//----默认为0秒
         }
 
 
@@ -769,13 +769,13 @@ namespace ConfigDevice
             triggerData.Size1 = RainSensor.LEVEL_NAME_ID[size1Str];//----获取等级值---
             triggerData.Size2 = 0;//----无效------
             //-----有效持续,无效持续------            
-            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcValid.FieldName].ToString());        //有效秒数
-            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcInvalid.FieldName].ToString());    //无效秒数       
+            int validSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcContinueTime.FieldName].ToString());        //有效秒数
+            int invalidSeconds = ViewEditCtrl.getSecondsFromTimeStr(dr[dcRecoverTime.FieldName].ToString());    //无效秒数       
             triggerData.ValidSeconds = (UInt16)validSeconds;
             triggerData.InvalidSeconds = (UInt16)invalidSeconds;
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
-            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcContinueTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.ValidSeconds).ToLongTimeString();//----异常同样显示到界面---
+            dr[dcRecoverTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(triggerData.InvalidSeconds).ToLongTimeString();//----异常同样显示到界面---
 
             dr.EndEdit();
             dr.AcceptChanges();//----再次修改才保存-----
@@ -826,8 +826,8 @@ namespace ConfigDevice
             }
             catch {  dr[dcStartValue.FieldName] = RainSensor.LEVEL_ID_NAME[0];}
             string nowDateStr = DateTime.Now.ToShortDateString();
-            dr[dcValid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
-            dr[dcInvalid.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
+            dr[dcContinueTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.ValidSeconds).ToLongTimeString();  //----有效持续---
+            dr[dcRecoverTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(td.InvalidSeconds).ToLongTimeString();//----无效持续---
             dr.EndEdit();
             dr.AcceptChanges();
         }
@@ -882,8 +882,8 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效 
             setGridColumnInvalid(dcEndValue);//---结束值无效---
-            setGridColumnInvalid(dcValid);//---取消有效持续---
-            setGridColumnInvalid(dcInvalid); //---取消无效持续---
+            setGridColumnInvalid(dcContinueTime);//---取消有效持续---
+            setGridColumnInvalid(dcRecoverTime); //---取消无效持续---
 
             //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
             //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
@@ -1038,8 +1038,8 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, timeEdit);//---开始值有效
             setGridColumnValid(dcEndValue, timeEdit);//----结束值有效---
-            setGridColumnInvalid(dcValid);//---持续时间----
-            setGridColumnInvalid(dcInvalid);//----失效时间-----   
+            setGridColumnInvalid(dcContinueTime);//---持续时间----
+            setGridColumnInvalid(dcRecoverTime);//----失效时间-----   
 
             //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----   
@@ -1137,8 +1137,8 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, dateEdit);//---开始值有效
             setGridColumnValid(dcEndValue, dateEdit);//----结束值有效---
-            setGridColumnInvalid(dcValid);//---持续时间----
-            setGridColumnInvalid(dcInvalid);//----失效时间-----   
+            setGridColumnInvalid(dcContinueTime);//---持续时间----
+            setGridColumnInvalid(dcRecoverTime);//----失效时间-----   
 
             //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---初始化第一个运算选择----
             //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个运算选择----   
@@ -1230,8 +1230,8 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, iccbWeek);//---开始值有效
             setGridColumnInvalid(dcEndValue);//---结束为无效---
-            setGridColumnInvalid(dcValid);//---取消有效持续---
-            setGridColumnInvalid(dcInvalid); //---取消无效持续---
+            setGridColumnInvalid(dcContinueTime);//---取消有效持续---
+            setGridColumnInvalid(dcRecoverTime); //---取消无效持续---
 
             //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
             //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
@@ -1354,8 +1354,8 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnValid(dcEndValue, edtNum);//---结束为数字编辑---
-            setGridColumnInvalid(dcValid);//---取消有效持续---
-            setGridColumnInvalid(dcInvalid); //---取消无效持续---
+            setGridColumnInvalid(dcContinueTime);//---取消有效持续---
+            setGridColumnInvalid(dcRecoverTime); //---取消无效持续---
 
             //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
             //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----
@@ -1452,8 +1452,8 @@ namespace ConfigDevice
             setGridColumnValid(dcOperate, cbxOperate); //----触发运算有效----
             setGridColumnValid(dcStartValue, cbxStart);//---开始值有效
             setGridColumnValid(dcEndValue, edtNum);//---结束为数字编辑---
-            setGridColumnInvalid(dcValid);//---取消有效持续---
-            setGridColumnInvalid(dcInvalid); //---取消无效持续---
+            setGridColumnInvalid(dcContinueTime);//---取消有效持续---
+            setGridColumnInvalid(dcRecoverTime); //---取消无效持续---
 
             //gvLogic.SetRowCellValue(0, dcTriggerPosition, this.cbxPosition.Items[0].ToString());//---触发位置默认本地----
             //gvLogic.SetRowCellValue(0, dcTriggerKind, this.cbxKind.Items[0].ToString());//---初始化第一个触发类型选择----

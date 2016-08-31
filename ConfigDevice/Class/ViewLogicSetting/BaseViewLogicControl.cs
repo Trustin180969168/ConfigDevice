@@ -21,8 +21,8 @@ namespace ConfigDevice
         protected GridViewComboBox cbxKind = new GridViewComboBox();//触发类型
         protected GridViewComboBox cbxPosition = new GridViewComboBox();//触发位置
         protected GridViewTextEdit InvalidEdit = new GridViewTextEdit();//无效编辑
-        protected GridViewTimeEdit ValidTimeEdit = new GridViewTimeEdit();//有效触发时间编辑
-        protected GridViewTimeEdit InvalidTimeEdit = new GridViewTimeEdit();//无效触发时间编辑
+        protected GridViewTimeEdit ContinueTimeEdit = new GridViewTimeEdit();//有效触发时间编辑
+        protected GridViewTimeEdit RecoverTimeEdit = new GridViewTimeEdit();//无效触发时间编辑
         protected GridViewGridLookupEdit gridLookupDevice;//---查找设备列表---
         protected DataTable dtSelectDevices;//---选择的设备列表---
 
@@ -33,8 +33,8 @@ namespace ConfigDevice
         protected GridColumn dcOperate;//触发运算
         protected GridColumn dcStartValue;//初始值
         protected GridColumn dcEndValue;//结束值
-        protected GridColumn dcValid;//持续时间
-        protected GridColumn dcInvalid;//无效时间
+        protected GridColumn dcContinueTime;//持续时间
+        protected GridColumn dcRecoverTime;//恢复时间
 
         public abstract TriggerData GetLogicData();         //获取udp指令
         public abstract void SetLogicData(TriggerData td);  //获取逻辑条件 
@@ -57,8 +57,8 @@ namespace ConfigDevice
             dcOperate = gv.Columns.ColumnByFieldName(ViewConfig.DC_OPERATION);//运算操作
             dcStartValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_START_VALUE);//初始值
             dcEndValue = gv.Columns.ColumnByFieldName(ViewConfig.DC_END_VALUE);//结束值 
-            dcValid = gv.Columns.ColumnByFieldName(ViewConfig.DC_VALID_TIME);//有效值
-            dcInvalid = gv.Columns.ColumnByFieldName(ViewConfig.DC_INVALID_TIME);//无效值
+            dcContinueTime = gv.Columns.ColumnByFieldName(ViewConfig.DC_VALID_TIME);//有效值
+            dcRecoverTime = gv.Columns.ColumnByFieldName(ViewConfig.DC_INVALID_TIME);//无效值
             //--------配置编辑控件-------            
             cbxKind.Items.Add(SensorConfig.SENSOR_VALUE_KIND_VALUE);//---默认添加触发值---
             dcTriggerKind.ColumnEdit = this.cbxKind;                //---触发类型 
@@ -70,14 +70,14 @@ namespace ConfigDevice
             setGridColumnInvalid(dcDifferentDevice);                //---默认差异设备列无效--- 
             setGridColumnValid(dcTriggerKind, cbxKind);             //---默认触发类型有效-----
             setGridColumnValid(dcOperate, cbxOperate);              //---默认运算类型有效-----
-            setGridColumnInvalid(dcValid);                          //---默认有效持续无效-----
-            setGridColumnInvalid(dcInvalid);                        //---默认无效持续无效----
+            setGridColumnInvalid(dcContinueTime);                          //---默认有效持续无效-----
+            setGridColumnInvalid(dcRecoverTime);                        //---默认无效持续无效----
             //--------默认触发事件------
             cbxPosition.SelectedIndexChanged += new System.EventHandler(this.cbxPosition_SelectedIndexChanged);//---位置选择事件
             cbxKind.SelectedIndexChanged += new System.EventHandler(this.cbxKind_SelectedIndexChanged);//---级别选择事件---
             cbxOperate.SelectedIndexChanged += new System.EventHandler(this.cbxOperate_SelectedIndexChanged);//----运算符触发---
-            ValidTimeEdit.Leave += this.ValidTimeEdit_Leave;        //---有效触发----
-            InvalidTimeEdit.Leave += this.InvalidTimeEdit_Leave;    //---无效触发----
+            ContinueTimeEdit.Leave += this.ValidTimeEdit_Leave;        //---有效触发----
+            RecoverTimeEdit.Leave += this.InvalidTimeEdit_Leave;    //---无效触发----
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace ConfigDevice
                 gvLogic.PostEditor();
                 DataRow dr = gvLogic.GetDataRow(0);
                 dr.EndEdit();
-                DateTime dtValid = DateTime.Parse(dr[dcValid.FieldName].ToString());
+                DateTime dtValid = DateTime.Parse(dr[dcContinueTime.FieldName].ToString());
                 int validSeconds = dtValid.Hour * 60 * 60 + dtValid.Minute * 60 + dtValid.Second;           //有效秒数
                 if (validSeconds > 64800)
                     CommonTools.MessageShow("触发时间不能大于18小时!", 2, "");    
@@ -196,7 +196,7 @@ namespace ConfigDevice
             try
             {
                 DataRow dr = gvLogic.GetDataRow(0);
-                DateTime dtInvalid = DateTime.Parse(dr[dcInvalid.FieldName].ToString());
+                DateTime dtInvalid = DateTime.Parse(dr[dcRecoverTime.FieldName].ToString());
                 int invalidSeconds = dtInvalid.Hour * 60 * 60 + dtInvalid.Minute * 60 + dtInvalid.Second;           //无效秒数
                 if (invalidSeconds > 64800)
                     CommonTools.MessageShow("恢复时间不能大于18小时!", 2, "");

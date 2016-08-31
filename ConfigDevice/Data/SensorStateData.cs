@@ -860,6 +860,45 @@ namespace ConfigDevice
 
 
     /// <summary>
+    /// 顺序触发
+    /// </summary>
+    public class OrderSensorData : SensorStateData
+    {
+        public static Dictionary<int, string> LEVEL_ID_NAME = new Dictionary<int, string>();
+        public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
+
+        static OrderSensorData()
+        {
+            LEVEL_ID_NAME.Add(SensorConfig.SN_LV_NORMAL, SensorConfig.SN_LV_NAME_LOW);
+            LEVEL_ID_NAME.Add(SensorConfig.SN_LV_TRIGGERED, SensorConfig.SN_LV_NAME_HIGH);
+
+            LEVEL_NAME_ID.Add(SensorConfig.SN_LV_NAME_LOW, SensorConfig.SN_LV_NORMAL);
+            LEVEL_NAME_ID.Add(SensorConfig.SN_LV_NAME_HIGH, SensorConfig.SN_LV_TRIGGERED);
+        }
+        public OrderSensorData(byte[] value)
+            : base(value)
+        {
+            Init();
+        }
+
+        public OrderSensorData()
+        {
+            Init();
+        }
+
+        public override void Init()
+        {
+            KindName = "顺序触发";
+
+            foreach (int key in LEVEL_ID_NAME.Keys)
+                LevelIDName.Add(key, LEVEL_ID_NAME[key]);
+            foreach (string key in LEVEL_NAME_ID.Keys)
+                LevelNameID.Add(key, LEVEL_NAME_ID[key]);
+        }
+    }
+
+
+    /// <summary>
     /// 无效的传感器
     /// </summary>
     public class InvalidSensor : SensorStateData

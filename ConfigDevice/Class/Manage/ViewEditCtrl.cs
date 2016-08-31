@@ -101,9 +101,15 @@ namespace ConfigDevice
                 return new ViewLogicSwitTamper(device, gv);
             else if (TriggerID == SensorConfig.LG_EXT_SENSOR_SECURITY)//---安防联动---
                 return new ViewLogicSecurityInteraction(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_UW_1 || TriggerID == SensorConfig.LG_SENSOR_UW_2)//---超声波1,2---
+                return new ViewLogicUltrasonicWave(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_IR)//---红外---
+                return new ViewLogicIRSensor(device, gv);
             else if (TriggerID == SensorConfig.LG_SENSOR_SCIN_1 || TriggerID == SensorConfig.LG_SENSOR_SCIN_2||
                 TriggerID == SensorConfig.LG_SENSOR_SCIN_3 || TriggerID == SensorConfig.LG_SENSOR_SCIN_4)//---短路输入---
                 return new ViewLogicShortInput(device, gv);
+            else if (TriggerID == SensorConfig.LG_SENSOR_SN_1_2 || TriggerID == SensorConfig.LG_SENSOR_SN_1_2_3)//--顺序输入---
+                return new ViewLogicOrder(device, gv);
             else
                 return new ViewLogicInvalid(device, gv); 
         }

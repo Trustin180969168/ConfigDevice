@@ -46,9 +46,9 @@ namespace ConfigDevice
         /// </summary>
         public void InitSensors()
         {
-            UWSensor1 = new UWSensor(this.GetDeviceData());
-            UWSensor2 = new UWSensor(this.GetDeviceData());
-            IRSensor = new IRSensor(this.GetDeviceData());
+            UWSensor1 = new UWSensor(this.GetDeviceData(),0);
+            UWSensor2 = new UWSensor(this.GetDeviceData(),2);
+            IRSensor = new IRSensor(this.GetDeviceData(),1);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace ConfigDevice
         private void initCallback()
         {
             RemoveRJ45Callback();
-            getConfig = new CallbackFromUDP(getParameterData); 
+            getConfig = new CallbackFromUDP(getConfigData); 
         }
 
         /// <summary>
@@ -87,16 +87,16 @@ namespace ConfigDevice
         public void ReadConfig()
         { 
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PRI_WRITE_CONFIG,  getConfig);//----注册回调--- 
-            UdpData udpSend = createReadParameterUdp();
+            UdpData udpSend = createReadCconfigUdp();
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort,
-                new CallbackUdpAction(callbackReadParameterUdp), null);
+                new CallbackUdpAction(callbackReadConfigUdp), null);
         }
-        private void callbackReadParameterUdp(UdpData udpReply, object[] values)
+        private void callbackReadConfigUdp(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("读取参数失败!", udpReply.ReplyByte);
         }
-        private UdpData createReadParameterUdp()
+        private UdpData createReadCconfigUdp()
         {
             UdpData udp = new UdpData();
 
@@ -133,7 +133,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="data">数据包</param>
         /// <param name="values"></param>
-        private void getParameterData(UdpData data, object[] values)
+        private void getConfigData(UdpData data, object[] values)
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != DeviceID) return;//不是本设备ID不接收.
@@ -152,19 +152,19 @@ namespace ConfigDevice
         /// <summary>
         /// 写参数
         /// </summary>
-        public void WriteParameter(LightParameter value)
+        public void WriteConfig(LightParameter value)
         {
-            UdpData udpSend = createWriteParameterUdp(value);
+            UdpData udpSend = createWriteConfigUdp(value);
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort,
-                new CallbackUdpAction(callbackWriteParameterUdp), new object[] { value });
+                new CallbackUdpAction(callbackWriteConfigUdp), new object[] { value });
         }
-        private void callbackWriteParameterUdp(UdpData udpReply, object[] values)
+        private void callbackWriteConfigUdp(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("设置参数失败!", udpReply.ReplyByte);
 
         }
-        private UdpData createWriteParameterUdp(LightParameter value)
+        private UdpData createWriteConfigUdp(LightParameter value)
         {
             UdpData udp = new UdpData();
 

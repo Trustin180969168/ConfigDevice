@@ -192,7 +192,11 @@ namespace ConfigDevice
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SCIN_2, SensorConfig.LG_SENSOR_SCIN_2); //短路输入2    (含有外设,只有等级)
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SCIN_3, SensorConfig.LG_SENSOR_SCIN_3); //短路输入3    (含有外设,只有等级)
             TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SCIN_4, SensorConfig.LG_SENSOR_SCIN_4); //短路输入4    (含有外设,只有等级)
-
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_UW_1, SensorConfig.LG_SENSOR_UW_1);//        超声波-1
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_UW_2, SensorConfig.LG_SENSOR_UW_2);//        超声波-2
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_IR, SensorConfig.LG_SENSOR_IR);//          红外感应  
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SN_1_2, SensorConfig.LG_SENSOR_SN_1_2);//      顺序触发1->2
+            TRIGGER_NAME_ID.Add(SensorConfig.SENSOR_SN_1_2_3, SensorConfig.LG_SENSOR_SN_1_2_3);//    顺序触发1->2->3 
 
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_VOID, SensorConfig.SENSOR_INVALID);
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_TEMP, SensorConfig.SENSOR_TEMPERATURE);
@@ -220,6 +224,12 @@ namespace ConfigDevice
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_SCIN_2, SensorConfig.SENSOR_SCIN_2); //短路输入2    (含有外设,只有等级)
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_SCIN_3, SensorConfig.SENSOR_SCIN_3); //短路输入3    (含有外设,只有等级)
             TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_SCIN_4, SensorConfig.SENSOR_SCIN_4); //短路输入4    (含有外设,只有等级)
+            //-----人体感应-----
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_UW_1, SensorConfig.SENSOR_UW_1);//        超声波-1
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_UW_2, SensorConfig.SENSOR_UW_2);//        超声波-2
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_IR, SensorConfig.SENSOR_IR);//          红外感应  
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_SN_1_2, SensorConfig.SENSOR_SN_1_2);//      顺序触发1->2
+            TRIGGER_ID_NAME.Add(SensorConfig.LG_SENSOR_SN_1_2_3, SensorConfig.SENSOR_SN_1_2_3);//    顺序触发1->2->3 
 
             //------触发位置的对应关系--------
             TRIGGER_POSITION_NAME_ID.Add(SensorConfig.SENSOR_INVALID, SensorConfig.LG_SENSOR_VOID);//-------无效-----

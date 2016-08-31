@@ -425,6 +425,7 @@
     <Compile Include="Class\Manage\SensorCtrl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewInnerInteractionControl.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewOuterInteractionControl.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicBody.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicHumidity.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicTemperature.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicTVOC.cs" />

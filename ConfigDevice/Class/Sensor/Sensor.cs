@@ -15,6 +15,12 @@ namespace ConfigDevice
         public DeviceData DeviceData;//设备数据
         public byte Sensitivity;//灵敏度
         protected MySocket mySocket = MySocket.GetInstance();
+        protected Int16 code = 0;//传感器编号
+
+        protected Int16 Code
+        {
+            get { return code; } 
+        }
 
         /// <summary>
         /// 开启测试
@@ -22,7 +28,7 @@ namespace ConfigDevice
         /// <param name="code"></param>
         public virtual void OpenTest(int code)
         {
-            test(code, true);
+            test(true);
         }
 
         /// <summary>
@@ -31,16 +37,15 @@ namespace ConfigDevice
         /// <param name="code"></param>
         public virtual void CloseTest(int code)
         {
-            test(code, false);
+            test(false);
         }
 
         /// <summary>
         /// 测试
         /// </summary>
-        /// <param name="code">传感器编号</param>
-        private  void test(int code,bool openTest)
+        private  void test(bool openTest)
         {
-            UdpData udpSend = createTestUdp(code,openTest);
+            UdpData udpSend = createTestUdp(openTest);
             mySocket.SendData(udpSend, DeviceData.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackTestData), null);
         }
         private void callbackTestData(UdpData udpReply, object[] values)
@@ -48,7 +53,7 @@ namespace ConfigDevice
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("测试失败!", udpReply.ReplyByte);
         }
-        private UdpData createTestUdp(int code,bool openTest)
+        private UdpData createTestUdp(bool openTest)
         {
             UdpData udp = new UdpData();
 
@@ -62,7 +67,7 @@ namespace ConfigDevice
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_PRI_TEST;//----用户命令-----
             byte len = 6;//---数据长度---- 
-            byte byteGroupNum = (byte)code;//--组号--
+            byte byteGroupNum = (byte)(Convert.ToInt16(code));//--组号--
 
             //---------生成校验码-----------
             byte[] crcData = new byte[10 + 1];
@@ -71,7 +76,7 @@ namespace ConfigDevice
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
-            crcData[10] = (byte)code;     //传感器编号(0~2)
+            crcData[10] = (byte)(code);     //传感器编号(0~2)
             crcData[11] = (byte)(openTest ? 1 : 0);     //  开1，关0 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
@@ -90,13 +95,16 @@ namespace ConfigDevice
     /// </summary>
     public class UWSensor : Sensor
     {
-        public UWSensor(DeviceData deviceData):base()
+        public UWSensor(DeviceData deviceData,Int16 _code):base()
         {
+            code = _code;
             this.DeviceData = deviceData; 
         }
 
-        public UWSensor() : base()
+        public UWSensor(Int16 _code)
+            : base()
         {
+            code = _code;
             sensorStateData = new UWSensorData();
         }
 
@@ -113,14 +121,17 @@ namespace ConfigDevice
     /// </summary>
     public class IRSensor : Sensor
     {
-        public IRSensor(DeviceData deviceData)
+        public IRSensor(DeviceData deviceData, Int16 _code)
             : base()
         {
+            code = _code;
             this.DeviceData = deviceData; 
         }
 
-        public IRSensor():base()
+        public IRSensor(Int16 _code)
+            : base()
         {
+            code=_code;
             sensorStateData = new IRSensorData();
         }
 

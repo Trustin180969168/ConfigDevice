@@ -84,6 +84,13 @@ namespace ConfigDevice
         public const string SENSOR_DATE = "日期段";
         public const string SENSOR_WEEK = "周循环";
         public const string SENSOR_FIRE_TEMPERATURE = "消防温控";
+        //------人体感应------
+        public const string SENSOR_UW_1 = "超声波-1";
+        public const string SENSOR_UW_2 = "超声波-2";
+        public const string SENSOR_IR = "红外感应";
+        public const string SENSOR_SN_1_2 = "顺序触发1->2";
+        public const string SENSOR_SN_1_2_3 = "顺序触发1->2->3"; 
+
 
         public const string SENSOR_VALUE_KIND_VALUE = "数值";
         public const string SENSOR_VALUE_KIND_LEVEL = "等级";
