@@ -72,6 +72,10 @@
       <HintPath>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraRichTextEdit.v8.1\8.1.1.0__49d90c14d24271b5\DevExpress.XtraRichTextEdit.v8.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.XtraVerticalGrid.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraVerticalGrid.v8.1.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -114,6 +118,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\FrmShort4.resx">
       <DependentUpon>FrmShort4.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmBodyIndction.resx">
+      <DependentUpon>FrmBodyIndction.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolsUI\KeySettingTools.resx">
@@ -485,6 +493,12 @@
     </Compile>
     <Compile Include="DeviceUI\FrmShort4.Designer.cs">
       <DependentUpon>FrmShort4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmBodyIndction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmBodyIndction.Designer.cs">
+      <DependentUpon>FrmBodyIndction.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolsUI\KeySettingTools.cs">
       <SubType>UserControl</SubType>
