@@ -96,9 +96,7 @@ namespace ConfigDevice
                 Security = ConvertTools.Bytes2ToUInt16(b1, b2);
             }
         }
-
-
-
+         
 
         /// <summary>
         /// 安防动作关联

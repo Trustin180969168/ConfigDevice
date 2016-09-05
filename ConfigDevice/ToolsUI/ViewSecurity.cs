@@ -11,7 +11,7 @@ namespace ConfigDevice
     public partial class ViewSecurity : UserControl
     {
         private SecurityObj securityObj;//-----安防控制对象-----
-
+         
         public ViewSecurity()
         {
             InitializeComponent();
@@ -31,9 +31,10 @@ namespace ConfigDevice
         /// </summary>
         public void ShowSecuritySetting()
         {
+            
             //------安防配置---------------
             for (int i = 0; i < securityObj.SaftFlags.Length; i++)
-                ceLeaveSafeSetting.Items[i].CheckState = securityObj.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
+                ceSafeSetting.Items[i].CheckState = securityObj.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
 
         }
 
@@ -41,15 +42,33 @@ namespace ConfigDevice
         /// 获取安防配置
         /// </summary>
         /// <returns></returns>
-        public UInt16 GetSecuritySetting()
+        public UInt16 SetSecuritySetting()
         {
             //---安防配置---------------
             bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
                     false, false, false, false, false };
             for (int i = 0; i < securityObj.SaftFlags.Length; i++)
-                safeFlags[i] = ceLeaveSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
+                safeFlags[i] = ceSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
             securityObj.SaftFlags = safeFlags;
             return securityObj.Security;
+        }
+
+
+
+        /// <summary>
+        /// 是否有修改安防配置
+        /// </summary>
+        /// <returns></returns>
+        private bool hasChangedSafeLogic()
+        {
+            for (int i = 0; i < securityObj.SaftFlags.Length; i++)
+            {
+                if (ceSafeSetting.Items[i].CheckState == CheckState.Checked && !securityObj.SaftFlags[i])
+                    return true;
+                if (ceSafeSetting.Items[i].CheckState == CheckState.Unchecked && securityObj.SaftFlags[i])
+                    return true;
+            }
+            return false;
         }
 
     }

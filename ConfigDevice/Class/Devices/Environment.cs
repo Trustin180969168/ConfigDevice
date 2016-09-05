@@ -21,7 +21,7 @@ namespace ConfigDevice
         //----传感器状态对象----
         public TemperatureSensor temperatureSensor; //--温度----
         public HumiditySensor humiditySensor;       //---湿度---
-        public LuminanceSensor luminanceSensor;     //---亮度----
+        public LuminanceSensorData luminanceSensor;     //---亮度----
         public AQISensor AQISensor;                 //---空气质量----
         public TVOCSensor TVOCSensor;               //---有害气体----
         public CO2Sensor CO2Sensor;                 //---二氧化碳-----
@@ -139,7 +139,7 @@ namespace ConfigDevice
              //----各个传感器状态-----
             this.temperatureSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_TEMP, dataByte1) as TemperatureSensor;//获取温度
             this.humiditySensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_HUMI, dataByte1) as HumiditySensor;//获取湿度
-            this.luminanceSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_LUMI, dataByte1) as LuminanceSensor;//亮度
+            this.luminanceSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_LUMI, dataByte1) as LuminanceSensorData;//亮度
             this.AQISensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_AQI, dataByte1) as AQISensor;//空气质量
             this.TVOCSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_TVOC, dataByte1) as TVOCSensor;//有害气体
             this.CO2Sensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_CO2, dataByte1) as CO2Sensor;//二氧化碳

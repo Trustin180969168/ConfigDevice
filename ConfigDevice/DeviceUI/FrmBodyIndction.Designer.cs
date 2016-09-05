@@ -30,11 +30,28 @@
         {
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pagePzjm = new DevExpress.XtraTab.XtraTabPage();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
+            this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl16 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            this.ztbcUWSensor2 = new DevExpress.XtraEditors.ZoomTrackBarControl();
+            this.ztbcIRSensor = new DevExpress.XtraEditors.ZoomTrackBarControl();
+            this.ztbcUWSensor1 = new DevExpress.XtraEditors.ZoomTrackBarControl();
+            this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefrash = new System.Windows.Forms.ToolStripButton();
             this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.cbnTestUW2 = new DevExpress.XtraEditors.CheckButton();
+            this.cbnTestUW1 = new DevExpress.XtraEditors.CheckButton();
+            this.cbnTestIR = new DevExpress.XtraEditors.CheckButton();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
@@ -52,17 +69,13 @@
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandSetting = new ConfigDevice.ViewCommandSetting();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.gcShortOutput = new DevExpress.XtraGrid.GridControl();
-            this.gvShortOutput = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.dcPosition = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dcLevel = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dcDelayTime = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.speSecond = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
-            this.dcActionTime = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.sptLightSeconds = new DevExpress.XtraEditors.SpinEdit();
+            this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl19 = new DevExpress.XtraEditors.LabelControl();
+            this.cbxLight = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl20 = new DevExpress.XtraEditors.LabelControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.viewSecurity1 = new ConfigDevice.ViewSecurity();
+            this.viewSecurity = new ConfigDevice.ViewSecurity();
             this.viewLogicSetting = new ConfigDevice.ViewLogicSetting();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
@@ -78,26 +91,18 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
-            this.checkButton1 = new DevExpress.XtraEditors.CheckButton();
-            this.checkButton2 = new DevExpress.XtraEditors.CheckButton();
-            this.checkButton3 = new DevExpress.XtraEditors.CheckButton();
-            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
-            this.zoomTrackBarControl1 = new DevExpress.XtraEditors.ZoomTrackBarControl();
-            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
-            this.zoomTrackBarControl2 = new DevExpress.XtraEditors.ZoomTrackBarControl();
-            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
-            this.zoomTrackBarControl3 = new DevExpress.XtraEditors.ZoomTrackBarControl();
-            this.labelControl16 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
-            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcUWSensor2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcUWSensor2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcIRSensor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcIRSensor.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcUWSensor1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcUWSensor1.Properties)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
@@ -110,11 +115,8 @@
             this.pageJcsz.SuspendLayout();
             this.pageLogic.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gcShortOutput)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvShortOutput)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speSecond)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxLight.Properties)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
             this.panelControl5.SuspendLayout();
@@ -129,15 +131,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.plToolBar)).BeginInit();
             this.plToolBar.SuspendLayout();
             this.ToolBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
-            this.groupControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -166,6 +159,138 @@
             this.pagePzjm.Name = "pagePzjm";
             this.pagePzjm.Size = new System.Drawing.Size(1009, 685);
             this.pagePzjm.Text = "配置界面";
+            // 
+            // groupControl3
+            // 
+            this.groupControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.groupControl3.Controls.Add(this.checkEdit1);
+            this.groupControl3.Controls.Add(this.labelControl17);
+            this.groupControl3.Controls.Add(this.labelControl15);
+            this.groupControl3.Controls.Add(this.labelControl13);
+            this.groupControl3.Controls.Add(this.labelControl16);
+            this.groupControl3.Controls.Add(this.labelControl14);
+            this.groupControl3.Controls.Add(this.labelControl12);
+            this.groupControl3.Controls.Add(this.ztbcUWSensor2);
+            this.groupControl3.Controls.Add(this.ztbcIRSensor);
+            this.groupControl3.Controls.Add(this.ztbcUWSensor1);
+            this.groupControl3.Controls.Add(this.labelControl5);
+            this.groupControl3.Controls.Add(this.labelControl3);
+            this.groupControl3.Controls.Add(this.labelControl10);
+            this.groupControl3.Location = new System.Drawing.Point(367, 48);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.Size = new System.Drawing.Size(319, 159);
+            this.groupControl3.TabIndex = 3;
+            this.groupControl3.Text = "感应器配置";
+            // 
+            // checkEdit1
+            // 
+            this.checkEdit1.Location = new System.Drawing.Point(22, 116);
+            this.checkEdit1.Name = "checkEdit1";
+            this.checkEdit1.Properties.Caption = "开启感应指示灯";
+            this.checkEdit1.Size = new System.Drawing.Size(131, 19);
+            this.checkEdit1.TabIndex = 5;
+            // 
+            // labelControl17
+            // 
+            this.labelControl17.Location = new System.Drawing.Point(288, 91);
+            this.labelControl17.Name = "labelControl17";
+            this.labelControl17.Size = new System.Drawing.Size(12, 14);
+            this.labelControl17.TabIndex = 4;
+            this.labelControl17.Text = "高";
+            // 
+            // labelControl15
+            // 
+            this.labelControl15.Location = new System.Drawing.Point(288, 64);
+            this.labelControl15.Name = "labelControl15";
+            this.labelControl15.Size = new System.Drawing.Size(12, 14);
+            this.labelControl15.TabIndex = 4;
+            this.labelControl15.Text = "高";
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Location = new System.Drawing.Point(288, 37);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(12, 14);
+            this.labelControl13.TabIndex = 4;
+            this.labelControl13.Text = "高";
+            // 
+            // labelControl16
+            // 
+            this.labelControl16.Location = new System.Drawing.Point(160, 91);
+            this.labelControl16.Name = "labelControl16";
+            this.labelControl16.Size = new System.Drawing.Size(12, 14);
+            this.labelControl16.TabIndex = 4;
+            this.labelControl16.Text = "低";
+            // 
+            // labelControl14
+            // 
+            this.labelControl14.Location = new System.Drawing.Point(160, 64);
+            this.labelControl14.Name = "labelControl14";
+            this.labelControl14.Size = new System.Drawing.Size(12, 14);
+            this.labelControl14.TabIndex = 4;
+            this.labelControl14.Text = "低";
+            // 
+            // labelControl12
+            // 
+            this.labelControl12.Location = new System.Drawing.Point(160, 37);
+            this.labelControl12.Name = "labelControl12";
+            this.labelControl12.Size = new System.Drawing.Size(12, 14);
+            this.labelControl12.TabIndex = 4;
+            this.labelControl12.Text = "低";
+            // 
+            // ztbcUWSensor2
+            // 
+            this.ztbcUWSensor2.EditValue = null;
+            this.ztbcUWSensor2.Location = new System.Drawing.Point(178, 90);
+            this.ztbcUWSensor2.Name = "ztbcUWSensor2";
+            this.ztbcUWSensor2.Properties.Maximum = 8;
+            this.ztbcUWSensor2.Properties.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
+            this.ztbcUWSensor2.Size = new System.Drawing.Size(104, 18);
+            this.ztbcUWSensor2.TabIndex = 3;
+            // 
+            // ztbcIRSensor
+            // 
+            this.ztbcIRSensor.EditValue = null;
+            this.ztbcIRSensor.Location = new System.Drawing.Point(178, 63);
+            this.ztbcIRSensor.Name = "ztbcIRSensor";
+            this.ztbcIRSensor.Properties.Maximum = 8;
+            this.ztbcIRSensor.Properties.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
+            this.ztbcIRSensor.Size = new System.Drawing.Size(104, 18);
+            this.ztbcIRSensor.TabIndex = 3;
+            // 
+            // ztbcUWSensor1
+            // 
+            this.ztbcUWSensor1.EditValue = null;
+            this.ztbcUWSensor1.Location = new System.Drawing.Point(178, 36);
+            this.ztbcUWSensor1.Name = "ztbcUWSensor1";
+            this.ztbcUWSensor1.Properties.Maximum = 8;
+            this.ztbcUWSensor1.Properties.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
+            this.ztbcUWSensor1.Size = new System.Drawing.Size(104, 18);
+            this.ztbcUWSensor1.TabIndex = 3;
+            // 
+            // labelControl5
+            // 
+            this.labelControl5.Location = new System.Drawing.Point(24, 90);
+            this.labelControl5.Name = "labelControl5";
+            this.labelControl5.Size = new System.Drawing.Size(129, 14);
+            this.labelControl5.TabIndex = 1;
+            this.labelControl5.Text = "超声波(感应器3)灵敏度:";
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Location = new System.Drawing.Point(24, 63);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(129, 14);
+            this.labelControl3.TabIndex = 1;
+            this.labelControl3.Text = "红   外(感应器2)灵敏度:";
+            // 
+            // labelControl10
+            // 
+            this.labelControl10.Location = new System.Drawing.Point(24, 36);
+            this.labelControl10.Name = "labelControl10";
+            this.labelControl10.Size = new System.Drawing.Size(129, 14);
+            this.labelControl10.TabIndex = 1;
+            this.labelControl10.Text = "超声波(感应器1)灵敏度:";
             // 
             // tsDoorInput
             // 
@@ -197,7 +322,6 @@
             this.btRefrash.Name = "btRefrash";
             this.btRefrash.Size = new System.Drawing.Size(76, 28);
             this.btRefrash.Text = "刷新 ";
-            this.btRefrash.Click += new System.EventHandler(this.btRefrash_Click);
             // 
             // btAutoRefresh
             // 
@@ -211,9 +335,9 @@
             // groupControl2
             // 
             this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl2.Controls.Add(this.checkButton3);
-            this.groupControl2.Controls.Add(this.checkButton2);
-            this.groupControl2.Controls.Add(this.checkButton1);
+            this.groupControl2.Controls.Add(this.cbnTestUW2);
+            this.groupControl2.Controls.Add(this.cbnTestUW1);
+            this.groupControl2.Controls.Add(this.cbnTestIR);
             this.groupControl2.Controls.Add(this.labelControl6);
             this.groupControl2.Controls.Add(this.labelControl7);
             this.groupControl2.Controls.Add(this.labelControl8);
@@ -223,9 +347,33 @@
             this.groupControl2.TabIndex = 2;
             this.groupControl2.Text = "感应器测试";
             // 
+            // cbnTestUW2
+            // 
+            this.cbnTestUW2.Location = new System.Drawing.Point(126, 123);
+            this.cbnTestUW2.Name = "cbnTestUW2";
+            this.cbnTestUW2.Size = new System.Drawing.Size(75, 23);
+            this.cbnTestUW2.TabIndex = 3;
+            this.cbnTestUW2.Text = "测  试";
+            // 
+            // cbnTestUW1
+            // 
+            this.cbnTestUW1.Location = new System.Drawing.Point(126, 36);
+            this.cbnTestUW1.Name = "cbnTestUW1";
+            this.cbnTestUW1.Size = new System.Drawing.Size(75, 23);
+            this.cbnTestUW1.TabIndex = 2;
+            this.cbnTestUW1.Text = "测  试";
+            // 
+            // cbnTestIR
+            // 
+            this.cbnTestIR.Location = new System.Drawing.Point(126, 80);
+            this.cbnTestIR.Name = "cbnTestIR";
+            this.cbnTestIR.Size = new System.Drawing.Size(75, 23);
+            this.cbnTestIR.TabIndex = 1;
+            this.cbnTestIR.Text = "测  试";
+            // 
             // labelControl6
             // 
-            this.labelControl6.Location = new System.Drawing.Point(20, 115);
+            this.labelControl6.Location = new System.Drawing.Point(20, 83);
             this.labelControl6.Name = "labelControl6";
             this.labelControl6.Size = new System.Drawing.Size(89, 14);
             this.labelControl6.TabIndex = 0;
@@ -233,7 +381,7 @@
             // 
             // labelControl7
             // 
-            this.labelControl7.Location = new System.Drawing.Point(20, 78);
+            this.labelControl7.Location = new System.Drawing.Point(20, 126);
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(89, 14);
             this.labelControl7.TabIndex = 0;
@@ -306,11 +454,11 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(20, 63);
+            this.labelControl2.Location = new System.Drawing.Point(19, 64);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(82, 14);
+            this.labelControl2.Size = new System.Drawing.Size(90, 14);
             this.labelControl2.TabIndex = 0;
-            this.labelControl2.Text = "红   外(感应器)";
+            this.labelControl2.Text = "红    外 (感应器)";
             // 
             // edtUW1
             // 
@@ -365,7 +513,11 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.groupBox3);
+            this.groupBox1.Controls.Add(this.sptLightSeconds);
+            this.groupBox1.Controls.Add(this.labelControl11);
+            this.groupBox1.Controls.Add(this.labelControl19);
+            this.groupBox1.Controls.Add(this.cbxLight);
+            this.groupBox1.Controls.Add(this.labelControl20);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("宋体", 9F);
@@ -376,133 +528,58 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "附加动作";
             // 
-            // groupBox3
+            // sptLightSeconds
             // 
-            this.groupBox3.Controls.Add(this.gcShortOutput);
-            this.groupBox3.Location = new System.Drawing.Point(23, 12);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(466, 133);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "输出动作";
-            // 
-            // gcShortOutput
-            // 
-            this.gcShortOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcShortOutput.EmbeddedNavigator.Name = "";
-            this.gcShortOutput.FormsUseDefaultLookAndFeel = false;
-            this.gcShortOutput.Location = new System.Drawing.Point(3, 17);
-            this.gcShortOutput.MainView = this.gvShortOutput;
-            this.gcShortOutput.Name = "gcShortOutput";
-            this.gcShortOutput.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.speSecond});
-            this.gcShortOutput.Size = new System.Drawing.Size(460, 113);
-            this.gcShortOutput.TabIndex = 3;
-            this.gcShortOutput.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvShortOutput,
-            this.gridView2});
-            // 
-            // gvShortOutput
-            // 
-            this.gvShortOutput.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.dcPosition,
-            this.dcLevel,
-            this.dcDelayTime,
-            this.dcActionTime});
-            this.gvShortOutput.GridControl = this.gcShortOutput;
-            this.gvShortOutput.Name = "gvShortOutput";
-            this.gvShortOutput.OptionsView.ShowGroupPanel = false;
-            this.gvShortOutput.OptionsView.ShowIndicator = false;
-            this.gvShortOutput.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvShortOutput_FocusedRowChanged);
-            this.gvShortOutput.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvShortOutput_RowCellStyle);
-            this.gvShortOutput.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gvShortOutput_RowStyle);
-            // 
-            // dcPosition
-            // 
-            this.dcPosition.AppearanceCell.Options.UseTextOptions = true;
-            this.dcPosition.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcPosition.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcPosition.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcPosition.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcPosition.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
-            this.dcPosition.Caption = "位置";
-            this.dcPosition.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.dcPosition.Name = "dcPosition";
-            this.dcPosition.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.dcPosition.OptionsColumn.ReadOnly = true;
-            this.dcPosition.Visible = true;
-            this.dcPosition.VisibleIndex = 0;
-            this.dcPosition.Width = 200;
-            // 
-            // dcLevel
-            // 
-            this.dcLevel.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcLevel.AppearanceCell.Options.UseForeColor = true;
-            this.dcLevel.AppearanceCell.Options.UseTextOptions = true;
-            this.dcLevel.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcLevel.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcLevel.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcLevel.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcLevel.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
-            this.dcLevel.Caption = "输出电平";
-            this.dcLevel.Name = "dcLevel";
-            this.dcLevel.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.dcLevel.Visible = true;
-            this.dcLevel.VisibleIndex = 1;
-            this.dcLevel.Width = 92;
-            // 
-            // dcDelayTime
-            // 
-            this.dcDelayTime.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcDelayTime.AppearanceCell.Options.UseForeColor = true;
-            this.dcDelayTime.AppearanceCell.Options.UseTextOptions = true;
-            this.dcDelayTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcDelayTime.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcDelayTime.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcDelayTime.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcDelayTime.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
-            this.dcDelayTime.Caption = "动作延时";
-            this.dcDelayTime.ColumnEdit = this.speSecond;
-            this.dcDelayTime.Name = "dcDelayTime";
-            this.dcDelayTime.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.dcDelayTime.Visible = true;
-            this.dcDelayTime.VisibleIndex = 2;
-            this.dcDelayTime.Width = 78;
-            // 
-            // speSecond
-            // 
-            this.speSecond.AutoHeight = false;
-            this.speSecond.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.sptLightSeconds.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.sptLightSeconds.Location = new System.Drawing.Point(224, 34);
+            this.sptLightSeconds.Name = "sptLightSeconds";
+            this.sptLightSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.speSecond.Mask.EditMask = "d";
-            this.speSecond.Name = "speSecond";
+            this.sptLightSeconds.Properties.Mask.EditMask = "d";
+            this.sptLightSeconds.Size = new System.Drawing.Size(53, 21);
+            this.sptLightSeconds.TabIndex = 9;
             // 
-            // dcActionTime
+            // labelControl11
             // 
-            this.dcActionTime.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcActionTime.AppearanceCell.Options.UseForeColor = true;
-            this.dcActionTime.AppearanceCell.Options.UseTextOptions = true;
-            this.dcActionTime.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcActionTime.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcActionTime.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcActionTime.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcActionTime.AppearanceHeader.TextOptions.Trimming = DevExpress.Utils.Trimming.Character;
-            this.dcActionTime.Caption = "动作时间";
-            this.dcActionTime.ColumnEdit = this.speSecond;
-            this.dcActionTime.Name = "dcActionTime";
-            this.dcActionTime.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.dcActionTime.Visible = true;
-            this.dcActionTime.VisibleIndex = 3;
-            this.dcActionTime.Width = 84;
+            this.labelControl11.Location = new System.Drawing.Point(282, 37);
+            this.labelControl11.Name = "labelControl11";
+            this.labelControl11.Size = new System.Drawing.Size(12, 14);
+            this.labelControl11.TabIndex = 8;
+            this.labelControl11.Text = "秒";
             // 
-            // gridView2
+            // labelControl19
             // 
-            this.gridView2.GridControl = this.gcShortOutput;
-            this.gridView2.Name = "gridView2";
+            this.labelControl19.Location = new System.Drawing.Point(194, 37);
+            this.labelControl19.Name = "labelControl19";
+            this.labelControl19.Size = new System.Drawing.Size(24, 14);
+            this.labelControl19.TabIndex = 7;
+            this.labelControl19.Text = "时间";
+            // 
+            // cbxLight
+            // 
+            this.cbxLight.Location = new System.Drawing.Point(104, 34);
+            this.cbxLight.Name = "cbxLight";
+            this.cbxLight.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxLight.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxLight.Size = new System.Drawing.Size(80, 21);
+            this.cbxLight.TabIndex = 6;
+            // 
+            // labelControl20
+            // 
+            this.labelControl20.Location = new System.Drawing.Point(38, 37);
+            this.labelControl20.Name = "labelControl20";
+            this.labelControl20.Size = new System.Drawing.Size(60, 14);
+            this.labelControl20.TabIndex = 5;
+            this.labelControl20.Text = "指示灯指示";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.viewSecurity1);
+            this.groupBox2.Controls.Add(this.viewSecurity);
             this.groupBox2.Location = new System.Drawing.Point(495, 20);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(499, 125);
@@ -510,13 +587,13 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "安防动作关联";
             // 
-            // viewSecurity1
+            // viewSecurity
             // 
-            this.viewSecurity1.AutoSize = true;
-            this.viewSecurity1.Location = new System.Drawing.Point(29, 29);
-            this.viewSecurity1.Name = "viewSecurity1";
-            this.viewSecurity1.Size = new System.Drawing.Size(377, 63);
-            this.viewSecurity1.TabIndex = 0;
+            this.viewSecurity.AutoSize = true;
+            this.viewSecurity.Location = new System.Drawing.Point(29, 29);
+            this.viewSecurity.Name = "viewSecurity";
+            this.viewSecurity.Size = new System.Drawing.Size(377, 63);
+            this.viewSecurity.TabIndex = 0;
             // 
             // viewLogicSetting
             // 
@@ -722,159 +799,6 @@
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
-            // checkButton1
-            // 
-            this.checkButton1.Location = new System.Drawing.Point(126, 112);
-            this.checkButton1.Name = "checkButton1";
-            this.checkButton1.Size = new System.Drawing.Size(75, 23);
-            this.checkButton1.TabIndex = 1;
-            this.checkButton1.Text = "测  试";
-            // 
-            // checkButton2
-            // 
-            this.checkButton2.Location = new System.Drawing.Point(126, 36);
-            this.checkButton2.Name = "checkButton2";
-            this.checkButton2.Size = new System.Drawing.Size(75, 23);
-            this.checkButton2.TabIndex = 2;
-            this.checkButton2.Text = "测  试";
-            // 
-            // checkButton3
-            // 
-            this.checkButton3.Location = new System.Drawing.Point(126, 75);
-            this.checkButton3.Name = "checkButton3";
-            this.checkButton3.Size = new System.Drawing.Size(75, 23);
-            this.checkButton3.TabIndex = 3;
-            this.checkButton3.Text = "测  试";
-            // 
-            // groupControl3
-            // 
-            this.groupControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl3.Controls.Add(this.checkEdit1);
-            this.groupControl3.Controls.Add(this.labelControl17);
-            this.groupControl3.Controls.Add(this.labelControl15);
-            this.groupControl3.Controls.Add(this.labelControl13);
-            this.groupControl3.Controls.Add(this.labelControl16);
-            this.groupControl3.Controls.Add(this.labelControl14);
-            this.groupControl3.Controls.Add(this.labelControl12);
-            this.groupControl3.Controls.Add(this.zoomTrackBarControl3);
-            this.groupControl3.Controls.Add(this.zoomTrackBarControl2);
-            this.groupControl3.Controls.Add(this.zoomTrackBarControl1);
-            this.groupControl3.Controls.Add(this.labelControl5);
-            this.groupControl3.Controls.Add(this.labelControl3);
-            this.groupControl3.Controls.Add(this.labelControl10);
-            this.groupControl3.Location = new System.Drawing.Point(367, 48);
-            this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(319, 159);
-            this.groupControl3.TabIndex = 3;
-            this.groupControl3.Text = "感应器配置";
-            // 
-            // labelControl10
-            // 
-            this.labelControl10.Location = new System.Drawing.Point(24, 36);
-            this.labelControl10.Name = "labelControl10";
-            this.labelControl10.Size = new System.Drawing.Size(129, 14);
-            this.labelControl10.TabIndex = 1;
-            this.labelControl10.Text = "超声波(感应器1)灵敏度:";
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Location = new System.Drawing.Point(24, 63);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(129, 14);
-            this.labelControl3.TabIndex = 1;
-            this.labelControl3.Text = "红   外(感应器2)灵敏度:";
-            // 
-            // labelControl5
-            // 
-            this.labelControl5.Location = new System.Drawing.Point(24, 90);
-            this.labelControl5.Name = "labelControl5";
-            this.labelControl5.Size = new System.Drawing.Size(129, 14);
-            this.labelControl5.TabIndex = 1;
-            this.labelControl5.Text = "超声波(感应器3)灵敏度:";
-            // 
-            // zoomTrackBarControl1
-            // 
-            this.zoomTrackBarControl1.EditValue = null;
-            this.zoomTrackBarControl1.Location = new System.Drawing.Point(178, 36);
-            this.zoomTrackBarControl1.Name = "zoomTrackBarControl1";
-            this.zoomTrackBarControl1.Properties.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
-            this.zoomTrackBarControl1.Size = new System.Drawing.Size(104, 18);
-            this.zoomTrackBarControl1.TabIndex = 3;
-            // 
-            // labelControl12
-            // 
-            this.labelControl12.Location = new System.Drawing.Point(160, 37);
-            this.labelControl12.Name = "labelControl12";
-            this.labelControl12.Size = new System.Drawing.Size(12, 14);
-            this.labelControl12.TabIndex = 4;
-            this.labelControl12.Text = "低";
-            // 
-            // labelControl13
-            // 
-            this.labelControl13.Location = new System.Drawing.Point(288, 37);
-            this.labelControl13.Name = "labelControl13";
-            this.labelControl13.Size = new System.Drawing.Size(12, 14);
-            this.labelControl13.TabIndex = 4;
-            this.labelControl13.Text = "高";
-            // 
-            // zoomTrackBarControl2
-            // 
-            this.zoomTrackBarControl2.EditValue = null;
-            this.zoomTrackBarControl2.Location = new System.Drawing.Point(178, 63);
-            this.zoomTrackBarControl2.Name = "zoomTrackBarControl2";
-            this.zoomTrackBarControl2.Properties.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
-            this.zoomTrackBarControl2.Size = new System.Drawing.Size(104, 18);
-            this.zoomTrackBarControl2.TabIndex = 3;
-            // 
-            // labelControl14
-            // 
-            this.labelControl14.Location = new System.Drawing.Point(160, 64);
-            this.labelControl14.Name = "labelControl14";
-            this.labelControl14.Size = new System.Drawing.Size(12, 14);
-            this.labelControl14.TabIndex = 4;
-            this.labelControl14.Text = "低";
-            // 
-            // labelControl15
-            // 
-            this.labelControl15.Location = new System.Drawing.Point(288, 64);
-            this.labelControl15.Name = "labelControl15";
-            this.labelControl15.Size = new System.Drawing.Size(12, 14);
-            this.labelControl15.TabIndex = 4;
-            this.labelControl15.Text = "高";
-            // 
-            // zoomTrackBarControl3
-            // 
-            this.zoomTrackBarControl3.EditValue = null;
-            this.zoomTrackBarControl3.Location = new System.Drawing.Point(178, 90);
-            this.zoomTrackBarControl3.Name = "zoomTrackBarControl3";
-            this.zoomTrackBarControl3.Properties.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
-            this.zoomTrackBarControl3.Size = new System.Drawing.Size(104, 18);
-            this.zoomTrackBarControl3.TabIndex = 3;
-            // 
-            // labelControl16
-            // 
-            this.labelControl16.Location = new System.Drawing.Point(160, 91);
-            this.labelControl16.Name = "labelControl16";
-            this.labelControl16.Size = new System.Drawing.Size(12, 14);
-            this.labelControl16.TabIndex = 4;
-            this.labelControl16.Text = "低";
-            // 
-            // labelControl17
-            // 
-            this.labelControl17.Location = new System.Drawing.Point(288, 91);
-            this.labelControl17.Name = "labelControl17";
-            this.labelControl17.Size = new System.Drawing.Size(12, 14);
-            this.labelControl17.TabIndex = 4;
-            this.labelControl17.Text = "高";
-            // 
-            // checkEdit1
-            // 
-            this.checkEdit1.Location = new System.Drawing.Point(22, 116);
-            this.checkEdit1.Name = "checkEdit1";
-            this.checkEdit1.Properties.Caption = "开启感应指示灯";
-            this.checkEdit1.Size = new System.Drawing.Size(131, 19);
-            this.checkEdit1.TabIndex = 5;
-            // 
             // FrmBodyIndction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -888,6 +812,16 @@
             this.tctrlEdit.ResumeLayout(false);
             this.pagePzjm.ResumeLayout(false);
             this.pagePzjm.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
+            this.groupControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcUWSensor2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcUWSensor2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcIRSensor.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcIRSensor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcUWSensor1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ztbcUWSensor1)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
@@ -904,11 +838,9 @@
             this.pageLogic.ResumeLayout(false);
             this.pageLogic.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gcShortOutput)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvShortOutput)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speSecond)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sptLightSeconds.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxLight.Properties)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
@@ -927,16 +859,6 @@
             this.plToolBar.PerformLayout();
             this.ToolBar.ResumeLayout(false);
             this.ToolBar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
-            this.groupControl3.ResumeLayout(false);
-            this.groupControl3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -982,21 +904,12 @@
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl8;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private DevExpress.XtraGrid.GridControl gcShortOutput;
-        private DevExpress.XtraGrid.Views.Grid.GridView gvShortOutput;
-        private DevExpress.XtraGrid.Columns.GridColumn dcPosition;
-        private DevExpress.XtraGrid.Columns.GridColumn dcDelayTime;
-        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit speSecond;
-        private DevExpress.XtraGrid.Columns.GridColumn dcActionTime;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
-        private DevExpress.XtraGrid.Columns.GridColumn dcLevel;
         private System.Windows.Forms.GroupBox groupBox2;
-        private ViewSecurity viewSecurity1;
+        private ViewSecurity viewSecurity;
         private DevExpress.XtraEditors.LabelControl labelControl9;
-        private DevExpress.XtraEditors.CheckButton checkButton3;
-        private DevExpress.XtraEditors.CheckButton checkButton2;
-        private DevExpress.XtraEditors.CheckButton checkButton1;
+        private DevExpress.XtraEditors.CheckButton cbnTestUW2;
+        private DevExpress.XtraEditors.CheckButton cbnTestUW1;
+        private DevExpress.XtraEditors.CheckButton cbnTestIR;
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private DevExpress.XtraEditors.LabelControl labelControl5;
         private DevExpress.XtraEditors.LabelControl labelControl3;
@@ -1007,9 +920,14 @@
         private DevExpress.XtraEditors.LabelControl labelControl16;
         private DevExpress.XtraEditors.LabelControl labelControl14;
         private DevExpress.XtraEditors.LabelControl labelControl12;
-        private DevExpress.XtraEditors.ZoomTrackBarControl zoomTrackBarControl3;
-        private DevExpress.XtraEditors.ZoomTrackBarControl zoomTrackBarControl2;
-        private DevExpress.XtraEditors.ZoomTrackBarControl zoomTrackBarControl1;
+        private DevExpress.XtraEditors.ZoomTrackBarControl ztbcUWSensor2;
+        private DevExpress.XtraEditors.ZoomTrackBarControl ztbcIRSensor;
+        private DevExpress.XtraEditors.ZoomTrackBarControl ztbcUWSensor1;
         private DevExpress.XtraEditors.CheckEdit checkEdit1;
+        private DevExpress.XtraEditors.SpinEdit sptLightSeconds;
+        private DevExpress.XtraEditors.LabelControl labelControl11;
+        private DevExpress.XtraEditors.LabelControl labelControl19;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxLight;
+        private DevExpress.XtraEditors.LabelControl labelControl20;
     }
 }

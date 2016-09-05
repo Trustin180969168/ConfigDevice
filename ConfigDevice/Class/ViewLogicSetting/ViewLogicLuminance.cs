@@ -37,7 +37,7 @@ namespace ConfigDevice
             sensorValueEdit.MaxValue = 2500;
             sensorValueEdit.MinValue = 0;
             //-------初始化级别编辑控件------
-            foreach (string value in LuminanceSensor.LEVEL_ID_NAME.Values)
+            foreach (string value in LuminanceSensorData.LEVEL_ID_NAME.Values)
                 cbxLevelEdit.Items.Add(value);
 
         }
@@ -167,9 +167,9 @@ namespace ConfigDevice
                 getDeviceData(dr, triggerData);//----获取设备数据---           
             if (triggerData.TriggerKindID == SensorConfig.LG_SENSOR_LVL_FLAG)//---为级别--- 
             {
-                triggerData.Size1 = LuminanceSensor.LEVEL_NAME_ID[dr[dcStartValue.FieldName].ToString()];
+                triggerData.Size1 = LuminanceSensorData.LEVEL_NAME_ID[dr[dcStartValue.FieldName].ToString()];
                 if (dcEndValue.OptionsColumn.AllowEdit)
-                    triggerData.Size2 = LuminanceSensor.LEVEL_NAME_ID[dr[dcEndValue.FieldName].ToString()];
+                    triggerData.Size2 = LuminanceSensorData.LEVEL_NAME_ID[dr[dcEndValue.FieldName].ToString()];
                 else
                     triggerData.Size2 = triggerData.Size1;//----强制与开始值相同------
             }
@@ -217,9 +217,9 @@ namespace ConfigDevice
             if (td.TriggerKindID == SensorConfig.LG_SENSOR_LVL_FLAG)//---为级别类型---
             {
                 dcStartValue.ColumnEdit = cbxLevelEdit;
-                dr[dcStartValue.FieldName] = LuminanceSensor.LEVEL_ID_NAME[td.Size1];
+                dr[dcStartValue.FieldName] = LuminanceSensorData.LEVEL_ID_NAME[td.Size1];
                 if (dcEndValue.OptionsColumn.AllowEdit)
-                    dr[dcEndValue.FieldName] = LuminanceSensor.LEVEL_ID_NAME[td.Size2];
+                    dr[dcEndValue.FieldName] = LuminanceSensorData.LEVEL_ID_NAME[td.Size2];
             }
             else
             {

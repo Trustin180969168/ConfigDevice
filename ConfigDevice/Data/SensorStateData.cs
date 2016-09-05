@@ -311,11 +311,11 @@ namespace ConfigDevice
     /// <summary>
     /// 亮度传感器
     /// </summary>
-    public class LuminanceSensor : SensorStateData
+    public class LuminanceSensorData : SensorStateData
     {
         public static Dictionary<int, string> LEVEL_ID_NAME = new Dictionary<int, string>();
         public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
-        static LuminanceSensor()
+        static LuminanceSensorData()
         {
             LEVEL_ID_NAME.Add(SensorConfig.LUMI_LV_NIGHT, SensorConfig.LUMI_LV_NAME_NIGHT);
             LEVEL_ID_NAME.Add(SensorConfig.LUMI_LV_DIM, SensorConfig.LUMI_LV_NAME_DIM);
@@ -329,13 +329,13 @@ namespace ConfigDevice
             LEVEL_NAME_ID.Add(SensorConfig.LUMI_LV_NAME_DAY, SensorConfig.LUMI_LV_DAY);
             LEVEL_NAME_ID.Add(SensorConfig.LUMI_LV_NAME_SUNLIGHT, SensorConfig.LUMI_LV_SUNLIGHT);
         }
-        public LuminanceSensor(byte[] value)
+        public LuminanceSensorData(byte[] value)
             : base(value)
         {
             Init();
         }
 
-        public LuminanceSensor()
+        public LuminanceSensorData()
         {
             Init();
         }
@@ -826,7 +826,6 @@ namespace ConfigDevice
     {
         public static Dictionary<int, string> LEVEL_ID_NAME = new Dictionary<int, string>();
         public static Dictionary<string, int> LEVEL_NAME_ID = new Dictionary<string, int>();
-
 
         static IRSensorData()
         {

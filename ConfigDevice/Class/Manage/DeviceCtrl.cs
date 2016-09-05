@@ -140,6 +140,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_KEY_2: return new FactoryButton2Edit();//----2按键----
                 case DeviceConfig.EQUIPMENT_KEY_TFT_LCD: return new FactoryFunctionsBoardEdit();//---多功能液晶面板---
                 case DeviceConfig.EQUIPMENT_SHORT_IN_4: return new FactoryShort4InputEdit();//---短路输入4---
+                case DeviceConfig.EQUIPMENT_PRI_3: return new FactoryBodyInductionEdit();//---人体感应---
                 default: return new FactoryBaseDeviceEdit();
             }
         }
@@ -349,6 +350,20 @@ namespace ConfigDevice
         {
             Short4 device = new Short4(data);
             return new FrmShort4(device);
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// 人体感应
+    /// </summary>
+    public class FactoryBodyInductionEdit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            BodyInduction device = new BodyInduction(data);
+            return new FrmBodyIndction(device);
         }
         #endregion
     }

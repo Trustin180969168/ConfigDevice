@@ -10,7 +10,13 @@ namespace ConfigDevice
     /// </summary>
     public abstract class Sensor
     {
-        protected SensorStateData sensorStateData;//----传感器状态
+        private SensorStateData sensorData;//----传感器状态
+
+        public SensorStateData SensorData
+        {
+            get { return sensorData; }
+            set { sensorData = value; }
+        }
         public abstract void SetSensorStateData(byte[] data);//----设置传感器状态数据
         public DeviceData DeviceData;//设备数据
         public byte Sensitivity;//灵敏度
@@ -91,26 +97,52 @@ namespace ConfigDevice
 
 
     /// <summary>
-    /// 超声波类
+    /// 超声波类1
     /// </summary>
-    public class UWSensor : Sensor
+    public class UWSensor1 : Sensor
     {
-        public UWSensor(DeviceData deviceData,Int16 _code):base()
+        public UWSensor1(DeviceData deviceData,Int16 _code):base()
         {
             code = _code;
             this.DeviceData = deviceData; 
         }
 
-        public UWSensor(Int16 _code)
+        public UWSensor1(Int16 _code)
             : base()
         {
             code = _code;
-            sensorStateData = new UWSensorData();
+            SensorData = new UWSensorData();
         }
 
         public override void SetSensorStateData(byte[] data)
         {
-            sensorStateData = new UWSensorData(data); 
+            SensorData = new UWSensorData(data); 
+        }
+
+    }
+
+    /// <summary>
+    /// 超声波类2
+    /// </summary>
+    public class UWSensor2 : Sensor
+    {
+        public UWSensor2(DeviceData deviceData, Int16 _code)
+            : base()
+        {
+            code = _code;
+            this.DeviceData = deviceData;
+        }
+
+        public UWSensor2(Int16 _code)
+            : base()
+        {
+            code = _code;
+            SensorData = new UWSensorData();
+        }
+
+        public override void SetSensorStateData(byte[] data)
+        {
+            SensorData = new UWSensorData(data);
         }
 
     }
@@ -121,24 +153,31 @@ namespace ConfigDevice
     /// </summary>
     public class IRSensor : Sensor
     {
+        public LuminanceSensorData LumSensorData;
+
         public IRSensor(DeviceData deviceData, Int16 _code)
             : base()
         {
             code = _code;
-            this.DeviceData = deviceData; 
+            this.DeviceData = deviceData;
+            SensorData = new IRSensorData();
+            LumSensorData = new LuminanceSensorData();
         }
 
         public IRSensor(Int16 _code)
             : base()
         {
             code=_code;
-            sensorStateData = new IRSensorData();
+            SensorData = new IRSensorData();
+            LumSensorData = new LuminanceSensorData();
         }
 
         public override void SetSensorStateData(byte[] data)
         {
-            sensorStateData = new IRSensorData(data);
+            SensorData = new IRSensorData(data);
+            LumSensorData = new LuminanceSensorData(data);
         }
+ 
     }
 
 

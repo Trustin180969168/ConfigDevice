@@ -49,7 +49,7 @@ namespace ConfigDevice
             if (kindID == SensorConfig.LG_SENSOR_HUMI)//---湿度
                 return new HumiditySensor(value);
             if (kindID == SensorConfig.LG_SENSOR_LUMI)//---亮度
-                return new LuminanceSensor(value);
+                return new LuminanceSensorData(value);
             if (kindID == SensorConfig.LG_SENSOR_AQI)//---空气质量
                 return new AQISensor(value);            
             if (kindID == SensorConfig.LG_SENSOR_TVOC)//---有害气体
@@ -77,7 +77,13 @@ namespace ConfigDevice
             if (kindID == SensorConfig.LG_SENSOR_SCIN_3)//-----短路输入3
                 return new Short4Sensor(value);
             if (kindID == SensorConfig.LG_SENSOR_SCIN_4)//-----短路输入4
-                return new Short4Sensor(value); 
+                return new Short4Sensor(value);
+            if (kindID == SensorConfig.LG_SENSOR_UW_1)//-----超声波1
+                return new UWSensorData(value);
+            if (kindID == SensorConfig.LG_SENSOR_UW_1)//-----超声波2
+                return new UWSensorData(value);
+            if (kindID == SensorConfig.LG_SENSOR_IR)//-----红外
+                return new IRSensorData(value); 
             return null;
         }
 

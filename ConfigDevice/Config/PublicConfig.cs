@@ -72,6 +72,9 @@ namespace ConfigDevice
         SaveNetworkPosition,
         ReadSafe,//获取安防
         ReadConfig,//获取配置
+        ReadData,//读取数据
+        ReadAdditionAciton,//获取附加动作
+        ReadSate,//读取状态
         None
         
     }

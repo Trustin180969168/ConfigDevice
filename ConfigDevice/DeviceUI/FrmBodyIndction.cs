@@ -14,7 +14,7 @@ namespace ConfigDevice
     {
         private ThreadActionTimer refreshSateTimer;//---动态刷新---
         private bool autoRefresh = false;
-        private Short4 short4;
+        private BodyInduction bodyInduction;//---人体感应----
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
         private string currentGroupName = "";//当前组名
         private LogicQuickSetting logicQuickSetting;//快速配置编辑
@@ -23,19 +23,20 @@ namespace ConfigDevice
         private bool hasLoadedLogicAndCommand = false;//-----是否已经加载指令配置和逻辑配置-----
         private DataTable dtShortOutput = new DataTable("Output");//------短路输出数据
         private GridViewComboBox cbxOutputLevel = new GridViewComboBox();//----高低电平选择
+
         private GridViewTextEdit edtLevel = new GridViewTextEdit();
         public FrmBodyIndction(Device _device)
             : base(_device)
         {
             InitializeComponent();
-            //----初始化短路输出控件---
-            speSecond.DisplayFormat.FormatString = "###0 秒";
-            speSecond.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            speSecond.Mask.EditMask = "###0 秒";
-            speSecond.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            speSecond.Mask.UseMaskAsDisplayFormat = true;
-            speSecond.MaxValue = 3600;
-            speSecond.MinValue = 0;
+            //----初始化指示灯秒数---
+            sptLightSeconds.Properties.DisplayFormat.FormatString = "###0 秒";
+            sptLightSeconds.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            sptLightSeconds.Properties.Mask.EditMask = "###0 秒";
+            sptLightSeconds.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            sptLightSeconds.Properties.Mask.UseMaskAsDisplayFormat = true;
+            sptLightSeconds.Properties.MaxValue = 3600;
+            sptLightSeconds.Properties.MinValue = 0;
             cbxOutputLevel.Items.Add(SensorConfig.SCIN_LV_NAME_LOW);
             cbxOutputLevel.Items.Add(SensorConfig.SCIN_LV_NAME_HIGH);
             cbxOutputLevel.Items.Add(SensorConfig.SCIN_LV_NAME_NONE);
@@ -44,25 +45,11 @@ namespace ConfigDevice
             edtLevel.NullText = "无效";
             edtLevel.Appearance.BackColor = Color.Gainsboro;//灰色
             edtLevel.Appearance.ForeColor = Color.Black;
-            //-----初始化短路输出数据-----
-            dtShortOutput.Columns.Add(ViewConfig.DC_NAME, typeof(String));
-            dtShortOutput.Columns.Add(ViewConfig.DC_PARAMETER3, typeof(String));
-            dtShortOutput.Columns.Add(ViewConfig.DC_PARAMETER1, typeof(Int16));
-            dtShortOutput.Columns.Add(ViewConfig.DC_PARAMETER2, typeof(Int16));
-            dtShortOutput.Rows.Add(new object[] { "短路输出1" });
-            dtShortOutput.Rows.Add(new object[] { "短路输出2" });
-            dtShortOutput.Rows.Add(new object[] { "短路输出3" });
-            dtShortOutput.Rows.Add(new object[] { "短路输出4" });
-            //-----初始化短路输出----
-            dcPosition.FieldName = ViewConfig.DC_NAME;
-            dcDelayTime.FieldName = ViewConfig.DC_PARAMETER1;
-            dcActionTime.FieldName = ViewConfig.DC_PARAMETER2;
-            dcLevel.FieldName = ViewConfig.DC_PARAMETER3;
-            dcLevel.ColumnEdit = cbxOutputLevel;
-            gcShortOutput.DataSource = dtShortOutput;
 
-            short4 = this.Device as Short4;
-            refreshSateTimer = new ThreadActionTimer(2000, new Action(short4.ReadState));//---自动刷新----
+            viewSecurity.InitViewSecurity(bodyInduction.SecurityObj);//---安防对象---
+
+            bodyInduction = this.Device as BodyInduction;
+            refreshSateTimer = new ThreadActionTimer(2000, new Action(bodyInduction.ReadState));//---自动刷新----
  
             //----------回路查询选择------
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
@@ -74,11 +61,11 @@ namespace ConfigDevice
             lookUpEdit.Properties.ShowFooter = false;
             lookUpEdit.Properties.ShowHeader = false;
             lookUpEdit.Properties.DataSource = dtIDName;
-            lookUpEdit.Properties.DropDownRows = short4.Circuit.CircuitCount;
+            lookUpEdit.Properties.DropDownRows = bodyInduction.Circuit.CircuitCount;
             //----------可燃气体回调----------- 
-            short4.OnCallbackUI_Action += this.CallbackUI;
-            short4.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
-            BaseViewSetting.DeviceEdit = short4;           //---基础配置编辑
+            bodyInduction.OnCallbackUI_Action += this.CallbackUI;
+            bodyInduction.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
+            BaseViewSetting.DeviceEdit = bodyInduction;           //---基础配置编辑
             //----------逻辑配置控件----
             viewLogicSetting.ShowToolBar = false;//不显示工具栏  
             //viewCommandEdit.ShowCommandBar = true;//不显示指令栏
@@ -113,10 +100,10 @@ namespace ConfigDevice
         /// </summary>
         private void loadData()
         {
-            short4.SearchVer();          //---获取版本号-----   
-            short4.Circuit.ReadRoadTitle();//----读取回路---- 
-            short4.ReadState();          //---读取状态----      
-            short4.ReadConfig();//------输出配置
+            bodyInduction.SearchVer();          //---获取版本号-----   
+            bodyInduction.Circuit.ReadRoadTitle();//----读取回路---- 
+            bodyInduction.ReadState();  //---读取状态----      
+            bodyInduction.ReadConfig(); //------输出配置
         }
 
         /// <summary>
@@ -133,46 +120,30 @@ namespace ConfigDevice
             {
                 //-----读取完回路----
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME
-                    && callbackParameter.Parameters[1].ToString() == short4.DeviceID)
+                    && callbackParameter.Parameters[1].ToString() == bodyInduction.DeviceID)
                     initLogicAndCommand();//---初始化指令配置,逻辑配置
                 //-----读取完探头参数----- 
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Short4.CLASS_NAME)
                 {
                     //-----逻辑状态-------
-                    if (callbackParameter.Parameters[1].ToString() == Short4.ACTION_STATE)
+                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadConfig)
                     {
-                        edtUW1.Text = short4.Short4Sensor1.LevelValue; 
-                        edtIR.Text = short4.Short4Sensor2.LevelValue;
-                        edtUW2.Text = short4.Short4Sensor3.LevelValue;
-                        edtLum.Text = short4.Short4Sensor4.LevelValue;
+                        edtUW1.Text = bodyInduction.UWSensor1.SensorData.LevelValue; 
+                        edtIR.Text = bodyInduction.IRSensor.SensorData.LevelValue;
+                        edtUW2.Text = bodyInduction.UWSensor2.SensorData.LevelValue;
+                        edtLum.Text = bodyInduction.IRSensor.SensorData.LevelValue;
                     }
-                    //-----短路输入配置-------
-                    if (callbackParameter.Parameters[1].ToString() == Short4.ACTION_CONFIG)
-                    {
-                        cbxShortOut1.SelectedIndex = (int)short4.ShortConfigRoad1;
-                        cbxShortOut2.SelectedIndex = (int)short4.ShortConfigRoad2;
-                        cbxShortOut3.SelectedIndex = (int)short4.ShortConfigRoad3;
-                        cbxShortOut4.SelectedIndex = (int)short4.ShortConfigRoad4;
-                    }
+ 
                     //-----逻辑附加动作-------
-                    if (callbackParameter.Parameters[1].ToString() == Short4.ACTION_ADDITION)
+                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadAdditionAciton)
                     {
-                        dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER1] = short4.Short4CtrlObj1.usScOutDly; dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER2] = short4.Short4CtrlObj1.usScOutTim;
-                        dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER1] = short4.Short4CtrlObj2.usScOutDly; dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER2] = short4.Short4CtrlObj2.usScOutTim;
-                        dtShortOutput.Rows[2][ViewConfig.DC_PARAMETER1] = short4.Short4CtrlObj3.usScOutDly; dtShortOutput.Rows[2][ViewConfig.DC_PARAMETER2] = short4.Short4CtrlObj3.usScOutTim;
-                        dtShortOutput.Rows[3][ViewConfig.DC_PARAMETER1] = short4.Short4CtrlObj4.usScOutDly; dtShortOutput.Rows[3][ViewConfig.DC_PARAMETER2] = short4.Short4CtrlObj4.usScOutTim;
-
-                        dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER3] = cbxOutputLevel.Items[(int)short4.Short4CtrlObj1.ucScOutAct];
-                        dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER3] = cbxOutputLevel.Items[(int)short4.Short4CtrlObj2.ucScOutAct];
-                        dtShortOutput.Rows[2][ViewConfig.DC_PARAMETER3] = cbxOutputLevel.Items[(int)short4.Short4CtrlObj3.ucScOutAct];
-                        dtShortOutput.Rows[3][ViewConfig.DC_PARAMETER3] = cbxOutputLevel.Items[(int)short4.Short4CtrlObj4.ucScOutAct];
-                        dtShortOutput.AcceptChanges();
+                        cbxLight.SelectedIndex = bodyInduction.Light.LedAct;//指示灯动作
+                        sptLightSeconds.Value = bodyInduction.Light.LedTim;//指示灯秒数
                     }
                     //-----安防配置-------
                     if (callbackParameter.Parameters[1].ToString() == Short4.ACTION_SAFE)
                     {
-                        for (int i = 0; i < short4.SaftFlags.Length; i++)
-                            ceSafeSetting.Items[i].CheckState = short4.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
+                        bodyInduction.SecurityObj.ReadSafeSetting(lookUpEdit.ItemIndex);
                     }
                 }
  
@@ -186,23 +157,24 @@ namespace ConfigDevice
         {
             viewCommandSetting.CbxCommandGroup.Items.Clear();
             dtIDName.Rows.Clear();
-            foreach (int key in short4.Circuit.ListCircuitIDAndName.Keys)
+            foreach (int key in bodyInduction.Circuit.ListCircuitIDAndName.Keys)
             {
-                viewCommandSetting.CommmandGroups.Add(short4.Circuit.ListCircuitIDAndName[key]);    //---指令组选择----
-                dtIDName.Rows.Add(new object[] { key, short4.Circuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
+                viewCommandSetting.CommmandGroups.Add(bodyInduction.Circuit.ListCircuitIDAndName[key]);    //---指令组选择----
+                dtIDName.Rows.Add(new object[] { key, bodyInduction.Circuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
             }
             lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
             viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
 
-            edtTriggerActionName.Text = short4.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
+            edtTriggerActionName.Text = bodyInduction.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
             if (viewLogicSetting.NeedInit)//----初始化逻辑配置----
-                viewLogicSetting.InitLogicList(short4, SensorConfig.SENSOR_SCIN_1, SensorConfig.SENSOR_SCIN_2, 
-                    SensorConfig.SENSOR_SCIN_3, SensorConfig.SENSOR_SCIN_4,SensorConfig.SENSOR_TIME,SensorConfig.SENSOR_DATE,
+                viewLogicSetting.InitLogicList(bodyInduction, SensorConfig.SENSOR_UW_1, SensorConfig.SENSOR_UW_2, 
+                    SensorConfig.SENSOR_IR, SensorConfig.SENSOR_LUMINANCE,SensorConfig.SENSOR_SN_1_2,SensorConfig.SENSOR_SN_1_2_3,
+                    SensorConfig.SENSOR_TIME,SensorConfig.SENSOR_DATE,
                     SensorConfig.SENSOR_WEEK,SensorConfig.SENSOR_SYSTEM_INTERACTION,SensorConfig.SENSOR_INNER_INTERACTION,
                     SensorConfig.SENSOR_SECURITY_INTERACTION,
                     SensorConfig.SENSOR_INVALID);   
             if (viewCommandSetting.NeedInit)//----初始化指令配置-------
-                viewCommandSetting.InitViewCommand(short4);//初始化       
+                viewCommandSetting.InitViewCommand(bodyInduction);//初始化       
             hasInitedLogicAndCommand = true;//----初始化完毕-----
             if (tctrlEdit.SelectedTabPageIndex == 2)
             {
@@ -234,8 +206,8 @@ namespace ConfigDevice
             if (lookUpEdit.ItemIndex == -1) { lookUpEdit.ItemIndex = 0; return; }//----
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);       //---读取逻辑数据----
             viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
-            short4.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
-            short4.ReadSafeSetting(lookUpEdit.ItemIndex);  //---安防配置---
+            bodyInduction.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
+            bodyInduction.SecurityObj.ReadSafeSetting(lookUpEdit.ItemIndex);  //---安防配置---
         }
         /// <summary>
         /// 选择切换
@@ -247,8 +219,8 @@ namespace ConfigDevice
             currentGroupName = edtTriggerActionName.Text;
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);//----获取逻辑列表----
             viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;//----获取指令配置----
-            short4.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
-            short4.ReadSafeSetting(lookUpEdit.ItemIndex);  //---安防配置---
+            bodyInduction.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
+            bodyInduction.SecurityObj.ReadSafeSetting(lookUpEdit.ItemIndex);  //---安防配置---
         }
 
         /// <summary>
@@ -280,35 +252,18 @@ namespace ConfigDevice
             //-----保存附加动作----
             lookUpEdit.ItemIndex = lookUpEdit.ItemIndex == -1 ? 0 : lookUpEdit.ItemIndex;
             //-----保存附加动作----
-            if (hasChangedAdditionLogic())
+            if (hasChangedAdditionLogic() || isQuickSetting)
             {
+                bodyInduction.Light.LedAct = (byte)cbxLight.SelectedIndex;
+                bodyInduction.Light.LedTim = (UInt16)sptLightSeconds.Value;
+                bodyInduction.SaveAdditionLogic(lookUpEdit.ItemIndex);//---保存附加动作---
 
-                short4.Short4CtrlObj1.usScOutDly = Convert.ToUInt16(dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER1]);
-                short4.Short4CtrlObj2.usScOutDly = Convert.ToUInt16(dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER1]);
-                short4.Short4CtrlObj3.usScOutDly = Convert.ToUInt16(dtShortOutput.Rows[2][ViewConfig.DC_PARAMETER1]);
-                short4.Short4CtrlObj4.usScOutDly = Convert.ToUInt16(dtShortOutput.Rows[3][ViewConfig.DC_PARAMETER1]);
-
-                short4.Short4CtrlObj1.usScOutTim = Convert.ToUInt16(dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER2]);
-                short4.Short4CtrlObj2.usScOutTim = Convert.ToUInt16(dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER2]);
-                short4.Short4CtrlObj3.usScOutTim = Convert.ToUInt16(dtShortOutput.Rows[2][ViewConfig.DC_PARAMETER2]);
-                short4.Short4CtrlObj4.usScOutTim = Convert.ToUInt16(dtShortOutput.Rows[3][ViewConfig.DC_PARAMETER2]);
-
-                short4.Short4CtrlObj1.ucScOutAct = Convert.ToByte(cbxOutputLevel.Items.IndexOf(dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER3]));
-                short4.Short4CtrlObj2.ucScOutAct = Convert.ToByte(cbxOutputLevel.Items.IndexOf(dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER3]));
-                short4.Short4CtrlObj3.ucScOutAct = Convert.ToByte(cbxOutputLevel.Items.IndexOf(dtShortOutput.Rows[2][ViewConfig.DC_PARAMETER3]));
-                short4.Short4CtrlObj4.ucScOutAct = Convert.ToByte(cbxOutputLevel.Items.IndexOf(dtShortOutput.Rows[3][ViewConfig.DC_PARAMETER3]));
-
-                short4.SaveAdditionLogic(lookUpEdit.ItemIndex);//---保存附加动作---
+            
             }
             if (currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----
-                short4.Circuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
-            if (hasChangedSafeLogic())//---保存安防配置------
-            {
-                for (int i = 0; i < short4.SaftFlags.Length; i++)
-                    short4.SaftFlags[i] = ceSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
-                short4.SaveSafeSetting(lookUpEdit.ItemIndex);
-            }
+                bodyInduction.Circuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
 
+            bodyInduction.SaveConfig();//------保存安防-----
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
             viewLogicSetting.IsSystemSetting = false;           //---恢复标志位---
             viewCommandSetting.SaveCommands(lookUpEdit.ItemIndex);//---保存指令配置---   
@@ -320,31 +275,10 @@ namespace ConfigDevice
         /// <returns></returns>
         private bool hasChangedAdditionLogic()
         {
-            gvShortOutput.PostEditor();
-            DataRow dr = gvShortOutput.GetDataRow(0);
-            dr.EndEdit();
-            DataTable dtModify = dtShortOutput.GetChanges(DataRowState.Modified);
-            if (dtModify != null && dtModify.Rows.Count > 0)
-                return true;
-            else
-                return false;
+            return true;
         }
 
-        /// <summary>
-        /// 是否有修改安防配置
-        /// </summary>
-        /// <returns></returns>
-        private bool hasChangedSafeLogic()
-        {
-            for (int i = 0; i < short4.SaftFlags.Length; i++)
-            {
-                if (ceSafeSetting.Items[i].CheckState == CheckState.Checked && !short4.SaftFlags[i])
-                    return true;
-                if (ceSafeSetting.Items[i].CheckState == CheckState.Unchecked && short4.SaftFlags[i])
-                    return true;
-            }
-            return false;
-        }
+
 
 
 
@@ -356,11 +290,15 @@ namespace ConfigDevice
             lookUpEdit.ShowPopup();
         }
 
-
+        /// <summary>
+        /// 退出前清空
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmFlammableGasProbe_FormClosing(object sender, FormClosingEventArgs e)
         {
             refreshSateTimer.Stop();
-            short4.RemoveRJ45Callback();//----清空回调-----
+            bodyInduction.RemoveRJ45Callback();//----清空回调-----
         }
 
         /// <summary>
@@ -391,22 +329,9 @@ namespace ConfigDevice
         /// <returns></returns>
         private byte[] getAdditionValue()
         {
-            short4.Short4CtrlObj1.usScOutDly = Convert.ToUInt16(dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER1]);
-            short4.Short4CtrlObj2.usScOutDly = Convert.ToUInt16(dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER1]);
-            short4.Short4CtrlObj3.usScOutDly = Convert.ToUInt16(dtShortOutput.Rows[2][ViewConfig.DC_PARAMETER1]);
-            short4.Short4CtrlObj4.usScOutDly = Convert.ToUInt16(dtShortOutput.Rows[3][ViewConfig.DC_PARAMETER1]);
+ 
 
-            short4.Short4CtrlObj1.usScOutTim = Convert.ToUInt16(dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER2]);
-            short4.Short4CtrlObj2.usScOutTim = Convert.ToUInt16(dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER2]);
-            short4.Short4CtrlObj3.usScOutTim = Convert.ToUInt16(dtShortOutput.Rows[2][ViewConfig.DC_PARAMETER2]);
-            short4.Short4CtrlObj4.usScOutTim = Convert.ToUInt16(dtShortOutput.Rows[3][ViewConfig.DC_PARAMETER2]);
-
-            short4.Short4CtrlObj1.ucScOutAct = Convert.ToByte(cbxOutputLevel.Items.IndexOf(dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER3]));
-            short4.Short4CtrlObj2.ucScOutAct = Convert.ToByte(cbxOutputLevel.Items.IndexOf(dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER3]));
-            short4.Short4CtrlObj3.ucScOutAct = Convert.ToByte(cbxOutputLevel.Items.IndexOf(dtShortOutput.Rows[2][ViewConfig.DC_PARAMETER3]));
-            short4.Short4CtrlObj4.ucScOutAct = Convert.ToByte(cbxOutputLevel.Items.IndexOf(dtShortOutput.Rows[3][ViewConfig.DC_PARAMETER3]));
-
-            return short4.GetAdditionValue();
+            return bodyInduction.GetAdditionValue();
         }
 
         /// <summary>
@@ -467,7 +392,7 @@ namespace ConfigDevice
             viewLogicSetting.ReturnLogicData(new CallbackParameter(logicData));
             //-------附加动作------
             byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
-            short4.SetAdditionLogicData(adittionData);
+            bodyInduction.SetAdditionLogicData(adittionData);
             this.CallbackUI(new CallbackParameter(Radar.CLASS_NAME));//---回调UI---
             //----------手头变更修改状态------
             isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
@@ -478,40 +403,40 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Short4 _short4 = new Short4(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
-            if (_short4.MAC == _short4.MAC) return;
-            _short4.OnCallbackUI_Action += this.CallbackUI;
-            _short4.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
-            BaseViewSetting.DeviceEdit = _short4;           //---基础配置编辑  
-            base.Device = _short4;                         //---父类设备对象-----
+            BodyInduction _bodyInduction = new BodyInduction(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            if (_bodyInduction.MAC == _bodyInduction.MAC) return;
+            _bodyInduction.OnCallbackUI_Action += this.CallbackUI;
+            _bodyInduction.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
+            BaseViewSetting.DeviceEdit = _bodyInduction;           //---基础配置编辑  
+            base.Device = _bodyInduction;                         //---父类设备对象-----
             hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
             hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
             viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------
             viewLogicSetting.NeedInit = true;                   //---重新初始化逻辑配置
-            short4 = _short4;
-            BaseViewSetting.DeviceEdit = short4;            //---基础配置编辑
+            bodyInduction = _bodyInduction;
+            BaseViewSetting.DeviceEdit = bodyInduction;            //---基础配置编辑
 
             lookUpEdit.Properties.DataSource = new DataTable(); //----初始化列表选择-------
             lookUpEdit.ItemIndex = -1;
-            this.Text = _short4.Name;                      //----界面标题------
+            this.Text = _bodyInduction.Name;                      //----界面标题------
             base.InitSelectDevice();                            //---初始化选择列表     
             loadData();                                 //----加载配置界面数据
-            short4.ReadAdditionLogic(0);                //----重新加载附加数据---
+            bodyInduction.ReadAdditionLogic(0);                //----重新加载附加数据---
         }
 
         private void cbxAction_SelectedIndexChanged(object sender, EventArgs e)
         {
- 
+
         }
+
 
         private void btSave_Click(object sender, EventArgs e)
         {
             //-----保存配置------
-            short4.ShortConfigRoad1 = (byte)cbxShortOut1.SelectedIndex;
-            short4.ShortConfigRoad2 = (byte)cbxShortOut2.SelectedIndex;
-            short4.ShortConfigRoad3 = (byte)cbxShortOut3.SelectedIndex;
-            short4.ShortConfigRoad4 = (byte)cbxShortOut4.SelectedIndex;
-            short4.SaveConfig();
+            bodyInduction.UWSensor1.Sensitivity = (byte)ztbcUWSensor1.Value;
+            bodyInduction.UWSensor2.Sensitivity = (byte)ztbcUWSensor2.Value;
+            bodyInduction.IRSensor.Sensitivity = (byte)ztbcIRSensor.Value;
+            bodyInduction.SaveConfig();
         }
 
         private void ceSafeSetting_Click(object sender, EventArgs e)
@@ -519,53 +444,15 @@ namespace ConfigDevice
 
         }
 
-        private void ceSafeSetting_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
-        {
-
-            if (e.Index == 15)
-            {
-                if (ceSafeSetting.Items[15].CheckState == CheckState.Checked)
-                {
-                    for (int i = 0; i < short4.SaftFlags.Length; i++)
-                        ceSafeSetting.Items[i].CheckState = CheckState.Checked;
-                }
-                if (ceSafeSetting.Items[15].CheckState == CheckState.Unchecked)
-                {
-                    for (int i = 0; i < short4.SaftFlags.Length; i++)
-                        ceSafeSetting.Items[i].CheckState = CheckState.Unchecked;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 手动刷新状态
-        /// </summary>
-        private void btRefrash_Click(object sender, EventArgs e)
-        {
-            short4.ReadState();
-            short4.ReadConfig();
-        }
+   
+ 
 
         /// <summary>
         /// 动作切换
         /// </summary>
         private void cbxAction_Changed(object sender, EventArgs e)
         {
-            gvShortOutput.PostEditor();
-            DataRow dr = gvShortOutput.GetDataRow(gvShortOutput.FocusedRowHandle);
-            dr.EndEdit();
-            string action = dr[dcLevel.FieldName].ToString();
-            if (action == SensorConfig.SCIN_LV_NAME_NONE)
-            {
-                dr[dcActionTime.FieldName] = 0;
-                dr[dcDelayTime.FieldName] = 0;
-                dr.EndEdit();
-                speSecond.ReadOnly = true;      
-            }
-            else
-            {
-                speSecond.ReadOnly = false;
-            }
+      
 
         }
 

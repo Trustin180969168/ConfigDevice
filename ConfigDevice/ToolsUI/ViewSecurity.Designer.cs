@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ceLeaveSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
-            ((System.ComponentModel.ISupportInitialize)(this.ceLeaveSafeSetting)).BeginInit();
+            this.ceSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
+            ((System.ComponentModel.ISupportInitialize)(this.ceSafeSetting)).BeginInit();
             this.SuspendLayout();
             // 
-            // ceLeaveSafeSetting
+            // ceSafeSetting
             // 
-            this.ceLeaveSafeSetting.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.ceLeaveSafeSetting.CheckOnClick = true;
-            this.ceLeaveSafeSetting.ColumnWidth = 60;
-            this.ceLeaveSafeSetting.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
-            this.ceLeaveSafeSetting.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            this.ceSafeSetting.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.ceSafeSetting.CheckOnClick = true;
+            this.ceSafeSetting.ColumnWidth = 60;
+            this.ceSafeSetting.HighlightedItemStyle = DevExpress.XtraEditors.HighlightStyle.Skinned;
+            this.ceSafeSetting.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("1"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("2"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("3"),
@@ -55,28 +55,28 @@
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("14"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("15"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("全部")});
-            this.ceLeaveSafeSetting.LeftCoord = 0;
-            this.ceLeaveSafeSetting.Location = new System.Drawing.Point(0, 0);
-            this.ceLeaveSafeSetting.MultiColumn = true;
-            this.ceLeaveSafeSetting.Name = "ceLeaveSafeSetting";
-            this.ceLeaveSafeSetting.Size = new System.Drawing.Size(374, 60);
-            this.ceLeaveSafeSetting.TabIndex = 1;
+            this.ceSafeSetting.LeftCoord = 0;
+            this.ceSafeSetting.Location = new System.Drawing.Point(0, 0);
+            this.ceSafeSetting.MultiColumn = true;
+            this.ceSafeSetting.Name = "ceSafeSetting";
+            this.ceSafeSetting.Size = new System.Drawing.Size(374, 60);
+            this.ceSafeSetting.TabIndex = 1;
             // 
             // ViewSecurity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.Controls.Add(this.ceLeaveSafeSetting);
+            this.Controls.Add(this.ceSafeSetting);
             this.Name = "ViewSecurity";
-            this.Size = new System.Drawing.Size(374, 60);
-            ((System.ComponentModel.ISupportInitialize)(this.ceLeaveSafeSetting)).EndInit();
+            this.Size = new System.Drawing.Size(377, 63);
+            ((System.ComponentModel.ISupportInitialize)(this.ceSafeSetting)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        protected DevExpress.XtraEditors.CheckedListBoxControl ceLeaveSafeSetting;
+        protected DevExpress.XtraEditors.CheckedListBoxControl ceSafeSetting;
     }
 }
