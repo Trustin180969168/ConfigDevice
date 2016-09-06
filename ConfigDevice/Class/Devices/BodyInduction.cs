@@ -65,7 +65,7 @@ namespace ConfigDevice
             Light = new BodyInductionLight(this);
             Circuit = new Circuit(this,16);
             SecurityObj = new SecurityObj(this);
-
+            Light.OnCallbackUI_Action += this.CallbackUI;
             ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, Circuit);
         }
 
@@ -141,7 +141,7 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 获取指示灯参数
+        /// 获取配置参数
         /// </summary>
         /// <param name="data">数据包</param>
         /// <param name="values"></param>
@@ -153,8 +153,8 @@ namespace ConfigDevice
             UdpTools.ReplyDataUdp(data);//----回复确认-----
             //----传感器ID------------
             UWSensor1.Sensitivity =  userData.Data[0];
-            UWSensor2.Sensitivity =  userData.Data[1];
-            IRSensor.Sensitivity = userData.Data[2];
+            UWSensor2.Sensitivity =  userData.Data[2];
+            IRSensor.Sensitivity = userData.Data[1];
 
             this.CallbackUI(new CallbackParameter(this.GetType().Name, ActionKind.ReadConfig));//---回调UI---
    

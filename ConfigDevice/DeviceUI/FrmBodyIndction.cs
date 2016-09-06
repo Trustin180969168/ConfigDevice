@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraEditors.Controls;
 using System.Collections;
+using DevExpress.XtraEditors;
 
 namespace ConfigDevice
 {
@@ -46,11 +47,10 @@ namespace ConfigDevice
             edtLevel.Appearance.BackColor = Color.Gainsboro;//灰色
             edtLevel.Appearance.ForeColor = Color.Black;
 
-            viewSecurity.InitViewSecurity(bodyInduction.SecurityObj);//---安防对象---
 
             bodyInduction = this.Device as BodyInduction;
             refreshSateTimer = new ThreadActionTimer(2000, new Action(bodyInduction.ReadState));//---自动刷新----
- 
+            viewSecurity.InitViewSecurity(bodyInduction.SecurityObj);//---安防对象---
             //----------回路查询选择------
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_ID, DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Center, DevExpress.Data.ColumnSortOrder.None));
             lookUpEdit.Properties.Columns.Add(new LookUpColumnInfo(ViewConfig.DC_NAME, 380));
@@ -69,7 +69,7 @@ namespace ConfigDevice
             //----------逻辑配置控件----
             viewLogicSetting.ShowToolBar = false;//不显示工具栏  
             //viewCommandEdit.ShowCommandBar = true;//不显示指令栏
-
+            //----------指令配置控件------
             viewCommandSetting.ShowCommandBar = true;
             viewCommandSetting.ShowLogicToolBarSetting();     
             //----------快速配置-----
@@ -103,7 +103,8 @@ namespace ConfigDevice
             bodyInduction.SearchVer();          //---获取版本号-----   
             bodyInduction.Circuit.ReadRoadTitle();//----读取回路---- 
             bodyInduction.ReadState();  //---读取状态----      
-            bodyInduction.ReadConfig(); //------输出配置
+            bodyInduction.ReadConfig(); //---输出配置
+            bodyInduction.Light.ReadOpenState();//----读取是否开启---
         }
 
         /// <summary>
@@ -121,29 +122,34 @@ namespace ConfigDevice
                 //-----读取完回路----
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME
                     && callbackParameter.Parameters[1].ToString() == bodyInduction.DeviceID)
+                {
                     initLogicAndCommand();//---初始化指令配置,逻辑配置
+                    viewSecurity.ReadSecurity(lookUpEdit.ItemIndex);
+                }
                 //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Short4.CLASS_NAME)
+                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == bodyInduction.GetType().Name)
                 {
                     //-----逻辑状态-------
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadConfig)
+                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadSate)
                     {
                         edtUW1.Text = bodyInduction.UWSensor1.SensorData.LevelValue; 
                         edtIR.Text = bodyInduction.IRSensor.SensorData.LevelValue;
                         edtUW2.Text = bodyInduction.UWSensor2.SensorData.LevelValue;
-                        edtLum.Text = bodyInduction.IRSensor.SensorData.LevelValue;
+                        edtLum.Text = bodyInduction.IRSensor.LumSensorData.ValueAndUnit;
                     }
- 
                     //-----逻辑附加动作-------
                     if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadAdditionAciton)
                     {
                         cbxLight.SelectedIndex = bodyInduction.Light.LedAct;//指示灯动作
                         sptLightSeconds.Value = bodyInduction.Light.LedTim;//指示灯秒数
                     }
-                    //-----安防配置-------
-                    if (callbackParameter.Parameters[1].ToString() == Short4.ACTION_SAFE)
+                    //-----逻辑配置-------
+                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadConfig)
                     {
-                        bodyInduction.SecurityObj.ReadSafeSetting(lookUpEdit.ItemIndex);
+                        ztbcUWSensor1.Value = (int)bodyInduction.UWSensor1.Sensitivity;
+                        ztbcUWSensor2.Value = (int)bodyInduction.UWSensor2.Sensitivity;
+                        ztbcIRSensor.Value = (int)bodyInduction.IRSensor.Sensitivity;
+                        cetSentivityLight.Checked = bodyInduction.Light.Open;//----是否开启指示灯---
                     }
                 }
  
@@ -276,11 +282,7 @@ namespace ConfigDevice
         private bool hasChangedAdditionLogic()
         {
             return true;
-        }
-
-
-
-
+        } 
 
         /// <summary>
         /// 双击打开选择
@@ -444,9 +446,6 @@ namespace ConfigDevice
 
         }
 
-   
- 
-
         /// <summary>
         /// 动作切换
         /// </summary>
@@ -485,6 +484,68 @@ namespace ConfigDevice
         
             //}
         }
+
+        private void cbnTest_Click(object sender, EventArgs e)
+        {
+            switch ((sender as CheckButton).Name)
+            {
+                case "cbnTestIR":
+                    {
+                        cbnTestIR.Checked = !cbnTestIR.Checked;
+                        if (cbnTestIR.Checked)
+                            bodyInduction.IRSensor.OpenTest(lookUpEdit.ItemIndex);
+                        else
+                            bodyInduction.IRSensor.CloseTest(lookUpEdit.ItemIndex);
+                        
+                    } break;
+                case "cbnTestUW1":
+                    {
+                        cbnTestUW1.Checked = !cbnTestUW1.Checked;
+                        if (cbnTestIR.Checked)
+                            bodyInduction.UWSensor1.OpenTest(lookUpEdit.ItemIndex);
+                        else
+                            bodyInduction.UWSensor1.CloseTest(lookUpEdit.ItemIndex);
+                    } break;
+                case "cbnTestUW2":
+                    {
+                        cbnTestUW2.Checked = !cbnTestUW2.Checked;
+                        if (cbnTestIR.Checked)
+                            bodyInduction.UWSensor2.OpenTest(lookUpEdit.ItemIndex);
+                        else
+                            bodyInduction.UWSensor2.CloseTest(lookUpEdit.ItemIndex);
+                    } break;
+
+                default: break;
+            }
+            //------互斥----------
+            cbnTestIR.BackColor = Color.Transparent; cbnTestUW1.BackColor = Color.Transparent; cbnTestUW2.BackColor = Color.Transparent;
+            if (cbnTestIR.Checked) { cbnTestUW1.Checked = false; cbnTestUW2.Checked = false; cbnTestIR.BackColor = Color.Orange; }
+            if (cbnTestUW1.Checked) { cbnTestIR.Checked = false; cbnTestUW2.Checked = false; cbnTestUW1.BackColor = Color.Orange; }
+            if (cbnTestUW2.Checked) { cbnTestUW1.Checked = false; cbnTestIR.Checked = false; cbnTestUW2.BackColor = Color.Orange; }
+
+        }
+
+        /// <summary>
+        /// 刷新
+        /// </summary>
+        private void btRefrash_Click(object sender, EventArgs e)
+        {
+            bodyInduction.ReadState(); 
+        }
+
+        /// <summary>
+        /// 显示当前灵敏度
+        /// </summary>
+        private void ztbcSensor_EditValueChanged(object sender, EventArgs e)
+        {
+            lblIR.Text = ztbcIRSensor.Value.ToString();
+            lblUW1.Text = ztbcUWSensor1.Value.ToString();
+            lblUW2.Text = ztbcUWSensor2.Value.ToString();
+        }
+
+ 
+
+ 
    
     }
 }

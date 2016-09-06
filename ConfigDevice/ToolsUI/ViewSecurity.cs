@@ -11,7 +11,7 @@ namespace ConfigDevice
     public partial class ViewSecurity : UserControl
     {
         private SecurityObj securityObj;//-----安防控制对象-----
-         
+
         public ViewSecurity()
         {
             InitializeComponent();
@@ -22,8 +22,8 @@ namespace ConfigDevice
         /// </summary>
         public void InitViewSecurity(SecurityObj obj)
         {
-            securityObj = obj; 
-
+            securityObj = obj;
+            securityObj.OnCallbackUI_Action += this.CallbackUI;
         }
 
         /// <summary>
@@ -31,18 +31,16 @@ namespace ConfigDevice
         /// </summary>
         public void ShowSecuritySetting()
         {
-            
             //------安防配置---------------
             for (int i = 0; i < securityObj.SaftFlags.Length; i++)
                 ceSafeSetting.Items[i].CheckState = securityObj.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
-
         }
 
         /// <summary>
         /// 获取安防配置
         /// </summary>
         /// <returns></returns>
-        public UInt16 SetSecuritySetting()
+        public UInt16 GetSecuritySetting()
         {
             //---安防配置---------------
             bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
@@ -53,6 +51,15 @@ namespace ConfigDevice
             return securityObj.Security;
         }
 
+        /// <summary>
+        /// 保存安防配置
+        /// </summary>
+        /// <param name="groupNum"></param>
+        public void SaveSecurity(int groupNum)
+        {
+            if(hasChangedSafeLogic())
+                securityObj.SaveSafeSetting(groupNum);
+        }
 
 
         /// <summary>
@@ -69,6 +76,32 @@ namespace ConfigDevice
                     return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// 读取安防配置
+        /// </summary>
+        public void ReadSecurity(int groupNum)
+        {
+            securityObj.ReadSafeSetting(groupNum);
+        } 
+          
+        /// <summary>
+        /// 回调
+        /// </summary>
+        private void CallbackUI(CallbackParameter callbackParameter)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CallbackUIAction(CallbackUI), callbackParameter);
+                return;
+            }
+            else
+            {
+                //------安防配置---------------
+                for (int i = 0; i < securityObj.SaftFlags.Length; i++)
+                    ceSafeSetting.Items[i].CheckState = securityObj.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
+            }
         }
 
     }

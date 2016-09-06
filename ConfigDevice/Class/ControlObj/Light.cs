@@ -166,12 +166,141 @@ namespace ConfigDevice
         public const string STATE_LEDACT_ON_R = "点亮";
         public const string STATE_LEDACT_GL_R = "闪烁";
         public const string STATE_LEDACT_NONE = "不动作";
+        private CallbackFromUDP getOpenConfig;//-------获取设备配置---- 
+        private bool open = false;//是否开启指示灯
+
+        public bool Open
+        {
+            get { return open; }
+            set { open = value; }
+        }
 
         public BodyInductionLight(Device deviceControled)
             : base(deviceControled)
         {
+            getOpenConfig = new CallbackFromUDP(getOpenConfigData);
+        }
+
+
+        /// <summary>
+        /// 读开启状态
+        /// </summary>
+        public void ReadOpenState()
+        {
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PRI_WRITE_FLASH_CONFIG, getOpenConfig);//----注册回调--- 
+            UdpData udpSend = createReadCconfigUdp();
+            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
+                new CallbackUdpAction(callbackReadConfigUdp), null);
+        }
+        private void callbackReadConfigUdp(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("读取参数失败!", udpReply.ReplyByte);
+        }
+        private UdpData createReadCconfigUdp()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
+            byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PRI_READ_FLASH_CONFIG;//----用户命令-----
+            byte len = 4;//---数据长度---- 
+
+            byte[] crcData = new byte[10];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+
+        /// <summary>
+        /// 获取配置参数
+        /// </summary>
+        /// <param name="data">数据包</param>
+        /// <param name="values"></param>
+        private void getOpenConfigData(UdpData data, object[] values)
+        {
+            UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
+
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            //----传感器ID------------
+            int openFlag = (int)userData.Data[0];
+            open = openFlag == 1 ? true : false;
+
+            this.CallbackUI(new CallbackParameter(this.deviceControled.GetType().Name, ActionKind.ReadConfig));//---回调UI---
 
         }
+
+
+        /// <summary>
+        /// 写参数
+        /// </summary>
+        public void SaveConfig(bool open)
+        {
+            UdpData udpSend = createWriteConfigUdp(open);
+            MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
+                new CallbackUdpAction(callbackWriteConfigUdp), new object[]{open});
+        }
+        private void callbackWriteConfigUdp(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("设置参数失败!", udpReply.ReplyByte);
+            else
+                this.open = (bool)values[0];
+        }
+        private UdpData createWriteConfigUdp(bool _open)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { deviceControled.ByteDeviceID, deviceControled.ByteNetworkId, deviceControled.ByteKindID };//----目标信息--
+            byte[] source = new byte[] { deviceControled.BytePCAddress, deviceControled.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PRI_WRITE_FLASH_CONFIG;//----用户命令-----
+            byte len = 4 + 2;//---数据长度---- 
+
+            byte[] crcData = new byte[10 + 2];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+            crcData[10] = (byte)(_open ? 1 : 0); 
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+
+
+
+
     }
 
     /// <summary>

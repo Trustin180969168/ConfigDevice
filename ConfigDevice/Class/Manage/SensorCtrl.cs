@@ -80,7 +80,7 @@ namespace ConfigDevice
                 return new Short4Sensor(value);
             if (kindID == SensorConfig.LG_SENSOR_UW_1)//-----超声波1
                 return new UWSensorData(value);
-            if (kindID == SensorConfig.LG_SENSOR_UW_1)//-----超声波2
+            if (kindID == SensorConfig.LG_SENSOR_UW_2)//-----超声波2
                 return new UWSensorData(value);
             if (kindID == SensorConfig.LG_SENSOR_IR)//-----红外
                 return new IRSensorData(value); 
