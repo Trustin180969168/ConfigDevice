@@ -119,10 +119,21 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="b">4个字节</param>
         /// <returns></returns>
-        public static int Bytes4ToInt(params byte[] b)
+        public static Int32 Bytes4ToInt32(params byte[] b)
         {            
            return System.BitConverter.ToInt32(b, 0); 
         }
+
+        /// <summary>
+        /// 字节转10进制
+        /// </summary>
+        /// <param name="b">4个字节</param>
+        /// <returns></returns>
+        public static UInt32 Bytes4ToUInt32(params byte[] b)
+        {
+            return System.BitConverter.ToUInt32(b, 0);
+        }
+
 
         /// <summary>
         /// 字节转10进制

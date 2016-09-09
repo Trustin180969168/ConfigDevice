@@ -61,6 +61,7 @@
             this.ceSafeSetting.Name = "ceSafeSetting";
             this.ceSafeSetting.Size = new System.Drawing.Size(374, 60);
             this.ceSafeSetting.TabIndex = 1;
+            this.ceSafeSetting.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.ceSafeSetting_ItemCheck);
             // 
             // ViewSecurity
             // 

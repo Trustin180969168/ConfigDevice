@@ -75,8 +75,10 @@ namespace ConfigDevice
         private void initCallback()
         {
             RemoveRJ45Callback();
-            getConfig = new CallbackFromUDP(getConfigData);
+            getConfig = new CallbackFromUDP(getConfigData);//----配置---
+            getAdditionLogic = new CallbackFromUDP(this.getAdditionLogicData);//---逻辑附加动作---
             getStateInfo = new CallbackFromUDP(getStateInfoData);//获取短路配置
+            getWriteEnd = new CallbackFromUDP(this.getWriteEndData);//--回调确认附加动作---
         }
 
         /// <summary>
@@ -372,7 +374,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(Radar.CLASS_NAME, ActionKind.ReadConfig));//---回调UI---
+                this.CallbackUI(new CallbackParameter(this.GetType().Name, ActionKind.ReadAdditionAciton));//---回调UI---
             }
         }
 
@@ -413,7 +415,7 @@ namespace ConfigDevice
             crcData[9] = len;
 
             crcData[10] = (byte)groupNum;
-            crcData[11] = (byte)this.Light.LedAct;//----指示灯---
+            crcData[11] = (byte)this.Light.LedAct;//----指示灯动作---
             byte[] byteSeconds = ConvertTools.GetByteFromUInt16(Light.LedTim);
             Buffer.BlockCopy(byteSeconds, 0, crcData, 12, 2);
             Buffer.BlockCopy(byteSeconds, 0, crcData, 15, 2);

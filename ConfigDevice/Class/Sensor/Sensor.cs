@@ -76,7 +76,7 @@ namespace ConfigDevice
             byte byteGroupNum = (byte)(Convert.ToInt16(code));//--组号--
 
             //---------生成校验码-----------
-            byte[] crcData = new byte[10 + 1];
+            byte[] crcData = new byte[10 + 2];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;

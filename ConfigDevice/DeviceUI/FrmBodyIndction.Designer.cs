@@ -383,28 +383,55 @@
             // 
             // cbnTestUW2
             // 
-            this.cbnTestUW2.Location = new System.Drawing.Point(126, 123);
+            this.cbnTestUW2.AllowAllUnchecked = true;
+            this.cbnTestUW2.AllowFocus = false;
+            this.cbnTestUW2.Appearance.ForeColor = System.Drawing.Color.Blue;
+            this.cbnTestUW2.Appearance.Options.UseForeColor = true;
+            this.cbnTestUW2.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+            this.cbnTestUW2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbnTestUW2.GroupIndex = 1;
+            this.cbnTestUW2.Location = new System.Drawing.Point(115, 123);
             this.cbnTestUW2.Name = "cbnTestUW2";
             this.cbnTestUW2.Size = new System.Drawing.Size(75, 23);
             this.cbnTestUW2.TabIndex = 3;
+            this.cbnTestUW2.TabStop = false;
+            this.cbnTestUW2.Tag = "false";
             this.cbnTestUW2.Text = "测  试";
             this.cbnTestUW2.CheckedChanged += new System.EventHandler(this.cbnTest_Click);
             // 
             // cbnTestUW1
             // 
-            this.cbnTestUW1.Location = new System.Drawing.Point(126, 36);
+            this.cbnTestUW1.AllowAllUnchecked = true;
+            this.cbnTestUW1.AllowFocus = false;
+            this.cbnTestUW1.Appearance.ForeColor = System.Drawing.Color.Blue;
+            this.cbnTestUW1.Appearance.Options.UseForeColor = true;
+            this.cbnTestUW1.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+            this.cbnTestUW1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbnTestUW1.GroupIndex = 1;
+            this.cbnTestUW1.Location = new System.Drawing.Point(115, 36);
             this.cbnTestUW1.Name = "cbnTestUW1";
             this.cbnTestUW1.Size = new System.Drawing.Size(75, 23);
             this.cbnTestUW1.TabIndex = 2;
+            this.cbnTestUW1.TabStop = false;
+            this.cbnTestUW1.Tag = "false";
             this.cbnTestUW1.Text = "测  试";
             this.cbnTestUW1.CheckedChanged += new System.EventHandler(this.cbnTest_Click);
             // 
             // cbnTestIR
             // 
-            this.cbnTestIR.Location = new System.Drawing.Point(126, 80);
+            this.cbnTestIR.AllowAllUnchecked = true;
+            this.cbnTestIR.AllowFocus = false;
+            this.cbnTestIR.Appearance.ForeColor = System.Drawing.Color.Blue;
+            this.cbnTestIR.Appearance.Options.UseForeColor = true;
+            this.cbnTestIR.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+            this.cbnTestIR.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbnTestIR.GroupIndex = 1;
+            this.cbnTestIR.Location = new System.Drawing.Point(115, 80);
             this.cbnTestIR.Name = "cbnTestIR";
             this.cbnTestIR.Size = new System.Drawing.Size(75, 23);
             this.cbnTestIR.TabIndex = 1;
+            this.cbnTestIR.TabStop = false;
+            this.cbnTestIR.Tag = "false";
             this.cbnTestIR.Text = "测  试";
             this.cbnTestIR.CheckedChanged += new System.EventHandler(this.cbnTest_Click);
             // 
@@ -541,11 +568,11 @@
             // viewCommandSetting
             // 
             this.viewCommandSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandSetting.Location = new System.Drawing.Point(0, 437);
+            this.viewCommandSetting.Location = new System.Drawing.Point(0, 400);
             this.viewCommandSetting.Name = "viewCommandSetting";
             this.viewCommandSetting.ShowCommandBar = false;
             this.viewCommandSetting.ShowToolBar = false;
-            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 248);
+            this.viewCommandSetting.Size = new System.Drawing.Size(1009, 285);
             this.viewCommandSetting.TabIndex = 1;
             // 
             // groupBox1
@@ -560,7 +587,7 @@
             this.groupBox1.Font = new System.Drawing.Font("宋体", 9F);
             this.groupBox1.Location = new System.Drawing.Point(0, 284);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1009, 153);
+            this.groupBox1.Size = new System.Drawing.Size(1009, 116);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "附加动作";
@@ -572,7 +599,7 @@
             0,
             0,
             0});
-            this.sptLightSeconds.Location = new System.Drawing.Point(248, 118);
+            this.sptLightSeconds.Location = new System.Drawing.Point(777, 37);
             this.sptLightSeconds.Name = "sptLightSeconds";
             this.sptLightSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -582,7 +609,7 @@
             // 
             // labelControl11
             // 
-            this.labelControl11.Location = new System.Drawing.Point(306, 121);
+            this.labelControl11.Location = new System.Drawing.Point(835, 40);
             this.labelControl11.Name = "labelControl11";
             this.labelControl11.Size = new System.Drawing.Size(12, 14);
             this.labelControl11.TabIndex = 8;
@@ -590,7 +617,7 @@
             // 
             // labelControl19
             // 
-            this.labelControl19.Location = new System.Drawing.Point(218, 121);
+            this.labelControl19.Location = new System.Drawing.Point(747, 40);
             this.labelControl19.Name = "labelControl19";
             this.labelControl19.Size = new System.Drawing.Size(24, 14);
             this.labelControl19.TabIndex = 7;
@@ -598,7 +625,7 @@
             // 
             // cbxLight
             // 
-            this.cbxLight.Location = new System.Drawing.Point(128, 118);
+            this.cbxLight.Location = new System.Drawing.Point(657, 37);
             this.cbxLight.Name = "cbxLight";
             this.cbxLight.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -608,7 +635,7 @@
             // 
             // labelControl20
             // 
-            this.labelControl20.Location = new System.Drawing.Point(62, 121);
+            this.labelControl20.Location = new System.Drawing.Point(591, 40);
             this.labelControl20.Name = "labelControl20";
             this.labelControl20.Size = new System.Drawing.Size(60, 14);
             this.labelControl20.TabIndex = 5;
@@ -619,7 +646,7 @@
             this.groupBox2.Controls.Add(this.viewSecurity);
             this.groupBox2.Location = new System.Drawing.Point(62, 20);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(499, 92);
+            this.groupBox2.Size = new System.Drawing.Size(499, 81);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "安防动作关联";

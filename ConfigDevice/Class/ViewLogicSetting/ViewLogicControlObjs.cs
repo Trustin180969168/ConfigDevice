@@ -1063,8 +1063,8 @@ namespace ConfigDevice
 
             byte[] startSeconds = new byte[] { 0, (byte)dtStartTime.Minute, (byte)dtStartTime.Hour, 0 };
             byte[] endSeconds = new byte[] { 0, (byte)dtEndTime.Minute, (byte)dtEndTime.Hour, 0 };
-            triggerData.Size1 = ConvertTools.Bytes4ToInt(startSeconds);
-            triggerData.Size2 = ConvertTools.Bytes4ToInt(endSeconds);
+            triggerData.Size1 = ConvertTools.Bytes4ToInt32(startSeconds);
+            triggerData.Size2 = ConvertTools.Bytes4ToInt32(endSeconds);
             triggerData.ValidSeconds = 0;//--无效强制为0
             triggerData.InvalidSeconds = 0;//---无效强制为0
             return triggerData;
@@ -1163,8 +1163,8 @@ namespace ConfigDevice
 
             byte[] startDate = new byte[] {(byte)dtStartTime.Day, (byte)dtStartTime.Month,0,0 };
             byte[] endDate = new byte[] {(byte)dtEndTime.Day, (byte)dtEndTime.Month,0,0 };
-            triggerData.Size1 = ConvertTools.Bytes4ToInt(startDate);
-            triggerData.Size2 = ConvertTools.Bytes4ToInt(endDate);
+            triggerData.Size1 = ConvertTools.Bytes4ToInt32(startDate);
+            triggerData.Size2 = ConvertTools.Bytes4ToInt32(endDate);
             triggerData.ValidSeconds = 0;//--无效强制为0
             triggerData.InvalidSeconds = 0;//---无效强制为0
             return triggerData;

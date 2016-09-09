@@ -30,12 +30,7 @@ namespace ConfigDevice
             : base(_device)
         {
             InitializeComponent();
-            //----初始化指示灯秒数---
-            sptLightSeconds.Properties.DisplayFormat.FormatString = "###0 秒";
-            sptLightSeconds.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            sptLightSeconds.Properties.Mask.EditMask = "###0 秒";
-            sptLightSeconds.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            sptLightSeconds.Properties.Mask.UseMaskAsDisplayFormat = true;
+            //----------指示灯------- 
             sptLightSeconds.Properties.MaxValue = 3600;
             sptLightSeconds.Properties.MinValue = 0;
             cbxOutputLevel.Items.Add(SensorConfig.SCIN_LV_NAME_LOW);
@@ -45,8 +40,11 @@ namespace ConfigDevice
             edtLevel.ReadOnly = true;
             edtLevel.NullText = "无效";
             edtLevel.Appearance.BackColor = Color.Gainsboro;//灰色
-            edtLevel.Appearance.ForeColor = Color.Black;
-
+            edtLevel.Appearance.ForeColor = Color.Black; 
+            cbxLight.Properties.Items.Add(BodyInductionLight.STATE_LEDACT_OFF);
+            cbxLight.Properties.Items.Add(BodyInductionLight.STATE_LEDACT_ON_R);
+            cbxLight.Properties.Items.Add(BodyInductionLight.STATE_LEDACT_GL_R); 
+            cbxLight.Properties.Items.Add(BodyInductionLight.STATE_LEDACT_NONE);
 
             bodyInduction = this.Device as BodyInduction;
             refreshSateTimer = new ThreadActionTimer(2000, new Action(bodyInduction.ReadState));//---自动刷新----
@@ -73,7 +71,7 @@ namespace ConfigDevice
             viewCommandSetting.ShowCommandBar = true;
             viewCommandSetting.ShowLogicToolBarSetting();     
             //----------快速配置-----
-            logicQuickSetting = new LogicQuickSetting(DeviceConfig.LOCAL_LOGIC_SETTING_SHORT_IN_4);
+            logicQuickSetting = new LogicQuickSetting(DeviceConfig.LOCAL_LOGIC_SETTING_EQUIPMENT_PRI_3);
             initLogicQuitSetting();
         }
 
@@ -132,7 +130,7 @@ namespace ConfigDevice
                     //-----逻辑状态-------
                     if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadSate)
                     {
-                        edtUW1.Text = bodyInduction.UWSensor1.SensorData.LevelValue; 
+                        edtUW1.Text = bodyInduction.UWSensor1.SensorData.LevelValue;
                         edtIR.Text = bodyInduction.IRSensor.SensorData.LevelValue;
                         edtUW2.Text = bodyInduction.UWSensor2.SensorData.LevelValue;
                         edtLum.Text = bodyInduction.IRSensor.LumSensorData.ValueAndUnit;
@@ -152,7 +150,7 @@ namespace ConfigDevice
                         cetSentivityLight.Checked = bodyInduction.Light.Open;//----是否开启指示灯---
                     }
                 }
- 
+
             }
         }
 
@@ -227,6 +225,7 @@ namespace ConfigDevice
             viewCommandSetting.CbxCommandGroup.SelectedIndex = lookUpEdit.ItemIndex;//----获取指令配置----
             bodyInduction.ReadAdditionLogic(lookUpEdit.ItemIndex);//---获取逻辑附加---
             bodyInduction.SecurityObj.ReadSafeSetting(lookUpEdit.ItemIndex);  //---安防配置---
+   
         }
 
         /// <summary>
@@ -262,14 +261,12 @@ namespace ConfigDevice
             {
                 bodyInduction.Light.LedAct = (byte)cbxLight.SelectedIndex;
                 bodyInduction.Light.LedTim = (UInt16)sptLightSeconds.Value;
-                bodyInduction.SaveAdditionLogic(lookUpEdit.ItemIndex);//---保存附加动作---
-
-            
+                bodyInduction.SaveAdditionLogic(lookUpEdit.ItemIndex);//---保存附加动作---            
             }
             if (currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----
                 bodyInduction.Circuit.SaveRoadSetting(lookUpEdit.ItemIndex, edtTriggerActionName.Text);//--保存逻辑名称---
 
-            bodyInduction.SaveConfig();//------保存安防-----
+            viewSecurity.SaveSecurity(lookUpEdit.ItemIndex);//------保存安防-----
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
             viewLogicSetting.IsSystemSetting = false;           //---恢复标志位---
             viewCommandSetting.SaveCommands(lookUpEdit.ItemIndex);//---保存指令配置---   
@@ -439,6 +436,7 @@ namespace ConfigDevice
             bodyInduction.UWSensor2.Sensitivity = (byte)ztbcUWSensor2.Value;
             bodyInduction.IRSensor.Sensitivity = (byte)ztbcIRSensor.Value;
             bodyInduction.SaveConfig();
+            bodyInduction.Light.SaveConfig(cetSentivityLight.Checked);//-是否开启指示灯---
         }
 
         private void ceSafeSetting_Click(object sender, EventArgs e)
@@ -487,42 +485,39 @@ namespace ConfigDevice
 
         private void cbnTest_Click(object sender, EventArgs e)
         {
-            switch ((sender as CheckButton).Name)
-            {
-                case "cbnTestIR":
-                    {
-                        cbnTestIR.Checked = !cbnTestIR.Checked;
-                        if (cbnTestIR.Checked)
-                            bodyInduction.IRSensor.OpenTest(lookUpEdit.ItemIndex);
-                        else
-                            bodyInduction.IRSensor.CloseTest(lookUpEdit.ItemIndex);
-                        
-                    } break;
-                case "cbnTestUW1":
-                    {
-                        cbnTestUW1.Checked = !cbnTestUW1.Checked;
-                        if (cbnTestIR.Checked)
-                            bodyInduction.UWSensor1.OpenTest(lookUpEdit.ItemIndex);
-                        else
-                            bodyInduction.UWSensor1.CloseTest(lookUpEdit.ItemIndex);
-                    } break;
-                case "cbnTestUW2":
-                    {
-                        cbnTestUW2.Checked = !cbnTestUW2.Checked;
-                        if (cbnTestIR.Checked)
-                            bodyInduction.UWSensor2.OpenTest(lookUpEdit.ItemIndex);
-                        else
-                            bodyInduction.UWSensor2.CloseTest(lookUpEdit.ItemIndex);
-                    } break;
+           
+            //switch ((sender as CheckButton).Name)
+            //{
+            //    case "cbnTestIR":
+            //        {
+            //            cbnTestIR.Checked = cbnTestIR.Checked ? false : true;
+            //            if (cbnTestIR.Checked)
+            //                bodyInduction.IRSensor.OpenTest(lookUpEdit.ItemIndex);
+            //            else
+            //                bodyInduction.IRSensor.CloseTest(lookUpEdit.ItemIndex);
 
-                default: break;
-            }
-            //------互斥----------
-            cbnTestIR.BackColor = Color.Transparent; cbnTestUW1.BackColor = Color.Transparent; cbnTestUW2.BackColor = Color.Transparent;
-            if (cbnTestIR.Checked) { cbnTestUW1.Checked = false; cbnTestUW2.Checked = false; cbnTestIR.BackColor = Color.Orange; }
-            if (cbnTestUW1.Checked) { cbnTestIR.Checked = false; cbnTestUW2.Checked = false; cbnTestUW1.BackColor = Color.Orange; }
-            if (cbnTestUW2.Checked) { cbnTestUW1.Checked = false; cbnTestIR.Checked = false; cbnTestUW2.BackColor = Color.Orange; }
+            //        } break;
+            //    case "cbnTestUW1":
+            //        {
+            //            cbnTestUW1.Checked = !cbnTestUW1.Checked ? false : true;
+            //            if (cbnTestIR.Checked)
+            //                bodyInduction.UWSensor1.OpenTest(lookUpEdit.ItemIndex);
+            //            else
+            //                bodyInduction.UWSensor1.CloseTest(lookUpEdit.ItemIndex);
+            //        } break;
+            //    case "cbnTestUW2":
+            //        {
+            //            cbnTestUW2.Checked = !cbnTestUW2.Checked ? false : true;
+            //            if (cbnTestIR.Checked)
+            //                bodyInduction.UWSensor2.OpenTest(lookUpEdit.ItemIndex);
+            //            else
+            //                bodyInduction.UWSensor2.CloseTest(lookUpEdit.ItemIndex);
+            //        } break;
 
+            //    default: break;
+            //}
+
+            cbnTestUW1_MouseUp(sender, null);
         }
 
         /// <summary>
@@ -530,7 +525,8 @@ namespace ConfigDevice
         /// </summary>
         private void btRefrash_Click(object sender, EventArgs e)
         {
-            bodyInduction.ReadState(); 
+            bodyInduction.ReadState();
+            bodyInduction.ReadConfig();
         }
 
         /// <summary>
@@ -543,9 +539,40 @@ namespace ConfigDevice
             lblUW2.Text = ztbcUWSensor2.Value.ToString();
         }
 
- 
+        private bool changingTestState = false;
+        private void cbnTestUW1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (changingTestState) return;
+            changingTestState = true;
+            int groupNum = lookUpEdit.ItemIndex;
+            //------互斥----------
+            cbnTestIR.Appearance.BackColor = Color.Transparent; cbnTestUW1.Appearance.BackColor = Color.Transparent;
+            cbnTestUW2.Appearance.BackColor = Color.Transparent;
+            if (cbnTestIR.Checked)
+            {
+                cbnTestUW1.Checked = false; cbnTestUW2.Checked = false; cbnTestIR.Appearance.BackColor = Color.Orange;
+                bodyInduction.IRSensor.OpenTest(groupNum); //bodyInduction.UWSensor1.CloseTest(groupNum); bodyInduction.UWSensor2.CloseTest(groupNum);
+            }
+            else
+                bodyInduction.IRSensor.CloseTest(groupNum);
+            if (cbnTestUW1.Checked)
+            {
+                cbnTestIR.Checked = false; cbnTestUW2.Checked = false; cbnTestUW1.Appearance.BackColor = Color.Orange;
+                bodyInduction.UWSensor1.OpenTest(groupNum); //bodyInduction.IRSensor.CloseTest(groupNum); bodyInduction.UWSensor2.CloseTest(groupNum);
+            }
+            else
+                bodyInduction.UWSensor1.CloseTest(groupNum);
+            if (cbnTestUW2.Checked)
+            {
+                cbnTestUW1.Checked = false; cbnTestIR.Checked = false; cbnTestUW2.Appearance.BackColor = Color.Orange;
+                bodyInduction.UWSensor2.OpenTest(groupNum);// bodyInduction.UWSensor1.CloseTest(groupNum); bodyInduction.IRSensor.CloseTest(groupNum);
+            }
+            else
+                bodyInduction.UWSensor2.CloseTest(groupNum);
+            changingTestState = false;
+        }
 
  
-   
+
     }
 }

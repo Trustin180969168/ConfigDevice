@@ -7,13 +7,15 @@ namespace ConfigDevice
 
     public class SecurityObj : ControlObj
     {
-        private UInt16 security = 0;//安防
-        private CallbackFromUDP getSafeSetting;//---获取安全配置----
-        public UInt16 Security
+        private byte[] securityLevel = new byte[4];//----安全级别------
+
+        public byte[] SecurityLevel
         {
-            get { return security; }
-            set { security = value; }
+            get { return securityLevel; }
+            set { securityLevel = value; }
         }
+        private CallbackFromUDP getSafeSetting;//---获取安全配置----
+
         public SecurityObj(Device _deviceCtrl)
             : base(_deviceCtrl)
         {
@@ -28,7 +30,7 @@ namespace ConfigDevice
         public void SetSecurity(byte[] value)
         {
             //--------安防配置------
-            Security = ConvertTools.Bytes2ToUInt16(value[0], value[1]);
+            securityLevel = CommonTools.CopyBytes(value, 0, 4);
             byte b1 = value[0];
             byte b2 = value[1];
             int num = 0;
@@ -45,7 +47,6 @@ namespace ConfigDevice
         /// <returns></returns>
         public byte[] GetSecurityBytes()
         {
-
             //byte b1 = 0;
             //byte b2 = 0;
             //int num = 0;
@@ -58,8 +59,8 @@ namespace ConfigDevice
             //        b2 = (byte)(b2 | i);
 
             //return new byte[] { b1, b2 };
-
-            return ConvertTools.GetByteFromUInt16(security);
+            return securityLevel;
+            //return ConvertTools.GetByteFromUInt16(security);
         }
 
         //-----安防标志----目前为两个字节------
@@ -67,9 +68,8 @@ namespace ConfigDevice
         {
             get
             {
-                byte[] value = ConvertTools.GetByteFromUInt16(Security);
-                byte b1 = value[0];
-                byte b2 = value[1];
+                byte b1 = securityLevel[0];
+                byte b2 = securityLevel[1];
                 int num = 0;
                 bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
                     false, false, false, false, false };
@@ -91,9 +91,10 @@ namespace ConfigDevice
                 num = 8;
                 for (int i = 1; i <= 64; i *= 2)
                     if (value[num++])
-                        b2 = (byte)(b2 | i); 
+                        b2 = (byte)(b2 | i);
 
-                Security = ConvertTools.Bytes2ToUInt16(b1, b2);
+                securityLevel[0] = b1;
+                securityLevel[1] = b2;
             }
         }
          
@@ -153,11 +154,9 @@ namespace ConfigDevice
         private void getSafeSettingData(UdpData data, object[] values)
         {
             UdpTools.ReplyDataUdp(data);//----回复确认-----
-            UserUdpData userData = new UserUdpData(data);
-            //------找出数据,并翻译------ 
-            SetSecurity(new byte[]{userData.Data[0], userData.Data[1]});
-
-            CallbackUI(new CallbackParameter(security.GetType().Name, ActionKind.ReadSafe));//----读完状态信息,回调界面----
+            UserUdpData userData = new UserUdpData(data);           
+            SetSecurity(new byte[]{userData.Data[1], userData.Data[2],userData.Data[3],userData.Data[4]}); //------找出数据,并翻译------ 
+            CallbackUI(new CallbackParameter(this.GetType().Name, ActionKind.ReadSafe));//----读完状态信息,回调界面---
         }
 
 
@@ -197,12 +196,9 @@ namespace ConfigDevice
             crcData[9] = len;
 
             crcData[10] = (byte)groupNum;
-            //-------安防级别-----------------
-            byte[] byteSecurityLevel = GetSecurityBytes();
-            crcData[11] = byteSecurityLevel[0];
-            crcData[12] = byteSecurityLevel[1];
-
-            Buffer.BlockCopy(byteSecurityLevel, 0, crcData, 11, 2);
+            //-------安防级别----------------- 
+            crcData[11] = securityLevel[0];
+            crcData[12] = securityLevel[1]; 
             //---其他字节默认为0,保留-----
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------            

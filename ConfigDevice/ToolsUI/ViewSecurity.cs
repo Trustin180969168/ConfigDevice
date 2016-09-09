@@ -10,8 +10,7 @@ namespace ConfigDevice
 {
     public partial class ViewSecurity : UserControl
     {
-        private SecurityObj securityObj;//-----安防控制对象-----
-
+        private SecurityObj securityObj;//-----安防控制对象----- 
         public ViewSecurity()
         {
             InitializeComponent();
@@ -40,7 +39,7 @@ namespace ConfigDevice
         /// 获取安防配置
         /// </summary>
         /// <returns></returns>
-        public UInt16 GetSecuritySetting()
+        public byte[] GetSecuritySetting()
         {
             //---安防配置---------------
             bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
@@ -48,7 +47,7 @@ namespace ConfigDevice
             for (int i = 0; i < securityObj.SaftFlags.Length; i++)
                 safeFlags[i] = ceSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
             securityObj.SaftFlags = safeFlags;
-            return securityObj.Security;
+            return securityObj.SecurityLevel;
         }
 
         /// <summary>
@@ -57,8 +56,11 @@ namespace ConfigDevice
         /// <param name="groupNum"></param>
         public void SaveSecurity(int groupNum)
         {
-            if(hasChangedSafeLogic())
+            if (hasChangedSafeLogic())
+            {
+                GetSecuritySetting();
                 securityObj.SaveSafeSetting(groupNum);
+            }
         }
 
 
@@ -101,6 +103,27 @@ namespace ConfigDevice
                 //------安防配置---------------
                 for (int i = 0; i < securityObj.SaftFlags.Length; i++)
                     ceSafeSetting.Items[i].CheckState = securityObj.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
+            }
+        }
+
+        /// <summary>  
+        /// 全选
+        /// </summary>
+        private void ceSafeSetting_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
+        {
+
+            if (e.Index == 15)
+            {
+                if (ceSafeSetting.Items[15].CheckState == CheckState.Checked)
+                {
+                    for (int i = 0; i < securityObj.SaftFlags.Length; i++)
+                        ceSafeSetting.Items[i].CheckState = CheckState.Checked;
+                }
+                if (ceSafeSetting.Items[15].CheckState == CheckState.Unchecked)
+                {
+                    for (int i = 0; i < securityObj.SaftFlags.Length; i++)
+                        ceSafeSetting.Items[i].CheckState = CheckState.Unchecked;
+                }
             }
         }
 
