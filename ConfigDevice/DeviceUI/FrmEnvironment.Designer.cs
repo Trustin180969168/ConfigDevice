@@ -50,6 +50,7 @@
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandSetting = new ConfigDevice.ViewCommandSetting();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.sptLightSeconds = new DevExpress.XtraEditors.SpinEdit();
             this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
@@ -70,7 +71,7 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.btRefrash = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -298,6 +299,7 @@
             this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
+            this.btRefrash,
             this.btAutoRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
@@ -374,6 +376,16 @@
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "指示灯动作";
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.ForeColor = System.Drawing.Color.Red;
+            this.labelControl1.Appearance.Options.UseForeColor = true;
+            this.labelControl1.Location = new System.Drawing.Point(325, 20);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(91, 14);
+            this.labelControl1.TabIndex = 5;
+            this.labelControl1.Text = "注: 0 秒表示无限";
             // 
             // sptLightSeconds
             // 
@@ -629,15 +641,14 @@
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
             // 
-            // labelControl1
+            // btRefrash
             // 
-            this.labelControl1.Appearance.ForeColor = System.Drawing.Color.Red;
-            this.labelControl1.Appearance.Options.UseForeColor = true;
-            this.labelControl1.Location = new System.Drawing.Point(325, 20);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(91, 14);
-            this.labelControl1.TabIndex = 5;
-            this.labelControl1.Text = "注: 0 秒表示无限";
+            this.btRefrash.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefrash.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefrash.Name = "btRefrash";
+            this.btRefrash.Size = new System.Drawing.Size(76, 28);
+            this.btRefrash.Text = "刷新 ";
+            this.btRefrash.Click += new System.EventHandler(this.btRefrash_Click);
             // 
             // FrmEnvironment
             // 
@@ -737,5 +748,6 @@
         private DevExpress.XtraEditors.CheckEdit cedtOpenHealthLight;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
+        private System.Windows.Forms.ToolStripButton btRefrash;
     }
 }

@@ -466,6 +466,8 @@ namespace ConfigDevice
             crcData[10] = 0;//保留
             if (value.OpenHealthLight)
                 crcData[11] = 1;
+            else
+                crcData[11] = 0;
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------

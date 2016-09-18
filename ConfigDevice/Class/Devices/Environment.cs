@@ -149,7 +149,7 @@ namespace ConfigDevice
             this.RainSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_RAIN, dataByte1) as RainSensor;//雨感
             this.WindySensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_WIND, dataByte1) as WindySensor;//风速
 
-            CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(this.DeviceID,ActionKind.ReadSate));//----读完状态信息,回调界面----
         }
 
         /// <summary>
@@ -231,7 +231,7 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 获取数据
+        /// 回调附加动作数据
         /// </summary>
         /// <param name="data"></param>
         /// <param name="values"></param>
@@ -242,7 +242,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
+                this.CallbackUI(new CallbackParameter(this.DeviceID,ActionKind.ReadAdditionAciton));//---回调UI---
             }
         }
 

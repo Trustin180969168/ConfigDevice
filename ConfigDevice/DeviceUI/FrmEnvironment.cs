@@ -131,25 +131,30 @@ namespace ConfigDevice
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)
                     initLogicAndCommand();
                 //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Environment.CLASS_NAME)
+                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == environment.DeviceID)
                 {
-                    dtSensorState.Rows[0][1] = environment.temperatureSensor.ValueAndUnit; dtSensorState.Rows[0][2] = environment.temperatureSensor.LevelValue;//温度
-                    dtSensorState.Rows[1][1] = environment.humiditySensor.ValueAndUnit; dtSensorState.Rows[1][2] = environment.humiditySensor.LevelValue;//湿度
-                    dtSensorState.Rows[2][1] = environment.luminanceSensor.ValueAndUnit; dtSensorState.Rows[2][2] = environment.luminanceSensor.LevelValue;//亮度
-                    //dtSensorState.Rows[3][1] = ""; dtSensorState.Rows[3][2] = "";                                                                   //环境噪声
-                    dtSensorState.Rows[3][1] = ""; dtSensorState.Rows[3][2] = environment.AQISensor.LevelValue;//空气质量,只显示等级
-                    dtSensorState.Rows[4][1] = environment.TVOCSensor.ValueAndUnit; dtSensorState.Rows[4][2] = environment.TVOCSensor.LevelValue;//TVOC有害气体
-                    dtSensorState.Rows[5][1] = environment.CO2Sensor.ValueAndUnit; dtSensorState.Rows[5][2] = environment.CO2Sensor.LevelValue;//二氧化碳(等效)
-                    dtSensorState.Rows[6][1] = environment.CH2OSensor.ValueAndUnit; dtSensorState.Rows[6][2] = environment.CH2OSensor.LevelValue;//甲醛
-                    dtSensorState.Rows[7][1] = environment.PM25Sensor.ValueAndUnit; dtSensorState.Rows[7][2] = environment.PM25Sensor.LevelValue;//PM2.5
-               //     dtSensorState.Rows[9][1] = environment.O2Sensor.ValueAndUnit; dtSensorState.Rows[9][2] = environment.O2Sensor.LevelValue;//氧气浓度           
-                    dtSensorState.AcceptChanges();
-
-                    gcEnvironment.DataSource = dtSensorState;
-                    gvEnvironment.RefreshData();
-                    //-----逻辑附加动作------- 
-                    this.cbxLight.SelectedIndex = environment.PointLight.LedAct;
-                    this.sptLightSeconds.Text = environment.PointLight.LedTim.ToString(); 
+                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadSate)
+                    {
+                        dtSensorState.Rows[0][1] = environment.temperatureSensor.ValueAndUnit; dtSensorState.Rows[0][2] = environment.temperatureSensor.LevelValue;//温度
+                        dtSensorState.Rows[1][1] = environment.humiditySensor.ValueAndUnit; dtSensorState.Rows[1][2] = environment.humiditySensor.LevelValue;//湿度
+                        dtSensorState.Rows[2][1] = environment.luminanceSensor.ValueAndUnit; dtSensorState.Rows[2][2] = environment.luminanceSensor.LevelValue;//亮度
+                        //dtSensorState.Rows[3][1] = ""; dtSensorState.Rows[3][2] = "";                                                                   //环境噪声
+                        dtSensorState.Rows[3][1] = ""; dtSensorState.Rows[3][2] = environment.AQISensor.LevelValue;//空气质量,只显示等级
+                        dtSensorState.Rows[4][1] = environment.TVOCSensor.ValueAndUnit; dtSensorState.Rows[4][2] = environment.TVOCSensor.LevelValue;//TVOC有害气体
+                        dtSensorState.Rows[5][1] = environment.CO2Sensor.ValueAndUnit; dtSensorState.Rows[5][2] = environment.CO2Sensor.LevelValue;//二氧化碳(等效)
+                        dtSensorState.Rows[6][1] = environment.CH2OSensor.ValueAndUnit; dtSensorState.Rows[6][2] = environment.CH2OSensor.LevelValue;//甲醛
+                        dtSensorState.Rows[7][1] = environment.PM25Sensor.ValueAndUnit; dtSensorState.Rows[7][2] = environment.PM25Sensor.LevelValue;//PM2.5
+                        //     dtSensorState.Rows[9][1] = environment.O2Sensor.ValueAndUnit; dtSensorState.Rows[9][2] = environment.O2Sensor.LevelValue;//氧气浓度           
+                        dtSensorState.AcceptChanges();
+                        gcEnvironment.DataSource = dtSensorState;
+                        gvEnvironment.RefreshData();
+                    }
+                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadAdditionAciton)
+                    {
+                        //-----逻辑附加动作------- 
+                        this.cbxLight.SelectedIndex = environment.PointLight.LedAct;
+                        this.sptLightSeconds.Text = environment.PointLight.LedTim.ToString();
+                    }
                 }
                 //-----读取指示灯参数----------
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Light.CLASS_NAME)
@@ -432,9 +437,22 @@ namespace ConfigDevice
                 sptLightSeconds.Enabled = true;
         }
 
+        /// <summary>
+        /// 关闭
+        /// </summary> 
         private void FrmEnvironment_FormClosing(object sender, FormClosingEventArgs e)
         {
             environment.RemoveRJ45Callback();
+            refreshSateTimer.Stop(); 
+        }
+
+        /// <summary>
+        /// 手动刷新
+        /// </summary> 
+        private void btRefrash_Click(object sender, EventArgs e)
+        {
+            environment.PointLight.ReadParameter();//----读取指示灯参数---
+            environment.ReadState();          //---读取状态----  
         }
 
 
