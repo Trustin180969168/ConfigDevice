@@ -55,6 +55,9 @@ namespace ConfigDevice
         public ViewLogicSetting()
         {
             InitializeComponent();
+            lookUpEdit.Leave += new System.EventHandler(SysConfig.Edit_Leave);
+            lookUpEdit.Enter += new System.EventHandler(SysConfig.Edit_Enter);
+
             imageCollection1.AddImage(global::ConfigDevice.Properties.Resources.logic4OR);
             imageCollection1.AddImage(global::ConfigDevice.Properties.Resources.logic4AND);
             imageCollection1.AddImage(global::ConfigDevice.Properties.Resources.logic3OR_1AND);

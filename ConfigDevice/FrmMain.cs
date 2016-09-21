@@ -282,17 +282,7 @@ namespace ConfigDevice
         /// </summary>
         private void gvNetwork_LinkEdit(object sender, EventArgs e)
         {
-            if (gvNetwork.FocusedRowHandle == -1) return;
-            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
 
-            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
-            if (network.State == NetworkConfig.STATE_CONNECTED)
-            {
-                pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
-                deviceCtrl.SearchDevices(network);
-            }
-            else
-                network.ConnectNetwork();
         }
 
         /// <summary>
@@ -777,6 +767,26 @@ namespace ConfigDevice
                     this.Cursor = Cursors.Hand;
                 else
                     this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void linkEdit_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                contextMenuStripNetwork.Show(e.X, e.Y);
+            else
+            {
+                if (gvNetwork.FocusedRowHandle == -1) return;
+                DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+
+                Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+                if (network.State == NetworkConfig.STATE_CONNECTED)
+                {
+                    pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
+                    deviceCtrl.SearchDevices(network);
+                }
+                else
+                    network.ConnectNetwork();
             }
         }
 

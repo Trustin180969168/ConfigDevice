@@ -799,7 +799,7 @@
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmShort4";
             this.Load += new System.EventHandler(this.FrmRadar_Load);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmFlammableGasProbe_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmShort4_FormClosing);
             this.Controls.SetChildIndex(this.tctrlEdit, 0);
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).EndInit();
             this.tctrlEdit.ResumeLayout(false);

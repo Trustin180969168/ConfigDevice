@@ -28,6 +28,9 @@ namespace ConfigDevice
             : base(_device)
         {
             InitializeComponent();
+
+            lookUpEdit.Leave += new System.EventHandler(SysConfig.Edit_Leave);
+            lookUpEdit.Enter += new System.EventHandler(SysConfig.Edit_Enter);
             //----初始化短路输出控件---
             speSecond.DisplayFormat.FormatString = "###0 秒";
             speSecond.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -357,7 +360,7 @@ namespace ConfigDevice
         }
 
 
-        private void FrmFlammableGasProbe_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmShort4_FormClosing(object sender, FormClosingEventArgs e)
         {
             refreshSateTimer.Stop();
             short4.RemoveRJ45Callback();//----清空回调-----

@@ -188,7 +188,7 @@
             this.dcDectMax.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcDectMax.OptionsFilter.AllowFilter = false;
             this.dcDectMax.Visible = true;
-            this.dcDectMax.VisibleIndex = 4;
+            this.dcDectMax.VisibleIndex = 5;
             this.dcDectMax.Width = 120;
             // 
             // dcDectMin
@@ -206,7 +206,7 @@
             this.dcDectMin.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcDectMin.OptionsFilter.AllowFilter = false;
             this.dcDectMin.Visible = true;
-            this.dcDectMin.VisibleIndex = 5;
+            this.dcDectMin.VisibleIndex = 4;
             this.dcDectMin.Width = 120;
             // 
             // dcStep
@@ -384,13 +384,13 @@
             this.gridView2.GridControl = this.gcKeyData;
             this.gridView2.Name = "gridView2";
             // 
-            // KeySettingTools
+            // KeyBaseSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gcKeyData);
             this.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.Name = "KeySettingTools";
+            this.Name = "KeyBaseSetting";
             this.Size = new System.Drawing.Size(1024, 339);
             ((System.ComponentModel.ISupportInitialize)(this.gcKeyData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvKeyData)).EndInit();

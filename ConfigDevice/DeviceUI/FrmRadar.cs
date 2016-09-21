@@ -25,6 +25,8 @@ namespace ConfigDevice
             : base(_device)
         {
             InitializeComponent();
+            lookUpEdit.Leave += new System.EventHandler(SysConfig.Edit_Leave);
+            lookUpEdit.Enter += new System.EventHandler(SysConfig.Edit_Enter);
             radar = this.Device as Radar;
 
             refreshSateTimer = new ThreadActionTimer(2000, new Action(radar.ReadState));//---自动刷新----

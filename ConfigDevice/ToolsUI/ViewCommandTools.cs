@@ -113,15 +113,14 @@ namespace ConfigDevice
         private void lookUpEdit_EditValueChanged(object sender, EventArgs e)
         {
 
-            this.gvCommands.PostEditor();
+            this.gvCommands.PostEditor(); 
             DataRow drCommand = gvCommands.GetDataRow(0);
-            drCommand.EndEdit();
+            drCommand.EndEdit();  
             string deviceValue = drCommand[ViewConfig.DC_DEVICE_VALUE].ToString();
             //-----不能选择未知设备------------
             if (gridLookupDevice.GetDisplayTextByKeyValue(deviceValue) == ViewConfig.NAME_INVALID_DEVICE)
             {
-                CommonTools.MessageShow("不能选择未知设备!",2,"");
-                drCommand.RejectChanges();
+                CommonTools.MessageShow("不能选择未知设备!",2,""); 
                 return;
             }
             //-----获取选择的设备-------------

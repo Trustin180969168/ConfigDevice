@@ -198,7 +198,7 @@
             this.dcDectMax.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcDectMax.OptionsFilter.AllowFilter = false;
             this.dcDectMax.Visible = true;
-            this.dcDectMax.VisibleIndex = 4;
+            this.dcDectMax.VisibleIndex = 5;
             this.dcDectMax.Width = 120;
             // 
             // dcDectMin
@@ -216,7 +216,7 @@
             this.dcDectMin.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcDectMin.OptionsFilter.AllowFilter = false;
             this.dcDectMin.Visible = true;
-            this.dcDectMin.VisibleIndex = 5;
+            this.dcDectMin.VisibleIndex = 4;
             this.dcDectMin.Width = 120;
             // 
             // dcStep

@@ -83,6 +83,8 @@ namespace ConfigDevice
         public ViewCommandSetting()
         {
             InitializeComponent();
+            cbxGroup.Leave += new System.EventHandler(SysConfig.Edit_Leave);
+            cbxGroup.Enter += new System.EventHandler(SysConfig.Edit_Enter);
         }
 
         /// <summary>
