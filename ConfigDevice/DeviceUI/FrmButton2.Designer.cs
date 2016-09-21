@@ -31,6 +31,7 @@
             this.tctrlEdit = new DevExpress.XtraTab.XtraTabControl();
             this.pageJmpz = new DevExpress.XtraTab.XtraTabPage();
             this.plKeyOption = new DevExpress.XtraEditors.PanelControl();
+            this.keySecuritySetting = new ConfigDevice.ToolsUI.LCDUI.KeySecuritySetting();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.rgInitState = new DevExpress.XtraEditors.RadioGroup();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
@@ -38,7 +39,6 @@
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.tbcLight = new DevExpress.XtraEditors.TrackBarControl();
             this.ceLittleLight = new DevExpress.XtraEditors.CheckEdit();
-            this.keySettingTools = new ConfigDevice.KeySettingTools();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
@@ -46,7 +46,7 @@
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
             this.pageZlpz = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
-            this.keySecuritySetting = new ConfigDevice.ToolsUI.LCDUI.KeySecuritySetting();
+            this.list2Keys = new ConfigDevice.KeyBaseSetting();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pageJmpz.SuspendLayout();
@@ -70,10 +70,10 @@
             this.tctrlEdit.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 12F);
             this.tctrlEdit.AppearancePage.Header.Options.UseFont = true;
             this.tctrlEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
+            this.tctrlEdit.Location = new System.Drawing.Point(0, 0);
             this.tctrlEdit.Name = "tctrlEdit";
             this.tctrlEdit.SelectedTabPage = this.pageJmpz;
-            this.tctrlEdit.Size = new System.Drawing.Size(1018, 718);
+            this.tctrlEdit.Size = new System.Drawing.Size(1018, 742);
             this.tctrlEdit.TabIndex = 1;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
@@ -83,11 +83,11 @@
             // 
             // pageJmpz
             // 
+            this.pageJmpz.Controls.Add(this.list2Keys);
             this.pageJmpz.Controls.Add(this.plKeyOption);
-            this.pageJmpz.Controls.Add(this.keySettingTools);
             this.pageJmpz.Controls.Add(this.tsDoorInput);
             this.pageJmpz.Name = "pageJmpz";
-            this.pageJmpz.Size = new System.Drawing.Size(1009, 681);
+            this.pageJmpz.Size = new System.Drawing.Size(1009, 705);
             this.pageJmpz.Text = "配置界面";
             // 
             // plKeyOption
@@ -96,11 +96,19 @@
             this.plKeyOption.Controls.Add(this.keySecuritySetting);
             this.plKeyOption.Controls.Add(this.groupControl2);
             this.plKeyOption.Controls.Add(this.groupControl1);
-            this.plKeyOption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plKeyOption.Dock = System.Windows.Forms.DockStyle.Top;
             this.plKeyOption.Location = new System.Drawing.Point(0, 31);
             this.plKeyOption.Name = "plKeyOption";
             this.plKeyOption.Size = new System.Drawing.Size(1009, 403);
             this.plKeyOption.TabIndex = 15;
+            // 
+            // keySecuritySetting
+            // 
+            this.keySecuritySetting.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.keySecuritySetting.Location = new System.Drawing.Point(2, 181);
+            this.keySecuritySetting.Name = "keySecuritySetting";
+            this.keySecuritySetting.Size = new System.Drawing.Size(1005, 220);
+            this.keySecuritySetting.TabIndex = 2;
             // 
             // groupControl2
             // 
@@ -180,15 +188,6 @@
             this.ceLittleLight.Size = new System.Drawing.Size(128, 19);
             this.ceLittleLight.TabIndex = 0;
             // 
-            // keySettingTools
-            // 
-            this.keySettingTools.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.keySettingTools.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.keySettingTools.Location = new System.Drawing.Point(0, 434);
-            this.keySettingTools.Name = "keySettingTools";
-            this.keySettingTools.Size = new System.Drawing.Size(1009, 247);
-            this.keySettingTools.TabIndex = 14;
-            // 
             // tsDoorInput
             // 
             this.tsDoorInput.Font = new System.Drawing.Font("宋体", 12F);
@@ -252,13 +251,15 @@
             this.viewCommandEdit.Size = new System.Drawing.Size(1009, 681);
             this.viewCommandEdit.TabIndex = 1;
             // 
-            // keySecuritySetting
+            // list2Keys
             // 
-            this.keySecuritySetting.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.keySecuritySetting.Location = new System.Drawing.Point(2, 181);
-            this.keySecuritySetting.Name = "keySecuritySetting";
-            this.keySecuritySetting.Size = new System.Drawing.Size(1005, 220);
-            this.keySecuritySetting.TabIndex = 2;
+            this.list2Keys.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.list2Keys.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.list2Keys.Location = new System.Drawing.Point(0, 434);
+            this.list2Keys.Name = "list2Keys";
+            this.list2Keys.ShowCount = 8;
+            this.list2Keys.Size = new System.Drawing.Size(1009, 271);
+            this.list2Keys.TabIndex = 16;
             // 
             // FrmButton2
             // 
@@ -306,7 +307,6 @@
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraTab.XtraTabPage pageZlpz;
         private ViewCommandSetting viewCommandEdit;
-        private KeySettingTools keySettingTools;
         private DevExpress.XtraEditors.PanelControl plKeyOption;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private DevExpress.XtraEditors.GroupControl groupControl1;
@@ -316,6 +316,7 @@
         private DevExpress.XtraEditors.LabelControl lblLightSize;
         private DevExpress.XtraEditors.RadioGroup rgInitState;
         private ConfigDevice.ToolsUI.LCDUI.KeySecuritySetting keySecuritySetting;
+        private KeyBaseSetting list2Keys;
  
 
 

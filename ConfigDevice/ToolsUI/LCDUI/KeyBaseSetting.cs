@@ -91,6 +91,7 @@ namespace ConfigDevice
             cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_SOUND);
             cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_CURTAIN);
             cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_HELP);
+            cbxControlObj.EditValueChanged += new EventHandler(cbxControlObj_EditValueChanged);
             dcCtrlObj.ColumnEdit = cbxControlObj;
 
             gcKeyData.DataSource = dtKeyData;
@@ -98,6 +99,21 @@ namespace ConfigDevice
             KeyCircuit = deviceControled.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;
             KeyCircuit.OnCallbackUI_Action += ReturnKeyName;
 
+        }
+
+        void cbxControlObj_EditValueChanged(object sender, EventArgs e)
+        {
+            gvKeyData.PostEditor();
+            DataRow dr = gvKeyData.GetDataRow(gvKeyData.FocusedRowHandle);
+            if (dr != null)
+            {
+                dr.EndEdit();
+                string controlObj = dr[dcCtrlObj.FieldName].ToString();
+                if (controlObj == ViewConfig.KEY_TYPE_NAME_LIGHT)
+                    dcCtrlKind.ColumnEdit = cbxLightControlKind;
+                else
+                    dcCtrlKind.ColumnEdit = cbxElseControlKind;
+            }
         }
 
   

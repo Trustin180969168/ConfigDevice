@@ -22,9 +22,7 @@ namespace ConfigDevice
 
             button2 = this.Device as ButtonPanelKey;
             button2.Circuit.CircuitCount = 2;
-
-
-            
+            list2Keys.InitKeySettingList(button2, 0, 2);//2按键配置列表            
 
             DataTable dt = SysConfig.DtDevice.Clone();
             DataRow[] amps = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID + "= '" + DeviceConfig.EQUIPMENT_AMP_MP3 + "' and " +
@@ -34,8 +32,7 @@ namespace ConfigDevice
             //----指令配置----
             viewCommandEdit.ShowToolBar = true;
             viewCommandEdit.ShowCommandBar = true;
-            keySecuritySetting.Init(button2);//---初始化安防配置
-            keySettingTools.ShowToolbar = false;
+            keySecuritySetting.Init(button2);//---初始化安防配置 
         }
 
         public FrmButton2()
@@ -45,8 +42,7 @@ namespace ConfigDevice
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {
-            keySettingTools.InitKeySettingList(button2, 2, ViewConfig.LCD_CAPTION_SCENE);
-          
+            list2Keys.ReadKeyData();
             this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
             this.Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
             viewBaseSetting.DeviceEdit = this.Device;//----配置编辑对象----
@@ -139,11 +135,12 @@ namespace ConfigDevice
             button2.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
 
             this.Text = button2.Name;                   //---界面标题----
-            keySettingTools.InitKeySettingList(button2, 2, ViewConfig.LCD_CAPTION_SCENE);//---重新初始化按键配置控件----
+            this.list2Keys.InitKeySettingList(button2, 0,2);//---重新初始化按键配置控件----
             viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
             InitSelectDevice();                         //---初始化选择设备---
             viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------      
             keySecuritySetting.Init(button2);          //---初始化安防----
+            list2Keys.ReadKeyData();
             loadData();                                 //---加载数据----
 
         }
@@ -167,8 +164,8 @@ namespace ConfigDevice
             if (rgInitState.SelectedIndex != InitSelectIndex)
                 button2.PanelCtrl.SaveKeyState(rgInitState.SelectedIndex);
 
-            //---保存按键配置---------
-            keySettingTools.SaveKeyData();
+            //---保存按键配置--------- 
+            list2Keys.SaveKeyData();
         }
 
         /// <summary>
@@ -176,8 +173,8 @@ namespace ConfigDevice
         /// </summary>
         private void btRefresh_Click(object sender, EventArgs e)
         {
-            loadData();
-            keySettingTools.RefreshData();
+            loadData(); 
+            this.list2Keys.ReadKeyData(); 
         }
 
         private void FrmButton2_FormClosing(object sender, FormClosingEventArgs e)

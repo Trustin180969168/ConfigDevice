@@ -93,7 +93,7 @@ namespace ConfigDevice
             logicQuickSetting = new LogicQuickSetting(DeviceConfig.LOCAL_LOGIC_SETTING_GAS);
             initLogicQuitSetting();
         }
-
+        
         /// <summary>
         /// 初始化快速配置
         /// </summary>
@@ -142,20 +142,26 @@ namespace ConfigDevice
                     initLogicAndCommand();//---初始化指令配置,逻辑配置
                 }
                 //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == FlammableGasProbe.CLASS_NAME)
+                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == flammableGasProbe.DeviceID)
                 {
                     //-----刷新探头内容-------
-                    edtValveState.Text = flammableGasProbe.Valve.ValveState;
-                    edtVavleEC.Text = flammableGasProbe.Valve.ValveElectricCurrent.ToString();
-                    edtGasProbeLevel.Text = flammableGasProbe.Probe.LevelValue;
-                    edtFireCtrlTemperatue.Text = flammableGasProbe.Temperature.Value.ToString() +" ℃  " + flammableGasProbe.Temperature.LevelValue;
+                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadSate)
+                    {
+                        edtValveState.Text = flammableGasProbe.Valve.ValveState;
+                        edtVavleEC.Text = flammableGasProbe.Valve.ValveElectricCurrent.ToString();
+                        edtGasProbeLevel.Text = flammableGasProbe.Probe.LevelValue;
+                        edtFireCtrlTemperatue.Text = flammableGasProbe.Temperature.Value.ToString() + " ℃  " + flammableGasProbe.Temperature.LevelValue;
+                    }
                     //-----逻辑附加动作-------
-                    cbxBuzzer.SelectedIndex = flammableGasProbe.FGP_Buzzer.BuzAct;
-                    sptBuzzerSeconds.Text = flammableGasProbe.FGP_Buzzer.BuzTim.ToString();
-                    this.cbxLight.SelectedIndex = flammableGasProbe.FGP_Light.LedAct;
-                    this.sptLightSeconds.Text = flammableGasProbe.FGP_Light.LedTim.ToString();
-                    this.cbxValveAction.SelectedIndex = flammableGasProbe.Valve.ValAct;
-                    this.sptValveSeconds.Text = flammableGasProbe.Valve.ValTim.ToString();
+                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadAdditionAciton)
+                    {
+                        cbxBuzzer.SelectedIndex = flammableGasProbe.FGP_Buzzer.BuzAct;
+                        sptBuzzerSeconds.Text = flammableGasProbe.FGP_Buzzer.BuzTim.ToString();
+                        this.cbxLight.SelectedIndex = flammableGasProbe.FGP_Light.LedAct;
+                        this.sptLightSeconds.Text = flammableGasProbe.FGP_Light.LedTim.ToString();
+                        this.cbxValveAction.SelectedIndex = flammableGasProbe.Valve.ValAct;
+                        this.sptValveSeconds.Text = flammableGasProbe.Valve.ValTim.ToString();
+                    }
                 }
                 //-----读取完阀门参数----------
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Motor.CLASS_NAME)
@@ -350,6 +356,7 @@ namespace ConfigDevice
         private void FrmFlammableGasProbe_FormClosing(object sender, FormClosingEventArgs e)
         {
             flammableGasProbe.RemoveRJ45Callback();//----清空回调-----
+            refreshSateTimer.Stop();//---停止执行----
         }
 
         /// <summary>

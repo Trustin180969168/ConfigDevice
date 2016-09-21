@@ -124,7 +124,7 @@
       <DependentUpon>FrmBodyIndction.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolsUI\KeySettingTools.resx">
+    <EmbeddedResource Include="ToolsUI\LCDUI\KeySettingTools.resx">
       <DependentUpon>KeySettingTools.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -500,10 +500,10 @@
     <Compile Include="DeviceUI\FrmBodyIndction.Designer.cs">
       <DependentUpon>FrmBodyIndction.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolsUI\KeySettingTools.cs">
+    <Compile Include="ToolsUI\LCDUI\KeySettingTools.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ToolsUI\KeySettingTools.Designer.cs">
+    <Compile Include="ToolsUI\LCDUI\KeySettingTools.Designer.cs">
       <DependentUpon>KeySettingTools.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolsUI\LCDUI\KeySecuritySetting.cs">

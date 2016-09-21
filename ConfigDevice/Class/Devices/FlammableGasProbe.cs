@@ -142,7 +142,7 @@ namespace ConfigDevice
             }
             this.Valve.ValveElectricCurrent = ConvertTools.Bytes2ToInt16(new byte[] { dataByte2[1], dataByte2[2] });//----阀门电流---         
 
-            CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(this.DeviceID,ActionKind.ReadSate));//----读完状态信息,回调界面----
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
+                this.CallbackUI(new CallbackParameter(this.DeviceID,ActionKind.ReadAdditionAciton));//---回调UI---
             }
         }
 

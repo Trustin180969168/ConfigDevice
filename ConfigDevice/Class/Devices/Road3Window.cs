@@ -36,7 +36,7 @@ namespace ConfigDevice
             this.Motor = new Motor(this);
             this.Circuit = new Circuit(this,3);
             ContrlObjs.Add("电机",this.Motor);
-            ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, this.Circuit);
+            //ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, this.Circuit);
         }
 
         /// <summary>
