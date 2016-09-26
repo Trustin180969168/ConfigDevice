@@ -44,6 +44,7 @@
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btRefrash = new System.Windows.Forms.ToolStripButton();
             this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.BaseViewSetting = new ConfigDevice.ViewBaseEdit();
@@ -71,7 +72,6 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
-            this.btRefrash = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -315,6 +315,15 @@
             this.btSave.Size = new System.Drawing.Size(76, 28);
             this.btSave.Text = "保存 ";
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
+            // btRefrash
+            // 
+            this.btRefrash.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefrash.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefrash.Name = "btRefrash";
+            this.btRefrash.Size = new System.Drawing.Size(76, 28);
+            this.btRefrash.Text = "刷新 ";
+            this.btRefrash.Click += new System.EventHandler(this.btRefrash_Click);
             // 
             // btAutoRefresh
             // 
@@ -584,6 +593,7 @@
             this.lookUpEdit.Properties.PopupWidth = 500;
             this.lookUpEdit.Size = new System.Drawing.Size(406, 26);
             this.lookUpEdit.TabIndex = 14;
+            this.lookUpEdit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lookUpEdit_MouseClick);
             this.lookUpEdit.EditValueChanged += new System.EventHandler(this.lookUpEdit_EditValueChanged);
             // 
             // lblGroupName
@@ -640,15 +650,6 @@
             this.btRefreshTrigger.Size = new System.Drawing.Size(101, 28);
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
-            // 
-            // btRefrash
-            // 
-            this.btRefrash.Image = global::ConfigDevice.Properties.Resources.refresh;
-            this.btRefrash.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefrash.Name = "btRefrash";
-            this.btRefrash.Size = new System.Drawing.Size(76, 28);
-            this.btRefrash.Text = "刷新 ";
-            this.btRefrash.Click += new System.EventHandler(this.btRefrash_Click);
             // 
             // FrmEnvironment
             // 

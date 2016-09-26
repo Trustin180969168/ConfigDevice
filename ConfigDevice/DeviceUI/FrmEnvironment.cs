@@ -71,6 +71,8 @@ namespace ConfigDevice
             lookUpEdit.Properties.ShowHeader = false;
             lookUpEdit.Properties.DataSource = dtIDName;
             lookUpEdit.Properties.DropDownRows = environment.Circuit.CircuitCount;
+            lookUpEdit.Enter += SysConfig.Edit_Enter;
+            lookUpEdit.Leave += SysConfig.Edit_Leave;
             //--------逻辑配置,命令配置界面配置           
             viewLogicSetting.ShowToolBar = false;// -----逻辑配置控件不显示工具栏  
             viewCommandSetting.ShowCommandBar = true;// -----命令配置控件配置工具栏  
@@ -453,6 +455,11 @@ namespace ConfigDevice
         {
             environment.PointLight.ReadParameter();//----读取指示灯参数---
             environment.ReadState();          //---读取状态----  
+        }
+
+        private void lookUpEdit_MouseClick(object sender, MouseEventArgs e)
+        {
+
         }
 
 

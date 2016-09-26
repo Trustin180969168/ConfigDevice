@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace ConfigDevice
 {
@@ -29,6 +30,7 @@ namespace ConfigDevice
         {
             this.ShortcutsEnabled = false;
             this.MaxLength = 3;
+            BackColor = Color.White;
             this.BorderStyle = BorderStyle.None;
             this.TextAlign = HorizontalAlignment.Center;
             this.Size = new System.Drawing.Size(30, 14);

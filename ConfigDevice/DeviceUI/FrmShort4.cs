@@ -78,6 +78,8 @@ namespace ConfigDevice
             lookUpEdit.Properties.ShowHeader = false;
             lookUpEdit.Properties.DataSource = dtIDName;
             lookUpEdit.Properties.DropDownRows = short4.Circuit.CircuitCount;
+            lookUpEdit.Enter += SysConfig.Edit_Enter;
+            lookUpEdit.Leave += SysConfig.Edit_Leave;
             //----------可燃气体回调----------- 
             short4.OnCallbackUI_Action += this.CallbackUI;
             short4.OnCallbackUI_Action += BaseViewSetting.CallBackUI;

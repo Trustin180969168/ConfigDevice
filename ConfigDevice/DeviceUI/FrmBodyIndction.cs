@@ -60,6 +60,8 @@ namespace ConfigDevice
             lookUpEdit.Properties.ShowHeader = false;
             lookUpEdit.Properties.DataSource = dtIDName;
             lookUpEdit.Properties.DropDownRows = bodyInduction.Circuit.CircuitCount;
+            lookUpEdit.Enter += SysConfig.Edit_Enter;
+            lookUpEdit.Leave += SysConfig.Edit_Leave;
             //----------可燃气体回调----------- 
             bodyInduction.OnCallbackUI_Action += this.CallbackUI;
             bodyInduction.OnCallbackUI_Action += BaseViewSetting.CallBackUI;

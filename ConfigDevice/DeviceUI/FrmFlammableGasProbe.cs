@@ -79,6 +79,8 @@ namespace ConfigDevice
             lookUpEdit.Properties.ShowHeader = false;
             lookUpEdit.Properties.DataSource = dtIDName;
             lookUpEdit.Properties.DropDownRows = flammableGasProbe.ProbeCircuit.CircuitCount;
+            lookUpEdit.Enter += SysConfig.Edit_Enter;
+            lookUpEdit.Leave += SysConfig.Edit_Leave;
             //----------可燃气体回调----------- 
             flammableGasProbe.OnCallbackUI_Action += this.CallbackUI;
             flammableGasProbe.OnCallbackUI_Action += BaseViewSetting.CallBackUI;

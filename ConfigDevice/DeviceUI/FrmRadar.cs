@@ -60,6 +60,8 @@ namespace ConfigDevice
             lookUpEdit.Properties.ShowHeader = false;
             lookUpEdit.Properties.DataSource = dtIDName;
             lookUpEdit.Properties.DropDownRows = radar.Circuit.CircuitCount;
+            lookUpEdit.Enter += SysConfig.Edit_Enter;
+            lookUpEdit.Leave += SysConfig.Edit_Leave;
             //----------可燃气体回调----------- 
             radar.OnCallbackUI_Action += this.CallbackUI;
             radar.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
