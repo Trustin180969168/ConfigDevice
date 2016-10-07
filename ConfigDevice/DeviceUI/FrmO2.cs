@@ -122,16 +122,23 @@ namespace ConfigDevice
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)
                     initLogicAndCommand();
                 //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Environment.CLASS_NAME)
-                { 
-                    dtSensorState.Rows[0][1] = (environment.O2Sensor.Value / 10.0).ToString()+" "+environment.O2Sensor.Unit; dtSensorState.Rows[0][2] = environment.O2Sensor.LevelValue;//氧气浓度           
-                    dtSensorState.AcceptChanges();
+                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == environment.DeviceID)
+                {
+                    //----读取状态-----
+                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadSate)
+                    {
+                        dtSensorState.Rows[0][1] = (environment.O2Sensor.Value / 10.0).ToString() + " " + environment.O2Sensor.Unit; dtSensorState.Rows[0][2] = environment.O2Sensor.LevelValue;//氧气浓度           
+                        dtSensorState.AcceptChanges();
 
-                    gcEnvironment.DataSource = dtSensorState;
-                    gvEnvironment.RefreshData();
+                        gcEnvironment.DataSource = dtSensorState;
+                        gvEnvironment.RefreshData();
+                    }
                     //-----逻辑附加动作------- 
-                    this.cbxLight.SelectedIndex = environment.PointLight.LedAct;
-                    this.sptLightSeconds.Text = environment.PointLight.LedTim.ToString(); 
+                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadAdditionAciton)
+                    { 
+                        this.cbxLight.SelectedIndex = environment.PointLight.LedAct;
+                        this.sptLightSeconds.Text = environment.PointLight.LedTim.ToString();
+                    }
                 }
                 //-----读取指示灯参数----------
                 if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Light.CLASS_NAME)

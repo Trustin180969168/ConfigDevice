@@ -145,6 +145,17 @@ namespace ConfigDevice
                         Device device = callbackParameter.Parameters[0] as Device;
                         DeviceCtrl.UpdateDeviceData(device.GetDeviceData());
                     }
+                    else if (callbackParameter.Action == ActionKind.SearchNetwork)
+                    {
+                        gvNetwork.Focus();
+                        gvNetwork.FocusedColumn = networkState;
+                        if (gvNetwork.RowCount > 0)
+                        { 
+
+                        }
+        
+                    }
+
                 }
             }
             catch (Exception e1) { e1.ToString(); }
@@ -770,6 +781,11 @@ namespace ConfigDevice
             }
         }
 
+        /// <summary>
+        /// 打开连接网络
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void linkEdit_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -788,7 +804,26 @@ namespace ConfigDevice
                 else
                     network.ConnectNetwork();
             }
+ 
         }
+
+ 
+
+        private void linkEdit_DoubleClick(object sender, EventArgs e)
+        {
+            //if (gvNetwork.FocusedRowHandle == -1) return;
+            //DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+
+            //Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            //if (network.State == NetworkConfig.STATE_CONNECTED)
+            //{
+            //    pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
+            //    deviceCtrl.SearchDevices(network);
+            //}
+            //else
+            //    network.ConnectNetwork();
+        }
+
 
  
     }

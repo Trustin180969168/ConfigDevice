@@ -710,6 +710,8 @@
             this.linkEdit.AutoHeight = false;
             this.linkEdit.ImageAlignment = DevExpress.Utils.HorzAlignment.Default;
             this.linkEdit.Name = "linkEdit";
+            this.linkEdit.SingleClick = true;
+            this.linkEdit.DoubleClick += new System.EventHandler(this.linkEdit_DoubleClick);
             this.linkEdit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.linkEdit_MouseUp);
             // 
             // networkDeviceMac

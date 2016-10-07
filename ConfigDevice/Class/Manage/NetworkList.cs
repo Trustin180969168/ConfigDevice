@@ -102,8 +102,7 @@ namespace ConfigDevice
                 {
                     NetworkCtrl.UpdateNetworkDataTable(network);//----更新网络列表-----                    
                 }
-                
-            //    CallBackUI(new CallbackParameter(null));
+                CallBackUI(new CallbackParameter(ActionKind.SearchNetwork,null));//----回调结果到主界面---
             }
         }
 
