@@ -188,6 +188,7 @@
             // 
             // btSave
             // 
+            this.btSave.Enabled = false;
             this.btSave.Image = global::ConfigDevice.Properties.Resources.save;
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";

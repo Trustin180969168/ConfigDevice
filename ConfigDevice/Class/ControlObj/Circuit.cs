@@ -216,7 +216,7 @@ namespace ConfigDevice
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----  
                 this.deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME,deviceControled.DeviceID));//---回调UI---
-                CallbackUI(new CallbackParameter(CLASS_NAME));
+                CallbackUI(new CallbackParameter(CLASS_NAME));//---回调
  
                 SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, this.UUID);
                 SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID);

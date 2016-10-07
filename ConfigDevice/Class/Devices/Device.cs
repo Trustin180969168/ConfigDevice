@@ -295,7 +295,7 @@ namespace ConfigDevice
         /// <param name="DeviceData">新设备数据</param> 
         public void SaveDeviceIDAndName(DeviceData data)
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, MAC, callbackSaveID, 1);//回调返回的一个设备结果
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, MAC, callbackSaveID);//回调返回的一个设备结果
             callbackSaveID.Values = new object[] { data };//---保存回调参数----
             UdpData udp = createSaveDeviceIDUdp(data.DeviceID);
             MySocket.GetInstance().SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceID), new object[] { udp });
@@ -306,7 +306,6 @@ namespace ConfigDevice
         /// <param name="ID">设备ID</param>
         public void SaveDeviceID(string newID)
         {
-            callbackSaveID.ActionCount = 1;//---只允许回调一次---
             UdpData udp = createSaveDeviceIDUdp(newID);
             MySocket.GetInstance().SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceID), new object[] { udp });
         }
@@ -381,8 +380,6 @@ namespace ConfigDevice
                     CommonTools.MessageShow("设备ID修改失败!", 2, "");
                 }
             }
-            else//-----RJ45的数据会执行多个回调,若mac地址未匹配,要继续接收回调,直到回调成功.
-                callbackSaveID.ActionCount = 1;//--继续接收回调数据----
 
         }
 

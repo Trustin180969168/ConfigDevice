@@ -42,13 +42,15 @@ namespace ConfigDevice
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {
-            list2Keys.ReadKeyData();
+            
             this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
             this.Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
             viewBaseSetting.DeviceEdit = this.Device;//----配置编辑对象----
             viewBaseSetting.DeviceEdit.SearchVer();//---获取版本号-----   
             InitSelectDevice();//----初始化选择设备---
+            list2Keys.ReadKeyData();//--按键数据----
             loadData();//---加载数据-----
+
         }
 
         /// <summary>
@@ -64,11 +66,11 @@ namespace ConfigDevice
                 }
                 else
                 {
-                    if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)//---电机回路名称--
+                    if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME) 
                     {   
                         initLogicAndCommand();
                     }
-                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == ButtonPanelCtrl.CLASS_NAME)//---电机回路名称--
+                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == ButtonPanelCtrl.CLASS_NAME) 
                     {
                         if (callbackParameter.Parameters[1].ToString() == ButtonPanelCtrl.ACTION_STATE_NAME)//------状态选择------
                         {
@@ -140,8 +142,9 @@ namespace ConfigDevice
             InitSelectDevice();                         //---初始化选择设备---
             viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------      
             keySecuritySetting.Init(button2);          //---初始化安防----
-            list2Keys.ReadKeyData();
+         
             loadData();                                 //---加载数据----
+            list2Keys.ReadKeyData();
 
         }
 

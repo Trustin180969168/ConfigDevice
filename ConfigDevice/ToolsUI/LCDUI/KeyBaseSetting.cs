@@ -170,8 +170,11 @@ namespace ConfigDevice
             {
                 if (parameter.Parameters != null && parameter.Parameters[0].ToString() == Circuit.CLASS_NAME)//---回路名称--
                 {
-                    NeedInit = false;//----回路读取完毕为初始化完毕----       
-    
+                    NeedInit = false;//----回路读取完毕为初始化完毕----     
+                    int i = 1;
+                    foreach(DataRow dr in dtKeyData.Rows)
+                        dr[ViewConfig.DC_NAME] = KeyCircuit.ListCircuitIDAndName[i++];
+                    dtKeyData.AcceptChanges();
                    // keyList.ReadKeyData(0, showCount - 1);
                 }
             }

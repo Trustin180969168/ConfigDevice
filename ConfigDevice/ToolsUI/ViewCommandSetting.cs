@@ -250,8 +250,9 @@ namespace ConfigDevice
             
             cbxGroup.SelectedIndex = -1;
             cbxGroup.Items.Clear();
+            int i = 1;
             foreach (string groupStr in CommmandGroups)
-                cbxGroup.Items.Add(groupStr);
+                cbxGroup.Items.Add(i++.ToString() + "."+groupStr);
 
             int addCount = (int)edtEndNum.Value;//----指令的加载个数
             CommandEdit = new CommandList(device);
