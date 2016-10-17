@@ -200,8 +200,8 @@ namespace ConfigDevice
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
             crcData[10] = UWSensor1.Sensitivity;
-            crcData[11] = UWSensor2.Sensitivity;
-            crcData[12] = IRSensor.Sensitivity;
+            crcData[11] = IRSensor.Sensitivity;
+            crcData[12] = UWSensor2.Sensitivity; 
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------

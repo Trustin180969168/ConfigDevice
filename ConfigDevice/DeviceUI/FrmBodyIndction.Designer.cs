@@ -397,7 +397,7 @@
             this.cbnTestUW2.TabStop = false;
             this.cbnTestUW2.Tag = "false";
             this.cbnTestUW2.Text = "测  试";
-            this.cbnTestUW2.CheckedChanged += new System.EventHandler(this.cbnTest_Click);
+            this.cbnTestUW2.CheckedChanged += new System.EventHandler(this.cbnTestUW2_CheckedChanged);
             // 
             // cbnTestUW1
             // 
@@ -415,7 +415,7 @@
             this.cbnTestUW1.TabStop = false;
             this.cbnTestUW1.Tag = "false";
             this.cbnTestUW1.Text = "测  试";
-            this.cbnTestUW1.CheckedChanged += new System.EventHandler(this.cbnTest_Click);
+            this.cbnTestUW1.CheckedChanged += new System.EventHandler(this.cbnTestUW1_CheckedChanged);
             // 
             // cbnTestIR
             // 
@@ -433,7 +433,7 @@
             this.cbnTestIR.TabStop = false;
             this.cbnTestIR.Tag = "false";
             this.cbnTestIR.Text = "测  试";
-            this.cbnTestIR.CheckedChanged += new System.EventHandler(this.cbnTest_Click);
+            this.cbnTestIR.CheckedChanged += new System.EventHandler(this.cbnTestIR_CheckedChanged);
             // 
             // labelControl6
             // 
@@ -520,9 +520,9 @@
             // 
             this.labelControl2.Location = new System.Drawing.Point(19, 64);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(90, 14);
+            this.labelControl2.Size = new System.Drawing.Size(89, 14);
             this.labelControl2.TabIndex = 0;
-            this.labelControl2.Text = "红    外 (感应器)";
+            this.labelControl2.Text = "红   外(感应器2)";
             // 
             // edtUW1
             // 
@@ -599,7 +599,7 @@
             0,
             0,
             0});
-            this.sptLightSeconds.Location = new System.Drawing.Point(777, 37);
+            this.sptLightSeconds.Location = new System.Drawing.Point(209, 17);
             this.sptLightSeconds.Name = "sptLightSeconds";
             this.sptLightSeconds.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -609,7 +609,7 @@
             // 
             // labelControl11
             // 
-            this.labelControl11.Location = new System.Drawing.Point(835, 40);
+            this.labelControl11.Location = new System.Drawing.Point(267, 20);
             this.labelControl11.Name = "labelControl11";
             this.labelControl11.Size = new System.Drawing.Size(12, 14);
             this.labelControl11.TabIndex = 8;
@@ -617,7 +617,7 @@
             // 
             // labelControl19
             // 
-            this.labelControl19.Location = new System.Drawing.Point(747, 40);
+            this.labelControl19.Location = new System.Drawing.Point(179, 20);
             this.labelControl19.Name = "labelControl19";
             this.labelControl19.Size = new System.Drawing.Size(24, 14);
             this.labelControl19.TabIndex = 7;
@@ -625,7 +625,7 @@
             // 
             // cbxLight
             // 
-            this.cbxLight.Location = new System.Drawing.Point(657, 37);
+            this.cbxLight.Location = new System.Drawing.Point(89, 17);
             this.cbxLight.Name = "cbxLight";
             this.cbxLight.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -635,7 +635,7 @@
             // 
             // labelControl20
             // 
-            this.labelControl20.Location = new System.Drawing.Point(591, 40);
+            this.labelControl20.Location = new System.Drawing.Point(23, 20);
             this.labelControl20.Name = "labelControl20";
             this.labelControl20.Size = new System.Drawing.Size(60, 14);
             this.labelControl20.TabIndex = 5;
@@ -644,7 +644,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.viewSecurity);
-            this.groupBox2.Location = new System.Drawing.Point(62, 20);
+            this.groupBox2.Location = new System.Drawing.Point(301, 20);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(499, 81);
             this.groupBox2.TabIndex = 4;

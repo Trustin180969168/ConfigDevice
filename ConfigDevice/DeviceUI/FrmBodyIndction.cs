@@ -135,7 +135,7 @@ namespace ConfigDevice
                         edtUW1.Text = bodyInduction.UWSensor1.SensorData.LevelValue;
                         edtIR.Text = bodyInduction.IRSensor.SensorData.LevelValue;
                         edtUW2.Text = bodyInduction.UWSensor2.SensorData.LevelValue;
-                        edtLum.Text = bodyInduction.IRSensor.LumSensorData.ValueAndUnit;
+                        edtLum.Text = bodyInduction.IRSensor.LumSensorData.ValueAndUnit + " " + bodyInduction.IRSensor.LumSensorData.LevelValue;
                     }
                     //-----逻辑附加动作-------
                     if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadAdditionAciton)
@@ -485,42 +485,6 @@ namespace ConfigDevice
             //}
         }
 
-        private void cbnTest_Click(object sender, EventArgs e)
-        {
-           
-            //switch ((sender as CheckButton).Name)
-            //{
-            //    case "cbnTestIR":
-            //        {
-            //            cbnTestIR.Checked = cbnTestIR.Checked ? false : true;
-            //            if (cbnTestIR.Checked)
-            //                bodyInduction.IRSensor.OpenTest(lookUpEdit.ItemIndex);
-            //            else
-            //                bodyInduction.IRSensor.CloseTest(lookUpEdit.ItemIndex);
-
-            //        } break;
-            //    case "cbnTestUW1":
-            //        {
-            //            cbnTestUW1.Checked = !cbnTestUW1.Checked ? false : true;
-            //            if (cbnTestIR.Checked)
-            //                bodyInduction.UWSensor1.OpenTest(lookUpEdit.ItemIndex);
-            //            else
-            //                bodyInduction.UWSensor1.CloseTest(lookUpEdit.ItemIndex);
-            //        } break;
-            //    case "cbnTestUW2":
-            //        {
-            //            cbnTestUW2.Checked = !cbnTestUW2.Checked ? false : true;
-            //            if (cbnTestIR.Checked)
-            //                bodyInduction.UWSensor2.OpenTest(lookUpEdit.ItemIndex);
-            //            else
-            //                bodyInduction.UWSensor2.CloseTest(lookUpEdit.ItemIndex);
-            //        } break;
-
-            //    default: break;
-            //}
-
-            cbnTestUW1_MouseUp(sender, null);
-        }
 
         /// <summary>
         /// 刷新
@@ -542,7 +506,7 @@ namespace ConfigDevice
         }
 
         private bool changingTestState = false;
-        private void cbnTestUW1_MouseUp(object sender, MouseEventArgs e)
+        private void testChangeStateView()
         {
             if (changingTestState) return;
             changingTestState = true;
@@ -572,6 +536,70 @@ namespace ConfigDevice
             else
                 bodyInduction.UWSensor2.CloseTest(groupNum);
             changingTestState = false;
+        }
+
+  
+
+        private void cbnTestUW1_CheckedChanged(object sender, EventArgs e)
+        {
+            int groupNum = lookUpEdit.ItemIndex;
+            if (cbnTestUW1.Checked)
+            {
+                cbnTestIR.Checked = false; cbnTestUW2.Checked = false; cbnTestUW1.Appearance.BackColor = Color.Orange;
+                bodyInduction.UWSensor1.OpenTest(groupNum); //bodyInduction.IRSensor.CloseTest(groupNum); bodyInduction.UWSensor2.CloseTest(groupNum);
+                cbnTestIR.Appearance.BackColor = Color.Transparent; 
+                cbnTestUW2.Appearance.BackColor = Color.Transparent;
+            }
+            else
+            {
+                cbnTestUW1.Checked = false; cbnTestIR.Checked = false; cbnTestUW2.Checked = false;
+                cbnTestIR.Appearance.BackColor = Color.Transparent;
+                cbnTestUW1.Appearance.BackColor = Color.Transparent;
+                cbnTestUW2.Appearance.BackColor = Color.Transparent;
+                bodyInduction.UWSensor1.CloseTest(groupNum);
+            }
+        }
+
+        private void cbnTestIR_CheckedChanged(object sender, EventArgs e)
+        {
+            int groupNum = lookUpEdit.ItemIndex;
+            if (cbnTestIR.Checked)
+            {
+                cbnTestUW1.Checked = false; cbnTestUW2.Checked = false; cbnTestIR.Appearance.BackColor = Color.Orange;
+                bodyInduction.IRSensor.OpenTest(groupNum); //bodyInduction.UWSensor1.CloseTest(groupNum); bodyInduction.UWSensor2.CloseTest(groupNum);
+      
+                cbnTestUW1.Appearance.BackColor = Color.Transparent;
+                cbnTestUW2.Appearance.BackColor = Color.Transparent;
+            }
+            else
+            {
+                cbnTestUW1.Checked = false; cbnTestIR.Checked = false; cbnTestUW2.Checked = false;
+                cbnTestIR.Appearance.BackColor = Color.Transparent; 
+                cbnTestUW1.Appearance.BackColor = Color.Transparent;
+                cbnTestUW2.Appearance.BackColor = Color.Transparent;
+                bodyInduction.IRSensor.CloseTest(groupNum);
+            }
+        }
+
+        private void cbnTestUW2_CheckedChanged(object sender, EventArgs e)
+        {
+            int groupNum = lookUpEdit.ItemIndex;
+            if (cbnTestUW2.Checked)
+            {
+                cbnTestUW1.Checked = false; cbnTestIR.Checked = false; cbnTestUW2.Appearance.BackColor = Color.Orange;
+                bodyInduction.UWSensor2.OpenTest(groupNum);
+
+                cbnTestIR.Appearance.BackColor = Color.Transparent;
+                cbnTestUW1.Appearance.BackColor = Color.Transparent; 
+            }else
+            {
+                cbnTestUW1.Checked = false; cbnTestIR.Checked = false; cbnTestUW2.Checked = false;
+
+                cbnTestIR.Appearance.BackColor = Color.Transparent;
+                cbnTestUW1.Appearance.BackColor = Color.Transparent;
+                cbnTestUW2.Appearance.BackColor = Color.Transparent;
+                bodyInduction.UWSensor2.CloseTest(groupNum);
+            }
         }
 
  

@@ -452,7 +452,7 @@ namespace ConfigDevice
         static DeviceConfig()//---静态构造函数------
         {
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_LINKID, "联动号");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_RJ45, "网关处理器");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_RJ45, "网段");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_LCD, "液晶按键");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_TFT_LCD, "液晶多功能面板");
