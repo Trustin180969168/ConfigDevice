@@ -70,6 +70,7 @@ namespace ConfigDevice
         SaveDeviceName,
         GetVer,
         SaveNetworkPosition,
+        ReadCircuit,//读取回路
         ReadSafe,//获取安防
         ReadConfig,//获取配置
         ReadData,//读取数据

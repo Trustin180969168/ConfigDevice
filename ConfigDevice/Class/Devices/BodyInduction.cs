@@ -158,7 +158,7 @@ namespace ConfigDevice
             UWSensor2.Sensitivity =  userData.Data[2];
             IRSensor.Sensitivity = userData.Data[1];
 
-            this.CallbackUI(new CallbackParameter(this.GetType().Name, ActionKind.ReadConfig));//---回调UI---
+            this.CallbackUI(new CallbackParameter(  ActionKind.ReadConfig,this.DeviceID));//---回调UI---
    
         }
 
@@ -277,7 +277,7 @@ namespace ConfigDevice
             this.UWSensor2.SensorData = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_UW_2, dataByte1) as UWSensorData;//超声波2
             this.IRSensor.SensorData = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_IR, dataByte1) as IRSensorData;//红外状态
             this.IRSensor.LumSensorData = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_LUMI, dataByte1) as LuminanceSensorData;//光感4
-            CallbackUI(new CallbackParameter(this.GetType().Name, ActionKind.ReadSate));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(ActionKind.ReadSate,this.DeviceID));//----读完状态信息,回调界面----
         }
 
 
@@ -374,7 +374,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(this.GetType().Name, ActionKind.ReadAdditionAciton));//---回调UI---
+                this.CallbackUI(new CallbackParameter( ActionKind.ReadAdditionAciton,this.DeviceID));//---回调UI---
             }
         }
 

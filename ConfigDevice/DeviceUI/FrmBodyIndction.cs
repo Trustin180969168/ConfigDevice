@@ -120,38 +120,52 @@ namespace ConfigDevice
             lock (lockObject)
             {
                 //-----读取完回路----
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME
-                    && callbackParameter.Parameters[1].ToString() == bodyInduction.DeviceID)
+                if (callbackParameter.Parameters != null && callbackParameter.Action == ActionKind.ReadCircuit
+                    && callbackParameter.Parameters[0].ToString() == bodyInduction.DeviceID)
                 {
-                    initLogicAndCommand();//---初始化指令配置,逻辑配置
+                    if (!hasInitedLogicAndCommand)
+                        initLogicAndCommand();//---初始化指令配置,逻辑配置
+                    else
+                    {
+                        dtIDName.Rows.Clear();
+                        foreach (int key in bodyInduction.Circuit.ListCircuitIDAndName.Keys)
+                        {
+                            viewCommandSetting.CommmandGroups.Add(bodyInduction.Circuit.ListCircuitIDAndName[key]);    //---指令组选择----
+                            dtIDName.Rows.Add(new object[] { key, bodyInduction.Circuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
+                        }
+                        lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+                        viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+                    }
                     viewSecurity.ReadSecurity(lookUpEdit.ItemIndex);
                 }
-                //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == bodyInduction.GetType().Name)
+                //-----读取状态---
+                if (callbackParameter.Parameters != null && callbackParameter.Action == ActionKind.ReadSate
+                    && callbackParameter.Parameters[0].ToString() == bodyInduction.DeviceID)
                 {
-                    //-----逻辑状态-------
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadSate)
-                    {
-                        edtUW1.Text = bodyInduction.UWSensor1.SensorData.LevelValue;
-                        edtIR.Text = bodyInduction.IRSensor.SensorData.LevelValue;
-                        edtUW2.Text = bodyInduction.UWSensor2.SensorData.LevelValue;
-                        edtLum.Text = bodyInduction.IRSensor.LumSensorData.ValueAndUnit + " " + bodyInduction.IRSensor.LumSensorData.LevelValue;
-                    }
-                    //-----逻辑附加动作-------
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadAdditionAciton)
-                    {
-                        cbxLight.SelectedIndex = bodyInduction.Light.LedAct;//指示灯动作
-                        sptLightSeconds.Value = bodyInduction.Light.LedTim;//指示灯秒数
-                    }
-                    //-----逻辑配置-------
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadConfig)
-                    {
-                        ztbcUWSensor1.Value = (int)bodyInduction.UWSensor1.Sensitivity;
-                        ztbcUWSensor2.Value = (int)bodyInduction.UWSensor2.Sensitivity;
-                        ztbcIRSensor.Value = (int)bodyInduction.IRSensor.Sensitivity;
-                        cetSentivityLight.Checked = bodyInduction.Light.Open;//----是否开启指示灯---
-                    }
+
+                    edtUW1.Text = bodyInduction.UWSensor1.SensorData.LevelValue;
+                    edtIR.Text = bodyInduction.IRSensor.SensorData.LevelValue;
+                    edtUW2.Text = bodyInduction.UWSensor2.SensorData.LevelValue;
+                    edtLum.Text = bodyInduction.IRSensor.LumSensorData.ValueAndUnit + " " + bodyInduction.IRSensor.LumSensorData.LevelValue;
                 }
+                //-----逻辑附加动作-------
+                if (callbackParameter.Parameters != null && callbackParameter.Action == ActionKind.ReadAdditionAciton
+                    && callbackParameter.Parameters[0].ToString() == bodyInduction.DeviceID)
+                {
+
+                    cbxLight.SelectedIndex = bodyInduction.Light.LedAct;//指示灯动作
+                    sptLightSeconds.Value = bodyInduction.Light.LedTim;//指示灯秒数
+                }
+                //-----逻辑配置-------
+                if (callbackParameter.Parameters != null && callbackParameter.Action == ActionKind.ReadConfig
+                    && callbackParameter.Parameters[0].ToString() == bodyInduction.DeviceID)
+                {
+                    ztbcUWSensor1.Value = (int)bodyInduction.UWSensor1.Sensitivity;
+                    ztbcUWSensor2.Value = (int)bodyInduction.UWSensor2.Sensitivity;
+                    ztbcIRSensor.Value = (int)bodyInduction.IRSensor.Sensitivity;
+                    cetSentivityLight.Checked = bodyInduction.Light.Open;//----是否开启指示灯---
+                }
+
 
             }
         }
@@ -170,6 +184,8 @@ namespace ConfigDevice
             }
             lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
             viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+
+
 
             edtTriggerActionName.Text = bodyInduction.Circuit.ListCircuitIDAndName[1];//----默认显示第一个组名
             if (viewLogicSetting.NeedInit)//----初始化逻辑配置----

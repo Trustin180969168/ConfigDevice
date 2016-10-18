@@ -244,7 +244,7 @@ namespace ConfigDevice
             int openFlag = (int)userData.Data[0];
             open = openFlag == 1 ? true : false;
 
-            this.CallbackUI(new CallbackParameter(this.deviceControled.GetType().Name, ActionKind.ReadConfig));//---回调UI---
+            this.CallbackUI(new CallbackParameter(ActionKind.ReadConfig,this.deviceControled.DeviceID));//---回调UI---
 
         }
 
