@@ -571,11 +571,6 @@ namespace ConfigDevice
             gvDevices.RefreshData();
         }
 
-        private void gcDevices_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            gvDevices_DoubleClick(sender, e);
-        }
-
         /// <summary>
         /// 保存网络名称
         /// </summary>
@@ -751,9 +746,14 @@ namespace ConfigDevice
         {
             GridHitInfo HitInfo = this.gvNetwork.CalcHitInfo(e.Location);//获取鼠标点击的位置
             if (HitInfo.InRowCell && HitInfo.Column != null)
-            {  
-                if (HitInfo.Column.FieldName == NetworkConfig.DC_STATE)
-                    gvNetwork_LinkEdit(sender, e);
+            {
+                if( HitInfo.Column.FieldName == NetworkConfig.DC_STATE   )
+                {
+                    if( e.Button == MouseButtons.Left )
+                        linkEdit_DoubleClick( sender, e );
+                    else
+                        contextMenuStripNetwork.Show( e.Location );
+                   }
 
             }
         }
@@ -788,22 +788,22 @@ namespace ConfigDevice
         /// <param name="e"></param>
         private void linkEdit_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-                contextMenuStripNetwork.Show(e.X, e.Y);
-            else
-            {
-                if (gvNetwork.FocusedRowHandle == -1) return;
-                DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            //if (e.Button == MouseButtons.Right)
+            //    contextMenuStripNetwork.Show(e.X, e.Y);
+            //else
+            //{
+            //    if (gvNetwork.FocusedRowHandle == -1) return;
+            //    DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
 
-                Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
-                if (network.State == NetworkConfig.STATE_CONNECTED)
-                {
-                    pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
-                    deviceCtrl.SearchDevices(network);
-                }
-                else
-                    network.ConnectNetwork();
-            }
+            //    Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            //    if (network.State == NetworkConfig.STATE_CONNECTED)
+            //    {
+            //        pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
+            //        deviceCtrl.SearchDevices(network);
+            //    }
+            //    else
+            //        network.ConnectNetwork();
+            //}
  
         }
 
@@ -811,17 +811,18 @@ namespace ConfigDevice
 
         private void linkEdit_DoubleClick(object sender, EventArgs e)
         {
-            //if (gvNetwork.FocusedRowHandle == -1) return;
-            //DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            linkEdit.SingleClick=true;
+            if (gvNetwork.FocusedRowHandle == -1) return;
+            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
 
-            //Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
-            //if (network.State == NetworkConfig.STATE_CONNECTED)
-            //{
-            //    pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
-            //    deviceCtrl.SearchDevices(network);
-            //}
-            //else
-            //    network.ConnectNetwork();
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            if (network.State == NetworkConfig.STATE_CONNECTED)
+            {
+                pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
+                deviceCtrl.SearchDevices(network);
+            }
+            else
+                network.ConnectNetwork();
         }
 
 

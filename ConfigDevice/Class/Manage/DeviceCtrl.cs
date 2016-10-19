@@ -138,6 +138,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_AIR_O2: return new FactoryO2Edit();//-----氧气传感器-----
                 case DeviceConfig.EQUIPMENT_RSP: return new FactoryRadarEdit();//----雷达----
                 case DeviceConfig.EQUIPMENT_KEY_2: return new FactoryButton2Edit();//----2按键----
+                case DeviceConfig.EQUIPMENT_KEY_4: return new FactoryButton4Edit();//----4按键----
                 case DeviceConfig.EQUIPMENT_KEY_TFT_LCD: return new FactoryFunctionsBoardEdit();//---多功能液晶面板---
                 case DeviceConfig.EQUIPMENT_SHORT_IN_4: return new FactoryShort4InputEdit();//---短路输入4---
                 case DeviceConfig.EQUIPMENT_PRI_3: return new FactoryBodyInductionEdit();//---人体感应---
