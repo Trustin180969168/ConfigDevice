@@ -124,7 +124,10 @@ namespace ConfigDevice
                     && callbackParameter.Parameters[0].ToString() == bodyInduction.DeviceID)
                 {
                     if (!hasInitedLogicAndCommand)
+                    {
                         initLogicAndCommand();//---初始化指令配置,逻辑配置
+                        viewSecurity.ReadSecurity(lookUpEdit.ItemIndex);
+                    }
                     else
                     {
                         dtIDName.Rows.Clear();
@@ -136,7 +139,7 @@ namespace ConfigDevice
                         lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
                         viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
                     }
-                    viewSecurity.ReadSecurity(lookUpEdit.ItemIndex);
+                   
                 }
                 //-----读取状态---
                 if (callbackParameter.Parameters != null && callbackParameter.Action == ActionKind.ReadSate

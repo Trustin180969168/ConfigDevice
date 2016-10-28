@@ -135,7 +135,7 @@ namespace ConfigDevice
             this.RadarSensorObj = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_RSP, dataByte1) as RadarSensor;//获取雷达
             this.SwitTamperObj = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_TAMPER, dataByte1) as SwitTamperSensor;//防拆开关
  
-            CallbackUI(new CallbackParameter(Radar.CLASS_NAME,ACTION_STATE));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(ActionKind.ReadSate,this.DeviceID));//----读完状态信息,回调界面----
         }
 
 
@@ -205,8 +205,7 @@ namespace ConfigDevice
             num = 8;
             for (int i = 1; i <= 64; i *= 2)
                 SaftFlags[num++] = (int)(b2 & i) == i ? true : false;
-
-            CallbackUI(new CallbackParameter(Radar.CLASS_NAME, ACTION_SAFE));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(ActionKind.ReadSafe, DeviceID));//----读完状态信息,回调界面----
         }
 
 
@@ -366,7 +365,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(Radar.CLASS_NAME,ACTION_ADDITION));//---回调UI---
+                this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,DeviceID));//---回调UI---
             }
         }
 
