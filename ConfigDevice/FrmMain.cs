@@ -751,8 +751,8 @@ namespace ConfigDevice
                 {
                     if( e.Button == MouseButtons.Left )
                         linkEdit_DoubleClick( sender, e );
-                    else 
-                        contextMenuStripNetwork.Show();
+                    else
+                        contextMenuStripNetwork.Show( e.Location );
                    }
 
             }
