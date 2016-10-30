@@ -24,7 +24,7 @@ namespace ConfigDevice
                     this.Invoke(new CallbackUIAction(this.CallBackUI), callbackParameter);
                 else
                 {
-                    if (callbackParameter.Action == ActionKind.GetVer || callbackParameter.Parameters[0].ToString() == DeviceEdit.GetType().BaseType.Name)
+                    if (callbackParameter.Action == ActionKind.GetVer || callbackParameter.DeviceID == DeviceEdit.DeviceID)
                     {
                         edtHardwareVer.Text = DeviceEdit.HardwareVer;
                         edtSoftwareVer.Text = DeviceEdit.SoftwareVer;

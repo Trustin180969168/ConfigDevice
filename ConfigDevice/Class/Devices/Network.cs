@@ -443,7 +443,7 @@ namespace ConfigDevice
                     int i =SysConfig.ListNetworks.Count;
                     GetPositionList(); //----------获取位置列表---------
                     DeviceCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
-                    CallbackUI(new CallbackParameter(  ActionKind.ConnectNetowrk, this ));
+                    CallbackUI(new CallbackParameter(ActionKind.ConnectNetowrk, DeviceID, this));
                     return;
                 }
                 else

@@ -25,6 +25,7 @@ namespace ConfigDevice
             callbackGetStopSearchDevices = new CallbackFromUDP(this.callbackStopSearch);
         }
 
+
         /// <summary>
         /// 初始化设备数据
         /// </summary>
@@ -67,7 +68,7 @@ namespace ConfigDevice
             //-----------执行搜索设备------------            
             UdpData udp = this.createSearchDevices(network);
             callbackGetSearchDevices.Udp = udp;
-            MySocket.GetInstance().SendData(udp, network.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchDevices), null);
+            MySocket.GetInstance().SendData(udp, network.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchDevices));
 
         }
         /// <summary>

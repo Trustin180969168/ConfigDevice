@@ -161,7 +161,7 @@ namespace ConfigDevice
         /// <param name="receivePort">接收端口</param>
         /// <param name="receivePort">接收参数</param>
         /// <returns>void</returns>
-        public void SendData(UdpData udp, string receiveIP, int receivePort, CallbackUdpAction callback, object[] objs)
+        public void SendData(UdpData udp, string receiveIP, int receivePort, CallbackUdpAction callback,params object[] objs)
         {
             //lock (obj)
             //{

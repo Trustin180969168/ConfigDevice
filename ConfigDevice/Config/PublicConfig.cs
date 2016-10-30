@@ -11,7 +11,7 @@ namespace ConfigDevice
 {
 
     public delegate void Action();//用于公共委托类型,陆续添加带参数的
-    public delegate void CallbackUdpAction(UdpData udpData,object[] values);//----回调执行UDP包----
+    public delegate void CallbackUdpAction(UdpData udpData,params object[] values);//----回调执行UDP包----
    // public delegate void CallbackUdpAction(UdpData udpData, CallbackParameter callbackParameter);//----回调执行UDP包----
     public delegate void CallbackUIAction(CallbackParameter callbackParameter);//----回调UI界面---- 
     public delegate void SyncCommandSetting(ViewCommandTools viewCommandTools);//---同步指令设置
@@ -84,22 +84,24 @@ namespace ConfigDevice
     {
         public ActionKind Action  = ActionKind.None;
         public object[] Parameters;
+        public String DeviceID;
 
         /// <summary>
         /// 回调构造参数
         /// </summary>
         /// <param name="_ActionName">动作</param>
         /// <param name="_Parameters">回调参数</param>
-        public CallbackParameter(ActionKind _ActionName, params object[] _Parameters)
+        public CallbackParameter(ActionKind _ActionName, object[] _Parameters)
         {
             Action = _ActionName;
             Parameters = _Parameters;
         }
-        //public CallbackParameter(ActionKind _ActionName, object[] _Parameters)
-        //{
-        //    Action = _ActionName;
-        //    Parameters = _Parameters;
-        //}
+        public CallbackParameter(ActionKind _ActionName,String _deviceID, params object[] _Parameters)
+        {
+            DeviceID = _deviceID;
+            Action = _ActionName;
+            Parameters = _Parameters;
+        }
 
         /// <summary>
         /// 回调构造参数
