@@ -99,7 +99,7 @@ namespace ConfigDevice
             UdpTools.ReplyDataUdp(data);//----回复确认----- 
             UserUdpData userUdp = new UserUdpData(data);//---用户数据---
             KeyData keyData = new KeyData(userUdp);     //---按键数据---
-            CallbackUI(new CallbackParameter(keyData));//----界面回调-----
+            CallbackUI(new CallbackParameter(ActionKind.ReadConfig,device.DeviceID,keyData));//----界面回调-----
         }
 
         /// <summary>

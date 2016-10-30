@@ -138,7 +138,9 @@ namespace ConfigDevice
                     }
                     else if ((callbackParameter.Action == ActionKind.DisConnectNetwork))//---断开连接----
                     {
+                        gcDevices.DataSource = new DataTable();
                         gcDevices.DataSource = SysConfig.DtDevice;
+                        gcDevices.RefreshDataSource(); 
                     }
                     else if ((callbackParameter.Action == ActionKind.SaveDeviceName))//---保存设备名称后刷新列表----
                     {

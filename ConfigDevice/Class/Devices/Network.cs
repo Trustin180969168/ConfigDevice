@@ -416,6 +416,8 @@ namespace ConfigDevice
             byte[] userPw = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };//---用户密码---
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackConnectNetwork),
                 new object[] { mangerPw, userPw });
+
+
         }
         /// <summary>
         /// 回调网络搜索
@@ -425,7 +427,6 @@ namespace ConfigDevice
         {
             lock (SysConfig.ListNetworks)
             {
-                //string temp = ConvertTools.ByteToHexStr(udpReceive.GetUdpData());
                 UserUdpData userData = new UserUdpData(udpReceive);
                 if (CommonTools.BytesEuqals(userData.Command, DeviceConfig.CMD_PC_CONNECT_ACK))//---为连接成功-----
                 {
@@ -513,7 +514,7 @@ namespace ConfigDevice
                 return;
             //-----------执行链接网络------------
             UdpData udpSend = createDisconnectNetworkUdpData();
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackDisconnectNetwork), new object[] {  });
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackDisconnectNetwork), null);
 
         }
 
@@ -532,7 +533,7 @@ namespace ConfigDevice
                     State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
                     NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
                     NetworkCtrl.RemoveNetworkDeviceData(this);//----移除设备数据-----
-                    CallbackUI(new CallbackParameter( ActionKind.DisConnectNetwork, this ));
+                    CallbackUI(new CallbackParameter(ActionKind.DisConnectNetwork,this.DeviceID,null ));
                     return;
                 }
                 else

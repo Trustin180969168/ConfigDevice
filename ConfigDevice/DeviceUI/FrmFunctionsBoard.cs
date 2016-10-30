@@ -65,41 +65,36 @@ namespace ConfigDevice
             {
                 if (this.InvokeRequired)
                 {
-                    this.Invoke(new CallbackUIAction(callbackUI), callbackParameter);                  
+                    this.Invoke(new CallbackUIAction(callbackUI), callbackParameter);
                 }
                 else
                 {
-                    if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)//---电机回路名称--
-                    {   
-                        initLogicAndCommand();
-                    }
-                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == LCDPanelCtrl.CLASS_NAME)//---电机回路名称--
+                    if (callbackParameter.Parameters != null && callbackParameter.DeviceID == panelKey.DeviceID)//---电机回路名称--
                     {
-                        if (callbackParameter.Parameters[1].ToString() == LCDPanelCtrl.ACTION_STATE_NAME)//------状态选择------
-                        {
-                   
-                        }
-                        else if (callbackParameter.Parameters[1].ToString() == LCDPanelCtrl.ACTION_OPTION_NAME)
-                        {
-                            panelOptionData = callbackParameter.Parameters[2] as LCDPanelOptionData;
-                            keySecuritySetting.SetOptionData(panelOptionData);
-
-                            tbcSleep.Value = panelOptionData.StandbyLight;//---待机亮度
-                            tbcRun.Value = panelOptionData.Luminance;//---运行亮度
-                            tbcLight.Value = panelOptionData.PointLightLuminance;//---指示灯亮度
-                            speSleepTime.Value = panelOptionData.StandbyTime;//---待机时间
-                            ceTimeScreenProtect.Checked = panelOptionData.OpenScreenProtect;//---开启时间屏保
-                            ceRedLine.Checked = panelOptionData.OpenRedLine;//---开启红外线
-                            cbxShowContent.SelectedIndex = panelOptionData.DoorWindowShowAllID;//---门窗显示设置
-                            cbxShowModel.SelectedIndex = panelOptionData.DoorWindowShowModelID;//---全部房间显示设置
-                            ceIfOpenMusic.Checked = panelOptionData.NotCloseWindowPlayMusic;//---没关，没锁门是否播放音乐----
-                            listEnvironment.SetOptionData(ref panelOptionData);//----环境-----
-                            panelMusic.SetOptionData(ref panelOptionData);//----音乐面板----
-                            //------密码页配置---------------
-                            for (int i = 0; i < celPassword.Items.Count; i++)
-                                this.celPassword.Items[i].CheckState = panelOptionData.SaftPageFlags[i] ? CheckState.Checked : CheckState.Unchecked; //---密码页
-                        }
+                        if (callbackParameter.Action == ActionKind.ReadCircuit)
+                            initLogicAndCommand();
                     }
+                    if (callbackParameter.Action == ActionKind.ReadOption)
+                    {
+                        panelOptionData = callbackParameter.Parameters[0] as LCDPanelOptionData;
+                        keySecuritySetting.SetOptionData(panelOptionData);
+
+                        tbcSleep.Value = panelOptionData.StandbyLight;//---待机亮度
+                        tbcRun.Value = panelOptionData.Luminance;//---运行亮度
+                        tbcLight.Value = panelOptionData.PointLightLuminance;//---指示灯亮度
+                        speSleepTime.Value = panelOptionData.StandbyTime;//---待机时间
+                        ceTimeScreenProtect.Checked = panelOptionData.OpenScreenProtect;//---开启时间屏保
+                        ceRedLine.Checked = panelOptionData.OpenRedLine;//---开启红外线
+                        cbxShowContent.SelectedIndex = panelOptionData.DoorWindowShowAllID;//---门窗显示设置
+                        cbxShowModel.SelectedIndex = panelOptionData.DoorWindowShowModelID;//---全部房间显示设置
+                        ceIfOpenMusic.Checked = panelOptionData.NotCloseWindowPlayMusic;//---没关，没锁门是否播放音乐----
+                        listEnvironment.SetOptionData(ref panelOptionData);//----环境-----
+                        panelMusic.SetOptionData(ref panelOptionData);//----音乐面板----
+                        //------密码页配置---------------
+                        for (int i = 0; i < celPassword.Items.Count; i++)
+                            this.celPassword.Items[i].CheckState = panelOptionData.SaftPageFlags[i] ? CheckState.Checked : CheckState.Unchecked; //---密码页
+                    }
+
                 }
             }
             catch { }
@@ -114,11 +109,13 @@ namespace ConfigDevice
             panelKey.PanelCtrl.ReadKeyOption();    //读取面板配置 
         }
 
+        private bool hasInitLogicAndCommand = false;
         /// <summary>
         /// 初始化逻辑和指令配置
         /// </summary>
         private void initLogicAndCommand()
         {
+            if (hasInitLogicAndCommand) return;
             viewCommandEdit.CommmandGroups.Clear();
             foreach (int key in panelKey.Circuit.ListCircuitIDAndName.Keys)
                 viewCommandEdit.CommmandGroups.Add(panelKey.Circuit.ListCircuitIDAndName[key]);    //---指令组选择---- 
@@ -129,6 +126,7 @@ namespace ConfigDevice
             }
             else if (!viewCommandEdit.NeedInit)
                 viewCommandEdit.UpdateGroupName();
+            hasInitLogicAndCommand = true;
         }
 
         /// <summary>
@@ -142,6 +140,7 @@ namespace ConfigDevice
             Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
             if (panelKey.MAC == DeviceSelect.MAC) return;
 
+            hasInitLogicAndCommand = false;
             viewBaseSetting.DeviceEdit = DeviceSelect;          //---基础配置编辑  
             this.Device = DeviceSelect;                         //---父类设备对象-----              
             panelKey = this.Device as LCDPanelKey;                   //---本界面编辑-----    

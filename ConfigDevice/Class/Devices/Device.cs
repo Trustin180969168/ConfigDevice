@@ -222,7 +222,7 @@ namespace ConfigDevice
                 HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0');
             }
 
-            CallbackUI(new CallbackParameter(ActionKind.GetVer));
+            CallbackUI(new CallbackParameter(ActionKind.GetVer, this.DeviceID, null));
         }
         /// <summary>
         /// 创建读取VER的UDP包

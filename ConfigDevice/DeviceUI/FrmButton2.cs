@@ -62,31 +62,31 @@ namespace ConfigDevice
             {
                 if (this.InvokeRequired)
                 {
-                    this.Invoke(new CallbackUIAction(callbackUI), callbackParameter);                  
+                    this.Invoke(new CallbackUIAction(callbackUI), callbackParameter);
                 }
                 else
                 {
-                    if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME) 
-                    {   
-                        initLogicAndCommand();
-                    }
-                    else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == ButtonPanelCtrl.CLASS_NAME) 
+                    if (callbackParameter.Parameters != null && callbackParameter.DeviceID == button2.DeviceID)
                     {
-                        if (callbackParameter.Parameters[1].ToString() == ButtonPanelCtrl.ACTION_STATE_NAME)//------状态选择------
+                        if (callbackParameter.Action == ActionKind.ReadCircuit)
                         {
-                            InitSelectIndex = (int)callbackParameter.Parameters[2];
+                                initLogicAndCommand();
+                        }
+                        if (callbackParameter.Action == ActionKind.ReadSate)
+                        {
+                            InitSelectIndex = (int)callbackParameter.Parameters[0];
                             rgInitState.SelectedIndex = InitSelectIndex;
                         }
-                        else if (callbackParameter.Parameters[1].ToString() == ButtonPanelCtrl.ACTION_OPTION_NAME)
+                        if (callbackParameter.Action == ActionKind.ReadOption)
                         {
-                            button2OptionData = callbackParameter.Parameters[2] as ButtonPanelOptionData;
+                            button2OptionData = callbackParameter.Parameters[0] as ButtonPanelOptionData;
                             keySecuritySetting.SetOptionData(button2OptionData);//-----设置安防
                             ceLittleLight.Checked = button2OptionData.CLoseLightWithBrightness;//---关灯微亮---
                             tbcLight.Value = button2OptionData.Luminance;                      //---亮度----
-                 
-                        }
 
+                        }
                     }
+
                 }
             }
             catch { }
@@ -102,11 +102,13 @@ namespace ConfigDevice
             button2.PanelCtrl.ReadKeyState();     //读取状态
         }
 
+        private bool hasInitLogicAndCommand = false;
         /// <summary>
         /// 初始化逻辑和指令配置
         /// </summary>
         private void initLogicAndCommand()
         {
+            if (hasInitLogicAndCommand) return;
             viewCommandEdit.CommmandGroups.Clear();
             foreach (int key in button2.Circuit.ListCircuitIDAndName.Keys)
                 viewCommandEdit.CommmandGroups.Add(button2.Circuit.ListCircuitIDAndName[key]);    //---指令组选择---- 
@@ -117,6 +119,7 @@ namespace ConfigDevice
             }
             else if (!viewCommandEdit.NeedInit)
                 viewCommandEdit.UpdateGroupName();
+            hasInitLogicAndCommand = true;
         }
 
         /// <summary>
@@ -130,13 +133,14 @@ namespace ConfigDevice
             Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
             if (button2.MAC == DeviceSelect.MAC) return;
 
+            hasInitLogicAndCommand = false;
             viewBaseSetting.DeviceEdit = DeviceSelect;          //---基础配置编辑  
             this.Device = DeviceSelect;                         //---父类设备对象-----              
             button2 = this.Device as ButtonPanelKey;                   //---本界面编辑-----    
             button2.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
             button2.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
 
-            this.Text = button2.Name;                   //---界面标题----
+            this.Text = button2.Name;                   //---界面标题----      
             this.list2Keys.InitKeySettingList(button2, 0,2);//---重新初始化按键配置控件----
             viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
             InitSelectDevice();                         //---初始化选择设备---

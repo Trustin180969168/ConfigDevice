@@ -168,7 +168,8 @@ namespace ConfigDevice
             }
             else
             {
-                if (parameter.Parameters != null && parameter.Parameters[0].ToString() == Circuit.CLASS_NAME)//---回路名称--
+                if (parameter.Parameters != null && parameter.DeviceID == keyList.device.DeviceID &&
+                    parameter.Action == ActionKind.ReadCircuit)//---回路名称--
                 {
                     NeedInit = false;//----回路读取完毕为初始化完毕----     
                     int i = 1;

@@ -9,9 +9,7 @@ namespace ConfigDevice
     /// </summary>
     public class ButtonPanelCtrl : ControlObj
     {
-        public const string CLASS_NAME = "KeyCtrl";
-        public const string ACTION_STATE_NAME = "ActionState";
-        public const string ACTION_OPTION_NAME = "ActionOption";
+
         private MySocket mySocket = MySocket.GetInstance();//----通讯---
         private CallbackFromUDP getKeyOption;//---注册回调按键----
         private CallbackFromUDP getKeyState;//---注册回调按键----
@@ -84,7 +82,7 @@ namespace ConfigDevice
 
             UdpTools.ReplyDataUdp(data);//----回复确认-----
             ButtonPanelOptionData option = new ButtonPanelOptionData(userData);
-            deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME, ACTION_OPTION_NAME, option));//---回调UI---
+            deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadOption,deviceControled.DeviceID, option));//---回调UI---
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_OPTIONS, this.UUID);    //---取消订阅---
  
         }
@@ -197,7 +195,7 @@ namespace ConfigDevice
             UdpTools.ReplyDataUdp(data);//----回复确认-----
             int selectIndex = (int)userData.Data[0];
 
-            deviceControled.CallbackUI(new CallbackParameter(CLASS_NAME, ACTION_STATE_NAME, selectIndex));//---回调UI---
+            deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadSate, deviceControled.DeviceID, selectIndex));//---回调UI---
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_STARTUP_KEY_STATE, this.UUID);    //---取消订阅---
         }
 

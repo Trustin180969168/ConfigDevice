@@ -72,7 +72,8 @@ namespace ConfigDevice
         SaveNetworkPosition,
         ReadCircuit,//读取回路
         ReadSafe,//获取安防
-        ReadConfig,//获取配置
+        ReadConfig,//获取参数配置
+        ReadOption,//读取选择配置
         ReadData,//读取数据
         ReadAdditionAciton,//获取附加动作
         ReadSate,//读取状态
