@@ -77,6 +77,7 @@ namespace ConfigDevice
         ReadData,//读取数据
         ReadAdditionAciton,//获取附加动作
         ReadSate,//读取状态
+        ReadPower,//读取功率
         None
         
     }

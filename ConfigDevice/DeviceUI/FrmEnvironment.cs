@@ -130,12 +130,26 @@ namespace ConfigDevice
             lock (lockObject)
             {
                 //---读取完回路----
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)
-                    initLogicAndCommand();
-                //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == environment.DeviceID)
+                if (callbackParameter != null && callbackParameter.DeviceID == environment.DeviceID)
                 {
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadSate)
+                    if (callbackParameter.Action == ActionKind.ReadCircuit)
+                    {
+                        if (!hasInitedLogicAndCommand)
+                            initLogicAndCommand();
+                        else
+                        {
+                            dtIDName.Rows.Clear();
+                            foreach (int key in this.environment.Circuit.ListCircuitIDAndName.Keys)
+                            {
+                                viewCommandSetting.CommmandGroups.Add(environment.Circuit.ListCircuitIDAndName[key]);    //---指令组选择----
+                                dtIDName.Rows.Add(new object[] { key, environment.Circuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
+                            }
+                            lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+                            viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+                        }
+                    }
+                    //-----读取完探头参数-----  
+                    if (callbackParameter.Action == ActionKind.ReadSate)
                     {
                         dtSensorState.Rows[0][1] = environment.temperatureSensor.ValueAndUnit; dtSensorState.Rows[0][2] = environment.temperatureSensor.LevelValue;//温度
                         dtSensorState.Rows[1][1] = environment.humiditySensor.ValueAndUnit; dtSensorState.Rows[1][2] = environment.humiditySensor.LevelValue;//湿度
@@ -151,19 +165,21 @@ namespace ConfigDevice
                         gcEnvironment.DataSource = dtSensorState;
                         gvEnvironment.RefreshData();
                     }
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadAdditionAciton)
+                    if (callbackParameter.Action == ActionKind.ReadAdditionAciton)//---附加动作
                     {
                         //-----逻辑附加动作------- 
                         this.cbxLight.SelectedIndex = environment.PointLight.LedAct;
                         this.sptLightSeconds.Text = environment.PointLight.LedTim.ToString();
                     }
+                    //-----读取指示灯参数----------
+                    if (callbackParameter.Action == ActionKind.ReadConfig)
+                    {
+                        cedtOpenHealthLight.Checked = environment.PointLight.OpenHealthLight;
+                    }
                 }
-                //-----读取指示灯参数----------
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Light.CLASS_NAME)
-                {
-                    cedtOpenHealthLight.Checked = environment.PointLight.OpenHealthLight;
-                }
+  
             }
+
         }
 
         /// <summary>

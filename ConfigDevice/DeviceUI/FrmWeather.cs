@@ -110,13 +110,28 @@ namespace ConfigDevice
             }
             lock (lockObject)
             {
-                //---读取完回路----
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)
-                    initLogicAndCommand();
-                //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == environment.DeviceID )
+                if (callbackParameter.DeviceID == environment.DeviceID)
                 {
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadSate)
+                    //---读取完回路----
+                    if (callbackParameter.Action == ActionKind.ReadCircuit)
+                    {
+                        if (!hasInitedLogicAndCommand)
+                            initLogicAndCommand();
+                        else
+                        {
+                            dtIDName.Rows.Clear();
+                            foreach (int key in environment.Circuit.ListCircuitIDAndName.Keys)
+                            {
+                                viewCommandSetting.CommmandGroups.Add(this.environment.Circuit.ListCircuitIDAndName[key]);    //---指令组选择----
+                                dtIDName.Rows.Add(new object[] { key, environment.Circuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
+                            }
+                            lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+                            viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+
+                        }
+                    }
+                    //-----读取完探头参数----- 
+                    if (callbackParameter.Action == ActionKind.ReadSate)
                     {
                         dtSensorState.Rows[0][1] = environment.WindySensor.Value / 10.0 + " " + environment.WindySensor.Unit; dtSensorState.Rows[0][2] = environment.WindySensor.LevelValue;//风速    
                         dtSensorState.Rows[1][1] = ""; dtSensorState.Rows[1][2] = environment.RainSensor.LevelValue;//雨感
@@ -125,12 +140,10 @@ namespace ConfigDevice
                         dtSensorState.Rows[4][1] = environment.luminanceSensor.ValueAndUnit; dtSensorState.Rows[4][2] = environment.luminanceSensor.LevelValue;//亮度
 
                         dtSensorState.AcceptChanges();
-
                         gcEnvironment.DataSource = dtSensorState;
                         gvEnvironment.RefreshData();
                     }
                 }
-               
             }
         }
 

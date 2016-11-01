@@ -136,23 +136,35 @@ namespace ConfigDevice
             }
             lock (lockObject)
             {
-                //-----读取完回路----
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME
-                    && callbackParameter.Parameters[1].ToString() == short4.DeviceID)
-                    initLogicAndCommand();//---初始化指令配置,逻辑配置
-                //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Short4.CLASS_NAME)
+                if (callbackParameter.DeviceID == short4.DeviceID)
                 {
-                    //-----逻辑状态-------
-                    if (callbackParameter.Parameters[1].ToString() == Short4.ACTION_STATE)
+                    //-----读取完回路----
+                    if (callbackParameter.Action == ActionKind.ReadCircuit)
                     {
-                        edtShort4State1.Text = short4.Short4Sensor1.LevelValue; 
+                        if (!hasInitedLogicAndCommand)
+                            initLogicAndCommand();//---初始化指令配置,逻辑配置
+                        else
+                        {
+                            dtIDName.Rows.Clear();
+                            foreach (int key in short4.Circuit.ListCircuitIDAndName.Keys)
+                            {
+                                viewCommandSetting.CommmandGroups.Add(short4.Circuit.ListCircuitIDAndName[key]);    //---指令组选择----
+                                dtIDName.Rows.Add(new object[] { key, short4.Circuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
+                            }
+                            lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+                            viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+                        }
+                    } 
+                    //-----逻辑状态-------
+                    if (callbackParameter.Action == ActionKind.ReadSate)
+                    {
+                        edtShort4State1.Text = short4.Short4Sensor1.LevelValue;
                         edtShort4State2.Text = short4.Short4Sensor2.LevelValue;
                         edtShort4State3.Text = short4.Short4Sensor3.LevelValue;
                         edtShort4State4.Text = short4.Short4Sensor4.LevelValue;
                     }
                     //-----短路输入配置-------
-                    if (callbackParameter.Parameters[1].ToString() == Short4.ACTION_CONFIG)
+                    if (callbackParameter.Action == ActionKind.ReadConfig)
                     {
                         cbxShortOut1.SelectedIndex = (int)short4.ShortConfigRoad1;
                         cbxShortOut2.SelectedIndex = (int)short4.ShortConfigRoad2;
@@ -160,7 +172,7 @@ namespace ConfigDevice
                         cbxShortOut4.SelectedIndex = (int)short4.ShortConfigRoad4;
                     }
                     //-----逻辑附加动作-------
-                    if (callbackParameter.Parameters[1].ToString() == Short4.ACTION_ADDITION)
+                    if (callbackParameter.Action == ActionKind.ReadAdditionAciton)
                     {
                         dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER1] = short4.Short4CtrlObj1.usScOutDly; dtShortOutput.Rows[0][ViewConfig.DC_PARAMETER2] = short4.Short4CtrlObj1.usScOutTim;
                         dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER1] = short4.Short4CtrlObj2.usScOutDly; dtShortOutput.Rows[1][ViewConfig.DC_PARAMETER2] = short4.Short4CtrlObj2.usScOutTim;
@@ -174,13 +186,12 @@ namespace ConfigDevice
                         dtShortOutput.AcceptChanges();
                     }
                     //-----安防配置-------
-                    if (callbackParameter.Parameters[1].ToString() == Short4.ACTION_SAFE)
+                    if (callbackParameter.Action == ActionKind.ReadSafe)
                     {
                         for (int i = 0; i < short4.SaftFlags.Length; i++)
                             ceSafeSetting.Items[i].CheckState = short4.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
                     }
-                }
- 
+                } 
             }
         }
 

@@ -72,7 +72,9 @@ namespace ConfigDevice
                     if (callbackParameter.Parameters != null && callbackParameter.DeviceID == panelKey.DeviceID)//---电机回路名称--
                     {
                         if (callbackParameter.Action == ActionKind.ReadCircuit)
-                            initLogicAndCommand();
+                            if(!hasInitLogicAndCommand)
+                                initLogicAndCommand();
+                        
                     }
                     if (callbackParameter.Action == ActionKind.ReadOption)
                     {

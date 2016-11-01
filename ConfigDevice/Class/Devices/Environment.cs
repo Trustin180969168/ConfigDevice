@@ -9,8 +9,7 @@ namespace ConfigDevice
     /// 目前由于共性，环境和气象站同一个对象使用，界面则分开
     /// </summary>
     public class Environment:Device
-    {
-        public const string CLASS_NAME = "FlammableGasProbe";
+    { 
         
         public Circuit Circuit;                //回路对象
         public Light PointLight;                     //指示灯
@@ -149,7 +148,7 @@ namespace ConfigDevice
             this.RainSensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_RAIN, dataByte1) as RainSensor;//雨感
             this.WindySensor = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_WIND, dataByte1) as WindySensor;//风速
 
-            CallbackUI(new CallbackParameter(this.DeviceID,ActionKind.ReadSate));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(ActionKind.ReadSate,this.DeviceID));//----读完状态信息,回调界面----
         }
 
         /// <summary>
@@ -242,7 +241,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(this.DeviceID,ActionKind.ReadAdditionAciton));//---回调UI---
+                this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,this.DeviceID));//---回调UI---
             }
         }
 

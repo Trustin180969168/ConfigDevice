@@ -154,7 +154,7 @@ namespace ConfigDevice
             this.Short4Sensor2 = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_SCIN_2, dataByte1) as Short4Sensor;//短路输入2
             this.Short4Sensor3 = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_SCIN_3, dataByte1) as Short4Sensor;//短路输入3
             this.Short4Sensor4 = SensorCtrl.GetSensorFromByte(SensorConfig.LG_SENSOR_SCIN_4, dataByte1) as Short4Sensor;//短路输入4
-            CallbackUI(new CallbackParameter(Short4.CLASS_NAME, ACTION_STATE));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(ActionKind.ReadSate,this.DeviceID));//----读完状态信息,回调界面----
         }
 
 
@@ -225,7 +225,7 @@ namespace ConfigDevice
             for (int i = 1; i <= 64; i *= 2)
                 SaftFlags[num++] = (int)(b2 & i) == i ? true : false;
 
-            CallbackUI(new CallbackParameter(Short4.CLASS_NAME, ACTION_SAFE));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(ActionKind.ReadSafe, DeviceID));//----读完状态信息,回调界面----
         }
 
 
@@ -393,7 +393,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(Short4.CLASS_NAME,ACTION_ADDITION));//---回调UI---
+                this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,DeviceID));//---回调UI---
             }
         }
 
@@ -515,7 +515,7 @@ namespace ConfigDevice
             this.ShortConfigRoad2 = value[2];
             this.ShortConfigRoad3 = value[3];
             this.ShortConfigRoad4 = value[4];
-            CallbackUI(new CallbackParameter(Short4.CLASS_NAME, ACTION_CONFIG));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(ActionKind.ReadConfig,DeviceID));//----读完状态信息,回调界面----
         }
 
         /// <summary>
@@ -531,7 +531,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(Short4.CLASS_NAME, ACTION_ADDITION));//---回调UI---
+                this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,DeviceID));//---回调UI---
             }
         }
 

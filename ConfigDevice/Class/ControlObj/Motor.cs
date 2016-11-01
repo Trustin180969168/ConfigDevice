@@ -452,7 +452,7 @@ namespace ConfigDevice
             if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_CONFIG))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME, ACTION_NAME_PARAMETER));//---回调UI---
+                this.deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadConfig,deviceControled.DeviceID));//---回调UI---
             }
         }
 
@@ -611,7 +611,7 @@ namespace ConfigDevice
             this.Road2Current = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[2], userData.Data[3] });   //---2路电流
             this.Road3Current = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[4], userData.Data[5] });   //---3路电流  
  
-            this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME, ACTION_NAME_CURRENT_CURRENT));//---回调UI---
+            this.deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadPower, ACTION_NAME_CURRENT_CURRENT));//---回调UI---
         }
 
 

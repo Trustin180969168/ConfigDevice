@@ -119,13 +119,12 @@ namespace ConfigDevice
             lock (lockObject)
             {
                 //---读取完回路----
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)
-                    initLogicAndCommand();
-                //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == environment.DeviceID)
+                if (callbackParameter.DeviceID == environment.DeviceID)
                 {
+                    //-----读取完探头参数----- 
+
                     //----读取状态-----
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadSate)
+                    if (callbackParameter.Action == ActionKind.ReadSate)
                     {
                         dtSensorState.Rows[0][1] = (environment.O2Sensor.Value / 10.0).ToString() + " " + environment.O2Sensor.Unit; dtSensorState.Rows[0][2] = environment.O2Sensor.LevelValue;//氧气浓度           
                         dtSensorState.AcceptChanges();
@@ -134,16 +133,17 @@ namespace ConfigDevice
                         gvEnvironment.RefreshData();
                     }
                     //-----逻辑附加动作------- 
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadAdditionAciton)
-                    { 
+                    if (callbackParameter.Action == ActionKind.ReadAdditionAciton)
+                    {
                         this.cbxLight.SelectedIndex = environment.PointLight.LedAct;
                         this.sptLightSeconds.Text = environment.PointLight.LedTim.ToString();
                     }
-                }
-                //-----读取指示灯参数----------
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Light.CLASS_NAME)
-                {
-                    cedtOpenHealthLight.Checked = environment.PointLight.OpenHealthLight;
+
+                    //-----读取指示灯参数----------
+                    if (callbackParameter.Action == ActionKind.ReadOption)
+                    {
+                        cedtOpenHealthLight.Checked = environment.PointLight.OpenHealthLight;
+                    }
                 }
             }
         }

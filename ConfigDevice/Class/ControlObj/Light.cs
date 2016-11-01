@@ -404,7 +404,7 @@ namespace ConfigDevice
                 openHealthLight = true;
             else
                 openHealthLight = false;
-            this.deviceControled.CallbackUI(new CallbackParameter(Light.CLASS_NAME));//---回调UI---
+            this.deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadConfig,deviceControled.DeviceID));//---回调UI---
             finishReadParameter = true;
         }
 

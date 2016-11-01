@@ -119,7 +119,7 @@ namespace ConfigDevice
             lock (lockObject)
             {
                 //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == radar.DeviceID)
+                if (callbackParameter.DeviceID == radar.DeviceID)
                 {
                     //---读取回路
                     if(callbackParameter.Action == ActionKind.ReadCircuit)

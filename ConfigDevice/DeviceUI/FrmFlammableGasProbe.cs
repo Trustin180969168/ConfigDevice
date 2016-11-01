@@ -137,17 +137,29 @@ namespace ConfigDevice
             }
             lock (lockObject)
             {
-                //---读取完回路----
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME
-                    && callbackParameter.Parameters[1].ToString() == flammableGasProbe.DeviceID)
+                if (flammableGasProbe.DeviceID == callbackParameter.DeviceID)
                 {
-                    initLogicAndCommand();//---初始化指令配置,逻辑配置
-                }
-                //-----读取完探头参数----- 
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == flammableGasProbe.DeviceID)
-                {
+                    //---读取完回路----
+                    if (callbackParameter.Action == ActionKind.ReadCircuit)
+                    {
+                        if (!hasInitedLogicAndCommand)
+                            initLogicAndCommand();//---初始化指令配置,逻辑配置
+                        else
+                        {
+                            dtIDName.Rows.Clear();
+                            foreach (int key in flammableGasProbe.ProbeCircuit.ListCircuitIDAndName.Keys)
+                            {
+                                viewCommandSetting.CommmandGroups.Add(flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key]);    //---指令组选择----
+                                dtIDName.Rows.Add(new object[] { key, flammableGasProbe.ProbeCircuit.ListCircuitIDAndName[key] });  //---初始化逻辑项 
+                            }
+                            lookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+                            viewLogicSetting.LookUpEdit.Properties.DataSource = dtIDName;//----逻辑组选择----
+                        }
+                    }
+                    //-----读取完探头参数----- 
+
                     //-----刷新探头内容-------
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadSate)
+                    if (callbackParameter.Action == ActionKind.ReadSate)
                     {
                         edtValveState.Text = flammableGasProbe.Valve.ValveState;
                         edtVavleEC.Text = flammableGasProbe.Valve.ValveElectricCurrent.ToString();
@@ -155,7 +167,7 @@ namespace ConfigDevice
                         edtFireCtrlTemperatue.Text = flammableGasProbe.Temperature.Value.ToString() + " ℃  " + flammableGasProbe.Temperature.LevelValue;
                     }
                     //-----逻辑附加动作-------
-                    if ((ActionKind)callbackParameter.Parameters[1] == ActionKind.ReadAdditionAciton)
+                    if (callbackParameter.Action == ActionKind.ReadAdditionAciton)
                     {
                         cbxBuzzer.SelectedIndex = flammableGasProbe.FGP_Buzzer.BuzAct;
                         sptBuzzerSeconds.Text = flammableGasProbe.FGP_Buzzer.BuzTim.ToString();
@@ -164,16 +176,17 @@ namespace ConfigDevice
                         this.cbxValveAction.SelectedIndex = flammableGasProbe.Valve.ValAct;
                         this.sptValveSeconds.Text = flammableGasProbe.Valve.ValTim.ToString();
                     }
-                }
-                //-----读取完阀门参数----------
-                if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Motor.CLASS_NAME)
-                {
-                    speProbeEC.Text = flammableGasProbe.Valve.MaxStopCE.ToString();
-                    spePreTime.Text = flammableGasProbe.Valve.MaxRunTime.ToString();
 
-                    chkOpenValve.Checked = flammableGasProbe.Valve.OpenValve;
-                    chkClearLight.Checked = flammableGasProbe.Valve.ClearLight;
-                    chkClearLoudly.Checked = flammableGasProbe.Valve.ClearBuzzer;
+                    //-----读取完阀门参数----------
+                    if (callbackParameter.Action == ActionKind.ReadConfig)
+                    {
+                        speProbeEC.Text = flammableGasProbe.Valve.MaxStopCE.ToString();
+                        spePreTime.Text = flammableGasProbe.Valve.MaxRunTime.ToString();
+
+                        chkOpenValve.Checked = flammableGasProbe.Valve.OpenValve;
+                        chkClearLight.Checked = flammableGasProbe.Valve.ClearLight;
+                        chkClearLoudly.Checked = flammableGasProbe.Valve.ClearBuzzer;
+                    }
                 }
             }
         }
