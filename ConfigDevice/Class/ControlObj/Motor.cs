@@ -611,7 +611,7 @@ namespace ConfigDevice
             this.Road2Current = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[2], userData.Data[3] });   //---2路电流
             this.Road3Current = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[4], userData.Data[5] });   //---3路电流  
  
-            this.deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadPower, ACTION_NAME_CURRENT_CURRENT));//---回调UI---
+            this.deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadPower, deviceControled.DeviceID));//---回调UI---
         }
 
 
@@ -717,7 +717,8 @@ namespace ConfigDevice
             if (actionValue[4] == 0 && actionValue[5] == 3) actionResult[2] = "反转";    
 
             ActionData = CommonTools.CopyBytes(userData.Data, 0, ActionData.Length);//---保存所有动作----
-            this.deviceControled.CallbackUI(new CallbackParameter(Motor.CLASS_NAME, ACTION_NAME_CURRENT_ACTION, actionResult));//---回调UI---
+            this.deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadSate,deviceControled.DeviceID,
+                ACTION_NAME_CURRENT_ACTION, actionResult));//---回调UI---
         }
 
     }
