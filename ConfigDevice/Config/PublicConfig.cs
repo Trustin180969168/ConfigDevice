@@ -69,6 +69,7 @@ namespace ConfigDevice
         SaveDeviceID,
         SaveDeviceName,
         GetVer,
+        ReadInf,//公共读取功能
         SaveNetworkPosition,
         ReadCircuit,//读取回路
         ReadSafe,//获取安防
@@ -78,6 +79,8 @@ namespace ConfigDevice
         ReadAdditionAciton,//获取附加动作
         ReadSate,//读取状态
         ReadPower,//读取功率
+        ReadLogicConfig,//读取逻辑配置
+        ReadCommand,//读取指令
         None
         
     }
@@ -93,7 +96,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="_ActionName">动作</param>
         /// <param name="_Parameters">回调参数</param>
-        public CallbackParameter(ActionKind _ActionName, object[] _Parameters)
+        public CallbackParameter(ActionKind _ActionName,params object[] _Parameters)
         {
             Action = _ActionName;
             Parameters = _Parameters;
@@ -119,10 +122,10 @@ namespace ConfigDevice
         /// 回调构造参数
         /// </summary> 
         /// <param name="_Parameters">回调参数</param>
-        public CallbackParameter(params object[] _Parameters)
-        {
-            Parameters = _Parameters;
-        }
+        //public CallbackParameter(params object[] _Parameters)
+        //{
+        //    Parameters = _Parameters;
+        //}
     }
 
     /// <summary>

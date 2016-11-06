@@ -7,8 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Net;
-using System.Threading;
-using System.Timers;
+using System.Threading; 
 using System.IO;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Columns;
@@ -98,7 +97,7 @@ namespace ConfigDevice
                 { this.Invoke(new CallbackUIAction(CallBackUI), callbackParameter); }
                 else
                 {
-                    if (callbackParameter.Action == ActionKind.None)
+                        if (callbackParameter.Action == ActionKind.None)
                     {
                         networkSearchDevices.Width = 50;
                     }
@@ -118,6 +117,7 @@ namespace ConfigDevice
                         Network network = (Network)(callbackParameter.Parameters[0]);
                         if (searchingDevice)
                         {
+                            if(!listRrefreshDevices.ContainsKey(network.MAC))
                             listRrefreshDevices.Add(network.MAC, network);
                         }
                         else

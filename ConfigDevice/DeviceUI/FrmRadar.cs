@@ -424,11 +424,11 @@ namespace ConfigDevice
             //-------逻辑数据-----
             viewLogicSetting.ClearTrggerData();
             LogicData logicData = new LogicData(logicQuickSetting.GetLogicData(cbxQuickSetting.SelectedIndex));
-            viewLogicSetting.ReturnLogicData(new CallbackParameter(logicData));
+            viewLogicSetting.ReturnLogicData(new CallbackParameter(ActionKind.ReadLogicConfig,logicData));
             //-------附加动作------
             byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
             radar.SetAdditionLogicData(adittionData);
-            this.CallbackUI(new CallbackParameter(Radar.CLASS_NAME));//---回调UI---
+            this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton, Radar.CLASS_NAME));//---回调UI---
             //----------手头变更修改状态------
             isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
         }

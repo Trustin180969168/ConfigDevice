@@ -55,6 +55,7 @@ namespace ConfigDevice
         public UserUdpData(UdpData udp)
         {
             byte[] data = udp.ProtocolData;
+            if (udp.ProtocolData.Length < 10) return ;
             //------基本协议--------
             Target = new byte[3];
             Source = new byte[3];

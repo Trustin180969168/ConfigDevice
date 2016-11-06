@@ -62,7 +62,7 @@ namespace ConfigDevice
             lookUpEdit.Properties.DropDownRows = bodyInduction.Circuit.CircuitCount;
             lookUpEdit.Enter += SysConfig.Edit_Enter;
             lookUpEdit.Leave += SysConfig.Edit_Leave;
-            //----------可燃气体回调----------- 
+            //----------人体感应回调----------- 
             bodyInduction.OnCallbackUI_Action += this.CallbackUI;
             bodyInduction.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
             BaseViewSetting.DeviceEdit = bodyInduction;           //---基础配置编辑
@@ -127,7 +127,7 @@ namespace ConfigDevice
                         if (!hasInitedLogicAndCommand)
                         {
                             initLogicAndCommand();//---初始化指令配置,逻辑配置
-                            viewSecurity.ReadSecurity(lookUpEdit.ItemIndex);
+                            viewSecurity.ReadSecurity(lookUpEdit.ItemIndex);//---读取安防配置---
                         }
                         else
                         {
@@ -406,11 +406,11 @@ namespace ConfigDevice
             //-------逻辑数据-----
             viewLogicSetting.ClearTrggerData();
             LogicData logicData = new LogicData(logicQuickSetting.GetLogicData(cbxQuickSetting.SelectedIndex));
-            viewLogicSetting.ReturnLogicData(new CallbackParameter(logicData));
+            viewLogicSetting.ReturnLogicData(new CallbackParameter(ActionKind.ReadLogicConfig,logicData));
             //-------附加动作------
             byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
             bodyInduction.SetAdditionLogicData(adittionData);
-            this.CallbackUI(new CallbackParameter(Radar.CLASS_NAME));//---回调UI---
+            this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,Radar.CLASS_NAME));//---回调UI---
             //----------手头变更修改状态------
             isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
         }

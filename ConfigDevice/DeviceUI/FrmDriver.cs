@@ -54,7 +54,7 @@ namespace ConfigDevice
                 else
                 {
                     //-----读取完探头参数----- 
-                    if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)
+                    if (callbackParameter.DeviceID == Device.DeviceID && callbackParameter.Action == ActionKind.ReadCircuit)
                     {
                         dtCircuit.Rows.Clear();
                         foreach (int key in circuitCtrl.ListCircuitIDAndName.Keys)

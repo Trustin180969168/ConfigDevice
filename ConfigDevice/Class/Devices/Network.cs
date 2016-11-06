@@ -260,7 +260,7 @@ namespace ConfigDevice
             else
             {
                 ListPosition[pos.Num - 1] = pos;
-                this.CallbackUI(new CallbackParameter(ActionKind.SaveNetworkPosition, pos));//----返回界面结果----
+                this.CallbackUI(new CallbackParameter(ActionKind.SaveNetworkPosition,DeviceID, pos));//----返回界面结果----
             }
         }
         /// <summary>
@@ -444,7 +444,7 @@ namespace ConfigDevice
                     int i =SysConfig.ListNetworks.Count;
                     GetPositionList(); //----------获取位置列表---------
                     DeviceCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
-                    CallbackUI(new CallbackParameter(ActionKind.ConnectNetowrk, DeviceID, this));
+                    CallbackUI(new CallbackParameter(ActionKind.ConnectNetowrk, DeviceID,this));
                     return;
                 }
                 else
@@ -533,7 +533,7 @@ namespace ConfigDevice
                     State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
                     NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
                     NetworkCtrl.RemoveNetworkDeviceData(this);//----移除设备数据-----
-                    CallbackUI(new CallbackParameter(ActionKind.DisConnectNetwork,this.DeviceID,null ));
+                    CallbackUI(new CallbackParameter(ActionKind.DisConnectNetwork,this.DeviceID,this ));
                     return;
                 }
                 else
@@ -835,7 +835,7 @@ namespace ConfigDevice
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
                 CommonTools.ShowReplyInfo("同步网络ID失败!", udpReply.ReplyByte);
             else
-                CallbackUI(new CallbackParameter(ActionKind.SyncNetworkID, this ));
+                CallbackUI(new CallbackParameter(ActionKind.SyncNetworkID, DeviceID,this ));
         }
 
 

@@ -156,7 +156,7 @@ namespace ConfigDevice
             UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);           
             SetSecurity(new byte[]{userData.Data[1], userData.Data[2],userData.Data[3],userData.Data[4]}); //------找出数据,并翻译------ 
-            CallbackUI(new CallbackParameter(this.GetType().Name, ActionKind.ReadSafe));//----读完状态信息,回调界面---
+            CallbackUI(new CallbackParameter(ActionKind.ReadSafe,deviceControled.DeviceID));//----读完状态信息,回调界面---
         }
 
 

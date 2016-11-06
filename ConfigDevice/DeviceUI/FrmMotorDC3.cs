@@ -136,7 +136,7 @@ namespace ConfigDevice
                             dtMotorSetting.AcceptChanges();
                         }
                         //-----当前电流状态-------
-                        if (callbackParameter.Action == Motor.ACTION_NAME_CURRENT_CURRENT)
+                        if (callbackParameter.Action == ActionKind.ReadCircuit)
                         {
                             dtMotorAction.Rows[0][3] = road3Window.Motor.Road1Current;
                             dtMotorAction.Rows[1][3] = road3Window.Motor.Road2Current;

@@ -100,9 +100,12 @@ namespace ConfigDevice
             }
             else
             {
-                //------安防配置---------------
-                for (int i = 0; i < securityObj.SaftFlags.Length; i++)
-                    ceSafeSetting.Items[i].CheckState = securityObj.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
+                if (securityObj.deviceControled.DeviceID == callbackParameter.DeviceID)
+                {
+                    //------安防配置---------------
+                    for (int i = 0; i < securityObj.SaftFlags.Length; i++)
+                        ceSafeSetting.Items[i].CheckState = securityObj.SaftFlags[i] ? CheckState.Checked : CheckState.Unchecked;
+                }
             }
         }
 

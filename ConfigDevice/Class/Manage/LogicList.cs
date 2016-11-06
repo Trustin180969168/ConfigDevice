@@ -100,7 +100,7 @@ namespace ConfigDevice
             UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
             LogicData logicData = new LogicData(userData);
-            CallbackUI(new CallbackParameter(logicData));//----界面回调-----
+            CallbackUI(new CallbackParameter(ActionKind.ReadLogicConfig,logicData));//----界面回调-----
         }
 
         /// <summary>

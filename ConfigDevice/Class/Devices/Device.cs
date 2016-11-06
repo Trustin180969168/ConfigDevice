@@ -403,7 +403,7 @@ namespace ConfigDevice
             {
                 this.Name = newName; this.AddressName = newPos; this.ByteAddressID = newBytePostion;
                 DeviceCtrl.UpdateDeviceData(this.GetDeviceData());
-                CallbackUI(new CallbackParameter(ActionKind.SaveDeviceName, this));
+                CallbackUI(new CallbackParameter(ActionKind.SaveDeviceName,DeviceID, this));
             }
             else
                 CommonTools.ShowReplyInfo("保存名称失败!", udpReply.ReplyByte);
@@ -515,7 +515,7 @@ namespace ConfigDevice
                 this.NetworkIP = device.NetworkIP;
                 this.AddressName = device.AddressName;
 
-                CallbackUI(new CallbackParameter(this.GetType().BaseType.Name));//---返回UI----
+                CallbackUI(new CallbackParameter(ActionKind.ReadInf, this.GetType().BaseType.Name));//---返回UI----
                 DeviceCtrl.UpdateDeviceData(this.GetDeviceData());//--刷新----
             }
         }

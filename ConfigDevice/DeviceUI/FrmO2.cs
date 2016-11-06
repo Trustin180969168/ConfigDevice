@@ -121,8 +121,11 @@ namespace ConfigDevice
                 //---读取完回路----
                 if (callbackParameter.DeviceID == environment.DeviceID)
                 {
-                    //-----读取完探头参数----- 
-
+                    if (callbackParameter.Action == ActionKind.ReadCircuit)
+                    {
+                        if (!hasInitedLogicAndCommand)
+                            initLogicAndCommand();
+                    }
                     //----读取状态-----
                     if (callbackParameter.Action == ActionKind.ReadSate)
                     {
@@ -138,7 +141,6 @@ namespace ConfigDevice
                         this.cbxLight.SelectedIndex = environment.PointLight.LedAct;
                         this.sptLightSeconds.Text = environment.PointLight.LedTim.ToString();
                     }
-
                     //-----读取指示灯参数----------
                     if (callbackParameter.Action == ActionKind.ReadOption)
                     {
@@ -378,11 +380,11 @@ namespace ConfigDevice
             //-------逻辑数据-----
             viewLogicSetting.ClearTrggerData();
             LogicData logicData = new LogicData(logicQuickSetting.GetLogicData(cbxQuickSetting.SelectedIndex));
-            viewLogicSetting.ReturnLogicData(new CallbackParameter(logicData));
+            viewLogicSetting.ReturnLogicData(new CallbackParameter(ActionKind.ReadLogicConfig,logicData));
             //-------附加动作------
             byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
             environment.SetAdditionLogicData(adittionData);
-            this.CallbackUI(new CallbackParameter(FlammableGasProbe.CLASS_NAME));//---回调UI---
+            this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,FlammableGasProbe.CLASS_NAME));//---回调UI---
             //-------手头变更修改状态------
             isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
         }
