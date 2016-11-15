@@ -717,9 +717,18 @@ namespace ConfigDevice
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             if (network.State == NetworkConfig.STATE_CONNECTED)
             {
-                FrmNetworkEdit frm = new FrmNetworkEdit();
-                frm.NetworkEdit = network;
-                frm.Show(this);
+                if (network.ByteKindID == DeviceConfig.EQUIPMENT_SERVER)
+                {
+                    FrmWeiXin frm = new FrmWeiXin();
+                    frm.NetworkEdit = network;
+                    frm.Show(this);
+                }
+                else
+                {
+                    FrmNetworkEdit frm = new FrmNetworkEdit();
+                    frm.NetworkEdit = network;
+                    frm.Show(this);
+                }
             }
             else
                 CommonTools.MessageShow("请先连接网络" + network.DeviceName, 3, "");

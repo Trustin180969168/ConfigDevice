@@ -25,8 +25,8 @@ namespace ConfigDevice
                 SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_PORT, System.Type.GetType("System.String"));
                 SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_REMARK, System.Type.GetType("System.String"));
                 SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_PC_ADDRESS, System.Type.GetType("System.String"));
+                SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_KIND_ID, System.Type.GetType("System.String"));
                 SysConfig.DtNetwork.Columns.Add(NetworkConfig.DC_KINDNAME, System.Type.GetType("System.String"));
-
             }
             SysConfig.DtNetwork.Clear(); SysConfig.DtNetwork.AcceptChanges();//---初始化数据----
         }

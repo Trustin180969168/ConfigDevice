@@ -745,7 +745,7 @@ namespace ConfigDevice
                 //CommonTools.MessageShow("参数修改成功!", 1, "");
             }
             else
-                CommonTools.MessageShow("参数修改失败!", 1, "");
+                CommonTools.MessageShow("参数修改失败!", 2, "");
         }
         /// <summary>
         /// 创建申请连接网络申请的UDP

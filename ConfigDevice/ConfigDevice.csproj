@@ -128,6 +128,10 @@
       <DependentUpon>FrmButton4.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SysUI\FrmWeiXin.resx">
+      <DependentUpon>FrmWeiXin.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ToolsUI\LCDUI\KeySettingTools.resx">
       <DependentUpon>KeySettingTools.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -509,6 +513,12 @@
     </Compile>
     <Compile Include="DeviceUI\FrmButton4.Designer.cs">
       <DependentUpon>FrmButton4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SysUI\FrmWeiXin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SysUI\FrmWeiXin.Designer.cs">
+      <DependentUpon>FrmWeiXin.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolsUI\LCDUI\KeySettingTools.cs">
       <SubType>UserControl</SubType>
