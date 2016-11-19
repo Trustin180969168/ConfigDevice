@@ -94,8 +94,10 @@ namespace ConfigDevice
         /// <param name="values"></param>
         public void getCommandData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != this.device.DeviceID) return;//不是本设备ID不接收.
+            UdpTools.ReplyDataUdp(data);//----回复确认----- 
+  
             CallbackUI(new CallbackParameter(ActionKind.ReadCommand, new object[] { userData }));//----界面回调------
         }
 

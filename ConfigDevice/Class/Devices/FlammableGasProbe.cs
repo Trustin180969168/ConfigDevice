@@ -119,8 +119,9 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getStateInfoData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
+            UdpTools.ReplyDataUdp(data);//----回复确认-----  
        
             //------找出数据段------
             string dataStr = ConvertTools.ByteToHexStr(userData.Data);
@@ -206,8 +207,9 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getAdditionLogicData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
+            UdpTools.ReplyDataUdp(data);//----回复确认-----  
             byte[] value = userData.Data;
             SetAdditionLogicData(value);
         }

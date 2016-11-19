@@ -100,7 +100,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadConfig()
         { 
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PRI_WRITE_CONFIG,  getConfig);//----注册回调--- 
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PRI_WRITE_CONFIG,this.DeviceID,  getConfig);//----注册回调--- 
             UdpData udpSend = createReadCconfigUdp();
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadConfigUdp), null);
@@ -265,8 +265,9 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getStateInfoData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != this.DeviceID) return;
+            UdpTools.ReplyDataUdp(data);//----回复确认-----
 
             //------找出数据段------
             string dataStr = ConvertTools.ByteToHexStr(userData.Data);

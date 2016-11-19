@@ -64,10 +64,13 @@
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.ipInputTextbox2 = new ConfigDevice.IpInputTextbox();
             this.label8 = new System.Windows.Forms.Label();
-            this.ipInputTextbox3 = new ConfigDevice.IpInputTextbox();
             this.label9 = new System.Windows.Forms.Label();
+            this.edtDNS2 = new ConfigDevice.IpInputTextbox();
+            this.edtDNS1 = new ConfigDevice.IpInputTextbox();
+            this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
+            this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
+            this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSoftwareVer.Properties)).BeginInit();
@@ -80,6 +83,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
+            this.xtraTabControl1.SuspendLayout();
+            this.xtraTabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ipInputTextbox1
@@ -221,7 +227,7 @@
             // 
             // edtSoftwareVer
             // 
-            this.edtSoftwareVer.Location = new System.Drawing.Point(112, 119);
+            this.edtSoftwareVer.Location = new System.Drawing.Point(113, 150);
             this.edtSoftwareVer.Name = "edtSoftwareVer";
             this.edtSoftwareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtSoftwareVer.Properties.Appearance.Options.UseFont = true;
@@ -233,7 +239,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label5.Location = new System.Drawing.Point(39, 121);
+            this.label5.Location = new System.Drawing.Point(40, 152);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 19);
             this.label5.TabIndex = 19;
@@ -271,7 +277,7 @@
             // 
             // edtHarewareVer
             // 
-            this.edtHarewareVer.Location = new System.Drawing.Point(437, 119);
+            this.edtHarewareVer.Location = new System.Drawing.Point(438, 150);
             this.edtHarewareVer.Name = "edtHarewareVer";
             this.edtHarewareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtHarewareVer.Properties.Appearance.Options.UseFont = true;
@@ -283,7 +289,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label6.Location = new System.Drawing.Point(365, 122);
+            this.label6.Location = new System.Drawing.Point(366, 153);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 19);
             this.label6.TabIndex = 19;
@@ -314,14 +320,14 @@
             this.gcPosition.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcPosition.EmbeddedNavigator.Name = "";
             this.gcPosition.FormsUseDefaultLookAndFeel = false;
-            this.gcPosition.Location = new System.Drawing.Point(0, 234);
+            this.gcPosition.Location = new System.Drawing.Point(0, 195);
             this.gcPosition.MainView = this.gvPosition;
             this.gcPosition.Name = "gcPosition";
             this.gcPosition.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemComboBox1,
             this.cedtHasPassword,
             this.edtName});
-            this.gcPosition.Size = new System.Drawing.Size(792, 339);
+            this.gcPosition.Size = new System.Drawing.Size(783, 315);
             this.gcPosition.TabIndex = 20;
             this.gcPosition.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPosition});
@@ -457,65 +463,91 @@
             this.panelControl1.Controls.Add(this.edtSoftwareVer);
             this.panelControl1.Controls.Add(this.edtNetworkIP);
             this.panelControl1.Controls.Add(this.edtHarewareVer);
-            this.panelControl1.Controls.Add(this.ipInputTextbox3);
+            this.panelControl1.Controls.Add(this.edtDNS2);
             this.panelControl1.Controls.Add(this.edtMask);
-            this.panelControl1.Controls.Add(this.ipInputTextbox2);
+            this.panelControl1.Controls.Add(this.edtDNS1);
             this.panelControl1.Controls.Add(this.edtGateway);
             this.panelControl1.Controls.Add(this.label5);
             this.panelControl1.Controls.Add(this.label6);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl1.Location = new System.Drawing.Point(0, 31);
+            this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(792, 203);
+            this.panelControl1.Size = new System.Drawing.Size(783, 195);
             this.panelControl1.TabIndex = 21;
-            // 
-            // ipInputTextbox2
-            // 
-            this.ipInputTextbox2.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.ipInputTextbox2.IP = "IP地址格式不正确";
-            this.ipInputTextbox2.Location = new System.Drawing.Point(113, 152);
-            this.ipInputTextbox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ipInputTextbox2.Name = "ipInputTextbox2";
-            this.ipInputTextbox2.Size = new System.Drawing.Size(240, 26);
-            this.ipInputTextbox2.TabIndex = 18;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label8.Location = new System.Drawing.Point(34, 154);
+            this.label8.Location = new System.Drawing.Point(34, 121);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(72, 19);
             this.label8.TabIndex = 19;
             this.label8.Text = "首选DNS";
             // 
-            // ipInputTextbox3
-            // 
-            this.ipInputTextbox3.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.ipInputTextbox3.IP = "IP地址格式不正确";
-            this.ipInputTextbox3.Location = new System.Drawing.Point(438, 152);
-            this.ipInputTextbox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ipInputTextbox3.Name = "ipInputTextbox3";
-            this.ipInputTextbox3.Size = new System.Drawing.Size(240, 26);
-            this.ipInputTextbox3.TabIndex = 18;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label9.Location = new System.Drawing.Point(364, 154);
+            this.label9.Location = new System.Drawing.Point(364, 121);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(72, 19);
             this.label9.TabIndex = 19;
             this.label9.Text = "备用DNS";
+            // 
+            // edtDNS2
+            // 
+            this.edtDNS2.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtDNS2.IP = "IP地址格式不正确";
+            this.edtDNS2.Location = new System.Drawing.Point(437, 119);
+            this.edtDNS2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.edtDNS2.Name = "edtDNS2";
+            this.edtDNS2.Size = new System.Drawing.Size(240, 26);
+            this.edtDNS2.TabIndex = 18;
+            // 
+            // edtDNS1
+            // 
+            this.edtDNS1.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtDNS1.IP = "IP地址格式不正确";
+            this.edtDNS1.Location = new System.Drawing.Point(113, 119);
+            this.edtDNS1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.edtDNS1.Name = "edtDNS1";
+            this.edtDNS1.Size = new System.Drawing.Size(240, 26);
+            this.edtDNS1.TabIndex = 18;
+            // 
+            // xtraTabControl1
+            // 
+            this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xtraTabControl1.Location = new System.Drawing.Point(0, 31);
+            this.xtraTabControl1.Name = "xtraTabControl1";
+            this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
+            this.xtraTabControl1.Size = new System.Drawing.Size(792, 542);
+            this.xtraTabControl1.TabIndex = 20;
+            this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.xtraTabPage1,
+            this.xtraTabPage2});
+            this.xtraTabControl1.Text = "xtraTabControl1";
+            // 
+            // xtraTabPage1
+            // 
+            this.xtraTabPage1.Controls.Add(this.gcPosition);
+            this.xtraTabPage1.Controls.Add(this.panelControl1);
+            this.xtraTabPage1.Name = "xtraTabPage1";
+            this.xtraTabPage1.Size = new System.Drawing.Size(783, 510);
+            this.xtraTabPage1.Text = "基础配置";
+            // 
+            // xtraTabPage2
+            // 
+            this.xtraTabPage2.Name = "xtraTabPage2";
+            this.xtraTabPage2.Size = new System.Drawing.Size(783, 510);
+            this.xtraTabPage2.Text = "门设置";
             // 
             // FrmWeiXin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 573);
-            this.Controls.Add(this.gcPosition);
-            this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.xtraTabControl1);
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -538,6 +570,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
+            this.xtraTabControl1.ResumeLayout(false);
+            this.xtraTabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -582,7 +617,10 @@
         private System.Windows.Forms.ToolStripButton btSaveInfo;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private IpInputTextbox ipInputTextbox3;
-        private IpInputTextbox ipInputTextbox2;
+        private IpInputTextbox edtDNS2;
+        private IpInputTextbox edtDNS1;
+        private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
     }
 }

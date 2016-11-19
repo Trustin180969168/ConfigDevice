@@ -126,13 +126,15 @@ namespace ConfigDevice
         /// </summary>
         private void getDevices(UdpData data, object[] values)
         {
+            UserUdpData userData = new UserUdpData(data); 
+            UdpTools.ReplyDataUdp(data);//----回复确认----- 
+ 
             lock (objLock)
             {
                 if (!searching)
                     return;
                 int num = 0; bool find = false;
-                //-----获取数据-----
-                UserUdpData userData = new UserUdpData(data);
+                //-----获取数据----- 
                 DeviceData deviceData = new DeviceData(userData);
                 //-----回复反馈的设备信息-------
                 UdpData udpReply = createReplyUdp(data);

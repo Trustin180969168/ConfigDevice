@@ -451,8 +451,15 @@
     <Compile Include="Class\ViewLogicSetting\ViewLogicO2.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicLuminance.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicWindy.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuConfig.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEdit.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuKind.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuList.cs" />
+    <Compile Include="Class\WeiXinMenu\WeiXinMenuList.cs" />
+    <Compile Include="Class\WeiXinMenu\WeiXinMeun.cs" />
     <Compile Include="Data\KeyData.cs" />
     <Compile Include="Data\LCDPanelOptionData.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuData.cs" />
     <Compile Include="Data\SensorStateData.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
     <Compile Include="Class\Manage\ViewEditCtrl.cs" />

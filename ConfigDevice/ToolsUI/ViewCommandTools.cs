@@ -349,8 +349,6 @@ namespace ConfigDevice
         /// <returns></returns>
         public void SetCommandData(CommandData data)
         {
-
-
             allowSync = false;
             DataRow dr = gvCommands.GetDataRow(0);
             //----判断是否为空,非空则提示清除----

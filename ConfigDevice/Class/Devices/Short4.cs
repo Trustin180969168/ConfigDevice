@@ -142,8 +142,9 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getStateInfoData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
+            UdpTools.ReplyDataUdp(data);//----回复确认-----  
        
             //------找出数据段------
             string dataStr = ConvertTools.ByteToHexStr(userData.Data);
@@ -212,8 +213,10 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getSafeSettingData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
+            UdpTools.ReplyDataUdp(data);//----回复确认-----  
+
             //------找出数据,并翻译------
             securityLevel = CommonTools.CopyBytes(userData.Data, 1, 4);
             byte b1 = securityLevel[0];
@@ -507,8 +510,10 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getConfigData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
+            if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
+            UdpTools.ReplyDataUdp(data);//----回复确认-----  
+
             byte[] value = userData.Data;
             //------找出数据,并翻译------
             this.ShortConfigRoad1 = value[1];

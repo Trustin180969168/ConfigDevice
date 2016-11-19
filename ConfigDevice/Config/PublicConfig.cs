@@ -81,6 +81,7 @@ namespace ConfigDevice
         ReadPower,//读取功率
         ReadLogicConfig,//读取逻辑配置
         ReadCommand,//读取指令
+        ReadMenu,//读取菜单
         None
         
     }

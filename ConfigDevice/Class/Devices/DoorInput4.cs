@@ -135,12 +135,14 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="data"></param>
         /// <param name="values"></param>
-        public void getSettingInfoData(UdpData data, object[] values)
-        {
+        public void getSettingInfoData(UdpData data, object[] values)               
+        {          
+            UserUdpData userData = new UserUdpData(data); 
+            if (userData.SourceID != this.DeviceID) return;
             lock (this.DeviceID)
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认-----
-                UserUdpData userData = new UserUdpData(data);
+
                 securityLevel = CommonTools.CopyBytes(userData.Data, 0, 2);//安防级别
                 physicalShieldingPorts = userData.Data[2];  //----屏蔽物理端口
                 Road1 = userData.Data[3];//----第1路----

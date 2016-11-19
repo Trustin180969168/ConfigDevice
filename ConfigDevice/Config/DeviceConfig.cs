@@ -446,6 +446,8 @@ namespace ConfigDevice
         public static readonly byte[] CMD_PRI_READ_FLASH_CONFIG = new byte[] { 0x04, CMD_TYPE_PRI };//读传感器感应指示灯开关
         public static readonly byte[] CMD_PRI_WRITE_FLASH_CONFIG = new byte[] { 0x84, CMD_TYPE_PRI };//写传感器感应指示灯开关
 
+   
+
         //-----特殊部分------
         public static readonly byte[] CMD_PUBLIC_TEST_KEY_CMD = new byte[] { 0xb3, CMD_TYPE_PUBLIC }; //指令测试 
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
