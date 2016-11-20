@@ -72,6 +72,7 @@
       <HintPath>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraRichTextEdit.v8.1\8.1.1.0__49d90c14d24271b5\DevExpress.XtraRichTextEdit.v8.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
     <Reference Include="DevExpress.XtraVerticalGrid.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraVerticalGrid.v8.1.dll</HintPath>
@@ -417,6 +418,7 @@
     <Compile Include="Class\Devices\BodyInduction.cs" />
     <Compile Include="Class\Devices\ButtonPanelKey.cs" />
     <Compile Include="Class\Devices\Short4.cs" />
+    <Compile Include="Class\Devices\WeiXin.cs" />
     <Compile Include="Class\Manage\KeyList.cs" />
     <Compile Include="Class\Sensor\Sensor.cs" />
     <Compile Include="Class\ViewKeySetting\BaseKeySetting.cs" />
@@ -451,6 +453,7 @@
     <Compile Include="Class\ViewLogicSetting\ViewLogicO2.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicLuminance.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicWindy.cs" />
+    <Compile Include="Class\WeiXinMenu\BaseMenuView.cs" />
     <Compile Include="Class\WeiXinMenu\MenuConfig.cs" />
     <Compile Include="Class\WeiXinMenu\MenuEdit.cs" />
     <Compile Include="Class\WeiXinMenu\MenuKind.cs" />

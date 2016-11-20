@@ -69,6 +69,18 @@
             this.edtDNS2 = new ConfigDevice.IpInputTextbox();
             this.edtDNS1 = new ConfigDevice.IpInputTextbox();
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
+            this.pageWeiXin = new DevExpress.XtraTab.XtraTabPage();
+            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
+            this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.treeMenu = new DevExpress.XtraTreeList.TreeList();
+            this.tlcTitle = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlcKindName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tlcSetting = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.tsMenu = new System.Windows.Forms.ToolStrip();
+            this.btAdd = new System.Windows.Forms.ToolStripButton();
+            this.btDel = new System.Windows.Forms.ToolStripButton();
+            this.btRef = new System.Windows.Forms.ToolStripButton();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             this.toolStrip1.SuspendLayout();
@@ -85,6 +97,13 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
+            this.pageWeiXin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
+            this.panelControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            this.panelControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.treeMenu)).BeginInit();
+            this.tsMenu.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -282,7 +301,7 @@
             this.edtHarewareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtHarewareVer.Properties.Appearance.Options.UseFont = true;
             this.edtHarewareVer.Properties.ReadOnly = true;
-            this.edtHarewareVer.Size = new System.Drawing.Size(240, 26);
+            this.edtHarewareVer.Size = new System.Drawing.Size(239, 26);
             this.edtHarewareVer.TabIndex = 17;
             // 
             // label6
@@ -520,13 +539,149 @@
             this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xtraTabControl1.Location = new System.Drawing.Point(0, 31);
             this.xtraTabControl1.Name = "xtraTabControl1";
-            this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
+            this.xtraTabControl1.SelectedTabPage = this.pageWeiXin;
             this.xtraTabControl1.Size = new System.Drawing.Size(792, 542);
             this.xtraTabControl1.TabIndex = 20;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
-            this.xtraTabPage2});
+            this.xtraTabPage2,
+            this.pageWeiXin});
             this.xtraTabControl1.Text = "xtraTabControl1";
+            // 
+            // pageWeiXin
+            // 
+            this.pageWeiXin.Controls.Add(this.panelControl2);
+            this.pageWeiXin.Name = "pageWeiXin";
+            this.pageWeiXin.Size = new System.Drawing.Size(783, 510);
+            this.pageWeiXin.Text = "微信";
+            // 
+            // panelControl2
+            // 
+            this.panelControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl2.Controls.Add(this.splitterControl1);
+            this.panelControl2.Controls.Add(this.panelControl3);
+            this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl2.Location = new System.Drawing.Point(0, 0);
+            this.panelControl2.Name = "panelControl2";
+            this.panelControl2.Size = new System.Drawing.Size(783, 510);
+            this.panelControl2.TabIndex = 18;
+            // 
+            // splitterControl1
+            // 
+            this.splitterControl1.Location = new System.Drawing.Point(337, 2);
+            this.splitterControl1.Name = "splitterControl1";
+            this.splitterControl1.Size = new System.Drawing.Size(6, 506);
+            this.splitterControl1.TabIndex = 1;
+            this.splitterControl1.TabStop = false;
+            // 
+            // panelControl3
+            // 
+            this.panelControl3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl3.Controls.Add(this.treeMenu);
+            this.panelControl3.Controls.Add(this.tsMenu);
+            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl3.Location = new System.Drawing.Point(2, 2);
+            this.panelControl3.Name = "panelControl3";
+            this.panelControl3.Size = new System.Drawing.Size(335, 506);
+            this.panelControl3.TabIndex = 18;
+            // 
+            // treeMenu
+            // 
+            this.treeMenu.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
+            this.tlcTitle,
+            this.tlcKindName,
+            this.tlcSetting});
+            this.treeMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeMenu.Location = new System.Drawing.Point(2, 33);
+            this.treeMenu.Name = "treeMenu";
+            this.treeMenu.Size = new System.Drawing.Size(331, 471);
+            this.treeMenu.TabIndex = 0;
+            // 
+            // tlcTitle
+            // 
+            this.tlcTitle.AppearanceCell.Options.UseTextOptions = true;
+            this.tlcTitle.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcTitle.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.tlcTitle.AppearanceHeader.Options.UseTextOptions = true;
+            this.tlcTitle.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcTitle.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.tlcTitle.Caption = "名称";
+            this.tlcTitle.FieldName = "Title";
+            this.tlcTitle.MinWidth = 74;
+            this.tlcTitle.Name = "tlcTitle";
+            this.tlcTitle.Visible = true;
+            this.tlcTitle.VisibleIndex = 0;
+            // 
+            // tlcKindName
+            // 
+            this.tlcKindName.AppearanceCell.Options.UseTextOptions = true;
+            this.tlcKindName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcKindName.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.tlcKindName.AppearanceHeader.Options.UseTextOptions = true;
+            this.tlcKindName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcKindName.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.tlcKindName.Caption = "类型";
+            this.tlcKindName.FieldName = "KindName";
+            this.tlcKindName.Name = "tlcKindName";
+            this.tlcKindName.Visible = true;
+            this.tlcKindName.VisibleIndex = 1;
+            // 
+            // tlcSetting
+            // 
+            this.tlcSetting.AppearanceCell.Options.UseTextOptions = true;
+            this.tlcSetting.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcSetting.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.tlcSetting.AppearanceHeader.Options.UseTextOptions = true;
+            this.tlcSetting.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcSetting.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.tlcSetting.Caption = "配置";
+            this.tlcSetting.FieldName = "Setting";
+            this.tlcSetting.Name = "tlcSetting";
+            this.tlcSetting.Visible = true;
+            this.tlcSetting.VisibleIndex = 2;
+            // 
+            // tsMenu
+            // 
+            this.tsMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.tsMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.tsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btAdd,
+            this.btDel,
+            this.btRef});
+            this.tsMenu.Location = new System.Drawing.Point(2, 2);
+            this.tsMenu.Name = "tsMenu";
+            this.tsMenu.Size = new System.Drawing.Size(331, 31);
+            this.tsMenu.TabIndex = 17;
+            this.tsMenu.Text = "toolStrip2";
+            // 
+            // btAdd
+            // 
+            this.btAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btAdd.Image = global::ConfigDevice.Properties.Resources.Add;
+            this.btAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(28, 28);
+            this.btAdd.Text = "增加";
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // btDel
+            // 
+            this.btDel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btDel.Image = global::ConfigDevice.Properties.Resources.del12;
+            this.btDel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btDel.Name = "btDel";
+            this.btDel.Size = new System.Drawing.Size(28, 28);
+            this.btDel.Text = "删除";
+            this.btDel.Click += new System.EventHandler(this.btDel_Click);
+            // 
+            // btRef
+            // 
+            this.btRef.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btRef.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRef.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRef.Name = "btRef";
+            this.btRef.Size = new System.Drawing.Size(28, 28);
+            this.btRef.Text = "toolStripButton3";
             // 
             // xtraTabPage1
             // 
@@ -572,6 +727,15 @@
             this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
+            this.pageWeiXin.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
+            this.panelControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            this.panelControl3.ResumeLayout(false);
+            this.panelControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.treeMenu)).EndInit();
+            this.tsMenu.ResumeLayout(false);
+            this.tsMenu.PerformLayout();
             this.xtraTabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -622,5 +786,17 @@
         private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
+        private DevExpress.XtraTab.XtraTabPage pageWeiXin;
+        private DevExpress.XtraTreeList.TreeList treeMenu;
+        private DevExpress.XtraEditors.PanelControl panelControl2;
+        private DevExpress.XtraEditors.SplitterControl splitterControl1;
+        private System.Windows.Forms.ToolStrip tsMenu;
+        private DevExpress.XtraEditors.PanelControl panelControl3;
+        private System.Windows.Forms.ToolStripButton btAdd;
+        private System.Windows.Forms.ToolStripButton btDel;
+        private System.Windows.Forms.ToolStripButton btRef;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tlcTitle;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tlcKindName;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tlcSetting;
     }
 }

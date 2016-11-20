@@ -10,11 +10,12 @@ namespace ConfigDevice
     /// </summary>
     public abstract class MenuEdit
     {
-
-
-
+        public abstract void SaveMenu();
 
     }
+
+
+
 
 
 
