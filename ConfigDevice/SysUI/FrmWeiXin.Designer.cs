@@ -71,18 +71,24 @@
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.pageWeiXin = new DevExpress.XtraTab.XtraTabPage();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.memoEdit1 = new DevExpress.XtraEditors.MemoEdit();
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.treeMenu = new DevExpress.XtraTreeList.TreeList();
             this.tlcTitle = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcKindName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcSetting = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
+            this.gedtName = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.tsMenu = new System.Windows.Forms.ToolStrip();
             this.btAdd = new System.Windows.Forms.ToolStripButton();
             this.btDel = new System.Windows.Forms.ToolStripButton();
             this.btRef = new System.Windows.Forms.ToolStripButton();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.edtAddress = new DevExpress.XtraEditors.TextEdit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSoftwareVer.Properties)).BeginInit();
@@ -100,11 +106,15 @@
             this.pageWeiXin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.memoEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gedtName)).BeginInit();
             this.tsMenu.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtAddress.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // ipInputTextbox1
@@ -246,7 +256,7 @@
             // 
             // edtSoftwareVer
             // 
-            this.edtSoftwareVer.Location = new System.Drawing.Point(113, 150);
+            this.edtSoftwareVer.Location = new System.Drawing.Point(114, 183);
             this.edtSoftwareVer.Name = "edtSoftwareVer";
             this.edtSoftwareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtSoftwareVer.Properties.Appearance.Options.UseFont = true;
@@ -258,7 +268,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label5.Location = new System.Drawing.Point(40, 152);
+            this.label5.Location = new System.Drawing.Point(41, 185);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 19);
             this.label5.TabIndex = 19;
@@ -296,7 +306,7 @@
             // 
             // edtHarewareVer
             // 
-            this.edtHarewareVer.Location = new System.Drawing.Point(438, 150);
+            this.edtHarewareVer.Location = new System.Drawing.Point(439, 183);
             this.edtHarewareVer.Name = "edtHarewareVer";
             this.edtHarewareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtHarewareVer.Properties.Appearance.Options.UseFont = true;
@@ -308,7 +318,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label6.Location = new System.Drawing.Point(366, 153);
+            this.label6.Location = new System.Drawing.Point(367, 186);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 19);
             this.label6.TabIndex = 19;
@@ -339,14 +349,14 @@
             this.gcPosition.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcPosition.EmbeddedNavigator.Name = "";
             this.gcPosition.FormsUseDefaultLookAndFeel = false;
-            this.gcPosition.Location = new System.Drawing.Point(0, 195);
+            this.gcPosition.Location = new System.Drawing.Point(0, 233);
             this.gcPosition.MainView = this.gvPosition;
             this.gcPosition.Name = "gcPosition";
             this.gcPosition.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemComboBox1,
             this.cedtHasPassword,
             this.edtName});
-            this.gcPosition.Size = new System.Drawing.Size(783, 315);
+            this.gcPosition.Size = new System.Drawing.Size(783, 272);
             this.gcPosition.TabIndex = 20;
             this.gcPosition.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPosition});
@@ -470,11 +480,13 @@
             // panelControl1
             // 
             this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl1.Controls.Add(this.edtAddress);
             this.panelControl1.Controls.Add(this.edtNetworkName);
             this.panelControl1.Controls.Add(this.label8);
             this.panelControl1.Controls.Add(this.label3);
             this.panelControl1.Controls.Add(this.label2);
             this.panelControl1.Controls.Add(this.label9);
+            this.panelControl1.Controls.Add(this.label10);
             this.panelControl1.Controls.Add(this.label4);
             this.panelControl1.Controls.Add(this.label7);
             this.panelControl1.Controls.Add(this.edtNetworkID);
@@ -491,7 +503,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(783, 195);
+            this.panelControl1.Size = new System.Drawing.Size(783, 233);
             this.panelControl1.TabIndex = 21;
             // 
             // label8
@@ -536,6 +548,8 @@
             // 
             // xtraTabControl1
             // 
+            this.xtraTabControl1.AppearancePage.Header.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.xtraTabControl1.AppearancePage.Header.Options.UseFont = true;
             this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xtraTabControl1.Location = new System.Drawing.Point(0, 31);
             this.xtraTabControl1.Name = "xtraTabControl1";
@@ -552,25 +566,43 @@
             // 
             this.pageWeiXin.Controls.Add(this.panelControl2);
             this.pageWeiXin.Name = "pageWeiXin";
-            this.pageWeiXin.Size = new System.Drawing.Size(783, 510);
+            this.pageWeiXin.Size = new System.Drawing.Size(783, 505);
             this.pageWeiXin.Text = "微信";
             // 
             // panelControl2
             // 
             this.panelControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl2.Controls.Add(this.simpleButton1);
+            this.panelControl2.Controls.Add(this.memoEdit1);
             this.panelControl2.Controls.Add(this.splitterControl1);
             this.panelControl2.Controls.Add(this.panelControl3);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(783, 510);
+            this.panelControl2.Size = new System.Drawing.Size(783, 505);
             this.panelControl2.TabIndex = 18;
+            // 
+            // simpleButton1
+            // 
+            this.simpleButton1.Location = new System.Drawing.Point(375, 50);
+            this.simpleButton1.Name = "simpleButton1";
+            this.simpleButton1.Size = new System.Drawing.Size(75, 23);
+            this.simpleButton1.TabIndex = 20;
+            this.simpleButton1.Text = "simpleButton1";
+            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
+            // 
+            // memoEdit1
+            // 
+            this.memoEdit1.Location = new System.Drawing.Point(359, 91);
+            this.memoEdit1.Name = "memoEdit1";
+            this.memoEdit1.Size = new System.Drawing.Size(309, 164);
+            this.memoEdit1.TabIndex = 19;
             // 
             // splitterControl1
             // 
             this.splitterControl1.Location = new System.Drawing.Point(337, 2);
             this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(6, 506);
+            this.splitterControl1.Size = new System.Drawing.Size(6, 501);
             this.splitterControl1.TabIndex = 1;
             this.splitterControl1.TabStop = false;
             // 
@@ -582,7 +614,7 @@
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl3.Location = new System.Drawing.Point(2, 2);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(335, 506);
+            this.panelControl3.Size = new System.Drawing.Size(335, 501);
             this.panelControl3.TabIndex = 18;
             // 
             // treeMenu
@@ -594,11 +626,17 @@
             this.treeMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeMenu.Location = new System.Drawing.Point(2, 33);
             this.treeMenu.Name = "treeMenu";
-            this.treeMenu.Size = new System.Drawing.Size(331, 471);
+            this.treeMenu.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.linkEdit,
+            this.gedtName});
+            this.treeMenu.Size = new System.Drawing.Size(331, 466);
             this.treeMenu.TabIndex = 0;
+            this.treeMenu.AfterFocusNode += new DevExpress.XtraTreeList.NodeEventHandler(this.treeMenu_AfterFocusNode);
             // 
             // tlcTitle
             // 
+            this.tlcTitle.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.tlcTitle.AppearanceCell.Options.UseForeColor = true;
             this.tlcTitle.AppearanceCell.Options.UseTextOptions = true;
             this.tlcTitle.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.tlcTitle.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -614,6 +652,8 @@
             // 
             // tlcKindName
             // 
+            this.tlcKindName.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.tlcKindName.AppearanceCell.Options.UseForeColor = true;
             this.tlcKindName.AppearanceCell.Options.UseTextOptions = true;
             this.tlcKindName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.tlcKindName.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -628,6 +668,8 @@
             // 
             // tlcSetting
             // 
+            this.tlcSetting.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.tlcSetting.AppearanceCell.Options.UseForeColor = true;
             this.tlcSetting.AppearanceCell.Options.UseTextOptions = true;
             this.tlcSetting.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.tlcSetting.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -639,6 +681,16 @@
             this.tlcSetting.Name = "tlcSetting";
             this.tlcSetting.Visible = true;
             this.tlcSetting.VisibleIndex = 2;
+            // 
+            // linkEdit
+            // 
+            this.linkEdit.AutoHeight = false;
+            this.linkEdit.Name = "linkEdit";
+            // 
+            // gedtName
+            // 
+            this.gedtName.AutoHeight = false;
+            this.gedtName.Name = "gedtName";
             // 
             // tsMenu
             // 
@@ -682,20 +734,41 @@
             this.btRef.Name = "btRef";
             this.btRef.Size = new System.Drawing.Size(28, 28);
             this.btRef.Text = "toolStripButton3";
+            this.btRef.Click += new System.EventHandler(this.btRef_Click);
             // 
             // xtraTabPage1
             // 
             this.xtraTabPage1.Controls.Add(this.gcPosition);
             this.xtraTabPage1.Controls.Add(this.panelControl1);
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(783, 510);
+            this.xtraTabPage1.Size = new System.Drawing.Size(783, 505);
             this.xtraTabPage1.Text = "基础配置";
             // 
             // xtraTabPage2
             // 
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(783, 510);
+            this.xtraTabPage2.Size = new System.Drawing.Size(783, 505);
             this.xtraTabPage2.Text = "门设置";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.label10.Location = new System.Drawing.Point(71, 155);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 19);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "地址";
+            // 
+            // edtAddress
+            // 
+            this.edtAddress.Location = new System.Drawing.Point(113, 151);
+            this.edtAddress.Name = "edtAddress";
+            this.edtAddress.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtAddress.Properties.Appearance.Options.UseFont = true;
+            this.edtAddress.Size = new System.Drawing.Size(565, 26);
+            this.edtAddress.TabIndex = 17;
+            this.edtAddress.Leave += new System.EventHandler(this.edtNetworkName_Leave);
             // 
             // FrmWeiXin
             // 
@@ -730,13 +803,17 @@
             this.pageWeiXin.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.memoEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             this.panelControl3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gedtName)).EndInit();
             this.tsMenu.ResumeLayout(false);
             this.tsMenu.PerformLayout();
             this.xtraTabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.edtAddress.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -798,5 +875,11 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcTitle;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcKindName;
         private DevExpress.XtraTreeList.Columns.TreeListColumn tlcSetting;
+        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit gedtName;
+        private DevExpress.XtraEditors.MemoEdit memoEdit1;
+        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.TextEdit edtAddress;
+        private System.Windows.Forms.Label label10;
     }
 }

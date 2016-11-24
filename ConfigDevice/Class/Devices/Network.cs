@@ -68,7 +68,8 @@ namespace ConfigDevice
         public List<Position> ListPosition; //设备位置列表
         private byte[] managerPassword;//管理员密码
         private byte[] userPassword;//用户密码
-
+        public string DNS1 = "";//DNSIP地址1
+        public string DNS2 = "";//DNSIP地址2
         public byte ByteNetworkID { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } }
         public DateTime RefreshTime;
         private CallbackFromUDP callbackGetPosition; 
@@ -714,9 +715,9 @@ namespace ConfigDevice
         /// <summary>
         /// 保存网络参数
         /// </summary>
-        public void SaveNetworkParameter(byte[] newIP, byte[] gateWay, byte[] mask, byte _networkID)
+        public void SaveNetworkParameter(byte[] newIP, byte[] gateWay, byte[] mask, byte _networkID,byte[] dns1,byte[] dns2)
         {
-            UdpData udpSend = createSaveNetworkParameter(newIP, gateWay, mask, _networkID);
+            UdpData udpSend = createSaveNetworkParameter(newIP, gateWay, mask, _networkID,dns1,dns2);
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangeParameter), 
                 new object[] { udpSend, newIP, _networkID  });
         }
@@ -752,7 +753,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="network">网络数据</param>
         /// <returns>UDP</returns>
-        private UdpData createSaveNetworkParameter(byte[] newIP,byte[] gateWay, byte[] mask, byte _networkID)
+        private UdpData createSaveNetworkParameter(byte[] newIP,byte[] gateWay, byte[] mask, byte _networkID,byte[] dns1,byte[] dns2)
         {
             UdpData udp = new UdpData();
         
@@ -768,7 +769,6 @@ namespace ConfigDevice
             byte[] cmd = DeviceConfig.CMD_PC_CHANGENET;//----用户命令-----
             byte len = 0x2B;//---数据长度---
             byte[] temp = new byte[] { 0x47, 0x53 };    //----保留----      
-            byte[] dns = new byte[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };//--临时dns地址,一共两个
             //--------添加到用户数据--------
             byte[] crcData = new byte[49];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
@@ -783,7 +783,8 @@ namespace ConfigDevice
             Buffer.BlockCopy(mask, 0, crcData, 24, 4);
             crcData[28] = _networkID;
             Buffer.BlockCopy(ByteMacAddress, 0, crcData, 29, 12);
-            Buffer.BlockCopy(dns, 0, crcData, 41, 8);
+            Buffer.BlockCopy(dns1, 0, crcData, 41, 4);
+            Buffer.BlockCopy(dns2, 0, crcData, 45, 4);
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
             Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---

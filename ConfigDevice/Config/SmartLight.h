@@ -48,6 +48,10 @@
    (25) V3.9版本, 增加[CMD_LOGIC_WRITE_SYSLKID]低位值由0x43改为0xC3(廖超庭 2016年06月15日) -> 最终改为0xC5
    (26) V4.0版本, 修改[CMD_LOGIC_WRITE_SYSLKID]为[开/关/开关]等    (廖超庭 2016年06月22日)
    (27) V4.1版本, 增加[EQUIPMENT_AIR_O2]设备类型                   (廖超庭 2016年06月23日)
+   (28) V4.2版本, 增加[CMD_PUBLIC_RESET_DEVICE]指令                (廖超庭 2016年09月02日)
+   (29) V4.3版本，增加无锁孔门类型和相关无锁孔门指令               (钟珊瑚 2016年09月13日)               
+   (30) V4.4版本，增加云id和云网段                                 (钟珊瑚 2016年09月13日)
+   (31) V4.5版本，增加[CMD_PUBLIC_WRITE_ADDRESS]网关地址设置(广州市海珠区xxxx)  (钟珊瑚 2016年11月16日)
 **======================================================================================================*/
 
 
@@ -84,10 +88,12 @@
 //特殊设备
 enum		//设备ID 0~100,  101以上为指定设备的ID
 {
-	ID_MOBILE_START    = 151     ,//手机、平板开始地址
-    ID_MOBILE_END      = 200     ,//手机、平板结束地址
+	ID_MOBILE_START    = 0       ,//手机、平板开始地址
+    ID_MOBILE_END      = 99      ,//手机、平板结束地址
 	ID_PC_START        = 201     ,//PC地址开始
 	ID_PC_END          = 220     ,//PC地址结束
+	ID_GATEWAY         = 249     ,//网关id     0xf9
+	ID_CLOUD           = 250     ,//云服务id   0xfa
 	ID_PKGNUM_PUBLIC   = 251     ,//带包号公共地址(由RJ45缓冲补发并保证其成功到达目标)
 	ID_RJ45            = 252     ,//485转网络转换器ID
 	ID_SERVER          = 253     ,//服务器
@@ -98,9 +104,9 @@ enum		//设备ID 0~100,  101以上为指定设备的ID
 
 //特殊网段
 enum					
-{	
-	NET_MOBILE          = 252,     //手机网段
-	NET_SERVER          = 254,     //服务器网段
+{		
+//	NET_MOBILE          = 252,     //手机网段
+	NET_SERVER          = 254,     //服务器网段、云、Linux网关、手机网段    0xfe
 	NET_PUBLIC          = 255      //公共地址
 };
 
@@ -226,8 +232,12 @@ enum
 
 #define EQUIPMENT_RSP                0x90        //RSP雷达
 
+#define EQUIPMNET_NO_LOCK_DOOR       0xa0        //无锁孔门
+
+
 #define EQUIPMENT_PANEL              0xE0        //通用控制面板
 
+#define EQUIPMENT_GATEWAY            0xf9        //网关
 #define EQUIPMENT_RJ45       	     0xf0        //RJ45类型
 #define EQUIPMENT_LINKID             0xf1        //联动号(专用<-指令配置)
 #define EQUIPMENT_MOBILE             0xfc        //手机
@@ -268,7 +278,8 @@ enum  //指令分类
 	CMD_TYPE_DOORBELL   = EQUIPMENT_DOORBELL,          //门铃 
 	CMD_TYPE_GSM        = EQUIPMENT_GSM,               //GSM网络
 	CMD_TYPE_MOBILE     = EQUIPMENT_MOBILE,            //手机
-	CMD_TYPE_PANEL      = EQUIPMENT_PANEL              //通用控制面板
+	CMD_TYPE_PANEL      = EQUIPMENT_PANEL,             //通用控制面板
+	CMD_TYPE_NO_LOCK    = EQUIPMNET_NO_LOCK_DOOR       //无锁孔门
 };
 
 enum    //公共指令    _PUBLIC 
@@ -376,11 +387,13 @@ enum    //公共指令    _PUBLIC
 	CMD_PUBLIC_SAFETY_STATE             = ((CMD_TYPE_PUBLIC << 8) | 0xa0)		,//安防状态 
 
 	CMD_PUBLIC_READ_VER                 = ((CMD_TYPE_PUBLIC << 8) | 0xb0)       ,//读设备软硬件版本 
-	CMD_PUBLIC_WRITE_VER                = ((CMD_TYPE_PUBLIC << 8) | 0xb1)       ,//写设备软硬件版本 
-	
+	CMD_PUBLIC_WRITE_VER                = ((CMD_TYPE_PUBLIC << 8) | 0xb1)       ,//写设备软硬件版本 	
 	CMD_PUBLIC_RESET_HOST               = ((CMD_TYPE_PUBLIC << 8) | 0xb2)       ,//复位网关与主机连接 
-	
-	CMD_PUBLIC_TEST_KEY_CMD             = ((CMD_TYPE_PUBLIC << 8) | 0xb3)        //(按键)控制指令测试
+	CMD_PUBLIC_TEST_KEY_CMD             = ((CMD_TYPE_PUBLIC << 8) | 0xb3)       ,//(按键)控制指令测试	
+	CMD_PUBLIC_RESET_DEVICE             = ((CMD_TYPE_PUBLIC << 8) | 0xb4)       ,//设备出厂初始指令 (使用本指令要谨慎)
+
+	CMD_PUBLIC_READ_ADDRESS          	= ((CMD_TYPE_PUBLIC << 8) | 0x35)		,//读地址，
+	CMD_PUBLIC_WRITE_ADDRESS          	= ((CMD_TYPE_PUBLIC << 8) | 0xb5)		 //写地址，广州市天河区xxxx
 };
 
 
@@ -688,6 +701,19 @@ enum //GSM模块
 	CMD_GSM_POST_CUSTOM_MESSAGE   		= ((CMD_TYPE_GSM << 8) | 0x02)  			,//发送自定义短信
 	CMD_GSM_READ_SAFE_MESSAGE   		= ((CMD_TYPE_GSM << 8) | 0x03)  			,//读安防发送固化短信
 	CMD_GSM_WRITE_SAFE_MESSAGE   		= ((CMD_TYPE_GSM << 8) | 0x04)  			,//写安防发送固化短信
+};
+
+
+enum //无锁孔门
+{	
+	CMD_NOLOCK_EXIT_SETADDR 		= ((CMD_TYPE_NO_LOCK << 8) | 0x01)				,//结束设置地址
+	CMD_NOLOCK_WRITE_RCPACKET  		= ((CMD_TYPE_NO_LOCK << 8) | 0x02)				,//写摇控数据包  
+	CMD_NOLOCK_READ_RCPACKET        = ((CMD_TYPE_NO_LOCK << 8) | 0x82)  			,//读摇控数据包
+	CMD_NOLOCK_WRITE_BTPACKET		= ((CMD_TYPE_NO_LOCK << 8) | 0x3)				,//写摇控数据包
+	CMD_NOLOCK_READ_BTPACKET		= ((CMD_TYPE_NO_LOCK << 8) | 0x83)				,//读摇控数据包
+	CMD_NOLOCK_WRITE_NUM			= ((CMD_TYPE_NO_LOCK << 8) | 0x4)				,//写无锁孔门数量 
+	CMD_NOLOCK_READ_NUM             = ((CMD_TYPE_NO_LOCK << 8) | 0x84)				,//读无锁孔门数量
+
 };
 
 

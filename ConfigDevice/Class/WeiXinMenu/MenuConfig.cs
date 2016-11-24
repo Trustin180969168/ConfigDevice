@@ -54,7 +54,7 @@ namespace ConfigDevice
         /// 按下此键返回当前窗的状态,那个窗没锁好
         /// </summary>
         public const int MS_COBJ_DWSAF = 10;
-        public const string MS_COBJ_DWSAF_NAME = "增加菜单";
+        public const string MS_COBJ_DWSAF_NAME = "门窗安全";
 
         /// <summary>
         /// 覆盖/增加菜单:入户门
@@ -68,12 +68,10 @@ namespace ConfigDevice
         /// 表示此键没功能，如果是二级菜单，直接推送三级菜单内容
         /// </summary>
         public const int MS_COBJ_MORE = 8;
-        public const string MS_COBJ_MORE_NAME = "更多";
-
+        public const string MS_COBJ_MORE_NAME = "更多"; 
 
         public static Dictionary<int, string> MenuKindIDName = new Dictionary<int, string>();
-        public static Dictionary<string, int> MenuKindNameID = new Dictionary<string, int>();
-
+        public static Dictionary<string, int> MenuKindNameID = new Dictionary<string, int>(); 
 
         static MenuKind()
         {

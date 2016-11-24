@@ -6,12 +6,12 @@ namespace ConfigDevice
 {
 
 
-    public abstract class WeiXinMeun
+    public  class WeiXinMeun
     {
-        public Int32 MenuID;//菜单ID
-        public Int16 KindID;//类型ID
+        public UInt32 MenuID;//菜单ID
+        public UInt16 KindID;//类型ID
         public string KindName;//类型
-        public Int16 Flag;//标志
+        public UInt16 Flag;//标志
         public string Title;//菜单标题
 
         public MenuData WeiXinMenuData
@@ -32,11 +32,11 @@ namespace ConfigDevice
 
         public WeiXinMeun(UserUdpData data)
         {
-            MenuID = ConvertTools.Bytes4ToInt32(CommonTools.CopyBytes(data.Data,0,4)); 
-            KindID = (Int16)data.Data[4];
+            MenuID = ConvertTools.Bytes4ToUInt32(CommonTools.CopyBytes(data.Data,0,4)); 
+            KindID = (UInt16)data.Data[4];
             if(MenuKind.MenuKindIDName.ContainsKey(KindID))
                 KindName = MenuKind.MenuKindIDName[KindID];
-            Flag = ConvertTools.Bytes2ToInt16(data.Data[5],data.Data[6]);
+            Flag = ConvertTools.Bytes2ToUInt16(data.Data[5],data.Data[6]);
             byte[] byteName = CommonTools.CopyBytes(data.Data, 8, data.Length - 9);
             Title = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Trim().Replace("", "");
 

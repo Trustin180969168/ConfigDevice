@@ -57,8 +57,12 @@ namespace ConfigDevice
                 if (SysConfig.DtNetwork.Select(temp).Length > 0)
                     return;
 
-                UserUdpData userData = new UserUdpData(udp);//----用户协议数据---  
-                Network network = new Network(userData);//----网络对象-----
+                UserUdpData userData = new UserUdpData(udp);//----用户协议数据---   
+                Network network;
+                if (userData.Source[2] == DeviceConfig.EQUIPMENT_SERVER)
+                    network = new WeiXin(userData);//---微信对象
+                else
+                    network = new Network(userData);//----网络对象-----
                 network.NetworkIP = udp.IPPoint.Address.ToString();
                 network.Port = udp.IPPoint.Port;
                 //------修改已经连接网络的状态----

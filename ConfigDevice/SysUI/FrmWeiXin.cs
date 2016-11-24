@@ -12,15 +12,16 @@ namespace ConfigDevice
 {
     public partial class FrmWeiXin : Form
     {
-        public Network NetworkEdit = null;
-        DataTable dtPosition = new DataTable("Position");
-        DataTable dtMenu = new DataTable("Menu");
+        public WeiXin weiXinEdit = null;
+       
+        DataTable dtPosition = new DataTable("Position"); 
+        GridViewComboBox cbx;//菜单类型选择编辑
         private Dictionary<int, string> listNetworkKey = new Dictionary<int, string>();//保存对应关系
 
         public FrmWeiXin()
         {
             InitializeComponent();
-
+   
             num.FieldName = Position.DC_NUM;
             password.FieldName = Position.DC_HAS_PASSWORD;
             name.FieldName = Position.DC_NAME;
@@ -28,14 +29,25 @@ namespace ConfigDevice
             dtPosition.Columns.Add(Position.DC_NUM, System.Type.GetType("System.Int16"));
             dtPosition.Columns.Add(Position.DC_NAME, System.Type.GetType("System.String"));
             dtPosition.Columns.Add(Position.DC_HAS_PASSWORD, System.Type.GetType("System.Boolean"));
+             
         }
 
         private void FrmNetworkEdit_Load(object sender, EventArgs e)
         {
-            NetworkEdit.OnCallbackUI_Action += this.callbackUI;
+            weiXinEdit.OnCallbackUI_Action += this.callbackUI;
             initCbxNetwork();
             initData();
             initMenus();
+
+            loadData();
+        }
+
+        /// <summary>
+        /// 读取数据
+        /// </summary>
+        private void loadData()
+        {
+            weiXinEdit.ReadAddress(); 
         }
 
         /// <summary>
@@ -44,24 +56,25 @@ namespace ConfigDevice
         private void initData()
         {
             dtPosition.Clear(); dtPosition.AcceptChanges();
-            foreach (Position position in NetworkEdit.ListPosition)
+            foreach (Position position in weiXinEdit.ListPosition)
                 dtPosition.Rows.Add(new object[] { position.Num, position.Name, position.HasPassword });
 
             dtPosition.AcceptChanges();
             gvPosition.BestFitColumns();
             gvPosition.RefreshData();
 
-            edtNetworkName.Text = NetworkEdit.DeviceName;
-            edtNetworkID.Text = NetworkEdit.NetworkID;
-            edtNetworkIP.IP = NetworkEdit.NetworkIP;
+            edtNetworkName.Text = weiXinEdit.DeviceName;
+            edtNetworkID.Text = weiXinEdit.NetworkID;
+            edtNetworkIP.IP = weiXinEdit.NetworkIP;
             edtMask.IP = SysConfig.SubnetMask.ToString();//----目前固定 255.255.255.0----
             edtGateway.IP = edtNetworkIP.DefaultGateWay;//----目前固定xxx.xxx.xxx.1-----
 
-            if (NetworkEdit.State == NetworkConfig.STATE_CONNECTED)
-                NetworkEdit.SearchVer();
+            if (weiXinEdit.State == NetworkConfig.STATE_CONNECTED)
+                weiXinEdit.SearchVer();
             else
             { edtSoftwareVer.Text = ""; edtHarewareVer.Text = ""; }
                 
+
         }
 
         private void initCbxNetwork()
@@ -73,7 +86,7 @@ namespace ConfigDevice
                 cbxNetwork.Items.Add(network.DeviceName);
                 listNetworkKey.Add(i++, network.NetworkIP);
             }
-            cbxNetwork.Text = NetworkEdit.DeviceName;
+            cbxNetwork.Text = weiXinEdit.DeviceName;
         }
 
         /// <summary>
@@ -89,7 +102,7 @@ namespace ConfigDevice
             foreach (DataRow dr in dtModify.Rows)
             {
                 Position pos = new Position(Convert.ToInt16(dr[Position.DC_NUM]), dr[Position.DC_NAME].ToString(), Convert.ToBoolean(dr[Position.DC_HAS_PASSWORD]));
-                NetworkEdit.SavePositionList(pos);
+                weiXinEdit.SavePositionList(pos);
             }
         }
 
@@ -100,8 +113,6 @@ namespace ConfigDevice
         private void callBackSavePosition(object[] values)
         {
  
-
-
         }
 
         private void callbackUI(CallbackParameter callbackParameter)
@@ -111,13 +122,17 @@ namespace ConfigDevice
                 this.Invoke(new CallbackUIAction(this.callbackUI), callbackParameter);
                 return;
             }
-            edtSoftwareVer.Text = NetworkEdit.SoftwareVer;
-            edtHarewareVer.Text = NetworkEdit.HardwareVer;
+            edtSoftwareVer.Text = weiXinEdit.SoftwareVer;
+            edtHarewareVer.Text = weiXinEdit.HardwareVer;
 
             if (callbackParameter.Action == ActionKind.SaveNetworkPosition)
             {
                 Position pos = callbackParameter.Parameters[0] as Position;
                 dtPosition.Rows[pos.Num - 1].AcceptChanges();
+            }
+            if (callbackParameter.Action == ActionKind.ReadServerAddress)
+            {
+                edtAddress.Text = weiXinEdit.Address;
             }
         }
 
@@ -150,11 +165,11 @@ namespace ConfigDevice
         /// </summary>
         private void btSaveInfo_Click(object sender, EventArgs e)
         {
-            NetworkEdit.SaveNetworkName(edtNetworkName.Text);
+            weiXinEdit.SaveNetworkName(edtNetworkName.Text);
 
             edtNetworkIP.IP = edtNetworkIP.IP;
-            NetworkEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
-                ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text));
+            weiXinEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
+                  ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text), edtDNS1.ByteIP, edtDNS2.ByteIP);
         }
 
         /// <summary>
@@ -162,33 +177,33 @@ namespace ConfigDevice
         /// </summary>
         private void btSaveName_Click(object sender, EventArgs e)
         {
-            NetworkEdit.SaveNetworkName(edtNetworkName.Text);
+            weiXinEdit.SaveNetworkName(edtNetworkName.Text);
         }
 
         private void btSavePagameter_Click(object sender, EventArgs e)
         {
-            NetworkEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
-                         ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text));
+            weiXinEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
+                         ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text),edtDNS1.ByteIP,edtDNS2.ByteIP);
         }
 
 
         private void cbxNetwork_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int i = cbxNetwork.SelectedIndex;
-            string key = listNetworkKey[i];
-            NetworkEdit = SysConfig.ListNetworks[key];
+            //int i = cbxNetwork.SelectedIndex;
+            //string key = listNetworkKey[i];
+            //WeiXinEdit = ()SysConfig.ListNetworks[key];
 
-            initData();
+            //initData();
         }
 
         private void btFindOn_Click(object sender, EventArgs e)
         {
-            NetworkEdit.OpenDiscover();
+            weiXinEdit.OpenDiscover();
         }
 
         private void btFindOff_Click(object sender, EventArgs e)
         {
-            NetworkEdit.CloseDiscover();
+            weiXinEdit.CloseDiscover();
         }
 
 
@@ -202,80 +217,28 @@ namespace ConfigDevice
         /// </summary>
         private void initMenus()
         {
-            treeMenu.KeyFieldName = MenuConfig.DC_ID;
-            treeMenu.ParentFieldName = MenuConfig.DC_PARENT_ID;
+            weiXinEdit.InitMenu();
+                //---编辑菜单类型----
+                cbx = new GridViewComboBox();
+                cbx.Items.Add(MenuKind.MS_COBJ_ENV_NAME);//环境传感器
+                cbx.Items.Add(MenuKind.MS_COBJ_CMD_NAME);//指令控制
+                cbx.Items.Add(MenuKind.MS_COBJ_DWSAF_NAME);//门窗安全
+                cbx.Items.Add(MenuKind.MS_COBJ_DOOR_NAME);//入户门
+                cbx.Items.Add(MenuKind.MS_COBJ_MORE_NAME);//更多
+                tlcKindName.ColumnEdit = cbx;
+                tlcSetting.ColumnEdit = linkEdit;
+                tlcTitle.ColumnEdit = gedtName;
 
-            this.dtMenu.Columns.Add(MenuConfig.DC_ID, System.Type.GetType("System.String"));
-            this.dtMenu.Columns.Add(MenuConfig.DC_KIND_ID, System.Type.GetType("System.String"));
-            this.dtMenu.Columns.Add(MenuConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
-            this.dtMenu.Columns.Add(MenuConfig.DC_PARENT_ID, System.Type.GetType("System.String"));
-            this.dtMenu.Columns.Add(MenuConfig.DC_SETTING, System.Type.GetType("System.String"));
-            this.dtMenu.Columns.Add(MenuConfig.DC_TITLE, System.Type.GetType("System.String"));
-            this.dtMenu.Columns.Add(MenuConfig.DC_SEQ, System.Type.GetType("System.Int16"));
-            //---一级菜单-- 
-            for(int i=0;i< MenuConfig.Level1Menus.Length;i++)
-            {
-                dtMenu.Rows.Add(new object[] {"1"+(i+1),"","","","",MenuConfig.Level1Menus[i] ,i});
-            }
-            //---二级菜单-- 
-            for (int i = 0; i < MenuConfig.Level21Menus.Length; i++)
-            {
-                dtMenu.Rows.Add(new object[] { "21" + (i + 1), MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "11", "配置", MenuConfig.Level21Menus[i],  Int16.Parse("21" + (i + 1))});
-                dtMenu.Rows.Add(new object[] { "22" + (i + 1), MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "12", "配置", MenuConfig.Level22Menus[i],  Int16.Parse("22" + (i + 1))});
-                dtMenu.Rows.Add(new object[] { "23" + (i + 1), MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "13", "配置", MenuConfig.Level23Menus[i],  Int16.Parse("23" + (i + 1))});
-            }
-    
-            /*
-             * 
-             * 二级不能改变名称，类型也不能改变：名称[类型]，下发时需要发下类型
-                1组：撤防[指令]、布防[指令]、安全门[入户门]、门窗安全[门窗安全]、更多[更多]
-                2组：阅读模式[指令]、会客模式[指令]、休闲模式[指令]、全关[指令]、更多[更多]
-                3组：降温遮阳[指令]、窗帘控制[指令]、空调控制[指令]、环境监测[环境]、更多[更多]
-             * 
-             * 
-             */
+                treeMenu.KeyFieldName = MenuConfig.DC_ID;
+                treeMenu.ParentFieldName = MenuConfig.DC_PARENT_ID;
+                treeMenu.DataSource = weiXinEdit.DataTableMenu;
 
-            DataRow dr = findNodeDataByID("213");
-            dr[MenuConfig.DC_KIND_ID] = MenuKind.MS_COBJ_DOOR;
-            dr[MenuConfig.DC_KIND_NAME] = MenuKind.MS_COBJ_DOOR_NAME;
-            dr = findNodeDataByID("214");
-            dr[MenuConfig.DC_KIND_ID] = MenuKind.MS_COBJ_DWSAF;
-            dr[MenuConfig.DC_KIND_NAME] = MenuKind.MS_COBJ_DWSAF_NAME;
-            dr = findNodeDataByID("215");
+                if (treeMenu.Nodes.Count > 0)
+                    treeMenu.Nodes[0].Expanded = true;
+                treeMenu.BestFitColumns(); 
 
- 
-            dr = findNodeDataByID("225");
-            dr[MenuConfig.DC_KIND_ID] = MenuKind.MS_COBJ_MORE;
-            dr[MenuConfig.DC_KIND_NAME] = MenuKind.MS_COBJ_MORE_NAME;
-
-            dr = findNodeDataByID("234");
-            dr[MenuConfig.DC_KIND_ID] = MenuKind.MS_COBJ_ENV;
-            dr[MenuConfig.DC_KIND_NAME] = MenuKind.MS_COBJ_ENV_NAME;
-            dr = findNodeDataByID("235");
-            dr[MenuConfig.DC_KIND_ID] = MenuKind.MS_COBJ_MORE;
-            dr[MenuConfig.DC_KIND_NAME] = MenuKind.MS_COBJ_MORE_NAME; 
-              
-            dr.EndEdit();
-            dtMenu.AcceptChanges();
-
-            treeMenu.DataSource = dtMenu;
-            treeMenu.Nodes[0].Expanded = true;
-            treeMenu.BestFitColumns(); 
-        }
-
-        /// <summary>
-        /// 根据ID找对应菜单
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        private DataRow findNodeDataByID(String id)
-        {
-            DataRow[] drs = dtMenu.Select(string.Format(" {0} = '{1}' ", MenuConfig.DC_ID,id));
-            if (drs != null)
-                return drs[0];
-            else
-                return null;
-        }
+           
+        } 
 
         /// <summary>
         /// 增加菜单
@@ -285,13 +248,8 @@ namespace ConfigDevice
         private void btAdd_Click(object sender, EventArgs e)
         {
             TreeListNode selectNode = treeMenu.FocusedNode;
-            if (selectNode == null || selectNode.Level != 1) return;
-            DataRow drSelect = findNodeDataByID(selectNode.GetValue(MenuConfig.DC_ID).ToString()); 
-
-            dtMenu.Rows.Add(new object[] {
-                Guid.NewGuid().ToString(), //---唯一ID编号--
-                MenuKind.MS_COBJ_CMD,  MenuKind.MS_COBJ_CMD_NAME, //---默认为指令----
-                drSelect[MenuConfig.DC_ID].ToString(),"配置", "", selectNode.Nodes.Count+1});
+            if (selectNode == null || selectNode.Level != 1 || selectNode.Nodes.Count >= 9) return;
+            weiXinEdit.AddMenu(selectNode.GetValue(MenuConfig.DC_ID).ToString(), selectNode.Nodes.Count + 1);
 
             selectNode.ExpandAll();  
         }
@@ -304,10 +262,56 @@ namespace ConfigDevice
         private void btDel_Click(object sender, EventArgs e)
         {
             TreeListNode selectNode = treeMenu.FocusedNode;
-            if (selectNode == null || selectNode.Level != 2) return;
-            DataRow drSelect = findNodeDataByID(selectNode.GetValue(MenuConfig.DC_ID).ToString());
-            dtMenu.Rows.Remove(drSelect);
-            selectNode.ExpandAll();  
+            if (selectNode == null || selectNode.Level != 2 ) return;
+            weiXinEdit.DelMenu(selectNode.GetValue(MenuConfig.DC_ID).ToString());
+
+            selectNode.ExpandAll();
+        }
+
+        /// <summary>
+        /// 刷新
+        /// </summary>
+        private void btRef_Click(object sender, EventArgs e)
+        {
+            TreeListNode selectNode = treeMenu.FocusedNode;
+            if (selectNode == null || selectNode.Level != 1 ) return;
+       
+        }
+
+
+        /// <summary>
+        /// 选择后控制编辑
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void treeMenu_AfterFocusNode(object sender, DevExpress.XtraTreeList.NodeEventArgs e)
+        {
+            TreeListNode selectNode = treeMenu.FocusedNode;
+            if (selectNode == null) return;
+            if (selectNode.Level == 2)
+            {
+                tlcKindName.ColumnEdit.ReadOnly = false;
+                tlcTitle.ColumnEdit.ReadOnly = false;               
+            }
+            else
+            {
+                tlcKindName.ColumnEdit.ReadOnly = true;
+                tlcTitle.ColumnEdit.ReadOnly = true;              
+            }
+            int[] aa = new int[10];
+            int num = new MenuList(weiXinEdit).GetMemuNum(selectNode.Level, aa);
+            memoEdit1.Text = "菜单编号:" + num.ToString() + "  \r\n";
+            foreach (uint a in aa)
+                memoEdit1.Text += a.ToString() + ", ";
+
+        }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            TreeListNode selectNode = treeMenu.FocusedNode;
+            if (selectNode == null) return;
+
+            weiXinEdit.ReadMenu(selectNode.Level, selectNode.Nodes.Count);
         }
 
 

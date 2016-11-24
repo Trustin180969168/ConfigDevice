@@ -82,6 +82,7 @@ namespace ConfigDevice
         ReadLogicConfig,//读取逻辑配置
         ReadCommand,//读取指令
         ReadMenu,//读取菜单
+        ReadServerAddress,//读取服务器位置
         None
         
     }
@@ -143,9 +144,9 @@ namespace ConfigDevice
     /// </summary>
     public class BroadcastKind
     {
-        public const byte Broadcast = 0x42;
-        public const byte Multicast = 0x4D;
-        public const byte Unicast = 0x55;
+        public const byte Broadcast = 0x42;//广播
+        public const byte Multicast = 0x4D;//组播
+        public const byte Unicast = 0x55;//单播
     }
 
     /// <summary>

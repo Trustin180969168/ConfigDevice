@@ -459,7 +459,7 @@ namespace ConfigDevice
         public void ReadConfig()
         {
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, DeviceID, getConfig);//----注册回调---
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, DeviceID + AddressID, getWriteEnd2);//-----此处不用deviceID区别,避免冲突
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, DeviceID + PositionID, getWriteEnd2);//-----此处不用deviceID区别,避免冲突
             UdpData udpSend = createReadParameterUdp();
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadParameterUdp), null);

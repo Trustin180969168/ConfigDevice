@@ -130,6 +130,7 @@ namespace ConfigDevice
                     else if ((callbackParameter.Action == ActionKind.ConnectNetowrk))//---连接完网络----
                     {
                         Network network = (Network)(callbackParameter.Parameters[0]);
+                        if (network.ByteKindID == DeviceConfig.EQUIPMENT_SERVER) return;
                         gvNetwork.PostEditor(); gvNetwork.RefreshData();
                         searchingDevice = true;
                         SetDevicesFilter();//---设置筛选---
@@ -205,7 +206,7 @@ namespace ConfigDevice
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_CONNECTED)
             { CommonTools.MessageShow("你已经连接了" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, ""); return; }
-            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];      
             network.ConnectNetwork();
 
         }
@@ -238,6 +239,8 @@ namespace ConfigDevice
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
             }
+            Network network = SysConfig.ListNetworks[dr[DeviceConfig.DC_NETWORK_IP].ToString()];
+            if (network.ByteKindID == DeviceConfig.EQUIPMENT_SERVER) return;
             pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
             deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);
         }
@@ -598,8 +601,9 @@ namespace ConfigDevice
                     //--------保存网络参数-------
                     IPAddress ip = IPAddress.Parse(drUpdate[NetworkConfig.DC_IP].ToString());
                     string id = drUpdate[NetworkConfig.DC_NETWORK_ID].ToString();
-                    network.SaveNetworkParameter(ip.GetAddressBytes(),
-                        SysConfig.DefaultIPGateway.GetAddressBytes(), SysConfig.SubnetMask.GetAddressBytes(), ConvertTools.GetByteFrom8BitNumStr(id));
+                    network.SaveNetworkParameter(ip.GetAddressBytes(), SysConfig.DefaultIPGateway.GetAddressBytes(), 
+                        SysConfig.SubnetMask.GetAddressBytes(),  ConvertTools.GetByteFrom8BitNumStr(id),
+                        new byte[]{0,0,0,0},new byte[]{0,0,0,0});
                 }
                 else
                 {
@@ -720,7 +724,7 @@ namespace ConfigDevice
                 if (network.ByteKindID == DeviceConfig.EQUIPMENT_SERVER)
                 {
                     FrmWeiXin frm = new FrmWeiXin();
-                    frm.NetworkEdit = network;
+                    frm.weiXinEdit = (WeiXin)network;
                     frm.Show(this);
                 }
                 else

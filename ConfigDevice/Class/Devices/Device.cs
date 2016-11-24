@@ -20,10 +20,10 @@ namespace ConfigDevice
         public string HardwareVer = "";//硬件版本
         public string PCAddress = "";//PC通讯地址
         public string NetworkIP = "";//设备通讯IP地址
-        public string AddressName = "";//设备地址
+        public string PositionName = "";//设备位置
         public byte[] ByteAddressID;//字节设备地址ID
-        public string AddressID = "";//设备地址ID 
-
+        public string PositionID = "";//设备位置ID 
+    
         public Dictionary<string, ControlObj> ContrlObjs = new Dictionary<string, ControlObj>();//控制对象列表
 
         public byte BytePCAddress
@@ -53,7 +53,7 @@ namespace ConfigDevice
             PCAddress = Convert.ToInt16(userUdpData.Target[0]).ToString();
             NetworkIP = userUdpData.IP;
             ByteAddressID = CommonTools.CopyBytes(userUdpData.Data, 12, 2);//-------设备位置---------
-            AddressID = ConvertTools.ByteToHexStr(ByteAddressID);//设备ID
+            PositionID = ConvertTools.ByteToHexStr(ByteAddressID);//设备ID
             //-------计算位置名称-------
             byte byteNum = ByteAddressID[0];
             int num = 0x7F & byteNum; //序号       
@@ -61,7 +61,7 @@ namespace ConfigDevice
             {
                 Network network = SysConfig.ListNetworks[userUdpData.IP];
                 if (num <= network.ListPosition.Count - 1)
-                    AddressName = network.ListPosition[num].Name;
+                    PositionName = network.ListPosition[num].Name;
             }
             //-------设备名称---------
             if (userUdpData.DataOfLength > 16)
@@ -131,8 +131,8 @@ namespace ConfigDevice
             HardwareVer = dr[DeviceConfig.DC_HARDWARE_VER].ToString();
             PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
             NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
-            AddressName = dr[DeviceConfig.DC_ADDRESS_NAME].ToString();
-            AddressID = dr[DeviceConfig.DC_ADDRESS_ID].ToString();
+            PositionName = dr[DeviceConfig.DC_ADDRESS_NAME].ToString();
+            PositionID = dr[DeviceConfig.DC_ADDRESS_ID].ToString();
             ByteAddressID = ConvertTools.StrToToHexByte(dr[DeviceConfig.DC_ADDRESS_ID].ToString());
             State = dr[DeviceConfig.DC_STATE].ToString();
 
@@ -154,9 +154,9 @@ namespace ConfigDevice
             HardwareVer = data.HardwareVer;
             PCAddress = data.PCAddress;
             NetworkIP = data.NetworkIP;
-            AddressName = data.AddressName;
-            AddressID = data.AddressID;
-            if (AddressID != "")
+            PositionName = data.AddressName;
+            PositionID = data.AddressID;
+            if (PositionID != "")
                 ByteAddressID = ConvertTools.StrToToHexByte(data.AddressID);
             State = data.State;
 
@@ -180,9 +180,9 @@ namespace ConfigDevice
             data.HardwareVer = HardwareVer;
             data.PCAddress = PCAddress;
             data.NetworkIP = NetworkIP;
-            data.AddressID = AddressID;
+            data.AddressID = PositionID;
             data.ByteAddressID = ByteAddressID;
-            data.AddressName = AddressName;
+            data.AddressName = PositionName;
             data.State = State;
             data.Remark = Remark;
 
@@ -401,7 +401,7 @@ namespace ConfigDevice
             byte[] newBytePostion = (byte[])values[2];
             if (udpReply.ReplyByte == REPLY_RESULT.CMD_TRUE)
             {
-                this.Name = newName; this.AddressName = newPos; this.ByteAddressID = newBytePostion;
+                this.Name = newName; this.PositionName = newPos; this.ByteAddressID = newBytePostion;
                 DeviceCtrl.UpdateDeviceData(this.GetDeviceData());
                 CallbackUI(new CallbackParameter(ActionKind.SaveDeviceName,DeviceID, this));
             }
@@ -513,7 +513,7 @@ namespace ConfigDevice
                 this.State = device.State;
                 this.PCAddress = device.PCAddress;
                 this.NetworkIP = device.NetworkIP;
-                this.AddressName = device.AddressName;
+                this.PositionName = device.PositionName;
 
                 CallbackUI(new CallbackParameter(ActionKind.ReadInf, this.GetType().BaseType.Name));//---返回UI----
                 DeviceCtrl.UpdateDeviceData(this.GetDeviceData());//--刷新----

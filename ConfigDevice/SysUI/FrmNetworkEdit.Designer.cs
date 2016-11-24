@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmNetworkEdit));
             this.ipInputTextbox1 = new ConfigDevice.IpInputTextbox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btSaveInfo = new System.Windows.Forms.ToolStripButton();
             this.btSavePosition = new System.Windows.Forms.ToolStripButton();
             this.btFindOn = new System.Windows.Forms.ToolStripButton();
             this.btFindOff = new System.Windows.Forms.ToolStripButton();
@@ -63,7 +64,10 @@
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.btSaveInfo = new System.Windows.Forms.ToolStripButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.edtDNS2 = new ConfigDevice.IpInputTextbox();
+            this.edtDNS1 = new ConfigDevice.IpInputTextbox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSoftwareVer.Properties)).BeginInit();
@@ -103,6 +107,15 @@
             this.toolStrip1.Size = new System.Drawing.Size(792, 31);
             this.toolStrip1.TabIndex = 16;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // btSaveInfo
+            // 
+            this.btSaveInfo.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSaveInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSaveInfo.Name = "btSaveInfo";
+            this.btSaveInfo.Size = new System.Drawing.Size(92, 28);
+            this.btSaveInfo.Text = "保存信息";
+            this.btSaveInfo.Click += new System.EventHandler(this.btSaveInfo_Click);
             // 
             // btSavePosition
             // 
@@ -207,7 +220,7 @@
             // 
             // edtSoftwareVer
             // 
-            this.edtSoftwareVer.Location = new System.Drawing.Point(113, 118);
+            this.edtSoftwareVer.Location = new System.Drawing.Point(113, 150);
             this.edtSoftwareVer.Name = "edtSoftwareVer";
             this.edtSoftwareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtSoftwareVer.Properties.Appearance.Options.UseFont = true;
@@ -219,7 +232,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label5.Location = new System.Drawing.Point(39, 121);
+            this.label5.Location = new System.Drawing.Point(39, 153);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 19);
             this.label5.TabIndex = 19;
@@ -257,7 +270,7 @@
             // 
             // edtHarewareVer
             // 
-            this.edtHarewareVer.Location = new System.Drawing.Point(437, 119);
+            this.edtHarewareVer.Location = new System.Drawing.Point(437, 151);
             this.edtHarewareVer.Name = "edtHarewareVer";
             this.edtHarewareVer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtHarewareVer.Properties.Appearance.Options.UseFont = true;
@@ -269,7 +282,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label6.Location = new System.Drawing.Point(365, 122);
+            this.label6.Location = new System.Drawing.Point(365, 154);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 19);
             this.label6.TabIndex = 19;
@@ -300,14 +313,14 @@
             this.gcPosition.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcPosition.EmbeddedNavigator.Name = "";
             this.gcPosition.FormsUseDefaultLookAndFeel = false;
-            this.gcPosition.Location = new System.Drawing.Point(0, 198);
+            this.gcPosition.Location = new System.Drawing.Point(0, 223);
             this.gcPosition.MainView = this.gvPosition;
             this.gcPosition.Name = "gcPosition";
             this.gcPosition.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemComboBox1,
             this.cedtHasPassword,
             this.edtName});
-            this.gcPosition.Size = new System.Drawing.Size(792, 375);
+            this.gcPosition.Size = new System.Drawing.Size(792, 350);
             this.gcPosition.TabIndex = 20;
             this.gcPosition.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPosition});
@@ -431,6 +444,10 @@
             // panelControl1
             // 
             this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl1.Controls.Add(this.label8);
+            this.panelControl1.Controls.Add(this.label9);
+            this.panelControl1.Controls.Add(this.edtDNS2);
+            this.panelControl1.Controls.Add(this.edtDNS1);
             this.panelControl1.Controls.Add(this.edtNetworkName);
             this.panelControl1.Controls.Add(this.label3);
             this.panelControl1.Controls.Add(this.label2);
@@ -448,17 +465,48 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 31);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(792, 167);
+            this.panelControl1.Size = new System.Drawing.Size(792, 192);
             this.panelControl1.TabIndex = 21;
             // 
-            // btSaveInfo
+            // label8
             // 
-            this.btSaveInfo.Image = global::ConfigDevice.Properties.Resources.save;
-            this.btSaveInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSaveInfo.Name = "btSaveInfo";
-            this.btSaveInfo.Size = new System.Drawing.Size(92, 28);
-            this.btSaveInfo.Text = "保存信息"; 
-            this.btSaveInfo.Click += new System.EventHandler(this.btSaveInfo_Click);
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.label8.Location = new System.Drawing.Point(38, 121);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(72, 19);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "首选DNS";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.label9.Location = new System.Drawing.Point(364, 121);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(72, 19);
+            this.label9.TabIndex = 23;
+            this.label9.Text = "备用DNS";
+            // 
+            // edtDNS2
+            // 
+            this.edtDNS2.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtDNS2.IP = "IP地址格式不正确";
+            this.edtDNS2.Location = new System.Drawing.Point(437, 119);
+            this.edtDNS2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.edtDNS2.Name = "edtDNS2";
+            this.edtDNS2.Size = new System.Drawing.Size(240, 26);
+            this.edtDNS2.TabIndex = 20;
+            // 
+            // edtDNS1
+            // 
+            this.edtDNS1.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtDNS1.IP = "IP地址格式不正确";
+            this.edtDNS1.Location = new System.Drawing.Point(113, 119);
+            this.edtDNS1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.edtDNS1.Name = "edtDNS1";
+            this.edtDNS1.Size = new System.Drawing.Size(240, 26);
+            this.edtDNS1.TabIndex = 21;
             // 
             // FrmNetworkEdit
             // 
@@ -531,5 +579,9 @@
         private System.Windows.Forms.ToolStripButton btFindOn;
         private System.Windows.Forms.ToolStripButton btFindOff;
         private System.Windows.Forms.ToolStripButton btSaveInfo;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private IpInputTextbox edtDNS2;
+        private IpInputTextbox edtDNS1;
     }
 }

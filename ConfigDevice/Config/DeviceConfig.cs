@@ -335,6 +335,9 @@ namespace ConfigDevice
         public static readonly byte[] CMD_MMSG_WRITE_KEY_CFG = new byte[] { 0xE6, CMD_TYPE_SERVER };//写菜单按键类型配置
         public static readonly byte[] CMD_MMSG_READ_BDEV_CFG = new byte[] { 0x67, CMD_TYPE_SERVER };//读绑定的设备设置
         public static readonly byte[] CMD_MMSG_WRITE_BDEV_CFG = new byte[] { 0xE7, CMD_TYPE_SERVER };//写绑定的设备设置
+        public static readonly byte[] CMD_PUBLIC_READ_ADDRESS = new byte[] {0x35, CMD_TYPE_PUBLIC  };//读地址，
+        public static readonly byte[] CMD_PUBLIC_WRITE_ADDRESS = new byte[] { 0xb5, CMD_TYPE_PUBLIC }; //写地址，广州市天河区xxxx
+
         //------------按键参数设置-------
         public static readonly byte[] CMD_KB_READ_OPTIONS = new byte[] { 0x0E, CMD_TYPE_KEY };//读键盘参数设置
         public static readonly byte[] CMD_KB_WRITE_OPTIONS = new byte[] { 0x8E, CMD_TYPE_KEY };//写键盘参数设置	
