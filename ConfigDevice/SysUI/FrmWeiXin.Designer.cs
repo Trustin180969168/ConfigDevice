@@ -64,8 +64,10 @@
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.edtAddress = new DevExpress.XtraEditors.TextEdit();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.edtDNS2 = new ConfigDevice.IpInputTextbox();
             this.edtDNS1 = new ConfigDevice.IpInputTextbox();
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
@@ -87,8 +89,7 @@
             this.btRef = new System.Windows.Forms.ToolStripButton();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
-            this.label10 = new System.Windows.Forms.Label();
-            this.edtAddress = new DevExpress.XtraEditors.TextEdit();
+            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSoftwareVer.Properties)).BeginInit();
@@ -101,6 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtAddress.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.pageWeiXin.SuspendLayout();
@@ -114,7 +116,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gedtName)).BeginInit();
             this.tsMenu.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.edtAddress.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // ipInputTextbox1
@@ -506,6 +507,16 @@
             this.panelControl1.Size = new System.Drawing.Size(783, 233);
             this.panelControl1.TabIndex = 21;
             // 
+            // edtAddress
+            // 
+            this.edtAddress.Location = new System.Drawing.Point(113, 151);
+            this.edtAddress.Name = "edtAddress";
+            this.edtAddress.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.edtAddress.Properties.Appearance.Options.UseFont = true;
+            this.edtAddress.Size = new System.Drawing.Size(565, 26);
+            this.edtAddress.TabIndex = 17;
+            this.edtAddress.Leave += new System.EventHandler(this.edtNetworkName_Leave);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -525,6 +536,16 @@
             this.label9.Size = new System.Drawing.Size(72, 19);
             this.label9.TabIndex = 19;
             this.label9.Text = "备用DNS";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.label10.Location = new System.Drawing.Point(71, 155);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 19);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "地址";
             // 
             // edtDNS2
             // 
@@ -572,6 +593,7 @@
             // panelControl2
             // 
             this.panelControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl2.Controls.Add(this.simpleButton2);
             this.panelControl2.Controls.Add(this.simpleButton1);
             this.panelControl2.Controls.Add(this.memoEdit1);
             this.panelControl2.Controls.Add(this.splitterControl1);
@@ -588,7 +610,7 @@
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(75, 23);
             this.simpleButton1.TabIndex = 20;
-            this.simpleButton1.Text = "simpleButton1";
+            this.simpleButton1.Text = "读取";
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // memoEdit1
@@ -750,25 +772,14 @@
             this.xtraTabPage2.Size = new System.Drawing.Size(783, 505);
             this.xtraTabPage2.Text = "门设置";
             // 
-            // label10
+            // simpleButton2
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.label10.Location = new System.Drawing.Point(71, 155);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 19);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "地址";
-            // 
-            // edtAddress
-            // 
-            this.edtAddress.Location = new System.Drawing.Point(113, 151);
-            this.edtAddress.Name = "edtAddress";
-            this.edtAddress.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.edtAddress.Properties.Appearance.Options.UseFont = true;
-            this.edtAddress.Size = new System.Drawing.Size(565, 26);
-            this.edtAddress.TabIndex = 17;
-            this.edtAddress.Leave += new System.EventHandler(this.edtNetworkName_Leave);
+            this.simpleButton2.Location = new System.Drawing.Point(491, 50);
+            this.simpleButton2.Name = "simpleButton2";
+            this.simpleButton2.Size = new System.Drawing.Size(75, 23);
+            this.simpleButton2.TabIndex = 20;
+            this.simpleButton2.Text = "保存";
+            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
             // 
             // FrmWeiXin
             // 
@@ -798,6 +809,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.edtAddress.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.pageWeiXin.ResumeLayout(false);
@@ -813,7 +825,6 @@
             this.tsMenu.ResumeLayout(false);
             this.tsMenu.PerformLayout();
             this.xtraTabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.edtAddress.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -881,5 +892,6 @@
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.TextEdit edtAddress;
         private System.Windows.Forms.Label label10;
+        private DevExpress.XtraEditors.SimpleButton simpleButton2;
     }
 }

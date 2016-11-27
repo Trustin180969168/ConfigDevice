@@ -78,10 +78,11 @@ namespace ConfigDevice
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
-            byte[] byteStartNum = ConvertTools.GetByteFromInt32(startNum);//开始菜单
-            byte[] byteEndNum = ConvertTools.GetByteFromInt32(endNum);//结束菜单
-            Buffer.BlockCopy(byteStartNum, 0, crcData, 9, 4);
-            Buffer.BlockCopy(byteEndNum, 0, crcData, 13, 4);
+            crcData[9] = len;
+            byte[] byteStartNum = ConvertTools.GetByteFromUInt32(startNum);//开始菜单
+            byte[] byteEndNum = ConvertTools.GetByteFromUInt32(endNum);//结束菜单
+            Buffer.BlockCopy(byteStartNum, 0, crcData, 10, 4);
+            Buffer.BlockCopy(byteEndNum, 0, crcData, 14, 4);
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
             Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
@@ -104,7 +105,7 @@ namespace ConfigDevice
             if (userData.SourceID != this.device.DeviceID) return;//不是本设备ID不接收.
             UdpTools.ReplyDataUdp(data);//----回复确认----- 
 
-            CallbackUI(new CallbackParameter(ActionKind.ReadCommand, new object[] { userData }));//----界面回调------
+            CallbackUI(new CallbackParameter(ActionKind.ReadMenu,this.device.DeviceID, new object[] { userData }));//----界面回调------
         }
 
         /// <summary>
@@ -133,12 +134,12 @@ namespace ConfigDevice
         {
             UdpData udpSend = createWriteMenuUdp(menuData);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult),
-                new object[] { "保存第" + (menuData.MenuID + 1).ToString() + "菜单失败!" });
+                new object[] { "保存第" + (menuData.MenuID).ToString() + "菜单失败!" });
         }
         private UdpData createWriteMenuUdp(MenuData menuData)
         {
             UdpData udp = new UdpData();
-
+            byte[] value = menuData.GetByteData();
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
             udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
@@ -148,16 +149,16 @@ namespace ConfigDevice
             byte[] source = new byte[] { device.BytePCAddress, device.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_MMSG_WRITE_MEMU_NAME;//----用户命令-----
-            byte len = (byte)(menuData.GetByteData().Length + 4);//---数据长度----
+            byte len = (byte)(value.Length + 4);//---数据长度----
 
-            byte[] crcData = new byte[10 + len];
+            byte[] crcData = new byte[10 + value.Length];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
 
-            Buffer.BlockCopy(menuData.GetByteData(), 0, crcData, 10, menuData.GetByteData().Length);//----命令数据-----
+            Buffer.BlockCopy(value, 0, crcData, 10, value.Length);//----命令数据-----
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
             Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---

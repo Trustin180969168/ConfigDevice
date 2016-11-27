@@ -59,6 +59,7 @@ namespace ConfigDevice
             //------基本协议--------
             Target = new byte[3];
             Source = new byte[3];
+
             Page = new byte[1];
             Command = new byte[2];         
             CrcCode = new byte[4];

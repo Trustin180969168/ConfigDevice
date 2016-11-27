@@ -313,7 +313,7 @@ namespace ConfigDevice
         public UdpData Udp;//---包数据---
         public event CallbackUdpAction CallBackAction;//----委托操作----    
         public EndPoint RemotePoint;//---标识网络地址---
-        public object[] Values;
+        public object[] Parameters;
         public long ActionCount = long.MaxValue; 
         public CallbackUdpAction GetCallBackAction
         {
@@ -325,7 +325,7 @@ namespace ConfigDevice
             Udp = udp;
             CallBackAction = callBack;
             RemotePoint = endPoint;
-            Values = objs;//回调时可能需要其他参数,
+            Parameters = objs;//回调时可能需要其他参数,
         }
 
         public CallbackFromUDP()
@@ -336,6 +336,12 @@ namespace ConfigDevice
         public CallbackFromUDP(CallbackUdpAction callBack)
         {
             CallBackAction = callBack;
+        }
+
+        public CallbackFromUDP(CallbackUdpAction callBack, object[] objs)
+        {
+            CallBackAction = callBack;
+            Parameters = objs;
         }
 
         /// <summary>

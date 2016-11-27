@@ -4,7 +4,9 @@ using System.Text;
 
 namespace ConfigDevice
 {
-    class WeiXinMenuList
+    public abstract class MenuView
     {
+        public abstract void InitMenuView();
+
     }
 }

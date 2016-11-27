@@ -20,7 +20,7 @@ namespace ConfigDevice
         public const string DC_PARENT_ID= "ParentID";//父ID
         public const string DC_SETTING = "Setting";//配置
         public const string DC_SEQ = "Seq";//顺序
-
+        public const string DC_FLAG = "Flag";//标志位
     
     }
 

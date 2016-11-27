@@ -247,7 +247,7 @@ namespace ConfigDevice
                         continue; 
                     }
                     UdpData udpReceive = ReceiveData(remotePoint);//-----接收UDP数据------
-                   
+                    if (udpReceive == null) continue;
                     if (udpReceive.PacketKind[0] == PackegeSendReply.REPLY)//------回复的UDP-----
                     {
                         if (pcCallBackList.ContainsKey(udpReceive.PacketCodeStr))//----找出对应的回复----
@@ -259,14 +259,14 @@ namespace ConfigDevice
                         }
                         if (crcUdpData(udpReceive)) //---校验是否是错误的包 -------- 
                         {                           
-                            state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----                               
+                            state.ActionCallback(udpReceive, state.Parameters);//----开启异步线程回调----                               
                             if (!isBroadCastData(state.Udp)) //-----如果发送的是广播包,不能删除-----
                                 RemovePCCallbackList(udpReceive.PacketCodeStr);//---删除已经回调的----------
                         }
                         else//----CRC错误,则重发----
                         {
                             RemovePCCallbackList(udpReceive.PacketCodeStr);
-                            SendData(state.Udp, state.RemotePoint, state.GetCallBackAction, state.Values);
+                            SendData(state.Udp, state.RemotePoint, state.GetCallBackAction, state.Parameters);
                         }
                     }
                     else if (udpReceive.PacketKind[0] == PackegeSendReply.SEND)//-------添加到RJ45设备发送表---------
@@ -304,7 +304,7 @@ namespace ConfigDevice
                             if (state.ActionCount > 0)
                             {
                                 state.ActionCount--;//修改执行次数
-                                state.ActionCallback(udpReceive, state.Values);//----开启异步线程回调----                                  
+                                state.ActionCallback(udpReceive, state.Parameters);//----开启异步线程回调----                                  
                             }
                         }
                         else

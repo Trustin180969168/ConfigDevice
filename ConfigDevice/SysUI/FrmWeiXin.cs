@@ -217,7 +217,7 @@ namespace ConfigDevice
         /// </summary>
         private void initMenus()
         {
-            weiXinEdit.InitMenu();
+            weiXinEdit.WeiXinMenu.InitMenu();
                 //---编辑菜单类型----
                 cbx = new GridViewComboBox();
                 cbx.Items.Add(MenuKind.MS_COBJ_ENV_NAME);//环境传感器
@@ -231,7 +231,7 @@ namespace ConfigDevice
 
                 treeMenu.KeyFieldName = MenuConfig.DC_ID;
                 treeMenu.ParentFieldName = MenuConfig.DC_PARENT_ID;
-                treeMenu.DataSource = weiXinEdit.DataTableMenu;
+                treeMenu.DataSource = weiXinEdit.WeiXinMenu.DataTableMenu;
 
                 if (treeMenu.Nodes.Count > 0)
                     treeMenu.Nodes[0].Expanded = true;
@@ -249,7 +249,7 @@ namespace ConfigDevice
         {
             TreeListNode selectNode = treeMenu.FocusedNode;
             if (selectNode == null || selectNode.Level != 1 || selectNode.Nodes.Count >= 9) return;
-            weiXinEdit.AddMenu(selectNode.GetValue(MenuConfig.DC_ID).ToString(), selectNode.Nodes.Count + 1);
+            weiXinEdit.WeiXinMenu.AddMenu(selectNode.GetValue(MenuConfig.DC_ID).ToString(), selectNode.Nodes.Count);
 
             selectNode.ExpandAll();  
         }
@@ -263,7 +263,7 @@ namespace ConfigDevice
         {
             TreeListNode selectNode = treeMenu.FocusedNode;
             if (selectNode == null || selectNode.Level != 2 ) return;
-            weiXinEdit.DelMenu(selectNode.GetValue(MenuConfig.DC_ID).ToString());
+            weiXinEdit.WeiXinMenu.DelMenu(selectNode.GetValue(MenuConfig.DC_ID).ToString());
 
             selectNode.ExpandAll();
         }
@@ -306,13 +306,34 @@ namespace ConfigDevice
 
         }
 
+        /// <summary>
+        /// 根据2级菜单读取第三级菜单
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButton1_Click(object sender, EventArgs e)
         {
             TreeListNode selectNode = treeMenu.FocusedNode;
-            if (selectNode == null) return;
+            if (selectNode == null || selectNode.Level != 1) return;
+            string code = selectNode.GetValue(MenuConfig.DC_ID).ToString();
+            weiXinEdit.WeiXinMenu.ReadMenu(code + ".0", code + ".8");//---三级菜单最多9个----
 
-            weiXinEdit.ReadMenu(selectNode.Level, selectNode.Nodes.Count);
         }
+
+        /// <summary>
+        /// 保存当前三级菜单
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+            TreeListNode selectNode = treeMenu.FocusedNode;
+            if (selectNode == null || selectNode.Level != 2) return;
+            string code = selectNode.GetValue(MenuConfig.DC_ID).ToString();
+            weiXinEdit.WeiXinMenu.SaveMenu(code); 
+        }
+
+ 
 
 
     }

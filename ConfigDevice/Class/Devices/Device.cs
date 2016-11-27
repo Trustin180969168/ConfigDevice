@@ -296,7 +296,7 @@ namespace ConfigDevice
         public void SaveDeviceIDAndName(DeviceData data)
         {
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_INF, MAC, callbackSaveID);//回调返回的一个设备结果
-            callbackSaveID.Values = new object[] { data };//---保存回调参数----
+            callbackSaveID.Parameters = new object[] { data };//---保存回调参数----
             UdpData udp = createSaveDeviceIDUdp(data.DeviceID);
             MySocket.GetInstance().SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveDeviceID), new object[] { udp });
         }
