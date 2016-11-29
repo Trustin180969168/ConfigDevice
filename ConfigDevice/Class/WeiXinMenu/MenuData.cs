@@ -19,13 +19,35 @@ namespace ConfigDevice
             byte[] data = new byte[9+byteName.Length]; 
             byte[] byteMenuID = ConvertTools.GetByteFromUInt32(MenuID);
 
-            Buffer.BlockCopy(data, 0, byteMenuID, 0, 4);
+            Buffer.BlockCopy(byteMenuID, 0, data, 0, 4);
             data[4] = (byte)KindID; 
          
-            Buffer.BlockCopy(byteName, 0, data, 9, byteName.Length);
+            Buffer.BlockCopy(byteName, 0, data, 8, byteName.Length);
             return data;
 
         }
+
+        public string GetMenuCode()
+        {            
+            int[] level = new int[3];
+            int result = WeiXinMenu.GetMemuLevel((int)MenuID, level);//获取level的层级关系
+            if (result < 0) return "";
+            string menuCode = level[0].ToString() + "." + level[1].ToString() + "." + level[2].ToString();
+
+            return menuCode;
+        }
+
+        public string GetMenuParentCode()
+        {
+
+            int[] level = new int[3];
+            int result = WeiXinMenu.GetMemuLevel((int)MenuID, level);//获取level的层级关系
+            if (result < 0) return "";
+            string menuCode = level[0].ToString() + "." + level[1].ToString();
+
+            return menuCode;
+        }
+
         public MenuData()
         {
         }
@@ -41,6 +63,8 @@ namespace ConfigDevice
             Title = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Trim().Replace("", "");
 
         }
+
+        
  
 
     }

@@ -9,14 +9,14 @@ namespace ConfigDevice
 
     public class WeiXin : Network
     {
-        public WeiXinMeun WeiXinMenu;//---微信菜单模块
+        public WeiXinMenu WeiXinMenu;//---微信菜单模块
         public string Address = "";//设备地址  
 
         private CallbackFromUDP callbackGetAddress;
         public WeiXin(UserUdpData userData)
             : base(userData)
         {
-            WeiXinMenu = new WeiXinMeun(this);
+            WeiXinMenu = new WeiXinMenu(this);
             callbackGetAddress = new CallbackFromUDP(getCallbackAddressData);
         } 
 

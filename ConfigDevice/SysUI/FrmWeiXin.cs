@@ -15,12 +15,13 @@ namespace ConfigDevice
         public WeiXin weiXinEdit = null;
        
         DataTable dtPosition = new DataTable("Position"); 
-        GridViewComboBox cbx;//菜单类型选择编辑
+        GridViewComboBox cbxMenuKind=new GridViewComboBox();//菜单类型选择编辑
         private Dictionary<int, string> listNetworkKey = new Dictionary<int, string>();//保存对应关系
 
         public FrmWeiXin()
         {
             InitializeComponent();
+            cbxMenuKind.SelectedIndexChanged += this.cbxMenuKindChanged;
    
             num.FieldName = Position.DC_NUM;
             password.FieldName = Position.DC_HAS_PASSWORD;
@@ -36,10 +37,20 @@ namespace ConfigDevice
         {
             weiXinEdit.OnCallbackUI_Action += this.callbackUI;
             initCbxNetwork();
-            initData();
+            initPositionData();
             initMenus();
 
             loadData();
+        }
+
+        private void cbxMenuKindChanged(Object sender, EventArgs e)
+        {
+            TreeListNode selectNode = treeMenu.FocusedNode;
+            if (selectNode == null || selectNode.Level != 2) return;
+            string code = selectNode.GetValue(MenuConfig.DC_ID).ToString();
+            string kindName = (string)cbxMenuKind.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
+          
+            weiXinEdit.WeiXinMenu.UpdateMenuKind(code,kindName); 
         }
 
         /// <summary>
@@ -47,13 +58,14 @@ namespace ConfigDevice
         /// </summary>
         private void loadData()
         {
-            weiXinEdit.ReadAddress(); 
+            weiXinEdit.ReadAddress();
+            weiXinEdit.WeiXinMenu.ReadAllMenu();
         }
 
         /// <summary>
         /// 初始化位置列表
         /// </summary>
-        private void initData()
+        private void initPositionData()
         {
             dtPosition.Clear(); dtPosition.AcceptChanges();
             foreach (Position position in weiXinEdit.ListPosition)
@@ -210,6 +222,7 @@ namespace ConfigDevice
         private void edtNetworkID_EditValueChanged(object sender, EventArgs e)
         {
 
+
         } 
 
         /// <summary>
@@ -218,27 +231,25 @@ namespace ConfigDevice
         private void initMenus()
         {
             weiXinEdit.WeiXinMenu.InitMenu();
-                //---编辑菜单类型----
-                cbx = new GridViewComboBox();
-                cbx.Items.Add(MenuKind.MS_COBJ_ENV_NAME);//环境传感器
-                cbx.Items.Add(MenuKind.MS_COBJ_CMD_NAME);//指令控制
-                cbx.Items.Add(MenuKind.MS_COBJ_DWSAF_NAME);//门窗安全
-                cbx.Items.Add(MenuKind.MS_COBJ_DOOR_NAME);//入户门
-                cbx.Items.Add(MenuKind.MS_COBJ_MORE_NAME);//更多
-                tlcKindName.ColumnEdit = cbx;
-                tlcSetting.ColumnEdit = linkEdit;
-                tlcTitle.ColumnEdit = gedtName;
+            //---编辑菜单类型---- 
+            cbxMenuKind.Items.Add(MenuKind.MS_COBJ_ENV_NAME);//环境传感器
+            cbxMenuKind.Items.Add(MenuKind.MS_COBJ_CMD_NAME);//指令控制
+            cbxMenuKind.Items.Add(MenuKind.MS_COBJ_DWSAF_NAME);//门窗安全
+            cbxMenuKind.Items.Add(MenuKind.MS_COBJ_DOOR_NAME);//入户门
+            cbxMenuKind.Items.Add(MenuKind.MS_COBJ_MORE_NAME);//更多
+            tlcKindName.ColumnEdit = cbxMenuKind;
+            tlcSetting.ColumnEdit = linkEdit;
+            tlcTitle.ColumnEdit = gedtName;
 
-                treeMenu.KeyFieldName = MenuConfig.DC_ID;
-                treeMenu.ParentFieldName = MenuConfig.DC_PARENT_ID;
-                treeMenu.DataSource = weiXinEdit.WeiXinMenu.DataTableMenu;
+            treeMenu.KeyFieldName = MenuConfig.DC_ID;
+            treeMenu.ParentFieldName = MenuConfig.DC_PARENT_ID;
+            treeMenu.DataSource = weiXinEdit.WeiXinMenu.DataTableMenu;
 
-                if (treeMenu.Nodes.Count > 0)
-                    treeMenu.Nodes[0].Expanded = true;
-                treeMenu.BestFitColumns(); 
+            if (treeMenu.Nodes.Count > 0)
+                treeMenu.Nodes[0].Expanded = true;
+            treeMenu.BestFitColumns();
 
-           
-        } 
+        }
 
         /// <summary>
         /// 增加菜单
@@ -273,9 +284,7 @@ namespace ConfigDevice
         /// </summary>
         private void btRef_Click(object sender, EventArgs e)
         {
-            TreeListNode selectNode = treeMenu.FocusedNode;
-            if (selectNode == null || selectNode.Level != 1 ) return;
-       
+            weiXinEdit.WeiXinMenu.ReadAllMenu();
         }
 
 
@@ -291,15 +300,15 @@ namespace ConfigDevice
             if (selectNode.Level == 2)
             {
                 tlcKindName.ColumnEdit.ReadOnly = false;
-                tlcTitle.ColumnEdit.ReadOnly = false;               
+                tlcTitle.ColumnEdit.ReadOnly = false;     
             }
             else
             {
                 tlcKindName.ColumnEdit.ReadOnly = true;
-                tlcTitle.ColumnEdit.ReadOnly = true;              
+                tlcTitle.ColumnEdit.ReadOnly = true;       
             }
             int[] aa = new int[10];
-            int num = new MenuList(weiXinEdit).GetMemuNum(selectNode.Level, aa);
+            int num = WeiXinMenu.GetMemuNum(selectNode.Level, aa);
             memoEdit1.Text = "菜单编号:" + num.ToString() + "  \r\n";
             foreach (uint a in aa)
                 memoEdit1.Text += a.ToString() + ", ";
@@ -329,8 +338,22 @@ namespace ConfigDevice
         {
             TreeListNode selectNode = treeMenu.FocusedNode;
             if (selectNode == null || selectNode.Level != 2) return;
-            string code = selectNode.GetValue(MenuConfig.DC_ID).ToString();
+            string code = selectNode.GetValue(MenuConfig.DC_ID).ToString(); 
             weiXinEdit.WeiXinMenu.SaveMenu(code); 
+        }
+
+        private void btSaveMenu_Click(object sender, EventArgs e)
+        { 
+            treeMenu.PostEditor();
+            TreeListNode selectNode = treeMenu.FocusedNode;
+            if (selectNode != null || selectNode.Level == 2)
+            { 
+                string code = selectNode.GetValue(MenuConfig.DC_ID).ToString();
+                DataRow dr = weiXinEdit.WeiXinMenu.FindNodeDataByID(code);
+                dr.EndEdit();
+            }
+
+            weiXinEdit.WeiXinMenu.SaveMenu();
         }
 
  

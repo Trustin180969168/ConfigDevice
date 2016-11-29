@@ -7,24 +7,25 @@ namespace ConfigDevice
     public class WeiXinSecurity
     {
         public MenuData WeiXinMenuData;//编辑的菜单内容
-        public WeiXin WeiXinDevice;//微信设备
+        private WeiXin device;//微信设备
         public CallbackFromUDP callbackSecurityData;//---回调获取指令----
         public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
         private string ObjUuid = Guid.NewGuid().ToString();//唯一标识对象uuid
+        private MySocket mySocket = MySocket.GetInstance();
 
         public void InitWeiXinSecurity(MenuData _menuData,WeiXin _weiXinDevice)
         {
             this.WeiXinMenuData = _menuData;
-            this.WeiXinDevice = _weiXinDevice;
+            this.device = _weiXinDevice;
         }
 
         public WeiXinSecurity()
         {
-            callbackSecurityData = new CallbackFromUDP(getSecurityData,ObjUuid);
+            callbackSecurityData = new CallbackFromUDP(getSecurityData, new object[] { ObjUuid });
         }
 
         /// <summary>
-        /// 获取菜单数据
+        /// 获取菜单安防数据
         /// </summary>
         public void ReadSecurityData()
         {
@@ -52,18 +53,16 @@ namespace ConfigDevice
             byte[] cmd = DeviceConfig.CMD_MMSG_READ_MEMU_NAME;//----用户命令----- 
             byte len = 12;//---数据长度---- 
 
-            byte startNum = (byte)_startNum;
-            byte endNum = (byte)_endNum;
+            byte[] byteMenuID = ConvertTools.GetByteFromUInt32( WeiXinMenuData.MenuID);
+            byte byteKindID = (byte)WeiXinMenuData.KindID;
             byte[] crcData = new byte[10 + len - 4];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
-            byte[] byteStartNum = ConvertTools.GetByteFromUInt32(startNum);//开始菜单
-            byte[] byteEndNum = ConvertTools.GetByteFromUInt32(endNum);//结束菜单
-            Buffer.BlockCopy(byteStartNum, 0, crcData, 10, 4);
-            Buffer.BlockCopy(byteEndNum, 0, crcData, 14, 4);
+            Buffer.BlockCopy(byteMenuID, 0, crcData, 10, 4);//菜单ID
+            crcData[14] = byteKindID; //菜单类型ID 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
             Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
@@ -86,7 +85,7 @@ namespace ConfigDevice
             if ((string)values[0] != ObjUuid) return;//不是本菜单ID不接收.
             UdpTools.ReplyDataUdp(data);//----回复确认----- 
 
-            CallbackUI(new CallbackParameter(ActionKind.ReadMenu, this.WeiXinMenuData.MenuID, new object[] { userData }));//----界面回调------
+            OnCallbackUI_Action(new CallbackParameter(ActionKind.ReadSafe, this.WeiXinMenuData.MenuID, new object[] { userData }));//----界面回调------
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace ConfigDevice.Class.WeiXinMenu
+﻿namespace ConfigDevice
 {
     partial class WeiXinSecurityEdit
     {

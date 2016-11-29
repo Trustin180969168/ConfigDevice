@@ -73,6 +73,7 @@
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.pageWeiXin = new DevExpress.XtraTab.XtraTabPage();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.memoEdit1 = new DevExpress.XtraEditors.MemoEdit();
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
@@ -89,7 +90,8 @@
             this.btRef = new System.Windows.Forms.ToolStripButton();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            this.btSaveMenu = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSoftwareVer.Properties)).BeginInit();
@@ -604,6 +606,15 @@
             this.panelControl2.Size = new System.Drawing.Size(783, 505);
             this.panelControl2.TabIndex = 18;
             // 
+            // simpleButton2
+            // 
+            this.simpleButton2.Location = new System.Drawing.Point(491, 50);
+            this.simpleButton2.Name = "simpleButton2";
+            this.simpleButton2.Size = new System.Drawing.Size(75, 23);
+            this.simpleButton2.TabIndex = 20;
+            this.simpleButton2.Text = "保存";
+            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            // 
             // simpleButton1
             // 
             this.simpleButton1.Location = new System.Drawing.Point(375, 50);
@@ -716,9 +727,11 @@
             // 
             // tsMenu
             // 
-            this.tsMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.tsMenu.Font = new System.Drawing.Font("Tahoma", 12F);
             this.tsMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btSaveMenu,
+            this.toolStripSeparator1,
             this.btAdd,
             this.btDel,
             this.btRef});
@@ -772,14 +785,21 @@
             this.xtraTabPage2.Size = new System.Drawing.Size(783, 505);
             this.xtraTabPage2.Text = "门设置";
             // 
-            // simpleButton2
+            // btSaveMenu
             // 
-            this.simpleButton2.Location = new System.Drawing.Point(491, 50);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(75, 23);
-            this.simpleButton2.TabIndex = 20;
-            this.simpleButton2.Text = "保存";
-            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            this.btSaveMenu.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btSaveMenu.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSaveMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSaveMenu.Name = "btSaveMenu";
+            this.btSaveMenu.Size = new System.Drawing.Size(101, 28);
+            this.btSaveMenu.Text = "保存菜单";
+            this.btSaveMenu.Click += new System.EventHandler(this.btSaveMenu_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // FrmWeiXin
             // 
@@ -893,5 +913,7 @@
         private DevExpress.XtraEditors.TextEdit edtAddress;
         private System.Windows.Forms.Label label10;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private System.Windows.Forms.ToolStripButton btSaveMenu;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
