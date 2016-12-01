@@ -58,6 +58,13 @@ namespace ConfigDevice
         /// </summary>
         private void loadData()
         {
+            if (weiXinEdit.State == NetworkConfig.STATE_CONNECTED)
+                weiXinEdit.SearchVer();
+            else
+            { 
+                edtSoftwareVer.Text = ""; 
+                edtHarewareVer.Text = ""; 
+            }
             weiXinEdit.ReadAddress();
             weiXinEdit.WeiXinMenu.ReadAllMenu();
         }
@@ -80,12 +87,6 @@ namespace ConfigDevice
             edtNetworkIP.IP = weiXinEdit.NetworkIP;
             edtMask.IP = SysConfig.SubnetMask.ToString();//----目前固定 255.255.255.0----
             edtGateway.IP = edtNetworkIP.DefaultGateWay;//----目前固定xxx.xxx.xxx.1-----
-
-            if (weiXinEdit.State == NetworkConfig.STATE_CONNECTED)
-                weiXinEdit.SearchVer();
-            else
-            { edtSoftwareVer.Text = ""; edtHarewareVer.Text = ""; }
-                
 
         }
 
@@ -134,11 +135,14 @@ namespace ConfigDevice
                 this.Invoke(new CallbackUIAction(this.callbackUI), callbackParameter);
                 return;
             }
-            edtSoftwareVer.Text = weiXinEdit.SoftwareVer;
-            edtHarewareVer.Text = weiXinEdit.HardwareVer;
-
+            if (callbackParameter.Action == ActionKind.GetVer)
+            {
+                edtSoftwareVer.Text = weiXinEdit.SoftwareVer;
+                edtHarewareVer.Text = weiXinEdit.HardwareVer;
+            }
             if (callbackParameter.Action == ActionKind.SaveNetworkPosition)
             {
+
                 Position pos = callbackParameter.Parameters[0] as Position;
                 dtPosition.Rows[pos.Num - 1].AcceptChanges();
             }
@@ -146,6 +150,12 @@ namespace ConfigDevice
             {
                 edtAddress.Text = weiXinEdit.Address;
             }
+            if (callbackParameter.DeviceID == weiXinEdit.DeviceID && callbackParameter.Action == ActionKind.GetVer)
+            {
+                edtSoftwareVer.Text = weiXinEdit.SoftwareVer;
+                edtHarewareVer.Text = weiXinEdit.HardwareVer;
+            }
+
         }
 
         /// <summary>
@@ -300,7 +310,7 @@ namespace ConfigDevice
             if (selectNode.Level == 2)
             {
                 tlcKindName.ColumnEdit.ReadOnly = false;
-                tlcTitle.ColumnEdit.ReadOnly = false;     
+                tlcTitle.ColumnEdit.ReadOnly = false;   
             }
             else
             {
@@ -309,10 +319,9 @@ namespace ConfigDevice
             }
             int[] aa = new int[10];
             int num = WeiXinMenu.GetMemuNum(selectNode.Level, aa);
-            memoEdit1.Text = "菜单编号:" + num.ToString() + "  \r\n";
-            foreach (uint a in aa)
-                memoEdit1.Text += a.ToString() + ", ";
-
+ 
+            //---当前菜单----
+            lblMenu.Text = selectNode.GetDisplayText(tlcTitle);
         }
 
         /// <summary>
