@@ -134,7 +134,7 @@
             this.dcDeviceValue.AppearanceHeader.Options.UseTextOptions = true;
             this.dcDeviceValue.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcDeviceValue.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcDeviceValue.Caption = "区域名称";
+            this.dcDeviceValue.Caption = "设备名称";
             this.dcDeviceValue.Name = "dcDeviceValue";
             this.dcDeviceValue.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.dcDeviceValue.Visible = true;

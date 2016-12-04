@@ -465,8 +465,11 @@ namespace ConfigDevice
             udp.PacketProperty[0] = BroadcastKind.Broadcast;//----包属性----
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
             Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议-----
-
-            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
+            byte[] target;
+            //if (ByteKindID == DeviceConfig.EQUIPMENT_SERVER)
+            //    target = new byte[] { 0xFD, ByteNetworkID, ByteKindID };//----目标信息--;
+            //else
+                target = new byte[] { ByteDeviceID, ByteNetworkID, ByteKindID };//----目标信息--
             byte[] source = new byte[] { 0xFF, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = DeviceConfig.CMD_PC_CONNECT;//----用户命令-----
@@ -707,7 +710,6 @@ namespace ConfigDevice
             Buffer.BlockCopy(crc, 0, udp.ProtocolData, 10, 4);
             Array.Resize(ref udp.ProtocolData, 14);//重新设定长度    
             udp.Length = 28 + 14 + 1;
-
         
             mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort);
         }

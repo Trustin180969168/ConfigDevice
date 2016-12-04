@@ -72,9 +72,15 @@ namespace ConfigDevice
                     if (callbackParameter.Parameters != null && callbackParameter.DeviceID == panelKey.DeviceID)//---电机回路名称--
                     {
                         if (callbackParameter.Action == ActionKind.ReadCircuit)
-                            if(!hasInitLogicAndCommand)
+                        {
+                            if (!hasInitLogicAndCommand)
                                 initLogicAndCommand();
-                        
+                            else if (!viewCommandEdit.NeedInit)
+                            {
+                                
+                                updateCommandGroupName();
+                            }
+                        }
                     }
                     if (callbackParameter.Action == ActionKind.ReadOption)
                     {
@@ -103,6 +109,26 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 更新指令配置组名
+        /// </summary>
+        private void updateCommandGroupName()
+        {
+            viewCommandEdit.CommmandGroups.Clear();
+            foreach (int key in panelKey.Circuit.ListCircuitIDAndName.Keys)
+            {
+                if (key == 25 || key == 26)
+                    viewCommandEdit.CommmandGroups.Add("离/回家:"+panelKey.Circuit.ListCircuitIDAndName[key]);    //---指令组选择---- 
+                else if (key >= 1 && key<=8)
+                    viewCommandEdit.CommmandGroups.Add("场景:" + panelKey.Circuit.ListCircuitIDAndName[key]);    //---指令组选择---- 
+                else if (key >= 9 && key <= 16)
+                    viewCommandEdit.CommmandGroups.Add("灯光:" + panelKey.Circuit.ListCircuitIDAndName[key]);    //---指令组选择---- 
+                else if (key >= 17 && key <= 24)
+                    viewCommandEdit.CommmandGroups.Add("窗帘:" + panelKey.Circuit.ListCircuitIDAndName[key]);    //---指令组选择---- 
+      
+            } viewCommandEdit.UpdateGroupName();
+        }
+
+        /// <summary>
         /// 加载数据
         /// </summary>
         private void loadData()
@@ -119,15 +145,12 @@ namespace ConfigDevice
         {
             if (hasInitLogicAndCommand) return;
             viewCommandEdit.CommmandGroups.Clear();
-            foreach (int key in panelKey.Circuit.ListCircuitIDAndName.Keys)
-                viewCommandEdit.CommmandGroups.Add(panelKey.Circuit.ListCircuitIDAndName[key]);    //---指令组选择---- 
             if (viewCommandEdit.NeedInit)
             {
+                updateCommandGroupName();
                 viewCommandEdit.InitViewCommand(panelKey);
                 viewCommandEdit.CbxCommandGroup.SelectedIndex = 0;
-            }
-            else if (!viewCommandEdit.NeedInit)
-                viewCommandEdit.UpdateGroupName();
+            }  
             hasInitLogicAndCommand = true;
         }
 
@@ -180,7 +203,6 @@ namespace ConfigDevice
         /// </summary>
         private void btSave_Click(object sender, EventArgs e)
         {
-
             //---系统配置配置-------
             LCDPanelOptionData panelOptionDataValue = new LCDPanelOptionData(panelOptionData.GetPanelOptionValue());
             panelOptionDataValue.PointLightLuminance = (byte)tbcLight.Value;        //---指示灯亮度----
@@ -209,9 +231,9 @@ namespace ConfigDevice
             listCurtain.SaveKeyData();//---窗帘页---
             listScene.SaveKeyData();//---场景页----
             listLight.SaveKeyData();//----灯光页----
-            listLeaveBack.SaveKeyData();//---离家回家页----
-            listLeaveBack.SaveKeyData();//---保存按键配置---------
-            
+            listLeaveBack.SaveKeyData();//---离家回家页---- 
+
+            panelKey.Circuit.ReadRoadTitle();    //重新读取回路
         }
 
         /// <summary>

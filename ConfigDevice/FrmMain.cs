@@ -239,7 +239,7 @@ namespace ConfigDevice
                 CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
                 return;
             }
-            Network network = SysConfig.ListNetworks[dr[DeviceConfig.DC_NETWORK_IP].ToString()];
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             if (network.ByteKindID == DeviceConfig.EQUIPMENT_SERVER) return;
             pw.ShowWaittingInfo(MaxWaittingSeconds, "正在加载...");
             deviceCtrl.SearchDevices(SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()]);

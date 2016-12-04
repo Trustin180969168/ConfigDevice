@@ -246,7 +246,7 @@ namespace ConfigDevice
         /// </summary>
         public void InitViewCommand(Device device)
         {
-            dtSelectDevices = ViewEditCtrl.GetDevicesLookupData(ViewConfig.SELECT_LOGIC_DEVICE_QUERY_CONDITION);//----初始化设备选择列表----     
+            dtSelectDevices = ViewEditCtrl.GetDevicesLookupData(ViewConfig.SELECT_COMMAND_DEVICE_QUERY_CONDITION);//----初始化设备选择列表----     
             
             cbxGroup.SelectedIndex = -1;
             cbxGroup.Items.Clear();
