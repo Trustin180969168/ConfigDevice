@@ -25,7 +25,15 @@ namespace ConfigDevice
 
     }
 
+    public class MoreElse : MenuView
+    {
 
+        public override void InitMenuView()
+        {
+
+        }
+
+    }
 
 
 }

@@ -8,7 +8,7 @@ namespace ConfigDevice
     {
         public override void InitMenuView()
         {
-            throw new NotImplementedException();
+         
         }
     }
 }
