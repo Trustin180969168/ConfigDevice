@@ -24,7 +24,13 @@ namespace ConfigDevice
     
     }
 
-
+    public class MenuSecurityKind
+    { 
+        public const int SECURITY_OUT = 1;//室外布放
+        public const int SECURITY_ALL = 2;//全部布放
+        public const int SECURITY_HOME_CANCEL = 1;//回家键撤防
+        public const int SECURITY_HOME = 0;//回家键布防 
+    }
 
     public class MenuKind
     {

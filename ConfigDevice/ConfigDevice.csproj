@@ -58,6 +58,7 @@
     <Reference Include="DevExpress.XtraNavBar.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraNavBar.v8.1.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -72,10 +73,13 @@
       <HintPath>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraRichTextEdit.v8.1\8.1.1.0__49d90c14d24271b5\DevExpress.XtraRichTextEdit.v8.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
+    <Reference Include="DevExpress.XtraTreeList.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.XtraVerticalGrid.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraVerticalGrid.v8.1.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -113,8 +117,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Class\WeiXinMenu\WeiXinSecurityEdit.resx">
-      <DependentUpon>WeiXinSecurityEdit.cs</DependentUpon>
+    <EmbeddedResource Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityEdit.resx">
+      <DependentUpon>MenuSecurityEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\FrmFunctionsBoard.resx">
@@ -133,7 +137,7 @@
       <DependentUpon>FrmButton4.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SysUI\FrmWeiXin.resx">
+    <EmbeddedResource Include="Class\WeiXinMenu\FrmWeiXin.resx">
       <DependentUpon>FrmWeiXin.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -457,25 +461,32 @@
     <Compile Include="Class\ViewLogicSetting\ViewLogicO2.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicLuminance.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicWindy.cs" />
-    <Compile Include="Class\WeiXinMenu\CommandMenuView.cs" />
-    <Compile Include="Class\WeiXinMenu\MenuConfig.cs" />
-    <Compile Include="Class\WeiXinMenu\MenuEdit.cs" />
-    <Compile Include="Class\WeiXinMenu\MenuKind.cs" />
-    <Compile Include="Class\WeiXinMenu\MenuList.cs" />
-    <Compile Include="Class\WeiXinMenu\MenuView.cs" />
-    <Compile Include="Class\WeiXinMenu\OtherMenuViews.cs" />
-    <Compile Include="Class\WeiXinMenu\EnvironmentMenuView.cs" />
-    <Compile Include="Class\WeiXinMenu\WeiXinMeun.cs" />
-    <Compile Include="Class\WeiXinMenu\WeiXinSecurity.cs" />
-    <Compile Include="Class\WeiXinMenu\WeiXinSecurityEdit.cs">
+    <Compile Include="Class\WeiXinMenu\Data\MenuSecurityData.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuCtrl.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditor\BaseMenuEdit.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuEditControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Class\WeiXinMenu\WeiXinSecurityEdit.Designer.cs">
-      <DependentUpon>WeiXinSecurityEdit.cs</DependentUpon>
+    <Compile Include="Class\WeiXinMenu\MenuView\CommandMenuView.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuConfig.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEdit.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditor\MenuSecurity.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuKind.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuList.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuView\BaseMenuView.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuView\OtherMenuViews.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuView\EnvironmentMenuView.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuView\SecurityMenuView.cs" />
+    <Compile Include="Class\WeiXinMenu\WeiXinMeun.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityEdit.Designer.cs">
+      <DependentUpon>MenuSecurityEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\KeyData.cs" />
     <Compile Include="Data\LCDPanelOptionData.cs" />
-    <Compile Include="Class\WeiXinMenu\MenuData.cs" />
+    <Compile Include="Class\WeiXinMenu\Data\MenuData.cs" />
     <Compile Include="Data\SensorStateData.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
     <Compile Include="Class\Manage\ViewEditCtrl.cs" />
@@ -537,10 +548,10 @@
     <Compile Include="DeviceUI\FrmButton4.Designer.cs">
       <DependentUpon>FrmButton4.cs</DependentUpon>
     </Compile>
-    <Compile Include="SysUI\FrmWeiXin.cs">
+    <Compile Include="Class\WeiXinMenu\FrmWeiXin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SysUI\FrmWeiXin.Designer.cs">
+    <Compile Include="Class\WeiXinMenu\FrmWeiXin.Designer.cs">
       <DependentUpon>FrmWeiXin.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolsUI\LCDUI\KeySettingTools.cs">

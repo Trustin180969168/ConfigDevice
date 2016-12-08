@@ -241,43 +241,64 @@ namespace ConfigDevice
                 CallbackFromUDP state;//回调对象
                 while (true)
                 {
-                    if (mySocket == null || mySocket.Available < 1)//----等待数据接收-----
-                    { 
-                        Thread.Sleep(15);
-                        continue; 
-                    }
-                    UdpData udpReceive = ReceiveData(remotePoint);//-----接收UDP数据------
-                    if (udpReceive == null) continue;
-                    if (udpReceive.PacketKind[0] == PackegeSendReply.REPLY)//------回复的UDP-----
+                    try
                     {
-                        if (pcCallBackList.ContainsKey(udpReceive.PacketCodeStr))//----找出对应的回复----
-                            state = pcCallBackList[udpReceive.PacketCodeStr];
-                        else
+
+                        if (mySocket == null || mySocket.Available < 1)//----等待数据接收-----
                         {
-                            RemovePCCallbackList(udpReceive.PacketCodeStr);//---删除无用的回复包-----
-                            continue;//----没有对应请求,获取下一个udp -------                         
+                            Thread.Sleep(15);
+                            continue;
                         }
-                        if (crcUdpData(udpReceive)) //---校验是否是错误的包 -------- 
-                        {                           
-                            state.ActionCallback(udpReceive, state.Parameters);//----开启异步线程回调----                               
-                            if (!isBroadCastData(state.Udp)) //-----如果发送的是广播包,不能删除-----
-                                RemovePCCallbackList(udpReceive.PacketCodeStr);//---删除已经回调的----------
-                        }
-                        else//----CRC错误,则重发----
-                        {
-                            RemovePCCallbackList(udpReceive.PacketCodeStr);
-                            SendData(state.Udp, state.RemotePoint, state.GetCallBackAction, state.Parameters);
-                        }
-                    }
-                    else if (udpReceive.PacketKind[0] == PackegeSendReply.SEND)//-------添加到RJ45设备发送表---------
-                    {
+                        UdpData udpReceive = ReceiveData(remotePoint);//-----接收UDP数据------
+                        if (udpReceive == null) continue;
                         if (!crcUdpData(udpReceive)) continue; //---crc校验失败则忽略----
-                        ReplyUdpData(udpReceive);//----回复RJ45主动包----
-                        AddRJ45SendList(udpReceive.PacketCodeStr, udpReceive);//---添加到RJ45主动包回调表     
-                        UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据-----  
-                        rj45CallBack(userData.CommandStr, udpReceive);//--找到回调并执行
-        
+                        if (udpReceive.PacketKind[0] == PackegeSendReply.REPLY)//------回复的UDP-----
+                        {
+                            //---云平台目前有bug,网络刷新链接包需要暂时进行特殊处理
+                            try
+                            {
+                                UserUdpData userUdpData = new UserUdpData(udpReceive);
+                                if (CommonTools.BytesEuqals(userUdpData.Command, DeviceConfig.CMD_PC_CONNECTING))
+                                {
+                                    ReplyUdpData(udpReceive);//----回复RJ45主动包----
+                                    AddRJ45SendList(udpReceive.PacketCodeStr, udpReceive);//---添加到RJ45主动包回调表     
+                                    UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据-----  
+                                    rj45CallBack(userData.CommandStr, udpReceive);//--找到回调并执行
+                                    continue;
+                                }
+                            }
+                            catch { }
+                            //---------------------以上为特殊处理------------------------------
+
+                            if (pcCallBackList.ContainsKey(udpReceive.PacketCodeStr))//----找出对应的回复----
+                                state = pcCallBackList[udpReceive.PacketCodeStr];
+                            else
+                            {
+                                RemovePCCallbackList(udpReceive.PacketCodeStr);//---删除无用的回复包-----
+                                continue;//----没有对应请求,获取下一个udp -------                         
+                            }
+                            if (crcUdpData(udpReceive)) //---校验是否是错误的包 -------- 
+                            {
+                                state.ActionCallback(udpReceive, state.Parameters);//----开启异步线程回调----                               
+                                if (!isBroadCastData(state.Udp)) //-----如果发送的是广播包,不能删除-----
+                                    RemovePCCallbackList(udpReceive.PacketCodeStr);//---删除已经回调的----------
+                            }
+                            else//----CRC错误,则重发----
+                            {
+                                RemovePCCallbackList(udpReceive.PacketCodeStr);
+                                SendData(state.Udp, state.RemotePoint, state.GetCallBackAction, state.Parameters);
+                            }
+                        }
+                        else if (udpReceive.PacketKind[0] == PackegeSendReply.SEND)//-------添加到RJ45设备发送表---------
+                        {
+                            ReplyUdpData(udpReceive);//----回复RJ45主动包----
+                            AddRJ45SendList(udpReceive.PacketCodeStr, udpReceive);//---添加到RJ45主动包回调表     
+                            UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据-----  
+                            rj45CallBack(userData.CommandStr, udpReceive);//--找到回调并执行
+
+                        }
                     }
+                    catch  { continue; }
                 }
             }
         }
