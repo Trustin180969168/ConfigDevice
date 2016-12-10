@@ -8,8 +8,7 @@ namespace ConfigDevice
     { 
 
         public MenuSecurity(WeiXin device,MenuData data):base(device,data)
-        { 
-            
+        {
         }
 
         /// <summary>
@@ -18,7 +17,7 @@ namespace ConfigDevice
         public void ReadMenuSecurity()
         {
             UdpData udpSend = createReadMenuSecurityUdp();
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_MMSG_READ_SECURITY_CFG,WeiXinDevice.DeviceID,callbackGetEditData);//---注册回调----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_SECURITY_CFG,this.MenuData.MenuID.ToString(),callbackGetEditData);//---注册回调----
             mySocket.SendData(udpSend, WeiXinDevice.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadMenuSecurity), null);
         }
         private void callbackReadMenuSecurity(UdpData udpReply, object[] values)
@@ -38,9 +37,8 @@ namespace ConfigDevice
             byte[] target = new byte[] { WeiXinDevice.ByteDeviceID, WeiXinDevice.ByteNetworkId, WeiXinDevice.ByteKindID };//----目标信息--
             byte[] source = new byte[] { WeiXinDevice.BytePCAddress, WeiXinDevice.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_MMSG_READ_MEMU_NAME;//----用户命令----- 
+            byte[] cmd = DeviceConfig.CMD_MMSG_READ_SECURITY_CFG;//----用户命令----- 
             byte len = 12;//---数据长度---- 
-
 
             byte[] crcData = new byte[10 + len - 4];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
@@ -72,9 +70,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != WeiXinDevice.DeviceID) return;
             UdpTools.ReplyDataUdp(data);//----回复确认-----
-            MenuSecurityData menuSecurityData = new MenuSecurityData();
-            menuSecurityData.ByteSecurityKindID = userData.Data[5];
-            menuSecurityData.ByteSecurityHomeCancelID = userData.Data[6];
+            MenuSecurityData menuSecurityData = new MenuSecurityData(userData); 
             this.CallbackUI(new CallbackParameter(ActionKind.ReadMenuSecurity, menuSecurityData));//----读完状态信息,回调界面----
         }
 

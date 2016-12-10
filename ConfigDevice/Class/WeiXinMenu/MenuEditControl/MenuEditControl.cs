@@ -13,11 +13,10 @@ namespace ConfigDevice
         protected BaseMenuEdit menuEdit;
         public virtual void SaveSetting() { }
 
-        public virtual void InitEdit(WeiXin _device, MenuData _data, BaseMenuEdit _edit)
+        public virtual void InitEdit(WeiXin _device, MenuData _data)
         {
             device = _device;
             menuData = _data;
-            menuEdit = _edit;
         }
 
     }

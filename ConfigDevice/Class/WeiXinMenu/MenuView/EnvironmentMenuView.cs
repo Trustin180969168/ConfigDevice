@@ -12,7 +12,7 @@ namespace ConfigDevice
         {
 
         }
-        public override void InitMenuView()
+        public override void LoadEditData()
         {
          
         }

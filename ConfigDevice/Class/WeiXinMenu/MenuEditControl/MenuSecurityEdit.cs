@@ -11,6 +11,7 @@ namespace ConfigDevice
     public partial class MenuSecurityEdit : MenuEditControl
     {
         MenuSecurity menuSecurity; //---安防编辑---
+        MenuSecurityData menuSecurityData;//---安防数据---
         public MenuSecurityEdit() 
         {
             InitializeComponent(); 
@@ -22,14 +23,22 @@ namespace ConfigDevice
         /// <param name="_device"></param>
         /// <param name="_data"></param>
         /// <param name="_edit"></param>
-        public override void InitEdit(WeiXin _device, MenuData _data, BaseMenuEdit _edit)
+        public override void InitEdit(WeiXin _device, MenuData _data)
         {
-            base.InitEdit(_device, _data, _edit);
-            menuSecurity = new MenuSecurity(_device, menuData);
-            menuSecurity.OnCallbackUI_Action += this.callbackUI;
-            menuSecurity.ReadMenuSecurity();
+            base.InitEdit(_device, _data);
+            menuSecurity = new MenuSecurity(_device, _data);
+            menuEdit = menuSecurity;
+
+            menuSecurity.OnCallbackUI_Action += this.callbackUI; 
         }
 
+        /// <summary>
+        /// 获取安防数据
+        /// </summary>
+        public void GetSecurityData()
+        {
+            menuSecurity.ReadMenuSecurity();
+        }
 
         private void callbackUI(CallbackParameter callbackParameter)
         {
@@ -38,12 +47,40 @@ namespace ConfigDevice
                 this.Invoke(new CallbackUIAction(this.callbackUI), callbackParameter);
                 return;
             }
+            if (callbackParameter.Action == ActionKind.ReadMenuSecurity)
+            {
+                menuSecurityData = callbackParameter.Parameters[0] as MenuSecurityData;
+                if (menuSecurityData.MenuId == menuData.MenuID)
+                {
+                    if (menuSecurityData.IsSecurityHomeCancel)
+                        rgSecurity.SelectedIndex = 1;
+                    else if (menuSecurityData.IsSecurityAll)
+                        rgSecurity.SelectedIndex = 2;
+                    else if (menuSecurityData.IsSecurityOutside)
+                        rgSecurity.SelectedIndex = 3;
+                    else
+                        rgSecurity.SelectedIndex = 0;
+
+                }
+            }
         }
          
-
+        /// <summary>
+        /// 保存菜单配置
+        /// </summary>
         public override void SaveSetting()
         {
-            throw new NotImplementedException();
+            if(menuSecurityData == null) return;
+            menuSecurityData.MenuId = menuData.MenuID;
+            menuSecurityData.KindId = (byte)menuData.KindID;
+            if (rgSecurity.SelectedIndex == 1)
+                menuSecurityData.IsSecurityHomeCancel = true;
+            else if (rgSecurity.SelectedIndex == 2)
+                menuSecurityData.IsSecurityAll = true;
+            else if (rgSecurity.SelectedIndex == 3)
+                menuSecurityData.IsSecurityOutside = true;
+
+            menuSecurity.SaveMenuSecurity(menuSecurityData);
         }
     }
 }

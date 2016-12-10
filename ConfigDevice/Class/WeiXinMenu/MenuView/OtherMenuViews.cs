@@ -16,7 +16,7 @@ namespace ConfigDevice
 
         }
 
-        public override void InitMenuView()
+        public override void LoadEditData()
         {
       
         }
@@ -31,7 +31,7 @@ namespace ConfigDevice
         {
 
         }
-        public override void InitMenuView()
+        public override void LoadEditData()
         {
 
         }
@@ -46,7 +46,7 @@ namespace ConfigDevice
         {
 
         }
-        public override void InitMenuView()
+        public override void LoadEditData()
         {
 
         }

@@ -78,9 +78,12 @@ namespace ConfigDevice
             //---二级菜单--- 
             for (int i = 0; i < MenuConfig.Level21Menus.Length; i++)
             {
-                DataTableMenu.Rows.Add(new object[] { Guid.NewGuid(), "0." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "0", "配置", MenuConfig.Level21Menus[i], Int16.Parse("0" + i), Int16.Parse("0" + i), 0 });
-                DataTableMenu.Rows.Add(new object[] { Guid.NewGuid(), "1." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "1", "配置", MenuConfig.Level22Menus[i], Int16.Parse("1" + i), Int16.Parse("1" + i), 0 });
-                DataTableMenu.Rows.Add(new object[] { Guid.NewGuid(), "2." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "2", "配置", MenuConfig.Level23Menus[i], Int16.Parse("2" + i), Int16.Parse("2" + i), 0 });
+                int menuCode = this.getMenuID("0." + i);
+                DataTableMenu.Rows.Add(new object[] { Guid.NewGuid(), "0." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "0", "配置", MenuConfig.Level21Menus[i], menuCode, Int16.Parse("0" + i), 0 });
+                menuCode = this.getMenuID("1." + i);
+                DataTableMenu.Rows.Add(new object[] { Guid.NewGuid(), "1." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "1", "配置", MenuConfig.Level22Menus[i], menuCode, Int16.Parse("1" + i), 0 });
+                menuCode = this.getMenuID("2." + i);
+                DataTableMenu.Rows.Add(new object[] { Guid.NewGuid(), "2." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "2", "配置", MenuConfig.Level23Menus[i], menuCode, Int16.Parse("2" + i), 0 });
             }
 
             /*
@@ -367,12 +370,11 @@ namespace ConfigDevice
         {
             int menuID;
             string[] arrayLevel = menuCode.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries);
+            
             //---根据菜单编号获取地址目录表
-            int[] p = new int[3];
-            p[0] = Convert.ToInt16(arrayLevel[0]);
-            p[1] = Convert.ToInt16(arrayLevel[1]);
-            p[2] = Convert.ToInt16(arrayLevel[2]);
-
+            int[] p = new int[arrayLevel.Length];
+            for(int i=0;i<arrayLevel.Length;i++)
+                p[i] = Convert.ToInt16(arrayLevel[i]); 
             menuID = WeiXinMenu.GetMemuNum(arrayLevel.Length-1, p);
             return menuID;
         }

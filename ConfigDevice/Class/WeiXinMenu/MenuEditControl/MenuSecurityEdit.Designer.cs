@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.lblAfgl = new DevExpress.XtraEditors.LabelControl();
-            this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
-            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
+            this.rgSecurity = new DevExpress.XtraEditors.RadioGroup();
+            ((System.ComponentModel.ISupportInitialize)(this.rgSecurity.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // lblAfgl
@@ -43,29 +43,29 @@
             this.lblAfgl.TabIndex = 0;
             this.lblAfgl.Text = "安防关联";
             // 
-            // radioGroup1
+            // rgSecurity
             // 
-            this.radioGroup1.Location = new System.Drawing.Point(115, 12);
-            this.radioGroup1.Name = "radioGroup1";
-            this.radioGroup1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.radioGroup1.Properties.Appearance.Options.UseFont = true;
-            this.radioGroup1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            this.rgSecurity.Location = new System.Drawing.Point(115, 12);
+            this.rgSecurity.Name = "rgSecurity";
+            this.rgSecurity.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.rgSecurity.Properties.Appearance.Options.UseFont = true;
+            this.rgSecurity.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "不关联"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "撤防"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "全部布放"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "室外布放")});
-            this.radioGroup1.Size = new System.Drawing.Size(338, 138);
-            this.radioGroup1.TabIndex = 1;
+            this.rgSecurity.Size = new System.Drawing.Size(338, 138);
+            this.rgSecurity.TabIndex = 1;
             // 
-            // WeiXinSecurity
+            // MenuSecurityEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.radioGroup1);
+            this.Controls.Add(this.rgSecurity);
             this.Controls.Add(this.lblAfgl);
-            this.Name = "WeiXinSecurity";
+            this.Name = "MenuSecurityEdit";
             this.Size = new System.Drawing.Size(632, 162);
-            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rgSecurity.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -74,6 +74,6 @@
         #endregion
 
         private DevExpress.XtraEditors.LabelControl lblAfgl;
-        private DevExpress.XtraEditors.RadioGroup radioGroup1;
+        private DevExpress.XtraEditors.RadioGroup rgSecurity;
     }
 }

@@ -8,7 +8,7 @@ namespace ConfigDevice
     public class CommandMenuView:BaseMenuView
     {
         MenuSecurityEdit menuSecurityEdit;//---编辑界面---
-        MenuSecurity menuSecurity;//---编辑对象
+
 
         public CommandMenuView(WeiXin device, Control editControl, MenuData editData)
             : base(device, editControl, editData)
@@ -18,17 +18,13 @@ namespace ConfigDevice
             menuSecurityEdit.Height = 300;
             editControl.Controls.Clear();
             editControl.Controls.Add(menuSecurityEdit);
-            
-            menuSecurity = new MenuSecurity(device,editData);
-            menuSecurityEdit.InitEdit(device, editData, menuSecurity);
-            
-        }
+    
+            menuSecurityEdit.InitEdit(device, editData);
+        } 
 
-         
-
-        public override void InitMenuView()
+        public override void LoadEditData()
         {
-          
+            menuSecurityEdit.GetSecurityData();
         }
     }
 }

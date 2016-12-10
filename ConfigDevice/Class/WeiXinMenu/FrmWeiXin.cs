@@ -384,13 +384,13 @@ namespace ConfigDevice
             { 
                 string uuid = selectNode.GetValue(MenuConfig.DC_UUID).ToString();
                 MenuData menuData = weiXinEdit.WeiXinMenu.GetMenuDataByUuid(uuid);
-                MenuCtrl.CreateMenuSettingView(weiXinEdit, plMenuEdit, menuData); 
-            }  
-
+                BaseMenuView menuEditView = MenuCtrl.CreateMenuSettingView(weiXinEdit, plMenuEdit, menuData);
+                if (menuEditView == null)
+                    plMenuEdit.Controls.Clear();
+                else
+                    menuEditView.LoadEditData();
+            }
         }
-
- 
-
 
     }
 }
