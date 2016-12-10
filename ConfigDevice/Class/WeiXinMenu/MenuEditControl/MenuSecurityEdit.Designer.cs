@@ -1,6 +1,6 @@
 ﻿namespace ConfigDevice
 {
-    partial class WeiXinSecurityEdit
+    partial class MenuSecurityEdit
     {
         /// <summary> 
         /// 必需的设计器变量。

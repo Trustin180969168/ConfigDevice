@@ -12,8 +12,18 @@ namespace ConfigDevice
         protected MenuData menuData;//菜单数据
         public abstract void InitMenuView();//初始化菜单方法
 
-
         public BaseMenuView(WeiXin device,Control editControl,MenuData editData)
+        {
+            weixinDevice = device;
+            MenuSettingView = editControl;
+            menuData = editData;
+        }
+
+        public BaseMenuView()
+        {
+        }
+
+        public void InitSettingView(WeiXin device, Control editControl, MenuData editData)
         {
             weixinDevice = device;
             MenuSettingView = editControl;

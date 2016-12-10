@@ -73,13 +73,16 @@
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.pageWeiXin = new DevExpress.XtraTab.XtraTabPage();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.plMenuEdit = new DevExpress.XtraEditors.PanelControl();
+            this.lblMenu = new DevExpress.XtraEditors.LabelControl();
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.treeMenu = new DevExpress.XtraTreeList.TreeList();
             this.tlcTitle = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.tlcKindName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.tlcSetting = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
+            this.tlcCode = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.gedtName = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.tsMenu = new System.Windows.Forms.ToolStrip();
             this.btSaveMenu = new System.Windows.Forms.ToolStripButton();
@@ -89,7 +92,6 @@
             this.btRef = new System.Windows.Forms.ToolStripButton();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
-            this.lblMenu = new DevExpress.XtraEditors.LabelControl();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSoftwareVer.Properties)).BeginInit();
@@ -108,6 +110,7 @@
             this.pageWeiXin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.plMenuEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeMenu)).BeginInit();
@@ -585,6 +588,8 @@
             // pageWeiXin
             // 
             this.pageWeiXin.Controls.Add(this.panelControl2);
+            this.pageWeiXin.Controls.Add(this.splitterControl1);
+            this.pageWeiXin.Controls.Add(this.panelControl3);
             this.pageWeiXin.Name = "pageWeiXin";
             this.pageWeiXin.Size = new System.Drawing.Size(783, 505);
             this.pageWeiXin.Text = "微信";
@@ -592,20 +597,44 @@
             // panelControl2
             // 
             this.panelControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl2.Controls.Add(this.plMenuEdit);
             this.panelControl2.Controls.Add(this.lblMenu);
-            this.panelControl2.Controls.Add(this.splitterControl1);
-            this.panelControl2.Controls.Add(this.panelControl3);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl2.Location = new System.Drawing.Point(0, 0);
+            this.panelControl2.Location = new System.Drawing.Point(455, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(783, 505);
+            this.panelControl2.Size = new System.Drawing.Size(328, 505);
             this.panelControl2.TabIndex = 18;
+            // 
+            // plMenuEdit
+            // 
+            this.plMenuEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.plMenuEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plMenuEdit.Location = new System.Drawing.Point(2, 31);
+            this.plMenuEdit.Name = "plMenuEdit";
+            this.plMenuEdit.Size = new System.Drawing.Size(324, 472);
+            this.plMenuEdit.TabIndex = 20;
+            // 
+            // lblMenu
+            // 
+            this.lblMenu.Appearance.Font = new System.Drawing.Font("Tahoma", 18F);
+            this.lblMenu.Appearance.ForeColor = System.Drawing.Color.Green;
+            this.lblMenu.Appearance.Options.UseFont = true;
+            this.lblMenu.Appearance.Options.UseForeColor = true;
+            this.lblMenu.Appearance.Options.UseTextOptions = true;
+            this.lblMenu.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.lblMenu.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.lblMenu.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblMenu.Location = new System.Drawing.Point(2, 2);
+            this.lblMenu.Name = "lblMenu";
+            this.lblMenu.Size = new System.Drawing.Size(324, 29);
+            this.lblMenu.TabIndex = 19;
             // 
             // splitterControl1
             // 
-            this.splitterControl1.Location = new System.Drawing.Point(337, 2);
+            this.splitterControl1.Location = new System.Drawing.Point(449, 0);
             this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(6, 501);
+            this.splitterControl1.Size = new System.Drawing.Size(6, 505);
             this.splitterControl1.TabIndex = 1;
             this.splitterControl1.TabStop = false;
             // 
@@ -615,9 +644,9 @@
             this.panelControl3.Controls.Add(this.treeMenu);
             this.panelControl3.Controls.Add(this.tsMenu);
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl3.Location = new System.Drawing.Point(2, 2);
+            this.panelControl3.Location = new System.Drawing.Point(0, 0);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(335, 501);
+            this.panelControl3.Size = new System.Drawing.Size(449, 505);
             this.panelControl3.TabIndex = 18;
             // 
             // treeMenu
@@ -625,14 +654,15 @@
             this.treeMenu.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
             this.tlcTitle,
             this.tlcKindName,
-            this.tlcSetting});
+            this.tlcSetting,
+            this.tlcCode});
             this.treeMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeMenu.Location = new System.Drawing.Point(2, 33);
             this.treeMenu.Name = "treeMenu";
             this.treeMenu.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.linkEdit,
             this.gedtName});
-            this.treeMenu.Size = new System.Drawing.Size(331, 466);
+            this.treeMenu.Size = new System.Drawing.Size(445, 470);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterFocusNode += new DevExpress.XtraTreeList.NodeEventHandler(this.treeMenu_AfterFocusNode);
             // 
@@ -647,11 +677,18 @@
             this.tlcTitle.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.tlcTitle.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.tlcTitle.Caption = "名称";
+            this.tlcTitle.ColumnEdit = this.linkEdit;
             this.tlcTitle.FieldName = "Title";
             this.tlcTitle.MinWidth = 74;
             this.tlcTitle.Name = "tlcTitle";
             this.tlcTitle.Visible = true;
             this.tlcTitle.VisibleIndex = 0;
+            // 
+            // linkEdit
+            // 
+            this.linkEdit.AutoHeight = false;
+            this.linkEdit.Name = "linkEdit";
+            this.linkEdit.Click += new System.EventHandler(this.linkEdit_Click);
             // 
             // tlcKindName
             // 
@@ -685,10 +722,20 @@
             this.tlcSetting.Visible = true;
             this.tlcSetting.VisibleIndex = 2;
             // 
-            // linkEdit
+            // tlcCode
             // 
-            this.linkEdit.AutoHeight = false;
-            this.linkEdit.Name = "linkEdit";
+            this.tlcCode.AppearanceCell.Options.UseTextOptions = true;
+            this.tlcCode.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcCode.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.tlcCode.AppearanceHeader.Options.UseTextOptions = true;
+            this.tlcCode.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.tlcCode.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.tlcCode.Caption = "编号";
+            this.tlcCode.FieldName = "Code";
+            this.tlcCode.Name = "tlcCode";
+            this.tlcCode.SortOrder = System.Windows.Forms.SortOrder.Ascending;
+            this.tlcCode.Visible = true;
+            this.tlcCode.VisibleIndex = 3;
             // 
             // gedtName
             // 
@@ -707,7 +754,7 @@
             this.btRef});
             this.tsMenu.Location = new System.Drawing.Point(2, 2);
             this.tsMenu.Name = "tsMenu";
-            this.tsMenu.Size = new System.Drawing.Size(331, 31);
+            this.tsMenu.Size = new System.Drawing.Size(445, 31);
             this.tsMenu.TabIndex = 17;
             this.tsMenu.Text = "toolStrip2";
             // 
@@ -771,22 +818,6 @@
             this.xtraTabPage2.Size = new System.Drawing.Size(783, 505);
             this.xtraTabPage2.Text = "门设置";
             // 
-            // lblMenu
-            // 
-            this.lblMenu.Appearance.Font = new System.Drawing.Font("Tahoma", 18F);
-            this.lblMenu.Appearance.ForeColor = System.Drawing.Color.Green;
-            this.lblMenu.Appearance.Options.UseFont = true;
-            this.lblMenu.Appearance.Options.UseForeColor = true;
-            this.lblMenu.Appearance.Options.UseTextOptions = true;
-            this.lblMenu.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lblMenu.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.lblMenu.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblMenu.Location = new System.Drawing.Point(343, 2);
-            this.lblMenu.Name = "lblMenu";
-            this.lblMenu.Size = new System.Drawing.Size(438, 29);
-            this.lblMenu.TabIndex = 19;
-            // 
             // FrmWeiXin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -795,8 +826,6 @@
             this.Controls.Add(this.xtraTabControl1);
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FrmWeiXin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "微信推送";
@@ -821,6 +850,7 @@
             this.pageWeiXin.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.plMenuEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             this.panelControl3.PerformLayout();
@@ -898,5 +928,7 @@
         private System.Windows.Forms.ToolStripButton btSaveMenu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private DevExpress.XtraEditors.LabelControl lblMenu;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn tlcCode;
+        private DevExpress.XtraEditors.PanelControl plMenuEdit;
     }
 }

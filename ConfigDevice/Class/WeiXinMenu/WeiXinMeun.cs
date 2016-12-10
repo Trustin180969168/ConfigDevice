@@ -59,26 +59,28 @@ namespace ConfigDevice
             menuList.OnCallbackUI_Action += CallbackUI;
             if (DataTableMenu.Columns.Count == 0)
             {
+                DataTableMenu.Columns.Add(MenuConfig.DC_UUID, System.Type.GetType("System.String"));
                 DataTableMenu.Columns.Add(MenuConfig.DC_ID, System.Type.GetType("System.String"));
                 DataTableMenu.Columns.Add(MenuConfig.DC_KIND_ID, System.Type.GetType("System.String"));
                 DataTableMenu.Columns.Add(MenuConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
                 DataTableMenu.Columns.Add(MenuConfig.DC_PARENT_ID, System.Type.GetType("System.String"));
                 DataTableMenu.Columns.Add(MenuConfig.DC_SETTING, System.Type.GetType("System.String"));
                 DataTableMenu.Columns.Add(MenuConfig.DC_TITLE, System.Type.GetType("System.String"));
+                DataTableMenu.Columns.Add(MenuConfig.DC_CODE, System.Type.GetType("System.Int16")); 
                 DataTableMenu.Columns.Add(MenuConfig.DC_SEQ, System.Type.GetType("System.Int16"));
                 DataTableMenu.Columns.Add(MenuConfig.DC_FLAG, System.Type.GetType("System.UInt16"));
             }
             //---一级菜单---
             for (int i = 0; i < MenuConfig.Level1Menus.Length; i++)
             {
-                DataTableMenu.Rows.Add(new object[] { i, "", "", "", "", MenuConfig.Level1Menus[i], i });
+                DataTableMenu.Rows.Add(new object[] { Guid.NewGuid(), i, "", "", "", "", MenuConfig.Level1Menus[i], i, 0, 0 });
             }
             //---二级菜单--- 
             for (int i = 0; i < MenuConfig.Level21Menus.Length; i++)
             {
-                DataTableMenu.Rows.Add(new object[] { "0." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "0", "配置", MenuConfig.Level21Menus[i], Int16.Parse("0" + (i + 1)) });
-                DataTableMenu.Rows.Add(new object[] { "1." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "1", "配置", MenuConfig.Level22Menus[i], Int16.Parse("1" + (i + 1)) });
-                DataTableMenu.Rows.Add(new object[] { "2." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "2", "配置", MenuConfig.Level23Menus[i], Int16.Parse("2" + (i + 1)) });
+                DataTableMenu.Rows.Add(new object[] { Guid.NewGuid(), "0." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "0", "配置", MenuConfig.Level21Menus[i], Int16.Parse("0" + i), Int16.Parse("0" + i), 0 });
+                DataTableMenu.Rows.Add(new object[] { Guid.NewGuid(), "1." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "1", "配置", MenuConfig.Level22Menus[i], Int16.Parse("1" + i), Int16.Parse("1" + i), 0 });
+                DataTableMenu.Rows.Add(new object[] { Guid.NewGuid(), "2." + i, MenuKind.MS_COBJ_CMD, MenuKind.MS_COBJ_CMD_NAME, "2", "配置", MenuConfig.Level23Menus[i], Int16.Parse("2" + i), Int16.Parse("2" + i), 0 });
             }
 
             /*
@@ -112,8 +114,7 @@ namespace ConfigDevice
             dr[MenuConfig.DC_KIND_NAME] = MenuKind.MS_COBJ_MORE_NAME;
 
             dr.EndEdit();
-            DataTableMenu.AcceptChanges();
-
+            DataTableMenu.AcceptChanges(); 
 
         }
 
@@ -136,21 +137,61 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        public DataRow FindNodeDataByUuid(String id)
+        {
+            DataRow[] drs = DataTableMenu.Select(string.Format(" {0} = '{1}' ", MenuConfig.DC_UUID, id));
+            if (drs.Length != 0)
+                return drs[0];
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// 根据ID找对应菜单
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public MenuData GetMenuDataByCode(String menuCode)
         {
-            DataRow[] drs = DataTableMenu.Select(string.Format(" {0} = '{1}' ", MenuConfig.DC_ID, menuCode));
+            DataRow[] drs = DataTableMenu.Select(string.Format(" {0} = '{1}' ", MenuConfig.DC_CODE, menuCode));
 
-            int menuNum = this.getMenuID(menuCode);
+            //int menuNum = this.getMenuID(menuCode);
             MenuData menuData = null; 
             if (drs != null)
             {
                 menuData = new MenuData();
                 DataRow dr = drs[0];
                 dr.EndEdit();
-                menuData.MenuID = (UInt32)menuNum;
+                menuData.MenuID = Convert.ToUInt32( menuCode);
                 menuData.KindID = Convert.ToUInt16(dr[MenuConfig.DC_KIND_ID]);
                 menuData.KindName = dr[MenuConfig.DC_KIND_NAME].ToString(); 
                 menuData.Flag = Convert.ToUInt16(dr[MenuConfig.DC_FLAG]); 
+                menuData.Title = dr[MenuConfig.DC_TITLE].ToString();
+            }
+
+            return menuData;
+        }
+
+        /// <summary>
+        /// 根据ID找对应菜单
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public MenuData GetMenuDataByUuid(String uuid)
+        {
+            DataRow[] drs = DataTableMenu.Select(string.Format(" {0} = '{1}' ", MenuConfig.DC_UUID, uuid));
+
+            //int menuNum = this.getMenuID(menuCode);
+            MenuData menuData = null;
+            if (drs != null)
+            {
+                menuData = new MenuData();
+                DataRow dr = drs[0];
+                dr.EndEdit();
+                menuData.MenuID = Convert.ToUInt32(dr[MenuConfig.DC_CODE]);
+                menuData.KindID = Convert.ToUInt16(dr[MenuConfig.DC_KIND_ID]);
+                menuData.KindName = dr[MenuConfig.DC_KIND_NAME].ToString();
+                menuData.Flag = Convert.ToUInt16(dr[MenuConfig.DC_FLAG]);
                 menuData.Title = dr[MenuConfig.DC_TITLE].ToString();
             }
 
@@ -163,11 +204,11 @@ namespace ConfigDevice
         public DataRow AddMenu(string parentID, int num)
         {
             DataRow drSelect = FindNodeDataByID(parentID);
-
-            return DataTableMenu.Rows.Add(new object[] {
-                parentID + "." + num, //---唯一ID编号--
+            int code = getMenuID(parentID + "." + num);
+            return DataTableMenu.Rows.Add(new object[] {Guid.NewGuid(),//---唯一ID编号--
+                parentID + "." + num, 
                 MenuKind.MS_COBJ_CMD,  MenuKind.MS_COBJ_CMD_NAME, //---默认为指令----
-                parentID,"配置", "", drSelect[MenuConfig.DC_SEQ]+num.ToString(),0});
+                parentID,"配置", "",code,code,0});
         }
 
         /// <summary>
@@ -182,33 +223,32 @@ namespace ConfigDevice
             int newMenuSeq = Convert.ToInt16(newMenuCode.Replace(".", ""));
             if (drMenu == null)
             {
-
-                DataRow dr = DataTableMenu.Rows.Add(new object[] {newMenuCode , menuData.KindID, menuData.KindName,
-                            newMenuParentCode, "配置", menuData.Title,newMenuSeq,menuData.Flag });
+                DataRow dr = DataTableMenu.Rows.Add(new object[] {Guid.NewGuid(),newMenuCode, menuData.KindID, menuData.KindName,
+                            newMenuParentCode, "配置", menuData.Title,(int)menuData.MenuID,(int)menuData.MenuID,menuData.Flag });
                 dr.EndEdit();
                 dr.AcceptChanges();
             }
             else
             {
-
                 drMenu[MenuConfig.DC_ID] = newMenuCode;
                 drMenu[MenuConfig.DC_KIND_ID] = menuData.KindID;
                 drMenu[MenuConfig.DC_KIND_NAME] = menuData.KindName;
                 drMenu[MenuConfig.DC_PARENT_ID] = newMenuParentCode;
                 drMenu[MenuConfig.DC_SETTING] = "配置";
                 drMenu[MenuConfig.DC_TITLE] = menuData.Title;
+                drMenu[MenuConfig.DC_SEQ] = (int)menuData.MenuID;
+                drMenu[MenuConfig.DC_CODE] = (int)menuData.MenuID;
                 drMenu[MenuConfig.DC_FLAG] = menuData.Flag;
                 drMenu.EndEdit();
                 drMenu.AcceptChanges();
             }
-  
             return drMenu;
 
         }
 
-        public void UpdateMenuKind(string menuCode, string kindName)
+        public void UpdateMenuKind(string uuid, string kindName)
         {
-            DataRow drSelect = FindNodeDataByID(menuCode);
+            DataRow drSelect = FindNodeDataByUuid(uuid);
             if (drSelect != null)
             {
                 drSelect[MenuConfig.DC_KIND_ID] = MenuKind.MenuKindNameID[kindName];
@@ -222,18 +262,27 @@ namespace ConfigDevice
         /// 删除菜单行
         /// </summary>
         public void DelMenu(string id)
-        { 
+        {
             int i = 0;
+            //foreach (DataRow dr in DataTableMenu.Rows)
+            //{
+            //    if (dr[MenuConfig.DC_ID].ToString() == id)
+            //    {
+            //        DataTableMenu.Rows[i].Delete();
+            //        break;
+            //    }
+            //    i++;
+            //}
+
             foreach (DataRow dr in DataTableMenu.Rows)
             {
-                if (dr[MenuConfig.DC_ID].ToString() == id)
+                if (dr.RowState != DataRowState.Deleted && dr[MenuConfig.DC_UUID].ToString() == id)
                 {
                     DataTableMenu.Rows[i].Delete();
                     break;
                 }
                 i++;
             }
-
         }
 
         /// <summary>
@@ -271,7 +320,7 @@ namespace ConfigDevice
                 dtDelete.RejectChanges();
                 foreach (DataRow dr in dtDelete.Rows)
                 {
-                    int menuNum = this.getMenuID(dr[MenuConfig.DC_ID].ToString());
+                    int menuNum = Convert.ToInt16( dr[MenuConfig.DC_CODE]);
                     MenuData menuData = new MenuData();
                     menuData.MenuID = (UInt32)menuNum;
                     menuData.KindID = Convert.ToUInt16(dr[MenuConfig.DC_KIND_ID]);
@@ -290,7 +339,7 @@ namespace ConfigDevice
             {
                 foreach (DataRow dr in dtAdd.Rows)
                 {
-                    MenuData menu = GetMenuDataByCode(dr[MenuConfig.DC_ID].ToString());
+                    MenuData menu = GetMenuDataByCode(dr[MenuConfig.DC_CODE].ToString());
                     menuList.SaveMenuData(menu);
                 }
             }
@@ -298,7 +347,7 @@ namespace ConfigDevice
             {
                 foreach (DataRow dr in dtUpdate.Rows)
                 {
-                    MenuData menu = GetMenuDataByCode(dr[MenuConfig.DC_ID].ToString());
+                    MenuData menu = GetMenuDataByCode(dr[MenuConfig.DC_CODE].ToString());
                     menuList.SaveMenuData(menu);
                 }
             }

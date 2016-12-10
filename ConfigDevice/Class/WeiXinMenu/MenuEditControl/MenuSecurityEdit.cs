@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public partial class WeiXinSecurityEdit : MenuEditControl
+    public partial class MenuSecurityEdit : MenuEditControl
     {
         MenuSecurity menuSecurity; //---安防编辑---
-        public WeiXinSecurityEdit() 
+        public MenuSecurityEdit() 
         {
             InitializeComponent(); 
         }
@@ -39,8 +39,11 @@ namespace ConfigDevice
                 return;
             }
         }
+         
 
-
-        
+        public override void SaveSetting()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

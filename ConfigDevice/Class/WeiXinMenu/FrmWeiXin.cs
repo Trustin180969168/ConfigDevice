@@ -47,10 +47,10 @@ namespace ConfigDevice
         {
             TreeListNode selectNode = treeMenu.FocusedNode;
             if (selectNode == null || selectNode.Level != 2) return;
-            string code = selectNode.GetValue(MenuConfig.DC_ID).ToString();
+            string uuid = selectNode.GetValue(MenuConfig.DC_UUID).ToString();
             string kindName = (string)cbxMenuKind.Items[((DevExpress.XtraEditors.ComboBoxEdit)sender).SelectedIndex];
           
-            weiXinEdit.WeiXinMenu.UpdateMenuKind(code,kindName); 
+            weiXinEdit.WeiXinMenu.UpdateMenuKind(uuid,kindName); 
         }
 
         /// <summary>
@@ -256,7 +256,10 @@ namespace ConfigDevice
             treeMenu.DataSource = weiXinEdit.WeiXinMenu.DataTableMenu;
 
             if (treeMenu.Nodes.Count > 0)
-                treeMenu.Nodes[0].Expanded = true;
+            {
+                foreach(TreeListNode node in treeMenu.Nodes)
+                    node.Expanded = true;
+            }
             treeMenu.BestFitColumns();
 
         }
@@ -264,27 +267,30 @@ namespace ConfigDevice
         /// <summary>
         /// 增加菜单
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btAdd_Click(object sender, EventArgs e)
         {
             TreeListNode selectNode = treeMenu.FocusedNode;
-            if (selectNode == null || selectNode.Level != 1 || selectNode.Nodes.Count >= 9) return;
-            weiXinEdit.WeiXinMenu.AddMenu(selectNode.GetValue(MenuConfig.DC_ID).ToString(), selectNode.Nodes.Count);
+            TreeListNode addNode;
+            if (selectNode.Level == 1)
+                addNode = selectNode;
+            else if (selectNode.Level == 2)
+                addNode = selectNode.ParentNode;
+            else
+                return;
+            if (addNode == null || addNode.Nodes.Count >= 9) return;
+            weiXinEdit.WeiXinMenu.AddMenu(addNode.GetValue(MenuConfig.DC_ID).ToString(), addNode.Nodes.Count);
 
-            selectNode.ExpandAll();  
+            addNode.ExpandAll();
         }
 
         /// <summary>
         /// 删除节点
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btDel_Click(object sender, EventArgs e)
         {
             TreeListNode selectNode = treeMenu.FocusedNode;
             if (selectNode == null || selectNode.Level != 2 ) return;
-            weiXinEdit.WeiXinMenu.DelMenu(selectNode.GetValue(MenuConfig.DC_ID).ToString());
+            weiXinEdit.WeiXinMenu.DelMenu(selectNode.GetValue(MenuConfig.DC_UUID).ToString());
 
             selectNode.ExpandAll();
         }
@@ -320,8 +326,7 @@ namespace ConfigDevice
             int[] aa = new int[10];
             int num = WeiXinMenu.GetMemuNum(selectNode.Level, aa);
  
-            //---当前菜单----
-            lblMenu.Text = selectNode.GetDisplayText(tlcTitle);
+
         }
 
         /// <summary>
@@ -355,14 +360,33 @@ namespace ConfigDevice
         { 
             treeMenu.PostEditor();
             TreeListNode selectNode = treeMenu.FocusedNode;
-            if (selectNode != null || selectNode.Level == 2)
+            if (selectNode != null && selectNode.Level == 2)
             { 
-                string code = selectNode.GetValue(MenuConfig.DC_ID).ToString();
-                DataRow dr = weiXinEdit.WeiXinMenu.FindNodeDataByID(code);
+                string uuid = selectNode.GetValue(MenuConfig.DC_UUID).ToString();
+                DataRow dr = weiXinEdit.WeiXinMenu.FindNodeDataByUuid(uuid);
                 dr.EndEdit();
             }
 
             weiXinEdit.WeiXinMenu.SaveMenu();
+        }
+
+        /// <summary>
+        /// 配置菜单功能
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linkEdit_Click(object sender, EventArgs e)
+        {
+            //---当前菜单----
+            TreeListNode selectNode = treeMenu.FocusedNode;
+            lblMenu.Text = selectNode.GetDisplayText(tlcTitle); 
+            if (selectNode != null && selectNode.Level != 0)
+            { 
+                string uuid = selectNode.GetValue(MenuConfig.DC_UUID).ToString();
+                MenuData menuData = weiXinEdit.WeiXinMenu.GetMenuDataByUuid(uuid);
+                MenuCtrl.CreateMenuSettingView(weiXinEdit, plMenuEdit, menuData); 
+            }  
+
         }
 
  

@@ -12,13 +12,14 @@ namespace ConfigDevice
         public static string[] Level22Menus = new string[] { "阅读模式", "会客模式", "休闲模式", "全关", "更多" };
         public static string[] Level23Menus = new string[] { "降温遮阳", "窗帘控制", "空调控制", "环境监测", "更多" };
 
-
+        public const string DC_UUID = "Uuid";//ID 
         public const string DC_ID = "ID";//ID 
         public const string DC_KIND_ID = "KindID";//类型ID
         public const string DC_KIND_NAME = "KindName";//类型名称
         public const string DC_TITLE = "Title";//名称
         public const string DC_PARENT_ID= "ParentID";//父ID
         public const string DC_SETTING = "Setting";//配置
+        public const string DC_CODE = "Code";//顺序
         public const string DC_SEQ = "Seq";//顺序
         public const string DC_FLAG = "Flag";//标志位
     

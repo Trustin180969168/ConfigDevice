@@ -476,7 +476,6 @@
     <Compile Include="Class\WeiXinMenu\MenuView\BaseMenuView.cs" />
     <Compile Include="Class\WeiXinMenu\MenuView\OtherMenuViews.cs" />
     <Compile Include="Class\WeiXinMenu\MenuView\EnvironmentMenuView.cs" />
-    <Compile Include="Class\WeiXinMenu\MenuView\SecurityMenuView.cs" />
     <Compile Include="Class\WeiXinMenu\WeiXinMeun.cs" />
     <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityEdit.cs">
       <SubType>UserControl</SubType>
