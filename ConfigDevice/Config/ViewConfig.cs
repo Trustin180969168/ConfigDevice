@@ -402,7 +402,8 @@ namespace ConfigDevice
         public GridViewLookupEdit()
             : base()
         {
-
+            this.Name = "lookupEdit";
+            this.ShowFooter = false;
         }
     }
 
@@ -421,8 +422,10 @@ namespace ConfigDevice
             this.View.OptionsView.ShowGroupPanel = false;
             this.View.OptionsView.ShowAutoFilterRow = true;
             this.View.BestFitColumns();
+    
         }
-    }
+
+     }
 
 
     /// <summary>

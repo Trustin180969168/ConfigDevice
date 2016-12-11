@@ -142,7 +142,6 @@ namespace ConfigDevice
             }
             if (callbackParameter.Action == ActionKind.SaveNetworkPosition)
             {
-
                 Position pos = callbackParameter.Parameters[0] as Position;
                 dtPosition.Rows[pos.Num - 1].AcceptChanges();
             }

@@ -825,10 +825,10 @@
             this.ClientSize = new System.Drawing.Size(792, 573);
             this.Controls.Add(this.xtraTabControl1);
             this.Controls.Add(this.toolStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FrmWeiXin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "微信推送";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmNetworkEdit_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

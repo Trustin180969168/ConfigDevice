@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public partial class MenuSecurityEdit : MenuEditControl
+    public partial class MenuSecurityControl : MenuEditControl
     {
-        MenuSecurity menuSecurity; //---安防编辑---
+        MenuSecurityEdit menuSecurity; //---安防编辑---
         MenuSecurityData menuSecurityData;//---安防数据---
-        public MenuSecurityEdit() 
+        public MenuSecurityControl() 
         {
             InitializeComponent(); 
         }
@@ -26,7 +26,7 @@ namespace ConfigDevice
         public override void InitEdit(WeiXin _device, MenuData _data)
         {
             base.InitEdit(_device, _data);
-            menuSecurity = new MenuSecurity(_device, _data);
+            menuSecurity = new MenuSecurityEdit(_device, _data);
             menuEdit = menuSecurity;
 
             menuSecurity.OnCallbackUI_Action += this.callbackUI; 
@@ -79,7 +79,8 @@ namespace ConfigDevice
                 menuSecurityData.IsSecurityAll = true;
             else if (rgSecurity.SelectedIndex == 3)
                 menuSecurityData.IsSecurityOutside = true;
-
+            else
+                menuSecurityData.IsSecurityNone = true;
             menuSecurity.SaveMenuSecurity(menuSecurityData);
         }
     }

@@ -15,7 +15,7 @@ namespace ConfigDevice
         public MenuSecurityData(UserUdpData userUdpData)
         {
             byte[] data = userUdpData.Data;
-            MenuId = ConvertTools.Bytes4ToUInt32( data[0], data[1], data[2], data[3]);
+            MenuId = ConvertTools.Bytes4ToUInt32(data[0], data[1], data[2], data[3]);
             KindId = data[4];
             ByteSecurityKindID = data[5];
             ByteSecurityHomeCancelID = data[6];
@@ -50,5 +50,16 @@ namespace ConfigDevice
             set { ByteSecurityHomeCancelID = value ? (byte)1 : (byte)0; }
         }
 
+        /// <summary>
+        /// 是否不关联安防
+        /// </summary>
+        public bool IsSecurityNone
+        {
+            get { return (ByteSecurityKindID | 0) == 0 ? true : false; }
+            set
+            {
+                ByteSecurityKindID = 0;
+            }
+        }
     }
 }

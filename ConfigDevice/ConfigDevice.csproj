@@ -117,8 +117,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityEdit.resx">
-      <DependentUpon>MenuSecurityEdit.cs</DependentUpon>
+    <EmbeddedResource Include="Class\WeiXinMenu\MenuEditControl\MenuSensorControl.resx">
+      <DependentUpon>MenuSensorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityControl.resx">
+      <DependentUpon>MenuSecurityControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceUI\FrmFunctionsBoard.resx">
@@ -461,27 +465,35 @@
     <Compile Include="Class\ViewLogicSetting\ViewLogicO2.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicLuminance.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicWindy.cs" />
+    <Compile Include="Class\WeiXinMenu\Data\MenuSensorData.cs" />
     <Compile Include="Class\WeiXinMenu\Data\MenuSecurityData.cs" />
     <Compile Include="Class\WeiXinMenu\MenuCtrl.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSensorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSensorControl.Designer.cs">
+      <DependentUpon>MenuSensorControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\WeiXinMenu\MenuEditor\BaseMenuEdit.cs" />
     <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuEditControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Class\WeiXinMenu\MenuEditor\MenuSensorEdit.cs" />
     <Compile Include="Class\WeiXinMenu\MenuView\CommandMenuView.cs" />
     <Compile Include="Class\WeiXinMenu\MenuConfig.cs" />
     <Compile Include="Class\WeiXinMenu\MenuEdit.cs" />
-    <Compile Include="Class\WeiXinMenu\MenuEditor\MenuSecurity.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditor\MenuSecurityEdit.cs" />
     <Compile Include="Class\WeiXinMenu\MenuKind.cs" />
     <Compile Include="Class\WeiXinMenu\MenuList.cs" />
     <Compile Include="Class\WeiXinMenu\MenuView\BaseMenuView.cs" />
     <Compile Include="Class\WeiXinMenu\MenuView\OtherMenuViews.cs" />
     <Compile Include="Class\WeiXinMenu\MenuView\EnvironmentMenuView.cs" />
     <Compile Include="Class\WeiXinMenu\WeiXinMeun.cs" />
-    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityEdit.cs">
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityEdit.Designer.cs">
-      <DependentUpon>MenuSecurityEdit.cs</DependentUpon>
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityControl.Designer.cs">
+      <DependentUpon>MenuSecurityControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\KeyData.cs" />
     <Compile Include="Data\LCDPanelOptionData.cs" />

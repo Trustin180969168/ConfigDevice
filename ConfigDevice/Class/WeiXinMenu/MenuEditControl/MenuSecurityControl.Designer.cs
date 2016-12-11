@@ -1,6 +1,6 @@
 ﻿namespace ConfigDevice
 {
-    partial class MenuSecurityEdit
+    partial class MenuSecurityControl
     {
         /// <summary> 
         /// 必需的设计器变量。

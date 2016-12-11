@@ -1,6 +1,6 @@
 ﻿namespace ConfigDevice
 {
-    partial class PanelEnvironment
+    partial class MenuSensorControl
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -45,14 +45,13 @@
             // 
             // gcSensors
             // 
-            this.gcSensors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcSensors.EmbeddedNavigator.Name = "";
             this.gcSensors.FormsUseDefaultLookAndFeel = false;
-            this.gcSensors.Location = new System.Drawing.Point(0, 0);
+            this.gcSensors.Location = new System.Drawing.Point(43, 24);
             this.gcSensors.MainView = this.gvSensors;
             this.gcSensors.Name = "gcSensors";
-            this.gcSensors.Size = new System.Drawing.Size(577, 351);
-            this.gcSensors.TabIndex = 9;
+            this.gcSensors.Size = new System.Drawing.Size(487, 184);
+            this.gcSensors.TabIndex = 10;
             this.gcSensors.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvSensors});
             // 
@@ -244,13 +243,13 @@
             this.parameter5.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.parameter5.Width = 80;
             // 
-            // PanelEnvironment
+            // MenuEnvironmentControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gcSensors);
-            this.Name = "PanelEnvironment";
-            this.Size = new System.Drawing.Size(577, 351);
+            this.Name = "MenuEnvironmentControl";
+            this.Size = new System.Drawing.Size(679, 281);
             ((System.ComponentModel.ISupportInitialize)(this.gcSensors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvSensors)).EndInit();
             this.ResumeLayout(false);
@@ -262,10 +261,10 @@
         private DevExpress.XtraGrid.GridControl gcSensors;
         private DevExpress.XtraGrid.Views.Grid.GridView gvSensors;
         private DevExpress.XtraGrid.Columns.GridColumn dcNum;
+        private DevExpress.XtraGrid.Columns.GridColumn dcDeviceValue;
         private DevExpress.XtraGrid.Columns.GridColumn dcKindName;
         private DevExpress.XtraGrid.Columns.GridColumn dcNetwork;
         private DevExpress.XtraGrid.Columns.GridColumn dcID;
-        private DevExpress.XtraGrid.Columns.GridColumn dcDeviceValue;
         private DevExpress.XtraGrid.Columns.GridColumn parameter2;
         private DevExpress.XtraGrid.Columns.GridColumn parameter3;
         private DevExpress.XtraGrid.Columns.GridColumn parameter4;

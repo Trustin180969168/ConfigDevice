@@ -14,6 +14,8 @@ namespace ConfigDevice
         private GridViewComboBox cbxSensor;//传感器选择
         private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//地址编辑
         public DataTable DataSensorSetting;//---传感器配置表-----
+        public bool DisableAddNew = false;//是否允许添加新行
+        public int DeviceCount = 8;//---默认8个
         public PanelEnvironment()
         {
             InitializeComponent();
@@ -43,7 +45,7 @@ namespace ConfigDevice
         /// </summary>
         public void Init()
         {
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < DeviceCount; i++)
                 DataSensorSetting.Rows.Add((i + 1).ToString());
             gcSensors.DataSource = DataSensorSetting;
 
@@ -71,6 +73,38 @@ namespace ConfigDevice
 
             dcID.ColumnEdit = edtNum;
             dcNetwork.ColumnEdit = edtNum;
+
+            //gridLookupDevice.ProcessNewValue += new DevExpress.XtraEditors.Controls.ProcessNewValueEventHandler(CustomGridLookUpEdit_ProcessNewValue);
+            //gridLookupDevice.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+            //gridLookupDevice.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+        }
+
+        /// <summary>
+        /// 实现在列表没有记录的时候，可以录入一个不存在的记录，类似ComoboEidt功能
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void CustomGridLookUpEdit_ProcessNewValue(object sender, DevExpress.XtraEditors.Controls.ProcessNewValueEventArgs e)
+        {
+            if (!DisableAddNew )
+            { 
+                string display = e.DisplayValue.ToString();
+
+                DataTable dtTemp = gridLookupDevice.DataSource as DataTable;
+                if (dtTemp != null)
+                {
+                    DataRow[] selectedRows = dtTemp.Select(string.Format("{0}='{1}'", DeviceConfig.DC_NAME, display));
+                    if (selectedRows == null || selectedRows.Length == 0)
+                    {
+                        DataRow row = dtTemp.NewRow();
+                        row[DeviceConfig.DC_NAME] = display;
+                        dtTemp.Rows.Add(row);
+                        row.EndEdit();
+                    }
+                }
+
+                e.Handled = true;
+            }
         }
 
         /// <summary>
@@ -84,6 +118,7 @@ namespace ConfigDevice
             string deviceValue = drSensor[ViewConfig.DC_DEVICE_VALUE].ToString();
             //-----获取选择的设备-------------
             int i = gridLookupDevice.GetIndexByKeyValue(deviceValue);
+            if (i == -1) return;
             DataRow drSelect = (gridLookupDevice.DataSource as DataTable).Rows[i];
             //-----添加选择设备信息到指令列表-------
             drSensor[ViewConfig.DC_DEVICE_ID] = drSelect[DeviceConfig.DC_ID];
