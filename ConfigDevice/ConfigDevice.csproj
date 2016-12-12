@@ -465,6 +465,7 @@
     <Compile Include="Class\ViewLogicSetting\ViewLogicO2.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicLuminance.cs" />
     <Compile Include="Class\ViewLogicSetting\ViewLogicWindy.cs" />
+    <Compile Include="Class\WeiXinMenu\Data\MenuCommandData.cs" />
     <Compile Include="Class\WeiXinMenu\Data\MenuSensorData.cs" />
     <Compile Include="Class\WeiXinMenu\Data\MenuSecurityData.cs" />
     <Compile Include="Class\WeiXinMenu\MenuCtrl.cs" />

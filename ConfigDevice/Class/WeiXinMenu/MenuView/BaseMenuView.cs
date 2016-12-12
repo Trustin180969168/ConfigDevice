@@ -11,6 +11,7 @@ namespace ConfigDevice
         public WeiXin weixinDevice;//微信推送设备
         protected MenuData menuData;//菜单数据
         public abstract void LoadEditData();//初始化菜单方法 
+        public abstract void SaveEdit();//初始化菜单方法 
         public BaseMenuView(WeiXin device,Control editControl,MenuData editData)
         {
             weixinDevice = device;

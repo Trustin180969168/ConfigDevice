@@ -29,6 +29,11 @@ namespace ConfigDevice
             menuSecurityControl.GetSecurityData();
         }
 
-   
+
+
+        public override void SaveEdit()
+        {
+            menuSecurityControl.SaveSetting();
+        }
     }
 }

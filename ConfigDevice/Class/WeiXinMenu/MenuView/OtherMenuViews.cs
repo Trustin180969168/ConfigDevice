@@ -21,7 +21,11 @@ namespace ConfigDevice
       
         }
 
-      
+
+
+        public override void SaveEdit()
+        { 
+        }
     }
 
 
@@ -38,6 +42,10 @@ namespace ConfigDevice
 
         }
 
+
+        public override void SaveEdit()
+        { 
+        }
     }
 
     public class MoreElse : BaseMenuView
@@ -53,6 +61,10 @@ namespace ConfigDevice
 
         }
 
+
+        public override void SaveEdit()
+        { 
+        }
     }
 
 

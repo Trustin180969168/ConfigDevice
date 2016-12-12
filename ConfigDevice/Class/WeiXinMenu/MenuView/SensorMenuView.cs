@@ -23,9 +23,14 @@ namespace ConfigDevice
         }
         public override void LoadEditData()
         {
-          //  menuSensorControl.GetSensorData();
+            menuSensorControl.GetSensorData();
         }
 
-   
+
+
+        public override void SaveEdit()
+        {
+            menuSensorControl.SaveSetting();
+        }
     }
 }

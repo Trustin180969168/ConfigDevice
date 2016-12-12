@@ -17,7 +17,7 @@ namespace ConfigDevice
         DataTable dtPosition = new DataTable("Position"); 
         GridViewComboBox cbxMenuKind=new GridViewComboBox();//菜单类型选择编辑
         private Dictionary<int, string> listNetworkKey = new Dictionary<int, string>();//保存对应关系
-
+        BaseMenuView menuEditView;
         public FrmWeiXin()
         {
             InitializeComponent();
@@ -365,7 +365,8 @@ namespace ConfigDevice
                 DataRow dr = weiXinEdit.WeiXinMenu.FindNodeDataByUuid(uuid);
                 dr.EndEdit();
             }
-
+            if (menuEditView != null)
+                menuEditView.SaveEdit();
             weiXinEdit.WeiXinMenu.SaveMenu();
         }
 
@@ -383,7 +384,7 @@ namespace ConfigDevice
             { 
                 string uuid = selectNode.GetValue(MenuConfig.DC_UUID).ToString();
                 MenuData menuData = weiXinEdit.WeiXinMenu.GetMenuDataByUuid(uuid);
-                BaseMenuView menuEditView = MenuCtrl.CreateMenuSettingView(weiXinEdit, plMenuEdit, menuData);
+                menuEditView = MenuCtrl.CreateMenuSettingView(weiXinEdit, plMenuEdit, menuData);
                 if (menuEditView == null)
                     plMenuEdit.Controls.Clear();
                 else
