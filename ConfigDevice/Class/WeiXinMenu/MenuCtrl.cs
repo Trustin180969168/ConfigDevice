@@ -12,8 +12,8 @@ namespace ConfigDevice
         {
             if (editData.KindID == MenuKind.MS_COBJ_CMD)
                 return new CommandMenuView(device,editControl,editData);
-            //else if (editData.KindID == MenuKind.MS_COBJ_ENV)
-            //    return new EnvironmentMenuView(device, editControl, editData);
+            else if (editData.KindID == MenuKind.MS_COBJ_ENV)
+                return new SensorMenuView(device, editControl, editData);
             return null;
         }
 

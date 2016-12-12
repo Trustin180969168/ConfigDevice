@@ -32,7 +32,7 @@
             this.gvSensors = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcNum = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcDeviceValue = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dcKindName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcKindID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcNetwork = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter2 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -60,7 +60,7 @@
             this.gvSensors.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.dcNum,
             this.dcDeviceValue,
-            this.dcKindName,
+            this.dcKindID,
             this.dcNetwork,
             this.dcID,
             this.parameter2,
@@ -95,6 +95,7 @@
             this.dcNum.Caption = "序号";
             this.dcNum.Name = "dcNum";
             this.dcNum.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcNum.OptionsColumn.ReadOnly = true;
             this.dcNum.Visible = true;
             this.dcNum.VisibleIndex = 0;
             this.dcNum.Width = 50;
@@ -118,24 +119,24 @@
             this.dcDeviceValue.VisibleIndex = 1;
             this.dcDeviceValue.Width = 140;
             // 
-            // dcKindName
+            // dcKindID
             // 
-            this.dcKindName.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.dcKindName.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcKindName.AppearanceCell.Options.UseBackColor = true;
-            this.dcKindName.AppearanceCell.Options.UseForeColor = true;
-            this.dcKindName.AppearanceCell.Options.UseTextOptions = true;
-            this.dcKindName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcKindName.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcKindName.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcKindName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcKindName.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcKindName.Caption = "传感器类型";
-            this.dcKindName.Name = "dcKindName";
-            this.dcKindName.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.dcKindName.Visible = true;
-            this.dcKindName.VisibleIndex = 2;
-            this.dcKindName.Width = 80;
+            this.dcKindID.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcKindID.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcKindID.AppearanceCell.Options.UseBackColor = true;
+            this.dcKindID.AppearanceCell.Options.UseForeColor = true;
+            this.dcKindID.AppearanceCell.Options.UseTextOptions = true;
+            this.dcKindID.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcKindID.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcKindID.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcKindID.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcKindID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcKindID.Caption = "传感器类型";
+            this.dcKindID.Name = "dcKindID";
+            this.dcKindID.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcKindID.Visible = true;
+            this.dcKindID.VisibleIndex = 2;
+            this.dcKindID.Width = 120;
             // 
             // dcNetwork
             // 
@@ -243,12 +244,12 @@
             this.parameter5.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.parameter5.Width = 80;
             // 
-            // MenuEnvironmentControl
+            // MenuSensorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gcSensors);
-            this.Name = "MenuEnvironmentControl";
+            this.Name = "MenuSensorControl";
             this.Size = new System.Drawing.Size(679, 281);
             ((System.ComponentModel.ISupportInitialize)(this.gcSensors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvSensors)).EndInit();
@@ -261,14 +262,14 @@
         private DevExpress.XtraGrid.GridControl gcSensors;
         private DevExpress.XtraGrid.Views.Grid.GridView gvSensors;
         private DevExpress.XtraGrid.Columns.GridColumn dcNum;
-        private DevExpress.XtraGrid.Columns.GridColumn dcDeviceValue;
-        private DevExpress.XtraGrid.Columns.GridColumn dcKindName;
+        private DevExpress.XtraGrid.Columns.GridColumn dcDeviceValue; 
         private DevExpress.XtraGrid.Columns.GridColumn dcNetwork;
         private DevExpress.XtraGrid.Columns.GridColumn dcID;
         private DevExpress.XtraGrid.Columns.GridColumn parameter2;
         private DevExpress.XtraGrid.Columns.GridColumn parameter3;
         private DevExpress.XtraGrid.Columns.GridColumn parameter4;
         private DevExpress.XtraGrid.Columns.GridColumn parameter5;
+        private DevExpress.XtraGrid.Columns.GridColumn dcKindID;
 
     }
 }

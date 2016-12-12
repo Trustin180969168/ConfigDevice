@@ -85,7 +85,10 @@ namespace ConfigDevice
             GetDeviceData(byteArrData);
         }
 
-   
+        public MenuSensorSettingData()
+        {
+        }
+
         private void GetDeviceData(byte[] data)
         {
 

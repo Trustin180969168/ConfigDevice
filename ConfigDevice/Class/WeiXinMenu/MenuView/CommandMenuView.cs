@@ -7,26 +7,26 @@ namespace ConfigDevice
 {
     public class CommandMenuView:BaseMenuView
     {
-        MenuSecurityControl menuSecurityEdit;//---编辑界面---
+        MenuSecurityControl menuSecurityControl;//---编辑界面---
 
 
         public CommandMenuView(WeiXin device, Control editControl, MenuData editData)
             : base(device, editControl, editData)
         {
-            menuSecurityEdit = new MenuSecurityControl();
-            menuSecurityEdit.Dock = DockStyle.Top;
-            menuSecurityEdit.Height = 300;
+            menuSecurityControl = new MenuSecurityControl();
+            menuSecurityControl.Dock = DockStyle.Top;
+            menuSecurityControl.Height = 300;
             editControl.Controls.Clear();
-            editControl.Controls.Add(menuSecurityEdit);
+            editControl.Controls.Add(menuSecurityControl);
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_COMMAND);
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_SECURITY_CFG);
     
-            menuSecurityEdit.InitEdit(device, editData);
+            menuSecurityControl.InitEdit(device, editData);
         } 
 
         public override void LoadEditData()
         {
-            menuSecurityEdit.GetSecurityData();
+            menuSecurityControl.GetSecurityData();
         }
 
    
