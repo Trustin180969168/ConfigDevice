@@ -72,7 +72,7 @@ namespace ConfigDevice
         {
             if(menuSecurityData == null) return;
             menuSecurityData.MenuId = menuData.MenuID;
-            menuSecurityData.KindId = (byte)menuData.KindID;
+            menuSecurityData.KindId = (byte)menuData.ByteKindID;
             if (rgSecurity.SelectedIndex == 1)
                 menuSecurityData.IsSecurityHomeCancel = true;
             else if (rgSecurity.SelectedIndex == 2)

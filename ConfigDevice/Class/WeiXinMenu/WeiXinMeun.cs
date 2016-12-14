@@ -166,7 +166,7 @@ namespace ConfigDevice
                 DataRow dr = drs[0];
                 dr.EndEdit();
                 menuData.MenuID = Convert.ToUInt32( menuCode);
-                menuData.KindID = Convert.ToUInt16(dr[MenuConfig.DC_KIND_ID]);
+                menuData.ByteKindID = Convert.ToByte(dr[MenuConfig.DC_KIND_ID]);
                 menuData.KindName = dr[MenuConfig.DC_KIND_NAME].ToString(); 
                 menuData.Flag = Convert.ToUInt16(dr[MenuConfig.DC_FLAG]); 
                 menuData.Title = dr[MenuConfig.DC_TITLE].ToString();
@@ -192,7 +192,7 @@ namespace ConfigDevice
                 DataRow dr = drs[0];
                 dr.EndEdit();
                 menuData.MenuID = Convert.ToUInt32(dr[MenuConfig.DC_CODE]);
-                menuData.KindID = Convert.ToUInt16(dr[MenuConfig.DC_KIND_ID]);
+                menuData.ByteKindID = Convert.ToByte(dr[MenuConfig.DC_KIND_ID]);
                 menuData.KindName = dr[MenuConfig.DC_KIND_NAME].ToString();
                 menuData.Flag = Convert.ToUInt16(dr[MenuConfig.DC_FLAG]);
                 menuData.Title = dr[MenuConfig.DC_TITLE].ToString();
@@ -226,7 +226,7 @@ namespace ConfigDevice
             int newMenuSeq = Convert.ToInt16(newMenuCode.Replace(".", ""));
             if (drMenu == null)
             {
-                DataRow dr = DataTableMenu.Rows.Add(new object[] {Guid.NewGuid(),newMenuCode, menuData.KindID, menuData.KindName,
+                DataRow dr = DataTableMenu.Rows.Add(new object[] {Guid.NewGuid(),newMenuCode, menuData.ByteKindID, menuData.KindName,
                             newMenuParentCode, "配置", menuData.Title,(int)menuData.MenuID,(int)menuData.MenuID,menuData.Flag });
                 dr.EndEdit();
                 dr.AcceptChanges();
@@ -234,7 +234,7 @@ namespace ConfigDevice
             else
             {
                 drMenu[MenuConfig.DC_ID] = newMenuCode;
-                drMenu[MenuConfig.DC_KIND_ID] = menuData.KindID;
+                drMenu[MenuConfig.DC_KIND_ID] = menuData.ByteKindID;
                 drMenu[MenuConfig.DC_KIND_NAME] = menuData.KindName;
                 drMenu[MenuConfig.DC_PARENT_ID] = newMenuParentCode;
                 drMenu[MenuConfig.DC_SETTING] = "配置";
@@ -326,12 +326,12 @@ namespace ConfigDevice
                     int menuNum = Convert.ToInt16( dr[MenuConfig.DC_CODE]);
                     MenuData menuData = new MenuData();
                     menuData.MenuID = (UInt32)menuNum;
-                    menuData.KindID = Convert.ToUInt16(dr[MenuConfig.DC_KIND_ID]);
+                    menuData.ByteKindID = Convert.ToByte(dr[MenuConfig.DC_KIND_ID]);
                     menuData.KindName = dr[MenuConfig.DC_KIND_NAME].ToString();
                     menuData.Flag = Convert.ToUInt16(dr[MenuConfig.DC_FLAG]);
                     menuData.Title = dr[MenuConfig.DC_TITLE].ToString();
 
-                    menuData.KindID = MenuKind.MS_COBJ_DLE;//---标记为删除类型---
+                    menuData.ByteKindID = MenuKind.MS_COBJ_DLE;//---标记为删除类型---
                     menuList.SaveMenuData(menuData);
                 }
             }

@@ -18,8 +18,11 @@ namespace ConfigDevice
             menuSecurityControl.Height = 300;
             editControl.Controls.Clear();
             editControl.Controls.Add(menuSecurityControl);
+
+            //---清空回调----
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_COMMAND);
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_SECURITY_CFG);
+            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END);
     
             menuSecurityControl.InitEdit(device, editData);
         } 

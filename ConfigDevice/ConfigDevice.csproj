@@ -479,6 +479,7 @@
     <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuEditControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Class\WeiXinMenu\MenuCommandList.cs" />
     <Compile Include="Class\WeiXinMenu\MenuEditor\MenuSensorEdit.cs" />
     <Compile Include="Class\WeiXinMenu\MenuView\CommandMenuView.cs" />
     <Compile Include="Class\WeiXinMenu\MenuConfig.cs" />

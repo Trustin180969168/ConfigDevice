@@ -49,7 +49,7 @@ namespace ConfigDevice
             crcData[9] = len;
             byte[] byteArrMenuID = ConvertTools.GetByteFromUInt32(MenuData.MenuID); 
             Buffer.BlockCopy(byteArrMenuID, 0, crcData, 10, 4);
-            crcData[14] = (byte)MenuData.KindID;
+            crcData[14] = (byte)MenuData.ByteKindID;
              
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------

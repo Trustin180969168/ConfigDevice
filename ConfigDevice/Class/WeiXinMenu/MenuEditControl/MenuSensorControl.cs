@@ -189,7 +189,7 @@ namespace ConfigDevice
         public override void SaveSetting()
         {
             MenuSensorSettingData menuSensorSettingData = new MenuSensorSettingData();
-            menuSensorSettingData.KindId = (byte)this.menuData.KindID;
+            menuSensorSettingData.KindId = (byte)this.menuData.ByteKindID;
             menuSensorSettingData.MenuId = this.menuData.MenuID;
 
             foreach (MenuSensorData sensor in menuSensorSettingData.MenuDeviceDataList)

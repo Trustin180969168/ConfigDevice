@@ -48,7 +48,7 @@ namespace ConfigDevice
             crcData[9] = len;
             byte[] byteArrMenuID = ConvertTools.GetByteFromUInt32(MenuData.MenuID); 
             Buffer.BlockCopy(byteArrMenuID, 0, crcData, 10, 4);
-            crcData[14] = (byte)MenuData.KindID;
+            crcData[14] = (byte)MenuData.ByteKindID;
              
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
@@ -111,7 +111,7 @@ namespace ConfigDevice
 
             byte[] byteArrMenuID = ConvertTools.GetByteFromUInt32(MenuData.MenuID); 
             Buffer.BlockCopy(byteArrMenuID, 0, crcData, 10, 4);
-            crcData[14] = (byte)MenuData.KindID;
+            crcData[14] = (byte)MenuData.ByteKindID;
             crcData[15] = data.ByteSecurityKindID;//是否布防,布防类型，Bit0-1表示室外布防，Bit1-1表示全部布防
             crcData[16] = data.ByteSecurityHomeCancelID;//是否撤防，Bit0-1表示回家键撤防
 
