@@ -15,6 +15,9 @@ namespace ConfigDevice
         public ToolStripComboBox CbxCommandGroup { get { return cbxGroup; } }
         private DateTime actionTime = DateTime.Now.AddMinutes(-1);//---执行时间-----
         private DataTable dtSelectDevices = new DataTable();//---选择设备----
+        public CommandList DeviceCommandList;//---命令管理----
+        public MenuCommandList MenuCommandList;//---菜单命令管理-----
+
         /// <summary>
         /// 是否显示组选择
         /// </summary>
@@ -78,7 +81,7 @@ namespace ConfigDevice
         {
             get { return commandCount; }
         }
-        public CommandList CommandEdit;
+
 
         public ViewCommandSetting()
         {
@@ -92,30 +95,31 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="udpResult"></param>
         /// <param name="values"></param>
-        private void returnCommandData(CallbackParameter parameter)
+        private void returnDeviceCommandData(CallbackParameter parameter)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CallbackUIAction(returnCommandData), parameter);
+                this.Invoke(new CallbackUIAction(returnDeviceCommandData), parameter);
                 return;
             }
             UserUdpData userData = (UserUdpData)parameter.Parameters[0];
-            CommandData commandData = new CommandData(userData);
+            DeviceCommandData commandData = new DeviceCommandData(userData);
             //----暂时不用多一条的情况
             //while (commandCount < commandData.ucCmdNum + 2)
             //    addViewCommandSetting();                                                                                                                                                                                                                       
-            while (commandCount < commandData.ucCmdNum + 1)
+            while (commandCount < commandData.ByteCmdNum + 1)
                 addViewCommandSetting();
             foreach (Control ctrl in xscCommands.Controls)
             {
                 ViewCommandTools viewCommand = ctrl as ViewCommandTools;
-                if (viewCommand.Num - 1 == commandData.ucCmdNum)
+                if (viewCommand.Num - 1 == commandData.ByteCmdNum)
                 {
                     viewCommand.SetCommandData(commandData);
                     break;
                 }
             }
         }
+
 
 
         /// <summary>
@@ -152,7 +156,7 @@ namespace ConfigDevice
                 //while (xscCommands.Controls.Count > 0)
                 //    removeViewCommandSetting();
                 AddDefaultNullCommand();//----默认添加一条空指令
-                CommandEdit.ReadCommandData(groupNum, (int)edtBeginNum.Value - 1, (int)edtEndNum.Value - 1);//序号从0开始
+                DeviceCommandList.ReadCommandData(groupNum, (int)edtBeginNum.Value - 1, (int)edtEndNum.Value - 1);//序号从0开始
             }
         }
 
@@ -256,8 +260,8 @@ namespace ConfigDevice
                 cbxGroup.Items.Add(i++.ToString() + "."+groupStr);
 
             int addCount = (int)edtEndNum.Value;//----指令的加载个数
-            CommandEdit = new CommandList(device);
-            CommandEdit.OnCallbackUI_Action += this.returnCommandData;//命令的执行的界面回调
+            DeviceCommandList = new CommandList(device);
+            DeviceCommandList.OnCallbackUI_Action += this.returnDeviceCommandData;//命令的执行的界面回调
             NeedInit = false;//---标记初始化完毕
             AddDefaultNullCommand();//----默认保留一条空指令便于添加----- 
         }
@@ -332,12 +336,10 @@ namespace ConfigDevice
                 ViewCommandTools commandView = view as ViewCommandTools;
                 if (commandView.HasChanged || commandView.QuickSetting)
                 {
-                    CommandData command = commandView.GetCommandData();
-                    if (command == null) continue;
-                    command.ucCmdType = 0;
-                    command.ucCmdKey = cbxGroup.SelectedIndex;
-                    command.ucCmdNum = commandView.Num - 1;
-                    CommandEdit.SaveCommandData(command);
+                    CommandData commandData = commandView.GetCommandData();
+                    if (commandData == null) continue; 
+                    DeviceCommandData DeviceCommandData = new DeviceCommandData(cbxGroup.SelectedIndex, (commandView.Num - 1), commandData);
+                    DeviceCommandList.SaveCommandData(DeviceCommandData);
                     commandView.QuickSetting = false;//---恢复快速配置初值------
                     commandView.DataCommandSetting.AcceptChanges();
                 }
@@ -353,12 +355,10 @@ namespace ConfigDevice
                 ViewCommandTools commandView = view as ViewCommandTools;
                 if (commandView.HasChanged || commandView.QuickSetting)
                 {
-                    CommandData command = commandView.GetCommandData();
-                    if (command == null) continue;
-                    command.ucCmdType = 0;
-                    command.ucCmdKey = groupNum;
-                    command.ucCmdNum = commandView.Num - 1;
-                    CommandEdit.SaveCommandData(command);
+                    CommandData commandData = commandView.GetCommandData();
+                    if (commandData == null) continue;
+                    DeviceCommandData DeviceCommandData = new DeviceCommandData(groupNum, (commandView.Num - 1), commandData);
+                    DeviceCommandList.SaveCommandData(DeviceCommandData);
                     commandView.QuickSetting = false;//---恢复快速配置初值------
                     commandView.DataCommandSetting.AcceptChanges();
                 }
@@ -371,7 +371,7 @@ namespace ConfigDevice
         /// <param name="cmdNum">命令编号</param>
         public void DelCommandData(int cmdNum)
         {
-            CommandEdit.DelCommandData(cbxGroup.SelectedIndex, cmdNum, cmdNum);
+            DeviceCommandList.DelCommandData(cbxGroup.SelectedIndex, cmdNum, cmdNum);
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace ConfigDevice
         /// </summary> 
         private void btTest_Click(object sender, EventArgs e)
         {
-            this.CommandEdit.TestCommands(cbxGroup.SelectedIndex);
+            this.DeviceCommandList.TestCommands(cbxGroup.SelectedIndex);
         }
 
         /// <summary>

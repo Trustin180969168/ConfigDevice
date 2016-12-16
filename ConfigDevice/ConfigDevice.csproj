@@ -497,6 +497,7 @@
     <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityControl.Designer.cs">
       <DependentUpon>MenuSecurityControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\DeviceCommandData.cs" />
     <Compile Include="Data\KeyData.cs" />
     <Compile Include="Data\LCDPanelOptionData.cs" />
     <Compile Include="Class\WeiXinMenu\Data\MenuData.cs" />

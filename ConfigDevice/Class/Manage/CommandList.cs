@@ -122,13 +122,13 @@ namespace ConfigDevice
         /// <param name="groupIndex">命令组</param>
         /// <param name="num">命令序号</param>
         /// <param name="data">命令数据</param>
-        public void SaveCommandData(CommandData commandData)
+        public void SaveCommandData(DeviceCommandData commandData)
         {
             UdpData udpSend = createWriteCommandUdp(commandData);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult),
-                new object[] { "保存第" + (commandData.ucCmdNum + 1).ToString() + "指令失败!" });
+                new object[] { "保存第" + (commandData.ByteCmdNum + 1).ToString() + "指令失败!" });
         }
-        private UdpData createWriteCommandUdp(CommandData commandData)
+        private UdpData createWriteCommandUdp(DeviceCommandData commandData)
         {
             UdpData udp = new UdpData();
 
