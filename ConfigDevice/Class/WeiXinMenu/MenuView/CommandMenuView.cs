@@ -14,11 +14,12 @@ namespace ConfigDevice
             : base(device, editControl, editData)
         {
             menuSecurityControl = new MenuSecurityControl();
-            menuSecurityControl.Dock = DockStyle.Top;
-            menuSecurityControl.Height = 300;
-            editControl.Controls.Clear();
-            editControl.Controls.Add(menuSecurityControl);
-
+            menuSecurityControl.Dock = DockStyle.Fill;
+            if (Int32.Parse(editControl.Tag.ToString()) !=  MenuKind.MS_COBJ_CMD)
+            {
+                editControl.Controls.Clear();
+                editControl.Controls.Add(menuSecurityControl);
+            }
             //---清空回调----
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_COMMAND);
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_SECURITY_CFG);

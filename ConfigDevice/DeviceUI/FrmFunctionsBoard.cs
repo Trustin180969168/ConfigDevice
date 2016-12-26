@@ -77,7 +77,6 @@ namespace ConfigDevice
                                 initLogicAndCommand();
                             else if (!viewCommandEdit.NeedInit)
                             {
-                                
                                 updateCommandGroupName();
                             }
                         }
@@ -105,7 +104,7 @@ namespace ConfigDevice
 
                 }
             }
-            catch { }
+            catch (Exception e) { CommonTools.MessageShow("执行异常!",2,e.Message); }
         }
 
         /// <summary>
@@ -125,7 +124,8 @@ namespace ConfigDevice
                 else if (key >= 17 && key <= 24)
                     viewCommandEdit.CommmandGroups.Add("窗帘:" + panelKey.Circuit.ListCircuitIDAndName[key]);    //---指令组选择---- 
       
-            } viewCommandEdit.UpdateGroupName();
+            } 
+            viewCommandEdit.UpdateGroupName();
         }
 
         /// <summary>
@@ -145,11 +145,12 @@ namespace ConfigDevice
         {
             if (hasInitLogicAndCommand) return;
             viewCommandEdit.CommmandGroups.Clear();
+      
             if (viewCommandEdit.NeedInit)
             {
-                updateCommandGroupName();
                 viewCommandEdit.InitViewCommand(panelKey);
-                viewCommandEdit.CbxCommandGroup.SelectedIndex = 0;
+                updateCommandGroupName();
+                viewCommandEdit.ReadDeviceCommandData(viewCommandEdit.CbxCommandGroup.SelectedIndex);
             }  
             hasInitLogicAndCommand = true;
         }

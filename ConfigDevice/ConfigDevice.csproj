@@ -60,25 +60,12 @@
       <HintPath>..\..\..\..\..\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraNavBar.v8.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraPivotGrid.v8.1.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v8.1.Core, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="DevExpress.XtraRichTextEdit.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraRichTextEdit.v8.1\8.1.1.0__49d90c14d24271b5\DevExpress.XtraRichTextEdit.v8.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.XtraTreeList.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraVerticalGrid.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraVerticalGrid.v8.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -431,6 +418,7 @@
     <Compile Include="Class\Devices\ButtonPanelKey.cs" />
     <Compile Include="Class\Devices\Short4.cs" />
     <Compile Include="Class\Devices\WeiXin.cs" />
+    <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Manage\KeyList.cs" />
     <Compile Include="Class\Sensor\Sensor.cs" />
     <Compile Include="Class\ViewKeySetting\BaseKeySetting.cs" />
@@ -440,7 +428,7 @@
     <Compile Include="Class\Devices\Road12Relay.cs" />
     <Compile Include="Class\Devices\Radar.cs" />
     <Compile Include="Class\Devices\LCDPanelKey.cs" />
-    <Compile Include="Class\Manage\CommandList.cs" />
+    <Compile Include="Class\Manage\DeviceCommandList.cs" />
     <Compile Include="Class\Devices\Road4Relay.cs" />
     <Compile Include="Class\Devices\Road6FrontDimming.cs" />
     <Compile Include="Class\Devices\Road8FrontDimming.cs" />
@@ -497,6 +485,7 @@
     <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityControl.Designer.cs">
       <DependentUpon>MenuSecurityControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\CommandReadObj.cs" />
     <Compile Include="Data\DeviceCommandData.cs" />
     <Compile Include="Data\KeyData.cs" />
     <Compile Include="Data\LCDPanelOptionData.cs" />

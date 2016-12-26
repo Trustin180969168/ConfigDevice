@@ -385,6 +385,7 @@ namespace ConfigDevice
                 string uuid = selectNode.GetValue(MenuConfig.DC_UUID).ToString();
                 MenuData menuData = weiXinEdit.WeiXinMenu.GetMenuDataByUuid(uuid);
                 menuEditView = MenuCtrl.CreateMenuSettingView(weiXinEdit, plMenuEdit, menuData);
+                plMenuEdit.Tag = menuData.ByteKindID;
                 if (menuEditView == null)
                     plMenuEdit.Controls.Clear();
                 else

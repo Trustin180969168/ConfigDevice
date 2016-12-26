@@ -202,7 +202,7 @@ namespace ConfigDevice
         {
             if (lookUpEdit.ItemIndex == -1) { lookUpEdit.ItemIndex = 0; return; }//----
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);       //---读取逻辑数据----
-            viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
+            viewCommandSetting.ReadDeviceCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace ConfigDevice
 
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
             viewLogicSetting.IsSystemSetting = false;//---恢复标志位---
-            viewCommandSetting.SaveCommands(lookUpEdit.ItemIndex);//---保存指令配置---   
+            viewCommandSetting.SaveDeviceCommands(lookUpEdit.ItemIndex);//---保存指令配置---   
         }
 
 

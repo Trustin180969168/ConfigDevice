@@ -15,8 +15,11 @@ namespace ConfigDevice
             menuSensorControl = new MenuSensorControl();
             menuSensorControl.Dock = DockStyle.Top;
             menuSensorControl.Height = 300;
-            editControl.Controls.Clear();
-            editControl.Controls.Add(menuSensorControl);
+            if (Int32.Parse(editControl.Tag.ToString()) != MenuKind.MS_COBJ_ENV)
+            {
+                editControl.Controls.Clear();
+                editControl.Controls.Add(menuSensorControl);
+            }
             SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_BDEV_CFG);
 
             menuSensorControl.InitEdit(device, editData);

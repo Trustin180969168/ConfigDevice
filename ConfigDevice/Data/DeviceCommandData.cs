@@ -9,11 +9,10 @@ namespace ConfigDevice
         public byte ByteCmdType;//指令类型
         public byte ByteCmdKey;//第几个按键/分组
         public byte ByteCmdNum;//第几个指令 
-       
 
         /// <summary>
-        /// 指令长度,指令头(类型,分组,指令序)+指令设备(id+网段id+目标类型)
-        /// +指令内容+指令内容长度
+        /// 指令头(类型,分组,指令序)+指令设备(id+网段id+目标类型)
+        /// 指令内容+指令内容长度
         /// </summary>
         public int Len { get { return DataLen + 3 + 3 + 2 + 1; } }
 
@@ -41,9 +40,9 @@ namespace ConfigDevice
 
         public DeviceCommandData(int groupIndex, int numIndex, CommandData commandData)
         {
-            ByteCmdType = 0;
-            ByteCmdKey = (byte)groupIndex;
-            ByteCmdNum = (byte)numIndex;
+             ByteCmdType = 0;
+             ByteCmdKey = (byte)groupIndex;
+             ByteCmdNum = (byte)numIndex;
 
             TargetId = commandData.TargetId;
             TargetNet = commandData.TargetNet;

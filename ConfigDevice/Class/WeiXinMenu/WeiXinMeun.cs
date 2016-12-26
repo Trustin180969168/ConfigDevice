@@ -34,7 +34,7 @@ namespace ConfigDevice
 
         public const int MEMU_2_1N_SZ = 5;                                          /* 第2级菜单:第1级大小         */
 
-        public const string BEGIN_CODE = "0.0.0";
+        public const string BEGIN_CODE = "0";
         public const string END_CODE = "2.4.8";
 
         private WeiXin weiXinDevice;

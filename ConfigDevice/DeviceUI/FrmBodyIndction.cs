@@ -146,7 +146,6 @@ namespace ConfigDevice
                 //-----读取状态---
                 if (callbackParameter.Action == ActionKind.ReadSate )
                 {
-
                     edtUW1.Text = bodyInduction.UWSensor1.SensorData.LevelValue;
                     edtIR.Text = bodyInduction.IRSensor.SensorData.LevelValue;
                     edtUW2.Text = bodyInduction.UWSensor2.SensorData.LevelValue;
@@ -227,7 +226,7 @@ namespace ConfigDevice
         {
             if (lookUpEdit.ItemIndex == -1) { lookUpEdit.ItemIndex = 0; return; }//----
             viewLogicSetting.ReadLogicList(lookUpEdit.ItemIndex);       //---读取逻辑数据----
-            viewCommandSetting.ReadCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
+            viewCommandSetting.ReadDeviceCommandData(lookUpEdit.ItemIndex);   //---读取命令数据----
             bodyInduction.ReadAdditionLogic(lookUpEdit.ItemIndex);  //---获取逻辑附加---
             bodyInduction.SecurityObj.ReadSafeSetting(lookUpEdit.ItemIndex);  //---安防配置---
         }
@@ -287,7 +286,7 @@ namespace ConfigDevice
             viewSecurity.SaveSecurity(lookUpEdit.ItemIndex);//------保存安防-----
             viewLogicSetting.SaveLogicData(lookUpEdit.ItemIndex);//--保存逻辑数据---
             viewLogicSetting.IsSystemSetting = false;           //---恢复标志位---
-            viewCommandSetting.SaveCommands(lookUpEdit.ItemIndex);//---保存指令配置---   
+            viewCommandSetting.SaveDeviceCommands(lookUpEdit.ItemIndex);//---保存指令配置---   
             
         }
         /// <summary>

@@ -4,37 +4,35 @@ using System.Text;
 
 namespace ConfigDevice
 {
-    public class MenuCommandList:CommandList
-    {  
-        public MenuData menuData;                           //----当前读取指令的菜单
-        private CallbackFromUDP getWriteEnd;                //----获取结束读取信息----
+    public class DeviceCommandList:CommandList
+    { 
+        private CallbackFromUDP getWriteEnd;//----获取结束读取信息---- 
 
-        public MenuCommandList(Device value ):base(value)
-        {      
-       
+        public DeviceCommandList(Device value):base(value)
+        {
+ 
+            getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
         }
 
-  
+   
 
         /// <summary>
         /// 获取指令数据
         /// </summary>
-        public override void ReadCommandData(CommandReadObj menu, int startNum, int endNum)
+        public override void ReadCommandData(CommandReadObj groupNum, int startNum, int endNum)
         {
-            menuData = menu.MenuData;
-            UdpData udpSend = createReadCommandsUdp(menu.MenuData, startNum, endNum);
-            callbackGetCommandData.Parameters =new object[]{ menuData.MenuID};//---回调参数----
-            getWriteEnd = new CallbackFromUDP(this.getWriteEndData,new object[]{menuData.MenuID});//---回调参数---- 
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_COMMAND, menuData.MenuID.ToString(), callbackGetCommandData);//---注册回调----
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, menuData.MenuID.ToString(), getWriteEnd);//---注册结束回调---
+            UdpData udpSend = createReadCommandsUdp(groupNum.Index, startNum, endNum);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_COMMAND, callbackGetCommandData);//---注册回调----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, objUuid, getWriteEnd);//---注册结束回调---
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadCommands), null);
         }
         private void callbackReadCommands(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                CommonTools.ShowReplyInfo("申请读取指令失败!", udpReply.ReplyByte); 
+                CommonTools.ShowReplyInfo("申请读取指令失败!", udpReply.ReplyByte);
+
         }
-        private UdpData createReadCommandsUdp(MenuData menu, int _startNum, int _endNum)
+        private UdpData createReadCommandsUdp(int _grounNum, int _startNum ,int _endNum)
         {
             UdpData udp = new UdpData();
 
@@ -46,21 +44,23 @@ namespace ConfigDevice
             byte[] target = new byte[] { device.ByteDeviceID, device.ByteNetworkId, device.ByteKindID };//----目标信息--
             byte[] source = new byte[] { device.BytePCAddress, device.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_MMSG_READ_COMMAND;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_COMMAND;//----用户命令-----
            // byte[] cmd = DeviceConfig.CMD_PUBLIC_READ_MULTI;//----用户命令-----
-            byte len = 11;//---数据长度---- 
- 
-            byte[] crcData = new byte[10 + len - 4];
+            byte len = 0x08;//---数据长度----
+            byte kind = device.ByteKindID;//指令类型(未用到,不作处理)
+            byte groupNum = (byte)_grounNum;
+            byte startNum = (byte)_startNum;
+            byte endNum = (byte)_endNum;
+            byte[] crcData = new byte[10 + 8 - 4];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
-
-            Buffer.BlockCopy(menu.ByteArrMenuID, 0, crcData, 10, 4);
-            crcData[14] = menu.ByteKindID;
-            crcData[15] = (byte)_startNum;
-            crcData[16] = (byte)_endNum;
+            crcData[10] = kind;
+            crcData[11] = groupNum;
+            crcData[12] = startNum;
+            crcData[13] = endNum;
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
@@ -82,11 +82,9 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.device.DeviceID) return;//不是本设备ID不接收.
-            MenuData tempMenuData = new MenuData(userData);
-            if ((int)values[0]  != menuData.MenuID) return;//返回不是本菜单---
             UdpTools.ReplyDataUdp(data);//----回复确认----- 
-
-            CallbackUI(new CallbackParameter(ActionKind.ReadMenuCommand, new object[] { userData }));//----界面回调------
+  
+            CallbackUI(new CallbackParameter(ActionKind.ReadCommand, new object[] { userData }));//----界面回调------
         }
 
         /// <summary>
@@ -98,7 +96,7 @@ namespace ConfigDevice
         {  
             UserUdpData userData = new UserUdpData(data);
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
-            if (userData.SourceID == device.DeviceID && (int)values[0] == menuData.MenuID)
+            if (userData.SourceID == device.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_COMMAND))
             {
                 UdpTools.ReplyDataUdp(data);//----回复确认----- 
             }
@@ -112,11 +110,11 @@ namespace ConfigDevice
         /// <param name="data">命令数据</param>
         public override void SaveCommandData(CommandData commandData)
         {
-            UdpData udpSend = createWriteCommandUdp((MenuCommandData)commandData);
+            UdpData udpSend = createWriteCommandUdp((DeviceCommandData)commandData);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult),
-                new object[] { "保存第" + ((commandData as MenuCommandData).ByteCmdNum + 1).ToString() + "指令失败!" });
+                new object[] { "保存第" + ((commandData as DeviceCommandData).ByteCmdNum + 1).ToString() + "指令失败!" });
         }
-        private UdpData createWriteCommandUdp(MenuCommandData commandData)
+        private UdpData createWriteCommandUdp(DeviceCommandData commandData)
         {
             UdpData udp = new UdpData();
 
@@ -128,8 +126,8 @@ namespace ConfigDevice
             byte[] target = new byte[] { device.ByteDeviceID, device.ByteNetworkId, device.ByteKindID };//----目标信息--
             byte[] source = new byte[] { device.BytePCAddress, device.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_MMSG_WRITE_COMMAND;//----用户命令-----
-            byte len = (byte)(commandData.Len + 6);//---数据长度----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_COMMAND;//----用户命令-----
+            byte len = (byte)(commandData.Len + 4);//---数据长度----
 
             byte[] crcData = new byte[10 + commandData.Len];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
@@ -156,13 +154,13 @@ namespace ConfigDevice
         /// <param name="groupIndex">分组序号</param>
         /// <param name="num">开始序号</param>
         /// <param name="data">结束序号</param>
-        public override void DelCommandData(CommandReadObj data,int startIndex,int endIndex)
+        public override void DelCommandData(CommandReadObj groupIndex,int startIndex,int endIndex)
         {
-            UdpData udpSend = createDelCommandUdp(startIndex, endIndex);
+            UdpData udpSend = createDelCommandUdp(groupIndex.Index, startIndex, endIndex);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult),
                 new object[] { "删除第" + (startIndex + 1).ToString() + "指令失败!" });
         }
-        private UdpData createDelCommandUdp(int startIndex, int endIndex)
+        private UdpData createDelCommandUdp(int groupIndex, int startIndex, int endIndex)
         {
             UdpData udp = new UdpData();
 
@@ -174,19 +172,19 @@ namespace ConfigDevice
             byte[] target = new byte[] { device.ByteDeviceID, device.ByteNetworkId, device.ByteKindID };//----目标信息--
             byte[] source = new byte[] { device.BytePCAddress, device.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_MMSG_DEL_COMMAND;//----用户命令-----
-            byte len = 11;//---数据长度----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_DEL_COMMAND;//----用户命令-----
+            byte len = 8;//---数据长度----
 
-            byte[] crcData = new byte[10 + len - 4];
+            byte[] crcData = new byte[10 + 8 - 4];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
-            crcData[9] = len;
-            Buffer.BlockCopy(menuData.ByteArrMenuID, 0, crcData, 10, 4);
-            crcData[14] = menuData.ByteKindID;
-            crcData[15] = (byte)startIndex;
-            crcData[16] = (byte)endIndex;
+            crcData[9] = len; 
+            crcData[10] = 0;
+            crcData[11] = (byte)groupIndex;
+            crcData[12] = (byte)startIndex;
+            crcData[13] = (byte)endIndex;
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
@@ -201,10 +199,10 @@ namespace ConfigDevice
         /// <summary>
         /// 指令测试
         /// </summary>
-        /// <param name="groupIndex">指令序号</param>
-        public override void TestCommands(CommandReadObj Index)
+        /// <param name="groupIndex">组/键</param>
+        public override void TestCommands(CommandReadObj groupIndex)
         {
-            UdpData udpSend = createTestCommandsUdp(Index.Index);
+            UdpData udpSend = createTestCommandsUdp(groupIndex.Index);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackTestCommandsData), null);
         }
         private void callbackTestCommandsData(UdpData udpReply, object[] values)
@@ -226,7 +224,7 @@ namespace ConfigDevice
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_TEST_KEY_CMD;//----用户命令-----
             byte len = (byte)(4 + 3);//---数据长度---- 
-            byte byteGroupNum = (byte)menuData.MenuID;//--组号--
+            byte byteGroupNum = (byte)groupIndex;//--组号--
 
             //---------生成校验码-----------
             byte[] crcData = new byte[10 + 3];
