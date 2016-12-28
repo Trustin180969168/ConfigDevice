@@ -31,7 +31,7 @@
             this.gcSensors = new DevExpress.XtraGrid.GridControl();
             this.gvSensors = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcNum = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dcDeviceValue = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcDeviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcKindID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcNetwork = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -59,7 +59,7 @@
             // 
             this.gvSensors.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.dcNum,
-            this.dcDeviceValue,
+            this.dcDeviceName,
             this.dcKindID,
             this.dcNetwork,
             this.dcID,
@@ -100,24 +100,24 @@
             this.dcNum.VisibleIndex = 0;
             this.dcNum.Width = 50;
             // 
-            // dcDeviceValue
+            // dcDeviceName
             // 
-            this.dcDeviceValue.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.dcDeviceValue.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcDeviceValue.AppearanceCell.Options.UseBackColor = true;
-            this.dcDeviceValue.AppearanceCell.Options.UseForeColor = true;
-            this.dcDeviceValue.AppearanceCell.Options.UseTextOptions = true;
-            this.dcDeviceValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcDeviceValue.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcDeviceValue.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcDeviceValue.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcDeviceValue.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcDeviceValue.Caption = "设备名称";
-            this.dcDeviceValue.Name = "dcDeviceValue";
-            this.dcDeviceValue.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.dcDeviceValue.Visible = true;
-            this.dcDeviceValue.VisibleIndex = 1;
-            this.dcDeviceValue.Width = 140;
+            this.dcDeviceName.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcDeviceName.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcDeviceName.AppearanceCell.Options.UseBackColor = true;
+            this.dcDeviceName.AppearanceCell.Options.UseForeColor = true;
+            this.dcDeviceName.AppearanceCell.Options.UseTextOptions = true;
+            this.dcDeviceName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcDeviceName.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcDeviceName.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcDeviceName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcDeviceName.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcDeviceName.Caption = "设备名称";
+            this.dcDeviceName.Name = "dcDeviceName";
+            this.dcDeviceName.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcDeviceName.Visible = true;
+            this.dcDeviceName.VisibleIndex = 1;
+            this.dcDeviceName.Width = 140;
             // 
             // dcKindID
             // 
@@ -262,7 +262,7 @@
         private DevExpress.XtraGrid.GridControl gcSensors;
         private DevExpress.XtraGrid.Views.Grid.GridView gvSensors;
         private DevExpress.XtraGrid.Columns.GridColumn dcNum;
-        private DevExpress.XtraGrid.Columns.GridColumn dcDeviceValue; 
+        private DevExpress.XtraGrid.Columns.GridColumn dcDeviceName; 
         private DevExpress.XtraGrid.Columns.GridColumn dcNetwork;
         private DevExpress.XtraGrid.Columns.GridColumn dcID;
         private DevExpress.XtraGrid.Columns.GridColumn parameter2;

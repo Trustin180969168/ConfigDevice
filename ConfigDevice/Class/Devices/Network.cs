@@ -755,10 +755,10 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="network">网络数据</param>
         /// <returns>UDP</returns>
-        private UdpData createSaveNetworkParameter(byte[] newIP,byte[] gateWay, byte[] mask, byte _networkID,byte[] dns1,byte[] dns2)
+        private UdpData createSaveNetworkParameter(byte[] newIP, byte[] gateWay, byte[] mask, byte _networkID, byte[] dns1, byte[] dns2)
         {
             UdpData udp = new UdpData();
-        
+
             udp.PacketKind[0] = 0x01;//----包数据类------
             udp.PacketProperty[0] = BroadcastKind.Broadcast;//----包属性----
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
@@ -766,7 +766,7 @@ namespace ConfigDevice
 
             byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, ByteKindID };//----目标信息--
             byte[] source = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PC };//----源信息----
-                 
+
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = DeviceConfig.CMD_PC_CHANGENET;//----用户命令-----
             byte len = 0x2B;//---数据长度---
@@ -785,8 +785,10 @@ namespace ConfigDevice
             Buffer.BlockCopy(mask, 0, crcData, 24, 4);
             crcData[28] = _networkID;
             Buffer.BlockCopy(ByteMacAddress, 0, crcData, 29, 12);
-            Buffer.BlockCopy(dns1, 0, crcData, 41, 4);
-            Buffer.BlockCopy(dns2, 0, crcData, 45, 4);
+            if (dns1 != null)
+                Buffer.BlockCopy(dns1, 0, crcData, 41, 4);
+            if (dns2 != null)
+                Buffer.BlockCopy(dns2, 0, crcData, 45, 4);
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
             //---------拼接到包中------
             Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---

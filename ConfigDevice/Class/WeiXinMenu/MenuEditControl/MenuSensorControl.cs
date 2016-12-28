@@ -16,7 +16,7 @@ namespace ConfigDevice
         private GridViewLookupEdit lookupDeviceKind;//设备下拉选择
         private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//地址编辑
         public DataTable DataSensorSetting;//---传感器配置表-----
-        public int DeviceCount = 4;
+        public const int DeviceCount = 2;
         public DataTable dtSelectKind = new DataTable("SelectKind");
 
         public MenuSensorControl()
@@ -46,8 +46,8 @@ namespace ConfigDevice
 
             dcNum.FieldName = ViewConfig.DC_NUM;
             dcID.FieldName = ViewConfig.DC_DEVICE_ID;
-            dcNetwork.FieldName = ViewConfig.DC_DEVICE_NETWORK_ID;
-            dcDeviceValue.FieldName = ViewConfig.DC_DEVICE_VALUE;
+            dcDeviceName.FieldName = ViewConfig.DC_NAME;
+            dcNetwork.FieldName = ViewConfig.DC_DEVICE_NETWORK_ID; 
             dcKindID.FieldName = ViewConfig.DC_KIND;
 
             edtNum.MinValue = 0;
@@ -169,16 +169,16 @@ namespace ConfigDevice
             if (callbackParameter.Action == ActionKind.ReadMenuSensor)
             {
                 menuSensorSettingData = callbackParameter.Parameters[0] as MenuSensorSettingData;
+                int i = 0;
                 foreach (MenuSensorData sensor in menuSensorSettingData.MenuDeviceDataList)
-                {
-                    int i = 0;
-                    DataRow dr = DataSensorSetting.Rows[i];
+                {                    
+                    if (sensor == null) continue;                    
+                    DataRow dr = DataSensorSetting.Rows[i++];
                     dr[ViewConfig.DC_NAME] = sensor.DeviceName;
                     dr[ViewConfig.DC_KIND] = sensor.DeviceKindID;
-                    dr[ViewConfig.DC_ID] = sensor.DeviceID;
+                    dr[ViewConfig.DC_DEVICE_ID] = sensor.DeviceID;
                     dr[ViewConfig.DC_DEVICE_NETWORK_ID] = sensor.DeviceNetworkID;
-                    dr.EndEdit();
-                    i++;
+                    dr.EndEdit(); 
                 }
             }
         }
@@ -188,26 +188,23 @@ namespace ConfigDevice
         /// </summary>
         public override void SaveSetting()
         {
-            MenuSensorSettingData menuSensorSettingData = new MenuSensorSettingData();
+            MenuSensorSettingData menuSensorSettingData = new MenuSensorSettingData(this.menuData);
             menuSensorSettingData.KindId = (byte)this.menuData.ByteKindID;
             menuSensorSettingData.MenuId = this.menuData.MenuID;
-
+            gvSensors.PostEditor();
+            DataRow drEdit = gvSensors.GetDataRow(gvSensors.FocusedRowHandle);
+            drEdit.EndEdit();
             foreach (MenuSensorData sensor in menuSensorSettingData.MenuDeviceDataList)
             {
                 int i = 0;
                 DataRow dr = DataSensorSetting.Rows[i];
-                dr[ViewConfig.DC_NAME] = sensor.DeviceName;
-                dr[ViewConfig.DC_KIND] = sensor.DeviceKindID;
-                dr[ViewConfig.DC_ID] = sensor.DeviceID;
-                dr[ViewConfig.DC_DEVICE_NETWORK_ID] = sensor.DeviceNetworkID;
-
                 sensor.DeviceName = dr[ViewConfig.DC_NAME].ToString();
                 sensor.ByteDeviceKindID = Convert.ToByte(dr[ViewConfig.DC_KIND]);
-                sensor.ByteDeviceID = Convert.ToByte(dr[ViewConfig.DC_ID]);
+                sensor.ByteDeviceID = Convert.ToByte(dr[ViewConfig.DC_DEVICE_ID]);
                 sensor.ByteDeviceNetworkID = Convert.ToByte(dr[ViewConfig.DC_DEVICE_NETWORK_ID]);
                 i++;
             }
-
+            menuSensorEdit.SaveMenuSensor(menuSensorSettingData);
         }
 
     }

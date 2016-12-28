@@ -61,7 +61,7 @@ namespace ConfigDevice
             UdpData udp = new UdpData();
 
             udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
-            udp.PacketProperty[0] = BroadcastKind.Broadcast;//----包属性(单播/广播/组播)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
             Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
 

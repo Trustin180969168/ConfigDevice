@@ -72,7 +72,7 @@ namespace ConfigDevice
             if (userData.SourceID != WeiXinDevice.DeviceID) return;
             UdpTools.ReplyDataUdp(data);//----回复确认-----
             MenuSensorSettingData menuDeviceList = new MenuSensorSettingData(userData);
-            this.CallbackUI(new CallbackParameter(ActionKind.ReadMenuSensor, menuDeviceList));//----读完状态信息,回调界面----
+            this.CallbackUI(new CallbackParameter(ActionKind.ReadMenuSensor, WeiXinDevice.DeviceID, menuDeviceList));//----读完状态信息,回调界面----
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace ConfigDevice
         public void SaveMenuSensor(MenuSensorSettingData data)
         {
             UdpData udpSend = createSaveMenuSensorUdp(data);
-            mySocket.SendData(udpSend, WeiXinDevice.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadMenuSensor), null);
+            mySocket.SendData(udpSend, WeiXinDevice.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSaveMenuSensor), null);
         }
         private void callbackSaveMenuSensor(UdpData udpReply, object[] values)
         {
@@ -101,14 +101,17 @@ namespace ConfigDevice
             byte[] source = new byte[] { WeiXinDevice.BytePCAddress, WeiXinDevice.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_MMSG_WRITE_BDEV_CFG;//----用户命令----- 
-            byte len =  5 + 33 * 4;//---数据长度---- 
+            byte len =  5 + 33 * 2 + 4;//---数据长度---- 
 
-            byte[] crcData = new byte[10 + (len - 4) ];
+            byte[] crcData = new byte[10 + (len - 4)];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
+
+            //Buffer.BlockCopy(MenuData.ByteArrMenuID, 0, crcData, 10, 4);
+            //crcData[14] = MenuData.ByteKindID;
 
             byte[] value = data.GetValue();
             Buffer.BlockCopy(value, 0, crcData, 10, value.Length);

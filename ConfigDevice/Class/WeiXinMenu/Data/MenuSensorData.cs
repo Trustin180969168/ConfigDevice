@@ -40,9 +40,11 @@ namespace ConfigDevice
             ByteDeviceNetworkID = data[1];
             ByteDeviceKindID = data[2];
             Buffer.BlockCopy(data, 3, ByteDeviceName, 0, 30);
-         } 
+         }
 
-
+        public MenuSensorData()
+        {
+        }
 
         /// <summary>
         /// 获取设备值
@@ -65,11 +67,15 @@ namespace ConfigDevice
     /// </summary>
     public class MenuSensorSettingData
     {
+        public const int GroupCount = 2;//---2组数据
         public UInt32 MenuId;//第几个菜单  (从0开始计数)
         public byte KindId;//控制类型   （指出是哪个控制类型的配置数据）(MS_COBJ_AMP等)即:菜单类型
-        public MenuSensorData[] MenuDeviceDataList = new MenuSensorData[4];//--4组逻辑数据         
+        public MenuSensorData[] MenuDeviceDataList = new MenuSensorData[GroupCount];//--2组逻辑数据         
 
-        public byte[] ByteMenuId = new byte[4];
+        public byte[] ByteMenuId
+        {
+            get { return ConvertTools.GetByteFromUInt32(MenuId); }
+        }
 
         /// <summary>
         /// 构造函数
@@ -81,25 +87,32 @@ namespace ConfigDevice
             MenuId = ConvertTools.Bytes4ToUInt32(data[0], data[1], data[2], data[3]);
             Buffer.BlockCopy(data, 0, ByteMenuId, 0, 4);
             KindId = data[4];
-            byte[] byteArrData = CommonTools.CopyBytes(data, 5, data.Length - 4);
+            byte[] byteArrData = CommonTools.CopyBytes(data, 5, data.Length - 5);
             GetDeviceData(byteArrData);
         }
 
-        public MenuSensorSettingData()
+        public MenuSensorSettingData(MenuData menu)
         {
+            MenuId = menu.MenuID;
+            KindId = menu.ByteKindID;
+            for (int i = 0; i < MenuDeviceDataList.Length; i++)
+                MenuDeviceDataList[i] = new MenuSensorData();
         }
 
+        /// <summary>
+        /// 获取传感器绑定设备
+        /// </summary>
+        /// <param name="data"></param>
         private void GetDeviceData(byte[] data)
         {
-
-            byte[] deviceData1 = CommonTools.CopyBytes(data, 0, 33);
-            byte[] deviceData2 = CommonTools.CopyBytes(data, 33, 33);
-            byte[] deviceData3 = CommonTools.CopyBytes(data, 66, 33);
-            byte[] deviceData4 = CommonTools.CopyBytes(data, 99, 33);
-            MenuDeviceDataList[0] = new MenuSensorData(deviceData1);
-            MenuDeviceDataList[1] = new MenuSensorData(deviceData2);
-            MenuDeviceDataList[2] = new MenuSensorData(deviceData3);
-            MenuDeviceDataList[3] = new MenuSensorData(deviceData4);
+            try
+            {
+                byte[] deviceData1 = CommonTools.CopyBytes(data, 0, 33);
+                byte[] deviceData2 = CommonTools.CopyBytes(data, 33, 33); 
+                MenuDeviceDataList[0] = new MenuSensorData(deviceData1);
+                MenuDeviceDataList[1] = new MenuSensorData(deviceData2); 
+            }
+            catch { }
         }
 
         /// <summary>
@@ -108,13 +121,12 @@ namespace ConfigDevice
         /// <returns>byte[]</returns>
         public byte[] GetValue()
         {
-            byte[] value = new byte[5+ 33*4];
+            byte[] value = new byte[5 + 33 * GroupCount];
             Buffer.BlockCopy(ByteMenuId, 0, value, 0, 4);
             value[4] = KindId;
-            Buffer.BlockCopy(MenuDeviceDataList[0].Value(), 0, value, 5, 33);
-            Buffer.BlockCopy(MenuDeviceDataList[1].Value(), 0, value, 38, 33);
-            Buffer.BlockCopy(MenuDeviceDataList[2].Value(), 0, value, 71, 33);
-            Buffer.BlockCopy(MenuDeviceDataList[3].Value(), 0, value, 104, 33);
+
+            for (int i = 0; i < GroupCount; i++)
+                Buffer.BlockCopy(MenuDeviceDataList[i].Value(), 0, value, 5 + 33 * i, 33); 
 
             return value;
         }

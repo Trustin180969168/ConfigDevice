@@ -107,16 +107,20 @@ namespace ConfigDevice
         /// </summary>
         private void btSavePosition_Click(object sender, EventArgs e)
         {
-            gvPosition.PostEditor();
-            DataRow drEdit = gvPosition.GetDataRow(gvPosition.FocusedRowHandle);
-            drEdit.EndEdit();
-            DataTable dtModify = dtPosition.GetChanges(DataRowState.Modified);
-            if (dtModify == null) return;
-            foreach (DataRow dr in dtModify.Rows)
+            try
             {
-                Position pos = new Position(Convert.ToInt16(dr[Position.DC_NUM]), dr[Position.DC_NAME].ToString(), Convert.ToBoolean(dr[Position.DC_HAS_PASSWORD]));
-                weiXinEdit.SavePositionList(pos);
+                gvPosition.PostEditor();
+                DataRow drEdit = gvPosition.GetDataRow(gvPosition.FocusedRowHandle);
+                drEdit.EndEdit();
+                DataTable dtModify = dtPosition.GetChanges(DataRowState.Modified);
+                if (dtModify == null) return;
+                foreach (DataRow dr in dtModify.Rows)
+                {
+                    Position pos = new Position(Convert.ToInt16(dr[Position.DC_NUM]), dr[Position.DC_NAME].ToString(), Convert.ToBoolean(dr[Position.DC_HAS_PASSWORD]));
+                    weiXinEdit.SavePositionList(pos);
+                }
             }
+            catch { }
         }
 
         /// <summary>
@@ -367,7 +371,7 @@ namespace ConfigDevice
             }
             if (menuEditView != null)
                 menuEditView.SaveEdit();
-            weiXinEdit.WeiXinMenu.SaveMenu();
+            weiXinEdit.WeiXinMenu.SaveMenu(); 
         }
 
         /// <summary>
