@@ -14,8 +14,8 @@ namespace ConfigDevice
     {
         public WeiXin weiXinEdit = null;
        
-        DataTable dtPosition = new DataTable("Position"); 
-        GridViewComboBox cbxMenuKind=new GridViewComboBox();//菜单类型选择编辑
+        DataTable dtPosition = new DataTable("Position");
+        GridViewComboBox cbxMenuKind = new GridViewComboBox();//菜单类型选择编辑
         private Dictionary<int, string> listNetworkKey = new Dictionary<int, string>();//保存对应关系
         BaseMenuView menuEditView;
         public FrmWeiXin()
@@ -347,7 +347,7 @@ namespace ConfigDevice
         }
 
         /// <summary>
-        /// 保存当前三级菜单
+        /// 保存当前菜单
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

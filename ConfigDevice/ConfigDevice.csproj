@@ -660,6 +660,7 @@
       <DependentUpon>KeyBaseSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ImageHelper.cs" />
+    <Compile Include="Tools\LogTools.cs" />
     <Compile Include="Tools\PortTools.cs" />
     <Compile Include="ToolsUI\SelectDevice.cs">
       <SubType>Form</SubType>

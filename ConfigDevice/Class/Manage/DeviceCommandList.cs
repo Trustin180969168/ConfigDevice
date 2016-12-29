@@ -109,7 +109,7 @@ namespace ConfigDevice
             DeviceCommandData deviceCommanData = new DeviceCommandData(readObj, numIndex, commandData);
             UdpData udpSend = createWriteCommandUdp(deviceCommanData);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult),
-                new object[] { "保存第" + ((commandData as DeviceCommandData).ByteCmdNum + 1).ToString() + "指令失败!" });
+                new object[] { "保存第" + (numIndex + 1).ToString() + "指令失败!" });
         }
         private UdpData createWriteCommandUdp(DeviceCommandData commandData)
         {
