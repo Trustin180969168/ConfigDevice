@@ -28,12 +28,11 @@ namespace ConfigDevice
             base.InitEdit(_device, _data);
             menuSecurity = new MenuSecurityEdit(_device, _data);
             menuEdit = menuSecurity;
-
             menuSecurity.OnCallbackUI_Action += this.callbackUI;
 
             viewCommandSetting.CbxCommandGroup.Visible = false;
-            viewCommandSetting.InitMenuCommand(_device);
-            viewCommandSetting.ReadMenuCommandData(_data); 
+            //viewCommandSetting.InitMenuCommand(_device);
+            //viewCommandSetting.ReadMenuCommandData(_data); 
         }
 
         /// <summary>
