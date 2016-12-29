@@ -11,6 +11,7 @@ namespace ConfigDevice
         public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
         public CallbackFromUDP callbackGetCommandData;      //---回调获取指令----
         protected string objUuid = Guid.NewGuid().ToString();//唯一标识对象uuid
+        
 
         public  CommandList(Device value)
         {
@@ -43,7 +44,7 @@ namespace ConfigDevice
         /// 保存指令
         /// </summary>
         /// <param name="commandData">指令内容</param>
-        public abstract void SaveCommandData(CommandData commandData);
+        public abstract void SaveCommandData(CommandReadObj readObj, int index, CommandData commandData);
 
 
         /// <summary>

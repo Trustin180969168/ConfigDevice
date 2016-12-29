@@ -10,11 +10,8 @@ namespace ConfigDevice
 
         public DeviceCommandList(Device value):base(value)
         {
- 
             getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
         }
-
-   
 
         /// <summary>
         /// 获取指令数据
@@ -29,8 +26,7 @@ namespace ConfigDevice
         private void callbackReadCommands(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                CommonTools.ShowReplyInfo("申请读取指令失败!", udpReply.ReplyByte);
-
+                CommonTools.ShowReplyInfo("申请读取指令失败!", udpReply.ReplyByte); 
         }
         private UdpData createReadCommandsUdp(int _grounNum, int _startNum ,int _endNum)
         {
@@ -108,9 +104,10 @@ namespace ConfigDevice
         /// <param name="groupIndex">命令组</param>
         /// <param name="num">命令序号</param>
         /// <param name="data">命令数据</param>
-        public override void SaveCommandData(CommandData commandData)
+        public override void SaveCommandData(CommandReadObj readObj, int numIndex,CommandData commandData)
         {
-            UdpData udpSend = createWriteCommandUdp((DeviceCommandData)commandData);
+            DeviceCommandData deviceCommanData = new DeviceCommandData(readObj, numIndex, commandData);
+            UdpData udpSend = createWriteCommandUdp(deviceCommanData);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult),
                 new object[] { "保存第" + ((commandData as DeviceCommandData).ByteCmdNum + 1).ToString() + "指令失败!" });
         }

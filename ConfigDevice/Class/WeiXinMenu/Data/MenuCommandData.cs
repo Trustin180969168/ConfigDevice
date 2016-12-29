@@ -61,6 +61,20 @@ namespace ConfigDevice
             Data = commandData.Data;
         }
 
+        public MenuCommandData(CommandReadObj readObj, int numIndex, CommandData commandData) 
+        {
+            UInt32MenuId = readObj.MenuData.MenuID;
+            ByteKindId = readObj.MenuData.ByteKindID;
+            ByteCmdNum = (byte)numIndex;
+
+            TargetId = commandData.TargetId;
+            TargetNet = commandData.TargetNet;
+            TargetType = commandData.TargetType;
+            Cmd = commandData.Cmd;
+            DataLen = commandData.DataLen;
+            Data = commandData.Data;
+        }
+
         /// <summary>
         /// 获取指令字节
         /// </summary>

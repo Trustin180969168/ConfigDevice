@@ -31,8 +31,8 @@ namespace ConfigDevice
             menuSecurity.OnCallbackUI_Action += this.callbackUI;
 
             viewCommandSetting.CbxCommandGroup.Visible = false;
-            //viewCommandSetting.InitMenuCommand(_device);
-            //viewCommandSetting.ReadMenuCommandData(_data); 
+            viewCommandSetting.InitMenuCommand(_device, _data);
+            viewCommandSetting.ReadCommandData(); 
         }
 
         /// <summary>

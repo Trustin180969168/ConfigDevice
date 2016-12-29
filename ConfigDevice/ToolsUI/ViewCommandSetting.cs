@@ -15,9 +15,8 @@ namespace ConfigDevice
         public ToolStripComboBox CbxCommandGroup { get { return cbxGroup; } }
         private DateTime actionTime = DateTime.Now.AddMinutes(-1);//---执行时间-----
         private DataTable dtSelectDevices = new DataTable();//---选择设备----
-        public DeviceCommandList DeviceCommandList;//---命令管理----
-        public MenuCommandList MenuCommandList;//---菜单命令管理-----
-        //public MenuData EditMenu;//---当前编辑菜单----
+        public CommandList CommandList;//---命令编辑----
+        public CommandReadObj ReadObj;//---读取指令参数对象---
 
         /// <summary>
         /// 是否显示组选择
@@ -154,21 +153,21 @@ namespace ConfigDevice
         /// <summary>
         /// 获取指令
         /// </summary>
-        public void ReadDeviceCommandData(int groupNum)
+        public void ReadCommandData()
         {
             if (NeedInit) return;
             initCommandData();
-            DeviceCommandList.ReadCommandData(new CommandReadObj(groupNum), (int)edtBeginNum.Value - 1, (int)edtEndNum.Value - 1);//序号从0开始 
+            CommandList.ReadCommandData(ReadObj, (int)edtBeginNum.Value - 1, (int)edtEndNum.Value - 1);//序号从0开始 
         }
 
         /// <summary>
         /// 获取指令
         /// </summary>
-        public void ReadMenuCommandData(MenuData menuData)
+        public void ReadDeviceCommandData(int groupNum)
         {
-            initCommandData();
-            MenuCommandList.ReadCommandData(new CommandReadObj(menuData),(int)edtBeginNum.Value - 1, (int)edtEndNum.Value - 1);//序号从0开始 
-        }
+            ReadObj = new CommandReadObj(groupNum);
+            ReadCommandData();
+         }
 
         private void initCommandData()
         {
@@ -270,7 +269,8 @@ namespace ConfigDevice
         /// </summary>
         private void removeViewCommandSetting()
         {
-            xscCommands.Controls.RemoveAt(0); --commandCount;
+            xscCommands.Controls.RemoveAt(0); 
+            --commandCount;
         }
 
         /// <summary>
@@ -304,8 +304,8 @@ namespace ConfigDevice
                 cbxGroup.Items.Add(i++.ToString() + "."+groupStr);
 
             int addCount = (int)edtEndNum.Value;//----指令的加载个数
-            DeviceCommandList = new DeviceCommandList(device);
-            DeviceCommandList.OnCallbackUI_Action += this.returnDeviceCommandData;//命令的执行的界面回调
+            CommandList = new DeviceCommandList(device);
+            CommandList.OnCallbackUI_Action += this.returnDeviceCommandData;//命令的执行的界面回调
             NeedInit = false;//---标记初始化完毕
             AddDefaultNullCommand();//----默认保留一条空指令便于添加----- 
         }
@@ -313,13 +313,14 @@ namespace ConfigDevice
         /// <summary>
         /// 初始化指令配置
         /// </summary>
-        public void InitMenuCommand(Device device)
+        public void InitMenuCommand(Device device,MenuData menu)
         {
             dtSelectDevices = ViewEditCtrl.GetDevicesLookupData(ViewConfig.SELECT_COMMAND_DEVICE_QUERY_CONDITION);//----初始化设备选择列表----     
   
             int addCount = (int)edtEndNum.Value;//----指令的加载个数
-            this.MenuCommandList = new MenuCommandList(device);
-            MenuCommandList.OnCallbackUI_Action += this.returnMenuCommandData;//命令的执行的界面回调
+            CommandList = new MenuCommandList(device);
+            ReadObj = new CommandReadObj(menu);
+            CommandList.OnCallbackUI_Action += this.returnMenuCommandData;//命令的执行的界面回调
             NeedInit = false;//---标记初始化完毕
             AddDefaultNullCommand();//----默认保留一条空指令便于添加----- 
         }
@@ -363,22 +364,23 @@ namespace ConfigDevice
         /// </summary>
         private void btRefresh_Click(object sender, EventArgs e)
         {
-            if (DeviceCommandList != null)
-                ReadDeviceCommandData(cbxGroup.SelectedIndex);
-            else
-                ReadMenuCommandData(MenuCommandList.menuData);
+            ReadCommandData();
         }
         private void cbxGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (cbxGroup.SelectedIndex == -1)
             { cbxGroup.Text = CommmandGroups[0]; cbxGroup.SelectedIndex = 0; }//----由选择框获取指令---
             else
-                ReadDeviceCommandData(cbxGroup.SelectedIndex);
+            {
+                ReadObj = new CommandReadObj(cbxGroup.SelectedIndex);
+                ReadCommandData();
+            }
         }
 
         private void edtEndNum_ValueChanged(object sender, EventArgs e)
         {
-            ReadDeviceCommandData(cbxGroup.SelectedIndex);
+            ReadCommandData();
         }
 
         /// <summary>
@@ -386,12 +388,12 @@ namespace ConfigDevice
         /// </summary>
         private void btSaveCommands_Click(object sender, EventArgs e)
         {
-            SaveDeviceCommands();
+            SaveCommands();
         }
         /// <summary>
         /// 保存指令
         /// </summary>
-        public void SaveDeviceCommands()
+        public void SaveCommands()
         {
             foreach (Control view in xscCommands.Controls)
             {
@@ -399,14 +401,14 @@ namespace ConfigDevice
                 if (commandView.HasChanged || commandView.QuickSetting)
                 {
                     CommandData commandData = commandView.GetCommandData();
-                    if (commandData == null) continue; 
-                    DeviceCommandData DeviceCommandData = new DeviceCommandData(cbxGroup.SelectedIndex, (commandView.Num - 1), commandData);
-                    DeviceCommandList.SaveCommandData(DeviceCommandData);
+                    if (commandData == null) continue;  
+                    CommandList.SaveCommandData(ReadObj,(commandView.Num - 1), commandData);
                     commandView.QuickSetting = false;//---恢复快速配置初值------
                     commandView.DataCommandSetting.AcceptChanges();
                 }
             }
         }
+
         /// <summary>
         /// 保存指令
         /// </summary>
@@ -417,36 +419,15 @@ namespace ConfigDevice
                 ViewCommandTools commandView = view as ViewCommandTools;
                 if (commandView.HasChanged || commandView.QuickSetting)
                 {
-                    CommandData commandData = commandView.GetCommandData();
+                    CommandData commandData = commandView.GetCommandData(); 
                     if (commandData == null) continue;
-                    DeviceCommandData DeviceCommandData = new DeviceCommandData(groupNum, (commandView.Num - 1), commandData);
-                    DeviceCommandList.SaveCommandData(DeviceCommandData);
+                    ReadObj = new CommandReadObj(groupNum);
+                    CommandList.SaveCommandData(ReadObj, (commandView.Num - 1), commandData);
                     commandView.QuickSetting = false;//---恢复快速配置初值------
                     commandView.DataCommandSetting.AcceptChanges();
                 }
             }
         }
-        /// <summary>
-        /// 保存指令
-        /// </summary>
-        public void SaveMenuCommands()
-        {
-            foreach (Control view in xscCommands.Controls)
-            {
-                ViewCommandTools commandView = view as ViewCommandTools;
-                if (commandView.HasChanged || commandView.QuickSetting)
-                {
-                    CommandData commandData = commandView.GetCommandData();
-                    if (commandData == null) continue; 
-
-                    MenuData menuData = MenuCommandList.menuData;
-                    MenuCommandData menuCommandData = new MenuCommandData((int)menuData.MenuID, (int)menuData.ByteKindID, (commandView.Num - 1), commandData);
-                    commandView.QuickSetting = false;//---恢复快速配置初值------
-                    commandView.DataCommandSetting.AcceptChanges();
-                }
-            }
-        }
-
         
         /// <summary>
         /// 删除命令
@@ -454,18 +435,10 @@ namespace ConfigDevice
         /// <param name="cmdNum">命令编号</param>
         public void DelCommandData(int cmdNum)
         {
-            DeviceCommandList.DelCommandData(new CommandReadObj( cbxGroup.SelectedIndex), cmdNum, cmdNum);
+            CommandList.DelCommandData(ReadObj, cmdNum, cmdNum);
         }
 
-        /// <summary>
-        /// 删除命令
-        /// </summary>
-        /// <param name="cmdNum">命令编号</param>
-        public void DelMenuCommandData(int cmdNum)
-        {
-            MenuCommandList.DelCommandData(new CommandReadObj( MenuCommandList.menuData), cmdNum, cmdNum);
-        }
-
+ 
         /// <summary>
         /// 添加指令
         /// </summary>
@@ -493,7 +466,7 @@ namespace ConfigDevice
         /// </summary> 
         private void btTest_Click(object sender, EventArgs e)
         {
-            this.DeviceCommandList.TestCommands(new CommandReadObj( cbxGroup.SelectedIndex));
+            CommandList.TestCommands(ReadObj);
         }
 
         /// <summary>
@@ -555,8 +528,7 @@ namespace ConfigDevice
             CommandData sourCommandData = sourViewCommandTools.GetCommandData();
             CommandData desCommandData = desViewCommandTools.GetCommandData();
             desViewCommandTools.SetCommandData(sourCommandData);
-            sourViewCommandTools.SetCommandData(desCommandData);
-
+            sourViewCommandTools.SetCommandData(desCommandData); 
  
 
         }

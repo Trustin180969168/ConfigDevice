@@ -88,8 +88,8 @@
             // 
             this.panelControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Controls.Add(this.plCommandToolbar);
+            this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
@@ -105,7 +105,7 @@
             this.panelControl4.Controls.Add(this.edtEndNum);
             this.panelControl4.Controls.Add(this.labelControl2);
             this.panelControl4.Controls.Add(this.labelControl1);
-            this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl4.Location = new System.Drawing.Point(0, 0);
             this.panelControl4.Name = "panelControl4";
             this.panelControl4.Size = new System.Drawing.Size(198, 36);
@@ -210,7 +210,7 @@
             this.plCommandToolbar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.plCommandToolbar.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.plCommandToolbar.Controls.Add(this.toolStrip2);
-            this.plCommandToolbar.Dock = System.Windows.Forms.DockStyle.Right;
+            this.plCommandToolbar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.plCommandToolbar.Location = new System.Drawing.Point(198, 0);
             this.plCommandToolbar.Name = "plCommandToolbar";
             this.plCommandToolbar.Size = new System.Drawing.Size(798, 36);

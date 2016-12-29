@@ -41,6 +41,8 @@ namespace ConfigDevice
 
         }
 
+    
+
         /// <summary>
         /// 获取命令值
         /// </summary>

@@ -52,6 +52,19 @@ namespace ConfigDevice
             Data = commandData.Data;
         }
 
+        public DeviceCommandData(CommandReadObj readObj, int numIndex, CommandData commandData)
+        {
+            ByteCmdType = 0;
+            ByteCmdKey = (byte)readObj.Index;
+            ByteCmdNum = (byte)numIndex;
+
+            TargetId = commandData.TargetId;
+            TargetNet = commandData.TargetNet;
+            TargetType = commandData.TargetType;
+            Cmd = commandData.Cmd;
+            DataLen = commandData.DataLen;
+            Data = commandData.Data;
+        }
 
         /// <summary>
         /// 获取指令字节

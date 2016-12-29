@@ -110,9 +110,10 @@ namespace ConfigDevice
         /// <param name="groupIndex">命令组</param>
         /// <param name="num">命令序号</param>
         /// <param name="data">命令数据</param>
-        public override void SaveCommandData(CommandData commandData)
+        public override void SaveCommandData(CommandReadObj readObj, int numIndex, CommandData commandData)
         {
-            UdpData udpSend = createWriteCommandUdp((MenuCommandData)commandData);
+            MenuCommandData menuCommandData = new MenuCommandData(readObj, numIndex, commandData);
+            UdpData udpSend = createWriteCommandUdp(menuCommandData);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult),
                 new object[] { "保存第" + ((commandData as MenuCommandData).ByteCmdNum + 1).ToString() + "指令失败!" });
         }
