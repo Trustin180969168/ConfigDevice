@@ -26,13 +26,15 @@ namespace ConfigDevice
         public override void InitEdit(WeiXin _device, MenuData _data)
         {
             base.InitEdit(_device, _data);
+            rgSecurity.SelectedIndex = 0;//默认不关联
             menuSecurity = new MenuSecurityEdit(_device, _data);
             menuEdit = menuSecurity;
             menuSecurity.OnCallbackUI_Action += this.callbackUI;
 
+            menuSecurityData = new MenuSecurityData(_data);
             viewCommandSetting.CbxCommandGroup.Visible = false;
             viewCommandSetting.InitMenuCommand(_device, _data);
-            viewCommandSetting.ReadCommandData(); 
+        
         }
 
         /// <summary>
@@ -41,6 +43,7 @@ namespace ConfigDevice
         public void GetSecurityData()
         {
             menuSecurity.ReadMenuSecurity();
+            viewCommandSetting.ReadCommandData(); 
         }
 
         private void callbackUI(CallbackParameter callbackParameter)
@@ -62,8 +65,7 @@ namespace ConfigDevice
                     else if (menuSecurityData.IsSecurityOutside)
                         rgSecurity.SelectedIndex = 3;
                     else
-                        rgSecurity.SelectedIndex = 0;
-
+                        rgSecurity.SelectedIndex = 0; 
                 }
             }
         }
@@ -85,6 +87,7 @@ namespace ConfigDevice
             else
                 menuSecurityData.IsSecurityNone = true;
             menuSecurity.SaveMenuSecurity(menuSecurityData);
+            viewCommandSetting.SaveCommands();
         }
     }
 }

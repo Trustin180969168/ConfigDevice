@@ -132,6 +132,7 @@ namespace ConfigDevice
         /// <param name="data">命令数据</param>
         public void SaveMenuData(MenuData menuData)
         {
+
             UdpData udpSend = createWriteMenuUdp(menuData);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult),
                 new object[] { "保存第" + (menuData.MenuID).ToString() + "菜单失败!" });

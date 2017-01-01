@@ -83,7 +83,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.device.DeviceID) return;//不是本设备ID不接收.
             MenuData tempMenuData = new MenuData(userData);
-            if ((int)values[0]  != menuData.MenuID) return;//返回不是本菜单---
+            if ((uint)values[0]  != (uint)menuData.MenuID) return;//返回不是本菜单---
             UdpTools.ReplyDataUdp(data);//----回复确认----- 
 
             CallbackUI(new CallbackParameter(ActionKind.ReadMenuCommand, new object[] { userData }));//----界面回调------
@@ -115,7 +115,7 @@ namespace ConfigDevice
             MenuCommandData menuCommandData = new MenuCommandData(readObj, numIndex, commandData);
             UdpData udpSend = createWriteCommandUdp(menuCommandData);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult),
-                new object[] { "保存第" + ((commandData as MenuCommandData).ByteCmdNum + 1).ToString() + "指令失败!" });
+                new object[] { "保存第" + (numIndex + 1).ToString() + "指令失败!" });
         }
         private UdpData createWriteCommandUdp(MenuCommandData commandData)
         {

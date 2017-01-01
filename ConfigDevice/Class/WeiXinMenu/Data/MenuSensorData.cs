@@ -67,7 +67,7 @@ namespace ConfigDevice
     /// </summary>
     public class MenuSensorSettingData
     {
-        public const int GroupCount = 2;//---2组数据
+        public const int GroupCount = 1;//---2组数据
         public UInt32 MenuId;//第几个菜单  (从0开始计数)
         public byte KindId;//控制类型   （指出是哪个控制类型的配置数据）(MS_COBJ_AMP等)即:菜单类型
         public MenuSensorData[] MenuDeviceDataList = new MenuSensorData[GroupCount];//--2组逻辑数据         

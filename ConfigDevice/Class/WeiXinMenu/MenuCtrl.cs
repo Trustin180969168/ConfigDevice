@@ -11,7 +11,7 @@ namespace ConfigDevice
         public static BaseMenuView CreateMenuSettingView(WeiXin device, Control editControl, MenuData editData)
         {
             if (editControl.Controls.Count == 0)
-                editControl.Tag = MenuKind.MS_COBJ_DLE; 
+                editControl.Tag = new MenuData(); 
 
             if (editData.ByteKindID == MenuKind.MS_COBJ_CMD)
                 return new CommandMenuView(device,editControl,editData);

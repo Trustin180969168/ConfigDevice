@@ -21,7 +21,11 @@ namespace ConfigDevice
             ByteSecurityHomeCancelID = data[6];
         }
 
-        public MenuSecurityData() { }
+        public MenuSecurityData(MenuData menuData) {
+
+            this.MenuId = menuData.MenuID;
+            this.KindId = menuData.ByteKindID;
+        }
 
         /// <summary>
         /// 是否室外布防
@@ -29,7 +33,7 @@ namespace ConfigDevice
         public bool IsSecurityOutside
         {
             get { return (ByteSecurityKindID & 1) == 1 ? true : false; }
-            set { ByteSecurityKindID = (byte)(ByteSecurityKindID | 1); }
+            set { ByteSecurityKindID = (byte)(ByteSecurityKindID | 1 & 1); }
         }
 
         /// <summary>
@@ -37,8 +41,8 @@ namespace ConfigDevice
         /// </summary>
         public bool IsSecurityAll
         {
-            get { return (ByteSecurityKindID & 2) == 2 ? true : false; }
-            set { ByteSecurityKindID = (byte)(ByteSecurityKindID | 2); }
+            get { return (ByteSecurityKindID & 3) == 3 ? true : false; }
+            set { ByteSecurityKindID = (byte)(ByteSecurityKindID | 3); }
         }
 
         /// <summary>

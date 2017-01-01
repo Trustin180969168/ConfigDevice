@@ -16,7 +16,7 @@ namespace ConfigDevice
         private GridViewLookupEdit lookupDeviceKind;//设备下拉选择
         private GridViewDigitalEdit edtNum = new GridViewDigitalEdit();//地址编辑
         public DataTable DataSensorSetting;//---传感器配置表-----
-        public const int DeviceCount = 2;
+        public const int DeviceCount = 1;
         public DataTable dtSelectKind = new DataTable("SelectKind");
 
         public MenuSensorControl()
@@ -75,6 +75,8 @@ namespace ConfigDevice
         /// </summary>
         public void Init()
         {
+            DataSensorSetting.Rows.Clear();
+            gvSensors.RefreshData();
             for (int i = 0; i < DeviceCount; i++)
                 DataSensorSetting.Rows.Add((i + 1).ToString());
             DataSensorSetting.AcceptChanges();
@@ -132,24 +134,7 @@ namespace ConfigDevice
         }
 
 
-        public void InitEnvironmentSetting(MenuSensorSettingData data)
-        {
-            for (int i = 0; i < data.MenuDeviceDataList.Length; i++)
-            {
-                MenuSensorData sensorData = data.MenuDeviceDataList[0];
-                //DataSensorSetting.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.Int16"));
-                //DataSensorSetting.Columns.Add(ViewConfig.DC_DEVICE_ID, System.Type.GetType("System.Int16"));
-                //DataSensorSetting.Columns.Add(ViewConfig.DC_DEVICE_NETWORK_ID, System.Type.GetType("System.Int16"));
-                //DataSensorSetting.Columns.Add(ViewConfig.DC_KIND, System.Type.GetType("System.Int16"));
-                //DataSensorSetting.Columns.Add(ViewConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
-                //DataSensorSetting.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
-                //DataSensorSetting.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
 
-                DataSensorSetting.Rows.Add(new object[] { 1+i,sensorData.DeviceID,sensorData.DeviceNetworkID,
-                sensorData.DeviceKindID, DeviceConfig.EQUIPMENT_ID_NAME[(byte)sensorData.DeviceKindID],sensorData.DeviceName});
-            }
-            DataSensorSetting.AcceptChanges();
-        }
 
         /// <summary>
         /// 获取传感器设备数据
@@ -167,9 +152,9 @@ namespace ConfigDevice
                 return;
             }
             if (callbackParameter.Action == ActionKind.ReadMenuSensor)
-            {
+            {                
                 menuSensorSettingData = callbackParameter.Parameters[0] as MenuSensorSettingData;
-                int i = 0;
+                int i = 0; 
                 foreach (MenuSensorData sensor in menuSensorSettingData.MenuDeviceDataList)
                 {                    
                     if (sensor == null) continue;                    
@@ -178,8 +163,11 @@ namespace ConfigDevice
                     dr[ViewConfig.DC_KIND] = sensor.DeviceKindID;
                     dr[ViewConfig.DC_DEVICE_ID] = sensor.DeviceID;
                     dr[ViewConfig.DC_DEVICE_NETWORK_ID] = sensor.DeviceNetworkID;
-                    dr.EndEdit(); 
+                    dr.EndEdit();
+                    dr.AcceptChanges();
                 }
+                gvSensors.PostEditor();
+                gvSensors.RefreshData(); 
             }
         }
        

@@ -57,6 +57,8 @@ namespace ConfigDevice
 
         public MenuData()
         {
+            MenuID = 0;
+            ByteKindID = MenuKind.MS_COBJ_DLE;
         }
 
         public MenuData(UserUdpData data)
