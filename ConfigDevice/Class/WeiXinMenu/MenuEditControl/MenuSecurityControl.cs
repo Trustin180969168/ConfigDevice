@@ -30,9 +30,9 @@ namespace ConfigDevice
             menuSecurity = new MenuSecurityEdit(_device, _data);
             menuEdit = menuSecurity;
             menuSecurity.OnCallbackUI_Action += this.callbackUI;
-
             menuSecurityData = new MenuSecurityData(_data);
-            viewCommandSetting.CbxCommandGroup.Visible = false;
+
+            viewCommandSetting.ShowGroupCtrl = false;
             viewCommandSetting.InitMenuCommand(_device, _data);
         
         }

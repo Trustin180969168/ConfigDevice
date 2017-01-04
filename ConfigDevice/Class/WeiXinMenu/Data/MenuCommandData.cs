@@ -80,22 +80,17 @@ namespace ConfigDevice
         /// </summary>
         /// <returns></returns>
         public byte[] GetValue()
-        {
-            byte[] All = new byte[Len+DataLen];
-            
+        {  
+            byte[] value = GetCommandValue();
+            byte[] all = new byte[value.Length + 6];
+
             byte[] byteArrMenuId = ConvertTools.GetByteFromUInt32(UInt32MenuId);
-            Buffer.BlockCopy(byteArrMenuId, 0, All, 0, 4);
-            All[4] = ByteKindId;
-            All[5] = (byte)ByteCmdNum;
+            Buffer.BlockCopy(byteArrMenuId, 0, all, 0, 4);
+            all[4] = ByteKindId;
+            all[5] = (byte)ByteCmdNum;
+            Buffer.BlockCopy(value, 0, all, 6, value.Length);
 
-            All[6] = TargetId;
-            All[7] = TargetNet;
-            All[8] = TargetType;
-            Buffer.BlockCopy(Cmd, 0, All, 9, 2);
-            All[11] = (byte)DataLen;
-            Buffer.BlockCopy(Data, 0, All, 11, DataLen);
-
-            return All;
+            return all;
         }
 
     }

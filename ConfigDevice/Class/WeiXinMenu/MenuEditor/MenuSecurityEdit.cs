@@ -99,7 +99,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { WeiXinDevice.ByteDeviceID, WeiXinDevice.ByteNetworkId, WeiXinDevice.ByteKindID };//----目标信息--
             byte[] source = new byte[] { WeiXinDevice.BytePCAddress, WeiXinDevice.ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_MMSG_WRITE_BDEV_CFG;//----用户命令----- 
+            byte[] cmd = DeviceConfig.CMD_MMSG_WRITE_SECURITY_CFG;//----用户命令----- 
             byte len = 11;//---数据长度---- 
 
             byte[] crcData = new byte[10 + len - 4];

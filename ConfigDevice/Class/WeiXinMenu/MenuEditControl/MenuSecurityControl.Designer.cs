@@ -32,19 +32,21 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.rgSecurity = new DevExpress.XtraEditors.RadioGroup();
             this.lblAfgl = new DevExpress.XtraEditors.LabelControl();
+            this.xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgSecurity.Properties)).BeginInit();
+            this.xtraScrollableControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // viewCommandSetting
             // 
-            this.viewCommandSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.viewCommandSetting.Location = new System.Drawing.Point(0, 165);
+            this.viewCommandSetting.Dock = System.Windows.Forms.DockStyle.Left;
+            this.viewCommandSetting.Location = new System.Drawing.Point(0, 0);
             this.viewCommandSetting.Name = "viewCommandSetting";
             this.viewCommandSetting.ShowCommandBar = true;
             this.viewCommandSetting.ShowToolBar = true;
-            this.viewCommandSetting.Size = new System.Drawing.Size(993, 275);
+            this.viewCommandSetting.Size = new System.Drawing.Size(1024, 258);
             this.viewCommandSetting.TabIndex = 2;
             // 
             // panelControl1
@@ -82,11 +84,20 @@
             this.lblAfgl.TabIndex = 2;
             this.lblAfgl.Text = "安防关联";
             // 
+            // xtraScrollableControl1
+            // 
+            this.xtraScrollableControl1.Controls.Add(this.viewCommandSetting);
+            this.xtraScrollableControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xtraScrollableControl1.Location = new System.Drawing.Point(0, 165);
+            this.xtraScrollableControl1.Name = "xtraScrollableControl1";
+            this.xtraScrollableControl1.Size = new System.Drawing.Size(993, 275);
+            this.xtraScrollableControl1.TabIndex = 4;
+            // 
             // MenuSecurityControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.viewCommandSetting);
+            this.Controls.Add(this.xtraScrollableControl1);
             this.Controls.Add(this.panelControl1);
             this.Name = "MenuSecurityControl";
             this.Size = new System.Drawing.Size(993, 440);
@@ -94,6 +105,7 @@
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgSecurity.Properties)).EndInit();
+            this.xtraScrollableControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -104,5 +116,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.RadioGroup rgSecurity;
         private DevExpress.XtraEditors.LabelControl lblAfgl;
+        private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
     }
 }
