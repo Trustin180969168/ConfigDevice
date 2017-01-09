@@ -164,15 +164,9 @@ namespace ConfigDevice
             keySettingData.Luminance = (byte)tbcLight.Value;                      //---亮度----  
             keySecuritySetting.GetOptionData(ref keySettingData);//------安全页----
 
-            //---判断是否更改,更改执行保存----
-            if (!CommonTools.BytesEuqals(keySettingData.GetPanelOptionValue(), button2OptionData.GetPanelOptionValue()))
-                button2.PanelCtrl.SaveKeyOption(keySettingData);
-            //---保存初始化配置-----
-            if (rgInitState.SelectedIndex != InitSelectIndex)
-                button2.PanelCtrl.SaveKeyState(rgInitState.SelectedIndex);
-
-            //---保存按键配置--------- 
-            list2Keys.SaveKeyData();
+            button2.PanelCtrl.SaveKeyOption(keySettingData);
+            button2.PanelCtrl.SaveKeyState(rgInitState.SelectedIndex);
+            list2Keys.SaveKeyData();  //---保存按键配置--------- 
         }
 
         /// <summary>

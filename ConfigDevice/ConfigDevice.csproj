@@ -132,10 +132,6 @@
       <DependentUpon>FrmWeiXin.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolsUI\LCDUI\KeySettingTools.resx">
-      <DependentUpon>KeySettingTools.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="ToolsUI\LCDUI\KeySecuritySetting.resx">
       <DependentUpon>KeySecuritySetting.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -556,12 +552,6 @@
     </Compile>
     <Compile Include="Class\WeiXinMenu\FrmWeiXin.Designer.cs">
       <DependentUpon>FrmWeiXin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ToolsUI\LCDUI\KeySettingTools.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ToolsUI\LCDUI\KeySettingTools.Designer.cs">
-      <DependentUpon>KeySettingTools.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolsUI\LCDUI\KeySecuritySetting.cs">
       <SubType>UserControl</SubType>
