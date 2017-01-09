@@ -16,6 +16,7 @@ namespace ConfigDevice
         private MySocket mySocket = MySocket.GetInstance();
         public event CallbackUIAction CallBackUI = null;//返回UI
         private CallbackFromUDP callbackRefreshNetwork;//回调类
+        private DateTime actionTime = DateTime.Now.AddSeconds(-1);//---执行时间-----
 
         public NetworkList()
         {
@@ -36,6 +37,8 @@ namespace ConfigDevice
         /// <returns>返回数据表</returns>
         public void SearchNetworks()
         {
+            if (actionTime.AddSeconds(0.5) > DateTime.Now)
+                return;
             RefreshConnectState.Stop();//----先停止刷新----
             NetworkCtrl.InitDataTableNetwork();//----初始化列表-----
             //listNetworks.Clear();//----清空---
@@ -43,6 +46,7 @@ namespace ConfigDevice
             UdpData udp = this.createSendUdpData();
             mySocket.SendData(udp, NetworkConfig.BROADCAST_IP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchNetworks), null);           
             RefreshConnectState.Start();//---继续启动刷新------
+            actionTime = DateTime.Now;
         }
         /// <summary>
         /// 回调网络搜索

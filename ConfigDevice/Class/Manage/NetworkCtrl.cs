@@ -8,6 +8,7 @@ namespace ConfigDevice
     public static class NetworkCtrl
     {
         private static object lockUpdateObj = new object();
+        private static DateTime actionTime = DateTime.Now.AddSeconds(1);//---执行时间-----
         /// <summary>
         /// 初始化网络数据
         /// </summary>
@@ -65,6 +66,7 @@ namespace ConfigDevice
         {
             lock (lockUpdateObj)
             {
+
                 foreach (DataRow dr in SysConfig.DtNetwork.Rows)
                 {
                     if (dr[NetworkConfig.DC_MAC].ToString() == network.MAC)
@@ -81,6 +83,7 @@ namespace ConfigDevice
                         break;
                     }
                 }
+            
             }
         }
 

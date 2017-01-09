@@ -85,7 +85,7 @@ namespace ConfigDevice
             edtNetworkName.Text = weiXinEdit.DeviceName;
             edtNetworkID.Text = weiXinEdit.NetworkID;
             edtNetworkIP.IP = weiXinEdit.NetworkIP;
-            edtMask.IP = SysConfig.SubnetMask.ToString();//----目前固定 255.255.255.0----
+            edtMask.IP = SysConfig.SubnetMask.ToString();//---目前固定 255.255.255.0----
             edtGateway.IP = edtNetworkIP.DefaultGateWay;//----目前固定xxx.xxx.xxx.1-----
 
         }

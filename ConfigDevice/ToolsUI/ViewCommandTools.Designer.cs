@@ -89,7 +89,6 @@
             this.gcCommands.TabIndex = 8;
             this.gcCommands.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvCommands});
-            this.gcCommands.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gcCommands_MouseDoubleClick);
             // 
             // gvCommands
             // 
@@ -118,9 +117,8 @@
             this.gvCommands.OptionsView.ShowGroupPanel = false;
             this.gvCommands.OptionsView.ShowIndicator = false;
             this.gvCommands.RowHeight = 18;
-            this.gvCommands.DoubleClick += new System.EventHandler(this.gvDevices_DoubleClick);
             this.gvCommands.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCommands_CellValueChanged);
-            this.gvCommands.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gvCommands_MouseDown);
+
             // 
             // ID
             // 
