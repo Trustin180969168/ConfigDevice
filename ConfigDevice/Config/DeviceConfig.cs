@@ -48,7 +48,11 @@ namespace ConfigDevice
             KEY_TYPE_DBLCLICK = 5,//双击有效	       5
             KEY_TYPE_SERIAL = 6,//连续按键有效    6
             KEY_TYPE_LAMP = 7,//灯光类型	       7
-            KEY_TYPE_PRESS = 8                 //点动，按下开，松开关  8
+            KEY_TYPE_PRESS = 8,                 //点动，按下开，松开关  8
+            //以下指令控制单一个对像
+            KEY_CMD_TYPE_SIMPLE_CHOSE = 0x80,      //单对像指令，状态选择，数值无效 
+            KEY_CMD_TYPE_CHOOSE = 0x00, //多对像
+            KEY_CMD_TYPE_CHOOSE_VALUE_INC_DEC = 2  	 //多个控制对像，状态选择，数值选择--如带亮度的灯光，指出灯光开或关，同时指出亮度 
         };
         //-----------控制对象名称------
         public const string CONTROL_OBJECT_CIRCUIT_NAME = "回路";

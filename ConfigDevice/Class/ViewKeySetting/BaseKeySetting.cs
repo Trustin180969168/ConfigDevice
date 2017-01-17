@@ -53,48 +53,80 @@ namespace ConfigDevice
         /// <returns></returns>
         protected string GetKeyKindName(KeyData keyData)
         {
+            //string keyKindValue = "";
+            //int hi4 = (keyData.KeyKind & 0xf0) >> 4;
+            //int lo4 = keyData.KeyKind & 0x0f;
+
+            //if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 1
+            //    && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT;//循环调光
+            //else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 1
+            //    && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE_LOOP_LIGHT;//开关+循环调光
+            //else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 1
+            //    && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE;//开关
+            //else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 1
+            //    && hi4 != (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE;//开关
+
+            //else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 0
+            //    && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT;//"循环调光"
+            //else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 0
+            //    && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE_LOOP_LIGHT;// "关+循环调光";
+            //else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 0
+            //    && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE;//"关";
+            //else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 0
+            //    && hi4 != (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE;//"关";
+
+            //else if (keyData.FunctionDataMinValue == 1 && keyData.FunctionDataMaxValue == 1
+            //    && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT;//循环调光
+            //else if (keyData.FunctionDataMinValue == 1 && keyData.FunctionDataMaxValue == 1
+            //    && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_LOOP_LIGHT;// "开+循环调光";
+            //else if (keyData.FunctionDataMinValue == 1 && keyData.FunctionDataMaxValue == 1
+            //    && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN;// "开";
+            //else if (keyData.FunctionDataMinValue == 1 && keyData.FunctionDataMaxValue == 1
+            //    && hi4 != (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN)
+            //    keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN;// "开";
+
             string keyKindValue = "";
-            int hi4 = (keyData.KeyKind & 0xf0) >> 4;
-            int lo4 = keyData.KeyKind & 0x0f;
+            if ((keyData.FunctionDataMinValue == 0)
+                && (keyData.FunctionDataMaxValue == 0)
+                && (((keyData.KeyType >> 4) & 0xF) != (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)  // != 0
+                && (((keyData.KeyType >> 0) & 0xF) == (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL))
+                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE;//"关";
 
-            if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 1
-                && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
-                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT;//循环调光
-            else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 1
-                && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            if ((keyData.FunctionDataMinValue == 1)
+                && (keyData.FunctionDataMaxValue == 1)
+                && (((keyData.KeyType >> 4) & 0xF) != (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)  // != 0
+                && (((keyData.KeyType >> 0) & 0xF) == (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)) // == 0
+                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN;// "开";
+
+            if ((keyData.FunctionDataMinValue == 0)
+                && (keyData.FunctionDataMaxValue == 1)
+                && (((keyData.KeyType >> 4) & 0xF) != (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)  // != 0
+                && (((keyData.KeyType >> 0) & 0xF) == (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)) // == 0
+                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE;//开关
+
+            if ((keyData.FunctionDataMinValue == 0)
+                && (keyData.FunctionDataMaxValue == 1)
+                && (((keyData.KeyType >> 4) & 0xF) != (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)  // != 0
+                && (((keyData.KeyType >> 0) & 0xF) != (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)) // != 0
                 keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE_LOOP_LIGHT;//开关+循环调光
-            else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 1
-                && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
-                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE;//开关
-            else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 1
-                && hi4 != (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN)
-                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE;//开关
 
-            else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 0
-                && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
-                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT;//"循环调光"
-            else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 0
-                && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
-                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE_LOOP_LIGHT;// "关+循环调光";
-            else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 0
-                && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
-                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE;//"关";
-            else if (keyData.FunctionDataMinValue == 0 && keyData.FunctionDataMaxValue == 0
-                && hi4 != (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN)
-                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE;//"关";
 
-            else if (keyData.FunctionDataMinValue == 1 && keyData.FunctionDataMaxValue == 1
-                && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
-                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT;//循环调光
-            else if (keyData.FunctionDataMinValue == 1 && keyData.FunctionDataMaxValue == 1
-                && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 != (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
+            if ((keyData.FunctionDataMinValue == 1)
+                && (keyData.FunctionDataMaxValue == 1)
+                && (((keyData.KeyType >> 4) & 0xF) != (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)  // != 0
+                && (((keyData.KeyType >> 0) & 0xF) != (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)) // != 0
                 keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_LOOP_LIGHT;// "开+循环调光";
-            else if (keyData.FunctionDataMinValue == 1 && keyData.FunctionDataMaxValue == 1
-                && hi4 == (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN && lo4 == (int)DeviceConfig.KeyKind.KEY_TYPE_NULL)
-                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN;// "开";
-            else if (keyData.FunctionDataMinValue == 1 && keyData.FunctionDataMaxValue == 1
-                && hi4 != (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN)
-                keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN;// "开";
 
             return keyKindValue;
         }
@@ -108,6 +140,45 @@ namespace ConfigDevice
         /// <returns></returns>
         protected void InitKeyDataByKindName(DataRow dr,KeyData keyData)
         {
+            //string keyKindValue = dr[ViewConfig.DC_CONTROL_KIND].ToString();
+            //int hi4 = 0;
+            //int lo4 = 0;
+            //switch (keyKindValue)
+            //{
+            //    case ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE: //"开关";
+            //        keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 1;
+            //        hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL;                
+            //        break;
+            //    case ViewConfig.KEY_CONTROL_KIND_NAME_OPEN: //"开";
+            //        keyData.FunctionDataMinValue = 1; keyData.FunctionDataMaxValue = 1;
+            //        hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL;
+            //        break;
+            //    case ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE: //"关";
+            //        keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 0;
+            //        hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL;
+            //        break;
+            //    case ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT:// "循环调光";
+            //        keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 1;
+            //        hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_HIT;
+            //        break;
+            //    case ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE_LOOP_LIGHT:// "开关+循环调光";
+            //        keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 1;
+            //        hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_HIT;
+            //        break;
+            //    case ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_LOOP_LIGHT: //"开+循环调光";
+            //        keyData.FunctionDataMinValue = 1; keyData.FunctionDataMaxValue = 1;
+            //        hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_HIT;
+            //        break;
+            //    case ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE_LOOP_LIGHT:// "关+循环调光";
+            //        keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 0;
+            //        hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_HIT;
+            //        break;
+
+            //    default://默认为"开关";
+            //        keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 1;
+            //        hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL;
+            //        break;
+            //}
             string keyKindValue = dr[ViewConfig.DC_CONTROL_KIND].ToString();
             int hi4 = 0;
             int lo4 = 0;
@@ -115,40 +186,54 @@ namespace ConfigDevice
             {
                 case ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE: //"开关";
                     keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 1;
-                    hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL;                
+                    keyData.FunctionInitialValue = 0; keyData.FunctionDataFloatingStep = 1;
+                    keyData.CommandKind = (byte)DeviceConfig.KeyKind.KEY_CMD_TYPE_CHOOSE;
+                    keyData.KeyType = ((byte)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN << 4) | (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL;
+                    hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL;
                     break;
                 case ViewConfig.KEY_CONTROL_KIND_NAME_OPEN: //"开";
                     keyData.FunctionDataMinValue = 1; keyData.FunctionDataMaxValue = 1;
+                    keyData.FunctionInitialValue = 1; keyData.FunctionDataFloatingStep = 1;
+                    keyData.CommandKind = (byte)DeviceConfig.KeyKind.KEY_CMD_TYPE_CHOOSE;
+                    keyData.KeyType = ((byte)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN << 4) | (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL;
+              
                     hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL;
                     break;
                 case ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE: //"关";
                     keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 0;
+                    keyData.FunctionInitialValue = 0; keyData.FunctionDataFloatingStep = 0;
+                    keyData.CommandKind = (byte)DeviceConfig.KeyKind.KEY_CMD_TYPE_CHOOSE;
+                    keyData.KeyType = ((byte)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN << 4) | (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL;
+              
                     hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL;
-                    break;
-                case ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT:// "循环调光";
-                    keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 1;
-                    hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_HIT;
-                    break;
+                    break;       
                 case ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE_LOOP_LIGHT:// "开关+循环调光";
                     keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 1;
+                    keyData.FunctionInitialValue = 0; keyData.FunctionDataFloatingStep = 1;
+                    keyData.CommandKind = (byte)DeviceConfig.KeyKind.KEY_CMD_TYPE_CHOOSE_VALUE_INC_DEC;
+                    keyData.KeyType = ((byte)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN << 4) | (byte)DeviceConfig.KeyKind.KEY_TYPE_SERIAL;
+              
                     hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_HIT;
                     break;
                 case ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_LOOP_LIGHT: //"开+循环调光";
                     keyData.FunctionDataMinValue = 1; keyData.FunctionDataMaxValue = 1;
-                    hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_HIT;
-                    break;
-                case ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE_LOOP_LIGHT:// "关+循环调光";
-                    keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 0;
+                    keyData.FunctionInitialValue = 1; keyData.FunctionDataFloatingStep = 1;
+                    keyData.CommandKind = (byte)DeviceConfig.KeyKind.KEY_CMD_TYPE_CHOOSE_VALUE_INC_DEC;
+                    keyData.KeyType = ((byte)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN << 4) | (byte)DeviceConfig.KeyKind.KEY_TYPE_SERIAL;
+              
                     hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_HIT;
                     break;
 
                 default://默认为"开关";
                     keyData.FunctionDataMinValue = 0; keyData.FunctionDataMaxValue = 1;
+                    keyData.FunctionInitialValue = 0; keyData.FunctionDataFloatingStep = 1;
+                    keyData.CommandKind = (byte)DeviceConfig.KeyKind.KEY_CMD_TYPE_CHOOSE;
+                    keyData.KeyType = ((byte)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN << 4) | (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL;
                     hi4 = (int)DeviceConfig.KeyKind.KEY_TYPE_LOOSEN; lo4 = (int)DeviceConfig.KeyKind.KEY_TYPE_NULL;
                     break;
             }
             keyData.KeyNum = (byte)(Convert.ToInt16(dr[ViewConfig.DC_NUM]) - 1);//---按键序号
-            keyData.KeyKind = (byte)(((hi4 << 4) & 0xF0) | (lo4 & 0x0F));//----控制类型---
+            keyData.KeyType = (byte)(((hi4 << 4) & 0xF0) | (lo4 & 0x0F));//----控制类型---
             keyData.ControlObj = ViewConfig.KEY_TYPE_NAME_ID[dr[ViewConfig.DC_CONTROL_OBJ].ToString()];//---控制对象---
             keyData.DirectionMaxValue = (byte)Convert.ToInt16(dr[ViewConfig.DC_DIRECTION_MAX]);//方向最大值
             keyData.DirectionMinValue = (byte)Convert.ToInt16(dr[ViewConfig.DC_DIRECTION_MIN]);//方向最小值

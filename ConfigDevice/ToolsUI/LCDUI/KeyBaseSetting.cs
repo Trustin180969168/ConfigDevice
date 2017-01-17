@@ -63,10 +63,10 @@ namespace ConfigDevice
             cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE);
             cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN);
             cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE);
-            cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT);
+            //cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_LOOP_LIGHT);
             cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE_LOOP_LIGHT);
             cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_LOOP_LIGHT);
-            cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE_LOOP_LIGHT);
+            //cbxLightControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE_LOOP_LIGHT);
             cbxElseControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE);
             cbxElseControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_OPEN);
             cbxElseControlKind.Items.Add(ViewConfig.KEY_CONTROL_KIND_NAME_CLOSE);

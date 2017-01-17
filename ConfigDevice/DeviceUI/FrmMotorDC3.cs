@@ -125,7 +125,7 @@ namespace ConfigDevice
                     if (callbackParameter.DeviceID == road3Window.DeviceID)
                     {
                         //-----最大电流,最大开关时间-----
-                        if (callbackParameter.Action == ActionKind.ReadSate)
+                        if (callbackParameter.Action == ActionKind.ReadConfig)
                         {
                             dtMotorSetting.Rows[0][dcMotorTurnTime.FieldName] = road3Window.Motor.Road1MaxRunTime;  //1路参数
                             dtMotorSetting.Rows[0][dcMotorStopEC.FieldName] = road3Window.Motor.Road1MaxStopCE;     //1路参数
@@ -136,7 +136,7 @@ namespace ConfigDevice
                             dtMotorSetting.AcceptChanges();
                         }
                         //-----当前电流状态-------
-                        if (callbackParameter.Action == ActionKind.ReadCircuit)
+                        if (callbackParameter.Action == ActionKind.ReadPower)
                         {
                             dtMotorAction.Rows[0][3] = road3Window.Motor.Road1Current;
                             dtMotorAction.Rows[1][3] = road3Window.Motor.Road2Current;
@@ -146,11 +146,20 @@ namespace ConfigDevice
                         //-----当前动作状态-------
                         if (callbackParameter.Action ==ActionKind.ReadSate)
                         {
-                            string[] actionResult = callbackParameter.Parameters[2] as string[];
-                            dtMotorAction.Rows[0][2] = actionResult[0];
-                            dtMotorAction.Rows[1][2] = actionResult[1];
-                            dtMotorAction.Rows[2][2] = actionResult[2];
+                            string[] actionResult = callbackParameter.Parameters as string[];
+                            if (actionResult == null) return;
+                            dtMotorAction.Rows[0][dcState.FieldName] = actionResult[0];
+                            dtMotorAction.Rows[1][dcState.FieldName] = actionResult[1];
+                            dtMotorAction.Rows[2][dcState.FieldName] = actionResult[2];
                             dtMotorAction.AcceptChanges();
+                        }
+                        if (callbackParameter.Action == ActionKind.ReadCircuit)
+                        {
+
+                            dtMotorSetting.Rows[0][dcName.FieldName] = road3Window.Circuit.ListCircuitIDAndName[1];
+                            dtMotorSetting.Rows[1][dcName.FieldName] = road3Window.Circuit.ListCircuitIDAndName[2];
+                            dtMotorSetting.Rows[2][dcName.FieldName] = road3Window.Circuit.ListCircuitIDAndName[3];
+                            dtMotorSetting.AcceptChanges();
                         }
                     }
                     else if (callbackParameter.Parameters != null && callbackParameter.Parameters[0].ToString() == Circuit.CLASS_NAME)//---电机回路名称--

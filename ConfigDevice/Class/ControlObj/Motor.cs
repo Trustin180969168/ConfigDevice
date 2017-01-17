@@ -718,7 +718,7 @@ namespace ConfigDevice
 
             ActionData = CommonTools.CopyBytes(userData.Data, 0, ActionData.Length);//---保存所有动作----
             this.deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadSate,deviceControled.DeviceID,
-                ACTION_NAME_CURRENT_ACTION, actionResult));//---回调UI---
+                actionResult));//---回调UI---
         }
 
     }

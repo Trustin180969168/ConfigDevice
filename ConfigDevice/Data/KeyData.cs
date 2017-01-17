@@ -28,7 +28,7 @@ namespace ConfigDevice
     public class KeyData
     {
         public byte KeyNum = 0;         //第几个按键
-        public byte KeyKind = 0;    //按键类型
+        public byte KeyType = 0;    //按键类型
         public byte CommandKind = 0;        //指令类型
         public byte ControlObj = 0;     //控制对象
 
@@ -54,7 +54,7 @@ namespace ConfigDevice
             byte[] data = userData.Data;
 
             KeyNum = data[0];       //按键编号,从0开始
-            KeyKind = data[1];      //按键类型
+            KeyType = data[1];      //按键类型
             CommandKind = data[2];  //指令类型
             ControlObj = (byte)(data[3] & 0xf0) ;     //设备类型
 
@@ -94,7 +94,7 @@ namespace ConfigDevice
         {
             byte[] value = new byte[14];
             value[0] = KeyNum;
-            value[1] = KeyKind;
+            value[1] = KeyType;
             value[2] = CommandKind;
             value[3] = ControlObj;
             value[4] = FunctionInitialValue;
