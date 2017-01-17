@@ -221,7 +221,7 @@ namespace ConfigDevice
                 string changeName = dr[ViewConfig.DC_NAME].ToString();
                 int changeID = Convert.ToInt16(dr[ViewConfig.DC_NUM]);
                 if(KeyCircuit.ListCircuitIDAndName[changeID] != changeName)
-                    KeyCircuit.SaveRoadSetting(changeID - 1, changeName);//--保存回路名称---
+                    KeyCircuit.SaveKeyRoadSetting(changeID - 1, changeName);//--保存回路名称---
             }
             dtKeyData.AcceptChanges();
         }
