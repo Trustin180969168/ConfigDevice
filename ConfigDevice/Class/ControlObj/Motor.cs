@@ -489,7 +489,7 @@ namespace ConfigDevice
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
-            crcData[10] = 0;//起始回路为第一回路
+            crcData[10] = (byte)goDirection;//起始回路为第一回路
             crcData[11] = (byte)stop;//结束回路
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------

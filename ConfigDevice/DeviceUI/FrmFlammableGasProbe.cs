@@ -45,7 +45,7 @@ namespace ConfigDevice
             refreshSateTimer = new ThreadActionTimer(2000, new Action(flammableGasProbe.ReadState));//---自动刷新----
             //----------蜂鸣器-------
             sptBuzzerSeconds.Properties.MaxValue = 65535;
-            sptBuzzerSeconds.Properties.MinValue = 1;
+            sptBuzzerSeconds.Properties.MinValue = 0;
             sptBuzzerSeconds.Enter += SysConfig.Edit_Enter;
             sptBuzzerSeconds.Leave += SysConfig.Edit_Leave;
             cbxBuzzer.Properties.Items.Add(Buzzer.STATE_BUZACT_CLOSE);
@@ -53,7 +53,7 @@ namespace ConfigDevice
             cbxBuzzer.Properties.Items.Add(Buzzer.STATE_BUZACT_NONE);
             //----------指示灯-------
             sptLightSeconds.Properties.MaxValue = 65535;
-            sptLightSeconds.Properties.MinValue = 1;
+            sptLightSeconds.Properties.MinValue = 0;
             sptLightSeconds.Enter += SysConfig.Edit_Enter;
             sptLightSeconds.Leave += SysConfig.Edit_Leave;      
             cbxLight.Properties.Items.Add(FlammableGasProbeLight.STATE_LEDACT_OFF);
@@ -62,7 +62,7 @@ namespace ConfigDevice
             cbxLight.Properties.Items.Add(FlammableGasProbeLight.STATE_LEDACT_NONE);
             //----------阀门-------
             sptValveSeconds.Properties.MaxValue = 65535;
-            sptValveSeconds.Properties.MinValue = 1;
+            sptValveSeconds.Properties.MinValue = 0;
             sptValveSeconds.Enter += SysConfig.Edit_Enter;
             sptValveSeconds.Leave += SysConfig.Edit_Leave;
             cbxValveAction.Properties.Items.Add(Motor.STATE_VALVE_CLOSE);
@@ -329,7 +329,7 @@ namespace ConfigDevice
                 flammableGasProbe.FGP_Light.LedAct = (byte)cbxLight.SelectedIndex;
                 flammableGasProbe.FGP_Light.LedTim = (ushort)this.sptLightSeconds.Value;
                 flammableGasProbe.FGP_Buzzer.BuzAct = (byte)cbxBuzzer.SelectedIndex;
-                flammableGasProbe.FGP_Buzzer.BuzTim = (ushort)sptValveSeconds.Value;
+                flammableGasProbe.FGP_Buzzer.BuzTim = (ushort)sptBuzzerSeconds.Value;
                 flammableGasProbe.SaveAdditionLogic(lookUpEdit.ItemIndex);//---保存附加动作---
             }
             if (currentGroupName != edtTriggerActionName.Text)//---有修改就执行保存----
