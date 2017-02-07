@@ -307,10 +307,18 @@ namespace ConfigDevice
         private void tsmiChangePassword_Click(object sender, EventArgs e)
         {
             if (gvNetwork.FocusedRowHandle == -1) return;
-            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle); 
+            if (dr[NetworkConfig.DC_STATE].ToString() == NetworkConfig.STATE_NOT_CONNECTED)
+            {
+                CommonTools.MessageShow("你还未链接" + dr[NetworkConfig.DC_DEVICE_NAME].ToString() + "!", 2, "");
+                return;
+            }
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
             FrmChangePassword frm = new FrmChangePassword();
-            frm.NetworkEdit = network;
+            if (network.ByteKindID == DeviceConfig.EQUIPMENT_SERVER)
+                frm.NetworkEdit = (WeiXin)network;
+            else
+                frm.NetworkEdit = network;
             frm.Show();
         }
 

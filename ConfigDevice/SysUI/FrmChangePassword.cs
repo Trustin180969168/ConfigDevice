@@ -37,7 +37,9 @@ namespace ConfigDevice
             if (!NetworkEdit.CheckPassword(edtOldPassword.Text, kind))
                 CommonTools.MessageShow("原密码错误!请先链接网络!", 2, "");
             else
+            { 
                 NetworkEdit.ChangePassword(edtNewPassword.Text, kind);
+            }
         }
 
         /// <summary>

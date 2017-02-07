@@ -66,8 +66,8 @@ namespace ConfigDevice
 
         public int Port;//对方的发送端口
         public List<Position> ListPosition; //设备位置列表
-        private byte[] managerPassword;//管理员密码
-        private byte[] userPassword;//用户密码
+        protected byte[] managerPassword;//管理员密码
+        protected byte[] userPassword;//用户密码
         public string DNS1 = "";//DNSIP地址1
         public string DNS2 = "";//DNSIP地址2
         public byte ByteNetworkID { get { return BitConverter.GetBytes(Convert.ToInt16(NetworkID))[0]; } }
@@ -607,7 +607,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="network">网络数据</param>
         /// <returns>UDP</returns>
-        private UdpData createChangePasswordUdpData(string pw, PasswordKind kind)
+        protected virtual UdpData createChangePasswordUdpData(string pw, PasswordKind kind)
         {
             UdpData udp = new UdpData();
 
