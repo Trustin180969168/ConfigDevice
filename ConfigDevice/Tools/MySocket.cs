@@ -6,6 +6,7 @@ using System.Net;
 using System.Data;
 using System.Threading;
 using System.IO;
+using System.Diagnostics;
 
 
 namespace ConfigDevice
@@ -246,7 +247,7 @@ namespace ConfigDevice
 
                         if (mySocket == null || mySocket.Available < 1)//----等待数据接收-----
                         {
-                            Thread.Sleep(15);
+                            Thread.Sleep(15); 
                             continue;
                         }
                         UdpData udpReceive = ReceiveData(remotePoint);//-----接收UDP数据------
@@ -267,7 +268,7 @@ namespace ConfigDevice
                                     continue;
                                 }
                             }
-                            catch { }
+                            catch { continue; }
                             //---------------------以上为特殊处理------------------------------
 
                             if (pcCallBackList.ContainsKey(udpReceive.PacketCodeStr))//----找出对应的回复----
@@ -298,7 +299,7 @@ namespace ConfigDevice
 
                         }
                     }
-                    catch  { continue; }
+                    catch (Exception ex) { Trace.WriteLine(ex,"Socket监听UDP异常"); continue; }
                 }
             }
         }
@@ -312,31 +313,43 @@ namespace ConfigDevice
         {
             lock (SysConfig.RJ45CallBackList)
             {
+
                 CallbackFromUDP state;//回调对象
                 List<string> delList = new List<string>();
                 bool found = false;//是否找到接收RJ45主动包的回调
                 foreach (string key in SysConfig.RJ45CallBackList.Keys)
                 {
-                    state = SysConfig.RJ45CallBackList[key];
-                    if (key.StartsWith(commandStr))
-                    {   
-                        if (state != null)
+                    try
+                    {
+                        state = SysConfig.RJ45CallBackList[key];
+                        if (key.StartsWith(commandStr))
                         {
-                            if (state.ActionCount > 0)
+                            if (state != null)
                             {
-                                state.ActionCount--;//修改执行次数
-                                state.ActionCallback(udpReceive, state.Parameters);//----开启异步线程回调----                                  
+                                if (state.ActionCount > 0)
+                                {
+                                    state.ActionCount--;//修改执行次数
+                                    state.ActionCallback(udpReceive, state.Parameters);//----开启异步线程回调----                                  
+                                }
                             }
+                            else
+                                delList.Add(key);//-----已经没有回调内容,删除-----
+                            found = true;
                         }
-                        else
-                            delList.Add(key);//-----已经没有回调内容,删除-----
-                        found = true;
+
                     }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine(ex, "RJ45主动包的回调:" + key);
+                        continue;
+                    }
+
                 }
                 if (!found)//---没有RJ45主动包回调,忽略/删除-----
                     delList.Add(commandStr);
                 foreach (string key in delList)
                     SysConfig.RJ45CallBackList.Remove(key);
+
             }
             
         }
@@ -378,9 +391,9 @@ namespace ConfigDevice
         /// 关闭Socket
         /// </summary>
         public void Close()
-        {            
-            receiveThread.Abort();
-            Thread.Sleep(100);
+        {
+            Thread.Sleep(200);
+            receiveThread.Abort();          
             mySocket.Close();
         }
 

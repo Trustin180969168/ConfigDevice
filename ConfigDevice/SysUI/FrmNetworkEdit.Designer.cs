@@ -28,16 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmNetworkEdit));
             this.ipInputTextbox1 = new ConfigDevice.IpInputTextbox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btSaveInfo = new System.Windows.Forms.ToolStripButton();
             this.btSavePosition = new System.Windows.Forms.ToolStripButton();
             this.btFindOn = new System.Windows.Forms.ToolStripButton();
             this.btFindOff = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripLabel();
-            this.cbxNetwork = new System.Windows.Forms.ToolStripComboBox();
             this.edtNetworkID = new DevExpress.XtraEditors.TextEdit();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -98,11 +94,8 @@
             this.btSaveInfo,
             this.btSavePosition,
             this.btFindOn,
-            this.btFindOff,
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.cbxNetwork});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.btFindOff});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(792, 31);
             this.toolStrip1.TabIndex = 16;
@@ -144,30 +137,6 @@
             this.btFindOff.Size = new System.Drawing.Size(110, 28);
             this.btFindOff.Text = "发现设备关 ";
             this.btFindOff.Click += new System.EventHandler(this.btFindOff_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Margin = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(6, 31);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(68, 28);
-            this.toolStripButton2.Text = "网络设备:";
-            // 
-            // cbxNetwork
-            // 
-            this.cbxNetwork.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxNetwork.Font = new System.Drawing.Font("宋体", 12F);
-            this.cbxNetwork.MaxDropDownItems = 16;
-            this.cbxNetwork.Name = "cbxNetwork";
-            this.cbxNetwork.Size = new System.Drawing.Size(200, 31);
-            this.cbxNetwork.SelectedIndexChanged += new System.EventHandler(this.cbxNetwork_SelectedIndexChanged);
             // 
             // edtNetworkID
             // 
@@ -313,14 +282,14 @@
             this.gcPosition.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcPosition.EmbeddedNavigator.Name = "";
             this.gcPosition.FormsUseDefaultLookAndFeel = false;
-            this.gcPosition.Location = new System.Drawing.Point(0, 223);
+            this.gcPosition.Location = new System.Drawing.Point(0, 55);
             this.gcPosition.MainView = this.gvPosition;
             this.gcPosition.Name = "gcPosition";
             this.gcPosition.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemComboBox1,
             this.cedtHasPassword,
             this.edtName});
-            this.gcPosition.Size = new System.Drawing.Size(792, 350);
+            this.gcPosition.Size = new System.Drawing.Size(792, 518);
             this.gcPosition.TabIndex = 20;
             this.gcPosition.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPosition});
@@ -463,7 +432,7 @@
             this.panelControl1.Controls.Add(this.label5);
             this.panelControl1.Controls.Add(this.label6);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl1.Location = new System.Drawing.Point(0, 31);
+            this.panelControl1.Location = new System.Drawing.Point(0, 55);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(792, 192);
             this.panelControl1.TabIndex = 21;
@@ -513,16 +482,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 573);
-            this.Controls.Add(this.gcPosition);
             this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.gcPosition);
             this.Controls.Add(this.toolStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FrmNetworkEdit";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "网络信息";
             this.Load += new System.EventHandler(this.FrmNetworkEdit_Load);
+            this.Controls.SetChildIndex(this.toolStrip1, 0);
+            this.Controls.SetChildIndex(this.gcPosition, 0);
+            this.Controls.SetChildIndex(this.panelControl1, 0);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID.Properties)).EndInit();
@@ -573,9 +541,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox1;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit cedtHasPassword;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtName;
-        private System.Windows.Forms.ToolStripSeparator toolStripButton1;
-        private System.Windows.Forms.ToolStripLabel toolStripButton2;
-        private System.Windows.Forms.ToolStripComboBox cbxNetwork;
         private System.Windows.Forms.ToolStripButton btFindOn;
         private System.Windows.Forms.ToolStripButton btFindOff;
         private System.Windows.Forms.ToolStripButton btSaveInfo;

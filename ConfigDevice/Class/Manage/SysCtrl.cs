@@ -17,7 +17,7 @@ namespace ConfigDevice
     //     用于保存系统的基本配置信息,包括公共常量,本地IP,端口,初始化工作等
     public class SysCtrl
     {
-       
+     
         /// <summary>
         /// 初始化系统配置
         /// </summary>

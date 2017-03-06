@@ -292,7 +292,7 @@ namespace ConfigDevice
                 CommonTools.MessageShow("回路名称过长!", 2, "按键名称的GB2312字节不能大于12");
                 return;
             }
-            UdpData udpSend = createSaveRoadSettingUdp(roadNum, roadName);
+            UdpData udpSend = createSaveKeyRoadSettingUdp(roadNum, roadName);
             mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                  new CallbackUdpAction(callbackSaveRoadSetting), null);
         } 

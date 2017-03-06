@@ -9,7 +9,7 @@ using System.Net;
 
 namespace ConfigDevice
 {
-    public partial class FrmNetworkEdit : Form
+    public partial class FrmNetworkEdit : ConfigDevice.FrmDevice
     {
         public Network NetworkEdit = null;
         DataTable dtPosition = new DataTable("Position");
@@ -65,12 +65,12 @@ namespace ConfigDevice
         {
             //-----网络列表------------------
             int i = 0;
-            foreach (Network network in SysConfig.ListNetworks.Values)
-            {
-                cbxNetwork.Items.Add(network.DeviceName);
-                listNetworkKey.Add(i++, network.NetworkIP);
-            }
-            cbxNetwork.Text = NetworkEdit.DeviceName;
+            //foreach (Network network in SysConfig.ListNetworks.Values)
+            //{
+            //    cbxNetwork.Items.Add(network.DeviceName);
+            //    listNetworkKey.Add(i++, network.NetworkIP);
+            //}
+            //cbxNetwork.Text = NetworkEdit.DeviceName;
         }
 
         /// <summary>
@@ -95,10 +95,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="pos">保存位置</param>
         private void callBackSavePosition(object[] values)
-        {
- 
-
-
+        { 
         }
 
         private void callbackUI(CallbackParameter callbackParameter)
@@ -166,17 +163,15 @@ namespace ConfigDevice
         {
             NetworkEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
                          ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text),edtDNS1.ByteIP,edtDNS2.ByteIP);
-        }
-
-
+        } 
 
         private void cbxNetwork_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int i = cbxNetwork.SelectedIndex;
-            string key = listNetworkKey[i];
-            NetworkEdit = SysConfig.ListNetworks[key];
+            //int i = cbxNetwork.SelectedIndex;
+            //string key = listNetworkKey[i];
+            //NetworkEdit = SysConfig.ListNetworks[key];
 
-            initData();
+            //initData();
         }
 
         private void btFindOn_Click(object sender, EventArgs e)
@@ -187,9 +182,7 @@ namespace ConfigDevice
         private void btFindOff_Click(object sender, EventArgs e)
         {
             NetworkEdit.CloseDiscover();
-        }
-
-
+        } 
 
     }
 }

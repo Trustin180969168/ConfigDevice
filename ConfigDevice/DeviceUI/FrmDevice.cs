@@ -109,5 +109,10 @@ namespace ConfigDevice
                 cbxSelectDevice.SelectedIndexChanged += new EventHandler(cbxSelectDevice_SelectedIndexChanged);
             }
         }
+
+        private void FrmDevice_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MySocket.GetInstance().RJ45SendList.Clear();//清空所有回调
+        }
     }
 }

@@ -142,12 +142,10 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_KEY_TFT_LCD: return new FactoryFunctionsBoardEdit();//---多功能液晶面板---
                 case DeviceConfig.EQUIPMENT_SHORT_IN_4: return new FactoryShort4InputEdit();//---短路输入4---
                 case DeviceConfig.EQUIPMENT_PRI_3: return new FactoryBodyInductionEdit();//---人体感应---
-
-
-
                 default: return new FactoryBaseDeviceEdit();
             }
         }
+
 
         /// <summary>
         /// 获取抽象设备
