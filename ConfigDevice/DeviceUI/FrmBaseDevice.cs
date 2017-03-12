@@ -14,9 +14,9 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
-            this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
-            this.Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
-            viewBaseSetting.DeviceEdit = this.Device;
+            this.DeviceEdit.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
+            this.DeviceEdit.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
+            viewBaseSetting.DeviceEdit = this.DeviceEdit;
         }
 
         public FrmBaseDevice()
@@ -56,7 +56,7 @@ namespace ConfigDevice
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
             Device DeviceSelect = new BaseDevice(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
-            if (Device.MAC == DeviceSelect.MAC) return;
+            if (DeviceEdit.MAC == DeviceSelect.MAC) return;
             //this.Close();
             //FrmDevice frm = SysCtrl.GetFactory(DeviceSelect.ByteKindID).CreateDevice(DeviceSelect);
             //frm.Text = DeviceSelect.Name;
@@ -65,9 +65,9 @@ namespace ConfigDevice
             DeviceSelect.OnCallbackUI_Action += this.callbackUI;
             DeviceSelect.OnCallbackUI_Action += viewBaseSetting.CallBackUI;
             viewBaseSetting.DeviceEdit = DeviceSelect;
-            Device = DeviceSelect;
-            this.Text = Device.Name;
-            Device.SearchVer();
+            DeviceEdit = DeviceSelect;
+            this.Text = DeviceEdit.Name;
+            DeviceEdit.SearchVer();
 
 
         }

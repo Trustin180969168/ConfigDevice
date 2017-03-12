@@ -89,7 +89,7 @@
             this.Name = "FrmDevice";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmDevice";
-            this.Load += new System.EventHandler(this.FrmDevice_Load);
+            //this.Load += new System.EventHandler(this.FrmDevice_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmDevice_FormClosing);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

@@ -25,7 +25,7 @@ namespace ConfigDevice
             : base(_device)
         {
             InitializeComponent();
-            flammableGasProbe = this.Device as FlammableGasProbe;
+            flammableGasProbe = this.DeviceEdit as FlammableGasProbe;
             //-----------初始化编辑控件-------
             //edtFireCtrlTemperatue.Properties.DisplayFormat.FormatString = "#0.0 ℃";
             //edtFireCtrlTemperatue.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -484,7 +484,7 @@ namespace ConfigDevice
             _flammableGasProbe.OnCallbackUI_Action += this.CallbackUI;
             _flammableGasProbe.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
             BaseViewSetting.DeviceEdit = _flammableGasProbe;           //---基础配置编辑  
-            base.Device = _flammableGasProbe;                         //---父类设备对象-----
+            base.DeviceEdit = _flammableGasProbe;                         //---父类设备对象-----
             hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
             hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
             viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------

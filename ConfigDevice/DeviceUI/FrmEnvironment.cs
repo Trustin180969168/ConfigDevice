@@ -26,7 +26,7 @@ namespace ConfigDevice
             : base(_device)
         {
             InitializeComponent();
-            environment = this.Device as Environment;
+            environment = this.DeviceEdit as Environment;
             //-----------初始化编辑控件------- 
             refreshSateTimer = new ThreadActionTimer(2000, new Action(environment.ReadState));//---自动刷新---- 
             //----------初始化传感器数据--------
@@ -432,7 +432,7 @@ namespace ConfigDevice
             _environment.OnCallbackUI_Action += this.CallbackUI;
             _environment.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
             BaseViewSetting.DeviceEdit = _environment;           //---基础配置编辑  
-            base.Device = _environment;                         //---父类设备对象-----
+            base.DeviceEdit = _environment;                         //---父类设备对象-----
             hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
             hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
             viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------

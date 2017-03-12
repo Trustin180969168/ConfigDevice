@@ -10,7 +10,7 @@ namespace ConfigDevice
 {
     public partial class FrmDevice : Form,IMessageFilter   
     {
-        public Device Device;
+        public Device DeviceEdit = null;
         public ToolStripComboBox CbxSelectDevice { get { return (cbxSelectDevice as ToolStripComboBox); } }
         public Dictionary<int, DataRow> SelectDeviceList = new Dictionary<int, DataRow>();//---列表---
         public bool loaded = false;//是否加载完毕
@@ -18,7 +18,7 @@ namespace ConfigDevice
         public FrmDevice(Device _device)
         { 
             InitializeComponent();
-            this.Device = _device;
+            this.DeviceEdit = _device;
             this.Text = _device.Name; 
         }
 
@@ -43,7 +43,7 @@ namespace ConfigDevice
         public void InitSelectDevice()
         {
             if (SelectDeviceList.Count > 0) return;
-            string temp = DeviceConfig.DC_KIND_ID + "='" + Device.KindID + "'";
+            string temp = DeviceConfig.DC_KIND_ID + "='" + DeviceEdit.KindID + "'";
             DataRow[] rows = SysConfig.DtDevice.Select(temp);
             int i = 0;
             foreach (DataRow dr in rows)
@@ -63,7 +63,7 @@ namespace ConfigDevice
         public virtual void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {   
             SysCtrl.RemoveRJ45CallBackList(this.Handle.ToString());//---退订本界面回调
-            SysCtrl.MainFrom.OpenDeviceEdit(SelectDeviceList[CbxSelectDevice.SelectedIndex],Device);
+            SysCtrl.MainFrom.OpenDeviceEdit(SelectDeviceList[CbxSelectDevice.SelectedIndex],DeviceEdit);
             this.Close();
         }
 
@@ -77,7 +77,7 @@ namespace ConfigDevice
             for (int i = 0; i < CbxSelectDevice.Items.Count; i++)
             {
                 string itemValue = CbxSelectDevice.Items[i].ToString();
-                if (itemValue.Contains(this.Device.Name) && itemValue.Contains(this.Device.DeviceID))
+                if (itemValue.Contains(this.DeviceEdit.Name) && itemValue.Contains(this.DeviceEdit.DeviceID))
                 { CbxSelectDevice.SelectedIndex = i; break; }
             }
         }
@@ -118,7 +118,7 @@ namespace ConfigDevice
 
         private void FrmDevice_Load(object sender, EventArgs e)
         {
-            Device.EditHandleID = this.Handle.ToString();//---绑定界面句柄---
+            DeviceEdit.EditHandleID = this.Handle.ToString();//---绑定界面句柄---
         }
     }
 }

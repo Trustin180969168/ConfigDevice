@@ -16,8 +16,8 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
-            this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
-            this.Device.OnCallbackUI_Action += BaseViewSetting.CallBackUI;//----注册回调事件
+            this.DeviceEdit.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
+            this.DeviceEdit.OnCallbackUI_Action += BaseViewSetting.CallBackUI;//----注册回调事件
             //-----初始化回路选择----
             dtCircuit.Columns.Add(ViewConfig.DC_ID, System.Type.GetType("System.String"));
             dtCircuit.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
@@ -33,8 +33,8 @@ namespace ConfigDevice
 
         private void FrmBaseDevice_Load(object sender, EventArgs e)
         {
-            BaseViewSetting.DeviceEdit = this.Device;
-            circuitCtrl = Device.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;//获取回路控制对象
+            BaseViewSetting.DeviceEdit = this.DeviceEdit;
+            circuitCtrl = DeviceEdit.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;//获取回路控制对象
             BaseViewSetting.DeviceEdit.SearchVer();//---获取版本号-----   
             InitSelectDevice();
             circuitCtrl.ReadRoadTitle();//读取回路列表
@@ -54,7 +54,7 @@ namespace ConfigDevice
                 else
                 {
                     //-----读取完探头参数----- 
-                    if (callbackParameter.DeviceID == Device.DeviceID && callbackParameter.Action == ActionKind.ReadCircuit)
+                    if (callbackParameter.DeviceID == DeviceEdit.DeviceID && callbackParameter.Action == ActionKind.ReadCircuit)
                     {
                         dtCircuit.Rows.Clear();
                         foreach (int key in circuitCtrl.ListCircuitIDAndName.Keys)
@@ -72,19 +72,19 @@ namespace ConfigDevice
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            this.Device.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
-            this.Device.OnCallbackUI_Action -= BaseViewSetting.CallBackUI;//----退订回调事件
+            this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
+            this.DeviceEdit.OnCallbackUI_Action -= BaseViewSetting.CallBackUI;//----退订回调事件
             DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
             Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
-            if (Device.MAC == DeviceSelect.MAC) return;
+            if (DeviceEdit.MAC == DeviceSelect.MAC) return;
 
             BaseViewSetting.DeviceEdit = DeviceSelect;              //---基础配置编辑  
-            Device = DeviceSelect;                                 //---父类设备对象-----              
-            circuitCtrl = this.Device.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;     //获取回路控制对象
-            Device.OnCallbackUI_Action += this.callbackUI;          //--注册回调事件
-            Device.OnCallbackUI_Action += BaseViewSetting.CallBackUI;//----注册回调事件
+            DeviceEdit = DeviceSelect;                                 //---父类设备对象-----              
+            circuitCtrl = this.DeviceEdit.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;     //获取回路控制对象
+            DeviceEdit.OnCallbackUI_Action += this.callbackUI;          //--注册回调事件
+            DeviceEdit.OnCallbackUI_Action += BaseViewSetting.CallBackUI;//----注册回调事件
 
-            this.Text = Device.Name;                         //----界面标题------
+            this.Text = DeviceEdit.Name;                         //----界面标题------
             BaseViewSetting.DeviceEdit.SearchVer();                 //---获取版本号-----   
             InitSelectDevice();                                     //---初始化选择设备---
             circuitCtrl.ReadRoadTitle();                            //读取回路列表

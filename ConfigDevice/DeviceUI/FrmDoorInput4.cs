@@ -34,7 +34,7 @@ namespace ConfigDevice
             dtSecurity.Columns.Add(DC_HIDE, System.Type.GetType("System.Boolean"));
             gcSecurity.DataSource = dtSecurity;
 
-            doorInput4 = this.Device as DoorInput4;
+            doorInput4 = this.DeviceEdit as DoorInput4;
             doorInput4.OnCallbackUI_Action += this.callbackUI;
             doorInput4.OnCallbackUI_Action += frmSetting.CallBackUI;
             doorInput4.OnCallbackRoad_Action += this.callbackRoadName;       
@@ -160,16 +160,16 @@ namespace ConfigDevice
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {         
 
-            this.Device.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
-            this.Device.OnCallbackUI_Action -= frmSetting.CallBackUI;//----退订回调事件
+            this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
+            this.DeviceEdit.OnCallbackUI_Action -= frmSetting.CallBackUI;//----退订回调事件
             doorInput4.OnCallbackRoad_Action -= this.callbackRoadName;//----退订回调事件
             DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
             Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
             if (doorInput4.MAC == DeviceSelect.MAC) return;
 
             frmSetting.DeviceEdit = DeviceSelect;          //---基础配置编辑  
-            this.Device = DeviceSelect;                         //---父类设备对象-----              
-            doorInput4 = this.Device as DoorInput4;                   //---本界面编辑-----    
+            this.DeviceEdit = DeviceSelect;                         //---父类设备对象-----              
+            doorInput4 = this.DeviceEdit as DoorInput4;                   //---本界面编辑-----    
             doorInput4.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
             doorInput4.OnCallbackUI_Action += frmSetting.CallBackUI;//----注册回调事件
             doorInput4.OnCallbackRoad_Action += this.callbackRoadName;  //---注册回调---     

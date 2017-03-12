@@ -24,7 +24,7 @@ namespace ConfigDevice
             : base(_device)
         {          
             InitializeComponent();
-            road3Window = this.Device as Road3Window;
+            road3Window = this.DeviceEdit as Road3Window;
             refreshSateTimer = new ThreadActionTimer(2000, new Action(this.loadData));//---自动刷新---- 
             //-----配置表数据------
             dtMotorSetting.Columns.Add(ViewConfig.DC_ID, System.Type.GetType("System.String"));
@@ -90,9 +90,9 @@ namespace ConfigDevice
 
         private void FrmMotorDC3_Load(object sender, EventArgs e)
         {
-            this.Device.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
-            this.Device.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
-            viewBaseSetting.DeviceEdit = this.Device;
+            this.DeviceEdit.OnCallbackUI_Action += this.callbackUI;//--注册回调事件
+            this.DeviceEdit.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
+            viewBaseSetting.DeviceEdit = this.DeviceEdit;
 
             viewBaseSetting.DeviceEdit.SearchVer();//---获取版本号-----   
             InitSelectDevice();//----初始化选择设备列表---
@@ -178,15 +178,15 @@ namespace ConfigDevice
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            this.Device.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
-            this.Device.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----退订回调事件
+            this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
+            this.DeviceEdit.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----退订回调事件
             DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
             Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
-            if (Device.MAC == DeviceSelect.MAC) return;
+            if (DeviceEdit.MAC == DeviceSelect.MAC) return;
 
             viewBaseSetting.DeviceEdit = DeviceSelect;              //---基础配置编辑  
-            this.Device = DeviceSelect;                             //---父类设备对象-----              
-            road3Window = this.Device as Road3Window;               //---本界面编辑-----    
+            this.DeviceEdit = DeviceSelect;                             //---父类设备对象-----              
+            road3Window = this.DeviceEdit as Road3Window;               //---本界面编辑-----    
             road3Window.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
             road3Window.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
 

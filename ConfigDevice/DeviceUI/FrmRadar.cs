@@ -27,7 +27,7 @@ namespace ConfigDevice
             InitializeComponent();
             lookUpEdit.Leave += new System.EventHandler(SysConfig.Edit_Leave);
             lookUpEdit.Enter += new System.EventHandler(SysConfig.Edit_Enter);
-            radar = this.Device as Radar;
+            radar = this.DeviceEdit as Radar;
 
             refreshSateTimer = new ThreadActionTimer(2000, new Action(radar.ReadState));//---自动刷新----
             //----------蜂鸣器-------
@@ -443,7 +443,7 @@ namespace ConfigDevice
             _flammableGasProbe.OnCallbackUI_Action += this.CallbackUI;
             _flammableGasProbe.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
             BaseViewSetting.DeviceEdit = _flammableGasProbe;           //---基础配置编辑  
-            base.Device = _flammableGasProbe;                         //---父类设备对象-----
+            base.DeviceEdit = _flammableGasProbe;                         //---父类设备对象-----
             hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
             hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
             viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------

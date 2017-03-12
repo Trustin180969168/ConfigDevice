@@ -52,8 +52,6 @@ namespace ConfigDevice
             }
             getRoadTitles = new CallbackFromUDP(getRoadTitlesData);
             finishGetRoadTitles = new CallbackFromUDP(finishGetRoadTitlesData);
-            //----存在同一设备ID,同一回调命令,同一界面操作,同时使用的情况,这时候需要通过回调参数加以区分-----
-            //finishGetRoadTitles.Parameters = new object[] { CLASS_NAME, Guid.NewGuid().ToString() };
         }
 
         /// <summary>

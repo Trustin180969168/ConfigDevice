@@ -64,7 +64,7 @@ namespace ConfigDevice
             dcLevel.ColumnEdit = cbxOutputLevel;
             gcShortOutput.DataSource = dtShortOutput;
 
-            short4 = this.Device as Short4; 
+            short4 = this.DeviceEdit as Short4; 
             refreshSateTimer = new ThreadActionTimer(2000, new Action(short4.ReadState));//---自动刷新----
  
             //----------回路查询选择------
