@@ -586,7 +586,7 @@
             this.ceSafeSetting.Size = new System.Drawing.Size(454, 58);
             this.ceSafeSetting.TabIndex = 0;
             this.ceSafeSetting.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.ceSafeSetting_ItemCheck);
-            this.ceSafeSetting.Click += new System.EventHandler(this.ceSafeSetting_Click);
+ 
             // 
             // viewLogicSetting
             // 

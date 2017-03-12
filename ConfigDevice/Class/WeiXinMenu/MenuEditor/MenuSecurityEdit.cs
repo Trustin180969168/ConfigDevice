@@ -69,7 +69,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != WeiXinDevice.DeviceID) return;
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             MenuSecurityData menuSecurityData = new MenuSecurityData(userData); 
             this.CallbackUI(new CallbackParameter(ActionKind.ReadMenuSecurity, menuSecurityData));//----读完状态信息,回调界面----
         }

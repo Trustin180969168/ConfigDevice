@@ -239,7 +239,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             //----传感器ID------------
             int openFlag = (int)userData.Data[0];
             open = openFlag == 1 ? true : false;
@@ -342,8 +342,8 @@ namespace ConfigDevice
         public void ReadParameter()
         {
             finishReadParameter = false;
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, this.UUID, getParameter);//----注册回调---
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, getWriteEnd);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, deviceControled.EditHandleID, getParameter);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END,deviceControled.EditHandleID + DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, getWriteEnd);
             UdpData udpSend = createReadParameterUdp();
             MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadParameterUdp), null);
@@ -397,7 +397,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             //----翻译数据------------
             byte value = userData.Data[1];
             if ((int)(value & 1) == 1)
@@ -420,7 +420,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_CONFIG))
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认-----
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
 
             }
         }

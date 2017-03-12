@@ -196,7 +196,7 @@ namespace ConfigDevice
         private void getVer(UdpData data, object[] values)
         {
             //------回复反馈的设备信息-------
-            UdpTools.ReplyDataUdp(data);
+            UdpTools.ReplyDelRJ45SendUdp(data);
             string name = this.Name;
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);

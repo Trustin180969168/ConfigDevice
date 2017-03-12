@@ -128,7 +128,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认-----  
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----  
        
             //------找出数据段------
             string dataStr = ConvertTools.ByteToHexStr(userData.Data);
@@ -164,8 +164,8 @@ namespace ConfigDevice
         /// </summary>
         public void ReadAdditionLogic(int startNum, int endNum)
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_EXACTION, this.DeviceID, getAdditionLogic);
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.DeviceID, getWriteEnd); 
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_EXACTION, EditHandleID, getAdditionLogic);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, EditHandleID + DeviceConfig.CMD_LOGIC_WRITE_EXACTION, getWriteEnd); 
             UdpData udpSend = createReadAdditionLogicUdp(startNum,endNum);
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadAdditionLogic), null);
         }
@@ -215,7 +215,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认----- 
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
  
             byte[] value = userData.Data;
             SetAdditionLogicData(value);
@@ -243,7 +243,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认-----
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
                 this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,this.DeviceID));//---回调UI---
             }
         }

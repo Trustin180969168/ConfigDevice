@@ -126,7 +126,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认-----  
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----  
        
             //------找出数据段------
             string dataStr = ConvertTools.ByteToHexStr(userData.Data);
@@ -196,7 +196,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认-----  
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----  
             //------找出数据,并翻译------
             securityLevel = CommonTools.CopyBytes(userData.Data, 1, 4);
             byte b1 = securityLevel[0];
@@ -337,7 +337,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.DeviceID) return;
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
 
             byte[] value = userData.Data;
             SetAdditionLogicData(value);
@@ -366,7 +366,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认-----
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
                 this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,DeviceID));//---回调UI---
             }
         }

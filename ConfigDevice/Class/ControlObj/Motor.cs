@@ -337,8 +337,8 @@ namespace ConfigDevice
         public void ReadMotorParameter()
         {
             finishReadParameter = false;
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, this.UUID, getMotorParameter);//----注册回调---
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, getWriteEnd);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, deviceControled.EditHandleID, getMotorParameter);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, deviceControled.EditHandleID + DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, getWriteEnd);
             UdpData udpSend = createReadParameterUdp();
             MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadParameterUdp), null);
@@ -388,8 +388,8 @@ namespace ConfigDevice
         public void ReadValveParameter()
         {
             finishReadParameter = false;
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, this.UUID, getValveParameter);//----注册回调---
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, getWriteEnd);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, deviceControled.EditHandleID, getValveParameter);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, deviceControled.EditHandleID + DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, getWriteEnd);
             UdpData udpSend = createReadParameterUdp();
             MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadParameterUdp), null);
@@ -404,7 +404,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             //----翻译数据------------
             this.MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[1], userData.Data[2] });//---最大运行时间---
             this.MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[3], userData.Data[4] });//----最大停止电流---
@@ -426,7 +426,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             //----翻译数据------------ 
             this.Road1MaxRunTime = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[1], userData.Data[2] });   //---最大运行时间---
             this.Road1MaxStopCE = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[3], userData.Data[4] });    //---最大停止电流---
@@ -451,7 +451,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_CONFIG))
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认-----
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
                 this.deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadConfig,deviceControled.DeviceID));//---回调UI---
             }
         }
@@ -554,7 +554,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadMotorCurrent()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_WINDOWS_WRITE_POWER, this.UUID, getMotorCurrent);//----注册回调--- 
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_WINDOWS_WRITE_POWER, deviceControled.EditHandleID, getMotorCurrent);//----注册回调--- 
             UdpData udpSend = createReadCurrentUdp();
             MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadCurrentUdp), null);
@@ -605,7 +605,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             //----翻译数据------------ 
             this.Road1Current = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[0], userData.Data[1] });   //---1路电流
             this.Road2Current = ConvertTools.Bytes2ToInt16(new byte[] { userData.Data[2], userData.Data[3] });   //---2路电流
@@ -620,7 +620,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadMotorCurrentAction()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE, this.UUID, getMotorAction);//----注册回调--- 
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE, deviceControled.EditHandleID, getMotorAction);//----注册回调--- 
             UdpData udpSend = createReadMotorCurrentActionUdp();
             MySocket.GetInstance().SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadCurrentActionUdp), null);
@@ -670,7 +670,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             //----翻译数据------------ 
             //public const string NAME_ACTION_ROAD_FRONT_1 = "1路正转";
             //public const string NAME_ACTION_ROAD_BACK_1 = "1路反转";

@@ -12,7 +12,7 @@ namespace ConfigDevice
         public CallbackFromUDP callbackGetLogicData;      //---回调获取指令----
         public const int LogicCount = 4;//----逻辑配置数---
         private CallbackFromUDP finishGetData;//-------完成数据读取----
-        private string ObjUuid = Guid.NewGuid().ToString();//唯一标识对象uuid
+        public string HandleId = Guid.NewGuid().ToString();//唯一标识对象uuid
         public LogicList(Device value)
         {
             this.device = value;
@@ -45,8 +45,8 @@ namespace ConfigDevice
         /// <param name="endNum">按键/分组 结束</param>
         public void ReadLogicData( int startNum, int endNum)
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_CONFIG, callbackGetLogicData);//---注册回调----
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, ObjUuid, finishGetData);//---注册回调----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_CONFIG,HandleId, callbackGetLogicData);//---注册回调----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, HandleId, finishGetData);//---注册回调----
             UdpData udpSend = createReadLogicUdp(startNum, endNum);
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadLogicData), null);
         }
@@ -97,7 +97,7 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getLogicData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             UserUdpData userData = new UserUdpData(data);
             LogicData logicData = new LogicData(userData);
             CallbackUI(new CallbackParameter(ActionKind.ReadLogicConfig,logicData));//----界面回调-----
@@ -166,7 +166,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == device.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_CONFIG))//不是本设备ID不接收.
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认-----  
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----  
             }
         }
 

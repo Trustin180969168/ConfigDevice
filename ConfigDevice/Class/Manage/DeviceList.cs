@@ -127,7 +127,7 @@ namespace ConfigDevice
         private void getDevices(UdpData data, object[] values)
         {
             UserUdpData userData = new UserUdpData(data); 
-            UdpTools.ReplyDataUdp(data);//----回复确认----- 
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
  
             lock (objLock)
             {
@@ -138,7 +138,7 @@ namespace ConfigDevice
                 DeviceData deviceData = new DeviceData(userData);
                 //-----回复反馈的设备信息-------
                 UdpData udpReply = createReplyUdp(data);
-                UdpTools.ReplyDataUdp(data);
+                UdpTools.ReplyDelRJ45SendUdp(data);
                 //-----排查重复项-------
                 string temp = DeviceConfig.DC_MAC + "='" + deviceData.MAC + "'";
                 DataRow[] rows = SysConfig.DtDevice.Select(temp);
@@ -204,7 +204,7 @@ namespace ConfigDevice
             searching = false;//---搜索完毕----         
             //------回复停止搜索-------               
             UdpData udpReply = createReplyUdp(data);
-            UdpTools.ReplyDataUdp(data);
+            UdpTools.ReplyDelRJ45SendUdp(data);
             if (CallBackUI != null) 
                 CallBackUI(new CallbackParameter(ActionKind.SearchDevice,   SearchingNetwork  ));
         }

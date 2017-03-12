@@ -17,7 +17,8 @@ namespace ConfigDevice
     //     用于保存系统的基本配置信息,包括公共常量,本地IP,端口,初始化工作等
     public class SysCtrl
     {
-     
+
+        public static FrmMain MainFrom;
         /// <summary>
         /// 初始化系统配置
         /// </summary>
@@ -189,6 +190,25 @@ namespace ConfigDevice
             {  
                 if (SysConfig.RJ45CallBackList.ContainsKey(_key + "_" + id))
                     SysConfig.RJ45CallBackList.Remove(_key + "_" + id);
+            }
+        }
+
+        /// <summary>
+        /// 移除回调列表,所有指令类型的回调对象
+        /// </summary>
+        /// <param name="_key">指令头</param>
+        public static void RemoveRJ45CallBackList(string id)
+        { 
+            lock (SysConfig.RJ45CallBackList)
+            {
+                List<string> delList = new List<string>();
+                foreach (string keyStr in SysConfig.RJ45CallBackList.Keys)
+                {
+                    if (keyStr.Contains(id))
+                        delList.Add(keyStr);
+                }
+                foreach (string delKey in delList)
+                    SysConfig.RJ45CallBackList.Remove(delKey);
             }
         }
 

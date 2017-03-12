@@ -96,7 +96,7 @@ namespace ConfigDevice
         /// <param name="values"></param>
         private void getKeyData(UdpData data, object[] values)
         {
-            UdpTools.ReplyDataUdp(data);//----回复确认----- 
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
             UserUdpData userUdp = new UserUdpData(data);//---用户数据---
             KeyData keyData = new KeyData(userUdp);     //---按键数据---
             CallbackUI(new CallbackParameter(ActionKind.ReadConfig,device.DeviceID,keyData));//----界面回调-----
@@ -161,7 +161,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == device.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_CONFIG))//不是本设备ID不接收.
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认-----  
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----  
                 SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, ObjUuid);//---移除按键---
                 SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG);//移除读取配置
             }

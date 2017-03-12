@@ -84,7 +84,7 @@ namespace ConfigDevice
             if (userData.SourceID != this.device.DeviceID) return;//不是本设备ID不接收.
             MenuData tempMenuData = new MenuData(userData);
             if ((uint)values[0]  != (uint)menuData.MenuID) return;//返回不是本菜单---
-            UdpTools.ReplyDataUdp(data);//----回复确认----- 
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
 
             CallbackUI(new CallbackParameter(ActionKind.ReadMenuCommand, new object[] { userData }));//----界面回调------
         }
@@ -100,7 +100,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == device.DeviceID && (int)values[0] == menuData.MenuID)
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认----- 
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
             }
         }
 

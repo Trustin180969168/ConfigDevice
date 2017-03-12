@@ -20,7 +20,7 @@ namespace ConfigDevice
         public int LogicItemIndex { get { return lookUpEdit.ItemIndex; } }
         public string LogicName { get { return edtTriggerActionName.Text; } }
         private bool isSystemSetting = false;//----是否系统触发配置----
-
+        public String HandleId = Guid.NewGuid().ToString();//---唯一编码---
         public bool IsSystemSetting
         {
             get { return isSystemSetting; }
@@ -131,6 +131,7 @@ namespace ConfigDevice
             foreach (Control viewlogic in plLogicList.Controls)
                 (viewlogic as ViewLogicTools).InitTriggerList(triggers);
             logicList = new LogicList(device);
+            logicList.HandleId = device.EditHandleID;//---窗体唯一句柄
             viewLogicTools1.DeviceEdit = device;
             viewLogicTools2.DeviceEdit = device;
             viewLogicTools3.DeviceEdit = device;

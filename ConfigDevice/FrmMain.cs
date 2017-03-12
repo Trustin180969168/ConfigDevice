@@ -60,6 +60,8 @@ namespace ConfigDevice
             deviceState.FieldName = DeviceConfig.DC_STATE;
             deviceRemark.FieldName = DeviceConfig.DC_REMARK;
             image1.FieldName = DeviceConfig.DC_IMAGE1;
+
+            SysCtrl.MainFrom = this;
         }
 
         /// <summary>
@@ -286,10 +288,15 @@ namespace ConfigDevice
             if (SysConfig.ListNetworks.ContainsKey(device.NetworkIP) &&
                 SysConfig.ListNetworks[device.NetworkIP].State == NetworkConfig.STATE_CONNECTED)
             {
-                FrmDevice frm = FactoryDevice.GetFactoryDeviceEdit(device.ByteKindID).CreateDevice(dr);
-                frm.Show(this);
+                OpenDeviceEdit(dr, device);
             }
             else { CommonTools.MessageShow("网络链接已断开,请重新链接!", 2, ""); return; }
+        }
+
+        public void OpenDeviceEdit(DataRow dr, Device device)
+        {
+            FrmDevice frm = FactoryDevice.GetFactoryDeviceEdit(device.ByteKindID).CreateDevice(dr);
+            frm.Show(this);
         }
 
 

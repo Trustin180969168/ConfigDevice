@@ -19,8 +19,8 @@ namespace ConfigDevice
         public override void ReadCommandData(CommandReadObj groupNum, int startNum, int endNum)
         {
             UdpData udpSend = createReadCommandsUdp(groupNum.Index, startNum, endNum);
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_COMMAND, callbackGetCommandData);//---注册回调----
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, objUuid, getWriteEnd);//---注册结束回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_COMMAND,HandleId, callbackGetCommandData);//---注册回调----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, HandleId, getWriteEnd);//---注册结束回调---
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadCommands), null);
         }
         private void callbackReadCommands(UdpData udpReply, object[] values)
@@ -78,7 +78,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.device.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认----- 
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
   
             CallbackUI(new CallbackParameter(ActionKind.ReadCommand, new object[] { userData }));//----界面回调------
         }
@@ -94,7 +94,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == device.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_COMMAND))
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认----- 
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
             }
         }
 

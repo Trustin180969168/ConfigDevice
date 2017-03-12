@@ -14,6 +14,7 @@ namespace ConfigDevice
         public const string ACTION_STATE = "State";//---状态---
         public const string ACTION_CONFIG = "Config";//---配置参数---
 
+
         private byte[] securityLevel = new byte[4];//----安全级别------
         public bool[] SaftFlags  =  new bool[] { false, false, false, false, false, false, false, false, false, false,
             false, false, false, false, false };//---安防标志位------
@@ -95,7 +96,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadState()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE, this.DeviceID, getStateInfo);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_STATE,EditHandleID, getStateInfo);
             UdpData udpSend = createReadStateUdp();
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadState), null);
         }
@@ -144,7 +145,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认-----  
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----  
        
             //------找出数据段------
             string dataStr = ConvertTools.ByteToHexStr(userData.Data);
@@ -164,7 +165,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadSafeSetting(int groupNum)
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_SECURITY, this.DeviceID, getSafeSetting);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_SECURITY, this.EditHandleID, getSafeSetting);
             UdpData udpSend = createReadSafeSettingUdp(groupNum);
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadSafeSetting), null);
         }
@@ -215,7 +216,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认-----  
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----  
 
             //------找出数据,并翻译------
             securityLevel = CommonTools.CopyBytes(userData.Data, 1, 4);
@@ -307,8 +308,8 @@ namespace ConfigDevice
         /// </summary>
         public void ReadAdditionLogic(int startNum, int endNum)
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_EXACTION, this.DeviceID, getAdditionLogic);
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.DeviceID, getWriteEnd); 
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_EXACTION, EditHandleID, getAdditionLogic);
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, EditHandleID + DeviceConfig.CMD_LOGIC_WRITE_EXACTION.ToString(), getWriteEnd); 
             UdpData udpSend = createReadAdditionLogicUdp(startNum,endNum);
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadAdditionLogic), null);
         }
@@ -358,7 +359,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.DeviceID) return;
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
 
             byte[] value = userData.Data;
             SetAdditionLogicData(value);
@@ -395,7 +396,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认-----
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
                 this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,DeviceID));//---回调UI---
             }
         }
@@ -458,8 +459,8 @@ namespace ConfigDevice
         /// </summary>
         public void ReadConfig()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, DeviceID, getConfig);//----注册回调---
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, DeviceID + PositionID, getWriteEnd2);//-----此处不用deviceID区别,避免冲突
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, EditHandleID, getConfig);//----注册回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, EditHandleID + DeviceConfig.CMD_PUBLIC_WRITE_CONFIG.ToString(), getWriteEnd2);//-----此处不用deviceID区别,避免冲突
             UdpData udpSend = createReadParameterUdp();
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadParameterUdp), null);
@@ -512,7 +513,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认-----  
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----  
 
             byte[] value = userData.Data;
             //------找出数据,并翻译------
@@ -533,9 +534,9 @@ namespace ConfigDevice
 
             UserUdpData userData = new UserUdpData(data);
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
-            if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
+            if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_CONFIG))
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认-----
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
                 this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,DeviceID));//---回调UI---
             }
         }

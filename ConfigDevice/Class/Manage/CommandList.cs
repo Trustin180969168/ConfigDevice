@@ -10,7 +10,7 @@ namespace ConfigDevice
         public Device device;//-----设备---
         public event CallbackUIAction OnCallbackUI_Action;   //----回调UI----
         public CallbackFromUDP callbackGetCommandData;      //---回调获取指令----
-        protected string objUuid = Guid.NewGuid().ToString();//唯一标识对象uuid
+        public string HandleId = Guid.NewGuid().ToString();//唯一标识对象uuid
         
 
         public  CommandList(Device value)

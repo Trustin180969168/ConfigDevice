@@ -133,7 +133,7 @@ namespace ConfigDevice
                 {
                     network.RefreshTime = DateTime.Now;//----更新时间-----     
                     //mySocket.RemoveRJ45SendList(udpReply.PacketCodeStr);//-----(PC不用回复,所以手动删除)回复后删除RJ45主动发送列表----
-                    UdpTools.ReplyDataUdp(udpReply);
+                    UdpTools.ReplyDelRJ45SendUdp(udpReply);
                     break;
                 }
             }

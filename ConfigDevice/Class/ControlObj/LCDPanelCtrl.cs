@@ -32,7 +32,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadKeyOption()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_OPTIONS, this.UUID, getKeyOption);//----注册回调---            
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_OPTIONS, deviceControled.EditHandleID, getKeyOption);//----注册回调---            
             UdpData udpSend = createReadKeyOptionUdp();
             mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadKeyOption), null);
         }
@@ -82,10 +82,10 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             LCDPanelOptionData option = new LCDPanelOptionData(userData);
             deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadOption, deviceControled.DeviceID, option));//---回调UI---
-            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_OPTIONS, this.UUID);    //---取消订阅---
+ 
  
         }
 
@@ -144,7 +144,7 @@ namespace ConfigDevice
         /// </summary>
         public void ReadKeyState()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_STARTUP_KEY_STATE, this.UUID, getKeyState);//----注册回调---            
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_STARTUP_KEY_STATE, deviceControled.EditHandleID, getKeyState);//----注册回调---            
             UdpData udpSend = createReadKeyStateUdp();
             mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadKeyState), null);
         }
@@ -194,11 +194,10 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             int selectIndex = (int)userData.Data[0];
 
-            deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadSate, deviceControled.DeviceID));//---回调UI---
-            SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_KB_WRITE_STARTUP_KEY_STATE, this.UUID);    //---取消订阅---
+            deviceControled.CallbackUI(new CallbackParameter(ActionKind.ReadSate, deviceControled.DeviceID));//---回调UI--- 
         }
 
 

@@ -146,8 +146,8 @@ namespace ConfigDevice
         /// </summary>
         public void GetPositionList()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PC_WRITE_LOCALL_NAME, NetworkID, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, NetworkID, getWriteEnd);//---注册结束回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PC_WRITE_LOCALL_NAME, EditHandleID, callbackGetPosition);//-----避免回调被覆盖或冲突,执行时先重新绑定一次----   
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, EditHandleID + DeviceConfig.CMD_PC_WRITE_LOCALL_NAME.ToString(), getWriteEnd);//---注册结束回调---
             ListPosition.Clear();
             UdpData udpSend = createGetPositionListUdp();
             callbackGetPosition.Udp = udpSend;         
@@ -208,7 +208,7 @@ namespace ConfigDevice
             //-----------回复RJ45,已经获取了一个设备位置-------
             UserUdpData userData = new UserUdpData(udpPosition);
             if (userData.NetworkID != this.NetworkID) return;
-            UdpTools.ReplyDataUdp(udpPosition);           
+            UdpTools.ReplyDelRJ45SendUdp(udpPosition);           
             byte value = userData.Data[0];//第一个字节
             bool numHas = (int)(value >> 7) == 1 ? true : false;//是否有密码
             int num = 0x7F & value + 1; //序号,从位置从1开始
@@ -239,7 +239,7 @@ namespace ConfigDevice
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
             if (userData.SourceID == this.NetworkID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PC_WRITE_LOCALL_NAME))
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认----- 
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
             }
         }
 

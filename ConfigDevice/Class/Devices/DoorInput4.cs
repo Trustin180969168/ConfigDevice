@@ -141,7 +141,7 @@ namespace ConfigDevice
             if (userData.SourceID != this.DeviceID) return;
             lock (this.DeviceID)
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认-----
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
 
                 securityLevel = CommonTools.CopyBytes(userData.Data, 0, 2);//安防级别
                 physicalShieldingPorts = userData.Data[2];  //----屏蔽物理端口
@@ -210,7 +210,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);   
             if (userData.SourceID != this.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             if (finishReadRoads == true) 
                 return;
             

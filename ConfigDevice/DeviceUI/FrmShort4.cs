@@ -50,8 +50,8 @@ namespace ConfigDevice
             //-----初始化短路输出数据-----
             dtShortOutput.Columns.Add(ViewConfig.DC_NAME, typeof(String));
             dtShortOutput.Columns.Add(ViewConfig.DC_PARAMETER3, typeof(String));
-            dtShortOutput.Columns.Add(ViewConfig.DC_PARAMETER1, typeof(Int16));
-            dtShortOutput.Columns.Add(ViewConfig.DC_PARAMETER2, typeof(Int16));
+            dtShortOutput.Columns.Add(ViewConfig.DC_PARAMETER1, typeof(UInt16));
+            dtShortOutput.Columns.Add(ViewConfig.DC_PARAMETER2, typeof(UInt16));
             dtShortOutput.Rows.Add(new object[] { "短路输出1" });
             dtShortOutput.Rows.Add(new object[] { "短路输出2" });
             dtShortOutput.Rows.Add(new object[] { "短路输出3" });
@@ -64,7 +64,7 @@ namespace ConfigDevice
             dcLevel.ColumnEdit = cbxOutputLevel;
             gcShortOutput.DataSource = dtShortOutput;
 
-            short4 = this.Device as Short4;
+            short4 = this.Device as Short4; 
             refreshSateTimer = new ThreadActionTimer(2000, new Action(short4.ReadState));//---自动刷新----
  
             //----------回路查询选择------
@@ -376,7 +376,7 @@ namespace ConfigDevice
         private void FrmShort4_FormClosing(object sender, FormClosingEventArgs e)
         {
             refreshSateTimer.Stop();
-            short4.RemoveRJ45Callback();//----清空回调-----
+            //short4.RemoveRJ45Callback();//----清空回调-----
         }
 
         /// <summary>
@@ -492,28 +492,28 @@ namespace ConfigDevice
         /// <summary>
         /// 更换设备事件
         /// </summary>
-        public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Short4 _short4 = new Short4(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
-            if (_short4.MAC == _short4.MAC) return;
-            _short4.OnCallbackUI_Action += this.CallbackUI;
-            _short4.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
-            BaseViewSetting.DeviceEdit = _short4;           //---基础配置编辑  
-            base.Device = _short4;                         //---父类设备对象-----
-            hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
-            hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
-            viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------
-            viewLogicSetting.NeedInit = true;                   //---重新初始化逻辑配置
-            short4 = _short4;
-            BaseViewSetting.DeviceEdit = short4;            //---基础配置编辑
+        //public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+            //Short4 _short4 = new Short4(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            //if (_short4.MAC == _short4.MAC) return;
+            //_short4.OnCallbackUI_Action += this.CallbackUI;
+            //_short4.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
+            //BaseViewSetting.DeviceEdit = _short4;           //---基础配置编辑  
+            //base.Device = _short4;                         //---父类设备对象-----
+            //hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
+            //hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
+            //viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------
+            //viewLogicSetting.NeedInit = true;                   //---重新初始化逻辑配置
+            //short4 = _short4;
+            //BaseViewSetting.DeviceEdit = short4;            //---基础配置编辑
 
-            lookUpEdit.Properties.DataSource = new DataTable(); //----初始化列表选择-------
-            lookUpEdit.ItemIndex = -1;
-            this.Text = _short4.Name;                      //----界面标题------
-            base.InitSelectDevice();                            //---初始化选择列表     
-            loadData();                                 //----加载配置界面数据
-            short4.ReadAdditionLogic(0);                //----重新加载附加数据---
-        }
+            //lookUpEdit.Properties.DataSource = new DataTable(); //----初始化列表选择-------
+            //lookUpEdit.ItemIndex = -1;
+            //this.Text = _short4.Name;                      //----界面标题------
+            //base.InitSelectDevice();                            //---初始化选择列表     
+            //loadData();                                 //----加载配置界面数据
+            //short4.ReadAdditionLogic(0);                //----重新加载附加数据---
+        //}
 
         private void cbxAction_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -528,11 +528,6 @@ namespace ConfigDevice
             short4.ShortConfigRoad3 = (byte)cbxShortOut3.SelectedIndex;
             short4.ShortConfigRoad4 = (byte)cbxShortOut4.SelectedIndex;
             short4.SaveConfig();
-        }
-
-        private void ceSafeSetting_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void ceSafeSetting_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)

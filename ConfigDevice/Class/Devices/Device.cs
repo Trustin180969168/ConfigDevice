@@ -23,7 +23,21 @@ namespace ConfigDevice
         public string PositionName = "";//设备位置
         public byte[] ByteAddressID;//字节设备地址ID
         public string PositionID = "";//设备位置ID 
-    
+        private string editHandleID = Guid.NewGuid().ToString();//编辑界面句柄
+
+        public string EditHandleID
+        {
+            get { return editHandleID; }
+
+            set
+            {   
+                foreach (ControlObj ctrlObj in ContrlObjs.Values)
+                { 
+                    editHandleID = value;
+                }
+            }
+        }
+        //public string NewCallbackeUuid { get { return editHandleID + Guid.NewGuid().ToString(); } }//---获取编辑的UUID
         public Dictionary<string, ControlObj> ContrlObjs = new Dictionary<string, ControlObj>();//控制对象列表
 
         public byte BytePCAddress
@@ -195,7 +209,7 @@ namespace ConfigDevice
         /// </summary>
         public virtual void SearchVer()
         {
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER, callbackVer);//注册返回版本号
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_VER,this.EditHandleID, callbackVer);//注册返回版本号
             UdpData udpSearch = createSearchVerUdp();
             MySocket.GetInstance().SendData(udpSearch, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackSearchVer), null);
         }
@@ -207,7 +221,7 @@ namespace ConfigDevice
         private void getVer(UdpData data, object[] values)
         {
             //------回复反馈的设备信息-------
-            UdpTools.ReplyDataUdp(data);
+            UdpTools.ReplyDelRJ45SendUdp(data);
             string name = this.Name;
             //-----获取数据-----
             UserUdpData userData = new UserUdpData(data);
@@ -342,7 +356,7 @@ namespace ConfigDevice
                 if (resultDevice.DeviceID == deviceData.DeviceID)//---相同则成功----
                 {
                     this.DeviceID = resultDevice.DeviceID;//---新ID-----    
-                    UdpTools.ReplyDataUdp(data);//---回复UDP----
+                    UdpTools.ReplyDelRJ45SendUdp(data);//---回复UDP----
                     SaveDeviceName(deviceData.Name, deviceData.ByteAddressID, deviceData.AddressName);//---保存设备名称------                  
                 }
                 else
@@ -475,7 +489,7 @@ namespace ConfigDevice
 
             if (device.MAC == this.MAC)
             {
-                UdpTools.ReplyDataUdp(data);//----由主界面接收反馈----
+                UdpTools.ReplyDelRJ45SendUdp(data);//----由主界面接收反馈----
                 this.DeviceID = device.DeviceID;
                 this.NetworkID = device.NetworkID;
                 this.KindID = device.KindID;

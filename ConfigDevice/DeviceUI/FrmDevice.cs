@@ -16,17 +16,16 @@ namespace ConfigDevice
         public bool loaded = false;//是否加载完毕
         protected  static readonly object lockObject = new object();
         public FrmDevice(Device _device)
-        {
-
+        { 
             InitializeComponent();
             this.Device = _device;
-            this.Text = _device.Name;
+            this.Text = _device.Name; 
         }
 
         public FrmDevice()
         {
             InitializeComponent();
-            Application.AddMessageFilter(this);
+            Application.AddMessageFilter(this); 
         }
 
         /// <summary>
@@ -62,8 +61,10 @@ namespace ConfigDevice
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public virtual void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
+        {   
+            SysCtrl.RemoveRJ45CallBackList(this.Handle.ToString());//---退订本界面回调
+            SysCtrl.MainFrom.OpenDeviceEdit(SelectDeviceList[CbxSelectDevice.SelectedIndex],Device);
+            this.Close();
         }
 
         /// <summary>
@@ -112,7 +113,12 @@ namespace ConfigDevice
 
         private void FrmDevice_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MySocket.GetInstance().RJ45SendList.Clear();//清空所有回调
+            SysCtrl.RemoveRJ45CallBackList(this.Handle.ToString());
+        }
+
+        private void FrmDevice_Load(object sender, EventArgs e)
+        {
+            Device.EditHandleID = this.Handle.ToString();//---绑定界面句柄---
         }
     }
 }

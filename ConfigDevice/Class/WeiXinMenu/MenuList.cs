@@ -48,7 +48,7 @@ namespace ConfigDevice
         {
             UdpData udpSend = createReadMenusUdp(startNum, endNum);
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_MEMU_NAME, callbackGetMenuData);//---注册回调----
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, ObjUuid, getWriteEnd);//---注册结束回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END,  ObjUuid, getWriteEnd);//---注册结束回调---
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadMenus), null);
         }
         private void callbackReadMenus(UdpData udpReply, object[] values)
@@ -103,7 +103,7 @@ namespace ConfigDevice
         {
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != this.device.DeviceID) return;//不是本设备ID不接收.
-            UdpTools.ReplyDataUdp(data);//----回复确认----- 
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
 
             CallbackUI(new CallbackParameter(ActionKind.ReadMenu,this.device.DeviceID, new object[] { userData }));//----界面回调------
         }
@@ -120,7 +120,7 @@ namespace ConfigDevice
             if (userData.SourceID == device.DeviceID &&
                 CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_COMMAND))
             {
-                UdpTools.ReplyDataUdp(data);//---回复确认----- 
+                UdpTools.ReplyDelRJ45SendUdp(data);//---回复确认----- 
             }
         }
 

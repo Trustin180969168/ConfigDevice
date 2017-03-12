@@ -52,7 +52,8 @@ namespace ConfigDevice
             }
             getRoadTitles = new CallbackFromUDP(getRoadTitlesData);
             finishGetRoadTitles = new CallbackFromUDP(finishGetRoadTitlesData);
-            finishGetRoadTitles.Parameters = new object[] { CLASS_NAME,this.UUID };//----存在同一设备ID,同一回调命令,同一界面操作,同时使用的情况,这时候需要通过回调参数加以区分-----
+            //----存在同一设备ID,同一回调命令,同一界面操作,同时使用的情况,这时候需要通过回调参数加以区分-----
+            //finishGetRoadTitles.Parameters = new object[] { CLASS_NAME, Guid.NewGuid().ToString() };
         }
 
         /// <summary>
@@ -138,8 +139,9 @@ namespace ConfigDevice
         public void ReadRoadTitle()
         {
             finishReadRoads = false;
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, this.UUID, getRoadTitles);//----注册回调---
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID, finishGetRoadTitles);//----注册结束回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, this.deviceControled.EditHandleID, getRoadTitles);//----注册回调---
+            //----注册结束回调,统一个界面多个读取完毕,这里不能根据句柄,要加上本类名---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.deviceControled.EditHandleID + DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME + CallbackUuid, finishGetRoadTitles);
             UdpData udpSend = createReadRoadTitleUdp();
             mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadRoadTitle), null);
         }
@@ -191,7 +193,7 @@ namespace ConfigDevice
             UserUdpData userData = new UserUdpData(data);
             if (userData.SourceID != deviceControled.DeviceID) return;//不是本设备ID不接收.
 
-            UdpTools.ReplyDataUdp(data);//----回复确认-----
+            UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
             if (finishReadRoads == true) return;
            
             byte[] byteName = CommonTools.CopyBytes(userData.Data, 4, userData.DataOfLength - 4 - 4);
@@ -212,14 +214,14 @@ namespace ConfigDevice
         { 
             UserUdpData userData = new UserUdpData(data);
             byte[] cmd = new byte[] { userData.Data[0], userData.Data[1] };//----找出回调的命令-----
-            if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME))  //不是本设备ID,并且不是被操作对象,不接收.              
+            if (userData.SourceID == deviceControled.DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME))           
             {
-                UdpTools.ReplyDataUdp(data);//----回复确认-----  
+                UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----  
                 this.deviceControled.CallbackUI( new CallbackParameter(ActionKind.ReadCircuit, deviceControled.DeviceID));//---回调UI---
                 CallbackUI(new CallbackParameter(ActionKind.ReadCircuit, deviceControled.DeviceID));//---回调
  
-                SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, this.UUID);
-                SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.UUID);
+                //SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME, this.EditHandleID);
+                //SysCtrl.RemoveRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, this.EditHandleID);
             }
         }
 

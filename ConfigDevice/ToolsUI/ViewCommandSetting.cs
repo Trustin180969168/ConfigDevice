@@ -305,6 +305,7 @@ namespace ConfigDevice
 
             int addCount = (int)edtEndNum.Value;//----指令的加载个数
             CommandList = new DeviceCommandList(device);
+            CommandList.HandleId = device.EditHandleID;
             CommandList.OnCallbackUI_Action += this.returnDeviceCommandData;//命令的执行的界面回调
             NeedInit = false;//---标记初始化完毕
             AddDefaultNullCommand();//----默认保留一条空指令便于添加----- 
