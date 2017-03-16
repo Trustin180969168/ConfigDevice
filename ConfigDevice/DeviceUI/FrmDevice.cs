@@ -19,7 +19,8 @@ namespace ConfigDevice
         { 
             InitializeComponent();
             this.DeviceEdit = _device;
-            this.Text = _device.Name; 
+            this.Text = _device.Name;
+            DeviceEdit.EditHandleID = this.Handle.ToString();//---绑定界面句柄---
         }
 
         public FrmDevice()
@@ -62,8 +63,12 @@ namespace ConfigDevice
         /// <param name="e"></param>
         public virtual void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {   
+           
+            DataRow drEdit = SelectDeviceList[CbxSelectDevice.SelectedIndex];
+            if (drEdit[DeviceConfig.DC_ID].ToString() == DeviceEdit.DeviceID)
+                return;
             SysCtrl.RemoveRJ45CallBackList(this.Handle.ToString());//---退订本界面回调
-            SysCtrl.MainFrom.OpenDeviceEdit(SelectDeviceList[CbxSelectDevice.SelectedIndex],DeviceEdit);
+            SysCtrl.MainFrom.OpenDeviceEdit(drEdit, DeviceEdit);
             this.Close();
         }
 
@@ -118,7 +123,7 @@ namespace ConfigDevice
 
         private void FrmDevice_Load(object sender, EventArgs e)
         {
-            DeviceEdit.EditHandleID = this.Handle.ToString();//---绑定界面句柄---
+        
         }
     }
 }

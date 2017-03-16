@@ -31,10 +31,8 @@ namespace ConfigDevice
 
             set
             {   
-                foreach (ControlObj ctrlObj in ContrlObjs.Values)
-                { 
-                    editHandleID = value;
-                }
+              
+                    editHandleID = value; 
             }
         }
         //public string NewCallbackeUuid { get { return editHandleID + Guid.NewGuid().ToString(); } }//---获取编辑的UUID

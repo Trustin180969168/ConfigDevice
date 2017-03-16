@@ -25,8 +25,10 @@ namespace ConfigDevice
             UdpData udpSend = createReadCommandsUdp(menu.MenuData, startNum, endNum);
             callbackGetCommandData.Parameters =new object[]{ menuData.MenuID};//---回调参数----
             getWriteEnd = new CallbackFromUDP(this.getWriteEndData,new object[]{menuData.MenuID});//---回调参数---- 
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_COMMAND, menuData.MenuID.ToString(), callbackGetCommandData);//---注册回调----
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, menuData.MenuID.ToString(), getWriteEnd);//---注册结束回调---
+            //SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_COMMAND, menuData.MenuID.ToString(), callbackGetCommandData);//---注册回调----
+            //SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, menuData.MenuID.ToString(), getWriteEnd);//---注册结束回调---
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_MMSG_WRITE_COMMAND, HandleId, callbackGetCommandData);//---注册回调----
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, HandleId, getWriteEnd);//---注册结束回调---
             mySocket.SendData(udpSend, device.NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadCommands), null);
         }
         private void callbackReadCommands(UdpData udpReply, object[] values)

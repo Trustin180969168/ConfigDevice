@@ -75,7 +75,7 @@ namespace ConfigDevice
         public byte[] ProtocolData;//----用户数据----
         public byte[] CheckCodeAdd;//----校验和----
         public int Length = 0;//---数据长度------
-        public IPEndPoint IPPoint;//--UDP包的地址和端口----
+        public IPEndPoint IPPoint= new IPEndPoint(new IPAddress(127L),8080);//--UDP包的地址和端口----
 
         public byte ReplyByte { get { return ProtocolData[0]; } }
         public string PacketCodeStr { get { return ConvertTools.ByteToHexStr(PacketCode); } }
