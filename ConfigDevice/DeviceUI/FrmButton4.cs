@@ -128,28 +128,28 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
-            this.DeviceEdit.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----退订回调事件
-            DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
-            Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
-            if (button4.MAC == DeviceSelect.MAC) return;
+            //this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
+            //this.DeviceEdit.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----退订回调事件
+            //DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
+            //Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
+            //if (button4.MAC == DeviceSelect.MAC) return;
 
-            hasInitLogicAndCommand = false;
-            viewBaseSetting.DeviceEdit = DeviceSelect;          //---基础配置编辑  
-            this.DeviceEdit = DeviceSelect;                         //---父类设备对象-----              
-            button4 = this.DeviceEdit as ButtonPanelKey;                   //---本界面编辑-----    
-            button4.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
-            button4.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件 
+            //hasInitLogicAndCommand = false;
+            //viewBaseSetting.DeviceEdit = DeviceSelect;          //---基础配置编辑  
+            //this.DeviceEdit = DeviceSelect;                         //---父类设备对象-----              
+            //button4 = this.DeviceEdit as ButtonPanelKey;                   //---本界面编辑-----    
+            //button4.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
+            //button4.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件 
           
-            this.Text = button4.Name;                   //---界面标题----
-            this.list4Keys.InitKeySettingList(button4, 0,2);//---重新初始化按键配置控件----
-            viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
-            InitSelectDevice();                         //---初始化选择设备---
-            viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------      
-            keySecuritySetting.Init(button4);          //---初始化安防----
+            //this.Text = button4.Name;                   //---界面标题----
+            //this.list4Keys.InitKeySettingList(button4, 0,2);//---重新初始化按键配置控件----
+            //viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
+            //InitSelectDevice();                         //---初始化选择设备---
+            //viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------      
+            //keySecuritySetting.Init(button4);          //---初始化安防----
          
-            loadData();                                 //---加载数据----
-            list4Keys.ReadKeyData();
+            //loadData();                                 //---加载数据----
+            //list4Keys.ReadKeyData();
 
         }
 

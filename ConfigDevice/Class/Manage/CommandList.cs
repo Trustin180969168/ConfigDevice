@@ -13,7 +13,7 @@ namespace ConfigDevice
         public string HandleId = Guid.NewGuid().ToString();//唯一标识对象uuid
         
 
-        public  CommandList(Device value)
+        public CommandList(Device value)
         {
             this.device = value;
             callbackGetCommandData = new CallbackFromUDP(GetCommandData);

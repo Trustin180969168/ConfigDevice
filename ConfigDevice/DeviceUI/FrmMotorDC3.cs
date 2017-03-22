@@ -178,23 +178,23 @@ namespace ConfigDevice
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
-            this.DeviceEdit.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----退订回调事件
-            DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
-            Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
-            if (DeviceEdit.MAC == DeviceSelect.MAC) return;
+            //this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
+            //this.DeviceEdit.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----退订回调事件
+            //DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
+            //Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
+            //if (DeviceEdit.MAC == DeviceSelect.MAC) return;
 
-            viewBaseSetting.DeviceEdit = DeviceSelect;              //---基础配置编辑  
-            this.DeviceEdit = DeviceSelect;                             //---父类设备对象-----              
-            road3Window = this.DeviceEdit as Road3Window;               //---本界面编辑-----    
-            road3Window.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
-            road3Window.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
+            //viewBaseSetting.DeviceEdit = DeviceSelect;              //---基础配置编辑  
+            //this.DeviceEdit = DeviceSelect;                             //---父类设备对象-----              
+            //road3Window = this.DeviceEdit as Road3Window;               //---本界面编辑-----    
+            //road3Window.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
+            //road3Window.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
 
-            this.Text = road3Window.Name;                   //---界面标题----
-            viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
-            InitSelectDevice();                         //---初始化选择设备---
+            //this.Text = road3Window.Name;                   //---界面标题----
+            //viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
+            //InitSelectDevice();                         //---初始化选择设备---
 
-            loadData();                                 //---加载数据-----
+            //loadData();                                 //---加载数据-----
         }
 
         /// <summary>

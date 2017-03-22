@@ -55,19 +55,19 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Device DeviceSelect = new BaseDevice(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
-            if (DeviceEdit.MAC == DeviceSelect.MAC) return;
-            //this.Close();
-            //FrmDevice frm = SysCtrl.GetFactory(DeviceSelect.ByteKindID).CreateDevice(DeviceSelect);
-            //frm.Text = DeviceSelect.Name;
-            //frm.Show();
+            //Device DeviceSelect = new BaseDevice(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            //if (DeviceEdit.MAC == DeviceSelect.MAC) return;
+            ////this.Close();
+            ////FrmDevice frm = SysCtrl.GetFactory(DeviceSelect.ByteKindID).CreateDevice(DeviceSelect);
+            ////frm.Text = DeviceSelect.Name;
+            ////frm.Show();
 
-            DeviceSelect.OnCallbackUI_Action += this.callbackUI;
-            DeviceSelect.OnCallbackUI_Action += viewBaseSetting.CallBackUI;
-            viewBaseSetting.DeviceEdit = DeviceSelect;
-            DeviceEdit = DeviceSelect;
-            this.Text = DeviceEdit.Name;
-            DeviceEdit.SearchVer();
+            //DeviceSelect.OnCallbackUI_Action += this.callbackUI;
+            //DeviceSelect.OnCallbackUI_Action += viewBaseSetting.CallBackUI;
+            //viewBaseSetting.DeviceEdit = DeviceSelect;
+            //DeviceEdit = DeviceSelect;
+            //this.Text = DeviceEdit.Name;
+            //DeviceEdit.SearchVer();
 
 
         }

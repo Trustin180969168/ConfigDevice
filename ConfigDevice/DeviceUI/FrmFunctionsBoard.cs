@@ -160,42 +160,42 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
-            this.DeviceEdit.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----退订回调事件
-            DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
-            Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
-            if (panelKey.MAC == DeviceSelect.MAC) return;
+            //this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
+            //this.DeviceEdit.OnCallbackUI_Action -= viewBaseSetting.CallBackUI;//----退订回调事件
+            //DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
+            //Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
+            //if (panelKey.MAC == DeviceSelect.MAC) return;
 
-            hasInitLogicAndCommand = false;
-            viewBaseSetting.DeviceEdit = DeviceSelect;          //---基础配置编辑  
-            this.DeviceEdit = DeviceSelect;                         //---父类设备对象-----              
-            panelKey = this.DeviceEdit as LCDPanelKey;                   //---本界面编辑-----    
-            panelKey.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
-            panelKey.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
+            //hasInitLogicAndCommand = false;
+            //viewBaseSetting.DeviceEdit = DeviceSelect;          //---基础配置编辑  
+            //this.DeviceEdit = DeviceSelect;                         //---父类设备对象-----              
+            //panelKey = this.DeviceEdit as LCDPanelKey;                   //---本界面编辑-----    
+            //panelKey.OnCallbackUI_Action += this.callbackUI;     //--注册回调事件
+            //panelKey.OnCallbackUI_Action += viewBaseSetting.CallBackUI;//----注册回调事件
 
-            this.Text = panelKey.Name;                   //---界面标题----
-            viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
-            InitSelectDevice();                         //---初始化选择设备---
-            viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------ 
-            //----各个页面设置未加载----
-            pageJcsz.Tag = false;
-            pageJmpz.Tag = false;
-            pageLight.Tag = false;
-            pageLock.Tag = false;
-            pageMusic.Tag = false;
-            pageScene.Tag = false;
-            pageLeaveBack.Tag = false;
-            pageCurTain.Tag = false;
-            listLeaveBack.InitKeySettingList(panelKey, 24, 2);//----离家,回家
-            listScene.InitKeySettingList(panelKey, 0, 8);//---场景---
-            listLight.InitKeySettingList(panelKey, 8, 8);//----灯光-----
-            listCurtain.InitKeySettingList(panelKey, 16, 8);//---窗帘
-            listEnvironment.Init();     //----初始化环境---
-            panelMusic.Init(panelKey);//音乐面板
-            keySecuritySetting.Init(panelKey);
+            //this.Text = panelKey.Name;                   //---界面标题----
+            //viewBaseSetting.DeviceEdit.SearchVer();     //---获取版本号-----   
+            //InitSelectDevice();                         //---初始化选择设备---
+            //viewCommandEdit.NeedInit = true;            //---指令配置重新初始化,通过回调实现------ 
+            ////----各个页面设置未加载----
+            //pageJcsz.Tag = false;
+            //pageJmpz.Tag = false;
+            //pageLight.Tag = false;
+            //pageLock.Tag = false;
+            //pageMusic.Tag = false;
+            //pageScene.Tag = false;
+            //pageLeaveBack.Tag = false;
+            //pageCurTain.Tag = false;
+            //listLeaveBack.InitKeySettingList(panelKey, 24, 2);//----离家,回家
+            //listScene.InitKeySettingList(panelKey, 0, 8);//---场景---
+            //listLight.InitKeySettingList(panelKey, 8, 8);//----灯光-----
+            //listCurtain.InitKeySettingList(panelKey, 16, 8);//---窗帘
+            //listEnvironment.Init();     //----初始化环境---
+            //panelMusic.Init(panelKey);//音乐面板
+            //keySecuritySetting.Init(panelKey);
             
-            loadData();//---加载数据(回路名称,及面板配置)-----
-            xtcPage_SelectedPageChanged(sender, null);//---加载当前页数据---
+            //loadData();//---加载数据(回路名称,及面板配置)-----
+            //xtcPage_SelectedPageChanged(sender, null);//---加载当前页数据---
         }
 
  

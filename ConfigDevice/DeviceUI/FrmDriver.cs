@@ -72,22 +72,22 @@ namespace ConfigDevice
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
-            this.DeviceEdit.OnCallbackUI_Action -= BaseViewSetting.CallBackUI;//----退订回调事件
-            DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
-            Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
-            if (DeviceEdit.MAC == DeviceSelect.MAC) return;
+            //this.DeviceEdit.OnCallbackUI_Action -= this.callbackUI;//--退订回调事件
+            //this.DeviceEdit.OnCallbackUI_Action -= BaseViewSetting.CallBackUI;//----退订回调事件
+            //DeviceData deviceData = new DeviceData(SelectDeviceList[CbxSelectDevice.SelectedIndex]);//设备数据
+            //Device DeviceSelect = FactoryDevice.CreateDevice(deviceData.ByteKindID).CreateDevice(deviceData);//--新建同类型设备对象---
+            //if (DeviceEdit.MAC == DeviceSelect.MAC) return;
 
-            BaseViewSetting.DeviceEdit = DeviceSelect;              //---基础配置编辑  
-            DeviceEdit = DeviceSelect;                                 //---父类设备对象-----              
-            circuitCtrl = this.DeviceEdit.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;     //获取回路控制对象
-            DeviceEdit.OnCallbackUI_Action += this.callbackUI;          //--注册回调事件
-            DeviceEdit.OnCallbackUI_Action += BaseViewSetting.CallBackUI;//----注册回调事件
+            //BaseViewSetting.DeviceEdit = DeviceSelect;              //---基础配置编辑  
+            //DeviceEdit = DeviceSelect;                                 //---父类设备对象-----              
+            //circuitCtrl = this.DeviceEdit.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;     //获取回路控制对象
+            //DeviceEdit.OnCallbackUI_Action += this.callbackUI;          //--注册回调事件
+            //DeviceEdit.OnCallbackUI_Action += BaseViewSetting.CallBackUI;//----注册回调事件
 
-            this.Text = DeviceEdit.Name;                         //----界面标题------
-            BaseViewSetting.DeviceEdit.SearchVer();                 //---获取版本号-----   
-            InitSelectDevice();                                     //---初始化选择设备---
-            circuitCtrl.ReadRoadTitle();                            //读取回路列表
+            //this.Text = DeviceEdit.Name;                         //----界面标题------
+            //BaseViewSetting.DeviceEdit.SearchVer();                 //---获取版本号-----   
+            //InitSelectDevice();                                     //---初始化选择设备---
+            //circuitCtrl.ReadRoadTitle();                            //读取回路列表
         }
 
         /// <summary>

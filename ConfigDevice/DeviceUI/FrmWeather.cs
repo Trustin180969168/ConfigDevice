@@ -360,24 +360,24 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Environment _environment = new Environment(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
-            if (environment.MAC == _environment.MAC) return;
-            _environment.OnCallbackUI_Action += this.CallbackUI;
-            _environment.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
-            BaseViewSetting.DeviceEdit = _environment;           //---基础配置编辑  
-            base.DeviceEdit = _environment;                         //---父类设备对象-----
-            hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
-            hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
-            viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------
-            viewLogicSetting.NeedInit = true;                   //---重新初始化逻辑配置
-            environment = _environment;
-            BaseViewSetting.DeviceEdit = environment;            //---基础配置编辑
+            //Environment _environment = new Environment(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            //if (environment.MAC == _environment.MAC) return;
+            //_environment.OnCallbackUI_Action += this.CallbackUI;
+            //_environment.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
+            //BaseViewSetting.DeviceEdit = _environment;           //---基础配置编辑  
+            //base.DeviceEdit = _environment;                         //---父类设备对象-----
+            //hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
+            //hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
+            //viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------
+            //viewLogicSetting.NeedInit = true;                   //---重新初始化逻辑配置
+            //environment = _environment;
+            //BaseViewSetting.DeviceEdit = environment;            //---基础配置编辑
 
-            lookUpEdit.Properties.DataSource = new DataTable(); //----初始化列表选择-------
-            lookUpEdit.ItemIndex = -1;     
-            this.Text = _environment.Name;                      //----界面标题------
-            base.InitSelectDevice();                            //---初始化选择列表     
-            loadData();
+            //lookUpEdit.Properties.DataSource = new DataTable(); //----初始化列表选择-------
+            //lookUpEdit.ItemIndex = -1;     
+            //this.Text = _environment.Name;                      //----界面标题------
+            //base.InitSelectDevice();                            //---初始化选择列表     
+            //loadData();
         }
 
         private void btRefresh_Click(object sender, EventArgs e)

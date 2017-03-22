@@ -419,25 +419,25 @@ namespace ConfigDevice
         /// </summary>
         public override void cbxSelectDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BodyInduction _bodyInduction = new BodyInduction(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
-            if (_bodyInduction.MAC == _bodyInduction.MAC) return;
-            _bodyInduction.OnCallbackUI_Action += this.CallbackUI;
-            _bodyInduction.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
-            BaseViewSetting.DeviceEdit = _bodyInduction;           //---基础配置编辑  
-            base.DeviceEdit = _bodyInduction;                         //---父类设备对象-----
-            hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
-            hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
-            viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------
-            viewLogicSetting.NeedInit = true;                   //---重新初始化逻辑配置
-            bodyInduction = _bodyInduction;
-            BaseViewSetting.DeviceEdit = bodyInduction;            //---基础配置编辑
+            //BodyInduction _bodyInduction = new BodyInduction(SelectDeviceList[CbxSelectDevice.SelectedIndex]);
+            //if (_bodyInduction.MAC == _bodyInduction.MAC) return;
+            //_bodyInduction.OnCallbackUI_Action += this.CallbackUI;
+            //_bodyInduction.OnCallbackUI_Action += BaseViewSetting.CallBackUI;
+            //BaseViewSetting.DeviceEdit = _bodyInduction;           //---基础配置编辑  
+            //base.DeviceEdit = _bodyInduction;                         //---父类设备对象-----
+            //hasInitedLogicAndCommand = false;                   //---是否已经初始化逻辑配置和指令配置------
+            //hasLoadedLogicAndCommand = false;                   //---是否已经加载指令配置和逻辑配置-----
+            //viewCommandSetting.NeedInit = true;                 //---重新初始化,通过回调实现------
+            //viewLogicSetting.NeedInit = true;                   //---重新初始化逻辑配置
+            //bodyInduction = _bodyInduction;
+            //BaseViewSetting.DeviceEdit = bodyInduction;            //---基础配置编辑
 
-            lookUpEdit.Properties.DataSource = new DataTable(); //----初始化列表选择-------
-            lookUpEdit.ItemIndex = -1;
-            this.Text = _bodyInduction.Name;                      //----界面标题------
-            base.InitSelectDevice();                            //---初始化选择列表     
-            loadData();                                 //----加载配置界面数据
-            bodyInduction.ReadAdditionLogic(0);                //----重新加载附加数据---
+            //lookUpEdit.Properties.DataSource = new DataTable(); //----初始化列表选择-------
+            //lookUpEdit.ItemIndex = -1;
+            //this.Text = _bodyInduction.Name;                      //----界面标题------
+            //base.InitSelectDevice();                            //---初始化选择列表     
+            //loadData();                                 //----加载配置界面数据
+            //bodyInduction.ReadAdditionLogic(0);                //----重新加载附加数据---
         }
 
         private void cbxAction_SelectedIndexChanged(object sender, EventArgs e)
