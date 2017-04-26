@@ -12,7 +12,6 @@ namespace ConfigDevice
         public const string CLASS_NAME = "KeyCtrl";
         public const string ACTION_STATE_NAME = "ActionState";
         public const string ACTION_OPTION_NAME = "ActionOption";
-        private MySocket mySocket = MySocket.GetInstance();//----通讯---
         private CallbackFromUDP getKeyOption;//---注册回调按键----
         private CallbackFromUDP getKeyState;//---注册回调按键----
 

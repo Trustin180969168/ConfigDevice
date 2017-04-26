@@ -86,6 +86,7 @@ namespace ConfigDevice
         ReadServerAddress,//读取服务器位置
         ReadMenuSecurity,//读取菜单安防配置
         ReadMenuSensor,//读取传感器配置
+        ReadWirlessDevice,//读取无线设备
         None
         
     }

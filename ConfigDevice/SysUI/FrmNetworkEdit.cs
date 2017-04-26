@@ -64,7 +64,7 @@ namespace ConfigDevice
         private void initCbxNetwork()
         {
             //-----网络列表------------------
-            int i = 0;
+            //int i = 0;
             //foreach (Network network in SysConfig.ListNetworks.Values)
             //{
             //    cbxNetwork.Items.Add(network.DeviceName);

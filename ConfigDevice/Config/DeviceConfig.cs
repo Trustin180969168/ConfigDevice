@@ -196,7 +196,7 @@ namespace ConfigDevice
         public const byte EQUIPMENT_SERVER = 0xfd;        //服务器
         public const byte EQUIPMENT_PC = 0xfe;        //PC类型
         public const byte EQUIPMENT_PUBLIC = 0xFF;        //共公类型 
-
+        public const byte EQUIPMENT_WIRELESS = 0xFF;        //无线转换设备 
         //-------------------指令分类--------------------
         public const byte CMD_TYPE_PUBLIC = EQUIPMENT_PUBLIC;           //公共类型
         public const byte CMD_TYPE_PC = EQUIPMENT_PC;              //电脑类型
@@ -213,8 +213,7 @@ namespace ConfigDevice
         public const byte CMD_TYPE_DOORBELL = EQUIPMENT_DOORBELL;          //门铃 
         public const byte CMD_TYPE_GSM = EQUIPMENT_GSM;               //GSM网络
         public const byte CMD_TYPE_MOBILE = EQUIPMENT_MOBILE;           //手机
-        public const byte CMD_TYPE_PANEL = EQUIPMENT_PANEL;         //通用控制面板
-
+        public const byte CMD_TYPE_PANEL = EQUIPMENT_PANEL;         //通用控制面板 
 
         //--------------------定义设备命令-----------------------------
         //------网络命令------
@@ -452,7 +451,10 @@ namespace ConfigDevice
         //原有	CMD_PRI_FLASH                       = ((CMD_TYPE_PRI << 8) | 0x04)         		,//传感器感应灯光开关
         public static readonly byte[] CMD_PRI_READ_FLASH_CONFIG = new byte[] { 0x04, CMD_TYPE_PRI };//读传感器感应指示灯开关
         public static readonly byte[] CMD_PRI_WRITE_FLASH_CONFIG = new byte[] { 0x84, CMD_TYPE_PRI };//写传感器感应指示灯开关
-
+        //-----无线转有线主机----
+        public static readonly byte[] CMD_RFLINE_WRITE_DEV_LIST = new byte[] { 0x04, CMD_TYPE_PRI };//写无线设备的列表
+        public static readonly byte[] CMD_RFLINE_READ_DEV_LIST = new byte[] { 0x04, CMD_TYPE_PRI };//读无线设备的列表
+        public static readonly byte[] CMD_RFLINE_WRITE_DEVAC = new byte[] { 0x04, CMD_TYPE_PRI };//添加或删除无线设备
    
 
         //-----特殊部分------

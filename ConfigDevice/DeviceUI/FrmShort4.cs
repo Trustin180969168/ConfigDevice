@@ -18,7 +18,7 @@ namespace ConfigDevice
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
         private string currentGroupName = "";//当前组名
         private LogicQuickSetting logicQuickSetting;//快速配置编辑
-        private bool isQuickSetting = false;//是否快速配置设定
+        //private bool isQuickSetting = false;//是否快速配置设定
         private bool hasInitedLogicAndCommand = false;//---是否已经初始化逻辑配置和指令配置------
         private bool hasLoadedLogicAndCommand = false;//-----是否已经加载指令配置和逻辑配置-----
         private DataTable dtShortOutput = new DataTable("Output");//------短路输出数据
@@ -485,7 +485,7 @@ namespace ConfigDevice
             short4.SetAdditionLogicData(adittionData);
             this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,Radar.CLASS_NAME));//---回调UI---
             //----------手头变更修改状态------
-            isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
+             viewLogicSetting.IsSystemSetting = true;
         }
 
        
