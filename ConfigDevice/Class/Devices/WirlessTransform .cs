@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConfigDevice
 {
-    public class WirlessTransform:Device
+    public class WirlessTransform : Device
     {
         private CallbackFromUDP getReadDevList;//---获取无效设备信息---- 
         public List<WirlessDeviceData> WireLessDeviceList = new List<WirlessDeviceData>();//无线设备列表
@@ -12,8 +12,7 @@ namespace ConfigDevice
             : base(userUdpData)
         {
             getReadDevList = new CallbackFromUDP(getReadDevListData);
-        }  
-
+        }
 
         /// <summary>
         /// 申请读取设备
@@ -77,7 +76,7 @@ namespace ConfigDevice
             UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----   
             //------找出数据段------
             WirlessDeviceData wirlessDeviceData = new WirlessDeviceData(data.ProtocolData);
-            CallbackUI(new CallbackParameter(ActionKind.ReadWirlessDevice, this.DeviceID, wirlessDeviceData ));//----读完状态信息,回调界面----
+            CallbackUI(new CallbackParameter(ActionKind.ReadWirlessDevice, this.DeviceID, wirlessDeviceData));//----读完状态信息,回调界面----
         }
 
 
@@ -130,5 +129,78 @@ namespace ConfigDevice
 
             return udp;
         }
+
+        /// <summary>
+        /// 增加或删除操作枚举
+        /// </summary>
+        public enum WirlessDataActionKind
+        {
+            ADD = 1,
+            DEL = 0
+        }
+
+        /// <summary>
+        /// 申请删除设备 
+        /// </summary>
+        public void DelWirlessData(WirlessDeviceData wirlessData)
+        {
+            UdpData udpSend = createAddWirlessDataUdp(wirlessData, WirlessDataActionKind.DEL);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackDelActionWirlessDataUdp), wirlessData);
+        }
+        private void callbackDelActionWirlessDataUdp(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("申请操作设备列表失败!", udpReply.ReplyByte);
+            else
+                CallbackUI(new CallbackParameter(ActionKind.DelWirlessDevice, this.DeviceID, values[0] as WirlessDeviceData));//---告诉界面,删除成功
+        }
+        /// <summary>
+        /// 申请增加设备 
+        /// </summary>
+        public void AddWirlessData(WirlessDeviceData wirlessData)
+        {
+            UdpData udpSend = createAddWirlessDataUdp(wirlessData, WirlessDataActionKind.ADD);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackActionWirlessDataUdp), wirlessData);
+        }
+        private void callbackActionWirlessDataUdp(UdpData udpReply, object[] values)
+        {
+            if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
+                CommonTools.ShowReplyInfo("申请操作设备列表失败!", udpReply.ReplyByte);
+         }
+        private UdpData createAddWirlessDataUdp(WirlessDeviceData wirlessData, WirlessDataActionKind flag)
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_RFLINE_READ_DEV_LIST;//----用户命令-----
+
+            byte[] value = wirlessData.ToByteArray();
+            byte len = (byte)(4 + 2);//---数据长度----
+            byte[] crcData = new byte[10 + value.Length];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+
+            crcData[10] = wirlessData.Index;
+            crcData[11] = (byte)flag;
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+
     }
 }

@@ -40,6 +40,9 @@ namespace ConfigDevice
         public const string DC_SENSOR_LEVEL = "Level";//传感器级别
         public const string DC_STATE = "State";//状态
         public const string DC_CURRENT = "Current";//电流
+        public const string DC_MAC = "Mac";//mac地址
+        public const string DC_DELETE = "Delete";//删除
+        public const string DC_ADD = "Add";//增加
         public const string DC_VALUE1 = "Value1";//值1 
         public const string DC_VALUE2 = "Value2";//值2 
         public const string DC_VALUE3 = "Value3";//值3 

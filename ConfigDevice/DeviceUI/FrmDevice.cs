@@ -21,6 +21,7 @@ namespace ConfigDevice
             this.DeviceEdit = _device;
             this.Text = _device.Name;
             DeviceEdit.EditHandleID = this.Handle.ToString();//---绑定界面句柄---
+            initSelectDevice();
         }
 
         public FrmDevice()
@@ -36,6 +37,11 @@ namespace ConfigDevice
         public virtual void CallbackUI(CallbackParameter callbackParameter)
         {
 
+        }
+
+        private void initSelectDevice()
+        {
+            InitSelectDevice();
         }
 
         /// <summary>

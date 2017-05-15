@@ -17,7 +17,6 @@ namespace ConfigDevice
         {
             WeiXinMenu = new WeiXinMenu(this);
             callbackGetAddress = new CallbackFromUDP(getCallbackAddressData);
-          
         } 
 
         /// <summary>

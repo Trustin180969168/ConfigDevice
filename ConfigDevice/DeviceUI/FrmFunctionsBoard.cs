@@ -10,8 +10,7 @@ namespace ConfigDevice
 {
     public partial class FrmFunctionsBoard : FrmDevice
     {
-        private LCDPanelKey panelKey;
-        private DataTable dtCircuit = new DataTable("按键选择");
+        private LCDPanelKey panelKey; 
         private LCDPanelOptionData panelOptionData;//---面板配置---- 
         public FrmFunctionsBoard(Device _device)
             : base(_device)

@@ -31,12 +31,6 @@
             this.xscCommands = new DevExpress.XtraEditors.XtraScrollableControl();
             this.plTool = new DevExpress.XtraEditors.PanelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
-            this.pedtSnyc = new DevExpress.XtraEditors.PictureEdit();
-            this.edtBeginNum = new DevExpress.XtraEditors.SpinEdit();
-            this.edtEndNum = new DevExpress.XtraEditors.SpinEdit();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.plCommandToolbar = new DevExpress.XtraEditors.PanelControl();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.btSyncEdit = new System.Windows.Forms.ToolStripButton();
@@ -47,20 +41,26 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblGroupName = new System.Windows.Forms.ToolStripLabel();
             this.cbxGroup = new System.Windows.Forms.ToolStripComboBox();
+            this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            this.pedtSnyc = new DevExpress.XtraEditors.PictureEdit();
+            this.edtBeginNum = new DevExpress.XtraEditors.SpinEdit();
+            this.edtEndNum = new DevExpress.XtraEditors.SpinEdit();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.gcCommandList = new DevExpress.XtraEditors.GroupControl();
             this.lblShowToolbar = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.plTool)).BeginInit();
             this.plTool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.plCommandToolbar)).BeginInit();
+            this.plCommandToolbar.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pedtSnyc.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.plCommandToolbar)).BeginInit();
-            this.plCommandToolbar.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommandList)).BeginInit();
             this.gcCommandList.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +95,102 @@
             this.panelControl2.Name = "panelControl2";
             this.panelControl2.Size = new System.Drawing.Size(996, 36);
             this.panelControl2.TabIndex = 10;
+            // 
+            // plCommandToolbar
+            // 
+            this.plCommandToolbar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.plCommandToolbar.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.plCommandToolbar.Controls.Add(this.toolStrip2);
+            this.plCommandToolbar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plCommandToolbar.Location = new System.Drawing.Point(198, 0);
+            this.plCommandToolbar.Name = "plCommandToolbar";
+            this.plCommandToolbar.Size = new System.Drawing.Size(798, 36);
+            this.plCommandToolbar.TabIndex = 0;
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btSyncEdit,
+            this.toolStripSeparator1,
+            this.btSaveCommands,
+            this.btTest,
+            this.btRefresh,
+            this.toolStripSeparator2,
+            this.lblGroupName,
+            this.cbxGroup});
+            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(798, 31);
+            this.toolStrip2.TabIndex = 4;
+            this.toolStrip2.Text = "toolStrip2";
+            // 
+            // btSyncEdit
+            // 
+            this.btSyncEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btSyncEdit.Image = global::ConfigDevice.Properties.Resources.uncheck;
+            this.btSyncEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSyncEdit.Name = "btSyncEdit";
+            this.btSyncEdit.Size = new System.Drawing.Size(28, 28);
+            this.btSyncEdit.Text = "同步编辑 ";
+            this.btSyncEdit.Visible = false;
+            this.btSyncEdit.Click += new System.EventHandler(this.btSyncEdit_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(6, 0, 20, 0);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator1.Visible = false;
+            // 
+            // btSaveCommands
+            // 
+            this.btSaveCommands.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSaveCommands.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSaveCommands.Name = "btSaveCommands";
+            this.btSaveCommands.Size = new System.Drawing.Size(106, 28);
+            this.btSaveCommands.Text = "保存指令 ";
+            this.btSaveCommands.Click += new System.EventHandler(this.btSaveCommands_Click);
+            // 
+            // btTest
+            // 
+            this.btTest.Image = global::ConfigDevice.Properties.Resources.fact;
+            this.btTest.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btTest.Name = "btTest";
+            this.btTest.Size = new System.Drawing.Size(106, 28);
+            this.btTest.Text = "指令测试 ";
+            this.btTest.Click += new System.EventHandler(this.btTest_Click);
+            // 
+            // btRefresh
+            // 
+            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(74, 28);
+            this.btRefresh.Text = "刷新 ";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
+            // lblGroupName
+            // 
+            this.lblGroupName.Name = "lblGroupName";
+            this.lblGroupName.Size = new System.Drawing.Size(41, 28);
+            this.lblGroupName.Text = "组名";
+            this.lblGroupName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cbxGroup
+            // 
+            this.cbxGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxGroup.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.cbxGroup.Name = "cbxGroup";
+            this.cbxGroup.Size = new System.Drawing.Size(300, 31);
+            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
             // 
             // panelControl4
             // 
@@ -205,102 +301,6 @@
             this.labelControl1.TabIndex = 8;
             this.labelControl1.Text = "从";
             // 
-            // plCommandToolbar
-            // 
-            this.plCommandToolbar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.plCommandToolbar.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.plCommandToolbar.Controls.Add(this.toolStrip2);
-            this.plCommandToolbar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plCommandToolbar.Location = new System.Drawing.Point(198, 0);
-            this.plCommandToolbar.Name = "plCommandToolbar";
-            this.plCommandToolbar.Size = new System.Drawing.Size(798, 36);
-            this.plCommandToolbar.TabIndex = 0;
-            // 
-            // toolStrip2
-            // 
-            this.toolStrip2.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btSyncEdit,
-            this.toolStripSeparator1,
-            this.btSaveCommands,
-            this.btTest,
-            this.btRefresh,
-            this.toolStripSeparator2,
-            this.lblGroupName,
-            this.cbxGroup});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(798, 31);
-            this.toolStrip2.TabIndex = 4;
-            this.toolStrip2.Text = "toolStrip2";
-            // 
-            // btSyncEdit
-            // 
-            this.btSyncEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btSyncEdit.Image = global::ConfigDevice.Properties.Resources.uncheck;
-            this.btSyncEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSyncEdit.Name = "btSyncEdit";
-            this.btSyncEdit.Size = new System.Drawing.Size(28, 28);
-            this.btSyncEdit.Text = "同步编辑 ";
-            this.btSyncEdit.Visible = false;
-            this.btSyncEdit.Click += new System.EventHandler(this.btSyncEdit_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(6, 0, 20, 0);
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
-            this.toolStripSeparator1.Visible = false;
-            // 
-            // btSaveCommands
-            // 
-            this.btSaveCommands.Image = global::ConfigDevice.Properties.Resources.save;
-            this.btSaveCommands.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSaveCommands.Name = "btSaveCommands";
-            this.btSaveCommands.Size = new System.Drawing.Size(106, 28);
-            this.btSaveCommands.Text = "保存指令 ";
-            this.btSaveCommands.Click += new System.EventHandler(this.btSaveCommands_Click);
-            // 
-            // btTest
-            // 
-            this.btTest.Image = global::ConfigDevice.Properties.Resources.fact;
-            this.btTest.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btTest.Name = "btTest";
-            this.btTest.Size = new System.Drawing.Size(106, 28);
-            this.btTest.Text = "指令测试 ";
-            this.btTest.Click += new System.EventHandler(this.btTest_Click);
-            // 
-            // btRefresh
-            // 
-            this.btRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
-            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(74, 28);
-            this.btRefresh.Text = "刷新 ";
-            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
-            // 
-            // lblGroupName
-            // 
-            this.lblGroupName.Name = "lblGroupName";
-            this.lblGroupName.Size = new System.Drawing.Size(41, 28);
-            this.lblGroupName.Text = "组名";
-            this.lblGroupName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cbxGroup
-            // 
-            this.cbxGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxGroup.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.cbxGroup.Name = "cbxGroup";
-            this.cbxGroup.Size = new System.Drawing.Size(300, 31);
-            this.cbxGroup.SelectedIndexChanged += new System.EventHandler(this.cbxGroup_SelectedIndexChanged);
-            // 
             // gcCommandList
             // 
             this.gcCommandList.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -341,17 +341,17 @@
             this.plTool.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.plCommandToolbar)).EndInit();
+            this.plCommandToolbar.ResumeLayout(false);
+            this.plCommandToolbar.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             this.panelControl4.ResumeLayout(false);
             this.panelControl4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pedtSnyc.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtBeginNum.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtEndNum.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.plCommandToolbar)).EndInit();
-            this.plCommandToolbar.ResumeLayout(false);
-            this.plCommandToolbar.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCommandList)).EndInit();
             this.gcCommandList.ResumeLayout(false);
             this.gcCommandList.PerformLayout();
