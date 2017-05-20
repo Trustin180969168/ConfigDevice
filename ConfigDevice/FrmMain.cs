@@ -25,8 +25,9 @@ namespace ConfigDevice
         private bool OneNetworkShow = false;//是否单网段显示
         private Dictionary<string, Network> listRrefreshDevices = new Dictionary<string, Network>();//-----刷新设备列表--
         private bool searchingDevice = false;//是否正在搜索设备,需要加锁限制
-        private Object lockObject = new object();
+        private Object lockObject = new object();//对象锁
         private int MaxWaittingSeconds = 1;//最大等待时间
+        private bool loaded = false;//是否加载完毕
 
         public FrmMain()
         {
@@ -68,8 +69,8 @@ namespace ConfigDevice
         /// 加载
         /// </summary>
         private void FrmSocketClientTest_Load(object sender, EventArgs e)
-        {
-            //-------设置本地IP信息---------
+        { 
+            //-------设置本地IP信息--------- 
             foreach (IPInfo ipInfo in SysConfig.IPList.Values)
                 cbxIPList.Items.Add(ipInfo.IP);
             if (cbxIPList.Items.Count > 0)
@@ -78,7 +79,8 @@ namespace ConfigDevice
             btNetworkSearch_Click(sender, e);
             deviceKind.FilterInfo = new ColumnFilterInfo(DeviceConfig.DC_KIND_ID + " != '" + (int)DeviceConfig.EQUIPMENT_RJ45 + "' and " +
                 DeviceConfig.DC_KIND_ID + " != '" + (int)DeviceConfig.EQUIPMENT_SERVER + "'");
-            Application.AddMessageFilter(this);   
+            Application.AddMessageFilter(this);
+            loaded = true;
         }
 
         /// <summary>
@@ -334,7 +336,14 @@ namespace ConfigDevice
         /// </summary>
         private void cbxIPList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SysConfig.SetLocalIPInfo(cbxIPList.SelectedIndex);
+            if (!loaded) return;
+            SysConfig.SetLocalIPInfo(cbxIPList.SelectedIndex);//---设置IP----
+            MySocket.GetInstance().RefreshBindNewIpLocalPoint();//---刷新绑定--
+            //---重新刷新网络----
+            this.networkCtrl.ClearNetwork();
+            pw.ShowWaittingInfo(1, "正在加载..."); 
+            Action searchAction = new Action(networkCtrl.SearchNetworks);
+            searchAction.BeginInvoke(null, null);
         }
 
         /// <summary>

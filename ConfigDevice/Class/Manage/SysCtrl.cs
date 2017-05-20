@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading;
 using System.Management;
 using DevExpress.XtraGrid.Views.Grid;
+using System.Diagnostics;
 
 
 namespace ConfigDevice
@@ -26,7 +27,7 @@ namespace ConfigDevice
         {
             GetLocalIPList();
             if (SysConfig.IPList.Count > 0)
-                SysConfig.SetLocalIPInfo(0);
+                SysConfig.SetLocalIPInfo(0);//---默认第一个IP地址
             DeviceCtrl.InitDtDevice();
             NetworkCtrl.InitDataTableNetwork();
         }
@@ -40,9 +41,9 @@ namespace ConfigDevice
             string AddressIP = string.Empty;
             ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
             ManagementObjectCollection nics = mc.GetInstances();
+            int i = 0;
             foreach (ManagementObject nic in nics)
-            {
-                int i = 0;
+            {                
                 if (Convert.ToBoolean(nic["ipEnabled"]) == true)
                 {
                     try
@@ -51,7 +52,7 @@ namespace ConfigDevice
                             (nic["IPSubnet"] as String[])[0]);
                         SysConfig.IPList.Add(i++, ipInfo);
                     }
-                    catch { continue; }
+                    catch (Exception e) { Trace.WriteLine(e.Message, "获取IP地址信息失败!"); continue; }
                 }
             }
         }

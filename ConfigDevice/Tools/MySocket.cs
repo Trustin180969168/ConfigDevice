@@ -56,7 +56,22 @@ namespace ConfigDevice
             return instance;
         }
 
-
+        /// <summary>
+        /// 刷新绑定
+        /// </summary>
+        public void RefreshBindNewIpLocalPoint()
+        {
+            IPEndPoint currentIp =  mySocket.LocalEndPoint as IPEndPoint;
+            if (currentIp.Address.Address == SysConfig.LocalIP.Address)
+                return;
+            this.Close();
+            IPEndPoint ipLocalPoint = new IPEndPoint(SysConfig.LocalIP, SysConfig.LocalPort);
+            mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp); //定义网络类型，数据连接类型和网络协议UDP  
+            mySocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);//允许广播
+            mySocket.Bind(ipLocalPoint);//绑定网络地址  
+            receiveThread = new Thread(new ThreadStart(receiveHandle));
+            receiveThread.Start();
+        }
 
         /// <summary>
         /// 删除发送列表
@@ -149,7 +164,7 @@ namespace ConfigDevice
                 //-------发送前,把包标识码加1-------
                 byte[] packageCount = BitConverter.GetBytes(++sendCount);
                 Buffer.BlockCopy(packageCount, 0, udp.PacketCode, 0, 2);
-         
+                Trace.WriteLine("请求UDP包:" + udp.GetUdpInfo());
                 mySocket.BeginSendTo(udp.GetUdpData(), 0, udp.Length, SocketFlags.None, remotePoint, new AsyncCallback(SendCallback), null);//--异步发送--- 
             //}
         }
@@ -182,12 +197,15 @@ namespace ConfigDevice
         /// <returns>void</returns>
         public void SendData(UdpData udp, EndPoint remotePoint, CallbackUdpAction callback, object[] objs)
         {
-            //-------发送前,把包标识码加1-------
-            byte[] packageCount = BitConverter.GetBytes(++sendCount);
-            Buffer.BlockCopy(packageCount, 0, udp.PacketCode, 0, 2);
-            CallbackFromUDP state = new CallbackFromUDP(udp, callback, remotePoint, objs);//创建返回结果
-            Trace.WriteLine("请求UDP包:" + udp.GetUdpInfo());
-            mySocket.BeginSendTo(udp.GetUdpData(), 0, udp.Length, SocketFlags.None, remotePoint, new AsyncCallback(SendCallback), state);//--异步发送--- 
+            lock (obj)
+            {
+                //-------发送前,把包标识码加1-------
+                byte[] packageCount = BitConverter.GetBytes(++sendCount);
+                Buffer.BlockCopy(packageCount, 0, udp.PacketCode, 0, 2);
+                CallbackFromUDP state = new CallbackFromUDP(udp, callback, remotePoint, objs);//创建返回结果
+                Trace.WriteLine("请求UDP包:" + udp.GetUdpInfo());
+                mySocket.BeginSendTo(udp.GetUdpData(), 0, udp.Length, SocketFlags.None, remotePoint, new AsyncCallback(SendCallback), state);//--异步发送--- 
+            }
         }
 
         /// <summary>
@@ -281,6 +299,8 @@ namespace ConfigDevice
                             }
                             if (crcUdpData(udpReceive)) //---校验是否是错误的包 -------- 
                             {
+                                UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据-----  
+                                Trace.WriteLine(string.Format("RJ45应答PC请求发送命令{0}包:{1}", userData.CommandStr, udpReceive.GetUdpInfo())); 
                                 state.ActionCallback(udpReceive, state.Parameters);//----开启异步线程回复PC请求的回调----                               
                                 if (!isBroadCastData(state.Udp)) //-----如果发送的是广播包,不能删除-----
                                     RemovePCSendRequestList(udpReceive.PacketCodeStr);//---删除已经回调的PC请求----------

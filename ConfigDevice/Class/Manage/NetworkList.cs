@@ -238,12 +238,14 @@ namespace ConfigDevice
         /// </summary>
         public void ClearNetwork()
         {
-            //------断开所有连接网络-------
+            RefreshConnectState.Stop();
+            //------断开所有连接网络------- 
             foreach (Network network in SysConfig.ListNetworks.Values)
                 if (network.State == NetworkConfig.STATE_CONNECTED) network.DisconnectNetwork();
             SysConfig.DtDevice.Clear(); SysConfig.DtDevice.AcceptChanges();
             SysConfig.DtNetwork.Clear(); SysConfig.DtNetwork.AcceptChanges();
             SysConfig.ListNetworks.Clear();
+           
         }
 
     }
