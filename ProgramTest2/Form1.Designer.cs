@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
@@ -119,6 +120,9 @@
             this.gcTime.Dock = System.Windows.Forms.DockStyle.Right;
             this.gcTime.EmbeddedNavigator.Name = "";
             this.gcTime.FormsUseDefaultLookAndFeel = false;
+            gridLevelNode1.RelationName = "Level1";
+            this.gcTime.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode1});
             this.gcTime.Location = new System.Drawing.Point(528, 0);
             this.gcTime.MainView = this.gvTime;
             this.gcTime.Name = "gcTime";
@@ -174,14 +178,17 @@
             this.dcTime1.Name = "dcTime1";
             this.dcTime1.Visible = true;
             this.dcTime1.VisibleIndex = 0;
+            this.dcTime1.Width = 92;
             // 
             // timeEdit
             // 
             this.timeEdit.Appearance.BackColor = System.Drawing.Color.LightYellow;
             this.timeEdit.Appearance.Options.UseBackColor = true;
             this.timeEdit.AutoHeight = false;
+            this.timeEdit.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Style3D;
             this.timeEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.timeEdit.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Style3D;
             this.timeEdit.Mask.UseMaskAsDisplayFormat = true;
             this.timeEdit.Name = "timeEdit";
             this.timeEdit.Leave += new System.EventHandler(this.Edit_Leave);
@@ -205,6 +212,7 @@
             this.dcTime2.Name = "dcTime2";
             this.dcTime2.Visible = true;
             this.dcTime2.VisibleIndex = 1;
+            this.dcTime2.Width = 62;
             // 
             // dateEdit
             // 
@@ -222,6 +230,7 @@
             this.dcWeek.Name = "dcWeek";
             this.dcWeek.Visible = true;
             this.dcWeek.VisibleIndex = 4;
+            this.dcWeek.Width = 62;
             // 
             // iccbWeek
             // 
@@ -252,6 +261,7 @@
             this.num.Name = "num";
             this.num.Visible = true;
             this.num.VisibleIndex = 3;
+            this.num.Width = 62;
             // 
             // edtNum
             // 
@@ -277,6 +287,7 @@
             this.dcSelect.Name = "dcSelect";
             this.dcSelect.Visible = true;
             this.dcSelect.VisibleIndex = 2;
+            this.dcSelect.Width = 62;
             // 
             // glookupEdit
             // 
@@ -302,6 +313,7 @@
             this.dcSelect2.Name = "dcSelect2";
             this.dcSelect2.Visible = true;
             this.dcSelect2.VisibleIndex = 5;
+            this.dcSelect2.Width = 62;
             // 
             // cbxSelect2
             // 

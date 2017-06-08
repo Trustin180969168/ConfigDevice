@@ -108,8 +108,7 @@ namespace ConfigDevice
         /// 初始化逻辑和指令配置
         /// </summary>
         private void initLogicAndCommand()
-        {
-            if (hasInitLogicAndCommand) return;
+        { 
             viewCommandEdit.CommmandGroups.Clear();
             foreach (int key in button4.Circuit.ListCircuitIDAndName.Keys)
                 viewCommandEdit.CommmandGroups.Add(button4.Circuit.ListCircuitIDAndName[key]);    //---指令组选择---- 

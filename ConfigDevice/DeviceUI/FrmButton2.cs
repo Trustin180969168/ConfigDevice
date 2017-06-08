@@ -70,7 +70,7 @@ namespace ConfigDevice
                     {
                         if (callbackParameter.Action == ActionKind.ReadCircuit)
                         {
-                                initLogicAndCommand();
+                            initLogicAndCommand();
                         }
                         if (callbackParameter.Action == ActionKind.ReadSate)
                         {
@@ -107,8 +107,8 @@ namespace ConfigDevice
         /// 初始化逻辑和指令配置
         /// </summary>
         private void initLogicAndCommand()
-        {
-            if (hasInitLogicAndCommand) return;
+        { 
+            //---初始化指令和逻辑配置---
             viewCommandEdit.CommmandGroups.Clear();
             foreach (int key in button2.Circuit.ListCircuitIDAndName.Keys)
                 viewCommandEdit.CommmandGroups.Add(button2.Circuit.ListCircuitIDAndName[key]);    //---指令组选择---- 
