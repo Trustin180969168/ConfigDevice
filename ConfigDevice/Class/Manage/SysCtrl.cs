@@ -43,7 +43,7 @@ namespace ConfigDevice
             ManagementObjectCollection nics = mc.GetInstances();
             int i = 0;
             foreach (ManagementObject nic in nics)
-            {                
+            {
                 if (Convert.ToBoolean(nic["ipEnabled"]) == true)
                 {
                     try
@@ -52,7 +52,11 @@ namespace ConfigDevice
                             (nic["IPSubnet"] as String[])[0]);
                         SysConfig.IPList.Add(i++, ipInfo);
                     }
-                    catch (Exception e) { Trace.WriteLine(e.Message, "获取IP地址信息失败!"); continue; }
+                    catch (Exception e)
+                    {
+                        //Trace.WriteLine(e.Message, "获取IP地址信息失败!");
+                        continue;
+                    }
                 }
             }
         }

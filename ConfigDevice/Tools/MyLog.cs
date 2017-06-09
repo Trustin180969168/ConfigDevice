@@ -10,6 +10,7 @@ namespace ConfigDevice
     public class MyTraceListener : TraceListener
     {
         public string FilePath { get; private set; }
+        public readonly Object lockObj = new object();
 
         public MyTraceListener(string filePath)
         {
@@ -24,7 +25,10 @@ namespace ConfigDevice
         }
         public override void WriteLine(string message)
         {
-            File.AppendAllText(FilePath, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss    ") +environment.NewLine+ message + environment.NewLine);
+            lock (lockObj)
+            {
+                File.AppendAllText(FilePath, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss    ") + environment.NewLine + message + environment.NewLine);
+            }
         }
         public override void Write(object o, string category)
         {
