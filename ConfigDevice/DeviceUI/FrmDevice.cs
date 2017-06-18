@@ -15,19 +15,21 @@ namespace ConfigDevice
         public Dictionary<int, DataRow> SelectDeviceList = new Dictionary<int, DataRow>();//---列表---
         public bool loaded = false;//是否加载完毕
         protected  static readonly object lockObject = new object();
-        public FrmDevice(Device _device)
-        { 
-            InitializeComponent();
+        public FrmDevice(Device _device):this()
+        {
+            
             this.DeviceEdit = _device;
             this.Text = _device.Name;
             DeviceEdit.EditHandleID = this.Handle.ToString();//---绑定界面句柄---
             initSelectDevice();
+ 
         }
 
         public FrmDevice()
         {
             InitializeComponent();
             Application.AddMessageFilter(this); 
+
         }
 
         /// <summary>

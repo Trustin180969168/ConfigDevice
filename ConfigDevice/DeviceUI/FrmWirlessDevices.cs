@@ -83,21 +83,37 @@ namespace ConfigDevice.DeviceUI
                 }
                 else
                 {
-
                     if (callbackParameter.Action == ActionKind.ReadWirlessDevice)
                     {
                         WirlessDeviceData data = callbackParameter.Parameters[0] as WirlessDeviceData;
+                        if (data.Index > 15) return;
                         DataRow drDevice = dtWirlessData.Rows[data.Index];
                         drDevice.BeginEdit();
                         drDevice[ViewConfig.DC_NUM] = data.Index;
-                        drDevice[ViewConfig.DC_MAC] = data.MacAddressStr;
+                        if(data.MacAddressStr.Replace("00","").Trim()!="")
+                            drDevice[ViewConfig.DC_MAC] = data.MacAddressStr;
                         drDevice[ViewConfig.DC_NAME] = data.Name;
                         drDevice.EndEdit();
                         dtWirlessData.AcceptChanges();
                     }
+                    if (callbackParameter.Action == ActionKind.WirteWirlessDevice)
+                    {
+                        WirlessDeviceData data = callbackParameter.Parameters[0] as WirlessDeviceData;
+                        if (data.Index > 15) return;
+                        DataRow drDevice = dtWirlessData.Rows[data.Index];
+                        drDevice.AcceptChanges();
+                    }
+                    if (callbackParameter.Action == ActionKind.AddWirlessDevice)
+                    {
+                        WirlessDeviceData data = callbackParameter.Parameters[0] as WirlessDeviceData;
+                        if (data.Index > 15) return;
+                        DataRow drDevice = dtWirlessData.Rows[data.Index];
+                        drDevice.AcceptChanges();
+                    }
                     if (callbackParameter.Action == ActionKind.DelWirlessDevice)
                     {
                         WirlessDeviceData data = callbackParameter.Parameters[0] as WirlessDeviceData;
+                        if (data.Index > 15) return;
                         DataRow drDevice = dtWirlessData.Rows[data.Index];
                         drDevice.BeginEdit();
                         drDevice[ViewConfig.DC_MAC] = "";
@@ -137,8 +153,17 @@ namespace ConfigDevice.DeviceUI
         }
 
         private void btSave_Click(object sender, EventArgs e)
-        {
+        { 
+            if (this.gvWirlessDevices.RowCount == 0) return;
+            gvWirlessDevices.PostEditor();
+            if (gvWirlessDevices.FocusedRowHandle >= 0)
+            {
+                DataRow dr = gvWirlessDevices.GetDataRow(gvWirlessDevices.FocusedRowHandle);
+                dr.EndEdit();
+            }
+
             DataTable dtUpdate = dtWirlessData.GetChanges(DataRowState.Modified);
+            if (dtUpdate == null) return;
             foreach (DataRow dr in dtUpdate.Rows)
             {
                 int index = Convert.ToInt16(dr[ViewConfig.DC_NUM]);

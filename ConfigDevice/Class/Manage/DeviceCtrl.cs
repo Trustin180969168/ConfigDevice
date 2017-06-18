@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Data;
+using ConfigDevice.DeviceUI;
 
 namespace ConfigDevice
 {
@@ -142,6 +143,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_KEY_TFT_LCD: return new FactoryFunctionsBoardEdit();//---多功能液晶面板---
                 case DeviceConfig.EQUIPMENT_SHORT_IN_4: return new FactoryShort4InputEdit();//---短路输入4---
                 case DeviceConfig.EQUIPMENT_PRI_3: return new FactoryBodyInductionEdit();//---人体感应---
+                case DeviceConfig.EQUIPMENT_RFLINE_GATEWAY: return new FactoryWirlessDeviceEdit();//---无线主机---
                 default: return new FactoryBaseDeviceEdit();
             }
         }
@@ -170,7 +172,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_TRAILING_12: return new FactoryRoad12FrontDimming();//12路前沿调光
                 case DeviceConfig.EQUIPMENT_SERVER: return new FactoryServers();//服务器
                 case DeviceConfig.EQUIPMENT_KEY_2: return new FactoryButton2();//2按键 
-                case DeviceConfig.EQUIPMENT_KEY_4: return new FactoryButton4();//2按键 
+                case DeviceConfig.EQUIPMENT_KEY_4: return new FactoryButton4();//4按键 
 
                 case DeviceConfig.EQUIPMENT_LINKID: return new FactorySystemInteraction();//系统联动号
                 default: return new FactoryBaseDevice();
@@ -385,6 +387,21 @@ namespace ConfigDevice
         #endregion
     }
 
+    /// <summary>
+    /// 无线机
+    /// </summary>
+    public class FactoryWirlessDeviceEdit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            WirlessTransform device = new WirlessTransform(data);
+            return new FrmWirlessDevices(device);
+        }
+        #endregion
+ 
+    }
   
     //**********************设备***************************
 
@@ -649,6 +666,8 @@ namespace ConfigDevice
 
         #endregion
     }
+
+
 
     /// <summary>
     /// 系统联动号

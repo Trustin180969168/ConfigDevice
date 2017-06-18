@@ -54,7 +54,7 @@ namespace ConfigDevice
                     }
                     catch (Exception e)
                     {
-                        //Trace.WriteLine(e.Message, "获取IP地址信息失败!");
+                        Trace.WriteLine(e.Message, "获取IP地址信息失败!");
                         continue;
                     }
                 }

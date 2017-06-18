@@ -33,12 +33,13 @@
             this.gcWirlessDevices = new DevExpress.XtraGrid.GridControl();
             this.gvWirlessDevices = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcRowID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcAdd = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.linkAdd = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.dcDelete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.dcMAC = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcDeviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dcAdd = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter5 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -53,12 +54,12 @@
             this.btRefrash = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
-            this.linkAdd = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcWirlessDevices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvWirlessDevices)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTest)).BeginInit();
@@ -68,7 +69,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.meeEdit)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.linkAdd)).BeginInit();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -79,7 +79,7 @@
             this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
             this.tctrlEdit.SelectedTabPage = this.pagePzjm;
-            this.tctrlEdit.Size = new System.Drawing.Size(984, 301);
+            this.tctrlEdit.Size = new System.Drawing.Size(893, 547);
             this.tctrlEdit.TabIndex = 3;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
@@ -91,7 +91,7 @@
             this.pagePzjm.Controls.Add(this.gcWirlessDevices);
             this.pagePzjm.Controls.Add(this.tsDoorInput);
             this.pagePzjm.Name = "pagePzjm";
-            this.pagePzjm.Size = new System.Drawing.Size(975, 264);
+            this.pagePzjm.Size = new System.Drawing.Size(884, 510);
             this.pagePzjm.Text = "配置界面";
             // 
             // gcWirlessDevices
@@ -111,7 +111,7 @@
             this.numEdit,
             this.meeEdit,
             this.linkAdd});
-            this.gcWirlessDevices.Size = new System.Drawing.Size(975, 233);
+            this.gcWirlessDevices.Size = new System.Drawing.Size(884, 479);
             this.gcWirlessDevices.TabIndex = 9;
             this.gcWirlessDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvWirlessDevices});
@@ -156,6 +156,36 @@
             this.dcRowID.Visible = true;
             this.dcRowID.VisibleIndex = 0;
             this.dcRowID.Width = 50;
+            // 
+            // dcAdd
+            // 
+            this.dcAdd.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcAdd.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcAdd.AppearanceCell.Options.UseBackColor = true;
+            this.dcAdd.AppearanceCell.Options.UseForeColor = true;
+            this.dcAdd.AppearanceCell.Options.UseTextOptions = true;
+            this.dcAdd.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcAdd.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAdd.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcAdd.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcAdd.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAdd.ColumnEdit = this.linkAdd;
+            this.dcAdd.Name = "dcAdd";
+            this.dcAdd.OptionsColumn.AllowMove = false;
+            this.dcAdd.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcAdd.OptionsColumn.FixedWidth = true;
+            this.dcAdd.Visible = true;
+            this.dcAdd.VisibleIndex = 1;
+            this.dcAdd.Width = 50;
+            // 
+            // linkAdd
+            // 
+            this.linkAdd.AutoHeight = false;
+            this.linkAdd.Image = global::ConfigDevice.Properties.Resources.Add;
+            this.linkAdd.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.linkAdd.Name = "linkAdd";
+            this.linkAdd.ReadOnly = true;
+            this.linkAdd.Click += new System.EventHandler(this.linkAdd_Click);
             // 
             // dcDelete
             // 
@@ -238,27 +268,6 @@
             this.parameter1.OptionsColumn.AllowMove = false;
             this.parameter1.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
             this.parameter1.Width = 80;
-            // 
-            // dcAdd
-            // 
-            this.dcAdd.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.dcAdd.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcAdd.AppearanceCell.Options.UseBackColor = true;
-            this.dcAdd.AppearanceCell.Options.UseForeColor = true;
-            this.dcAdd.AppearanceCell.Options.UseTextOptions = true;
-            this.dcAdd.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcAdd.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcAdd.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcAdd.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcAdd.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcAdd.ColumnEdit = this.linkAdd;
-            this.dcAdd.Name = "dcAdd";
-            this.dcAdd.OptionsColumn.AllowMove = false;
-            this.dcAdd.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.dcAdd.OptionsColumn.FixedWidth = true;
-            this.dcAdd.Visible = true;
-            this.dcAdd.VisibleIndex = 1;
-            this.dcAdd.Width = 50;
             // 
             // parameter3
             // 
@@ -390,7 +399,7 @@
             this.btRefrash});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
-            this.tsDoorInput.Size = new System.Drawing.Size(975, 31);
+            this.tsDoorInput.Size = new System.Drawing.Size(884, 31);
             this.tsDoorInput.TabIndex = 1;
             this.tsDoorInput.Text = "toolStrip2";
             // 
@@ -416,7 +425,7 @@
             // 
             this.pageJcsz.Controls.Add(this.viewBaseSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(975, 264);
+            this.pageJcsz.Size = new System.Drawing.Size(785, 510);
             this.pageJcsz.Text = "基础配置";
             // 
             // viewBaseSetting
@@ -424,22 +433,13 @@
             this.viewBaseSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewBaseSetting.Location = new System.Drawing.Point(0, 0);
             this.viewBaseSetting.Name = "viewBaseSetting";
-            this.viewBaseSetting.Size = new System.Drawing.Size(975, 264);
+            this.viewBaseSetting.Size = new System.Drawing.Size(785, 510);
             this.viewBaseSetting.TabIndex = 0;
-            // 
-            // linkAdd
-            // 
-            this.linkAdd.AutoHeight = false;
-            this.linkAdd.Image = global::ConfigDevice.Properties.Resources.Add;
-            this.linkAdd.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.linkAdd.Name = "linkAdd";
-            this.linkAdd.ReadOnly = true;
-            this.linkAdd.Click += new System.EventHandler(this.linkAdd_Click);
             // 
             // FrmWirlessDevices
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(984, 325);
+            this.ClientSize = new System.Drawing.Size(893, 571);
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmWirlessDevices";
             this.Load += new System.EventHandler(this.FrmWirlessDevices_Load);
@@ -450,6 +450,7 @@
             this.pagePzjm.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcWirlessDevices)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvWirlessDevices)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTest)).EndInit();
@@ -460,7 +461,6 @@
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
             this.pageJcsz.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.linkAdd)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

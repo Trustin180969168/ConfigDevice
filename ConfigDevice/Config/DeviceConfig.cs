@@ -196,7 +196,7 @@ namespace ConfigDevice
         public const byte EQUIPMENT_SERVER = 0xfd;        //服务器
         public const byte EQUIPMENT_PC = 0xfe;        //PC类型
         public const byte EQUIPMENT_PUBLIC = 0xFF;        //共公类型 
-        public const byte EQUIPMENT_WIRELESS = 0xFF;        //无线转换设备 
+        public const byte EQUIPMENT_RFLINE_GATEWAY = 0xb0;        //无线转换设备 
         //-------------------指令分类--------------------
         public const byte CMD_TYPE_PUBLIC = EQUIPMENT_PUBLIC;           //公共类型
         public const byte CMD_TYPE_PC = EQUIPMENT_PC;              //电脑类型
@@ -214,7 +214,7 @@ namespace ConfigDevice
         public const byte CMD_TYPE_GSM = EQUIPMENT_GSM;               //GSM网络
         public const byte CMD_TYPE_MOBILE = EQUIPMENT_MOBILE;           //手机
         public const byte CMD_TYPE_PANEL = EQUIPMENT_PANEL;         //通用控制面板 
-
+         public const byte 	CMD_TYPE_RFLINE     = EQUIPMENT_RFLINE_GATEWAY;   //无线主机
         //--------------------定义设备命令-----------------------------
         //------网络命令------
         public static readonly byte[] CMD_PC_SEARCH = new byte[] { 0x01, DeviceConfig.EQUIPMENT_PC };       //----搜索网络命令----
@@ -452,9 +452,9 @@ namespace ConfigDevice
         public static readonly byte[] CMD_PRI_READ_FLASH_CONFIG = new byte[] { 0x04, CMD_TYPE_PRI };//读传感器感应指示灯开关
         public static readonly byte[] CMD_PRI_WRITE_FLASH_CONFIG = new byte[] { 0x84, CMD_TYPE_PRI };//写传感器感应指示灯开关
         //-----无线转有线主机----
-        public static readonly byte[] CMD_RFLINE_WRITE_DEV_LIST = new byte[] { 0x04, CMD_TYPE_PRI };//写无线设备的列表
-        public static readonly byte[] CMD_RFLINE_READ_DEV_LIST = new byte[] { 0x04, CMD_TYPE_PRI };//读无线设备的列表
-        public static readonly byte[] CMD_RFLINE_WRITE_DEVAC = new byte[] { 0x04, CMD_TYPE_PRI };//添加或删除无线设备
+        public static readonly byte[] CMD_RFLINE_WRITE_DEV_LIST = new byte[] { 0x81, CMD_TYPE_RFLINE };//写无线设备的列表
+        public static readonly byte[] CMD_RFLINE_READ_DEV_LIST = new byte[] { 0x01, CMD_TYPE_RFLINE };//读无线设备的列表
+        public static readonly byte[] CMD_RFLINE_WRITE_DEVAC = new byte[] { 0x82, CMD_TYPE_RFLINE };//添加或删除无线设备
    
 
         //-----特殊部分------
@@ -551,6 +551,7 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SERVER, "云平台主机");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_RSP, "接近式雷达感应器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_FUEL_GAS, "可燃气体报警器");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_RFLINE_GATEWAY, "无线主机");
 
             EQUIPMENT_ID_NAME.Add(0, "无效类型");
         }

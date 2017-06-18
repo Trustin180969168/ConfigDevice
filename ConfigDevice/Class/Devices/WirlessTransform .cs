@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
 
 namespace ConfigDevice
 {
@@ -10,6 +11,18 @@ namespace ConfigDevice
         public List<WirlessDeviceData> WireLessDeviceList = new List<WirlessDeviceData>();//无线设备列表
         public WirlessTransform(UserUdpData userUdpData)
             : base(userUdpData)
+        {
+            getReadDevList = new CallbackFromUDP(getReadDevListData);
+        }
+
+        public WirlessTransform(DeviceData data)
+            : base(data)
+        {
+            getReadDevList = new CallbackFromUDP(getReadDevListData);
+        }
+
+        public WirlessTransform(DataRow dr)
+            : base(dr)
         {
             getReadDevList = new CallbackFromUDP(getReadDevListData);
         }
@@ -87,14 +100,15 @@ namespace ConfigDevice
         public void SaveWirlessData(WirlessDeviceData wirlessData)
         {
             UdpData udpSend = createWriteWirlessDataUdp(wirlessData);
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackWriteWirlessDataUdp), null);
+            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackWriteWirlessDataUdp), wirlessData);
         }
         private void callbackWriteWirlessDataUdp(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                CommonTools.ShowReplyInfo("申请读取无线设备失败!", udpReply.ReplyByte);
+                CommonTools.ShowReplyInfo("保存无线设备失败!", udpReply.ReplyByte);
             else
-                WireLessDeviceList.Clear();
+                CallbackUI(new CallbackParameter(ActionKind.WirteWirlessDevice, this.DeviceID, values[0] as WirlessDeviceData));//----读完状态信息,回调界面----
+
         }
         private UdpData createWriteWirlessDataUdp(WirlessDeviceData wirlessData)
         {
@@ -108,7 +122,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_RFLINE_READ_DEV_LIST;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_RFLINE_WRITE_DEV_LIST;//----用户命令-----
 
             byte[] value = wirlessData.ToByteArray();
             byte len = (byte)(4 + value.Length);//---数据长度----
@@ -150,10 +164,12 @@ namespace ConfigDevice
         private void callbackDelActionWirlessDataUdp(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                CommonTools.ShowReplyInfo("申请操作设备列表失败!", udpReply.ReplyByte);
+                CommonTools.ShowReplyInfo("申请删除设备列表失败!", udpReply.ReplyByte);
             else
                 CallbackUI(new CallbackParameter(ActionKind.DelWirlessDevice, this.DeviceID, values[0] as WirlessDeviceData));//---告诉界面,删除成功
         }
+
+
         /// <summary>
         /// 申请增加设备 
         /// </summary>
@@ -165,7 +181,10 @@ namespace ConfigDevice
         private void callbackActionWirlessDataUdp(UdpData udpReply, object[] values)
         {
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
-                CommonTools.ShowReplyInfo("申请操作设备列表失败!", udpReply.ReplyByte);
+                CommonTools.ShowReplyInfo("申请增加设备列表失败!", udpReply.ReplyByte);
+            else
+                CallbackUI(new CallbackParameter(ActionKind.AddWirlessDevice, this.DeviceID, values[0] as WirlessDeviceData));//---告诉界面,增加成功
+  
          }
         private UdpData createAddWirlessDataUdp(WirlessDeviceData wirlessData, WirlessDataActionKind flag)
         {
@@ -179,7 +198,7 @@ namespace ConfigDevice
             byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_RFLINE_READ_DEV_LIST;//----用户命令-----
+            byte[] cmd = DeviceConfig.CMD_RFLINE_WRITE_DEVAC;//----用户命令-----
 
             byte[] value = wirlessData.ToByteArray();
             byte len = (byte)(4 + 2);//---数据长度----

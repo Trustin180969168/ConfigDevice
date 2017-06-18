@@ -40,9 +40,9 @@ namespace ConfigDevice
         /// <param name="data"></param>
         public WirlessDeviceData(byte[] data)
         {
-            Index = data[0];//序号
-            Buffer.BlockCopy(MacAddress, 0, data, 1, 12);//MAC地址
-            Online = Convert.ToInt16(data[13]) > 0 ? true : false;//是否在线
+            Index = data[10];//序号
+            Buffer.BlockCopy(MacAddress, 0, data, 11, 12);//MAC地址
+            Online = Convert.ToInt16(data[23]) == 1 ? true : false;//是否在线
             //---无线设备名称----
             byte[] byteName = new byte[data.Length - 14];
             Buffer.BlockCopy(byteName, 0, byteName, 0, data.Length - 14);

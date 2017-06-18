@@ -51,7 +51,9 @@
    (28) V4.2版本, 增加[CMD_PUBLIC_RESET_DEVICE]指令                (廖超庭 2016年09月02日)
    (29) V4.3版本，增加无锁孔门类型和相关无锁孔门指令               (钟珊瑚 2016年09月13日)               
    (30) V4.4版本，增加云id和云网段                                 (钟珊瑚 2016年09月13日)
+                  由于修改了使系统不一至所以暂不修改
    (31) V4.5版本，增加[CMD_PUBLIC_WRITE_ADDRESS]网关地址设置(广州市海珠区xxxx)  (钟珊瑚 2016年11月16日)
+   (32) V4.6版本，增加 无线转有线主机、指纹锁 类型 增加无线主机、指纹锁指令 CMD_TYPE_RFLINE 、CMD_TYPE_FP_LOCK	       
 **======================================================================================================*/
 
 
@@ -86,7 +88,8 @@
 //注意通信数据用小端模式，低位在前高位在后
 
 //特殊设备
-enum		//设备ID 0~100,  101以上为指定设备的ID
+/*
+enum		//设备ID 0~100,  101以上为指定设备的ID   4.4
 {
 	ID_MOBILE_START    = 0       ,//手机、平板开始地址
     ID_MOBILE_END      = 99      ,//手机、平板结束地址
@@ -100,6 +103,23 @@ enum		//设备ID 0~100,  101以上为指定设备的ID
 	ID_ANSWER_PUBLIC   = 254     ,//带返回公共地址
 	ID_PUBLIC          = 255      //公共地址
 };
+*/
+
+enum		//设备ID 0~100,  101以上为指定设备的ID
+{
+	ID_MOBILE_START    = 151     ,//手机、平板开始地址
+    ID_MOBILE_END      = 200     ,//手机、平板结束地址
+	ID_PC_START        = 201     ,//PC地址开始
+	ID_PC_END          = 220     ,//PC地址结束
+	ID_PKGNUM_PUBLIC   = 251     ,//带包号公共地址(由RJ45缓冲补发并保证其成功到达目标)
+	ID_RJ45            = 252     ,//485转网络转换器ID
+	ID_SERVER          = 253     ,//服务器
+	ID_ANSWER_PUBLIC   = 254     ,//带返回公共地址
+	ID_PUBLIC          = 255      //公共地址
+};
+
+
+
 
 
 //特殊网段
@@ -110,7 +130,7 @@ enum
 	NET_PUBLIC          = 255      //公共地址
 };
 
-
+    
 //传感器类型
 enum		
 {
@@ -232,7 +252,10 @@ enum
 
 #define EQUIPMENT_RSP                0x90        //RSP雷达
 
-#define EQUIPMNET_NO_LOCK_DOOR       0xa0        //无锁孔门
+#define EQUIPMENT_NO_LOCK_DOOR       0xa0        //无锁孔门
+#define EQUIPMENT_FP_LOCK            0xa1        //指纹锁
+
+#define EQUIPMENT_RFLINE_GATEWAY     0xb0        //无线主机，无线的产品用 0xB0 开始
 
 
 #define EQUIPMENT_PANEL              0xE0        //通用控制面板
@@ -279,7 +302,10 @@ enum  //指令分类
 	CMD_TYPE_GSM        = EQUIPMENT_GSM,               //GSM网络
 	CMD_TYPE_MOBILE     = EQUIPMENT_MOBILE,            //手机
 	CMD_TYPE_PANEL      = EQUIPMENT_PANEL,             //通用控制面板
-	CMD_TYPE_NO_LOCK    = EQUIPMNET_NO_LOCK_DOOR       //无锁孔门
+	CMD_TYPE_NO_LOCK    = EQUIPMENT_NO_LOCK_DOOR,      //无锁孔门
+	CMD_TYPE_RFLINE     = EQUIPMENT_RFLINE_GATEWAY,    //无线主机
+	CMD_TYPE_FP_LOCK    = EQUIPMENT_FP_LOCK   		   //指纹锁
+
 };
 
 enum    //公共指令    _PUBLIC 
@@ -607,8 +633,7 @@ enum // 空调指令  	CMD_TYPE_AC
 
 enum //门窗控制指令
 {
-	CMD_WINDOWS_RUN_STATE	           	= ((CMD_TYPE_WINDOWS << 8) | 0x01) 			,//执行当前门窗状态
-	
+	CMD_WINDOWS_RUN_STATE	           	= ((CMD_TYPE_WINDOWS << 8) | 0x01) 			,//执行当前门窗状态	  	
 	CMD_WINDOWS_READ_POWER              = ((CMD_TYPE_WINDOWS << 8) | 0x02)          ,//读当前功率/电流大小
 	CMD_WINDOWS_WRITE_POWER             = ((CMD_TYPE_WINDOWS << 8) | 0x03)          ,//写当前功率/电流大小
 };
@@ -647,15 +672,15 @@ enum //人体感应器指令
 //   CMD_PUBLIC_READ_CONFIG  			= ((CMD_TYPE_PRI << 8) | 0x01)  			,//读配置信息
 //	 CMD_PUBLIC_WRITE_CONFIG      	    = ((CMD_TYPE_PRI << 8) | 0x81) 				,//写配置信息
 
-//原	CMD_PRI_TEST           				= ((CMD_TYPE_PRI << 8) | 0x02)  			,//测试指令
-//原	CMD_PRI_SWIT_PRI        	   		= ((CMD_TYPE_PRI << 8) | 0x03)				,//开关人体感应功能
-//原	CMD_PRI_SWIT_SAFETY                 = ((CMD_TYPE_PRI << 8) | 0x04)         		,//开关安防功能
+//原	CMD_PRI_TEST           				= ((CMD_TYPE_PRI << 8) | 0x02)  		,//测试指令
+//原	CMD_PRI_SWIT_PRI        	   		= ((CMD_TYPE_PRI << 8) | 0x03)			,//开关人体感应功能
+//原	CMD_PRI_SWIT_SAFETY                 = ((CMD_TYPE_PRI << 8) | 0x04)         	,//开关安防功能
     CMD_PRI_READ_CONFIG                 = ((CMD_TYPE_PRI << 8) | 0x01)  			,//读传感器灵敏参数配置
 	CMD_PRI_WRITE_CONFIG           		= ((CMD_TYPE_PRI << 8) | 0x81)  			,//写传感器灵敏参数配置
 	CMD_PRI_READ_SAFETY_CONFIG          = ((CMD_TYPE_PRI << 8) | 0x02)				,//读传感器安防配置
 	CMD_PRI_WRITE_SAFETY_CONFIG         = ((CMD_TYPE_PRI << 8) | 0x82)         		,//写传感器安防配置
 	CMD_PRI_TEST                        = ((CMD_TYPE_PRI << 8) | 0x03)         		,//传感器测试指令
-//原有	CMD_PRI_FLASH                       = ((CMD_TYPE_PRI << 8) | 0x04)         		,//传感器感应灯光开关
+//原有	CMD_PRI_FLASH                       = ((CMD_TYPE_PRI << 8) | 0x04)         	,//传感器感应灯光开关
     CMD_PRI_READ_FLASH_CONFIG           = ((CMD_TYPE_PRI << 8) | 0x04)              ,//读传感器感应指示灯开关
     CMD_PRI_WRITE_FLASH_CONFIG          = ((CMD_TYPE_PRI << 8) | 0x84)              ,//写传感器感应指示灯开关
 };
@@ -713,8 +738,26 @@ enum //无锁孔门
 	CMD_NOLOCK_READ_BTPACKET		= ((CMD_TYPE_NO_LOCK << 8) | 0x83)				,//读摇控数据包
 	CMD_NOLOCK_WRITE_NUM			= ((CMD_TYPE_NO_LOCK << 8) | 0x4)				,//写无锁孔门数量 
 	CMD_NOLOCK_READ_NUM             = ((CMD_TYPE_NO_LOCK << 8) | 0x84)				,//读无锁孔门数量
-
+    
 };
+
+
+enum // 无线主机  	CMD_TYPE_RFLINE
+{
+	CMD_RFLINE_READ_DEV_LIST       		= ((CMD_TYPE_RFLINE << 8) | 0x01)			,//读无线设备列表
+	CMD_RFLINE_WRITE_DEV_LIST   		= ((CMD_TYPE_RFLINE << 8) | 0x81)  			,//写无线设备列表
+	CMD_RFLINE_WRITE_DEVAC        		= ((CMD_TYPE_RFLINE << 8) | 0x82)	        ,//增加或删除设备
+}; 
+
+
+enum // 指纹锁 	  CMD_TYPE_FP_LOCK
+{
+	CMD_PF_LOCK_WRITE_STATE       		= ((CMD_TYPE_FP_LOCK << 8) | 0x81)			,//写指纹锁状态
+	CMD_PF_LOCK_WRITE_PASSWORD   		= ((CMD_TYPE_FP_LOCK << 8) | 0x82)  		,//写指纹锁密码
+	CMD_RFLINE_WRITE_CFG2        		= ((CMD_TYPE_FP_LOCK << 8) | 0x83)	        ,//写指纹锁开锁屏蔽标志指令
+	CMD_RFLINE_READ_CFG2        		= ((CMD_TYPE_FP_LOCK << 8) | 0x03)	        ,//读指纹锁开锁屏蔽标志指令
+}; 
+
 
 
 
