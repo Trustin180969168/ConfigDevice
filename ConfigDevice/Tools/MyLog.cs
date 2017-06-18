@@ -10,7 +10,7 @@ namespace ConfigDevice
     public class MyTraceListener : TraceListener
     {
         public string FilePath { get; private set; }
-        public readonly Object lockObj = new object();
+        private static readonly Object lockObj = new object();
 
         public MyTraceListener(string filePath)
         {
