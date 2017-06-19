@@ -27,7 +27,7 @@ namespace ConfigDevice
             Trace.Listeners.Clear();  //清除系统监听器 (就是输出到Console的那个)
             string logPath = Application.StartupPath +  "\\log\\";
             string logFile = logPath + DateTime.Now.ToString("yyyy-MM-dd") + ".log";
-            String[] logFiles = Directory.GetDirectories(logPath);
+            String[] logFiles = Directory.GetFiles(logPath);
             foreach (string s in logFiles)
             {
                 FileInfo fileInfo = new FileInfo(s);

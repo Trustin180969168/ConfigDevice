@@ -15,7 +15,7 @@ namespace ConfigDevice
         public MyTraceListener(string filePath)
         {
             if (!File.Exists(filePath))
-                File.Create(filePath);
+                File.Create(filePath).Close();            
             FilePath = filePath;
         }
 
