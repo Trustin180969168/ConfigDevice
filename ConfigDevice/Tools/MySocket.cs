@@ -62,7 +62,7 @@ namespace ConfigDevice
         public void RefreshBindNewIpLocalPoint()
         {
             IPEndPoint currentIp =  mySocket.LocalEndPoint as IPEndPoint;
-            if (currentIp.Address.Address == SysConfig.LocalIP.Address)
+            if (currentIp.Address.Equals(SysConfig.LocalIP))
                 return;
             this.Close();
             IPEndPoint ipLocalPoint = new IPEndPoint(SysConfig.LocalIP, SysConfig.LocalPort);

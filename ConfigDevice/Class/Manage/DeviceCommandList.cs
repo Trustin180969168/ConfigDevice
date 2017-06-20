@@ -80,7 +80,7 @@ namespace ConfigDevice
             if (userData.SourceID != this.device.DeviceID) return;//不是本设备ID不接收.
             UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
   
-            CallbackUI(new CallbackParameter(ActionKind.ReadCommand, new object[] { userData }));//----界面回调------
+            CallbackUI(new CallbackParameter(ActionKind.ReadCommand,this.device.DeviceID, new object[] { userData }));//----界面回调------
         }
 
         /// <summary>

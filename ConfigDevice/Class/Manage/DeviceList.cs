@@ -206,7 +206,7 @@ namespace ConfigDevice
             UdpData udpReply = createReplyUdp(data);
             UdpTools.ReplyDelRJ45SendUdp(data);
             if (CallBackUI != null) 
-                CallBackUI(new CallbackParameter(ActionKind.SearchDevice,   SearchingNetwork  ));
+                CallBackUI(new CallbackParameter(ActionKind.SearchDevice,null,SearchingNetwork));
         }
 
         /// <summary>

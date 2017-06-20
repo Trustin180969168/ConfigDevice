@@ -20,6 +20,8 @@ namespace ConfigDevice
     {
 
         public static FrmMain MainFrom;
+        public static MyTraceListener MyTraceListener;
+
         /// <summary>
         /// 初始化系统配置
         /// </summary>

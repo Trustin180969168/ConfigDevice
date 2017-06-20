@@ -90,26 +90,23 @@ namespace ConfigDevice
         WirteWirlessDevice,//写无线设备
         DelWirlessDevice,//删除无线设备
         AddWirlessDevice,//增加无线设备
+        ShowLog,//日志操作
         None
         
     }
 
-    public class CallbackParameter
-    {
-        public ActionKind Action  = ActionKind.None;
-        public object[] Parameters;
-        public String DeviceID;
 
+
+    public class CallbackParameter
+    { 
+                 public ActionKind Action = ActionKind.None;
+        public String DeviceID;
+        public object[] Parameters; 
         /// <summary>
         /// 回调构造参数
         /// </summary>
         /// <param name="_ActionName">动作</param>
-        /// <param name="_Parameters">回调参数</param>
-        public CallbackParameter(ActionKind _ActionName,params object[] _Parameters)
-        {
-            Action = _ActionName;
-            Parameters = _Parameters;
-        }
+        /// <param name="_Parameters">回调参数</param> 
         public CallbackParameter(ActionKind _ActionName,String _deviceID, params object[] _Parameters)
         {
             DeviceID = _deviceID;
@@ -362,6 +359,8 @@ namespace ConfigDevice
                 CallBackAction.BeginInvoke(udpReply, objs, null, null);//---异步调用-----
 
         }
+
+ 
 
     }
 

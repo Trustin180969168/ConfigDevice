@@ -102,7 +102,6 @@ namespace ConfigDevice
             button2.PanelCtrl.ReadKeyState();     //读取状态
         }
 
-        private bool hasInitLogicAndCommand = false;
         /// <summary>
         /// 初始化逻辑和指令配置
         /// </summary>
@@ -118,8 +117,7 @@ namespace ConfigDevice
                 viewCommandEdit.CbxCommandGroup.SelectedIndex = 0;
             }
             else if (!viewCommandEdit.NeedInit)
-                viewCommandEdit.UpdateGroupName();
-            hasInitLogicAndCommand = true;
+                viewCommandEdit.UpdateGroupName(); 
         }
 
         /// <summary>

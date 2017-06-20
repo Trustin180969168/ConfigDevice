@@ -100,6 +100,7 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
             this.lblIPSelect = new System.Windows.Forms.ToolStripLabel();
             this.cbxIPList = new System.Windows.Forms.ToolStripComboBox();
+            this.btShowLog = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).BeginInit();
             this.contextMenuStripDevice.SuspendLayout();
@@ -880,6 +881,7 @@
             // 
             this.btXtxx.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.btXtxx.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btShowLog,
             this.btPCSend,
             this.btRJ45Send});
             this.btXtxx.Font = new System.Drawing.Font("Tahoma", 12F);
@@ -894,7 +896,7 @@
             // 
             this.btPCSend.Image = global::ConfigDevice.Properties.Resources.work;
             this.btPCSend.Name = "btPCSend";
-            this.btPCSend.Size = new System.Drawing.Size(225, 24);
+            this.btPCSend.Size = new System.Drawing.Size(233, 30);
             this.btPCSend.Text = "PC发送包";
             this.btPCSend.Click += new System.EventHandler(this.btPCSend_Click);
             // 
@@ -902,7 +904,7 @@
             // 
             this.btRJ45Send.Image = global::ConfigDevice.Properties.Resources.work;
             this.btRJ45Send.Name = "btRJ45Send";
-            this.btRJ45Send.Size = new System.Drawing.Size(225, 24);
+            this.btRJ45Send.Size = new System.Drawing.Size(233, 30);
             this.btRJ45Send.Text = "未处理的RJ45主动包";
             this.btRJ45Send.Click += new System.EventHandler(this.btRJ45Send_Click);
             // 
@@ -933,6 +935,14 @@
             this.cbxIPList.Size = new System.Drawing.Size(200, 31);
             this.cbxIPList.Visible = false;
             this.cbxIPList.SelectedIndexChanged += new System.EventHandler(this.cbxIPList_SelectedIndexChanged);
+            // 
+            // btShowLog
+            // 
+            this.btShowLog.Image = global::ConfigDevice.Properties.Resources.section;
+            this.btShowLog.Name = "btShowLog";
+            this.btShowLog.Size = new System.Drawing.Size(233, 30);
+            this.btShowLog.Text = "通讯日志";
+            this.btShowLog.Click += new System.EventHandler(this.btShowLog_Click);
             // 
             // FrmMain
             // 
@@ -1046,5 +1056,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtNetworkName;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtDeviceName;
         private System.Windows.Forms.ToolStripButton btQryDevices;
+        private System.Windows.Forms.ToolStripMenuItem btShowLog;
     }
 }

@@ -350,7 +350,7 @@ namespace ConfigDevice
             //-------逻辑数据-----
             viewLogicSetting.ClearTrggerData();
             LogicData logicData = new LogicData(logicQuickSetting.GetLogicData(cbxQuickSetting.SelectedIndex));
-            viewLogicSetting.ReturnLogicData(new CallbackParameter(ActionKind.ReadLogicConfig, logicData));
+            viewLogicSetting.ReturnLogicData(new CallbackParameter(ActionKind.ReadLogicConfig,this.environment.DeviceID, logicData));
             //-------手头变更修改状态------
             isQuickSetting = true; viewLogicSetting.IsSystemSetting = true;
         }

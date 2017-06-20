@@ -88,7 +88,7 @@ namespace ConfigDevice
             if ((uint)values[0]  != (uint)menuData.MenuID) return;//返回不是本菜单---
             UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认----- 
 
-            CallbackUI(new CallbackParameter(ActionKind.ReadMenuCommand, new object[] { userData }));//----界面回调------
+            CallbackUI(new CallbackParameter(ActionKind.ReadMenuCommand,this.device.DeviceID, new object[] { userData }));//----界面回调------
         }
 
         /// <summary>

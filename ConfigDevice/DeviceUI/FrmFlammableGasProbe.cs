@@ -464,7 +464,7 @@ namespace ConfigDevice
             //-------逻辑数据-----
             viewLogicSetting.ClearTrggerData();
             LogicData logicData = new LogicData(logicQuickSetting.GetLogicData(cbxQuickSetting.SelectedIndex));
-            viewLogicSetting.ReturnLogicData(new CallbackParameter(ActionKind.ReadLogicConfig,logicData));
+            viewLogicSetting.ReturnLogicData(new CallbackParameter(ActionKind.ReadLogicConfig,this.flammableGasProbe.DeviceID, logicData));
             //-------附加动作------
             byte[] adittionData = logicQuickSetting.GetLogicAdditionData(cbxQuickSetting.SelectedIndex);
             flammableGasProbe.SetAdditionLogicData(adittionData);

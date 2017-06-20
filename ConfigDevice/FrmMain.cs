@@ -864,6 +864,12 @@ namespace ConfigDevice
                 network.ConnectNetwork();
         }
 
+        private void btShowLog_Click(object sender, EventArgs e)
+        {
+            FrmUdpLog frmUdpLog = new FrmUdpLog();
+            frmUdpLog.Show();
+        }
+
 
  
     }
