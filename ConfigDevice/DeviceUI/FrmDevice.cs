@@ -28,6 +28,7 @@ namespace ConfigDevice
         public FrmDevice()
         {
             InitializeComponent();
+            this.ImeMode = ImeMode.Off;
             Application.AddMessageFilter(this); 
 
         }

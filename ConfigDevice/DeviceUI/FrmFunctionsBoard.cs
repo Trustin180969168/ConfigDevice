@@ -232,8 +232,7 @@ namespace ConfigDevice
             listScene.SaveKeyData();//---场景页----
             listLight.SaveKeyData();//----灯光页----
             listLeaveBack.SaveKeyData();//---离家回家页---- 
-
-            panelKey.Circuit.ReadRoadTitle();    //重新读取回路
+             
         }
 
         /// <summary>

@@ -89,6 +89,7 @@ namespace ConfigDevice
             UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----   
             //------找出数据段------
             WirlessDeviceData wirlessDeviceData = new WirlessDeviceData(data.ProtocolData);
+            WireLessDeviceList.Add(wirlessDeviceData);
             CallbackUI(new CallbackParameter(ActionKind.ReadWirlessDevice, this.DeviceID, wirlessDeviceData));//----读完状态信息,回调界面----
         }
 

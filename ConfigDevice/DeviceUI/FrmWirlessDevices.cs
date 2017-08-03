@@ -128,9 +128,7 @@ namespace ConfigDevice.DeviceUI
 
         /// <summary>
         /// 删除
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// </summary> 
         private void linkEdit_Click(object sender, EventArgs e)
         {
             if(gvWirlessDevices.FocusedRowHandle == -1)return;
@@ -146,10 +144,14 @@ namespace ConfigDevice.DeviceUI
         /// <param name="e"></param>
         private void linkAdd_Click(object sender, EventArgs e)
         {
-            if (gvWirlessDevices.FocusedRowHandle == -1) return;
-            int index = gvWirlessDevices.FocusedRowHandle;
-            WirlessDeviceData data = wirlessTransform.WireLessDeviceList[index];
-            wirlessTransform.AddWirlessData(data);
+            try
+            {
+                if (gvWirlessDevices.FocusedRowHandle == -1) return;
+                int index = gvWirlessDevices.FocusedRowHandle;
+                WirlessDeviceData data = wirlessTransform.WireLessDeviceList[index];
+                wirlessTransform.AddWirlessData(data);
+            }
+            catch (Exception e1) { CommonTools.MessageShow("增加失败！", 2, e1.Message); }
         }
 
         private void btSave_Click(object sender, EventArgs e)

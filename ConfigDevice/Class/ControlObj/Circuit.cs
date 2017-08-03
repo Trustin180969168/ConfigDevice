@@ -228,6 +228,12 @@ namespace ConfigDevice
         /// </summary>
         public void SaveRoadSetting(int roadNum, string roadName)
         {
+            byte[] value = Encoding.GetEncoding("GB2312").GetBytes(roadName);
+            if (value.Length > 32)
+            {
+                CommonTools.MessageShow("字符超出32字节长度！", 2, "");
+                return;
+            }
             UdpData udpSend = createSaveRoadSettingUdp(roadNum, roadName);
             mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                  new CallbackUdpAction(callbackSaveRoadSetting), null);
@@ -254,8 +260,8 @@ namespace ConfigDevice
             byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_LOOP_NAME;//----用户命令-----
             //---------计算长度------------------
             //---------新名称-------------
-            byte[] value = Encoding.GetEncoding("GB2312").GetBytes(roadName);
-            byte[] byteName = new byte[32];
+            byte[] value = Encoding.GetEncoding("GB2312").GetBytes(roadName); 
+            byte[] byteName = new byte[value.Length];
             Buffer.BlockCopy(value, 0, byteName, 0, value.Length);
             byte len = (byte)(1 + 2 + 1 + byteName.Length + 4);//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----   
 

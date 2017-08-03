@@ -174,7 +174,7 @@ namespace ConfigDevice
                     NeedInit = false;//----回路读取完毕为初始化完毕----     
                     int i = 1;
                     foreach(DataRow dr in dtKeyData.Rows)
-                        dr[ViewConfig.DC_NAME] = KeyCircuit.ListCircuitIDAndName[i++];
+                        dr[ViewConfig.DC_NAME] = KeyCircuit.ListCircuitIDAndName[this.startNum+i++];
                     dtKeyData.AcceptChanges();
                    // keyList.ReadKeyData(0, showCount - 1);
                 }

@@ -361,8 +361,10 @@ namespace ConfigDevice
         {
             AutoHeight = false;
             Mask.EditMask = "d";
+            IsFloatValue = false;
             Leave += new System.EventHandler(SysConfig.Edit_Leave);
             Enter += new System.EventHandler(SysConfig.Edit_Enter);
+            
         }
     }
 

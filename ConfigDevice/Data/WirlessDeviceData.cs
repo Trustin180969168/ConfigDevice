@@ -28,7 +28,7 @@ namespace ConfigDevice
             byte[] byteArrayName = Encoding.GetEncoding("GB2312").GetBytes(Name);
             byte[] value = new byte[byteArrayName.Length + 1 + 13 + 1];
             value[0] = Index;
-            Buffer.BlockCopy(MacAddress, 1, MacAddress, 0, 12);
+            Buffer.BlockCopy(MacAddress, 0, value, 1, 12);
             value[12] = Online ? (byte)1 : (byte)0;
             Buffer.BlockCopy(value, 13, byteArrayName, 0, byteArrayName.Length);
             return value;
