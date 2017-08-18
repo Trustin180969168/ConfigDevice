@@ -261,7 +261,7 @@ namespace ConfigDevice
             //---------计算长度------------------
             //---------新名称-------------
             byte[] value = Encoding.GetEncoding("GB2312").GetBytes(roadName); 
-            byte[] byteName = new byte[value.Length];
+            byte[] byteName = new byte[30];
             Buffer.BlockCopy(value, 0, byteName, 0, value.Length);
             byte len = (byte)(1 + 2 + 1 + byteName.Length + 4);//---数据长度 = 第几路1 + 位置2 + 保留1 + 名称n + 校验码4-----   
 
