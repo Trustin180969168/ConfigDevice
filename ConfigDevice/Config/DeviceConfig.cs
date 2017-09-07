@@ -250,6 +250,9 @@ namespace ConfigDevice
         public static readonly byte[] CMD_PUBLIC_UART_LED_DISABLE = new byte[] { 0x39, EQUIPMENT_PUBLIC };//关通度灯
         public static readonly byte[] CMD_PUBLIC_DISCOVER_ENABLE = new byte[] { 0x3a, EQUIPMENT_PUBLIC };//发现设备,通信关亮1分钟，或面板的灯闪1分钟方便调试时找到设备
         public static readonly byte[] CMD_PUBLIC_DISCOVER_DISABLE = new byte[] { 0x3b, EQUIPMENT_PUBLIC };//关发现设备
+        public static readonly byte[] CMD_PUBLIC_RESET_DEVICE = new byte[] { 0xb4, EQUIPMENT_PUBLIC };//关发现设备
+
+
         public static readonly byte[] CMD_PUBLIC_DEL_COMMAND = new byte[] { 0x3d, EQUIPMENT_PUBLIC };//删除指令
         public static readonly byte[] CMD_PUBLIC_STOP = new byte[] { 0x3e, EQUIPMENT_PUBLIC };//停止读控制信息
         public static readonly byte[] CMD_PUBLIC_RET_READ_INF = new byte[] { 0x3f, EQUIPMENT_PUBLIC };//回复读信息
@@ -455,8 +458,8 @@ namespace ConfigDevice
         public static readonly byte[] CMD_RFLINE_WRITE_DEV_LIST = new byte[] { 0x81, CMD_TYPE_RFLINE };//写无线设备的列表
         public static readonly byte[] CMD_RFLINE_READ_DEV_LIST = new byte[] { 0x01, CMD_TYPE_RFLINE };//读无线设备的列表
         public static readonly byte[] CMD_RFLINE_WRITE_DEVAC = new byte[] { 0x82, CMD_TYPE_RFLINE };//添加或删除无线设备
-   
-
+        public static readonly byte[] CMD_RFLINE_WRITE_DEVAC_RSL = new byte[] { 0x83, CMD_TYPE_RFLINE };//添加或删除无线设备的返回结果
+    
         //-----特殊部分------
         public static readonly byte[] CMD_PUBLIC_TEST_KEY_CMD = new byte[] { 0xb3, CMD_TYPE_PUBLIC }; //指令测试 
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();

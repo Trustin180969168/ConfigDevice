@@ -594,7 +594,67 @@ namespace ConfigDevice
             string success = (string)values[1];
             if (udpReply.ReplyByte != REPLY_RESULT.CMD_TRUE)
             { CommonTools.ShowReplyInfo(error, udpReply.ReplyByte); return; }
+        } 
+
+
+        /// <summary>
+        /// 恢复出厂设置
+        /// </summary> 
+        public void ResetSetting()
+        {
+            UdpData udpSend = createResetSettingUdp();
+            MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackResult),
+                new object[] { "申请恢复出厂设置失败!", "恢复出厂状态需要一些时间，请稍后手动重新读取设备。如果设备没响应，请手工重启设备!" });
         }
+        /// <summary>
+        /// 根据指令创建UDP
+        /// </summary>
+        /// <param name="cmd">指令</param>
+        /// <returns></returns>
+        private UdpData createResetSettingUdp()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
+            if (this.ByteKindID == DeviceConfig.EQUIPMENT_SERVER || this.ByteKindID == DeviceConfig.EQUIPMENT_RJ45)
+                Buffer.BlockCopy(UserProtocol.RJ45, 0, udp.Protocol, 0, 4);//------用户协议----
+            else
+                Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
+
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
+            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_RESET_DEVICE;//----用户命令-----
+            int len = 4 + 8;//---长度 
+
+            byte[] crcData = new byte[10 + len];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = (byte)len;
+
+            crcData[10] = 0x03;
+            crcData[11] = 0xFC;
+            crcData[12] = 0x12;
+            crcData[13] = 0x34;
+            crcData[14] = 0;
+            crcData[15] = 0;
+            crcData[16] = 0;
+            crcData[17] = 0;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            return udp;
+        }
+
 
 
     }

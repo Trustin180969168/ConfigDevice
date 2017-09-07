@@ -424,6 +424,7 @@
     <Compile Include="Class\Devices\WirlessTransform .cs" />
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Manage\KeyList.cs" />
+    <Compile Include="Data\WirlessActionResultData.cs" />
     <Compile Include="Data\WirlessDeviceData.cs" />
     <Compile Include="DeviceUI\FrmWirlessDevices.cs">
       <SubType>Form</SubType>

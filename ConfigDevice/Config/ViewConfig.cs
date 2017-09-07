@@ -32,6 +32,7 @@ namespace ConfigDevice
         public const string DC_ID = "ID";
         public const string DC_DEVICE_ID = "DeviceID";//设备ID
         public const string DC_DEVICE_NETWORK_ID = "DeviceNetworkID";//设备的网络ID
+        public const string DC_DEVICE_KIND = "DeviceKind";//设备类型
         public const string DC_DEVICE_KIND_ID = "DeviceKindID";//设备类型ID
         public const string DC_LOGIC_VALUE = "LogicValue";//逻辑配置值
         public const string DC_LOGIC_ADDITION_VALUE = "LogicAddtionValue";//逻辑附加值
@@ -43,6 +44,8 @@ namespace ConfigDevice
         public const string DC_MAC = "Mac";//mac地址
         public const string DC_DELETE = "Delete";//删除
         public const string DC_ADD = "Add";//增加
+        public const string DC_CLEAR = "Clear";//清除
+
         public const string DC_VALUE1 = "Value1";//值1 
         public const string DC_VALUE2 = "Value2";//值2 
         public const string DC_VALUE3 = "Value3";//值3 

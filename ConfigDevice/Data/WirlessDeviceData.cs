@@ -7,8 +7,9 @@ namespace ConfigDevice
     public class WirlessDeviceData
     {
         public byte Index = 0;//第几个
-        public byte[] MacAddress = new byte[12];//MAC地址
         public bool Online = false;//是否在线
+        public byte[] MacAddress = new byte[12];//MAC地址
+        public byte DeviceType = 0;//设备类型
         public string Name = "";//设备名称
 
         /// <summary>
@@ -26,11 +27,13 @@ namespace ConfigDevice
         public byte[] ToByteArray()
         {
             byte[] byteArrayName = Encoding.GetEncoding("GB2312").GetBytes(Name);
-            byte[] value = new byte[byteArrayName.Length + 1 + 13 + 1];
+            byte[] value = new byte[byteArrayName.Length + 15];
+
             value[0] = Index;
-            Buffer.BlockCopy(MacAddress, 0, value, 1, 12);
-            value[12] = Online ? (byte)1 : (byte)0;
-            Buffer.BlockCopy(value, 13, byteArrayName, 0, byteArrayName.Length);
+            value[1] = Online ? (byte)1 : (byte)0;
+            Buffer.BlockCopy(MacAddress, 0, value, 2, 12);
+            value[14] = DeviceType;
+            Buffer.BlockCopy(byteArrayName, 0, value, 15, byteArrayName.Length);
             return value;
         }
 
@@ -38,15 +41,16 @@ namespace ConfigDevice
         /// 构造函数,根据字节数组映射对象
         /// </summary>
         /// <param name="data"></param>
-        public WirlessDeviceData(byte[] data)
+        public WirlessDeviceData(UserUdpData userUdpData)
         {
-            Index = data[10];//序号
-            Buffer.BlockCopy(MacAddress, 0, data, 11, 12);//MAC地址
-            Online = Convert.ToInt16(data[23]) == 1 ? true : false;//是否在线
+            byte[] data = userUdpData.Data;
+            Index = data[0];//序号
+            Online = Convert.ToInt16(data[1]) == 1 ? true : false;//是否在线
+            MacAddress = CommonTools.CopyBytes(data, 2, 12);
+            DeviceType = data[14];//设备类型
             //---无线设备名称----
-            byte[] byteName = new byte[data.Length - 14];
-            Buffer.BlockCopy(byteName, 0, byteName, 0, data.Length - 14);
-            Name = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Trim().Replace("", "");
+            byte[] byteName = CommonTools.CopyBytes(data, 15, data.Length - 15);
+            Name = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Trim().Replace(" ", "");
         }
 
 

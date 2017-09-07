@@ -156,6 +156,20 @@ namespace ConfigDevice
             DeviceEdit.SaveDeviceIDAndName(data);
         }
 
+        /// <summary>
+        /// 恢复出厂设置
+        /// </summary> 
+        private void btReset_Click(object sender, EventArgs e)
+        {
+            if (CommonTools.MessageShow("是否恢复到出厂初始状态?", 4, "") == DialogResult.Yes)
+            {
+                if (CommonTools.MessageShow("所有数据将可能被删除!\n是否继续?", 4, "") == DialogResult.Yes)
+                {
+                    this.DeviceEdit.ResetSetting();
+                }
+            }
+        }
+
 
 
 

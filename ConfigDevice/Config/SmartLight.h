@@ -53,7 +53,10 @@
    (30) V4.4版本，增加云id和云网段                                 (钟珊瑚 2016年09月13日)
                   由于修改了使系统不一至所以暂不修改
    (31) V4.5版本，增加[CMD_PUBLIC_WRITE_ADDRESS]网关地址设置(广州市海珠区xxxx)  (钟珊瑚 2016年11月16日)
-   (32) V4.6版本，增加 无线转有线主机、指纹锁 类型 增加无线主机、指纹锁指令 CMD_TYPE_RFLINE 、CMD_TYPE_FP_LOCK	       
+   (32) V4.6版本，增加 无线转有线主机、指纹锁 类型 增加无线主机、指纹锁指令 CMD_TYPE_RFLINE 、CMD_TYPE_FP_LOCK
+   (33) V4.7版本，增加[CMD_RFLINE_READ_CFG][CMD_RFLINE_WRITE_CFG]                  (廖超庭 2017年08月30日)
+   (34) V4.8版本，增加[CMD_RFLINE_WRITE_DEVAC_RSL][EQUIPMENT_EL_KNIFE_FRAME]       (廖超庭 2017年08月31日)
+   (35) V4.9版本, 增加[EQUIPMENT_INTELLIGENT_SINK]                                 (廖超庭 2017年09月01日)
 **======================================================================================================*/
 
 
@@ -61,29 +64,29 @@
 系统通信格式：
             设备ID + 网段ID + 类型号 + 源设备ID + 源网段ID + 类型+ 页 + 控制字(2字节) + 长度 + 数据 +  4byte CRC
    长度 = 数据	+ 4byte CRC		
-  
- 设备ID 范围 0~100 ，网段也是 0~100 ,100以上为特殊，用于专用设备如服务器，平板等
    
-    下位机利用 设备类型,设备ID，网段ID来区上数据是否需要接收。	
+ 设备ID 范围 0~100 ，网段也是 0~100 ,100以上为特殊，用于专用设备如服务器，平板等
 	
+    下位机利用 设备类型,设备ID，网段ID来区上数据是否需要接收。	
+  
  设备ID，网段ID，类型号组合说明
   设备 ID     网段ID        类型                 说明 
-	
+  
                 |-- 本段ID --- 指定       本设备正常通信，需要返回数据                      
                 |-- 本段ID --- 公共       无效           
   0~100 --|--	公共   --- 指定       无效
                 |--	公共   --- 公共       无效
-	   
+	 
  |-- 本段   --- 指定      本段所有类型相同都处理，不返回
   公共  --|-- 本段   --- 公共      本段所有设备，          不返回
-	|-- 公共   --- 指定      系统所类型相同都处理，  不返回
+ |-- 公共   --- 指定      系统所类型相同都处理，  不返回
  |-- 公共   --- 公共		 系统所的设备，          不返回
-   
+	
  |-- 本段   --- 指定      本段符合条件的指定类型设备返回数据  		
  带返回公共--|-- 本段   --- 公共      本段符合条件的设备返回数据  		
-	|-- 公共   --- 指定      系统符合条件的指定类型设备返回数据  		
+ |-- 公共   --- 指定      系统符合条件的指定类型设备返回数据  		
  |-- 公共   --- 公共      系统符合条件的设备返回数据  
-  
+   
 ========================================================================================================*/
 //注意通信数据用小端模式，低位在前高位在后
 
@@ -91,17 +94,17 @@
 /*
 enum		//设备ID 0~100,  101以上为指定设备的ID   4.4
 {
-	ID_MOBILE_START    = 0       ,//手机、平板开始地址
+ ID_MOBILE_START    = 0       ,//手机、平板开始地址
     ID_MOBILE_END      = 99      ,//手机、平板结束地址
-	ID_PC_START        = 201     ,//PC地址开始
-	ID_PC_END          = 220     ,//PC地址结束
-	ID_GATEWAY         = 249     ,//网关id     0xf9
-	ID_CLOUD           = 250     ,//云服务id   0xfa
-	ID_PKGNUM_PUBLIC   = 251     ,//带包号公共地址(由RJ45缓冲补发并保证其成功到达目标)
-	ID_RJ45            = 252     ,//485转网络转换器ID
-	ID_SERVER          = 253     ,//服务器
-	ID_ANSWER_PUBLIC   = 254     ,//带返回公共地址
-	ID_PUBLIC          = 255      //公共地址
+ ID_PC_START        = 201     ,//PC地址开始
+ ID_PC_END          = 220     ,//PC地址结束
+ ID_GATEWAY         = 249     ,//网关id     0xf9
+ ID_CLOUD           = 250     ,//云服务id   0xfa
+ ID_PKGNUM_PUBLIC   = 251     ,//带包号公共地址(由RJ45缓冲补发并保证其成功到达目标)
+ ID_RJ45            = 252     ,//485转网络转换器ID
+ ID_SERVER          = 253     ,//服务器
+ ID_ANSWER_PUBLIC   = 254     ,//带返回公共地址
+ ID_PUBLIC          = 255      //公共地址
 };
 */
 
@@ -125,12 +128,12 @@ enum		//设备ID 0~100,  101以上为指定设备的ID
 //特殊网段
 enum					
 {		
-//	NET_MOBILE          = 252,     //手机网段
+	NET_MOBILE          = 252,     //手机网段 (廖超庭2017-05-06:无线系统还会用到此网段,所以取消屏蔽)
 	NET_SERVER          = 254,     //服务器网段、云、Linux网关、手机网段    0xfe
 	NET_PUBLIC          = 255      //公共地址
 };
 
-    
+
 //传感器类型
 enum		
 {
@@ -254,8 +257,10 @@ enum
 
 #define EQUIPMENT_NO_LOCK_DOOR       0xa0        //无锁孔门
 #define EQUIPMENT_FP_LOCK            0xa1        //指纹锁
+#define EQUIPMENT_EL_KNIFE_FRAME     0xa2        //电动刀具架
+#define EQUIPMENT_INTELLIGENT_SINK   0xa3        //智能水槽
 
-#define EQUIPMENT_RFLINE_GATEWAY     0xb0        //无线主机，无线的产品用 0xB0 开始
+#define EQUIPMENT_RFLINE_GATEWAY     0xb0        //无线主机，无线的产品用 0xB0 开始 (廖超庭2017-05-06注释:无线转有线转换器用到)
 
 
 #define EQUIPMENT_PANEL              0xE0        //通用控制面板
@@ -278,7 +283,7 @@ enum
 //对应的回复指令bit7为1
 读指令：   		0xh,1xh
 写指令:    		8xh,9xh     配对使用，也会单独出现
-	
+  
 控制指令:  		2xh,        控制开关灯，音量，用户可以感知的指令
 状态指令： 		axh,
 其他指令： 		3xh,4xh
@@ -429,7 +434,7 @@ enum    //公共指令    _PUBLIC
 //对应的回复指令bit7为1
 读指令：   		0xh,1xh
 写指令:    		8xh,9xh     配对使用，也会单独出现
-	
+  
 控制指令:  		2xh,        控制开关灯，音量，用户可以感知的指令
 状态指令： 		axh,
 其他指令： 		3xh,4xh
@@ -708,7 +713,7 @@ enum //音响指令 ----新添加
 	CMD_AMP_SLWR_BGM_PLAYMODE           = ((CMD_TYPE_AMP << 8) | 0x2c)              ,//播放模式  
 	CMD_AMP_SLWR_BGM_RADIO_NOHZ         = ((CMD_TYPE_AMP << 8) | 0x2d)              ,//保存指令频率到指令的电台
 	
-	CMD_AMP_WIFI_SET                    = ((CMD_TYPE_AMP << 8) | 0x2E)              ,//选择WIFI网络和设置连接密码(LIAO增加:2015-10-15)
+	CMD_AMP_WIFI_SET                    = ((CMD_TYPE_AMP << 8) | 0x2E)              ,//选择WIFI网络和设置连接密码(廖超庭 增加:2015-10-15)
 };
 
 enum //GSM模块
@@ -747,15 +752,18 @@ enum // 无线主机  	CMD_TYPE_RFLINE
 	CMD_RFLINE_READ_DEV_LIST       		= ((CMD_TYPE_RFLINE << 8) | 0x01)			,//读无线设备列表
 	CMD_RFLINE_WRITE_DEV_LIST   		= ((CMD_TYPE_RFLINE << 8) | 0x81)  			,//写无线设备列表
 	CMD_RFLINE_WRITE_DEVAC        		= ((CMD_TYPE_RFLINE << 8) | 0x82)	        ,//增加或删除设备
+	CMD_RFLINE_WRITE_DEVAC_RSL          = ((CMD_TYPE_RFLINE << 8) | 0x83)	        ,//增加或删除设备结果
 }; 
 
 
 enum // 指纹锁 	  CMD_TYPE_FP_LOCK
 {
-	CMD_PF_LOCK_WRITE_STATE       		= ((CMD_TYPE_FP_LOCK << 8) | 0x81)			,//写指纹锁状态
-	CMD_PF_LOCK_WRITE_PASSWORD   		= ((CMD_TYPE_FP_LOCK << 8) | 0x82)  		,//写指纹锁密码
-	CMD_RFLINE_WRITE_CFG2        		= ((CMD_TYPE_FP_LOCK << 8) | 0x83)	        ,//写指纹锁开锁屏蔽标志指令
-	CMD_RFLINE_READ_CFG2        		= ((CMD_TYPE_FP_LOCK << 8) | 0x03)	        ,//读指纹锁开锁屏蔽标志指令
+	CMD_PF_LOCK_WRITE_STATE             = ((CMD_TYPE_FP_LOCK << 8) | 0x81)          ,//写指纹锁状态
+	CMD_PF_LOCK_WRITE_PASSWORD          = ((CMD_TYPE_FP_LOCK << 8) | 0x82)          ,//写指纹锁密码
+	CMD_RFLINE_READ_CFG2                = ((CMD_TYPE_FP_LOCK << 8) | 0x03)          ,//读指纹锁开锁屏蔽标志指令
+	CMD_RFLINE_WRITE_CFG2               = ((CMD_TYPE_FP_LOCK << 8) | 0x83)          ,//写指纹锁开锁屏蔽标志指令
+	CMD_RFLINE_READ_CFG                 = ((CMD_TYPE_FP_LOCK << 8) | 0x04)          ,//读专用配置
+	CMD_RFLINE_WRITE_CFG                = ((CMD_TYPE_FP_LOCK << 8) | 0x84)          ,//写专用配置
 }; 
 
 

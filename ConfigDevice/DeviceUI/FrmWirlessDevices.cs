@@ -42,20 +42,26 @@ namespace ConfigDevice.DeviceUI
         private void initWirelessDataTable()
         {
             dtWirlessData.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.Int16"));
-            dtWirlessData.Columns.Add(ViewConfig.DC_MAC, System.Type.GetType("System.String"));
             dtWirlessData.Columns.Add(ViewConfig.DC_ADD, System.Type.GetType("System.String"));
             dtWirlessData.Columns.Add(ViewConfig.DC_DELETE, System.Type.GetType("System.String"));
+            dtWirlessData.Columns.Add(ViewConfig.DC_CLEAR, System.Type.GetType("System.String"));
+            dtWirlessData.Columns.Add(ViewConfig.DC_MAC, System.Type.GetType("System.String"));
             dtWirlessData.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
+            dtWirlessData.Columns.Add(ViewConfig.DC_DEVICE_KIND, System.Type.GetType("System.String"));
+            dtWirlessData.Columns.Add(ViewConfig.DC_START_VALUE, System.Type.GetType("System.String"));
 
             //---默认增加16行
-            for (int i = 1; i <= 16; i++)
-                dtWirlessData.Rows.Add(new Object[] { i});
+            //for (int i = 1; i <= 16; i++)
+            //    dtWirlessData.Rows.Add(new Object[] { i });
 
             dcRowID.FieldName = ViewConfig.DC_NUM;
-            dcMAC.FieldName = ViewConfig.DC_MAC;
+            dcAdd.FieldName = ViewConfig.DC_ADD;
             dcDelete.FieldName = ViewConfig.DC_DELETE;
+            dcClear.FieldName = ViewConfig.DC_CLEAR;
+            dcMAC.FieldName = ViewConfig.DC_MAC;
             dcDeviceName.FieldName = ViewConfig.DC_NAME;
-            dcDeviceName.FieldName = ViewConfig.DC_ADD;
+            dcDeviceType.FieldName = ViewConfig.DC_DEVICE_KIND;
+            dcOnline.FieldName = ViewConfig.DC_START_VALUE;
 
             gcWirlessDevices.DataSource = dtWirlessData;
         }
@@ -86,44 +92,81 @@ namespace ConfigDevice.DeviceUI
                     if (callbackParameter.Action == ActionKind.ReadWirlessDevice)
                     {
                         WirlessDeviceData data = callbackParameter.Parameters[0] as WirlessDeviceData;
-                        if (data.Index > 15) return;
-                        DataRow drDevice = dtWirlessData.Rows[data.Index];
-                        drDevice.BeginEdit();
-                        drDevice[ViewConfig.DC_NUM] = data.Index;
-                        if(data.MacAddressStr.Replace("00","").Trim()!="")
-                            drDevice[ViewConfig.DC_MAC] = data.MacAddressStr;
-                        drDevice[ViewConfig.DC_NAME] = data.Name;
-                        drDevice.EndEdit();
+                        DataRow drEdit = findEditRowByMac(data.MacAddressStr);
+                        if (drEdit == null)
+                            drEdit = dtWirlessData.Rows.Add();
+                        drEdit.BeginEdit();
+                        drEdit[ViewConfig.DC_NUM] = dtWirlessData.Rows.Count + 1;
+                        drEdit[ViewConfig.DC_MAC] = data.MacAddressStr;
+                        drEdit[ViewConfig.DC_NAME] = data.Name;
+                        drEdit[ViewConfig.DC_START_VALUE] = data.Online ? 1 : 0;
+                        drEdit[ViewConfig.DC_DEVICE_KIND] = data.DeviceType; 
+                        drEdit.EndEdit();
+               
                         dtWirlessData.AcceptChanges();
+                        gvWirlessDevices.BestFitColumns();
                     }
                     if (callbackParameter.Action == ActionKind.WirteWirlessDevice)
                     {
                         WirlessDeviceData data = callbackParameter.Parameters[0] as WirlessDeviceData;
-                        if (data.Index > 15) return;
-                        DataRow drDevice = dtWirlessData.Rows[data.Index];
-                        drDevice.AcceptChanges();
+                        DataRow drEdit = findEditRowByMac(data.MacAddressStr);
+                        if (drEdit == null) return;
+                        drEdit.AcceptChanges();
                     }
-                    if (callbackParameter.Action == ActionKind.AddWirlessDevice)
+                    if (callbackParameter.Action == ActionKind.AddDelClearWirlessDevice)
                     {
-                        WirlessDeviceData data = callbackParameter.Parameters[0] as WirlessDeviceData;
-                        if (data.Index > 15) return;
-                        DataRow drDevice = dtWirlessData.Rows[data.Index];
-                        drDevice.AcceptChanges();
-                    }
-                    if (callbackParameter.Action == ActionKind.DelWirlessDevice)
-                    {
-                        WirlessDeviceData data = callbackParameter.Parameters[0] as WirlessDeviceData;
-                        if (data.Index > 15) return;
-                        DataRow drDevice = dtWirlessData.Rows[data.Index];
-                        drDevice.BeginEdit();
-                        drDevice[ViewConfig.DC_MAC] = "";
-                        drDevice[ViewConfig.DC_NAME] = ""; 
-                        drDevice.EndEdit();
-                        drDevice.AcceptChanges();
+                        WirlessActionResultData resultData = callbackParameter.Parameters[0] as WirlessActionResultData;
+
+                        if (resultData.ActionResult == WirlessActionResult.ClearSuccess || resultData.ActionResult == WirlessActionResult.DeleteSuccess)
+                        {
+                            WirlessActionResultData data = callbackParameter.Parameters[0] as WirlessActionResultData;
+                            DataRow drEdit = findEditRowByMac(data.MacAddressStr);
+                            if (drEdit != null)
+                                dtWirlessData.Rows.Remove(drEdit);
+                        }else           if (resultData.ActionResult == WirlessActionResult.AddSuccess)
+                        {
+                            WirlessActionResultData data = callbackParameter.Parameters[0] as WirlessActionResultData;
+                            DataRow drEdit = findEditRowByMac(data.MacAddressStr);  
+                            if (drEdit == null)
+                                drEdit = dtWirlessData.Rows.Add();
+                            drEdit.BeginEdit();
+                            drEdit[ViewConfig.DC_NUM] = dtWirlessData.Rows.Count + 1;
+                            drEdit[ViewConfig.DC_MAC] = data.MacAddressStr;
+                            drEdit[ViewConfig.DC_NAME] = data.Name;
+                            drEdit[ViewConfig.DC_START_VALUE] = 1;
+                            drEdit[ViewConfig.DC_DEVICE_KIND] = data.Kind;
+                            drEdit.EndEdit();
+
+                            dtWirlessData.AcceptChanges();
+                            gvWirlessDevices.BestFitColumns();
+                        }else if (resultData.ActionResult == WirlessActionResult.AddFailure)
+                            CommonTools.MessageShow("添加设备失败!",1,"");
+                        else if(resultData.ActionResult == WirlessActionResult.DeleteFailure)
+                            CommonTools.MessageShow("删除设备失败!", 1, "");
+                        else if (resultData.ActionResult == WirlessActionResult.ClearFailure)
+                            CommonTools.MessageShow("清除设备失败!", 1, "");
                     }
                 }
             }
             catch (Exception e) { CommonTools.MessageShow("执行异常!", 2, e.Message); }
+        }
+
+        /// <summary>
+        /// 根据MAC找到对应的编辑行
+        /// </summary>
+        /// <returns></returns>
+        private DataRow findEditRowByMac(  string macStr)
+        {
+            DataRow drEdit = null;
+            foreach (DataRow drDevice in dtWirlessData.Rows)
+            {
+                if (drDevice[ViewConfig.DC_MAC].ToString() == macStr)
+                {
+                    drEdit = drDevice;
+                    break;
+                }
+            }
+            return drEdit;
         }
 
         /// <summary>
@@ -142,17 +185,17 @@ namespace ConfigDevice.DeviceUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void linkAdd_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (gvWirlessDevices.FocusedRowHandle == -1) return;
-                int index = gvWirlessDevices.FocusedRowHandle;
-                WirlessDeviceData data = wirlessTransform.WireLessDeviceList[index];
-                wirlessTransform.AddWirlessData(data);
-            }
-            catch (Exception e1) { CommonTools.MessageShow("增加失败！", 2, e1.Message); }
-        }
+        //private void linkAdd_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (gvWirlessDevices.FocusedRowHandle == -1) return;
+        //        int index = gvWirlessDevices.FocusedRowHandle;
+        //        WirlessDeviceData data = wirlessTransform.WireLessDeviceList[index];
+        //        wirlessTransform.AddWirlessData(data);
+        //    }
+        //    catch (Exception e1) { CommonTools.MessageShow("增加失败！", 2, e1.Message); }
+        //}
 
         private void btSave_Click(object sender, EventArgs e)
         { 
@@ -173,6 +216,30 @@ namespace ConfigDevice.DeviceUI
                 data.Name = dr[ViewConfig.DC_NAME].ToString();
                 wirlessTransform.SaveWirlessData(data);
             }
+        }
+
+        /// <summary>
+        /// 在线颜色切换
+        /// </summary>
+        private void gvWirlessDevices_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            if (e.RowHandle >= 0)
+            {
+                string state = gvWirlessDevices.GetRowCellDisplayText(e.RowHandle, dcOnline);
+                if (Convert.ToInt16(state) > 0)
+                {
+                    e.Appearance.ForeColor = Color.Black;
+                }
+                else
+                {
+                    e.Appearance.ForeColor = Color.Gray; 
+                }
+            }
+        }
+
+        private void btAddDevice_Click(object sender, EventArgs e)
+        { 
+            wirlessTransform.AddWirlessData();
         }
 
     }

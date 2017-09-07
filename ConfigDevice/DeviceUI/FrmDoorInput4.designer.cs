@@ -421,7 +421,7 @@
             // 
             this.cedtAfpb3.Location = new System.Drawing.Point(3, 69);
             this.cedtAfpb3.Name = "cedtAfpb3";
-            this.cedtAfpb3.Properties.Caption = "第4路:安防屏蔽";
+            this.cedtAfpb3.Properties.Caption = "第3路:安防屏蔽";
             this.cedtAfpb3.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.cedtAfpb3.Size = new System.Drawing.Size(107, 19);
             this.cedtAfpb3.TabIndex = 3;
@@ -432,7 +432,7 @@
             this.cedtAfpb4.Name = "cedtAfpb4";
             this.cedtAfpb4.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
             this.cedtAfpb4.Properties.Appearance.Options.UseBackColor = true;
-            this.cedtAfpb4.Properties.Caption = "第3路:安防屏蔽";
+            this.cedtAfpb4.Properties.Caption = "第4路:安防屏蔽";
             this.cedtAfpb4.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.cedtAfpb4.Size = new System.Drawing.Size(107, 19);
             this.cedtAfpb4.TabIndex = 3;

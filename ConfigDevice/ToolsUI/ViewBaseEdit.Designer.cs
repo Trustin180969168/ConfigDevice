@@ -56,6 +56,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btReset = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -81,7 +82,8 @@
             this.btOpenLight,
             this.btCloseLight,
             this.btFindOn,
-            this.btFindOff});
+            this.btFindOff,
+            this.btReset});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(779, 31);
@@ -388,6 +390,15 @@
             this.label2.Text = "网段ID";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // btReset
+            // 
+            this.btReset.Image = global::ConfigDevice.Properties.Resources.exchange;
+            this.btReset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btReset.Name = "btReset";
+            this.btReset.Size = new System.Drawing.Size(120, 28);
+            this.btReset.Text = "恢复出厂设置";
+            this.btReset.Click += new System.EventHandler(this.btReset_Click);
+            // 
             // ViewBaseEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -447,5 +458,6 @@
         private System.Windows.Forms.ToolStripMenuItem btSaveNamePosition;
         private System.Windows.Forms.ToolStripButton btSaveAll;
         private DevExpress.XtraEditors.TextEdit edtKind;
+        private System.Windows.Forms.ToolStripButton btReset;
     }
 }

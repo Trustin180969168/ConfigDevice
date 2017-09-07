@@ -37,11 +37,12 @@
             this.linkAdd = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.dcDelete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
+            this.dcClear = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.linkClear = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.dcMAC = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcDeviceName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.parameter1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.parameter3 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.parameter4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcDeviceType = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcOnline = new DevExpress.XtraGrid.Columns.GridColumn();
             this.parameter5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cbxControlObj = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.timeTest = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
@@ -52,6 +53,7 @@
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefrash = new System.Windows.Forms.ToolStripButton();
+            this.btAddDevice = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
@@ -61,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvWirlessDevices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkClear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinTest)).BeginInit();
@@ -110,7 +113,8 @@
             this.cedtSelect,
             this.numEdit,
             this.meeEdit,
-            this.linkAdd});
+            this.linkAdd,
+            this.linkClear});
             this.gcWirlessDevices.Size = new System.Drawing.Size(884, 479);
             this.gcWirlessDevices.TabIndex = 9;
             this.gcWirlessDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -122,11 +126,11 @@
             this.dcRowID,
             this.dcAdd,
             this.dcDelete,
+            this.dcClear,
             this.dcMAC,
             this.dcDeviceName,
-            this.parameter1,
-            this.parameter3,
-            this.parameter4,
+            this.dcDeviceType,
+            this.dcOnline,
             this.parameter5});
             this.gvWirlessDevices.GridControl = this.gcWirlessDevices;
             this.gvWirlessDevices.Name = "gvWirlessDevices";
@@ -139,6 +143,7 @@
             this.gvWirlessDevices.OptionsView.ColumnAutoWidth = false;
             this.gvWirlessDevices.OptionsView.ShowGroupPanel = false;
             this.gvWirlessDevices.RowHeight = 18;
+            this.gvWirlessDevices.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gvWirlessDevices_RowStyle);
             // 
             // dcRowID
             // 
@@ -150,7 +155,6 @@
             this.dcRowID.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.dcRowID.Caption = "序号";
             this.dcRowID.Name = "dcRowID";
-            this.dcRowID.OptionsColumn.AllowMove = false;
             this.dcRowID.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
             this.dcRowID.OptionsColumn.ReadOnly = true;
             this.dcRowID.Visible = true;
@@ -169,14 +173,12 @@
             this.dcAdd.AppearanceHeader.Options.UseTextOptions = true;
             this.dcAdd.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcAdd.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcAdd.Caption = "添加无线设备";
             this.dcAdd.ColumnEdit = this.linkAdd;
             this.dcAdd.Name = "dcAdd";
             this.dcAdd.OptionsColumn.AllowMove = false;
             this.dcAdd.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.dcAdd.OptionsColumn.FixedWidth = true;
-            this.dcAdd.Visible = true;
-            this.dcAdd.VisibleIndex = 1;
-            this.dcAdd.Width = 50;
+            this.dcAdd.Width = 100;
             // 
             // linkAdd
             // 
@@ -185,7 +187,6 @@
             this.linkAdd.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.linkAdd.Name = "linkAdd";
             this.linkAdd.ReadOnly = true;
-            this.linkAdd.Click += new System.EventHandler(this.linkAdd_Click);
             // 
             // dcDelete
             // 
@@ -199,14 +200,14 @@
             this.dcDelete.AppearanceHeader.Options.UseTextOptions = true;
             this.dcDelete.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcDelete.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcDelete.Caption = "删除无线设备";
             this.dcDelete.ColumnEdit = this.linkEdit;
             this.dcDelete.Name = "dcDelete";
             this.dcDelete.OptionsColumn.AllowMove = false;
             this.dcDelete.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.dcDelete.OptionsColumn.FixedWidth = true;
             this.dcDelete.Visible = true;
-            this.dcDelete.VisibleIndex = 2;
-            this.dcDelete.Width = 50;
+            this.dcDelete.VisibleIndex = 1;
+            this.dcDelete.Width = 100;
             // 
             // linkEdit
             // 
@@ -217,6 +218,34 @@
             this.linkEdit.NullText = "1";
             this.linkEdit.ReadOnly = true;
             this.linkEdit.Click += new System.EventHandler(this.linkEdit_Click);
+            // 
+            // dcClear
+            // 
+            this.dcClear.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcClear.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcClear.AppearanceCell.Options.UseBackColor = true;
+            this.dcClear.AppearanceCell.Options.UseForeColor = true;
+            this.dcClear.AppearanceCell.Options.UseTextOptions = true;
+            this.dcClear.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcClear.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcClear.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcClear.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcClear.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcClear.Caption = "强清无线设备";
+            this.dcClear.ColumnEdit = this.linkClear;
+            this.dcClear.Name = "dcClear";
+            this.dcClear.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcClear.Visible = true;
+            this.dcClear.VisibleIndex = 2;
+            this.dcClear.Width = 100;
+            // 
+            // linkClear
+            // 
+            this.linkClear.AutoHeight = false;
+            this.linkClear.Image = global::ConfigDevice.Properties.Resources.Clear;
+            this.linkClear.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.linkClear.Name = "linkClear";
+            this.linkClear.ReadOnly = true;
             // 
             // dcMAC
             // 
@@ -233,7 +262,7 @@
             this.dcMAC.OptionsColumn.ReadOnly = true;
             this.dcMAC.Visible = true;
             this.dcMAC.VisibleIndex = 3;
-            this.dcMAC.Width = 280;
+            this.dcMAC.Width = 200;
             // 
             // dcDeviceName
             // 
@@ -253,57 +282,40 @@
             this.dcDeviceName.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
             this.dcDeviceName.Visible = true;
             this.dcDeviceName.VisibleIndex = 4;
-            this.dcDeviceName.Width = 500;
+            this.dcDeviceName.Width = 300;
             // 
-            // parameter1
+            // dcDeviceType
             // 
-            this.parameter1.AppearanceCell.Options.UseTextOptions = true;
-            this.parameter1.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.parameter1.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.parameter1.AppearanceHeader.Options.UseTextOptions = true;
-            this.parameter1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.parameter1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.parameter1.Caption = "是否在线";
-            this.parameter1.Name = "parameter1";
-            this.parameter1.OptionsColumn.AllowMove = false;
-            this.parameter1.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
-            this.parameter1.Width = 80;
+            this.dcDeviceType.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
+            this.dcDeviceType.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
+            this.dcDeviceType.AppearanceCell.Options.UseBackColor = true;
+            this.dcDeviceType.AppearanceCell.Options.UseForeColor = true;
+            this.dcDeviceType.AppearanceCell.Options.UseTextOptions = true;
+            this.dcDeviceType.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcDeviceType.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcDeviceType.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcDeviceType.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcDeviceType.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcDeviceType.Caption = "设备类型";
+            this.dcDeviceType.Name = "dcDeviceType";
+            this.dcDeviceType.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcDeviceType.Visible = true;
+            this.dcDeviceType.VisibleIndex = 5;
+            this.dcDeviceType.Width = 80;
             // 
-            // parameter3
+            // dcOnline
             // 
-            this.parameter3.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.parameter3.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.parameter3.AppearanceCell.Options.UseBackColor = true;
-            this.parameter3.AppearanceCell.Options.UseForeColor = true;
-            this.parameter3.AppearanceCell.Options.UseTextOptions = true;
-            this.parameter3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.parameter3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.parameter3.AppearanceHeader.Options.UseTextOptions = true;
-            this.parameter3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.parameter3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.parameter3.Caption = "参数3";
-            this.parameter3.Name = "parameter3";
-            this.parameter3.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.parameter3.OptionsColumn.FixedWidth = true;
-            this.parameter3.Width = 80;
-            // 
-            // parameter4
-            // 
-            this.parameter4.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.parameter4.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.parameter4.AppearanceCell.Options.UseBackColor = true;
-            this.parameter4.AppearanceCell.Options.UseForeColor = true;
-            this.parameter4.AppearanceCell.Options.UseTextOptions = true;
-            this.parameter4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.parameter4.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.parameter4.AppearanceHeader.Options.UseTextOptions = true;
-            this.parameter4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.parameter4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.parameter4.Caption = "参数4";
-            this.parameter4.Name = "parameter4";
-            this.parameter4.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.parameter4.OptionsColumn.FixedWidth = true;
-            this.parameter4.Width = 80;
+            this.dcOnline.AppearanceCell.Options.UseTextOptions = true;
+            this.dcOnline.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcOnline.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcOnline.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcOnline.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcOnline.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcOnline.Caption = "是否在线";
+            this.dcOnline.Name = "dcOnline";
+            this.dcOnline.OptionsColumn.AllowMove = false;
+            this.dcOnline.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
+            this.dcOnline.Width = 80;
             // 
             // parameter5
             // 
@@ -396,7 +408,8 @@
             this.tsDoorInput.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.tsDoorInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btSave,
-            this.btRefrash});
+            this.btRefrash,
+            this.btAddDevice});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
             this.tsDoorInput.Size = new System.Drawing.Size(884, 31);
@@ -405,6 +418,7 @@
             // 
             // btSave
             // 
+            this.btSave.Enabled = false;
             this.btSave.Image = global::ConfigDevice.Properties.Resources.save;
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
@@ -421,11 +435,20 @@
             this.btRefrash.Text = "刷新 ";
             this.btRefrash.Click += new System.EventHandler(this.btRefrash_Click);
             // 
+            // btAddDevice
+            // 
+            this.btAddDevice.Image = global::ConfigDevice.Properties.Resources.Add;
+            this.btAddDevice.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btAddDevice.Name = "btAddDevice";
+            this.btAddDevice.Size = new System.Drawing.Size(132, 28);
+            this.btAddDevice.Text = "增加无线设备";
+            this.btAddDevice.Click += new System.EventHandler(this.btAddDevice_Click);
+            // 
             // pageJcsz
             // 
             this.pageJcsz.Controls.Add(this.viewBaseSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(785, 510);
+            this.pageJcsz.Size = new System.Drawing.Size(884, 510);
             this.pageJcsz.Text = "基础配置";
             // 
             // viewBaseSetting
@@ -433,7 +456,7 @@
             this.viewBaseSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewBaseSetting.Location = new System.Drawing.Point(0, 0);
             this.viewBaseSetting.Name = "viewBaseSetting";
-            this.viewBaseSetting.Size = new System.Drawing.Size(785, 510);
+            this.viewBaseSetting.Size = new System.Drawing.Size(884, 510);
             this.viewBaseSetting.TabIndex = 0;
             // 
             // FrmWirlessDevices
@@ -452,6 +475,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvWirlessDevices)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linkEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkClear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxControlObj)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinTest)).EndInit();
@@ -482,10 +506,10 @@
         private DevExpress.XtraGrid.Columns.GridColumn dcMAC;
         private DevExpress.XtraGrid.Columns.GridColumn dcDeviceName;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxControlObj;
-        private DevExpress.XtraGrid.Columns.GridColumn parameter1;
+        private DevExpress.XtraGrid.Columns.GridColumn dcOnline;
         private DevExpress.XtraGrid.Columns.GridColumn dcAdd;
-        private DevExpress.XtraGrid.Columns.GridColumn parameter3;
-        private DevExpress.XtraGrid.Columns.GridColumn parameter4;
+        private DevExpress.XtraGrid.Columns.GridColumn dcDeviceType;
+        private DevExpress.XtraGrid.Columns.GridColumn dcClear;
         private DevExpress.XtraGrid.Columns.GridColumn parameter5;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit timeTest;
@@ -494,5 +518,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit numEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit meeEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkAdd;
+        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkClear;
+        private System.Windows.Forms.ToolStripButton btAddDevice;
     }
 }

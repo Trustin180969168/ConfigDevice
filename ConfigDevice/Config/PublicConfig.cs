@@ -91,6 +91,7 @@ namespace ConfigDevice
         DelWirlessDevice,//删除无线设备
         AddWirlessDevice,//增加无线设备
         ShowLog,//日志操作
+        AddDelClearWirlessDevice,//增加,删除,清除设备操作
         None
         
     }
