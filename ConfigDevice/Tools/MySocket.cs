@@ -30,7 +30,7 @@ namespace ConfigDevice
         /// <summary>
         /// 获取发送列表
         /// </summary>
-        public  Dictionary<string, UdpData> RJ45SendList { get { return rj45SendList; } }
+        public Dictionary<string, UdpData> RJ45SendList { get { return rj45SendList; } }
 
         /// <summary>
         /// 获取发送列表
@@ -61,7 +61,7 @@ namespace ConfigDevice
         /// </summary>
         public void RefreshBindNewIpLocalPoint()
         {
-            IPEndPoint currentIp =  mySocket.LocalEndPoint as IPEndPoint;
+            IPEndPoint currentIp = mySocket.LocalEndPoint as IPEndPoint;
             if (currentIp.Address.Equals(SysConfig.LocalIP))
                 return;
             this.Close();
@@ -94,7 +94,7 @@ namespace ConfigDevice
         {
             lock (rj45SendList)
             {
-                if(!rj45SendList.ContainsKey(key))
+                if (!rj45SendList.ContainsKey(key))
                     rj45SendList.Add(key, udp);
             }
         }
@@ -158,14 +158,18 @@ namespace ConfigDevice
         {
             //lock (obj)
             //{
-                IPAddress ip = getValidIP(receiveIP);
-                IPEndPoint ipep = new IPEndPoint(ip, receivePort);
-                EndPoint remotePoint = (EndPoint)(ipep);
-                //-------发送前,把包标识码加1-------
-                byte[] packageCount = BitConverter.GetBytes(++sendCount);
-                Buffer.BlockCopy(packageCount, 0, udp.PacketCode, 0, 2);
+            IPAddress ip = getValidIP(receiveIP);
+            IPEndPoint ipep = new IPEndPoint(ip, receivePort);
+            EndPoint remotePoint = (EndPoint)(ipep);
+            //-------发送前,把包标识码加1-------
+            byte[] packageCount = BitConverter.GetBytes(++sendCount);
+            Buffer.BlockCopy(packageCount, 0, udp.PacketCode, 0, 2);
+            if (checkLogFilter(udp))
+
                 Trace.WriteLine("请求UDP包:" + udp.GetUdpInfo());
-                mySocket.BeginSendTo(udp.GetUdpData(), 0, udp.Length, SocketFlags.None, remotePoint, new AsyncCallback(SendCallback), null);//--异步发送--- 
+
+
+            mySocket.BeginSendTo(udp.GetUdpData(), 0, udp.Length, SocketFlags.None, remotePoint, new AsyncCallback(SendCallback), null);//--异步发送--- 
             //}
         }
 
@@ -177,15 +181,15 @@ namespace ConfigDevice
         /// <param name="receivePort">接收端口</param>
         /// <param name="receivePort">接收参数</param>
         /// <returns>void</returns>
-        public void SendData(UdpData udp, string receiveIP, int receivePort, CallbackUdpAction callback,params object[] objs)
+        public void SendData(UdpData udp, string receiveIP, int receivePort, CallbackUdpAction callback, params object[] objs)
         {
             //lock (obj)
             //{
-                IPAddress ip = getValidIP(receiveIP);
-                IPEndPoint ipep = new IPEndPoint(ip, receivePort);
-                EndPoint remotePoint = (EndPoint)(ipep);
-                udp.IPPoint = new IPEndPoint(SysConfig.LocalIP, SysConfig.LocalPort);//发送的IP和端口
-                SendData(udp, remotePoint, callback, objs);    
+            IPAddress ip = getValidIP(receiveIP);
+            IPEndPoint ipep = new IPEndPoint(ip, receivePort);
+            EndPoint remotePoint = (EndPoint)(ipep);
+            udp.IPPoint = new IPEndPoint(SysConfig.LocalIP, SysConfig.LocalPort);//发送的IP和端口
+            SendData(udp, remotePoint, callback, objs);
             //}
         }
 
@@ -203,7 +207,8 @@ namespace ConfigDevice
                 byte[] packageCount = BitConverter.GetBytes(++sendCount);
                 Buffer.BlockCopy(packageCount, 0, udp.PacketCode, 0, 2);
                 CallbackFromUDP state = new CallbackFromUDP(udp, callback, remotePoint, objs);//创建返回结果
-                Trace.WriteLine("请求UDP包:" + udp.GetUdpInfo());
+                if (checkLogFilter(udp))
+                    Trace.WriteLine("请求UDP包:" + udp.GetUdpInfo());
                 mySocket.BeginSendTo(udp.GetUdpData(), 0, udp.Length, SocketFlags.None, remotePoint, new AsyncCallback(SendCallback), state);//--异步发送--- 
             }
         }
@@ -233,7 +238,7 @@ namespace ConfigDevice
         /// 接收数据
         /// </summary>
         /// <param name="remotePoint">接收端</param>
-        private  UdpData ReceiveData(EndPoint remotePoint)
+        private UdpData ReceiveData(EndPoint remotePoint)
         {
             byte[] data = new byte[SysConfig.MAX_DATA_SIZE];
             int rlen = mySocket.ReceiveFrom(data, ref remotePoint);  //接收UDP数据报，引用参数remotePoint获得源地址  
@@ -300,7 +305,9 @@ namespace ConfigDevice
                             if (crcUdpData(udpReceive)) //---校验是否是错误的包 -------- 
                             {
                                 UserUdpData userData = new UserUdpData(udpReceive);//----从UDP协议包中分离出用户协议数据-----  
-                                Trace.WriteLine(string.Format("RJ45应答PC请求发送命令{0}包:{1}", userData.CommandStr, udpReceive.GetUdpInfo())); 
+
+                                if (checkLogFilter(udpReceive))
+                                    Trace.WriteLine(string.Format("RJ45应答PC请求发送命令{0}包:{0}", userData.CommandStr, udpReceive.GetUdpInfo()));
                                 state.ActionCallback(udpReceive, state.Parameters);//----开启异步线程回复PC请求的回调----                               
                                 if (!isBroadCastData(state.Udp)) //-----如果发送的是广播包,不能删除-----
                                     RemovePCSendRequestList(udpReceive.PacketCodeStr);//---删除已经回调的PC请求----------
@@ -330,7 +337,7 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="commandStr"></param>
         /// <param name="udpReceive"></param>
-        private void rj45CallBack(string commandStr,UdpData udpReceive)
+        private void rj45CallBack(string commandStr, UdpData udpReceive)
         {
             lock (SysConfig.RJ45CallBackList)
             {
@@ -350,7 +357,8 @@ namespace ConfigDevice
                                 if (state.ActionCount > 0)
                                 {
                                     state.ActionCount--;//修改执行次数
-                                    Trace.WriteLine(string.Format("回调RJ45主动发送命令{0}包:{1}", commandStr, udpReceive.GetUdpInfo()));
+                                    if(checkLogFilter(udpReceive))
+                                        Trace.WriteLine(string.Format("回调RJ45主动发送命令{0}包:{1}", commandStr, udpReceive.GetUdpInfo()));
                                     state.ActionCallback(udpReceive, state.Parameters);//----开启异步线程回调----                                  
                                 }
                             }
@@ -373,7 +381,7 @@ namespace ConfigDevice
                     SysConfig.RJ45CallBackList.Remove(key);
 
             }
-            
+
         }
 
         /// <summary>
@@ -400,7 +408,7 @@ namespace ConfigDevice
             if (udp.Length < UdpDataConfig.MIN_USER_DATA_SIZE) return true;//---回复包直接通过--
             UserUdpData userData = new UserUdpData(udp);//----从UDP协议包中分离出用户协议数据-----
 
-            byte[]temp = new byte[udp.ProtocolData.Length - 4];
+            byte[] temp = new byte[udp.ProtocolData.Length - 4];
             Buffer.BlockCopy(udp.ProtocolData, 0, temp, 0, temp.Length);
             byte[] result = CRC32.GetCheckValue(temp);
             if (CommonTools.BytesEuqals(userData.CrcCode, result))
@@ -415,7 +423,7 @@ namespace ConfigDevice
         public void Close()
         {
             Thread.Sleep(200);
-            receiveThread.Abort();          
+            receiveThread.Abort();
             mySocket.Close();
         }
 
@@ -466,6 +474,24 @@ namespace ConfigDevice
             udpReply.Length = 30;
 
             MySocket.GetInstance().ReplyData(udpReply, udpData.IP, SysConfig.RemotePort);
+        }
+
+        private bool checkLogFilter(UdpData udp)
+        {
+            bool check = true;
+            UserUdpData userUdpData = null;
+            try
+            {
+                userUdpData = new UserUdpData(udp);
+                if (CommonTools.BytesEuqals(userUdpData.Command, DeviceConfig.CMD_PC_CONNECTING))
+                    return false;
+            }
+            catch (Exception e)
+            {                
+                return false;
+            }
+
+            return check;
         }
     }
 }

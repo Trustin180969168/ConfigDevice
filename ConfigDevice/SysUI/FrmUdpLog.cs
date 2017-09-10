@@ -8,10 +8,7 @@ using System.Windows.Forms;
 
 namespace ConfigDevice
 {
-    public class LockObject
-    {
-        public bool Locked = false;
-    }
+
 
     public partial class FrmUdpLog : Form
     {
@@ -54,7 +51,12 @@ namespace ConfigDevice
             SysCtrl.MyTraceListener.OnCallbackUI_Action -= this.CallbackUI;
         }
 
-    
 
-    }
+
+
+
+    }        public class LockObject
+        {
+            public bool Locked = false;
+        }
 }

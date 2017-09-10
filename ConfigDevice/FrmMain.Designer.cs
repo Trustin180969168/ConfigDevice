@@ -95,12 +95,12 @@
             this.btSyncData = new System.Windows.Forms.ToolStripMenuItem();
             this.btIPSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.btXtxx = new System.Windows.Forms.ToolStripSplitButton();
+            this.btShowLog = new System.Windows.Forms.ToolStripMenuItem();
             this.btPCSend = new System.Windows.Forms.ToolStripMenuItem();
             this.btRJ45Send = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
             this.lblIPSelect = new System.Windows.Forms.ToolStripLabel();
             this.cbxIPList = new System.Windows.Forms.ToolStripComboBox();
-            this.btShowLog = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDevices)).BeginInit();
             this.contextMenuStripDevice.SuspendLayout();
@@ -857,7 +857,7 @@
             // 
             this.btSyncTime.Image = global::ConfigDevice.Properties.Resources.checkWork;
             this.btSyncTime.Name = "btSyncTime";
-            this.btSyncTime.Size = new System.Drawing.Size(157, 24);
+            this.btSyncTime.Size = new System.Drawing.Size(165, 30);
             this.btSyncTime.Text = "同步时间";
             this.btSyncTime.Click += new System.EventHandler(this.btSyncTime_Click);
             // 
@@ -865,7 +865,7 @@
             // 
             this.btSyncData.Image = global::ConfigDevice.Properties.Resources.snyc;
             this.btSyncData.Name = "btSyncData";
-            this.btSyncData.Size = new System.Drawing.Size(157, 24);
+            this.btSyncData.Size = new System.Drawing.Size(165, 30);
             this.btSyncData.Text = "同步数据";
             this.btSyncData.Click += new System.EventHandler(this.btSyncData_Click);
             // 
@@ -873,7 +873,7 @@
             // 
             this.btIPSelect.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.btIPSelect.Name = "btIPSelect";
-            this.btIPSelect.Size = new System.Drawing.Size(157, 24);
+            this.btIPSelect.Size = new System.Drawing.Size(165, 30);
             this.btIPSelect.Text = "显示IP选择";
             this.btIPSelect.Click += new System.EventHandler(this.btIPSelect_Click);
             // 
@@ -892,11 +892,19 @@
             this.btXtxx.Text = "系统信息";
             this.btXtxx.MouseHover += new System.EventHandler(this.btXtxx_MouseHover);
             // 
+            // btShowLog
+            // 
+            this.btShowLog.Image = global::ConfigDevice.Properties.Resources.section;
+            this.btShowLog.Name = "btShowLog";
+            this.btShowLog.Size = new System.Drawing.Size(225, 24);
+            this.btShowLog.Text = "通讯日志";
+            this.btShowLog.Click += new System.EventHandler(this.btShowLog_Click);
+            // 
             // btPCSend
             // 
             this.btPCSend.Image = global::ConfigDevice.Properties.Resources.work;
             this.btPCSend.Name = "btPCSend";
-            this.btPCSend.Size = new System.Drawing.Size(233, 30);
+            this.btPCSend.Size = new System.Drawing.Size(225, 24);
             this.btPCSend.Text = "PC发送包";
             this.btPCSend.Click += new System.EventHandler(this.btPCSend_Click);
             // 
@@ -904,7 +912,7 @@
             // 
             this.btRJ45Send.Image = global::ConfigDevice.Properties.Resources.work;
             this.btRJ45Send.Name = "btRJ45Send";
-            this.btRJ45Send.Size = new System.Drawing.Size(233, 30);
+            this.btRJ45Send.Size = new System.Drawing.Size(225, 24);
             this.btRJ45Send.Text = "未处理的RJ45主动包";
             this.btRJ45Send.Click += new System.EventHandler(this.btRJ45Send_Click);
             // 
@@ -935,14 +943,6 @@
             this.cbxIPList.Size = new System.Drawing.Size(200, 31);
             this.cbxIPList.Visible = false;
             this.cbxIPList.SelectedIndexChanged += new System.EventHandler(this.cbxIPList_SelectedIndexChanged);
-            // 
-            // btShowLog
-            // 
-            this.btShowLog.Image = global::ConfigDevice.Properties.Resources.section;
-            this.btShowLog.Name = "btShowLog";
-            this.btShowLog.Size = new System.Drawing.Size(233, 30);
-            this.btShowLog.Text = "通讯日志";
-            this.btShowLog.Click += new System.EventHandler(this.btShowLog_Click);
             // 
             // FrmMain
             // 

@@ -54,6 +54,17 @@ namespace ConfigDevice
 
             WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss    ") + environment.NewLine + message + environment.NewLine);
         }
+
+
+        private bool checkShowFilter()
+        {
+            bool check = false;
+
+
+            return check;
+        }
+
+         
     }
 
 

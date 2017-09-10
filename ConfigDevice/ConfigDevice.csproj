@@ -420,10 +420,12 @@
     <Compile Include="Class\Devices\BodyInduction.cs" />
     <Compile Include="Class\Devices\ButtonPanelKey.cs" />
     <Compile Include="Class\Devices\Short4.cs" />
+    <Compile Include="Class\Devices\VirtualPasswordFingerMarkLock.cs" />
     <Compile Include="Class\Devices\WeiXin.cs" />
     <Compile Include="Class\Devices\WirlessTransform .cs" />
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Manage\KeyList.cs" />
+    <Compile Include="Data\LockData.cs" />
     <Compile Include="Data\WirlessActionResultData.cs" />
     <Compile Include="Data\WirlessDeviceData.cs" />
     <Compile Include="DeviceUI\FrmWirlessDevices.cs">

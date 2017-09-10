@@ -197,6 +197,7 @@ namespace ConfigDevice
         public const byte EQUIPMENT_PC = 0xfe;        //PC类型
         public const byte EQUIPMENT_PUBLIC = 0xFF;        //共公类型 
         public const byte EQUIPMENT_RFLINE_GATEWAY = 0xb0;        //无线转换设备 
+        public const byte EQUIPMENT_FP_LOCK = 0xa1;        //指纹锁
         //-------------------指令分类--------------------
         public const byte CMD_TYPE_PUBLIC = EQUIPMENT_PUBLIC;           //公共类型
         public const byte CMD_TYPE_PC = EQUIPMENT_PC;              //电脑类型
@@ -214,7 +215,8 @@ namespace ConfigDevice
         public const byte CMD_TYPE_GSM = EQUIPMENT_GSM;               //GSM网络
         public const byte CMD_TYPE_MOBILE = EQUIPMENT_MOBILE;           //手机
         public const byte CMD_TYPE_PANEL = EQUIPMENT_PANEL;         //通用控制面板 
-         public const byte 	CMD_TYPE_RFLINE     = EQUIPMENT_RFLINE_GATEWAY;   //无线主机
+        public const byte CMD_TYPE_RFLINE = EQUIPMENT_RFLINE_GATEWAY;   //无线主机
+        public const byte CMD_TYPE_FP_LOCK = EQUIPMENT_FP_LOCK;   		   //指纹锁
         //--------------------定义设备命令-----------------------------
         //------网络命令------
         public static readonly byte[] CMD_PC_SEARCH = new byte[] { 0x01, DeviceConfig.EQUIPMENT_PC };       //----搜索网络命令----
@@ -341,7 +343,7 @@ namespace ConfigDevice
         public static readonly byte[] CMD_MMSG_WRITE_KEY_CFG = new byte[] { 0xE6, CMD_TYPE_SERVER };//写菜单按键类型配置
         public static readonly byte[] CMD_MMSG_READ_BDEV_CFG = new byte[] { 0x67, CMD_TYPE_SERVER };//读绑定的设备设置
         public static readonly byte[] CMD_MMSG_WRITE_BDEV_CFG = new byte[] { 0xE7, CMD_TYPE_SERVER };//写绑定的设备设置
-        public static readonly byte[] CMD_PUBLIC_READ_ADDRESS = new byte[] {0x35, CMD_TYPE_PUBLIC  };//读地址，
+        public static readonly byte[] CMD_PUBLIC_READ_ADDRESS = new byte[] { 0x35, CMD_TYPE_PUBLIC };//读地址，
         public static readonly byte[] CMD_PUBLIC_WRITE_ADDRESS = new byte[] { 0xb5, CMD_TYPE_PUBLIC }; //写地址，广州市天河区xxxx
 
         //------------按键参数设置-------
@@ -451,7 +453,7 @@ namespace ConfigDevice
         public static readonly byte[] CMD_PRI_READ_SAFETY_CONFIG = new byte[] { 0x02, CMD_TYPE_PRI };		//读传感器安防配置
         public static readonly byte[] CMD_PRI_WRITE_SAFETY_CONFIG = new byte[] { 0x82, CMD_TYPE_PRI };//写传感器安防配置
         public static readonly byte[] CMD_PRI_TEST = new byte[] { 0x03, CMD_TYPE_PRI };//传感器测试指令
-        //原有	CMD_PRI_FLASH                       = ((CMD_TYPE_PRI << 8) | 0x04)         		,//传感器感应灯光开关
+        //原有	CMD_PRI_FLASH                       = new byte[] { CMD_TYPE_PRI << 8) | 0x04)         		,//传感器感应灯光开关
         public static readonly byte[] CMD_PRI_READ_FLASH_CONFIG = new byte[] { 0x04, CMD_TYPE_PRI };//读传感器感应指示灯开关
         public static readonly byte[] CMD_PRI_WRITE_FLASH_CONFIG = new byte[] { 0x84, CMD_TYPE_PRI };//写传感器感应指示灯开关
         //-----无线转有线主机----
@@ -459,7 +461,14 @@ namespace ConfigDevice
         public static readonly byte[] CMD_RFLINE_READ_DEV_LIST = new byte[] { 0x01, CMD_TYPE_RFLINE };//读无线设备的列表
         public static readonly byte[] CMD_RFLINE_WRITE_DEVAC = new byte[] { 0x82, CMD_TYPE_RFLINE };//添加或删除无线设备
         public static readonly byte[] CMD_RFLINE_WRITE_DEVAC_RSL = new byte[] { 0x83, CMD_TYPE_RFLINE };//添加或删除无线设备的返回结果
-    
+
+        //-----指纹锁---- 
+        public static readonly byte[] CMD_PF_LOCK_WRITE_STATE = new byte[] { 0x81, CMD_TYPE_FP_LOCK };//写指纹锁状态
+        public static readonly byte[] CMD_PF_LOCK_WRITE_PASSWORD = new byte[] { 0x82, CMD_TYPE_FP_LOCK };//写指纹锁密码
+        public static readonly byte[] CMD_RFLINE_READ_CFG2 = new byte[] { 0x03, CMD_TYPE_FP_LOCK };//读指纹锁开锁屏蔽标志指令
+        public static readonly byte[] CMD_RFLINE_WRITE_CFG2 = new byte[] { 0x83, CMD_TYPE_FP_LOCK };//写指纹锁开锁屏蔽标志指令
+        public static readonly byte[] CMD_RFLINE_READ_CFG = new byte[] { 0x04, CMD_TYPE_FP_LOCK };//读专用配置
+        public static readonly byte[] CMD_RFLINE_WRITE_CFG = new byte[] { 0x84, CMD_TYPE_FP_LOCK };//写专用配置
         //-----特殊部分------
         public static readonly byte[] CMD_PUBLIC_TEST_KEY_CMD = new byte[] { 0xb3, CMD_TYPE_PUBLIC }; //指令测试 
         public static readonly Dictionary<byte, string> EQUIPMENT_ID_NAME = new Dictionary<byte, string>();
