@@ -564,6 +564,7 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_RSP, "接近式雷达感应器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_FUEL_GAS, "可燃气体报警器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_RFLINE_GATEWAY, "无线主机");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_FP_LOCK, "指纹锁");
 
             EQUIPMENT_ID_NAME.Add(0, "无效类型");
         }

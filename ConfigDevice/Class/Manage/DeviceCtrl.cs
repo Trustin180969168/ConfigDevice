@@ -144,6 +144,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_SHORT_IN_4: return new FactoryShort4InputEdit();//---短路输入4---
                 case DeviceConfig.EQUIPMENT_PRI_3: return new FactoryBodyInductionEdit();//---人体感应---
                 case DeviceConfig.EQUIPMENT_RFLINE_GATEWAY: return new FactoryWirlessDeviceEdit();//---无线主机---
+                case DeviceConfig.EQUIPMENT_FP_LOCK: return new FactoryFingerLockDeviceEdit();//---指纹锁---
                 default: return new FactoryBaseDeviceEdit();
             }
         }
@@ -402,7 +403,23 @@ namespace ConfigDevice
         #endregion
  
     }
-  
+
+
+    /// <summary>
+    /// 指纹锁
+    /// </summary>
+    public class FactoryFingerLockDeviceEdit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            VirtualPasswordFingerMarkLock device = new VirtualPasswordFingerMarkLock(data);
+            return new FrmLockDevices(device);
+        }
+        #endregion
+
+    }
     //**********************设备***************************
 
     public interface IFactoryDevice

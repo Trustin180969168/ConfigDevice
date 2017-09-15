@@ -6,17 +6,24 @@ namespace ConfigDevice
 {
 
     /// <summary>
-    /// 锁的系统配置
+    /// 锁的功放配置
     /// </summary>
-    public class LockSysConfigData
+    public class LockAmplifierConfigData
     {
         public byte Num = 0;//第几个编号,(因固化为0，接收方无需关心)
         public byte DeviceID;//设备ID
         public byte Volume;//音量
         public byte[] Retain = new byte[12];//保留
 
-        public LockSysConfigData(byte[] data)
+        public LockAmplifierConfigData(byte[] data)
         {
+        }
+
+        public LockAmplifierConfigData(int num, int deviceID, int volume)
+        {
+            Num = (byte)num;
+            DeviceID = (byte)deviceID;
+            Volume = (byte)volume;
         }
 
         public byte[] GetValue()
@@ -39,15 +46,58 @@ namespace ConfigDevice
         public byte Num = 0;//第几个行 (从0开始计数) (0第1行)(第2行开始为主人提示音)
         public byte[] Retain1 = new byte[2];//保留
         public byte MusicNum;//提示音曲目（0无提示音）
-//        例如：08:00-22:00
-//如果起始时间与结束时间相等，
-//则表示没有时限限制
+        //例如：08:00-22:00
+        //如果起始时间与结束时间相等，
+        //则表示没有时限限制
         public byte StartHour;//时限起始时间-时
         public byte StartMinute;//时限起始时间-分
         public byte EndHour;//时限结束时间-时
         public byte EndMinute;//时限结束时间-分
         public byte[] Retain2 = new byte[8];//保留
 
+        public string StartTimeStr
+        {
+            get {
+
+                int hour = (int)StartHour;
+                string hourStr = "00";
+                if (hour >= 10)
+                    hourStr = hour.ToString();
+                else
+                    hourStr = "0" + hour;
+
+
+                int minute = (int)StartMinute;
+                string minuteStr = "00";
+                if (minute >= 10)
+                    minuteStr = minute.ToString();
+                else
+                    minuteStr = "0" + minute;
+                return hourStr + ":" + minuteStr;
+            }
+        }
+
+
+        public string EndTimeStr
+        {
+            get
+            { 
+                int hour = (int)EndHour;
+                string hourStr = "00";
+                if (hour >= 10)
+                    hourStr = hour.ToString();
+                else
+                    hourStr = "0" + hour; 
+
+                int minute = (int)EndMinute;
+                string minuteStr = "00";
+                if (minute >= 10)
+                    minuteStr = minute.ToString();
+                else
+                    minuteStr = "0" + minute;
+                return hourStr + ":" + minuteStr;
+            }
+        }
 
         public  LockConfigData(byte[] value)
         {

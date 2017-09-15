@@ -92,7 +92,7 @@ namespace ConfigDevice
         AddWirlessDevice,//增加无线设备
         ShowLog,//日志操作
         AddDelClearWirlessDevice,//增加,删除,清除设备操作
-        ReadLockSystemConfig,//获取锁系统参数配置
+        ReadLockAmplifierConfig,//获取锁系统参数配置
         ReadLockConfig,//获取锁参数配置
         None
         

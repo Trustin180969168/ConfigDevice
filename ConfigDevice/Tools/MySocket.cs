@@ -487,7 +487,8 @@ namespace ConfigDevice
                     return false;
             }
             catch (Exception e)
-            {                
+            {
+                Trace.TraceError(e.Message);
                 return false;
             }
 
