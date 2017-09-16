@@ -129,7 +129,7 @@ namespace ConfigDevice.DeviceUI
                 int index = Convert.ToInt16(dr[ViewConfig.DC_NUM]);
                 LockConfigData data = fingerMarkLock.ConfigList[index];
                 data.MusicNum =(byte)Convert.ToInt16(dr[ViewConfig.DC_NAME]) ;//--曲目
-                DateTime dtStart = Convert.ToDateTime(dr[ViewConfig.DC_START_VALUE].ToString());
+                DateTime dtStart = Convert.ToDateTime(dr[ViewConfig.DC_START_VALUE].ToString());//开启时间
                 DateTime dtEnd = Convert.ToDateTime(dr[ViewConfig.DC_END_VALUE].ToString());
                 data.StartHour = (byte)dtStart.Hour;
                 data.StartMinute = (byte)dtStart.Minute;
