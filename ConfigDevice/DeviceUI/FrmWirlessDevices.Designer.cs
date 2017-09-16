@@ -140,7 +140,6 @@
             this.gvWirlessDevices.OptionsCustomization.AllowGroup = false;
             this.gvWirlessDevices.OptionsCustomization.AllowSort = false;
             this.gvWirlessDevices.OptionsSelection.EnableAppearanceFocusedRow = false;
-            this.gvWirlessDevices.OptionsView.ColumnAutoWidth = false;
             this.gvWirlessDevices.OptionsView.ShowGroupPanel = false;
             this.gvWirlessDevices.RowHeight = 18;
             this.gvWirlessDevices.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gvWirlessDevices_RowStyle);
@@ -246,6 +245,7 @@
             this.linkClear.ImageAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.linkClear.Name = "linkClear";
             this.linkClear.ReadOnly = true;
+            this.linkClear.Click += new System.EventHandler(this.linkClear_Click);
             // 
             // dcMAC
             // 

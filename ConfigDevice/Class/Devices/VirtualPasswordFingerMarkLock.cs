@@ -17,7 +17,7 @@ namespace ConfigDevice
             : base(userUdpData)
         {
             initGetCallback();
-        } 
+        }
 
         public VirtualPasswordFingerMarkLock(DeviceData data)
             : base(data)

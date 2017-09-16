@@ -62,7 +62,7 @@ namespace ConfigDevice
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_RFLINE_READ_DEV_LIST;//----用户命令-----
             byte len = 6;//---数据长度----
-            byte[] crcData = new byte[10 + 2];
+            byte[] crcData = new byte[10+len-4];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
@@ -182,10 +182,10 @@ namespace ConfigDevice
         /// <summary>
         /// 申请增加设备 
         /// </summary>
-        public void AddWirlessData()
+        public void AddWirlessData(WirlessDeviceData wirlessDeviceData)
         {
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_RFLINE_WRITE_DEVAC_RSL, this.DeviceID, getActionResultInfo);
-            UdpData udpSend = createActionWirlessDataUdp( WirlessDataActionKind.ADD);
+            UdpData udpSend = createActionWirlessDataUdp(wirlessDeviceData, WirlessDataActionKind.ADD);
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackAddActionWirlessDataUdp), null);
         }
         private void callbackAddActionWirlessDataUdp(UdpData udpReply, object[] values)
@@ -201,10 +201,10 @@ namespace ConfigDevice
         /// <summary>
         /// 申请清除设备 
         /// </summary>
-        public void ClearWirlessData()
+        public void ClearWirlessData(WirlessDeviceData wirlessDeviceData)
         {
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_RFLINE_WRITE_DEVAC_RSL, this.DeviceID, getActionResultInfo);
-            UdpData udpSend = createActionWirlessDataUdp( WirlessDataActionKind.CLEAR);
+            UdpData udpSend = createActionWirlessDataUdp(wirlessDeviceData, WirlessDataActionKind.CLEAR);
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackClearActionWirlessDataUdp), null);
         }
         private void callbackClearActionWirlessDataUdp(UdpData udpReply, object[] values)
@@ -231,7 +231,7 @@ namespace ConfigDevice
 
 
             byte len = (byte)(4 + 14);//---数据长度----
-            byte[] crcData = new byte[10 + len];
+            byte[] crcData = new byte[10 + len - 4];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
@@ -251,40 +251,7 @@ namespace ConfigDevice
             return udp;
         }
 
-
-        private UdpData createActionWirlessDataUdp(WirlessDataActionKind flag)
-        {
-          
-            UdpData udp = new UdpData(); 
-            udp.PacketKind[0] = PackegeSendReply.SEND;//----包数据类(回复包为02,发送包为01)----
-            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性(单播/广播/组播)----
-            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//-----发送端口----
-            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议----
-
-            byte[] target = new byte[] { ByteDeviceID, ByteNetworkId, ByteKindID };//----目标信息--
-            byte[] source = new byte[] { BytePCAddress, ByteNetworkId, DeviceConfig.EQUIPMENT_PC };//----源信息----
-            byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
-            byte[] cmd = DeviceConfig.CMD_RFLINE_WRITE_DEVAC;//----用户命令-----
-
-
-            byte len = (byte)(4 + 14);//---数据长度----
-            byte[] crcData = new byte[10 + len];
-            Buffer.BlockCopy(target, 0, crcData, 0, 3);
-            Buffer.BlockCopy(source, 0, crcData, 3, 3);
-            crcData[6] = page;
-            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
-            crcData[9] = len; 
-            crcData[11] = (byte)flag; 
-            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
-            //---------拼接到包中------
-            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
-            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
-            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
-            udp.Length = 28 + crcData.Length + 4 + 1;
-
-            return udp;
-        }
-
+ 
 
         /// <summary>
         /// 获取设备列表数据

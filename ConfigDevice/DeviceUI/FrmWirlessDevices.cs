@@ -99,7 +99,7 @@ namespace ConfigDevice.DeviceUI
                         drEdit[ViewConfig.DC_NUM] = dtWirlessData.Rows.Count + 1;
                         drEdit[ViewConfig.DC_MAC] = data.MacAddressStr;
                         drEdit[ViewConfig.DC_NAME] = data.Name;
-                        drEdit[ViewConfig.DC_START_VALUE] = data.Online ? 1 : 0;
+                        drEdit[ViewConfig.DC_START_VALUE] = data.State;
                         drEdit[ViewConfig.DC_DEVICE_KIND] = data.DeviceType; 
                         drEdit.EndEdit();
                
@@ -140,11 +140,11 @@ namespace ConfigDevice.DeviceUI
                             dtWirlessData.AcceptChanges();
                             gvWirlessDevices.BestFitColumns();
                         }else if (resultData.ActionResult == WirlessActionResult.AddFailure)
-                            CommonTools.MessageShow("添加设备失败!",1,"");
+                            CommonTools.MessageShow("添加设备失败!",2,"");
                         else if(resultData.ActionResult == WirlessActionResult.DeleteFailure)
-                            CommonTools.MessageShow("删除设备失败!", 1, "");
+                            CommonTools.MessageShow("删除设备失败!", 2, "");
                         else if (resultData.ActionResult == WirlessActionResult.ClearFailure)
-                            CommonTools.MessageShow("清除设备失败!", 1, "");
+                            CommonTools.MessageShow("清除设备失败!", 2, "");
                     }
                 }
             }
@@ -180,22 +180,6 @@ namespace ConfigDevice.DeviceUI
             wirlessTransform.DelWirlessData(data);
         }
 
-        /// <summary>
-        /// 增加
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void linkAdd_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (gvWirlessDevices.FocusedRowHandle == -1) return;
-        //        int index = gvWirlessDevices.FocusedRowHandle;
-        //        WirlessDeviceData data = wirlessTransform.WireLessDeviceList[index];
-        //        wirlessTransform.AddWirlessData(data);
-        //    }
-        //    catch (Exception e1) { CommonTools.MessageShow("增加失败！", 2, e1.Message); }
-        //}
 
         private void btSave_Click(object sender, EventArgs e)
         { 
@@ -237,9 +221,33 @@ namespace ConfigDevice.DeviceUI
             }
         }
 
+        /// <summary>
+        /// 添加设备
+        /// </summary> 
         private void btAddDevice_Click(object sender, EventArgs e)
         { 
-            wirlessTransform.AddWirlessData();
+            WirlessDeviceData wirlessDeviceData = new WirlessDeviceData();  
+            wirlessTransform.AddWirlessData(wirlessDeviceData); 
+        }
+
+        /// <summary>
+        /// 清空设备
+        /// </summary> 
+        private void linkClear_Click(object sender, EventArgs e)
+        {
+            if (this.gvWirlessDevices.RowCount == 0) return;
+            gvWirlessDevices.PostEditor();
+            if (gvWirlessDevices.FocusedRowHandle >= 0)
+            {
+                DataRow dr = gvWirlessDevices.GetDataRow(gvWirlessDevices.FocusedRowHandle);
+                WirlessDeviceData wirlessDeviceData = new WirlessDeviceData();
+                wirlessDeviceData.Index = (byte)gvWirlessDevices.FocusedRowHandle;
+                wirlessDeviceData.MacAddressStr = dr[ViewConfig.DC_MAC].ToString();
+                wirlessDeviceData.Name = dr[ViewConfig.DC_NAME].ToString();
+                wirlessDeviceData.State = (byte)Convert.ToInt16(dr[ViewConfig.DC_START_VALUE]);
+
+                wirlessTransform.ClearWirlessData(wirlessDeviceData);
+            }
         }
 
     }
