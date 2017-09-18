@@ -175,6 +175,9 @@ namespace ConfigDevice.DeviceUI
         private void linkEdit_Click(object sender, EventArgs e)
         {
             if(gvWirlessDevices.FocusedRowHandle == -1)return;
+            if (CommonTools.MessageShow("是否删除设备?", 4, "") == DialogResult.No)
+                return;
+
             int index = gvWirlessDevices.FocusedRowHandle;
             WirlessDeviceData data = wirlessTransform.WireLessDeviceList[index];
             wirlessTransform.DelWirlessData(data);

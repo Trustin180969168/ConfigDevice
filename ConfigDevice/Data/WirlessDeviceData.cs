@@ -66,7 +66,8 @@ namespace ConfigDevice
             DeviceType = data[14];//设备类型
             //---无线设备名称----
             byte[] byteName = CommonTools.CopyBytes(data, 15, data.Length - 15);
-            Name = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Trim().Replace(" ", "");
+            string tempName = Encoding.GetEncoding("GB2312").GetString(byteName).Trim();
+            Name = tempName.Substring(0, tempName.Length - (tempName.IndexOf('\0') + 1));
         }
 
 

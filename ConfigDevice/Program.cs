@@ -34,8 +34,7 @@ namespace ConfigDevice
                 if (fileInfo.CreationTime < DateTime.Now.AddDays(-7))
                     File.Delete(s);
             }
-            SysCtrl.MyTraceListener = new MyTraceListener(logFile);
-            Trace.Listeners.Add(SysCtrl.MyTraceListener); //添加MyTraceListener实例
+            SysConfig.LogFile = logFile; 
         }
     }
 }

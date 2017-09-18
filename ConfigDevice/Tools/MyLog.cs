@@ -31,7 +31,7 @@ namespace ConfigDevice
                 string msg = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss    ") + environment.NewLine + message + environment.NewLine;
                 File.AppendAllText(FilePath, msg);
                 if (OnCallbackUI_Action != null)
-                    OnCallbackUI_Action.BeginInvoke(new CallbackParameter(ActionKind.ShowLog,null, msg),null,null);
+                    OnCallbackUI_Action.BeginInvoke(new CallbackParameter(ActionKind.ShowLog, null, msg),null,null);
             }
         }
         public override void Write(object o, string category)

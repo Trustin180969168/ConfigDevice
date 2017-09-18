@@ -5,13 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ConfigDevice
 {
 
-
     public partial class FrmUdpLog : Form
     {
+        private MyTraceListener myTraceListener;
         private LockObject lockObject = new LockObject();
         public FrmUdpLog()
         {
@@ -20,9 +21,11 @@ namespace ConfigDevice
 
         private void FrmUdpLog_Load(object sender, EventArgs e)
         {
-            SysCtrl.MyTraceListener.OnCallbackUI_Action += this.CallbackUI;
+            myTraceListener = new MyTraceListener(SysConfig.LogFile); 
+            myTraceListener.OnCallbackUI_Action += this.CallbackUI; 
+            Trace.Listeners.Add(myTraceListener); //添加MyTraceListener实例
         }
-        
+
         /// <summary>
         /// 回调
         /// </summary>
@@ -48,15 +51,15 @@ namespace ConfigDevice
 
         private void FrmUdpLog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SysCtrl.MyTraceListener.OnCallbackUI_Action -= this.CallbackUI;
+            myTraceListener.OnCallbackUI_Action -= this.CallbackUI;
         }
 
+    }
+
+    public class LockObject
+    {
+        public bool Locked = false;
+    }
 
 
-
-
-    }        public class LockObject
-        {
-            public bool Locked = false;
-        }
 }

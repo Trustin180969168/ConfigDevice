@@ -148,7 +148,7 @@ namespace ConfigDevice
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_CONFIG;//----用户命令-----
             byte len = 4 + 16;//---数据长度----
-            byte[] crcData = new byte[10 + 2];
+            byte[] crcData = new byte[10+16];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
@@ -264,7 +264,7 @@ namespace ConfigDevice
             byte page = UdpDataConfig.DEFAULT_PAGE;         //-----分页-----
             byte[] cmd = DeviceConfig.CMD_RFLINE_WRITE_CFG;//----用户命令-----
             byte len = 4 + 16;//---数据长度----
-            byte[] crcData = new byte[10 + 2];
+            byte[] crcData = new byte[10 + 16];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;

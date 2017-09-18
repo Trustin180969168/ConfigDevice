@@ -19,8 +19,7 @@ namespace ConfigDevice
     public class SysCtrl
     {
 
-        public static FrmMain MainFrom;
-        public static MyTraceListener MyTraceListener;
+        public static FrmMain MainFrom; 
 
         /// <summary>
         /// 初始化系统配置

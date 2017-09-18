@@ -233,9 +233,9 @@ namespace ConfigDevice
         public static byte[] ByteLocalPort { get { return BitConverter.GetBytes(LocalPort); } }
         public static readonly UInt16 RemotePort = 11211;//远程端口
         public static byte[] ByteRemotePort { get { return BitConverter.GetBytes(RemotePort); } }
-       
 
 
+        public static string LogFile;//日志文件
 
         public const Int16 MAX_DATA_SIZE = 256;//若定最大256长度.
         public const Int16 MIN_DATA_SIZE = 30;//若定最小30长度.
@@ -330,9 +330,11 @@ namespace ConfigDevice
         public CallbackFromUDP(UdpData udp, CallbackUdpAction callBack, EndPoint endPoint, object[] objs)
         {
             Udp = udp;
-            CallBackAction = callBack;
+            if (callBack != null)
+                CallBackAction = callBack;
             RemotePoint = endPoint;
-            Parameters = objs;//回调时可能需要其他参数,
+            if (objs != null)
+                Parameters = objs;//回调时可能需要其他参数,
         }
 
         public CallbackFromUDP()

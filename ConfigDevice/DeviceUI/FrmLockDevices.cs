@@ -40,14 +40,12 @@ namespace ConfigDevice.DeviceUI
         /// </summary>
         private void initFingerLockDataTable()
         {
-            dtLockConfigData.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.Int16"));
-            dtLockConfigData.Columns.Add(ViewConfig.DC_KIND, System.Type.GetType("System.String"));
+            dtLockConfigData.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.Int16")); 
             dtLockConfigData.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
             dtLockConfigData.Columns.Add(ViewConfig.DC_START_VALUE, System.Type.GetType("System.DateTime"));
             dtLockConfigData.Columns.Add(ViewConfig.DC_END_VALUE, System.Type.GetType("System.DateTime")); 
 
-            dcRowID.FieldName = ViewConfig.DC_NUM;
-            dcOpenMusic.FieldName = ViewConfig.DC_KIND;
+            dcRowID.FieldName = ViewConfig.DC_NUM; 
             dcOpenMusic.FieldName = ViewConfig.DC_NAME; 
             dcStartTime.FieldName = ViewConfig.DC_START_VALUE;
             dcEndTime.FieldName = ViewConfig.DC_END_VALUE;
@@ -84,6 +82,7 @@ namespace ConfigDevice.DeviceUI
                 {
                     if (callbackParameter.Action == ActionKind.ReadLockAmplifierConfig)
                     {
+                        cbxAmplifier.Properties.Items.Clear();
                         foreach (LockAmplifierConfigData data in fingerMarkLock.AmplifierConfigList)
                         {
                             cbxAmplifier.Properties.Items.Add(data.DeviceID);
@@ -91,8 +90,9 @@ namespace ConfigDevice.DeviceUI
                     }
                     if (callbackParameter.Action == ActionKind.ReadLockConfig)
                     {
+                        dtLockConfigData.Rows.Clear();
                         foreach (LockConfigData configData in fingerMarkLock.ConfigList.Values)
-                        {
+                        { 
                             dtLockConfigData.Rows.Add(new object[] { configData.Num, configData.MusicNum,
                             configData.StartTimeStr,configData.EndTimeStr});
                         }
@@ -111,7 +111,7 @@ namespace ConfigDevice.DeviceUI
             //---保存功放配置----
             fingerMarkLock.SaveAmplifierConfig(
                 new LockAmplifierConfigData(
-                    cbxAmplifier.SelectedIndex,Convert.ToInt16( cbxAmplifier.SelectedText),(int)spdtVolume.Value));
+                    cbxAmplifier.SelectedIndex,Convert.ToInt16(cbxAmplifier.SelectedText),(int)spdtVolume.Value));
 
             //---保存锁配置----
             if (this.gvLockConfigs.RowCount == 0) return;
@@ -130,7 +130,7 @@ namespace ConfigDevice.DeviceUI
                 LockConfigData data = fingerMarkLock.ConfigList[index];
                 data.MusicNum =(byte)Convert.ToInt16(dr[ViewConfig.DC_NAME]) ;//--曲目
                 DateTime dtStart = Convert.ToDateTime(dr[ViewConfig.DC_START_VALUE].ToString());//开启时间
-                DateTime dtEnd = Convert.ToDateTime(dr[ViewConfig.DC_END_VALUE].ToString());
+                DateTime dtEnd = Convert.ToDateTime(dr[ViewConfig.DC_END_VALUE].ToString());//结束时间
                 data.StartHour = (byte)dtStart.Hour;
                 data.StartMinute = (byte)dtStart.Minute;
                 data.EndHour = (byte)dtEnd.Hour;
