@@ -229,9 +229,11 @@ namespace ConfigDevice
                 //------获取版本号------                
                 byte[] temp1 = new byte[20]; byte[] temp2 = new byte[20];
                 Buffer.BlockCopy(userData.Data, 0, temp1, 0, 20);
-                SoftwareVer = Encoding.GetEncoding("ASCII").GetString(temp1).TrimEnd('\0');
+                //SoftwareVer = Encoding.GetEncoding("ASCII").GetString(temp1).TrimEnd('\0');
+                SoftwareVer = ConvertTools.ToGB2312Str(temp1); 
                 Buffer.BlockCopy(userData.Data, 20, temp2, 0, 20);
-                HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0');
+                //HardwareVer = Encoding.GetEncoding("ASCII").GetString(temp2).TrimEnd('\0');
+                HardwareVer = ConvertTools.ToGB2312Str(temp2); 
             }
 
             CallbackUI(new CallbackParameter(ActionKind.GetVer, this.DeviceID, null));

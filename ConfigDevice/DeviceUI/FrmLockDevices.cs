@@ -42,16 +42,19 @@ namespace ConfigDevice.DeviceUI
         {
             dtLockConfigData.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.Int16")); 
             dtLockConfigData.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
-            dtLockConfigData.Columns.Add(ViewConfig.DC_START_VALUE, System.Type.GetType("System.DateTime"));
-            dtLockConfigData.Columns.Add(ViewConfig.DC_END_VALUE, System.Type.GetType("System.DateTime")); 
+            dtLockConfigData.Columns.Add(ViewConfig.DC_START_VALUE, System.Type.GetType("System.String"));
+            dtLockConfigData.Columns.Add(ViewConfig.DC_END_VALUE, System.Type.GetType("System.String")); 
 
             dcRowID.FieldName = ViewConfig.DC_NUM; 
             dcOpenMusic.FieldName = ViewConfig.DC_NAME; 
             dcStartTime.FieldName = ViewConfig.DC_START_VALUE;
             dcEndTime.FieldName = ViewConfig.DC_END_VALUE;
 
-            dcStartTime.ColumnEdit = new GridViewTimeEdit();
-            dcEndTime.ColumnEdit = new GridViewTimeEdit();
+            GridViewTimeEdit timeEdit = new GridViewTimeEdit();
+            timeEdit.EditMask = "HH:mm";
+
+            dcStartTime.ColumnEdit = timeEdit;
+            dcEndTime.ColumnEdit = timeEdit;
             gcLockConfigs.DataSource = dtLockConfigData;
         }
 
@@ -87,6 +90,8 @@ namespace ConfigDevice.DeviceUI
                         {
                             cbxAmplifier.Properties.Items.Add(data.DeviceID);
                         }
+                        if (cbxAmplifier.Properties.Items.Count > 0)
+                            cbxAmplifier.SelectedIndex = 0;
                     }
                     if (callbackParameter.Action == ActionKind.ReadLockConfig)
                     {
@@ -111,7 +116,7 @@ namespace ConfigDevice.DeviceUI
             //---保存功放配置----
             fingerMarkLock.SaveAmplifierConfig(
                 new LockAmplifierConfigData(
-                    cbxAmplifier.SelectedIndex,Convert.ToInt16(cbxAmplifier.SelectedText),(int)spdtVolume.Value));
+                    cbxAmplifier.SelectedIndex,Convert.ToInt16(cbxAmplifier.Text),(int)spdtVolume.Value));
 
             //---保存锁配置----
             if (this.gvLockConfigs.RowCount == 0) return;

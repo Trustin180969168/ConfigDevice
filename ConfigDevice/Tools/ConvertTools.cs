@@ -40,7 +40,7 @@ namespace ConfigDevice
             {
                 for (int i = 0; i < bytes.Length; i++)
                 {
-                    returnStr += " "+bytes[i].ToString("X2")  ;
+                    returnStr += " " + bytes[i].ToString("X2");
                 }
                 returnStr = returnStr.Substring(1);
             }
@@ -120,8 +120,8 @@ namespace ConfigDevice
         /// <param name="b">4个字节</param>
         /// <returns></returns>
         public static Int32 Bytes4ToInt32(params byte[] b)
-        {            
-           return System.BitConverter.ToInt32(b, 0); 
+        {
+            return System.BitConverter.ToInt32(b, 0);
         }
 
         /// <summary>
@@ -249,6 +249,19 @@ namespace ConfigDevice
             string r = "";
             for (int i = 0; i < bts.Length; i += 2) r += "\\u" + bts[i + 1].ToString("x").PadLeft(2, '0') + bts[i].ToString("x").PadLeft(2, '0');
             return r;
+        }
+
+        /// <summary>
+        /// 字节转GB2312字符串
+        /// </summary>
+        /// <param name="data">字符数组</param>
+        /// <returns>GB2312字符串</returns>
+        public static string ToGB2312Str(byte[] data)
+        {
+            string tempName = Encoding.GetEncoding("GB2312").GetString(data).Trim();
+            if(tempName.IndexOf('\0') != -1)
+                tempName = tempName.Substring(0, tempName.IndexOf('\0'));
+            return tempName.Trim();
         }
     }
 }
