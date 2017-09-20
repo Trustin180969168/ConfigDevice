@@ -631,7 +631,7 @@ namespace ConfigDevice
             byte[] cmd = DeviceConfig.CMD_PUBLIC_RESET_DEVICE;//----用户命令-----
             int len = 4 + 8;//---长度 
 
-            byte[] crcData = new byte[10 + len];
+            byte[] crcData = new byte[10 + 8];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;

@@ -17,6 +17,9 @@ namespace ConfigDevice
 
         public LockAmplifierConfigData(byte[] data)
         {
+            Num = data[0];
+            DeviceID = data[1];
+            Volume = data[2];  
         }
 
         public LockAmplifierConfigData(int num, int deviceID, int volume)

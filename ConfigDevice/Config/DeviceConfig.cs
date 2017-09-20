@@ -252,7 +252,7 @@ namespace ConfigDevice
         public static readonly byte[] CMD_PUBLIC_UART_LED_DISABLE = new byte[] { 0x39, EQUIPMENT_PUBLIC };//关通度灯
         public static readonly byte[] CMD_PUBLIC_DISCOVER_ENABLE = new byte[] { 0x3a, EQUIPMENT_PUBLIC };//发现设备,通信关亮1分钟，或面板的灯闪1分钟方便调试时找到设备
         public static readonly byte[] CMD_PUBLIC_DISCOVER_DISABLE = new byte[] { 0x3b, EQUIPMENT_PUBLIC };//关发现设备
-        public static readonly byte[] CMD_PUBLIC_RESET_DEVICE = new byte[] { 0xb4, EQUIPMENT_PUBLIC };//关发现设备
+        public static readonly byte[] CMD_PUBLIC_RESET_DEVICE = new byte[] { 0xb4, EQUIPMENT_PUBLIC };//恢复出厂设置
 
 
         public static readonly byte[] CMD_PUBLIC_DEL_COMMAND = new byte[] { 0x3d, EQUIPMENT_PUBLIC };//删除指令
