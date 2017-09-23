@@ -365,6 +365,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cbxAmplifier.Size = new System.Drawing.Size(149, 21);
             this.cbxAmplifier.TabIndex = 1;
+            this.cbxAmplifier.SelectedIndexChanged += new System.EventHandler(this.cbxAmplifier_SelectedIndexChanged);
             // 
             // spdtVolume
             // 

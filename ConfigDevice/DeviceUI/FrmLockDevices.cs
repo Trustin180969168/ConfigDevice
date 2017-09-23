@@ -91,7 +91,10 @@ namespace ConfigDevice.DeviceUI
                             cbxAmplifier.Properties.Items.Add(data.DeviceID);
                         }
                         if (cbxAmplifier.Properties.Items.Count > 0)
+                        {
                             cbxAmplifier.SelectedIndex = 0;
+                           
+                        }                        
                     }
                     if (callbackParameter.Action == ActionKind.ReadLockConfig)
                     {
@@ -143,6 +146,14 @@ namespace ConfigDevice.DeviceUI
 
                 fingerMarkLock.SaveLockConfig(data);
             }
+        }
+
+        private void cbxAmplifier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxAmplifier.Properties.Items.Count > 0)
+            {
+                spdtVolume.Value = fingerMarkLock.AmplifierConfigList[0].Volume; 
+            }    
         }
          
 
