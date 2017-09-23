@@ -239,6 +239,8 @@ namespace ConfigDevice.DeviceUI
         private void linkClear_Click(object sender, EventArgs e)
         {
             if (this.gvWirlessDevices.RowCount == 0) return;
+            if (CommonTools.MessageShow("是否清除设备?", 4, "") == DialogResult.No)
+                return;
             gvWirlessDevices.PostEditor();
             if (gvWirlessDevices.FocusedRowHandle >= 0)
             {
