@@ -21,7 +21,7 @@ namespace ConfigDevice
 
         public string DeviceName
         {
-            get { return Encoding.GetEncoding("GB2312").GetString(ByteDeviceName).TrimEnd('\0').Trim().Replace("", ""); }
+            get { return ConvertTools.ToGB2312Str(ByteDeviceName); }
             set
             {
                 byte[] temp = Encoding.GetEncoding("GB2312").GetBytes(value);

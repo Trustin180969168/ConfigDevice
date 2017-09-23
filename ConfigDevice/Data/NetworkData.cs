@@ -41,7 +41,7 @@ namespace ConfigDevice
             //-------设备名称---------
             byte[] byteName = new Byte[30];
             Buffer.BlockCopy(userUdpData.Data, 20, byteName, 0, 30);
-            DeviceName = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0');//.Replace("网关:","");
+            DeviceName = ConvertTools.ToGB2312Str(byteName);
             ListPosition = new List<Position>();
 
         }

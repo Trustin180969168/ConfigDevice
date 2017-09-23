@@ -137,7 +137,7 @@ namespace ConfigDevice
             if (userData.TargetID != this.DeviceID)
                 return;
             byte[] byteName = CommonTools.CopyBytes(userData.Data, 0, userData.DataLength - 4);
-            Address = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Trim().Replace("", ""); 
+            Address = ConvertTools.ToGB2312Str(byteName); 
             CallbackUI(new CallbackParameter(ActionKind.ReadServerAddress,DeviceID, Address));//---返回UI---- 
 
         }

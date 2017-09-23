@@ -102,7 +102,7 @@ namespace ConfigDevice
             //-------设备名称---------
             byte[] byteName = new Byte[30];
             Buffer.BlockCopy(userUdpData.Data, 20, byteName, 0, 30);
-            DeviceName = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Replace(" ","").Replace("","");
+            DeviceName = ConvertTools.ToGB2312Str(byteName);
             ListPosition = new List<Position>();
 
             getWriteEnd = new CallbackFromUDP(this.getWriteEndData);
@@ -213,7 +213,7 @@ namespace ConfigDevice
             bool numHas = (int)(value >> 7) == 1 ? true : false;//是否有密码
             int num = 0x7F & value + 1; //序号,从位置从1开始
             byte[] byteName = CommonTools.CopyBytes(userData.Data, 1, 12);//---名称---
-            string PositionName = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0');
+            string PositionName = ConvertTools.ToGB2312Str(byteName);
             Position pos = new Position(num, PositionName, numHas);
 
             if (ListPosition.Count < num + 1)//----有则修改,无则添加

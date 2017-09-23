@@ -196,7 +196,7 @@ namespace ConfigDevice
             byte[] byteName = CommonTools.CopyBytes(userData.Data, 4, userData.DataOfLength - 4 - 4);
 
             int num = userData.Data[0];
-            string roadName = Encoding.GetEncoding("GB2312").GetString(byteName);
+            string roadName = ConvertTools.ToGB2312Str(byteName);
             if (ListCircuitIDAndName.ContainsKey(num + 1)) ListCircuitIDAndName[num + 1] = roadName.Replace(" ", "");
             if (num + 1 == this.circuitCount) 
                 finishReadRoads = true;//---表示回路已经读取完毕----

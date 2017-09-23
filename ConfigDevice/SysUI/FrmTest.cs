@@ -28,7 +28,7 @@ namespace ConfigDevice
         private void btANSI_Click(object sender, EventArgs e)
         {
             byte[] byteName = ConvertTools.StrToToHexByte(edtANSIStr.Text);
-            edtANSIResult.Text = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0');
+            edtANSIResult.Text = ConvertTools.ToGB2312Str(byteName);
         }
 
         private void button3_Click(object sender, EventArgs e)

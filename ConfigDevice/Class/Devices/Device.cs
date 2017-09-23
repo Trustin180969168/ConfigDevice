@@ -88,7 +88,7 @@ namespace ConfigDevice
                     else i++;
                 }
                 Array.Resize(ref byteName, i);//重新设定长度
-                Name = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Trim().Replace("", "");
+                Name = ConvertTools.ToGB2312Str(byteName);
             }
             //-------MAC地址---------
             byte[] byteMac = new Byte[12];

@@ -219,13 +219,13 @@ namespace ConfigDevice
             int num = userData.Data[0];
             switch (num)
             {
-                case 0: RoadTitle1 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); 
+                case 0: RoadTitle1 = ConvertTools.ToGB2312Str(byteName); 
                     break;
-                case 1: RoadTitle2 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); 
+                case 1: RoadTitle2 = ConvertTools.ToGB2312Str(byteName); 
                     break;
-                case 2: RoadTitle3 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); 
+                case 2: RoadTitle3 = ConvertTools.ToGB2312Str(byteName); 
                     break;
-                case 3: RoadTitle4 = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0'); 
+                case 3: RoadTitle4 = ConvertTools.ToGB2312Str(byteName); 
                     finishReadRoads = true; break;
             }
             if(OnCallbackRoad_Action != null)

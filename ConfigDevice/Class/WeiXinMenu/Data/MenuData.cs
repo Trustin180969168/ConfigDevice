@@ -69,7 +69,7 @@ namespace ConfigDevice
                 KindName = MenuKind.MenuKindIDName[ByteKindID];
             Flag = ConvertTools.Bytes2ToUInt16(data.Data[5],data.Data[6]);
             byte[] byteName = CommonTools.CopyBytes(data.Data, 8, data.DataLength - 9 - 4);
-            Title = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Trim().Replace("", "");
+            Title = ConvertTools.ToGB2312Str(byteName);
 
         }
 

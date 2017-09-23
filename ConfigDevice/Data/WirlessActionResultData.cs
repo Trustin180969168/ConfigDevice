@@ -51,7 +51,7 @@ namespace ConfigDevice
             Buffer.BlockCopy(data, 2, MAC, 0, 12);
             Kind = data[14];
             byte[] byteName = CommonTools.CopyBytes(data, 15, data.Length - 15);
-            Name = Encoding.GetEncoding("GB2312").GetString(byteName).TrimEnd('\0').Trim().Replace(" ", "");
+            Name = ConvertTools.ToGB2312Str(byteName);
 
         }
 
