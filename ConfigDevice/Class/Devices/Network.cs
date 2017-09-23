@@ -905,9 +905,9 @@ namespace ConfigDevice
 
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_RESET_HOST;//----用户命令-----
-            byte len = 0x0C;//---数据长度---
+            byte len = 4 + 8;//---数据长度---
             //--------添加到用户数据--------
-            byte[] crcData = new byte[11];
+            byte[] crcData = new byte[18];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
@@ -925,6 +925,42 @@ namespace ConfigDevice
 
         }
 
+
+        /// <summary>
+        /// 复位连接
+        /// </summary>
+        public void ResetHost()
+        {
+            UdpData udp = new UdpData();
+
+            udp.PacketKind[0] = 0x01;//----包数据类------
+            udp.PacketProperty[0] = BroadcastKind.Unicast;//----包属性----
+            Buffer.BlockCopy(SysConfig.ByteLocalPort, 0, udp.SendPort, 0, 2);//----发送端口----
+            Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
+            byte[] target = new byte[] { ByteDeviceID, ByteNetworkID, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
+            byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
+
+            byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
+            byte[] cmd = DeviceConfig.CMD_PUBLIC_RESET_HOST;//----用户命令-----
+            byte len = 0x0C;//---数据长度---
+            //--------添加到用户数据--------
+            byte[] crcData = new byte[11];
+            Buffer.BlockCopy(target, 0, crcData, 0, 3);
+            Buffer.BlockCopy(source, 0, crcData, 3, 3);
+            crcData[6] = page;
+            Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
+            crcData[9] = len;
+
+            byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------
+            //---------拼接到包中------
+            Buffer.BlockCopy(crcData, 0, udp.ProtocolData, 0, crcData.Length);//---校验数据---
+            Buffer.BlockCopy(crc, 0, udp.ProtocolData, crcData.Length, 4);//---校验码----
+            Array.Resize(ref udp.ProtocolData, crcData.Length + 4);//重新设定长度    
+            udp.Length = 28 + crcData.Length + 4 + 1;
+
+            mySocket.SendData(udp, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(UdpTools.CallbackRequestResult), new object[] { "复位连接失败!" });
+
+        }
 
         /// <summary>
         /// 获取设备信息

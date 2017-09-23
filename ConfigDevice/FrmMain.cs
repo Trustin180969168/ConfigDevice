@@ -870,6 +870,8 @@ namespace ConfigDevice
             frmUdpLog.Show();
         }
 
+  
+
 
  
     }

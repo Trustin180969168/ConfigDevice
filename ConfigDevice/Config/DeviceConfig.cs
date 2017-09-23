@@ -198,6 +198,9 @@ namespace ConfigDevice
         public const byte EQUIPMENT_PUBLIC = 0xFF;        //共公类型 
         public const byte EQUIPMENT_RFLINE_GATEWAY = 0xb0;        //无线转换设备 
         public const byte EQUIPMENT_FP_LOCK = 0xa1;        //指纹锁
+               public const byte  EQUIPMENT_EL_KNIFE_FRAME  =   0xa2;        //电动刀具架
+               public const byte EQUIPMENT_INTELLIGENT_SINK = 0xa3;        //智能水槽
+
         //-------------------指令分类--------------------
         public const byte CMD_TYPE_PUBLIC = EQUIPMENT_PUBLIC;           //公共类型
         public const byte CMD_TYPE_PC = EQUIPMENT_PC;              //电脑类型
@@ -217,6 +220,8 @@ namespace ConfigDevice
         public const byte CMD_TYPE_PANEL = EQUIPMENT_PANEL;         //通用控制面板 
         public const byte CMD_TYPE_RFLINE = EQUIPMENT_RFLINE_GATEWAY;   //无线主机
         public const byte CMD_TYPE_FP_LOCK = EQUIPMENT_FP_LOCK;   		   //指纹锁
+
+
         //--------------------定义设备命令-----------------------------
         //------网络命令------
         public static readonly byte[] CMD_PC_SEARCH = new byte[] { 0x01, DeviceConfig.EQUIPMENT_PC };       //----搜索网络命令----
@@ -565,6 +570,8 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_FUEL_GAS, "可燃气体报警器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_RFLINE_GATEWAY, "无线主机");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_FP_LOCK, "指纹锁");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_EL_KNIFE_FRAME, "刀具架");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_INTELLIGENT_SINK, "智能水槽");
 
             EQUIPMENT_ID_NAME.Add(0, "无效类型");
         }
