@@ -144,7 +144,7 @@ namespace ConfigDevice.DeviceUI
                 data.EndHour = (byte)dtEnd.Hour;
                 data.EndMinute = (byte)dtEnd.Minute;
 
-                fingerMarkLock.SaveLockConfig(data);
+                fingerMarkLock.SaveLockConfig(data);//
             }
         }
 
