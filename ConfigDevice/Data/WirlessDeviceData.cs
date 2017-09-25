@@ -9,7 +9,7 @@ namespace ConfigDevice
         public byte Index = 0;//第几个
         public byte State = 0;//是否在线
         public byte[] MacAddress = new byte[12];//MAC地址
-        public byte DeviceType = 0;//设备类型
+        public byte Kind = 0;//设备类型
         public string Name = "";//设备名称
 
         /// <summary>
@@ -21,6 +21,14 @@ namespace ConfigDevice
             set {
                 MacAddress = ConvertTools.StrToToHexByte(value);   
             }
+        }
+
+        /// <summary>
+        /// 设备类型
+        /// </summary>
+        public string KindName
+        {
+            get { return DeviceConfig.EQUIPMENT_ID_NAME[Kind]; }
         }
 
         /// <summary>
@@ -48,7 +56,7 @@ namespace ConfigDevice
             value[0] = Index;
             value[1] = State;
             Buffer.BlockCopy(MacAddress, 0, value, 2, 12);
-            value[14] = DeviceType;
+            value[14] = Kind;
             Buffer.BlockCopy(byteArrayName, 0, value, 15, byteArrayName.Length);
             return value;
         }
@@ -63,7 +71,7 @@ namespace ConfigDevice
             Index = data[0];//序号
             State = data[1];//是否在线 
             MacAddress = CommonTools.CopyBytes(data, 2, 12);
-            DeviceType = data[14];//设备类型
+            Kind = data[14];//设备类型
             //---无线设备名称----
             byte[] byteName = CommonTools.CopyBytes(data, 15, data.Length - 15);
             Name = ConvertTools.ToGB2312Str(byteName); 

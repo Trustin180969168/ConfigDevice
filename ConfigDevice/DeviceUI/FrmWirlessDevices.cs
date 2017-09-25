@@ -96,11 +96,11 @@ namespace ConfigDevice.DeviceUI
                         if (drEdit == null)
                             drEdit = dtWirlessData.Rows.Add();
                         drEdit.BeginEdit();
-                        drEdit[ViewConfig.DC_NUM] = dtWirlessData.Rows.Count + 1;
+                        drEdit[ViewConfig.DC_NUM] = dtWirlessData.Rows.Count;
                         drEdit[ViewConfig.DC_MAC] = data.MacAddressStr;
                         drEdit[ViewConfig.DC_NAME] = data.Name;
                         drEdit[ViewConfig.DC_START_VALUE] = data.State;
-                        drEdit[ViewConfig.DC_DEVICE_KIND] = data.DeviceType; 
+                        drEdit[ViewConfig.DC_DEVICE_KIND] = data.KindName; 
                         drEdit.EndEdit();
                
                         dtWirlessData.AcceptChanges();
@@ -134,7 +134,7 @@ namespace ConfigDevice.DeviceUI
                             drEdit[ViewConfig.DC_MAC] = data.MacAddressStr;
                             drEdit[ViewConfig.DC_NAME] = data.Name;
                             drEdit[ViewConfig.DC_START_VALUE] = 1;
-                            drEdit[ViewConfig.DC_DEVICE_KIND] = data.Kind;
+                            drEdit[ViewConfig.DC_DEVICE_KIND] = data.KindName;
                             drEdit.EndEdit();
 
                             dtWirlessData.AcceptChanges();
@@ -239,7 +239,7 @@ namespace ConfigDevice.DeviceUI
         private void linkClear_Click(object sender, EventArgs e)
         {
             if (this.gvWirlessDevices.RowCount == 0) return;
-            if (CommonTools.MessageShow("是否清除设备?", 4, "") == DialogResult.No)
+            if (CommonTools.MessageShow("是否强行清除设备?", 4, "") == DialogResult.No)
                 return;
             gvWirlessDevices.PostEditor();
             if (gvWirlessDevices.FocusedRowHandle >= 0)

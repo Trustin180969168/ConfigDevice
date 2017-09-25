@@ -43,12 +43,14 @@ namespace ConfigDevice.DeviceUI
             dtLockConfigData.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.Int16")); 
             dtLockConfigData.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
             dtLockConfigData.Columns.Add(ViewConfig.DC_START_VALUE, System.Type.GetType("System.String"));
-            dtLockConfigData.Columns.Add(ViewConfig.DC_END_VALUE, System.Type.GetType("System.String")); 
+            dtLockConfigData.Columns.Add(ViewConfig.DC_END_VALUE, System.Type.GetType("System.String"));
+            dtLockConfigData.Columns.Add(ViewConfig.DC_KIND_NAME, System.Type.GetType("System.String")); 
 
             dcRowID.FieldName = ViewConfig.DC_NUM; 
             dcOpenMusic.FieldName = ViewConfig.DC_NAME; 
             dcStartTime.FieldName = ViewConfig.DC_START_VALUE;
             dcEndTime.FieldName = ViewConfig.DC_END_VALUE;
+            dcKindName.FieldName = ViewConfig.DC_KIND_NAME;
 
             GridViewTimeEdit timeEdit = new GridViewTimeEdit();
             timeEdit.EditMask = "HH:mm";

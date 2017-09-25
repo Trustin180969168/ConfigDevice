@@ -568,7 +568,7 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SERVER, "云平台主机");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_RSP, "接近式雷达感应器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_FUEL_GAS, "可燃气体报警器");
-            EQUIPMENT_ID_NAME.Add(EQUIPMENT_RFLINE_GATEWAY, "无线主机");
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_RFLINE_GATEWAY, "无线有线转换器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_FP_LOCK, "指纹锁");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_EL_KNIFE_FRAME, "刀具架");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_INTELLIGENT_SINK, "智能水槽");

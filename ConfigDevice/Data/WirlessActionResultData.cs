@@ -35,6 +35,14 @@ namespace ConfigDevice
             get { return ConvertTools.ByteToHexStr(MAC); }
         }
 
+        /// <summary>
+        /// 设备类型
+        /// </summary>
+        public string KindName
+        {
+            get { return DeviceConfig.EQUIPMENT_ID_NAME[Kind]; }
+        }
+
         public WirlessActionResultData(byte[] data)
         {
            int resultFlag = Convert.ToInt16(data[1]);
