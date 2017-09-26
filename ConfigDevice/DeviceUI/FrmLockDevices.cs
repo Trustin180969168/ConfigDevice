@@ -20,7 +20,7 @@ namespace ConfigDevice.DeviceUI
 
             DataTable dt = SysConfig.DtDevice.Clone();
             DataRow[] amps = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID + "= '" + DeviceConfig.EQUIPMENT_AMP_MP3 + "' and " +
-                DeviceConfig.DC_NETWORK_ID + " = '" + device.NetworkID + "'");
+                DeviceConfig.DC_NETWORK_ID + " = '" + _device.NetworkID + "'");
             foreach (DataRow dr in amps)
                 dt.Rows.Add(dr.ItemArray);
             lookUpEditAmp.Properties.Columns.Clear();
@@ -113,7 +113,7 @@ namespace ConfigDevice.DeviceUI
                         //}         
 
                                          //---功放地址---
-                        if (fingerMarkLock.AmplifierConfigList > 0)
+                        if (fingerMarkLock.AmplifierConfigList.Count > 0)
                         {
                             spdtVolume.Value = fingerMarkLock.AmplifierConfigList[0].Volume; //---音量
                             spdAddress.Value = fingerMarkLock.AmplifierConfigList[0].DeviceID;//---地址
@@ -144,7 +144,7 @@ namespace ConfigDevice.DeviceUI
             //---保存功放配置----
             fingerMarkLock.SaveAmplifierConfig(
                 new LockAmplifierConfigData(
-                    cbxAmplifier.SelectedIndex,Convert.ToInt16(cbxAmplifier.Text),(int)spdtVolume.Value));
+                    this.lookUpEditAmp.ItemIndex,Convert.ToInt16(this.spdAddress.Text),(int)spdtVolume.Value));
 
             //---保存锁配置----
             if (this.gvLockConfigs.RowCount == 0) return;
@@ -178,7 +178,7 @@ namespace ConfigDevice.DeviceUI
         /// </summary>
         private void lookUpEditAmp_EditValueChanged(object sender, EventArgs e)
         {
-            speAmp.EditValue = lookUpEditAmp.EditValue;
+            this.spdAddress.EditValue = lookUpEditAmp.EditValue;
         }
          
 
