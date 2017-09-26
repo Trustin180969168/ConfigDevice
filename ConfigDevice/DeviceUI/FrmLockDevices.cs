@@ -17,6 +17,20 @@ namespace ConfigDevice.DeviceUI
             : base(_device)
         {
             InitializeComponent();
+
+            DataTable dt = SysConfig.DtDevice.Clone();
+            DataRow[] amps = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID + "= '" + DeviceConfig.EQUIPMENT_AMP_MP3 + "' and " +
+                DeviceConfig.DC_NETWORK_ID + " = '" + device.NetworkID + "'");
+            foreach (DataRow dr in amps)
+                dt.Rows.Add(dr.ItemArray);
+            lookUpEditAmp.Properties.Columns.Clear();
+            lookUpEditAmp.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_NAME, "功放", 120));
+            lookUpEditAmp.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo(DeviceConfig.DC_ID, "地址", 120));
+            lookUpEditAmp.Properties.DataSource = dt;
+            lookUpEditAmp.Properties.DisplayMember = DeviceConfig.DC_NAME;
+            lookUpEditAmp.Properties.ValueMember = DeviceConfig.DC_ID;
+            lookUpEditAmp.Properties.DropDownRows = dt.Rows.Count; 
+
             fingerMarkLock = _device as VirtualPasswordFingerMarkLock;
             initFingerLockDataTable();
         }
@@ -40,11 +54,12 @@ namespace ConfigDevice.DeviceUI
         /// </summary>
         private void initFingerLockDataTable()
         {
-            dtLockConfigData.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.Int16")); 
+            dtLockConfigData.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.Int16"));
+            dtLockConfigData.Columns.Add(ViewConfig.DC_KIND_NAME, System.Type.GetType("System.String")); 
             dtLockConfigData.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
             dtLockConfigData.Columns.Add(ViewConfig.DC_START_VALUE, System.Type.GetType("System.String"));
             dtLockConfigData.Columns.Add(ViewConfig.DC_END_VALUE, System.Type.GetType("System.String"));
-            dtLockConfigData.Columns.Add(ViewConfig.DC_KIND_NAME, System.Type.GetType("System.String")); 
+       
 
             dcRowID.FieldName = ViewConfig.DC_NUM; 
             dcOpenMusic.FieldName = ViewConfig.DC_NAME; 
@@ -87,23 +102,31 @@ namespace ConfigDevice.DeviceUI
                 {
                     if (callbackParameter.Action == ActionKind.ReadLockAmplifierConfig)
                     {
-                        cbxAmplifier.Properties.Items.Clear();
-                        foreach (LockAmplifierConfigData data in fingerMarkLock.AmplifierConfigList)
+                        //cbxAmplifier.Properties.Items.Clear();
+                        //foreach (LockAmplifierConfigData data in fingerMarkLock.AmplifierConfigList)
+                        //{
+                        //    cbxAmplifier.Properties.Items.Add(data.DeviceID);
+                        //}
+                        //if (cbxAmplifier.Properties.Items.Count > 0)
+                        //{
+                        //    cbxAmplifier.SelectedIndex = 0;
+                        //}         
+
+                                         //---功放地址---
+                        if (fingerMarkLock.AmplifierConfigList > 0)
                         {
-                            cbxAmplifier.Properties.Items.Add(data.DeviceID);
+                            spdtVolume.Value = fingerMarkLock.AmplifierConfigList[0].Volume; //---音量
+                            spdAddress.Value = fingerMarkLock.AmplifierConfigList[0].DeviceID;//---地址
+                            lookUpEditAmp.EditValue = fingerMarkLock.AmplifierConfigList[0].DeviceID;//---功放名称---
+                        
                         }
-                        if (cbxAmplifier.Properties.Items.Count > 0)
-                        {
-                            cbxAmplifier.SelectedIndex = 0;
-                           
-                        }                        
                     }
                     if (callbackParameter.Action == ActionKind.ReadLockConfig)
                     {
                         dtLockConfigData.Rows.Clear();
                         foreach (LockConfigData configData in fingerMarkLock.ConfigList.Values)
                         { 
-                            dtLockConfigData.Rows.Add(new object[] { configData.Num, configData.MusicNum,
+                            dtLockConfigData.Rows.Add(new object[] { configData.Num,configData.UserKindName, configData.MusicNum,
                             configData.StartTimeStr,configData.EndTimeStr});
                         }
                         dtLockConfigData.AcceptChanges();
@@ -150,12 +173,12 @@ namespace ConfigDevice.DeviceUI
             }
         }
 
-        private void cbxAmplifier_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// 选择功放
+        /// </summary>
+        private void lookUpEditAmp_EditValueChanged(object sender, EventArgs e)
         {
-            if (cbxAmplifier.Properties.Items.Count > 0)
-            {
-                spdtVolume.Value = fingerMarkLock.AmplifierConfigList[0].Volume; 
-            }    
+            speAmp.EditValue = lookUpEditAmp.EditValue;
         }
          
 

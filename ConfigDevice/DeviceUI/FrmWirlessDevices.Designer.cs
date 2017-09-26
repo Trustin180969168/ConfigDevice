@@ -177,6 +177,7 @@
             this.dcAdd.Name = "dcAdd";
             this.dcAdd.OptionsColumn.AllowMove = false;
             this.dcAdd.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcAdd.OptionsColumn.ReadOnly = true;
             this.dcAdd.Width = 100;
             // 
             // linkAdd
@@ -204,6 +205,7 @@
             this.dcDelete.Name = "dcDelete";
             this.dcDelete.OptionsColumn.AllowMove = false;
             this.dcDelete.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcDelete.OptionsColumn.ReadOnly = true;
             this.dcDelete.Visible = true;
             this.dcDelete.VisibleIndex = 1;
             this.dcDelete.Width = 100;
@@ -234,6 +236,7 @@
             this.dcClear.ColumnEdit = this.linkClear;
             this.dcClear.Name = "dcClear";
             this.dcClear.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcClear.OptionsColumn.ReadOnly = true;
             this.dcClear.Visible = true;
             this.dcClear.VisibleIndex = 2;
             this.dcClear.Width = 100;
@@ -266,10 +269,6 @@
             // 
             // dcDeviceName
             // 
-            this.dcDeviceName.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.dcDeviceName.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcDeviceName.AppearanceCell.Options.UseBackColor = true;
-            this.dcDeviceName.AppearanceCell.Options.UseForeColor = true;
             this.dcDeviceName.AppearanceCell.Options.UseTextOptions = true;
             this.dcDeviceName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcDeviceName.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -280,16 +279,13 @@
             this.dcDeviceName.Name = "dcDeviceName";
             this.dcDeviceName.OptionsColumn.AllowMove = false;
             this.dcDeviceName.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
+            this.dcDeviceName.OptionsColumn.ReadOnly = true;
             this.dcDeviceName.Visible = true;
             this.dcDeviceName.VisibleIndex = 4;
             this.dcDeviceName.Width = 300;
             // 
             // dcDeviceType
             // 
-            this.dcDeviceType.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
-            this.dcDeviceType.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.dcDeviceType.AppearanceCell.Options.UseBackColor = true;
-            this.dcDeviceType.AppearanceCell.Options.UseForeColor = true;
             this.dcDeviceType.AppearanceCell.Options.UseTextOptions = true;
             this.dcDeviceType.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcDeviceType.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -299,6 +295,7 @@
             this.dcDeviceType.Caption = "设备类型";
             this.dcDeviceType.Name = "dcDeviceType";
             this.dcDeviceType.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.dcDeviceType.OptionsColumn.ReadOnly = true;
             this.dcDeviceType.Visible = true;
             this.dcDeviceType.VisibleIndex = 5;
             this.dcDeviceType.Width = 80;
@@ -315,6 +312,7 @@
             this.dcOnline.Name = "dcOnline";
             this.dcOnline.OptionsColumn.AllowMove = false;
             this.dcOnline.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
+            this.dcOnline.OptionsColumn.ReadOnly = true;
             this.dcOnline.Width = 80;
             // 
             // parameter5
@@ -333,6 +331,7 @@
             this.parameter5.Name = "parameter5";
             this.parameter5.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.parameter5.OptionsColumn.FixedWidth = true;
+            this.parameter5.OptionsColumn.ReadOnly = true;
             this.parameter5.Width = 80;
             // 
             // cbxControlObj

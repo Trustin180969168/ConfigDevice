@@ -102,6 +102,22 @@ namespace ConfigDevice
             }
         }
 
+        public string UserKindName
+        {
+            get
+            {
+                if (Num == 0)
+                {
+                    return "未知用户";
+                }
+                else
+                {
+                    return string.Format("主人-{0}", Num.ToString());
+                }
+            }
+        }
+        
+
         public  LockConfigData(byte[] value)
         {
             Num = value[0];

@@ -94,9 +94,13 @@ namespace ConfigDevice.DeviceUI
                         WirlessDeviceData data = callbackParameter.Parameters[0] as WirlessDeviceData;
                         DataRow drEdit = findEditRowByMac(data.MacAddressStr);
                         if (drEdit == null)
+                        {
                             drEdit = dtWirlessData.Rows.Add();
-                        drEdit.BeginEdit();
-                        drEdit[ViewConfig.DC_NUM] = dtWirlessData.Rows.Count;
+                            drEdit.BeginEdit();
+                            drEdit[ViewConfig.DC_NUM] = dtWirlessData.Rows.Count;
+                            drEdit.EndEdit();
+                        }
+                        drEdit.BeginEdit();                       
                         drEdit[ViewConfig.DC_MAC] = data.MacAddressStr;
                         drEdit[ViewConfig.DC_NAME] = data.Name;
                         drEdit[ViewConfig.DC_START_VALUE] = data.State;

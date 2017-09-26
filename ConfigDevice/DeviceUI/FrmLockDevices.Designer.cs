@@ -33,9 +33,14 @@
             this.gcLockConfigs = new DevExpress.XtraGrid.GridControl();
             this.gvLockConfigs = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dcRowID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dcKindName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcOpenMusic = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcStartTime = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dcEndTime = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cbxControlObj = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.linkEdit = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.timeTest = new DevExpress.XtraEditors.Repository.RepositoryItemTimeEdit();
@@ -48,18 +53,15 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.cbxAmplifier = new DevExpress.XtraEditors.ComboBoxEdit();
             this.spdtVolume = new DevExpress.XtraEditors.SpinEdit();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefrash = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
-            this.dcKindName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.spdAddress = new DevExpress.XtraEditors.SpinEdit();
+            this.lookUpEditAmp = new DevExpress.XtraEditors.LookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -76,10 +78,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.linkClear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxAmplifier.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spdtVolume.Properties)).BeginInit();
             this.tsDoorInput.SuspendLayout();
             this.pageJcsz.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spdAddress.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditAmp.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tctrlEdit
@@ -169,6 +172,20 @@
             this.dcRowID.VisibleIndex = 0;
             this.dcRowID.Width = 50;
             // 
+            // dcKindName
+            // 
+            this.dcKindName.AppearanceCell.Options.UseTextOptions = true;
+            this.dcKindName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcKindName.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcKindName.AppearanceHeader.Options.UseTextOptions = true;
+            this.dcKindName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dcKindName.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.dcKindName.Caption = "用户分类";
+            this.dcKindName.Name = "dcKindName";
+            this.dcKindName.OptionsColumn.ReadOnly = true;
+            this.dcKindName.Visible = true;
+            this.dcKindName.VisibleIndex = 1;
+            // 
             // dcOpenMusic
             // 
             this.dcOpenMusic.AppearanceCell.BackColor = System.Drawing.Color.LightYellow;
@@ -181,11 +198,11 @@
             this.dcOpenMusic.AppearanceHeader.Options.UseTextOptions = true;
             this.dcOpenMusic.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcOpenMusic.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcOpenMusic.Caption = "开锁提示音";
+            this.dcOpenMusic.Caption = "开锁提示音(曲目)(SD卡\\WINDOW\\)";
             this.dcOpenMusic.Name = "dcOpenMusic";
             this.dcOpenMusic.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
             this.dcOpenMusic.Visible = true;
-            this.dcOpenMusic.VisibleIndex = 1;
+            this.dcOpenMusic.VisibleIndex = 2;
             this.dcOpenMusic.Width = 300;
             // 
             // dcStartTime
@@ -200,11 +217,11 @@
             this.dcStartTime.AppearanceHeader.Options.UseTextOptions = true;
             this.dcStartTime.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcStartTime.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcStartTime.Caption = "提示音开始(时:分)";
+            this.dcStartTime.Caption = "提示音开始时段";
             this.dcStartTime.Name = "dcStartTime";
             this.dcStartTime.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
             this.dcStartTime.Visible = true;
-            this.dcStartTime.VisibleIndex = 2;
+            this.dcStartTime.VisibleIndex = 3;
             this.dcStartTime.Width = 120;
             // 
             // dcEndTime
@@ -219,12 +236,60 @@
             this.dcEndTime.AppearanceHeader.Options.UseTextOptions = true;
             this.dcEndTime.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.dcEndTime.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcEndTime.Caption = "提示音结束(时:分)";
+            this.dcEndTime.Caption = "提示音结束时段";
             this.dcEndTime.Name = "dcEndTime";
             this.dcEndTime.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
             this.dcEndTime.Visible = true;
-            this.dcEndTime.VisibleIndex = 3;
+            this.dcEndTime.VisibleIndex = 4;
             this.dcEndTime.Width = 120;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn2.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn2.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn2.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn2.Caption = "gridColumn2";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.OptionsColumn.ReadOnly = true;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn3.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn3.Caption = "gridColumn3";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.OptionsColumn.ReadOnly = true;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn4.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn4.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn4.Caption = "gridColumn4";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.OptionsColumn.ReadOnly = true;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn5.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn5.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn5.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.gridColumn5.Caption = "gridColumn5";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.OptionsColumn.ReadOnly = true;
             // 
             // cbxControlObj
             // 
@@ -321,9 +386,11 @@
             // panelControl1
             // 
             this.panelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.panelControl1.Controls.Add(this.lookUpEditAmp);
+            this.panelControl1.Controls.Add(this.labelControl3);
+            this.panelControl1.Controls.Add(this.spdAddress);
             this.panelControl1.Controls.Add(this.labelControl2);
             this.panelControl1.Controls.Add(this.labelControl1);
-            this.panelControl1.Controls.Add(this.cbxAmplifier);
             this.panelControl1.Controls.Add(this.spdtVolume);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 31);
@@ -341,21 +408,11 @@
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(257, 17);
+            this.labelControl1.Location = new System.Drawing.Point(265, 17);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(24, 14);
+            this.labelControl1.Size = new System.Drawing.Size(48, 14);
             this.labelControl1.TabIndex = 2;
-            this.labelControl1.Text = "音量";
-            // 
-            // cbxAmplifier
-            // 
-            this.cbxAmplifier.Location = new System.Drawing.Point(92, 14);
-            this.cbxAmplifier.Name = "cbxAmplifier";
-            this.cbxAmplifier.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxAmplifier.Size = new System.Drawing.Size(149, 21);
-            this.cbxAmplifier.TabIndex = 1;
-            this.cbxAmplifier.SelectedIndexChanged += new System.EventHandler(this.cbxAmplifier_SelectedIndexChanged);
+            this.labelControl1.Text = "功放地址";
             // 
             // spdtVolume
             // 
@@ -364,7 +421,7 @@
             0,
             0,
             0});
-            this.spdtVolume.Location = new System.Drawing.Point(287, 14);
+            this.spdtVolume.Location = new System.Drawing.Point(488, 14);
             this.spdtVolume.Name = "spdtVolume";
             this.spdtVolume.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -423,67 +480,49 @@
             this.viewBaseSetting.Size = new System.Drawing.Size(884, 510);
             this.viewBaseSetting.TabIndex = 0;
             // 
-            // dcKindName
+            // labelControl3
             // 
-            this.dcKindName.AppearanceCell.Options.UseTextOptions = true;
-            this.dcKindName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcKindName.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcKindName.AppearanceHeader.Options.UseTextOptions = true;
-            this.dcKindName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dcKindName.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.dcKindName.Caption = "用户分类";
-            this.dcKindName.Name = "dcKindName";
-            this.dcKindName.OptionsColumn.ReadOnly = true;
-            this.dcKindName.Visible = true;
-            this.dcKindName.VisibleIndex = 1;
+            this.labelControl3.Location = new System.Drawing.Point(458, 17);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(24, 14);
+            this.labelControl3.TabIndex = 5;
+            this.labelControl3.Text = "音量";
             // 
-            // gridColumn2
+            // spdAddress
             // 
-            this.gridColumn2.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn2.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn2.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn2.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn2.Caption = "gridColumn2";
-            this.gridColumn2.Name = "gridColumn2";
-            this.gridColumn2.OptionsColumn.ReadOnly = true;
+            this.spdAddress.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spdAddress.Location = new System.Drawing.Point(319, 14);
+            this.spdAddress.Name = "spdAddress";
+            this.spdAddress.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spdAddress.Properties.Mask.EditMask = "d";
+            this.spdAddress.Properties.MaxValue = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.spdAddress.Size = new System.Drawing.Size(75, 21);
+            this.spdAddress.TabIndex = 4;
             // 
-            // gridColumn3
+            // lookUpEditAmp
             // 
-            this.gridColumn3.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn3.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn3.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn3.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn3.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn3.Caption = "gridColumn3";
-            this.gridColumn3.Name = "gridColumn3";
-            this.gridColumn3.OptionsColumn.ReadOnly = true;
-            // 
-            // gridColumn4
-            // 
-            this.gridColumn4.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn4.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn4.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn4.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn4.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn4.Caption = "gridColumn4";
-            this.gridColumn4.Name = "gridColumn4";
-            this.gridColumn4.OptionsColumn.ReadOnly = true;
-            // 
-            // gridColumn5
-            // 
-            this.gridColumn5.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn5.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn5.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn5.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn5.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.gridColumn5.Caption = "gridColumn5";
-            this.gridColumn5.Name = "gridColumn5";
-            this.gridColumn5.OptionsColumn.ReadOnly = true;
+            this.lookUpEditAmp.EditValue = "";
+            this.lookUpEditAmp.Location = new System.Drawing.Point(92, 14);
+            this.lookUpEditAmp.Name = "lookUpEditAmp";
+            this.lookUpEditAmp.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+            this.lookUpEditAmp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEditAmp.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name1", "功放", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name2", "地址", 20, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None)});
+            this.lookUpEditAmp.Properties.NullText = "选择功放设备";
+            this.lookUpEditAmp.Size = new System.Drawing.Size(112, 21);
+            this.lookUpEditAmp.TabIndex = 15;
+            this.lookUpEditAmp.EditValueChanged += new System.EventHandler(this.lookUpEditAmp_EditValueChanged);
             // 
             // FrmLockDevices
             // 
@@ -511,11 +550,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxAmplifier.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spdtVolume.Properties)).EndInit();
             this.tsDoorInput.ResumeLayout(false);
             this.tsDoorInput.PerformLayout();
             this.pageJcsz.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spdAddress.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditAmp.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -546,7 +586,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkAdd;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit linkClear;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraEditors.ComboBoxEdit cbxAmplifier;
         private DevExpress.XtraEditors.SpinEdit spdtVolume;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
@@ -555,5 +594,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.SpinEdit spdAddress;
+        private DevExpress.XtraEditors.LookUpEdit lookUpEditAmp;
     }
 }
