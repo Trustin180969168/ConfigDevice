@@ -236,6 +236,7 @@ namespace ConfigDevice
         {
             SysConfig.DtDevice.Clear();
             SysConfig.DtDevice.AcceptChanges();
+            
         }
 
        

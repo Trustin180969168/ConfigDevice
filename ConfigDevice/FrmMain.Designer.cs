@@ -72,6 +72,7 @@
             this.tsmiParameter = new System.Windows.Forms.ToolStripMenuItem();
             this.btSnycTime = new System.Windows.Forms.ToolStripMenuItem();
             this.btSnycData = new System.Windows.Forms.ToolStripMenuItem();
+            this.btChangeIP = new System.Windows.Forms.ToolStripMenuItem();
             this.gvNetwork = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.networkDeviceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.edtNetworkName = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
@@ -541,9 +542,10 @@
             this.tsmiChangePassword,
             this.tsmiParameter,
             this.btSnycTime,
-            this.btSnycData});
+            this.btSnycData,
+            this.btChangeIP});
             this.contextMenuStripNetwork.Name = "contextMenuStripNetwork";
-            this.contextMenuStripNetwork.Size = new System.Drawing.Size(125, 158);
+            this.contextMenuStripNetwork.Size = new System.Drawing.Size(125, 180);
             // 
             // btmiConnectNetwork
             // 
@@ -600,6 +602,15 @@
             this.btSnycData.Size = new System.Drawing.Size(124, 22);
             this.btSnycData.Text = "同步数据";
             this.btSnycData.Click += new System.EventHandler(this.btSyncData_Click);
+            // 
+            // btChangeIP
+            // 
+            this.btChangeIP.Image = global::ConfigDevice.Properties.Resources.snyc;
+            this.btChangeIP.Name = "btChangeIP";
+            this.btChangeIP.Size = new System.Drawing.Size(124, 22);
+            this.btChangeIP.Text = "修改IP";
+            this.btChangeIP.Visible = false;
+            this.btChangeIP.Click += new System.EventHandler(this.btChangeIP_Click);
             // 
             // gvNetwork
             // 
@@ -857,7 +868,7 @@
             // 
             this.btSyncTime.Image = global::ConfigDevice.Properties.Resources.checkWork;
             this.btSyncTime.Name = "btSyncTime";
-            this.btSyncTime.Size = new System.Drawing.Size(165, 30);
+            this.btSyncTime.Size = new System.Drawing.Size(157, 24);
             this.btSyncTime.Text = "同步时间";
             this.btSyncTime.Click += new System.EventHandler(this.btSyncTime_Click);
             // 
@@ -865,7 +876,7 @@
             // 
             this.btSyncData.Image = global::ConfigDevice.Properties.Resources.snyc;
             this.btSyncData.Name = "btSyncData";
-            this.btSyncData.Size = new System.Drawing.Size(165, 30);
+            this.btSyncData.Size = new System.Drawing.Size(157, 24);
             this.btSyncData.Text = "同步数据";
             this.btSyncData.Click += new System.EventHandler(this.btSyncData_Click);
             // 
@@ -873,7 +884,7 @@
             // 
             this.btIPSelect.Image = global::ConfigDevice.Properties.Resources.goyi;
             this.btIPSelect.Name = "btIPSelect";
-            this.btIPSelect.Size = new System.Drawing.Size(165, 30);
+            this.btIPSelect.Size = new System.Drawing.Size(157, 24);
             this.btIPSelect.Text = "显示IP选择";
             this.btIPSelect.Click += new System.EventHandler(this.btIPSelect_Click);
             // 
@@ -1057,5 +1068,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit edtDeviceName;
         private System.Windows.Forms.ToolStripButton btQryDevices;
         private System.Windows.Forms.ToolStripMenuItem btShowLog;
+        private System.Windows.Forms.ToolStripMenuItem btChangeIP;
     }
 }

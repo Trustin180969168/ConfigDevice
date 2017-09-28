@@ -143,9 +143,7 @@ namespace ConfigDevice
                     }
                     else if ((callbackParameter.Action == ActionKind.DisConnectNetwork))//---断开连接----
                     {
-                        gcDevices.DataSource = new DataTable();
-                        gcDevices.DataSource = SysConfig.DtDevice;
-                        gcDevices.RefreshDataSource(); 
+                        refrashDeviceList();
                     }
                     else if ((callbackParameter.Action == ActionKind.SaveDeviceName))//---保存设备名称后刷新列表----
                     {
@@ -166,6 +164,13 @@ namespace ConfigDevice
                 }
             }
             catch (Exception e1) { e1.ToString(); }
+        }
+
+        private void refrashDeviceList()
+        {
+            gcDevices.DataSource = new DataTable();
+            gcDevices.DataSource = SysConfig.DtDevice;
+            gcDevices.RefreshDataSource();
         }
 
         /// <summary>
@@ -363,6 +368,7 @@ namespace ConfigDevice
             deviceCtrl.ClearDevices();
             if (cbxSelectNetwork.Items.Count == 0) initCbxSelectNetwork();
             cbxSelectNetwork.SelectedIndex = 0;
+            this.refrashDeviceList();
         }
 
         /// <summary>
@@ -870,8 +876,20 @@ namespace ConfigDevice
             frmUdpLog.Show();
         }
 
-  
+        private void btChangeIP_Click(object sender, EventArgs e)
+        {
+            if (gvNetwork.FocusedRowHandle < 0) return;
+            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
 
+            if (network.ByteKindID != DeviceConfig.EQUIPMENT_SERVER)
+            {
+                FrmNetworkIPEdit frm = new FrmNetworkIPEdit();
+                frm.NetworkEdit = network;
+                frm.Show(this);
+            }
+
+        } 
 
  
     }

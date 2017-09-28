@@ -112,13 +112,12 @@ namespace ConfigDevice.DeviceUI
                         //    cbxAmplifier.SelectedIndex = 0;
                         //}         
 
-                                         //---功放地址---
+                        //---功放地址---
                         if (fingerMarkLock.AmplifierConfigList.Count > 0)
                         {
                             spdtVolume.Value = fingerMarkLock.AmplifierConfigList[0].Volume; //---音量
                             spdAddress.Value = fingerMarkLock.AmplifierConfigList[0].DeviceID;//---地址
-                            lookUpEditAmp.EditValue = fingerMarkLock.AmplifierConfigList[0].DeviceID;//---功放名称---
-                        
+                            lookUpEditAmp.EditValue = (Int16)fingerMarkLock.AmplifierConfigList[0].DeviceID;//---功放名称---
                         }
                     }
                     if (callbackParameter.Action == ActionKind.ReadLockConfig)

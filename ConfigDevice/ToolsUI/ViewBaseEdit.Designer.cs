@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewBaseEdit));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btSaveAll = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
@@ -56,7 +57,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btReset = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btResetMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -83,7 +85,7 @@
             this.btCloseLight,
             this.btFindOn,
             this.btFindOff,
-            this.btReset});
+            this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(779, 31);
@@ -390,14 +392,23 @@
             this.label2.Text = "网段ID";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // btReset
+            // toolStripSplitButton1
             // 
-            this.btReset.Image = global::ConfigDevice.Properties.Resources.exchange;
-            this.btReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btReset.Name = "btReset";
-            this.btReset.Size = new System.Drawing.Size(120, 28);
-            this.btReset.Text = "恢复出厂设置";
-            this.btReset.Click += new System.EventHandler(this.btReset_Click);
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btResetMenu});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(13, 4);
+            // 
+            // btResetMenu
+            // 
+            this.btResetMenu.Image = global::ConfigDevice.Properties.Resources.exchange;
+            this.btResetMenu.Name = "btResetMenu";
+            this.btResetMenu.Size = new System.Drawing.Size(160, 22);
+            this.btResetMenu.Text = "恢复出厂设置";
+            this.btResetMenu.Click += new System.EventHandler(this.btReset_Click);
             // 
             // ViewBaseEdit
             // 
@@ -458,6 +469,7 @@
         private System.Windows.Forms.ToolStripMenuItem btSaveNamePosition;
         private System.Windows.Forms.ToolStripButton btSaveAll;
         private DevExpress.XtraEditors.TextEdit edtKind;
-        private System.Windows.Forms.ToolStripButton btReset;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem btResetMenu;
     }
 }
