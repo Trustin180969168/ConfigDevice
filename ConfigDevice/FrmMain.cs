@@ -884,7 +884,15 @@ namespace ConfigDevice
 
             if (network.ByteKindID != DeviceConfig.EQUIPMENT_SERVER)
             {
-                FrmNetworkIPEdit frm = new FrmNetworkIPEdit();
+                string pw = "";
+                FrmNetworkPW frmPW = new FrmNetworkPW();
+                frmPW.NetworkName = network.DeviceName;
+                if (frmPW.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    pw = frmPW.PassWord;
+                else
+                    return;    
+                FrmNetworkIPEdit frm = new FrmNetworkIPEdit(); 
+                frm.PassWord = pw;
                 frm.NetworkEdit = network;
                 frm.Show(this);
             }

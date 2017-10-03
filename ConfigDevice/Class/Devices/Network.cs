@@ -85,6 +85,32 @@ namespace ConfigDevice
             return remotePoint;
         }
 
+
+        public string ManagerPassword
+        {
+            set
+            {
+                if (value == "") return;
+                //---管理员密码---密码:1234 => 0x21,0x43,0xFF,0xFF
+                string str1 = value.Substring(0, 1); string str2 = value.Substring(1, 1);
+                string str3 = value.Substring(2, 1); string str4 = value.Substring(3, 1);
+                managerPassword = ConvertTools.StrToToHexByte(str2 + str1 + str4 + str3 + "FFFF");
+                userPassword = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };//---用户密码--- }
+            }
+        }
+
+        public string UserPassword
+        {
+            set {
+                string str1 = value.Substring(0, 1); string str2 = value.Substring(1, 1);
+                string str3 = value.Substring(2, 1); string str4 = value.Substring(3, 1); 
+                managerPassword = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };//---(0xFF代表忽略)--- 
+                userPassword = ConvertTools.StrToToHexByte(str2 + str1 + str4 + str3 + "FFFF"); 
+
+            }
+      
+        }
+
         /// <summary>
         /// 构造函数
         /// </summary>

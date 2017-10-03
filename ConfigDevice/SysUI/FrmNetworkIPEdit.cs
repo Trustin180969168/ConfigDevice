@@ -11,7 +11,8 @@ namespace ConfigDevice
     public partial class FrmNetworkIPEdit : Form
     {
 
-        public Network NetworkEdit = null;  
+        public Network NetworkEdit = null;
+        public String PassWord = "";
 
         public FrmNetworkIPEdit()
         {
@@ -29,6 +30,7 @@ namespace ConfigDevice
         private void btSaveInfo_Click(object sender, EventArgs e)
         {
             edtNetworkIP.IP = edtNetworkIP.IP;
+            NetworkEdit.ManagerPassword = PassWord;
             NetworkEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
                 ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text), edtDNS1.ByteIP, edtDNS2.ByteIP);
         }
