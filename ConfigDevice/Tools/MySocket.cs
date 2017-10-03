@@ -18,14 +18,14 @@ namespace ConfigDevice
     public class MySocket
     {
         private Socket mySocket;//Socket对象
-        private static readonly Object obj = new Object();//加锁对象
-        private static readonly Object lockReceive = new Object();//加锁对象
-        private static UInt16 sendCount = 0;
+        private readonly Object obj = new Object();//加锁对象
+        private readonly Object lockReceive = new Object();//加锁对象
+        private UInt16 sendCount = 0;
         private static Dictionary<string, CallbackFromUDP> pcSendRequestList = new Dictionary<string, CallbackFromUDP>();//---PC回调列表----
         private static Dictionary<string, UdpData> rj45SendList = new Dictionary<string, UdpData>();//---RJ45发送列表---- 
 
         public int Available { get { return mySocket.Available; } }//当前可用的所有UDP接收数据长度
-        private static Thread receiveThread;//----接收线程-----   
+        private Thread receiveThread;//----接收线程-----   
 
         /// <summary>
         /// 获取发送列表
@@ -128,7 +128,7 @@ namespace ConfigDevice
         /// 获取发送次数
         /// </summary>
         /// <returns>Int16</returns>
-        public static Int16 GetSendCount()
+        public  Int16 GetSendCount()
         {
             return (Int16)sendCount;
         }
