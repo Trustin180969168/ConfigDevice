@@ -282,14 +282,14 @@
             this.gcPosition.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcPosition.EmbeddedNavigator.Name = "";
             this.gcPosition.FormsUseDefaultLookAndFeel = false;
-            this.gcPosition.Location = new System.Drawing.Point(0, 55);
+            this.gcPosition.Location = new System.Drawing.Point(0, 247);
             this.gcPosition.MainView = this.gvPosition;
             this.gcPosition.Name = "gcPosition";
             this.gcPosition.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemComboBox1,
             this.cedtHasPassword,
             this.edtName});
-            this.gcPosition.Size = new System.Drawing.Size(792, 518);
+            this.gcPosition.Size = new System.Drawing.Size(792, 326);
             this.gcPosition.TabIndex = 20;
             this.gcPosition.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPosition});
@@ -482,15 +482,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 573);
-            this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.gcPosition);
+            this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "FrmNetworkEdit";
             this.Text = "网络信息";
             this.Load += new System.EventHandler(this.FrmNetworkEdit_Load);
             this.Controls.SetChildIndex(this.toolStrip1, 0);
-            this.Controls.SetChildIndex(this.gcPosition, 0);
             this.Controls.SetChildIndex(this.panelControl1, 0);
+            this.Controls.SetChildIndex(this.gcPosition, 0);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtNetworkID.Properties)).EndInit();

@@ -267,7 +267,6 @@ namespace ConfigDevice
             {
                 try
                 {
-
                     if (mySocket == null || mySocket.Available < 1)//----等待数据接收-----
                     {
                         Thread.Sleep(15);
