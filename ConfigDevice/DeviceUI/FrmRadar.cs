@@ -11,9 +11,7 @@ using System.Collections;
 namespace ConfigDevice
 {
     public partial class FrmRadar : ConfigDevice.FrmDevice
-    {
-        private ThreadActionTimer refreshSateTimer;//---动态刷新---
-        private bool autoRefresh = false;
+    { 
         private Radar radar;
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
         private string currentGroupName = "";//当前组名

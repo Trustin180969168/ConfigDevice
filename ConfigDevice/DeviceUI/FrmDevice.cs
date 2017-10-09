@@ -15,6 +15,8 @@ namespace ConfigDevice
         public Dictionary<int, DataRow> SelectDeviceList = new Dictionary<int, DataRow>();//---列表---
         public bool loaded = false;//是否加载完毕
         protected  static readonly object lockObject = new object();
+        protected ThreadActionTimer refreshSateTimer;//---动态刷新---
+        protected bool autoRefresh = false;
         public FrmDevice(Device _device):this()
         {
             
@@ -127,6 +129,8 @@ namespace ConfigDevice
 
         private void FrmDevice_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (refreshSateTimer != null)
+                refreshSateTimer.Stop();
             SysCtrl.RemoveRJ45CallBackList(this.Handle.ToString());
         }
 

@@ -13,9 +13,7 @@ namespace ConfigDevice
     /// </summary>
     public partial class FrmMotorDC3 : FrmDevice
     {
-        private Road3Window road3Window;
-        private bool autoRefresh = false;
-        private ThreadActionTimer refreshSateTimer;//---动态刷新---
+        private Road3Window road3Window; 
         private GridViewDigitalEdit edtCurrent = new GridViewDigitalEdit();
         private GridViewDigitalEdit edtSecond = new GridViewDigitalEdit();
         private DataTable dtMotorSetting = new DataTable("电机配置");
@@ -251,6 +249,7 @@ namespace ConfigDevice
         /// </summary>
         private void FrmMotorDC3_FormClosing(object sender, FormClosingEventArgs e)
         {
+            refreshSateTimer.Stop();
             road3Window.RemoveRJ45Callback();
         }
 

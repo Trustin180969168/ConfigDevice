@@ -47,6 +47,7 @@
             this.ceBackSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ceLeaveSafeSetting = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.chkDoorWindowShow = new DevExpress.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -62,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ceBackSafeSetting)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ceLeaveSafeSetting)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkDoorWindowShow.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControl3
@@ -73,7 +75,7 @@
             this.groupControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl3.Location = new System.Drawing.Point(0, 0);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(849, 222);
+            this.groupControl3.Size = new System.Drawing.Size(849, 268);
             this.groupControl3.TabIndex = 1;
             this.groupControl3.Text = "安防";
             // 
@@ -86,6 +88,7 @@
             this.groupBox3.Controls.Add(this.labelControl7);
             this.groupBox3.Controls.Add(this.labelControl2);
             this.groupBox3.Controls.Add(this.labelControl6);
+            this.groupBox3.Controls.Add(this.chkDoorWindowShow);
             this.groupBox3.Controls.Add(this.ceAlarmSound);
             this.groupBox3.Controls.Add(this.labelControl4);
             this.groupBox3.Controls.Add(this.labelControl5);
@@ -94,7 +97,7 @@
             this.groupBox3.Controls.Add(this.ceDoorWindowSound);
             this.groupBox3.Location = new System.Drawing.Point(35, 123);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(793, 85);
+            this.groupBox3.Size = new System.Drawing.Size(793, 121);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "安防选项";
@@ -106,7 +109,7 @@
             this.lblSoundValue.Appearance.Options.UseFont = true;
             this.lblSoundValue.Appearance.Options.UseForeColor = true;
             this.lblSoundValue.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblSoundValue.Location = new System.Drawing.Point(370, 50);
+            this.lblSoundValue.Location = new System.Drawing.Point(370, 70);
             this.lblSoundValue.Name = "lblSoundValue";
             this.lblSoundValue.Size = new System.Drawing.Size(31, 21);
             this.lblSoundValue.TabIndex = 16;
@@ -115,7 +118,7 @@
             // speHintVolume
             // 
             this.speHintVolume.EditValue = null;
-            this.speHintVolume.Location = new System.Drawing.Point(201, 53);
+            this.speHintVolume.Location = new System.Drawing.Point(201, 73);
             this.speHintVolume.Name = "speHintVolume";
             this.speHintVolume.Properties.Maximum = 100;
             this.speHintVolume.Properties.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
@@ -126,7 +129,7 @@
             // lookUpEditAmp
             // 
             this.lookUpEditAmp.EditValue = "";
-            this.lookUpEditAmp.Location = new System.Drawing.Point(474, 49);
+            this.lookUpEditAmp.Location = new System.Drawing.Point(474, 69);
             this.lookUpEditAmp.Name = "lookUpEditAmp";
             this.lookUpEditAmp.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.lookUpEditAmp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -146,7 +149,7 @@
             0,
             0,
             0});
-            this.speAmp.Location = new System.Drawing.Point(686, 49);
+            this.speAmp.Location = new System.Drawing.Point(686, 69);
             this.speAmp.Name = "speAmp";
             this.speAmp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -162,7 +165,7 @@
             // 
             // labelControl7
             // 
-            this.labelControl7.Location = new System.Drawing.Point(410, 52);
+            this.labelControl7.Location = new System.Drawing.Point(410, 72);
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(60, 14);
             this.labelControl7.TabIndex = 10;
@@ -170,7 +173,7 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(596, 52);
+            this.labelControl2.Location = new System.Drawing.Point(596, 72);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(84, 14);
             this.labelControl2.TabIndex = 11;
@@ -178,7 +181,7 @@
             // 
             // labelControl6
             // 
-            this.labelControl6.Location = new System.Drawing.Point(123, 54);
+            this.labelControl6.Location = new System.Drawing.Point(123, 74);
             this.labelControl6.Name = "labelControl6";
             this.labelControl6.Size = new System.Drawing.Size(72, 14);
             this.labelControl6.TabIndex = 12;
@@ -250,7 +253,7 @@
             // 
             // ceDoorWindowSound
             // 
-            this.ceDoorWindowSound.Location = new System.Drawing.Point(30, 52);
+            this.ceDoorWindowSound.Location = new System.Drawing.Point(30, 72);
             this.ceDoorWindowSound.Name = "ceDoorWindowSound";
             this.ceDoorWindowSound.Properties.Caption = "门窗提示音";
             this.ceDoorWindowSound.Size = new System.Drawing.Size(85, 19);
@@ -322,13 +325,21 @@
             this.ceLeaveSafeSetting.TabIndex = 0;
             this.ceLeaveSafeSetting.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.ceLeaveSafeSetting_ItemCheck);
             // 
+            // chkDoorWindowShow
+            // 
+            this.chkDoorWindowShow.Location = new System.Drawing.Point(30, 47);
+            this.chkDoorWindowShow.Name = "chkDoorWindowShow";
+            this.chkDoorWindowShow.Properties.Caption = "门窗显示";
+            this.chkDoorWindowShow.Size = new System.Drawing.Size(85, 19);
+            this.chkDoorWindowShow.TabIndex = 3;
+            // 
             // KeySecuritySetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupControl3);
             this.Name = "KeySecuritySetting";
-            this.Size = new System.Drawing.Size(849, 222);
+            this.Size = new System.Drawing.Size(849, 268);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -345,6 +356,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ceBackSafeSetting)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ceLeaveSafeSetting)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkDoorWindowShow.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -370,5 +382,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl6;
+        private DevExpress.XtraEditors.CheckEdit chkDoorWindowShow;
     }
 }

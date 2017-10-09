@@ -12,8 +12,7 @@ namespace ConfigDevice
 {
     public partial class FrmEnvironment : ConfigDevice.FrmDevice
     {
-        private ThreadActionTimer refreshSateTimer;//---动态刷新---
-        private bool autoRefresh = false;
+ 
         private Environment environment;
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
         private string currentGroupName = "";//当前组名

@@ -48,6 +48,7 @@ namespace ConfigDevice.ToolsUI.LCDUI
             ceDoorWindowSound.Checked = optionData.DoorWindowHintSound; //---门窗提示音---
             speSecurityDelay.Value = optionData.SetSecurityDelayTime;   //---布防延时---
             speAlarmDelay.Value = optionData.AlarmDelayTime;            //---预警延时---
+            chkDoorWindowShow.Checked = optionData.DoorWindowShowing;//---门窗显示
             speHintVolume.Value = optionData.Volume;                //---提示音量---
             speAmp.Value = optionData.SoundAddress;                     //---功放地址---
             lookUpEditAmp.EditValue = (Int16)optionData.SoundAddress;          //---功放名称---
@@ -89,9 +90,9 @@ namespace ConfigDevice.ToolsUI.LCDUI
             button2OptionData.AlarmHintSound = ceAlarmSound.Checked;           //---预警提示音---
             button2OptionData.DoorWindowHintSound = ceDoorWindowSound.Checked; //---门窗提示音---
             button2OptionData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
-            button2OptionData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
+            button2OptionData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时--- 
             button2OptionData.Volume = (byte)speHintVolume.Value;                //---提示音量--- 
-            button2OptionData.SoundAddress = (byte)speAmp.Value;          //---功放地址---
+            button2OptionData.SoundAddress = (byte)speAmp.Value;          //---功放地址--- 
             button2OptionData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防----  
 
             //---安防配置---------------
@@ -122,6 +123,7 @@ namespace ConfigDevice.ToolsUI.LCDUI
             optionData.DoorWindowHintSound = ceDoorWindowSound.Checked; //---门窗提示音---
             optionData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
             optionData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
+            optionData.DoorWindowShowing = chkDoorWindowShow.Checked;//---门窗显示
             optionData.Volume = (byte)speHintVolume.Value;                //---提示音量--- 
             optionData.SoundAddress = (byte)speAmp.Value;          //---功放地址---
             optionData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防----  

@@ -252,6 +252,8 @@ Bit7        1    全部房间显示，
                     LeaveHome = (byte)(LeaveHome & 247);//1111 0111
             }
         }
+         
+
 
         /// <summary>
         /// 门窗提示音
@@ -266,42 +268,7 @@ Bit7        1    全部房间显示，
                 else
                     GoHome = (byte)(GoHome & 207);//1100 1111
             }
-        }
-
-        /// <summary>
-        /// 门窗显示
-        /// </summary>
-        public int DoorWindowShowAllID
-        {
-            get { return ((DoorWindowShowSetting & 128) == 128) ? 1 : 0; }
-            set
-            {
-                if (value == 1)
-                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting | 128);//1000 0000
-                else
-                    DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 127);//0111 1111
-            }
-        }
-
-        /// <summary>
-        /// 门窗显示
-        /// </summary>
-        public int DoorWindowShowModelID
-        {
-            get
-            {
-                return DoorWindowShowSetting & 3; // 0000 0011
-                
-            }
-            set
-            {
-            
-                DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 252 | value);//1111 1100  
- 
-            }
-        }
-
-
+        }  
 
         /// <summary>
         /// 构造函数

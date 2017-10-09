@@ -12,9 +12,8 @@ using DevExpress.XtraEditors;
 namespace ConfigDevice
 {
     public partial class FrmBodyIndction : ConfigDevice.FrmDevice
-    {
-        private ThreadActionTimer refreshSateTimer;//---动态刷新---
-        private bool autoRefresh = false;
+    { 
+        
         private BodyInduction bodyInduction;//---人体感应----
         private LookupIDAndNameTable dtIDName = new LookupIDAndNameTable();
         private string currentGroupName = "";//当前组名

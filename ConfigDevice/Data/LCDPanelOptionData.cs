@@ -278,6 +278,22 @@ Bit7        1    全部房间显示，
                     GoHome = (byte)(GoHome & 254);//1111 1110
             }
         }
+
+        /// <summary>
+        /// 门窗显示
+        /// </summary>
+        public bool DoorWindowShowing
+        {
+            get { return ((LeaveHome & 4) == 4) ? true : false; }
+            set
+            {
+                if (value)
+                    LeaveHome = (byte)(LeaveHome | 4);//0000 0100
+                else
+                    LeaveHome = (byte)(LeaveHome & 251);//1111 1011
+            }
+        }
+
         /// <summary>
         /// 门窗提示音
         /// </summary>
@@ -293,8 +309,9 @@ Bit7        1    全部房间显示，
             }
         }
 
+
         /// <summary>
-        /// 门窗提示音
+        /// 没关，没锁门是否播放音乐
         /// </summary>
         public bool NotCloseWindowPlayMusic
         {
@@ -309,7 +326,7 @@ Bit7        1    全部房间显示，
         }
 
         /// <summary>
-        /// 门窗显示
+        /// 门窗显示内容
         /// </summary>
         public int DoorWindowShowAllID
         {
@@ -324,7 +341,7 @@ Bit7        1    全部房间显示，
         }
 
         /// <summary>
-        /// 门窗显示
+        /// 门窗显示模式
         /// </summary>
         public int DoorWindowShowModelID
         {
