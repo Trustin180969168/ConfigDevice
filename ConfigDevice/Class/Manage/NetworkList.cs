@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Data;  
 using System.Collections;
+using System.Threading;
 
 
 namespace ConfigDevice
@@ -17,6 +18,8 @@ namespace ConfigDevice
         public event CallbackUIAction CallBackUI = null;//返回UI
         private CallbackFromUDP callbackRefreshNetwork;//回调类
         private DateTime actionTime = DateTime.Now.AddSeconds(-1);//---执行时间-----
+        private Object lockObject = new object();//---用于线程锁
+
 
         public NetworkList()
         {
@@ -54,7 +57,7 @@ namespace ConfigDevice
         /// <param name="udp">udp包</param>
         private void callbackSearchNetworks(UdpData udp, object[] values)
         {
-            lock (SysConfig.DtNetwork)//---PC反馈速度太快必须限制反馈线程,避免出错
+            lock (lockObject)//---PC反馈速度太快必须限制反馈线程,避免出错
             {
                 //----排除重复项-------
                 string temp = NetworkConfig.DC_IP + "='" + udp.IP + "'";
@@ -108,7 +111,7 @@ namespace ConfigDevice
                 }
                 else //----更新网络列表---
                 {
-                    NetworkCtrl.UpdateNetworkDataTable(network);//----更新网络列表-----                    
+                    NetworkCtrl.GetInstance().UpdateNetworkDataTable(network);//----更新网络列表-----                    
                 }
                 CallBackUI(new CallbackParameter(ActionKind.SearchNetwork,null));//----回调结果到主界面---
             }
@@ -121,12 +124,11 @@ namespace ConfigDevice
         /// <returns>返回数据表</returns>
         public void callbackRefreshNetworkData(UdpData udpReply, object[] values)
         {
-            lock (SysConfig.ListNetworks)
-            {
+           
                 RefreshCount++;
                 UdpData udpAck = createReplyRefreshUdpData(udpReply);//----根据回复包,创建回复刷新包----
                 mySocket.ReplyData(udpAck, udpReply.IP, SysConfig.RemotePort);//---回复刷新---  
-            }
+           
             foreach (Network network in SysConfig.ListNetworks.Values)
             {
                 if (udpReply.IP == network.NetworkIP && network.State == NetworkConfig.STATE_CONNECTED )
@@ -144,7 +146,7 @@ namespace ConfigDevice
         /// <returns>返回数据表</returns>
         public void RefreshNetwork()
         {            
-            lock (SysConfig.ListNetworks)
+            lock (lockObject)
             {
                 foreach (Network network in SysConfig.ListNetworks.Values)
                 {
@@ -153,7 +155,7 @@ namespace ConfigDevice
                         if (network.RefreshTime.AddSeconds(NetworkConfig.CONNECT_TIME_OUT) < DateTime.Now)
                         {
                             setConnectState(network, NetworkConfig.STATE_NOT_CONNECTED);//---变更为未链接----   
-                            NetworkCtrl.RemoveNetworkDeviceData(network);//----移除设备数据-----
+                            NetworkCtrl.GetInstance().RemoveNetworkDeviceData(network);//----移除设备数据-----
                         }
                         else  //----PC主动刷新网络
                             network.RefreshConnection();
@@ -168,15 +170,18 @@ namespace ConfigDevice
         /// <param name="network"></param>
         private void setConnectState(Network network, string state)
         {
-            network.State = state;//标记状态         
-            foreach (DataRow dr in SysConfig.DtNetwork.Rows)
+            lock (lockObject)
             {
-                if (dr[NetworkConfig.DC_MAC].ToString() == network.MAC)
+                network.State = state;//标记状态         
+                foreach (DataRow dr in SysConfig.DtNetwork.Rows)
                 {
-                    dr[NetworkConfig.DC_STATE] = state;
-                    dr.AcceptChanges();
-                    break;
-                }                
+                    if (dr[NetworkConfig.DC_MAC].ToString() == network.MAC)
+                    {
+                        dr[NetworkConfig.DC_STATE] = state;
+                        dr.AcceptChanges();
+                        break;
+                    }
+                }
             }
         }
 
@@ -238,13 +243,28 @@ namespace ConfigDevice
         /// </summary>
         public void ClearNetwork()
         {
-            RefreshConnectState.Stop();
-            //------断开所有连接网络------- 
-            foreach (Network network in SysConfig.ListNetworks.Values)
-                if (network.State == NetworkConfig.STATE_CONNECTED) network.DisconnectNetwork();
-            SysConfig.DtDevice.Clear(); SysConfig.DtDevice.AcceptChanges();
-            SysConfig.DtNetwork.Clear(); SysConfig.DtNetwork.AcceptChanges();
-            SysConfig.ListNetworks.Clear();
+            lock (lockObject)
+            {
+                RefreshConnectState.Stop();
+                //------断开所有连接网络------- 
+                foreach (Network network in SysConfig.ListNetworks.Values)
+                {
+                    PleaseWait pw = new PleaseWait(5, SysCtrl.MainFrom);
+                    pw.labelmsg = "清空网络列表中...";
+                    if (network.State == NetworkConfig.STATE_CONNECTED)
+                    {
+                    
+                        pw.Show();
+                        WaitingTimer.Sleep(5000);
+                        network.DisconnectNetwork(); 
+                        //ThreadActionTimer disconnectNetowrkAction = new ThreadActionTimer(5000, new Action(network.DisconnectNetwork),5);
+                        //disconnectNetowrkAction.DelayStart(5000);
+                    }
+                }
+                SysConfig.DtDevice.Clear(); SysConfig.DtDevice.AcceptChanges();
+                SysConfig.DtNetwork.Clear(); SysConfig.DtNetwork.AcceptChanges();
+                SysConfig.ListNetworks.Clear();
+            }
            
         }
 

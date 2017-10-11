@@ -19,7 +19,7 @@ namespace ConfigDevice
     public partial class FrmMain : Form,IMessageFilter   
     {
         private MySocket socket;//---通讯对象-----
-        private NetworkList networkCtrl;//----网络控制-----
+        private NetworkList networkList;//----网络控制-----
         private DeviceList deviceCtrl;//----设备控制-----
         private PleaseWait pw;//---等待窗体
         private bool OneNetworkShow = false;//是否单网段显示
@@ -32,7 +32,7 @@ namespace ConfigDevice
         public FrmMain()
         {
             SysCtrl.Init();//初始化配置
-            networkCtrl = new NetworkList();
+            networkList = new NetworkList();
             deviceCtrl = new DeviceList();
             socket = MySocket.GetInstance();
             pw = new PleaseWait(1,this as Form);
@@ -40,7 +40,7 @@ namespace ConfigDevice
 
             gcNetwork.DataSource = SysConfig.DtNetwork;
             gcDevices.DataSource = SysConfig.DtDevice;
-            networkCtrl.CallBackUI += this.CallBackUI;
+            networkList.CallBackUI += this.CallBackUI;
             deviceCtrl.CallBackUI += this.CallBackUI;
 
             //-------初始化列表字段名-------
@@ -90,7 +90,7 @@ namespace ConfigDevice
         {
             pw.ShowWaittingInfo(1, "正在加载...");
 
-            Action searchAction = new Action(networkCtrl.SearchNetworks);
+            Action searchAction = new Action(networkList.SearchNetworks);
             searchAction.BeginInvoke(null, null);
         }
         public void CallBackUI(CallbackParameter callbackParameter)
@@ -345,9 +345,9 @@ namespace ConfigDevice
             SysConfig.SetLocalIPInfo(cbxIPList.SelectedIndex);//---设置IP----
             MySocket.GetInstance().RefreshBindNewIpLocalPoint();//---刷新绑定--
             //---重新刷新网络----
-            this.networkCtrl.ClearNetwork();
+            this.networkList.ClearNetwork();
             pw.ShowWaittingInfo(1, "正在加载..."); 
-            Action searchAction = new Action(networkCtrl.SearchNetworks);
+            Action searchAction = new Action(networkList.SearchNetworks);
             searchAction.BeginInvoke(null, null);
         }
 
@@ -356,7 +356,7 @@ namespace ConfigDevice
         /// </summary>
         private void btClearNetwork_Click(object sender, EventArgs e)
         {
-            this.networkCtrl.ClearNetwork();
+            this.networkList.ClearNetwork();
             //cbxSelectNetwork.SelectedIndex = -1;
         }
 
@@ -792,14 +792,25 @@ namespace ConfigDevice
             GridHitInfo HitInfo = this.gvNetwork.CalcHitInfo(e.Location);//获取鼠标点击的位置
             if (HitInfo.InRowCell && HitInfo.Column != null)
             {
-                if( HitInfo.Column.FieldName == NetworkConfig.DC_STATE   )
+                if (HitInfo.Column.FieldName == NetworkConfig.DC_STATE)
                 {
-                    if( e.Button == MouseButtons.Left )
-                        linkEdit_DoubleClick( sender, e );
-                    else 
-                        contextMenuStripNetwork.Show();
-                   }
-
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        linkEdit_DoubleClick(sender, e);
+                        return;
+                    }
+                } 
+            }
+            if (gvNetwork.FocusedRowHandle < 0) return;
+            DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
+            Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
+            if (network.ByteKindID == DeviceConfig.EQUIPMENT_SERVER)
+            {
+                btChangeIP.Visible = false;
+            }
+            else
+            {
+                btChangeIP.Visible = true;
             }
         }
         /// <summary>

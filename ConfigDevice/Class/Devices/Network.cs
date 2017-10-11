@@ -370,7 +370,7 @@ namespace ConfigDevice
             {
                 this.DeviceName = newName;
                 SysConfig.ListNetworks[this.NetworkIP].DeviceName = newName;
-                NetworkCtrl.UpdateNetworkDataTable(this);
+                NetworkCtrl.GetInstance().UpdateNetworkDataTable(this);
                 //CommonTools.MessageShow("保存成功!", 1, "");
             }
         }
@@ -467,7 +467,7 @@ namespace ConfigDevice
                     State = NetworkConfig.STATE_CONNECTED;
                     managerPassword = (byte[])(values[0]);
                     userPassword = (byte[])(values[1]);
-                    NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
+                    NetworkCtrl.GetInstance().UpdateNetworkDataTable(this);//---更新列表信息------
                     int i =SysConfig.ListNetworks.Count;
                     GetPositionList(); //----------获取位置列表---------
                     DeviceCtrl.AddDeviceData(GetDeviceData());//---添加到设备数据----
@@ -561,8 +561,8 @@ namespace ConfigDevice
                 {
                     PCAddress = "";
                     State = NetworkConfig.STATE_NOT_CONNECTED;//---标记为未链接----
-                    NetworkCtrl.UpdateNetworkDataTable(this);//---更新列表信息------
-                    NetworkCtrl.RemoveNetworkDeviceData(this);//----移除设备数据-----
+                    NetworkCtrl.GetInstance().UpdateNetworkDataTable(this);//---更新列表信息------
+                    NetworkCtrl.GetInstance().RemoveNetworkDeviceData(this);//----移除设备数据-----
                     CallbackUI(new CallbackParameter(ActionKind.DisConnectNetwork,this.DeviceID,this ));
                     return;
                 }
@@ -746,7 +746,7 @@ namespace ConfigDevice
         public void SaveNetworkParameter(byte[] newIP, byte[] gateWay, byte[] mask, byte _networkID,byte[] dns1,byte[] dns2)
         {
             UdpData udpSend = createSaveNetworkParameter(newIP, gateWay, mask, _networkID,dns1,dns2);
-            mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangeParameter), 
+            mySocket.SendData(udpSend, NetworkConfig.BROADCAST_IP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangeParameter), 
                 new object[] { udpSend, newIP, _networkID  });
         }
         private void callbackChangeParameter(UdpData udpReply, object[] values)
@@ -769,7 +769,7 @@ namespace ConfigDevice
                     this.NetworkIP = newIP.ToString();
                     SysConfig.ListNetworks.Add(this.NetworkIP, this);//---重新添加到对象列表-- 
                 }
-                NetworkCtrl.UpdateNetworkDataTable(this);//---更新网络列表--
+                NetworkCtrl.GetInstance().UpdateNetworkDataTable(this);//---更新网络列表--
                 
                 //CommonTools.MessageShow("参数修改成功!", 1, "");
             }

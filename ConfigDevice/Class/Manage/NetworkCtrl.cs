@@ -5,10 +5,15 @@ using System.Data;
 
 namespace ConfigDevice
 {
-    public static class NetworkCtrl
+    public class NetworkCtrl
     {
-        private static object lockUpdateObj = new object();
-        private static DateTime actionTime = DateTime.Now.AddSeconds(1);//---执行时间-----
+        private object lockUpdateObj = new object();
+        private NetworkCtrl() { }
+        private static readonly NetworkCtrl instance = new NetworkCtrl();
+        public static NetworkCtrl GetInstance()
+        {
+            return instance;
+        }
         /// <summary>
         /// 初始化网络数据
         /// </summary>
@@ -36,66 +41,47 @@ namespace ConfigDevice
         /// 删除设备
         /// </summary>
         /// <param name="deviceData">设备数据</param>
-        public static void RemoveNetworkDeviceData(Network network)
+        public void RemoveNetworkDeviceData(Network network)
         {
-            DataTable temp = SysConfig.DtDevice.Copy();
-            foreach (DataRow dr in temp.Rows)
+            lock (this.lockUpdateObj)
             {
-                if (dr[DeviceConfig.DC_NETWORK_IP].ToString() == network.NetworkIP)
-                    dr.Delete();
+                DataTable temp = SysConfig.DtDevice.Copy();
+                foreach (DataRow dr in temp.Rows)
+                {
+                    if (dr[DeviceConfig.DC_NETWORK_IP].ToString() == network.NetworkIP)
+                        dr.Delete();
+                }
+                temp.AcceptChanges();
+                SysConfig.DtDevice = temp;
             }
-            temp.AcceptChanges();
-            SysConfig.DtDevice = temp;
-            //temp.AcceptChanges();
-            //SysConfig.DtDevice = temp.Copy();
-            //int delIndex = -1;
-            //foreach (DataRow dr in SysConfig.DtDevice.Rows)
-            //{
-            //    if (dr[DeviceConfig.DC_MAC].ToString() == network.MAC)
-            //    { delIndex = SysConfig.DtDevice.Rows.IndexOf(dr); break; }
-            //}
-            //if (delIndex != -1)
-            //    SysConfig.DtDevice.Rows.RemoveAt(delIndex);
         }
 
-        private static bool doing = false;
         /// <summary>
         /// 根据数据更新网络设备表
         /// </summary>
         /// <param name="network">RJ45</param>
-        public static void UpdateNetworkDataTable(Network network)
-        {
-
-            try
+        public void UpdateNetworkDataTable(Network network)
+        { 
+            lock (lockUpdateObj)
             {
-                if (doing)
-                    return;
-                doing = true; 
-                    foreach (DataRow dr in SysConfig.DtNetwork.Rows)
-                    {
-                        if (dr[NetworkConfig.DC_MAC].ToString() == network.MAC)
-                        {
-                            dr[NetworkConfig.DC_DEVICE_ID] = network.DeviceID;
-                            dr[NetworkConfig.DC_NETWORK_ID] = network.NetworkID;
-                            dr[NetworkConfig.DC_STATE] = network.State;
-                            dr[NetworkConfig.DC_DEVICE_NAME] = network.DeviceName;
-                            dr[NetworkConfig.DC_PORT] = network.Port;
-                            dr[NetworkConfig.DC_IP] = network.NetworkIP;
-                            dr[NetworkConfig.DC_PC_ADDRESS] = network.PCAddress;
-
-                            dr.AcceptChanges();
-                            break;
-                        }
-                    }
-                    doing = false;
-                }
-                catch
+                foreach (DataRow dr in SysConfig.DtNetwork.Rows)
                 {
-                    //doing = false;
-                } 
-     
-        }
+                    if (dr[NetworkConfig.DC_MAC].ToString() == network.MAC)
+                    {
+                        dr[NetworkConfig.DC_DEVICE_ID] = network.DeviceID;
+                        dr[NetworkConfig.DC_NETWORK_ID] = network.NetworkID;
+                        dr[NetworkConfig.DC_STATE] = network.State;
+                        dr[NetworkConfig.DC_DEVICE_NAME] = network.DeviceName;
+                        dr[NetworkConfig.DC_PORT] = network.Port;
+                        dr[NetworkConfig.DC_IP] = network.NetworkIP;
+                        dr[NetworkConfig.DC_PC_ADDRESS] = network.PCAddress;
 
+                        dr.AcceptChanges();
+                        break;
+                    }
+                }
+            } 
+        } 
 
     }
 }
