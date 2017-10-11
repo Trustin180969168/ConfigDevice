@@ -85,6 +85,24 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 开始执行
+        /// </summary>
+        public void DelayStart(int delaySeconds)
+        {
+            System.Windows.Forms.Timer delayTime = new System.Windows.Forms.Timer();
+            delayTime.Interval = delaySeconds * 1000;
+            delayTime.Tick += (a, b) =>
+            {
+                delayTime.Stop();
+           
+                seconds = 0;
+                myTimer.Start();
+                countTimer.Start();
+            };
+            delayTime.Start();
+        }
+
+        /// <summary>
         /// 关闭执行
         /// </summary>
         public void Stop()

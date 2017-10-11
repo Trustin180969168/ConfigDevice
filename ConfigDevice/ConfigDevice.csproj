@@ -711,6 +711,7 @@
     <Compile Include="ToolsUI\ViewCommandTools.Designer.cs">
       <DependentUpon>ViewCommandTools.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\WaitingTimer.cs" />
     <None Include="Resources\snyc.png" />
     <None Include="Resources\checkWork.png" />
     <None Include="Resources\exchange.png" />
