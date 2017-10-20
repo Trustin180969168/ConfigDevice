@@ -883,19 +883,19 @@ namespace ConfigDevice
             Buffer.BlockCopy(UserProtocol.Device, 0, udp.Protocol, 0, 4);//------用户协议-----
             byte[] target = new byte[] { DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC, DeviceConfig.EQUIPMENT_PUBLIC };//----目标信息--
             byte[] source = new byte[] { BytePCAddress, ByteNetworkID, DeviceConfig.EQUIPMENT_PC };//----源信息----
-
+            byte len = 11;//---数据长度---
             byte page = UdpDataConfig.DEFAULT_PAGE;//-----分页-----
             byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_TIME;//----用户命令-----
-            byte len = 0x0B;//---数据长度---
+
             //--------添加到用户数据--------
-            byte[] crcData = new byte[17];
+            byte[] crcData = new byte[11 + 10 - 4];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
             DateTime now = DateTime.Now;
-            crcData[10] = (byte)now.Year;
+            crcData[10] = (byte)(now.Year - 2000);
             crcData[11] = (byte)now.Month;
             crcData[12] = (byte)now.Day;
             crcData[13] = (byte)now.DayOfWeek;

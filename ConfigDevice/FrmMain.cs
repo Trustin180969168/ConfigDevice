@@ -804,14 +804,14 @@ namespace ConfigDevice
             if (gvNetwork.FocusedRowHandle < 0) return;
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
-            if (network.ByteKindID == DeviceConfig.EQUIPMENT_SERVER)
-            {
-                btChangeIP.Visible = false;
-            }
-            else
-            {
-                btChangeIP.Visible = true;
-            }
+            //if (network.ByteKindID == DeviceConfig.EQUIPMENT_SERVER)
+            //{
+            //    btChangeIP.Visible = false;
+            //}
+            //else
+            //{
+            //    btChangeIP.Visible = true;
+            //}
         }
         /// <summary>
         /// 根据鼠标位置执行对应的点击事件
@@ -861,9 +861,7 @@ namespace ConfigDevice
             //        network.ConnectNetwork();
             //}
  
-        }
-
- 
+        } 
 
         private void linkEdit_DoubleClick(object sender, EventArgs e)
         {

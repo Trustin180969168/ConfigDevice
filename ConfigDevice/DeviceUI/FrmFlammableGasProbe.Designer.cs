@@ -58,6 +58,7 @@
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.BaseViewSetting = new ConfigDevice.ViewBaseEdit();
             this.pageLogic = new DevExpress.XtraTab.XtraTabPage();
@@ -94,7 +95,6 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.btSaveTrigger = new System.Windows.Forms.ToolStripButton();
             this.btRefreshTrigger = new System.Windows.Forms.ToolStripButton();
-            this.btAutoRefresh = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -259,7 +259,7 @@
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(543, 71);
             this.groupControl2.TabIndex = 3;
-            this.groupControl2.Text = "阀门电气参数测试";
+            this.groupControl2.Text = "阀门电气参数配置";
             // 
             // spePreTime
             // 
@@ -333,15 +333,15 @@
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(96, 14);
             this.labelControl7.TabIndex = 0;
-            this.labelControl7.Text = "最长动作时间间隔";
+            this.labelControl7.Text = "最长动作时间限制";
             // 
             // labelControl5
             // 
-            this.labelControl5.Location = new System.Drawing.Point(28, 38);
+            this.labelControl5.Location = new System.Drawing.Point(37, 38);
             this.labelControl5.Name = "labelControl5";
-            this.labelControl5.Size = new System.Drawing.Size(60, 14);
+            this.labelControl5.Size = new System.Drawing.Size(48, 14);
             this.labelControl5.TabIndex = 0;
-            this.labelControl5.Text = "可燃气探头";
+            this.labelControl5.Text = "卡停电流";
             // 
             // groupControl1
             // 
@@ -455,6 +455,15 @@
             this.btRefresh.Size = new System.Drawing.Size(76, 28);
             this.btRefresh.Text = "刷新 ";
             this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            // 
+            // btAutoRefresh
+            // 
+            this.btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btAutoRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btAutoRefresh.Name = "btAutoRefresh";
+            this.btAutoRefresh.Size = new System.Drawing.Size(108, 28);
+            this.btAutoRefresh.Text = "自动刷新 ";
+            this.btAutoRefresh.Click += new System.EventHandler(this.btAutoRefresh_CheckedChanged);
             // 
             // pageJcsz
             // 
@@ -881,15 +890,6 @@
             this.btRefreshTrigger.Size = new System.Drawing.Size(101, 28);
             this.btRefreshTrigger.Text = "刷新数据";
             this.btRefreshTrigger.Click += new System.EventHandler(this.btRefreshTrigger_Click);
-            // 
-            // btAutoRefresh
-            // 
-            this.btAutoRefresh.Image = global::ConfigDevice.Properties.Resources.refresh;
-            this.btAutoRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btAutoRefresh.Name = "btAutoRefresh";
-            this.btAutoRefresh.Size = new System.Drawing.Size(108, 28);
-            this.btAutoRefresh.Text = "自动刷新 ";
-            this.btAutoRefresh.Click += new System.EventHandler(this.btAutoRefresh_CheckedChanged);
             // 
             // FrmFlammableGasProbe
             // 

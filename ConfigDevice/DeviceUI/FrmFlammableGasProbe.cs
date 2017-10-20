@@ -512,10 +512,10 @@ namespace ConfigDevice
             if (cbxBuzzer.Text == Buzzer.STATE_BUZACT_CLOSE ||cbxBuzzer.Text ==  Buzzer.STATE_BUZACT_NONE)
                 sptBuzzerSeconds.Enabled = false;
             else
-                sptBuzzerSeconds.Enabled = true;
-
-
+                sptBuzzerSeconds.Enabled = true;  
         }
+
+   
    
     }
 }
