@@ -891,22 +891,21 @@ namespace ConfigDevice
             DataRow dr = gvNetwork.GetDataRow(gvNetwork.FocusedRowHandle);
             Network network = SysConfig.ListNetworks[dr[NetworkConfig.DC_IP].ToString()];
 
-            if (network.ByteKindID != DeviceConfig.EQUIPMENT_SERVER)
-            {
-                string pw = "";
-                FrmNetworkPW frmPW = new FrmNetworkPW();
-                frmPW.NetworkName = network.DeviceName;
-                if (frmPW.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    pw = frmPW.PassWord;
-                else
-                    return;    
-                FrmNetworkIPEdit frm = new FrmNetworkIPEdit(); 
-                frm.PassWord = pw;
-                frm.NetworkEdit = network;
-                frm.Show(this);
-            }
 
-        } 
+            string pw = "";
+            FrmNetworkPW frmPW = new FrmNetworkPW();
+            frmPW.NetworkName = network.DeviceName;
+            if (frmPW.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                pw = frmPW.PassWord;
+            else
+                return;
+            FrmNetworkIPEdit frm = new FrmNetworkIPEdit();
+            frm.PassWord = pw;
+            frm.NetworkEdit = network;
+            frm.Show(this);
+
+
+        }
 
  
     }
