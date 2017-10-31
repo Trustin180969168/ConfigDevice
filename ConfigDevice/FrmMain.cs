@@ -287,7 +287,7 @@ namespace ConfigDevice
         /// <summary>
         /// 打开设备
         /// </summary>
-        private void gvDevices_DoubleClick(object sender, EventArgs e)
+        private void open_device(object sender, EventArgs e)
         {
             if (gvDevices.FocusedRowHandle < 0) return;
             DataRow dr = gvDevices.GetDataRow(gvDevices.FocusedRowHandle);
@@ -905,6 +905,23 @@ namespace ConfigDevice
             frm.Show(this);
 
 
+        }
+
+        /// <summary>
+        /// 双击打开设备
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gcDevices_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            GridHitInfo HitInfo = this.gvDevices.CalcHitInfo(e.Location);//获取鼠标点击的位置
+            if (HitInfo.InRowCell && HitInfo.Column != null)
+            {
+                if (HitInfo.Column.FieldName == DeviceConfig.DC_KIND_NAME)
+                {
+                    open_device(sender, e);
+                }
+            }
         }
 
  

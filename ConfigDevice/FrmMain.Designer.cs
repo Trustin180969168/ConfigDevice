@@ -150,6 +150,7 @@
             this.gcDevices.TabIndex = 7;
             this.gcDevices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDevices});
+            this.gcDevices.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gcDevices_MouseDoubleClick);
             // 
             // contextMenuStripDevice
             // 
@@ -163,15 +164,15 @@
             // 
             // btOpenDevice
             // 
-            this.btOpenDevice.Image = global::ConfigDevice.Properties.Resources.section;
+            this.btOpenDevice.Image = ((System.Drawing.Image)(resources.GetObject("btOpenDevice.Image")));
             this.btOpenDevice.Name = "btOpenDevice";
             this.btOpenDevice.Size = new System.Drawing.Size(124, 22);
             this.btOpenDevice.Text = "打开设备";
-            this.btOpenDevice.Click += new System.EventHandler(this.gvDevices_DoubleClick);
+            this.btOpenDevice.Click += new System.EventHandler(this.open_device);
             // 
             // btQryDevice
             // 
-            this.btQryDevice.Image = global::ConfigDevice.Properties.Resources.refresh;
+            this.btQryDevice.Image = ((System.Drawing.Image)(resources.GetObject("btQryDevice.Image")));
             this.btQryDevice.Name = "btQryDevice";
             this.btQryDevice.Size = new System.Drawing.Size(124, 22);
             this.btQryDevice.Text = "刷新";
@@ -179,7 +180,7 @@
             // 
             // btCleanDevices
             // 
-            this.btCleanDevices.Image = global::ConfigDevice.Properties.Resources.Clear;
+            this.btCleanDevices.Image = ((System.Drawing.Image)(resources.GetObject("btCleanDevices.Image")));
             this.btCleanDevices.Name = "btCleanDevices";
             this.btCleanDevices.Size = new System.Drawing.Size(124, 22);
             this.btCleanDevices.Text = "清空设备";
@@ -187,7 +188,7 @@
             // 
             // msiSyncNetworkID
             // 
-            this.msiSyncNetworkID.Image = global::ConfigDevice.Properties.Resources.exchange;
+            this.msiSyncNetworkID.Image = ((System.Drawing.Image)(resources.GetObject("msiSyncNetworkID.Image")));
             this.msiSyncNetworkID.Name = "msiSyncNetworkID";
             this.msiSyncNetworkID.Size = new System.Drawing.Size(124, 22);
             this.msiSyncNetworkID.Text = "同步网段";
@@ -315,6 +316,7 @@
             this.deviceKind.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.deviceKind.Caption = "设备类型";
             this.deviceKind.Name = "deviceKind";
+            this.deviceKind.OptionsColumn.AllowEdit = false;
             this.deviceKind.OptionsColumn.ReadOnly = true;
             this.deviceKind.Visible = true;
             this.deviceKind.VisibleIndex = 4;
@@ -415,7 +417,7 @@
             // btSave
             // 
             this.btSave.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btSave.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(74, 28);
@@ -424,7 +426,7 @@
             // 
             // btQryDevices
             // 
-            this.btQryDevices.Image = global::ConfigDevice.Properties.Resources.View;
+            this.btQryDevices.Image = ((System.Drawing.Image)(resources.GetObject("btQryDevices.Image")));
             this.btQryDevices.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btQryDevices.Name = "btQryDevices";
             this.btQryDevices.Size = new System.Drawing.Size(105, 28);
@@ -434,7 +436,7 @@
             // btClearDevice
             // 
             this.btClearDevice.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btClearDevice.Image = global::ConfigDevice.Properties.Resources.Clear;
+            this.btClearDevice.Image = ((System.Drawing.Image)(resources.GetObject("btClearDevice.Image")));
             this.btClearDevice.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClearDevice.Name = "btClearDevice";
             this.btClearDevice.Size = new System.Drawing.Size(74, 28);
@@ -450,7 +452,7 @@
             // btQry
             // 
             this.btQry.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btQry.Image = global::ConfigDevice.Properties.Resources.Traces1;
+            this.btQry.Image = ((System.Drawing.Image)(resources.GetObject("btQry.Image")));
             this.btQry.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btQry.Name = "btQry";
             this.btQry.Size = new System.Drawing.Size(122, 28);
@@ -545,69 +547,69 @@
             this.btSnycData,
             this.btChangeIP});
             this.contextMenuStripNetwork.Name = "contextMenuStripNetwork";
-            this.contextMenuStripNetwork.Size = new System.Drawing.Size(153, 202);
+            this.contextMenuStripNetwork.Size = new System.Drawing.Size(125, 180);
             // 
             // btmiConnectNetwork
             // 
-            this.btmiConnectNetwork.Image = global::ConfigDevice.Properties.Resources.connect1;
+            this.btmiConnectNetwork.Image = ((System.Drawing.Image)(resources.GetObject("btmiConnectNetwork.Image")));
             this.btmiConnectNetwork.Name = "btmiConnectNetwork";
-            this.btmiConnectNetwork.Size = new System.Drawing.Size(152, 22);
+            this.btmiConnectNetwork.Size = new System.Drawing.Size(124, 22);
             this.btmiConnectNetwork.Text = "连接网络";
             this.btmiConnectNetwork.Click += new System.EventHandler(this.btConnectnetwork_Click);
             // 
             // btmiDisconnectNetwork
             // 
-            this.btmiDisconnectNetwork.Image = global::ConfigDevice.Properties.Resources.disconnect1;
+            this.btmiDisconnectNetwork.Image = ((System.Drawing.Image)(resources.GetObject("btmiDisconnectNetwork.Image")));
             this.btmiDisconnectNetwork.Name = "btmiDisconnectNetwork";
-            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(152, 22);
+            this.btmiDisconnectNetwork.Size = new System.Drawing.Size(124, 22);
             this.btmiDisconnectNetwork.Text = "断开网络";
             this.btmiDisconnectNetwork.Click += new System.EventHandler(this.btDisconnectNetwork_Click);
             // 
             // btSearchDevice
             // 
-            this.btSearchDevice.Image = global::ConfigDevice.Properties.Resources.View;
+            this.btSearchDevice.Image = ((System.Drawing.Image)(resources.GetObject("btSearchDevice.Image")));
             this.btSearchDevice.Name = "btSearchDevice";
-            this.btSearchDevice.Size = new System.Drawing.Size(152, 22);
+            this.btSearchDevice.Size = new System.Drawing.Size(124, 22);
             this.btSearchDevice.Text = "设备搜索";
             this.btSearchDevice.Click += new System.EventHandler(this.btSearchDevices_Click);
             // 
             // tsmiChangePassword
             // 
-            this.tsmiChangePassword.Image = global::ConfigDevice.Properties.Resources.client;
+            this.tsmiChangePassword.Image = ((System.Drawing.Image)(resources.GetObject("tsmiChangePassword.Image")));
             this.tsmiChangePassword.Name = "tsmiChangePassword";
-            this.tsmiChangePassword.Size = new System.Drawing.Size(152, 22);
+            this.tsmiChangePassword.Size = new System.Drawing.Size(124, 22);
             this.tsmiChangePassword.Text = "修改密码";
             this.tsmiChangePassword.Click += new System.EventHandler(this.tsmiChangePassword_Click);
             // 
             // tsmiParameter
             // 
-            this.tsmiParameter.Image = global::ConfigDevice.Properties.Resources.goyi;
+            this.tsmiParameter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiParameter.Image")));
             this.tsmiParameter.Name = "tsmiParameter";
-            this.tsmiParameter.Size = new System.Drawing.Size(152, 22);
+            this.tsmiParameter.Size = new System.Drawing.Size(124, 22);
             this.tsmiParameter.Text = "打开网关";
             this.tsmiParameter.Click += new System.EventHandler(this.tsmiParameter_Click);
             // 
             // btSnycTime
             // 
-            this.btSnycTime.Image = global::ConfigDevice.Properties.Resources.checkWork;
+            this.btSnycTime.Image = ((System.Drawing.Image)(resources.GetObject("btSnycTime.Image")));
             this.btSnycTime.Name = "btSnycTime";
-            this.btSnycTime.Size = new System.Drawing.Size(152, 22);
+            this.btSnycTime.Size = new System.Drawing.Size(124, 22);
             this.btSnycTime.Text = "同步时间";
             this.btSnycTime.Click += new System.EventHandler(this.btSyncTime_Click);
             // 
             // btSnycData
             // 
-            this.btSnycData.Image = global::ConfigDevice.Properties.Resources.exchange;
+            this.btSnycData.Image = ((System.Drawing.Image)(resources.GetObject("btSnycData.Image")));
             this.btSnycData.Name = "btSnycData";
-            this.btSnycData.Size = new System.Drawing.Size(152, 22);
+            this.btSnycData.Size = new System.Drawing.Size(124, 22);
             this.btSnycData.Text = "同步数据";
             this.btSnycData.Click += new System.EventHandler(this.btSyncData_Click);
             // 
             // btChangeIP
             // 
-            this.btChangeIP.Image = global::ConfigDevice.Properties.Resources.snyc;
+            this.btChangeIP.Image = ((System.Drawing.Image)(resources.GetObject("btChangeIP.Image")));
             this.btChangeIP.Name = "btChangeIP";
-            this.btChangeIP.Size = new System.Drawing.Size(152, 22);
+            this.btChangeIP.Size = new System.Drawing.Size(124, 22);
             this.btChangeIP.Text = "修改IP";
             this.btChangeIP.Click += new System.EventHandler(this.btChangeIP_Click);
             // 
@@ -824,7 +826,7 @@
             // btSaveNetwork
             // 
             this.btSaveNetwork.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btSaveNetwork.Image = global::ConfigDevice.Properties.Resources.save;
+            this.btSaveNetwork.Image = ((System.Drawing.Image)(resources.GetObject("btSaveNetwork.Image")));
             this.btSaveNetwork.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSaveNetwork.Name = "btSaveNetwork";
             this.btSaveNetwork.Size = new System.Drawing.Size(74, 28);
@@ -833,7 +835,7 @@
             // 
             // btNetworkSearch
             // 
-            this.btNetworkSearch.Image = global::ConfigDevice.Properties.Resources.View;
+            this.btNetworkSearch.Image = ((System.Drawing.Image)(resources.GetObject("btNetworkSearch.Image")));
             this.btNetworkSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btNetworkSearch.Name = "btNetworkSearch";
             this.btNetworkSearch.Size = new System.Drawing.Size(106, 28);
@@ -842,7 +844,7 @@
             // 
             // btClean
             // 
-            this.btClean.Image = global::ConfigDevice.Properties.Resources.Clear;
+            this.btClean.Image = ((System.Drawing.Image)(resources.GetObject("btClean.Image")));
             this.btClean.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClean.Name = "btClean";
             this.btClean.Size = new System.Drawing.Size(74, 28);
@@ -856,7 +858,7 @@
             this.btSyncData,
             this.btIPSelect});
             this.btGJ.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btGJ.Image = global::ConfigDevice.Properties.Resources.goyi;
+            this.btGJ.Image = ((System.Drawing.Image)(resources.GetObject("btGJ.Image")));
             this.btGJ.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btGJ.Name = "btGJ";
             this.btGJ.Size = new System.Drawing.Size(83, 28);
@@ -865,7 +867,7 @@
             // 
             // btSyncTime
             // 
-            this.btSyncTime.Image = global::ConfigDevice.Properties.Resources.checkWork;
+            this.btSyncTime.Image = ((System.Drawing.Image)(resources.GetObject("btSyncTime.Image")));
             this.btSyncTime.Name = "btSyncTime";
             this.btSyncTime.Size = new System.Drawing.Size(157, 24);
             this.btSyncTime.Text = "同步时间";
@@ -873,7 +875,7 @@
             // 
             // btSyncData
             // 
-            this.btSyncData.Image = global::ConfigDevice.Properties.Resources.snyc;
+            this.btSyncData.Image = ((System.Drawing.Image)(resources.GetObject("btSyncData.Image")));
             this.btSyncData.Name = "btSyncData";
             this.btSyncData.Size = new System.Drawing.Size(157, 24);
             this.btSyncData.Text = "同步数据";
@@ -881,7 +883,7 @@
             // 
             // btIPSelect
             // 
-            this.btIPSelect.Image = global::ConfigDevice.Properties.Resources.goyi;
+            this.btIPSelect.Image = ((System.Drawing.Image)(resources.GetObject("btIPSelect.Image")));
             this.btIPSelect.Name = "btIPSelect";
             this.btIPSelect.Size = new System.Drawing.Size(157, 24);
             this.btIPSelect.Text = "显示IP选择";
@@ -895,7 +897,7 @@
             this.btPCSend,
             this.btRJ45Send});
             this.btXtxx.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btXtxx.Image = global::ConfigDevice.Properties.Resources.fact;
+            this.btXtxx.Image = ((System.Drawing.Image)(resources.GetObject("btXtxx.Image")));
             this.btXtxx.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btXtxx.Name = "btXtxx";
             this.btXtxx.Size = new System.Drawing.Size(113, 28);
@@ -904,7 +906,7 @@
             // 
             // btShowLog
             // 
-            this.btShowLog.Image = global::ConfigDevice.Properties.Resources.section;
+            this.btShowLog.Image = ((System.Drawing.Image)(resources.GetObject("btShowLog.Image")));
             this.btShowLog.Name = "btShowLog";
             this.btShowLog.Size = new System.Drawing.Size(225, 24);
             this.btShowLog.Text = "通讯日志";
@@ -912,7 +914,7 @@
             // 
             // btPCSend
             // 
-            this.btPCSend.Image = global::ConfigDevice.Properties.Resources.work;
+            this.btPCSend.Image = ((System.Drawing.Image)(resources.GetObject("btPCSend.Image")));
             this.btPCSend.Name = "btPCSend";
             this.btPCSend.Size = new System.Drawing.Size(225, 24);
             this.btPCSend.Text = "PC发送包";
@@ -920,7 +922,7 @@
             // 
             // btRJ45Send
             // 
-            this.btRJ45Send.Image = global::ConfigDevice.Properties.Resources.work;
+            this.btRJ45Send.Image = ((System.Drawing.Image)(resources.GetObject("btRJ45Send.Image")));
             this.btRJ45Send.Name = "btRJ45Send";
             this.btRJ45Send.Size = new System.Drawing.Size(225, 24);
             this.btRJ45Send.Text = "未处理的RJ45主动包";
