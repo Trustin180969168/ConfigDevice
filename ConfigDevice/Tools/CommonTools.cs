@@ -62,7 +62,7 @@ namespace ConfigDevice
                 case 1: return AutoCloseShow(content, "提示!", 2);//MessageBox.Show(content, "提示!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 case 2: return MessageBox.Show(content, "错误!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                 case 3: return MessageBox.Show(content, "停止!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-                case 4: return MessageBox.Show(content, "询问?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, MessageBoxOptions.DefaultDesktopOnly);
+                case 4: return MessageBox.Show(content, "询问?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
                 case 5: return MessageBox.Show(content, "警告!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                 default: return DialogResult.None;
             }

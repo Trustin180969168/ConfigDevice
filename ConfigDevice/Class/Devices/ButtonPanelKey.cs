@@ -34,7 +34,7 @@ namespace ConfigDevice
         /// </summary>
         private void initControlObjs()
         {
-            Circuit = new Circuit(this, 4);
+            Circuit = new Circuit(this, 2);//---默认两个回路
             PanelCtrl = new ButtonPanelCtrl(this);
             ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME, this.Circuit); 
         }

@@ -141,6 +141,10 @@
       <DependentUpon>FrmLockDevices.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmButton8.resx">
+      <DependentUpon>FrmButton8.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="SysUI\FrmNetworkIPEdit.resx">
       <DependentUpon>FrmNetworkIPEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -435,6 +439,9 @@
     <Compile Include="Class\Devices\WirlessTransform .cs" />
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Manage\KeyList.cs" />
+    <Compile Include="Data\ButtonPanelOptionData.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Data\LockData.cs" />
     <Compile Include="Data\WirlessActionResultData.cs" />
     <Compile Include="Data\WirlessDeviceData.cs" />
@@ -449,6 +456,12 @@
     </Compile>
     <Compile Include="DeviceUI\FrmLockDevices.Designer.cs">
       <DependentUpon>FrmLockDevices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmButton8.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmButton8.Designer.cs">
+      <DependentUpon>FrmButton8.cs</DependentUpon>
     </Compile>
     <Compile Include="SysUI\FrmNetworkIPEdit.cs">
       <SubType>Form</SubType>
@@ -569,7 +582,6 @@
     <Compile Include="Data\DeviceData.cs" />
     <Compile Include="Data\NetworkData.cs" />
     <Compile Include="Data\LogicData.cs" />
-    <Compile Include="Data\ButtonPanelOptionData.cs" />
     <Compile Include="DeviceUI\FrmFunctionsBoard.cs">
       <SubType>Form</SubType>
     </Compile>
