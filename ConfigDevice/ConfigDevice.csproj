@@ -423,20 +423,24 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\Election11.png" />
     <None Include="Resources\Traces1.png" />
-    <Compile Include="Class\ControlObj\LCDPanelCtrl.cs" />
     <Compile Include="Class\ControlObj\Buzzer.cs" />
+    <Compile Include="Class\ControlObj\LCDPanelCtrl.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Class\ControlObj\Light.cs" />
     <Compile Include="Class\ControlObj\InnerInteraction.cs" />
     <Compile Include="Class\ControlObj\OuterInteraction.cs" />
     <Compile Include="Class\ControlObj\ButtonPanelCtrl.cs" />
     <Compile Include="Class\ControlObj\ShortInput.cs" />
     <Compile Include="Class\ControlObj\SecurityObj.cs" />
+    <Compile Include="Class\ControlObj\SpecialPanelCtrl.cs" />
     <Compile Include="Class\Devices\BodyInduction.cs" />
     <Compile Include="Class\Devices\ButtonPanelKey.cs" />
     <Compile Include="Class\Devices\Short4.cs" />
     <Compile Include="Class\Devices\VirtualPasswordFingerMarkLock.cs" />
     <Compile Include="Class\Devices\WeiXin.cs" />
     <Compile Include="Class\Devices\WirlessTransform .cs" />
+    <Compile Include="Class\Devices\SpecialPanelKey.cs" />
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Manage\KeyList.cs" />
     <Compile Include="Data\ButtonPanelOptionData.cs">
@@ -445,6 +449,7 @@
     <Compile Include="Data\LockData.cs" />
     <Compile Include="Data\WirlessActionResultData.cs" />
     <Compile Include="Data\WirlessDeviceData.cs" />
+    <Compile Include="Data\SpecialPanelOptionData.cs" />
     <Compile Include="DeviceUI\FrmWirlessDevices.cs">
       <SubType>Form</SubType>
     </Compile>

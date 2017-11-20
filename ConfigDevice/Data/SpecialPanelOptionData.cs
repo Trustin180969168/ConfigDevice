@@ -7,13 +7,13 @@ namespace ConfigDevice
     /// <summary>
     /// 面板传感器配置
     /// </summary>
-    public class PanelSensorInfo
+    public class ControlObjectInfo
     {
-        public UInt16 SensorKind = 0;//传感器1,0为无效
+        public UInt16 ObjectKind = 0;//控制对象
         public byte DeviceNetworkID = 0;//设备1网段
         public byte DeviceID = 0;//设备1ID
 
-        public PanelSensorInfo()
+        public ControlObjectInfo()
         {
 
         }
@@ -22,9 +22,9 @@ namespace ConfigDevice
         /// 构造函数
         /// </summary>
         /// <param name="value"></param>
-        public PanelSensorInfo(byte[] value)
+        public ControlObjectInfo(byte[] value)
         {
-            SensorKind = ConvertTools.Bytes2ToUInt16(value[0], value[1]);
+            ObjectKind = ConvertTools.Bytes2ToUInt16(value[0], value[1]);
             DeviceNetworkID = value[2];
             DeviceID = value[3];
         }
@@ -36,8 +36,8 @@ namespace ConfigDevice
         public byte[] GetValue()
         {
             byte[] values = new byte[4];
-            values[0] = ConvertTools.GetByteFromUInt16(SensorKind)[0];
-            values[1] = ConvertTools.GetByteFromUInt16(SensorKind)[1];
+            values[0] = ConvertTools.GetByteFromUInt16(ObjectKind)[0];
+            values[1] = ConvertTools.GetByteFromUInt16(ObjectKind)[1];
             values[2] = this.DeviceNetworkID;
             values[3] = this.DeviceID;
 
@@ -46,7 +46,7 @@ namespace ConfigDevice
 
     }
 
-    public class LCDPanelOptionData :ButtonPanelOptionData
+    public class SpecialPanelOptionData : ButtonPanelOptionData
     {
         /*
  
@@ -87,10 +87,16 @@ namespace ConfigDevice
             原来显示分为：全部显示、只显示没关没锁，现在固定为只显示没关没锁。
  
         */
-    
+        public const string KEY_WKMD_0 = "默认工作模式(全部按键为通用键)";//◆当面板为[通用+专用面板]时，用作[按键功能分类]配置参数(廖超庭:2017-10-27修改)◆
+        public const string KEY_WKMD_1 = "2键台面清洗通用键   + 3键通用键";// ◆当面板为[通用+专用面板]时，用作[按键功能分类]配置参数(廖超庭:2017-10-27修改)◆
+        public const string KEY_WKMD_2 = "2键上下升降柜专用键 + 3键通用键";// ◆当面板为[通用+专用面板]时，用作[按键功能分类]配置参数(廖超庭:2017-10-27修改)◆
+        public const string KEY_WKMD_3 = "1键新风键           + 3键通用键";// ◆当面板为[通用+专用面板]时，用作[按键功能分类]配置参数(廖超庭:2017-10-27修改)◆
+        public const string KEY_WKMD_4 = "2键3D抽油烟键       + 3键通用键";// ◆当面板为[通用+专用面板]时，用作[按键功能分类]配置参数(廖超庭:2017-10-27修改)◆
+
+
 
         //-------最多8个传感器数据-----
-        public PanelSensorInfo[] PanelSensors = new PanelSensorInfo[8];  
+        public PanelSensorInfo[] PanelSensors = new PanelSensorInfo[8];
 
         /// <summary>
         /// 门窗显示
@@ -107,10 +113,10 @@ namespace ConfigDevice
             }
         }
 
- 
 
 
-  
+
+
 
         /// <summary>
         /// 门窗显示内容
@@ -135,13 +141,13 @@ namespace ConfigDevice
             get
             {
                 return DoorWindowShowSetting & 3; // 0000 0011
-                
+
             }
             set
             {
-            
+
                 DoorWindowShowSetting = (byte)(DoorWindowShowSetting & 252 | value);//1111 1100  
- 
+
             }
         }
 
@@ -159,12 +165,14 @@ namespace ConfigDevice
         /// 构造函数
         /// </summary>
         /// <param name="userData"></param>
-        public LCDPanelOptionData(UserUdpData userData):this(userData.Data)
+        public SpecialPanelOptionData(UserUdpData userData)
+            : this(userData.Data)
         {
             length = 62;
         }
 
-        public LCDPanelOptionData(byte[] value):base(value)
+        public SpecialPanelOptionData(byte[] value)
+            : base(value)
         {
             length = 62;
 
@@ -214,7 +222,7 @@ namespace ConfigDevice
         /// <returns></returns>
         public override byte[] GetPanelOptionValue()
         {
-            byte[] value = new byte[length]; 
+            byte[] value = new byte[length];
 
             value[0] = ConvertTools.GetByteFromUInt16(PagePassword)[0];//页面密码
             value[1] = ConvertTools.GetByteFromUInt16(PagePassword)[1];//页面密码
@@ -245,7 +253,7 @@ namespace ConfigDevice
             value[25] = AlarmDelayTime;//预警时间 
             //-----传感器数组-----
             for (int i = 0; i < 8; i++)
-                Buffer.BlockCopy(PanelSensors[i].GetValue(), 0, value, i * 4 + 30, 4); 
+                Buffer.BlockCopy(PanelSensors[i].GetValue(), 0, value, i * 4 + 30, 4);
             return value;
         }
     }

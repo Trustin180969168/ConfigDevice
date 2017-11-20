@@ -487,6 +487,7 @@ namespace ConfigDevice
             }
             catch (Exception e)
             {
+                Console.WriteLine("checkLogFilter:" + e.ToString());
                 return false;
             }
 

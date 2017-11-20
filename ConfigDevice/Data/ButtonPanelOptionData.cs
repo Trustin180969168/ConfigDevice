@@ -5,7 +5,6 @@ using System.Text;
 namespace ConfigDevice
 {
    
-
     public class ButtonPanelOptionData
     {
         /*
@@ -47,7 +46,11 @@ namespace ConfigDevice
             原来显示分为：全部显示、只显示没关没锁，现在固定为只显示没关没锁。
  
         */
-        public const int Length = 26;
+        protected int length = 26; 
+        public int Length
+        {
+            get { return length; } 
+        }
 
         public UInt16 PagePassword = 0;//密码设置
         public byte PageContent = 0;//页面显示   0---空调，1---门窗
@@ -332,9 +335,9 @@ Bit7        1    全部房间显示，
         /// 获取按键值
         /// </summary>
         /// <returns></returns>
-        public byte[] GetPanelOptionValue()
+        public virtual byte[] GetPanelOptionValue()
         {
-            byte[] value = new byte[ButtonPanelOptionData.Length];
+            byte[] value = new byte[length];
 
             value[0] = ConvertTools.GetByteFromUInt16(PagePassword)[0];//页面密码
             value[1] = ConvertTools.GetByteFromUInt16(PagePassword)[1];//页面密码
