@@ -10,9 +10,9 @@ namespace ConfigDevice
 {
     public partial class FrmButton8 : FrmDevice
     {
-        private ButtonPanelKey button8;
+        private SpecialPanelKey button8; 
         private DataTable dtCircuit = new DataTable("按键选择");
-        private ButtonPanelOptionData button2OptionData;//---按键配置----
+        private SpecialPanelOptionData specialPanelOptionData;//---按键配置----
         private int InitSelectIndex = 0;//初始化选择配置项ID
     
         public FrmButton8(Device _device)
@@ -20,9 +20,9 @@ namespace ConfigDevice
         {          
             InitializeComponent();
 
-            button8 = this.DeviceEdit as ButtonPanelKey;
+            button8 = this.DeviceEdit as SpecialPanelKey;
             button8.Circuit.CircuitCount = 8;
-            list4Keys.InitKeySettingList(button8, 0, 8);//8按键配置列表            
+            list8Keys.InitKeySettingList(button8, 0, 8);//8按键配置列表            
 
             DataTable dt = SysConfig.DtDevice.Clone();
             DataRow[] amps = SysConfig.DtDevice.Select(DeviceConfig.DC_KIND_ID + "= '" + DeviceConfig.EQUIPMENT_AMP_MP3 + "' and " +
@@ -48,7 +48,8 @@ namespace ConfigDevice
             viewBaseSetting.DeviceEdit = this.DeviceEdit;//----配置编辑对象----
             viewBaseSetting.DeviceEdit.SearchVer();//---获取版本号-----   
             InitSelectDevice();//----初始化选择设备---
-            list4Keys.ReadKeyData();//--按键数据----
+            this.panelEnvironment.Init();     //----初始化环境---
+            list8Keys.ReadKeyData();//--按键数据----
             loadData();//---加载数据-----
 
         }
@@ -80,9 +81,9 @@ namespace ConfigDevice
                         }
                         if (callbackParameter.Action == ActionKind.ReadOption)
                         {
-                            button2OptionData = callbackParameter.Parameters[0] as ButtonPanelOptionData;
-                            keySecuritySetting.SetOptionData(button2OptionData);//-----设置安防 
-
+                            specialPanelOptionData = callbackParameter.Parameters[0] as SpecialPanelOptionData;
+                            keySecuritySetting.SetOptionData(specialPanelOptionData);//-----设置安防  
+                            panelEnvironment.SetOptionData(ref specialPanelOptionData);//----环境-----
                         }
                     }
 
@@ -157,13 +158,13 @@ namespace ConfigDevice
         private void btSave_Click(object sender, EventArgs e)
         {
             //---保存面板配置-------
-            ButtonPanelOptionData keySettingData = new ButtonPanelOptionData(button2OptionData.GetPanelOptionValue());
+            SpecialPanelOptionData keySettingData = new SpecialPanelOptionData(specialPanelOptionData.GetPanelOptionValue());
      
             keySecuritySetting.GetOptionData(ref keySettingData);//------安全页----
 
             button8.PanelCtrl.SaveKeyOption(keySettingData);
             button8.PanelCtrl.SaveKeyState(rgInitState.SelectedIndex); 
-            list4Keys.SaveKeyData();
+            list8Keys.SaveKeyData();
         }
 
         /// <summary>
@@ -172,7 +173,7 @@ namespace ConfigDevice
         private void btRefresh_Click(object sender, EventArgs e)
         {
             loadData(); 
-            this.list4Keys.ReadKeyData(); 
+            this.list8Keys.ReadKeyData(); 
         }
 
         private void FrmButton2_FormClosing(object sender, FormClosingEventArgs e)

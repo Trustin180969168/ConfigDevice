@@ -176,6 +176,40 @@ namespace ConfigDevice
         }
 
         /// <summary>
+        /// 设置参数
+        /// </summary>
+        /// <param name="optionData"></param>
+        public void SetOptionData(ref SpecialPanelOptionData optionData)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                PanelSensorInfo panelSensor = optionData.PanelSensors[i];
+                string deviceValue = panelSensor.DeviceNetworkID.ToString() + "_" + panelSensor.DeviceID.ToString();
+                DataTable dtSelect = this.gridLookupDevice.DataSource as DataTable;
+                DataRow[] rows = dtSelect.Select(ViewConfig.DC_DEVICE_VALUE + "='" + deviceValue + "'");
+                if (rows.Length <= 0)//----选择设备列表没有,则手动加上----
+                {
+                    DataRow drInsert = dtSelect.Rows.Add();
+                    drInsert[DeviceConfig.DC_NAME] = ViewConfig.NAME_INVALID_DEVICE;//---未知设备-----
+                    drInsert[DeviceConfig.DC_KIND_NAME] = ViewConfig.NAME_INVALID_KIND;//---未知类型
+                    drInsert[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                    drInsert[DeviceConfig.DC_NETWORK_ID] = (int)panelSensor.DeviceNetworkID;//---网络ID---
+                    drInsert[DeviceConfig.DC_ID] = (int)panelSensor.DeviceID;//-----设备ID---
+                    drInsert.EndEdit();
+                    dtSelect.AcceptChanges();
+                }
+                //------赋值到列表中----------
+                DataRow dr = gvSensors.GetDataRow(i);
+                dr[ViewConfig.DC_DEVICE_ID] = panelSensor.DeviceID;
+                dr[ViewConfig.DC_DEVICE_NETWORK_ID] = panelSensor.DeviceNetworkID;
+                dr[ViewConfig.DC_KIND_NAME] = ViewConfig.TRIGGER_ID_NAME[panelSensor.SensorKind];
+                dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                dr.EndEdit();
+            }
+
+        }
+
+        /// <summary>
         /// 获取设置参数
         /// </summary>
         /// <param name="optionData"></param>

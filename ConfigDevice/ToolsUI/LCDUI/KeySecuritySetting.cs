@@ -136,6 +136,39 @@ namespace ConfigDevice.ToolsUI.LCDUI
             optionData.SaftFlags = safeFlags;
         }
 
+
+        /// <summary>
+        /// 获取安防设置参数
+        /// </summary>
+        /// <param name="optionData"></param>
+        public void GetOptionData(ref SpecialPanelOptionData optionData)
+        {
+            //optionData.AlarmHintSound = ceAlarmSound.Checked;//预警提示音
+            //optionData.DoorWindowHintSound = ceDoorWindowSound.Checked;//门窗提示音
+            ////-------安防配置-----
+            //bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
+            //        false, false, false, false, false };
+            //for (int i = 0; i < ceLeaveSafeSetting.Items.Count - 1; i++)
+            //    safeFlags[i] = ceLeaveSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
+            //optionData.SaftFlags = safeFlags;                                                                   //---离家设防
+            //optionData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false; //---回家撤防---- 
+            //optionData.SoundAddress = (byte)speAmp.Value;
+            optionData.AlarmHintSound = ceAlarmSound.Checked;           //---预警提示音---
+            optionData.DoorWindowHintSound = ceDoorWindowSound.Checked; //---门窗提示音---
+            optionData.SetSecurityDelayTime = (byte)speSecurityDelay.Value;   //---布防延时---
+            optionData.AlarmDelayTime = (byte)speAlarmDelay.Value;            //---预警延时---
+            optionData.DoorWindowShowing = chkDoorWindowShow.Checked;//---门窗显示
+            optionData.Volume = (byte)speHintVolume.Value;                //---提示音量--- 
+            optionData.SoundAddress = (byte)speAmp.Value;          //---功放地址---
+            optionData.RemoveSafe = ceBackSafeSetting.Items[0].CheckState == CheckState.Checked ? true : false;//---回家撤防----  
+
+            //---安防配置---------------
+            bool[] safeFlags = new bool[] { false, false, false, false, false, false, false, false, false, false,
+                    false, false, false, false, false };
+            for (int i = 0; i < optionData.SaftFlags.Length; i++)
+                safeFlags[i] = ceLeaveSafeSetting.Items[i].CheckState == CheckState.Checked ? true : false;
+            optionData.SaftFlags = safeFlags;
+        }
  
         /// <summary>
         /// 显示音量

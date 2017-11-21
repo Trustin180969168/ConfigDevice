@@ -492,7 +492,7 @@ namespace ConfigDevice
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_6, "6键按键");
 
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_7, "7键按键");
-
+            EQUIPMENT_ID_NAME.Add(EQUIPMENT_KEY_8, "8键按键");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_4, "4路驱动器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_6, "6路驱动器");
             EQUIPMENT_ID_NAME.Add(EQUIPMENT_SWIT_8, "8路驱动器");
