@@ -57,6 +57,7 @@
    (33) V4.7版本，增加[CMD_RFLINE_READ_CFG][CMD_RFLINE_WRITE_CFG]                  (廖超庭 2017年08月30日)
    (34) V4.8版本，增加[CMD_RFLINE_WRITE_DEVAC_RSL][EQUIPMENT_EL_KNIFE_FRAME]       (廖超庭 2017年08月31日)
    (35) V4.9版本, 增加[EQUIPMENT_INTELLIGENT_SINK]                                 (廖超庭 2017年09月01日)
+   (35) V4.9版本, 增加[EQUIPMENT_EL_CUPBOARD]                                      (廖超庭 2017年11月03日)
 **======================================================================================================*/
 
 
@@ -95,7 +96,7 @@
 enum		//设备ID 0~100,  101以上为指定设备的ID   4.4
 {
  ID_MOBILE_START    = 0       ,//手机、平板开始地址
-    ID_MOBILE_END      = 99      ,//手机、平板结束地址
+ ID_MOBILE_END      = 99      ,//手机、平板结束地址
  ID_PC_START        = 201     ,//PC地址开始
  ID_PC_END          = 220     ,//PC地址结束
  ID_GATEWAY         = 249     ,//网关id     0xf9
@@ -257,8 +258,9 @@ enum
 
 #define EQUIPMENT_NO_LOCK_DOOR       0xa0        //无锁孔门
 #define EQUIPMENT_FP_LOCK            0xa1        //指纹锁
-#define EQUIPMENT_EL_KNIFE_FRAME     0xa2        //电动刀具架
+#define EQUIPMENT_EL_KNIFE_FRAME     0xa2        //电动刀具柜
 #define EQUIPMENT_INTELLIGENT_SINK   0xa3        //智能水槽
+#define EQUIPMENT_EL_CUPBOARD        0xa4        //电动升降柜
 
 #define EQUIPMENT_RFLINE_GATEWAY     0xb0        //无线主机，无线的产品用 0xB0 开始 (廖超庭2017-05-06注释:无线转有线转换器用到)
 

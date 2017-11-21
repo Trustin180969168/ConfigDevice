@@ -95,8 +95,8 @@ namespace ConfigDevice
 
 
 
-        //-------最多8个传感器数据-----
-        public PanelSensorInfo[] PanelSensors = new PanelSensorInfo[8];
+        //-------最多2个专用控制对象数据-----
+        public ControlObjectInfo[] ControlObjects = new ControlObjectInfo[2];
 
         /// <summary>
         /// 门窗显示
@@ -154,11 +154,11 @@ namespace ConfigDevice
         /// <summary>
         /// 面板传感器设定
         /// </summary>
-        public void SetPanenlSensor(PanelSensorInfo panelSensor, int sensorNum)
+        public void SetPanenlSensor(ControlObjectInfo controlObjectInfo, int sensorNum)
         {
-            this.PanelSensors[sensorNum].SensorKind = panelSensor.SensorKind;
-            this.PanelSensors[sensorNum].DeviceNetworkID = panelSensor.DeviceNetworkID;
-            this.PanelSensors[sensorNum].DeviceID = panelSensor.DeviceID;
+            this.ControlObjects[sensorNum].ObjectKind = controlObjectInfo.ObjectKind;
+            this.ControlObjects[sensorNum].DeviceNetworkID = controlObjectInfo.DeviceNetworkID;
+            this.ControlObjects[sensorNum].DeviceID = controlObjectInfo.DeviceID;
         }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace ConfigDevice
             AlarmDelayTime = value[25];//预警时间 
             //-----传感器列表-----
             for (int i = 0; i < 8; i++)
-                PanelSensors[i] = new PanelSensorInfo(CommonTools.CopyBytes(value, i * 4 + 30, 4));//----26到30为保留字节---
+                ControlObjects[i] = new ControlObjectInfo(CommonTools.CopyBytes(value, i * 4 + 30, 4));//----26到30为保留字节---
 
         }
 
@@ -253,7 +253,7 @@ namespace ConfigDevice
             value[25] = AlarmDelayTime;//预警时间 
             //-----传感器数组-----
             for (int i = 0; i < 8; i++)
-                Buffer.BlockCopy(PanelSensors[i].GetValue(), 0, value, i * 4 + 30, 4);
+                Buffer.BlockCopy(ControlObjects[i].GetValue(), 0, value, i * 4 + 30, 4);
             return value;
         }
     }

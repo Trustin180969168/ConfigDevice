@@ -36,7 +36,6 @@
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.rgInitState = new DevExpress.XtraEditors.RadioGroup();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.panelEnvironment = new ConfigDevice.PanelEnvironment();
             this.rgpPanelKind = new DevExpress.XtraEditors.RadioGroup();
             this.tsDoorInput = new System.Windows.Forms.ToolStrip();
             this.btSave = new System.Windows.Forms.ToolStripButton();
@@ -45,6 +44,7 @@
             this.viewBaseSetting = new ConfigDevice.ViewBaseEdit();
             this.pageZlpz = new DevExpress.XtraTab.XtraTabPage();
             this.viewCommandEdit = new ConfigDevice.ViewCommandSetting();
+            this.panelSpecialCtrlObj = new ConfigDevice.PanelSpecialCtrlObj();
             ((System.ComponentModel.ISupportInitialize)(this.tctrlEdit)).BeginInit();
             this.tctrlEdit.SuspendLayout();
             this.pageJmpz.SuspendLayout();
@@ -69,7 +69,7 @@
             this.tctrlEdit.Location = new System.Drawing.Point(0, 24);
             this.tctrlEdit.Name = "tctrlEdit";
             this.tctrlEdit.SelectedTabPage = this.pageJmpz;
-            this.tctrlEdit.Size = new System.Drawing.Size(1048, 718);
+            this.tctrlEdit.Size = new System.Drawing.Size(1134, 718);
             this.tctrlEdit.TabIndex = 1;
             this.tctrlEdit.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.pageJcsz,
@@ -83,7 +83,7 @@
             this.pageJmpz.Controls.Add(this.plKeyOption);
             this.pageJmpz.Controls.Add(this.tsDoorInput);
             this.pageJmpz.Name = "pageJmpz";
-            this.pageJmpz.Size = new System.Drawing.Size(1039, 681);
+            this.pageJmpz.Size = new System.Drawing.Size(1125, 681);
             this.pageJmpz.Text = "配置界面";
             // 
             // list8Keys
@@ -93,7 +93,7 @@
             this.list8Keys.Location = new System.Drawing.Point(0, 434);
             this.list8Keys.Name = "list8Keys";
             this.list8Keys.ShowCount = 8;
-            this.list8Keys.Size = new System.Drawing.Size(1039, 247);
+            this.list8Keys.Size = new System.Drawing.Size(1125, 247);
             this.list8Keys.TabIndex = 16;
             // 
             // plKeyOption
@@ -105,15 +105,14 @@
             this.plKeyOption.Dock = System.Windows.Forms.DockStyle.Top;
             this.plKeyOption.Location = new System.Drawing.Point(0, 31);
             this.plKeyOption.Name = "plKeyOption";
-            this.plKeyOption.Size = new System.Drawing.Size(1039, 403);
+            this.plKeyOption.Size = new System.Drawing.Size(1125, 403);
             this.plKeyOption.TabIndex = 15;
             // 
             // keySecuritySetting
             // 
-            this.keySecuritySetting.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.keySecuritySetting.Location = new System.Drawing.Point(2, 181);
             this.keySecuritySetting.Name = "keySecuritySetting";
-            this.keySecuritySetting.Size = new System.Drawing.Size(1035, 220);
+            this.keySecuritySetting.Size = new System.Drawing.Size(853, 220);
             this.keySecuritySetting.TabIndex = 2;
             // 
             // groupControl2
@@ -142,7 +141,7 @@
             // groupControl1
             // 
             this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.groupControl1.Controls.Add(this.panelEnvironment);
+            this.groupControl1.Controls.Add(this.panelSpecialCtrlObj);
             this.groupControl1.Controls.Add(this.rgpPanelKind);
             this.groupControl1.Location = new System.Drawing.Point(24, 11);
             this.groupControl1.Name = "groupControl1";
@@ -150,26 +149,23 @@
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "按键功能类配置";
             // 
-            // panelEnvironment
-            // 
-            this.panelEnvironment.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelEnvironment.Location = new System.Drawing.Point(248, 21);
-            this.panelEnvironment.Name = "panelEnvironment";
-            this.panelEnvironment.Size = new System.Drawing.Size(407, 141);
-            this.panelEnvironment.TabIndex = 2;
-            // 
             // rgpPanelKind
             // 
+            this.rgpPanelKind.EditValue = 0;
             this.rgpPanelKind.Location = new System.Drawing.Point(5, 24);
             this.rgpPanelKind.Name = "rgpPanelKind";
             this.rgpPanelKind.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.rgpPanelKind.Properties.Columns = 2;
             this.rgpPanelKind.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(0, "默认工作模式(全部按键为通用键)"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "2键台面清洗通用键 + 3键通用键"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(2, "2键上下升降柜专用键 + 3键通用键"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(3, "1键新风键 + 3键通用键"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "2键3D抽油烟键 + 3键通用键")});
-            this.rgpPanelKind.Size = new System.Drawing.Size(220, 132);
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(0, "键盘样式-0"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "键盘样式-1"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(2, "键盘样式-2"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(3, "键盘样式-3"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(4, "键盘样式-4"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(5, "键盘样式-5"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(6, "键盘样式-6"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(7, "键盘样式-7")});
+            this.rgpPanelKind.Size = new System.Drawing.Size(202, 132);
             this.rgpPanelKind.TabIndex = 1;
             // 
             // tsDoorInput
@@ -181,7 +177,7 @@
             this.btRefresh});
             this.tsDoorInput.Location = new System.Drawing.Point(0, 0);
             this.tsDoorInput.Name = "tsDoorInput";
-            this.tsDoorInput.Size = new System.Drawing.Size(1039, 31);
+            this.tsDoorInput.Size = new System.Drawing.Size(1125, 31);
             this.tsDoorInput.TabIndex = 8;
             this.tsDoorInput.Text = "toolStrip2";
             // 
@@ -207,7 +203,7 @@
             // 
             this.pageJcsz.Controls.Add(this.viewBaseSetting);
             this.pageJcsz.Name = "pageJcsz";
-            this.pageJcsz.Size = new System.Drawing.Size(1009, 681);
+            this.pageJcsz.Size = new System.Drawing.Size(1125, 681);
             this.pageJcsz.Text = "基础配置";
             // 
             // viewBaseSetting
@@ -215,14 +211,14 @@
             this.viewBaseSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewBaseSetting.Location = new System.Drawing.Point(0, 0);
             this.viewBaseSetting.Name = "viewBaseSetting";
-            this.viewBaseSetting.Size = new System.Drawing.Size(1009, 681);
+            this.viewBaseSetting.Size = new System.Drawing.Size(1125, 681);
             this.viewBaseSetting.TabIndex = 0;
             // 
             // pageZlpz
             // 
             this.pageZlpz.Controls.Add(this.viewCommandEdit);
             this.pageZlpz.Name = "pageZlpz";
-            this.pageZlpz.Size = new System.Drawing.Size(1009, 681);
+            this.pageZlpz.Size = new System.Drawing.Size(1125, 681);
             this.pageZlpz.Text = "指令配置";
             // 
             // viewCommandEdit
@@ -232,14 +228,21 @@
             this.viewCommandEdit.Name = "viewCommandEdit";
             this.viewCommandEdit.ShowCommandBar = false;
             this.viewCommandEdit.ShowToolBar = false;
-            this.viewCommandEdit.Size = new System.Drawing.Size(1009, 681);
+            this.viewCommandEdit.Size = new System.Drawing.Size(1125, 681);
             this.viewCommandEdit.TabIndex = 1;
+            // 
+            // panelSpecialCtrlObj
+            // 
+            this.panelSpecialCtrlObj.Location = new System.Drawing.Point(213, 24);
+            this.panelSpecialCtrlObj.Name = "panelSpecialCtrlObj";
+            this.panelSpecialCtrlObj.Size = new System.Drawing.Size(406, 132);
+            this.panelSpecialCtrlObj.TabIndex = 2;
             // 
             // FrmButton8
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1048, 742);
+            this.ClientSize = new System.Drawing.Size(1134, 742);
             this.Controls.Add(this.tctrlEdit);
             this.Name = "FrmButton8";
             this.Text = "FrmBaseDevice";
@@ -285,7 +288,7 @@
         private ConfigDevice.ToolsUI.LCDUI.KeySecuritySetting keySecuritySetting;
         private KeyBaseSetting list8Keys;
         private DevExpress.XtraEditors.RadioGroup rgpPanelKind;
-        private PanelEnvironment panelEnvironment;
+        private PanelSpecialCtrlObj panelSpecialCtrlObj;
  
 
 

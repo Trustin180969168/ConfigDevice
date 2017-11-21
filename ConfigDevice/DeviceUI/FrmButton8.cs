@@ -48,7 +48,7 @@ namespace ConfigDevice
             viewBaseSetting.DeviceEdit = this.DeviceEdit;//----配置编辑对象----
             viewBaseSetting.DeviceEdit.SearchVer();//---获取版本号-----   
             InitSelectDevice();//----初始化选择设备---
-            this.panelEnvironment.Init();     //----初始化环境---
+            this.panelSpecialCtrlObj.Init(0);     //---初始化环境---
             list8Keys.ReadKeyData();//--按键数据----
             loadData();//---加载数据-----
 
@@ -83,7 +83,7 @@ namespace ConfigDevice
                         {
                             specialPanelOptionData = callbackParameter.Parameters[0] as SpecialPanelOptionData;
                             keySecuritySetting.SetOptionData(specialPanelOptionData);//-----设置安防  
-                            panelEnvironment.SetOptionData(ref specialPanelOptionData);//----环境-----
+                            panelSpecialCtrlObj.SetSelectOptionData(this.rgpPanelKind.SelectedIndex,specialPanelOptionData);//----环境-----
                         }
                     }
 

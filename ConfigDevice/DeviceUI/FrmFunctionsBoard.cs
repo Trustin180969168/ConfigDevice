@@ -94,7 +94,7 @@ namespace ConfigDevice
                         cbxShowContent.SelectedIndex = panelOptionData.DoorWindowShowAllID;//---门窗显示设置
                         cbxShowModel.SelectedIndex = panelOptionData.DoorWindowShowModelID;//---全部房间显示设置
                         ceIfOpenMusic.Checked = panelOptionData.NotCloseWindowPlayMusic;//---没关，没锁门是否播放音乐----
-                        listEnvironment.SetOptionData(ref panelOptionData);//----环境-----
+                        listEnvironment.SetSelectOptionData(ref panelOptionData);//----环境-----
                         panelMusic.SetOptionData(ref panelOptionData);//----音乐面板----
                         //------密码页配置---------------
                         for (int i = 0; i < celPassword.Items.Count; i++)
@@ -220,7 +220,7 @@ namespace ConfigDevice
             for (int i = 0; i < celPassword.Items.Count; i++)
                 flags[i] = celPassword.Items[i].CheckState == CheckState.Checked ? true : false;
             panelOptionDataValue.SaftPageFlags = flags;
-            listEnvironment.GetOptionData(ref panelOptionDataValue);//---环境页
+            listEnvironment.SetOptionData(panelOptionDataValue);//---环境页
             keySecuritySetting.GetOptionData(ref panelOptionDataValue);//------安全页----
 
             //---判断是否更改,更改执行保存----

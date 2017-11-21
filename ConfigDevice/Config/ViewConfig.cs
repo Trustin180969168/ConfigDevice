@@ -17,6 +17,7 @@ namespace ConfigDevice
         public const string ACTION_CHANGE_LOGIC_GROUP = "ChangeLogicGroup";
 
         //---逻辑列表-----
+        public const string DC_CONTROL_OBJECT = "ControlObject";//触发对象
         public const string DC_OBJECT = "Object";//触发对象
         public const string DC_POSITION = "Position";//触发位置
         public const string DC_KIND = "Kind";//内容类型
@@ -164,11 +165,21 @@ namespace ConfigDevice
         //       "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
         //       ")";
 
+        /// <summary>
+        /// 传感器设备查询条件
+        /// </summary>
         public static string SELECT_ENVIRONMENT_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
 
            "'" + (int)DeviceConfig.EQUIPMENT_AIR_QUALITY + "'" +
            ")";
 
+        /// <summary>
+        /// 专用面板设备选择
+        /// </summary>
+        public static string SELECT_DEVICE_PANEL_SPECIAL_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
+
+           "'" + (int)DeviceConfig.EQUIPMENT_EL_CUPBOARD + "'" +
+           ")";
         static ViewConfig()
         {
             //-------传感器触发-------

@@ -236,6 +236,26 @@ namespace ConfigDevice
             return dtSelectDevices;
         }
 
+        /// <summary>
+        /// 获取设备表选择数据
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable GetDevicesSpecialPanelLookupData(string filerExpression)
+        {
+            //-----获取选择的设备数据---
+            DataTable dtSelectDevices = new DataTable();
+            dtSelectDevices = SysConfig.DtDevice.Clone();
+            DataRow[] rows = SysConfig.DtDevice.Select(filerExpression);
+            foreach (DataRow dr in rows)
+                dtSelectDevices.Rows.Add(dr.ItemArray); 
+            //----初始化新的设备值----
+            dtSelectDevices.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
+            foreach (DataRow dr in dtSelectDevices.Rows)
+                dr[ViewConfig.DC_DEVICE_VALUE] = dr[DeviceConfig.DC_KIND_ID].ToString() + "_" + dr[DeviceConfig.DC_NETWORK_ID].ToString() + "_" + dr[DeviceConfig.DC_ID].ToString();
+
+            dtSelectDevices.AcceptChanges();
+            return dtSelectDevices;
+        }
 
         /// <summary>
         /// 获取设备表选择控件
