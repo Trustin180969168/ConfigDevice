@@ -145,6 +145,10 @@
       <DependentUpon>FrmButton8.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmCupboard.resx">
+      <DependentUpon>FrmCupboard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="SysUI\FrmNetworkIPEdit.resx">
       <DependentUpon>FrmNetworkIPEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -280,6 +284,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ToolsUI\ViewSecurity.resx">
       <DependentUpon>ViewSecurity.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\DeviceSelector.resx">
+      <DependentUpon>DeviceSelector.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -440,6 +448,7 @@
     <Compile Include="Class\ControlObj\SpecialPanelCtrl.cs" />
     <Compile Include="Class\Devices\BodyInduction.cs" />
     <Compile Include="Class\Devices\ButtonPanelKey.cs" />
+    <Compile Include="Class\Devices\Cupboard.cs" />
     <Compile Include="Class\Devices\Short4.cs" />
     <Compile Include="Class\Devices\VirtualPasswordFingerMarkLock.cs" />
     <Compile Include="Class\Devices\WeiXin.cs" />
@@ -472,6 +481,12 @@
     <Compile Include="DeviceUI\FrmButton8.Designer.cs">
       <DependentUpon>FrmButton8.cs</DependentUpon>
     </Compile>
+    <Compile Include="DeviceUI\FrmCupboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmCupboard.Designer.cs">
+      <DependentUpon>FrmCupboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="SysUI\FrmNetworkIPEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -489,6 +504,12 @@
     </Compile>
     <Compile Include="ToolsUI\PanelSpecialCtrlObj.Designer.cs">
       <DependentUpon>PanelSpecialCtrlObj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\DeviceSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\DeviceSelector.Designer.cs">
+      <DependentUpon>DeviceSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\MyLog.cs" />
     <Compile Include="Class\Sensor\Sensor.cs" />

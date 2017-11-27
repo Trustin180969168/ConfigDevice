@@ -309,7 +309,7 @@ namespace ConfigDevice
         public void ReadAdditionLogic(int startNum, int endNum)
         {
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_LOGIC_WRITE_EXACTION, EditHandleID, getAdditionLogic);
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, EditHandleID + DeviceConfig.CMD_LOGIC_WRITE_EXACTION.ToString(), getWriteEnd); 
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, EditHandleID + DeviceConfig.CMD_LOGIC_WRITE_EXACTION.ToString(), getWriteEnd2); 
             UdpData udpSend = createReadAdditionLogicUdp(startNum,endNum);
             mySocket.SendData(udpSend, NetworkIP, SysConfig.RemotePort, new CallbackUdpAction(callbackReadAdditionLogic), null);
         }
@@ -397,7 +397,7 @@ namespace ConfigDevice
             if (userData.SourceID == DeviceID && CommonTools.BytesEuqals(cmd, DeviceConfig.CMD_LOGIC_WRITE_EXACTION))
             {
                 UdpTools.ReplyDelRJ45SendUdp(data);//----回复确认-----
-                this.CallbackUI(new CallbackParameter(ActionKind.ReadAdditionAciton,DeviceID));//---回调UI---
+                this.CallbackUI(new CallbackParameter(ActionKind.ReadConfig,DeviceID));//---回调UI---
             }
         }
 
@@ -460,7 +460,7 @@ namespace ConfigDevice
         public void ReadConfig()
         {
             SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_CONFIG, EditHandleID, getConfig);//----注册回调---
-            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, EditHandleID + DeviceConfig.CMD_PUBLIC_WRITE_CONFIG.ToString(), getWriteEnd2);//-----此处不用deviceID区别,避免冲突
+            SysCtrl.AddRJ45CallBackList(DeviceConfig.CMD_PUBLIC_WRITE_END, EditHandleID + DeviceConfig.CMD_PUBLIC_WRITE_CONFIG.ToString(), getWriteEnd);//-----此处不用deviceID区别,避免冲突
             UdpData udpSend = createReadParameterUdp();
             MySocket.GetInstance().SendData(udpSend, NetworkIP, SysConfig.RemotePort,
                 new CallbackUdpAction(callbackReadParameterUdp), null);

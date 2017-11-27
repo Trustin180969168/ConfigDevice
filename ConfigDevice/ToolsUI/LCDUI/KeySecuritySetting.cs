@@ -141,7 +141,7 @@ namespace ConfigDevice.ToolsUI.LCDUI
         /// 获取安防设置参数
         /// </summary>
         /// <param name="optionData"></param>
-        public void GetOptionData(ref SpecialPanelOptionData optionData)
+        public void SetOptionData(ref SpecialPanelOptionData optionData)
         {
             //optionData.AlarmHintSound = ceAlarmSound.Checked;//预警提示音
             //optionData.DoorWindowHintSound = ceDoorWindowSound.Checked;//门窗提示音

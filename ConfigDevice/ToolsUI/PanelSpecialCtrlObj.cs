@@ -23,15 +23,14 @@ namespace ConfigDevice
 
             DataControlObjects.Columns.Add(ViewConfig.DC_NUM, System.Type.GetType("System.Int16"));
             DataControlObjects.Columns.Add(ViewConfig.DC_DEVICE_ID, System.Type.GetType("System.Int16"));
-            DataControlObjects.Columns.Add(ViewConfig.DC_CONTROL_OBJECT, System.Type.GetType("System.String"));
+            DataControlObjects.Columns.Add(ViewConfig.DC_CONTROL_OBJ, System.Type.GetType("System.String"));
             DataControlObjects.Columns.Add(ViewConfig.DC_KIND, System.Type.GetType("System.Int16"));
             DataControlObjects.Columns.Add(ViewConfig.DC_KIND_NAME, System.Type.GetType("System.String"));
             DataControlObjects.Columns.Add(ViewConfig.DC_NAME, System.Type.GetType("System.String"));
             DataControlObjects.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
-
-  
+              
             dcID.FieldName = ViewConfig.DC_DEVICE_ID;
-            dcControlObject.FieldName = ViewConfig.DC_CONTROL_OBJECT;
+            dcControlObject.FieldName = ViewConfig.DC_CONTROL_OBJ;
             dcDeviceValue.FieldName = ViewConfig.DC_DEVICE_VALUE; 
 
             edtNum.MinValue = 0;
@@ -48,11 +47,15 @@ namespace ConfigDevice
                 case 0:
                 case 1:
                 case 4:
-                case 2: gcSpecialObjs.DataSource = new DataTable(); return;
+                case 2: DataControlObjects.Rows.Clear(); return;
                 case 3:
                 case 6:
-                case 7: DataControlObjects.Rows.Add(0, 0, "吊柜"); break;
-                case 5: DataControlObjects.Rows.Add(0, 0, "吊柜");
+                case 7: 
+                    DataControlObjects.Rows.Clear(); 
+                    DataControlObjects.Rows.Add(0, 0, "吊柜"); break;
+                case 5: 
+                    DataControlObjects.Rows.Clear(); 
+                    DataControlObjects.Rows.Add(0, 0, "吊柜");
                     DataControlObjects.Rows.Add(1, 0, "地柜");  break;
                 default: break;
             }
@@ -66,10 +69,7 @@ namespace ConfigDevice
             dcDeviceValue.ColumnEdit = gridLookupDevice;
 
             dcID.ColumnEdit = edtNum;
-
- 
         }
-
 
         /// <summary>
         /// 选择切换
@@ -90,14 +90,11 @@ namespace ConfigDevice
             gvSpecialObjs.BestFitColumns();
         }
 
-
-
-
         /// <summary>
         /// 设置参数
         /// </summary>
         /// <param name="optionData"></param>
-        public void SetSelectOptionData(int kindNum, SpecialPanelOptionData optionData)
+        public void GetOptionData(int kindNum, SpecialPanelOptionData optionData)
         {
         
             for (int i = 0; i < 2; i++)
@@ -117,14 +114,15 @@ namespace ConfigDevice
                 }
                 //------赋值到列表中----------
                 DataRow dr = gvSpecialObjs.GetDataRow(i);
-                dr[ViewConfig.DC_DEVICE_ID] = specialObj.DeviceID;  
-                dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
-                dr.EndEdit();
+                if (dr != null)
+                {
+                    dr[ViewConfig.DC_DEVICE_ID] = specialObj.DeviceID;
+                    dr[ViewConfig.DC_DEVICE_VALUE] = deviceValue;
+                    dr.EndEdit();
+                }
             }
 
-        }
-
-         
+        }         
 
         /// <summary>
         /// 获取设置参数
@@ -133,10 +131,16 @@ namespace ConfigDevice
         public void SetOptionData(int kindNum, SpecialPanelOptionData optionData)
         {
             this.gvSpecialObjs.PostEditor();
+            //---按键类型是空的时候，清空---
+            if (DataControlObjects.Rows.Count == 0)
+            {
+                optionData.ControlObjects[0] = new ControlObjectInfo();
+                optionData.ControlObjects[1] = new ControlObjectInfo();
+                return;
+            }
             DataRow drSensor = gvSpecialObjs.GetDataRow(gvSpecialObjs.FocusedRowHandle);
-            drSensor.EndEdit();
-
-            for (int i = 0; i < 2; i++)
+            drSensor.EndEdit(); 
+            for (int i = 0; i<DataControlObjects.Rows.Count; i++)
             {
                 ControlObjectInfo panelSensor = optionData.ControlObjects[i]; 
                 //------赋值到列表中----------

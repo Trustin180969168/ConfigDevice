@@ -211,7 +211,7 @@ namespace ConfigDevice
             SetSecurityDelayTime = value[24];//布防延时
             AlarmDelayTime = value[25];//预警时间 
             //-----传感器列表-----
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 2; i++)
                 ControlObjects[i] = new ControlObjectInfo(CommonTools.CopyBytes(value, i * 4 + 30, 4));//----26到30为保留字节---
 
         }
@@ -252,7 +252,7 @@ namespace ConfigDevice
             value[24] = SetSecurityDelayTime;//布防延时
             value[25] = AlarmDelayTime;//预警时间 
             //-----传感器数组-----
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 2; i++)
                 Buffer.BlockCopy(ControlObjects[i].GetValue(), 0, value, i * 4 + 30, 4);
             return value;
         }

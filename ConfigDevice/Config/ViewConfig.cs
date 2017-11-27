@@ -16,8 +16,7 @@ namespace ConfigDevice
         //---执行操作名称----
         public const string ACTION_CHANGE_LOGIC_GROUP = "ChangeLogicGroup";
 
-        //---逻辑列表-----
-        public const string DC_CONTROL_OBJECT = "ControlObject";//触发对象
+        //---逻辑列表----- 
         public const string DC_OBJECT = "Object";//触发对象
         public const string DC_POSITION = "Position";//触发位置
         public const string DC_KIND = "Kind";//内容类型

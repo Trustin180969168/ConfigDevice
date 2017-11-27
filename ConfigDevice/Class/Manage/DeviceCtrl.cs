@@ -146,6 +146,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_PRI_3: return new FactoryBodyInductionEdit();//---人体感应---
                 case DeviceConfig.EQUIPMENT_RFLINE_GATEWAY: return new FactoryWirlessDeviceEdit();//---无线主机---
                 case DeviceConfig.EQUIPMENT_FP_LOCK: return new FactoryFingerLockDeviceEdit();//---指纹锁---
+                case DeviceConfig.EQUIPMENT_EL_CUPBOARD: return new FactoryCupboardDeviceEdit();//---指纹锁---
                 default: return new FactoryBaseDeviceEdit();
             }
         }
@@ -431,6 +432,22 @@ namespace ConfigDevice
         {
             VirtualPasswordFingerMarkLock device = new VirtualPasswordFingerMarkLock(data);
             return new FrmLockDevices(device);
+        }
+        #endregion
+
+    }
+
+    /// <summary>
+    /// 升降柜
+    /// </summary>
+    public class FactoryCupboardDeviceEdit : IFactoryDeviceEdit
+    {
+        #region IFactory 成员
+
+        FrmDevice IFactoryDeviceEdit.CreateDevice(DataRow data)
+        {
+            Cupboard device = new Cupboard(data);
+            return new FrmCupboard(device);
         }
         #endregion
 
