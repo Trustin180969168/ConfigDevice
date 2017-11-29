@@ -152,7 +152,7 @@ namespace ConfigDevice
             byte[] cmd = DeviceConfig.CMD_PUBLIC_WRITE_CONFIG;//----用户命令-----
             byte len = 4 + 4;//---数据长度---- 
 
-            byte[] crcData = new byte[10 + 5];
+            byte[] crcData = new byte[10 + len - 4];
             Buffer.BlockCopy(target, 0, crcData, 0, 3);
             Buffer.BlockCopy(source, 0, crcData, 3, 3);
             crcData[6] = page;

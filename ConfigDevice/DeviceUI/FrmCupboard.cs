@@ -19,7 +19,7 @@ namespace ConfigDevice
             this.DeviceEdit.OnCallbackUI_Action += BaseViewSetting.CallBackUI;//----注册回调事件
 
             cupboard = this.DeviceEdit as Cupboard;
-            cupboard.ReadConfig();
+
         }
 
         public FrmCupboard()
@@ -31,16 +31,18 @@ namespace ConfigDevice
         {
             BaseViewSetting.DeviceEdit = this.DeviceEdit;
             BaseViewSetting.DeviceEdit.SearchVer();//---获取版本号-----   
-            InitSelectDevice();  
+            InitSelectDevice();
+            deviceSelector.InitViewDelegate = initSelectDeviceView;
+            deviceSelector.Init();
+            cupboard.ReadConfig();
         }
 
         private void initSelectDeviceView()
         {   
             deviceSelector.InitViewDelegate += initSelectDeviceView;
             deviceSelector.GvEdit.Columns.ColumnByFieldName(ViewConfig.DC_CONTROL_OBJ).Visible = false;
-            deviceSelector.DevicesData = ViewEditCtrl.GetDevicesSpecialPanelLookupData(ViewConfig.SELECT_COMMAND_DEVICE_QUERY_CONDITION);
             deviceSelector.DevicesData.Rows.Add(0, 0);
-            deviceSelector.Init();
+        
         }   
 
         /// <summary>
@@ -74,8 +76,10 @@ namespace ConfigDevice
         /// </summary>
         private void btSave_Click(object sender, EventArgs e)
         {
+            this.deviceSelector.GvEdit.PostEditor(); 
             DataRow dr = this.deviceSelector.DevicesData.Rows[0];
-            cupboard.ExclusionDeviceId = Convert.ToInt16(cupboard.ExclusionDeviceId);
+            dr.EndEdit();
+            cupboard.ExclusionDeviceId = Convert.ToInt16(dr[ViewConfig.DC_DEVICE_ID]);
             cupboard.SaveConfig();
         }
 
