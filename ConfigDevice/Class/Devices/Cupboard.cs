@@ -180,6 +180,12 @@ namespace ConfigDevice
         }
 
 
-
+        /// <summary>
+        /// 初始化控制对象
+        /// </summary>
+        private void initControlObjs()
+        {
+            ContrlObjs.Add(DeviceConfig.CONTROL_OBJECT_CUPBOARD, new CupboardSwit(this));
+        }
     }
 }

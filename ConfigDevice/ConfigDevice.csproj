@@ -446,6 +446,7 @@
     <Compile Include="Class\ControlObj\ShortInput.cs" />
     <Compile Include="Class\ControlObj\SecurityObj.cs" />
     <Compile Include="Class\ControlObj\SpecialPanelCtrl.cs" />
+    <Compile Include="Class\ControlObj\CupboardSwit.cs" />
     <Compile Include="Class\Devices\BodyInduction.cs" />
     <Compile Include="Class\Devices\ButtonPanelKey.cs" />
     <Compile Include="Class\Devices\Cupboard.cs" />
@@ -456,6 +457,7 @@
     <Compile Include="Class\Devices\SpecialPanelKey.cs" />
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Manage\KeyList.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewCupboardControl.cs" />
     <Compile Include="Data\ButtonPanelOptionData.cs">
       <SubType>Code</SubType>
     </Compile>

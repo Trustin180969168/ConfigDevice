@@ -62,6 +62,7 @@ namespace ConfigDevice
         public const string CONTROL_OBJECT_BGM_NAME = "背景";
         public const string CONTROL_OBJECT_MESSAGE_NAME = "消息";
         public const string CONTROL_OBJECT_SECURITY = "安防联动";
+        public const string CONTROL_OBJECT_CUPBOARD = "升降柜";
 
         //-----------回应启动搜索设备-------------
         public const byte RETSTARTSEARCH_TRUE = 0x0;        // 成功启动搜索设备
