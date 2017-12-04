@@ -5,6 +5,8 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using System.Data;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraEditors.Controls;
 
 namespace ConfigDevice
 {
@@ -14,27 +16,23 @@ namespace ConfigDevice
     public class ViewCupboardControl : BaseViewCommandControl
     {
         GridColumn dcCommand;//指令
-        GridColumn dcMotorAction;//动作
-        GridColumn dcPercent;//程度
-        GridColumn dcRunTime;//运行时间
-        GridColumn dcOpenDelay;//开延迟
-        GridColumn dcCloseDelay;//关延迟
-        Motor motor;//控制对象
-        DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxActionKind;//选择命令类型编辑     
+        GridColumn dcAction;//动作
+        GridColumn dcFloors;//层数
+        GridColumn dcRunDelay;//运行延时 
+        CupboardSwit cupboardSwit;//控制对象
+        RepositoryItemComboBox cbxActionKind;//选择命令类型编辑     
 
         public ViewCupboardControl(ControlObj controlObj, GridView gv)
             : base(controlObj, gv)
         {
-            motor = controlObj as Motor;
+            cupboardSwit = controlObj as CupboardSwit;
             dcCommand = ViewSetting.Columns.ColumnByName("command");
-            dcMotorAction = ViewSetting.Columns.ColumnByName("parameter1");
-            dcPercent = ViewSetting.Columns.ColumnByName("parameter2");
-            dcRunTime = ViewSetting.Columns.ColumnByName("parameter3");
-            dcOpenDelay = ViewSetting.Columns.ColumnByName("parameter4");
-            dcCloseDelay = ViewSetting.Columns.ColumnByName("parameter5");
+            dcAction = ViewSetting.Columns.ColumnByName("parameter1");
+            dcFloors = ViewSetting.Columns.ColumnByName("parameter2");
+            dcRunDelay = ViewSetting.Columns.ColumnByName("parameter3");
 
-            cbxActionKind = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            cbxActionKind.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            cbxActionKind = new RepositoryItemComboBox();
+            cbxActionKind.TextEditStyle = TextEditStyles.DisableTextEditor;
 
             InitViewSetting();
         }
@@ -45,49 +43,35 @@ namespace ConfigDevice
         public override void InitViewSetting()
         {
             dcCommand.Visible = true;
-            dcMotorAction.Visible = true;
-            dcPercent.Visible = true;
-            dcRunTime.Visible = true;
-            dcOpenDelay.Visible = true;
-            dcCloseDelay.Visible = true;
+            dcAction.Visible = true;
+            dcFloors.Visible = true;
+            dcRunDelay.Visible = true;
             ViewSetting.Columns.ColumnByName("parameter1").VisibleIndex = 6;
             ViewSetting.Columns.ColumnByName("parameter2").VisibleIndex = 7;
             ViewSetting.Columns.ColumnByName("parameter3").VisibleIndex = 8;
-            ViewSetting.Columns.ColumnByName("parameter4").VisibleIndex = 9;
-            ViewSetting.Columns.ColumnByName("parameter5").VisibleIndex = 10;
 
-            cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP);
-            cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_OPEN);
-            cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_CLOSE);
-            cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_OPEN_CONDITION);
-            cbxCommandKind.Items.Add(Motor.NAME_CMD_SWIT_LOOP_CLOSE_CONDITION);
+            cbxCommandKind.Items.Add(CupboardSwit.NAME_CMD_SWIT_LOOP);
+            cbxCommandKind.Items.Add(CupboardSwit.NAME_CMD_SWIT_LOOP_OPEN);
+            cbxCommandKind.Items.Add(CupboardSwit.NAME_CMD_SWIT_LOOP_CLOSE);
+            cbxCommandKind.Items.Add(CupboardSwit.NAME_CMD_SWIT_LOOP_OPEN_CONDITION);
+            cbxCommandKind.Items.Add(CupboardSwit.NAME_CMD_SWIT_LOOP_CLOSE_CONDITION);
 
-            dcMotorAction.Caption = "电机动作";
-            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_FRONT_1);
-            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_BACK_1);
-            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_FRONT_2);
-            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_BACK_2);
-            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_FRONT_3);
-            cbxActionKind.Items.Add(Motor.NAME_ACTION_ROAD_BACK_3);
-            dcMotorAction.ColumnEdit = cbxActionKind;
+            dcAction.Caption = "升降柜动作";
+            cbxActionKind.Items.Add(CupboardSwit.ACTION_OPEN_CUPBOARD);
+            cbxActionKind.Items.Add(CupboardSwit.ACTION_CLOSE_CUPBOARD);
+            cbxActionKind.SelectedIndexChanged += this.cbxActionKind_SelectedIndexChanged;
+            dcAction.ColumnEdit = cbxActionKind;
 
-            dcPercent.Caption = "程度";
-            dcPercent.ColumnEdit = edtPercentNum;
-            dcRunTime.Caption = "运行时间";
-            dcRunTime.ColumnEdit = tedtTime;
-            dcOpenDelay.Caption = "开延迟";
-            dcOpenDelay.ColumnEdit = tedtTime;
-            dcCloseDelay.Caption = "关延迟";
-            dcCloseDelay.ColumnEdit = tedtTime;
+            dcFloors.Caption = "层数";
+            dcFloors.ColumnEdit = edtNum;
+            dcRunDelay.Caption = "运行延迟";
+            dcRunDelay.ColumnEdit = tedtTime;
 
             ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
-            ViewSetting.SetRowCellValue(0, dcMotorAction, cbxActionKind.Items[0].ToString());
-            ViewSetting.SetRowCellValue(0, dcPercent, "1");
-            ViewSetting.SetRowCellValue(0, dcRunTime, "00:00:00");
-            ViewSetting.SetRowCellValue(0, dcOpenDelay, "00:00:00");
-            ViewSetting.SetRowCellValue(0, dcCloseDelay, "00:00:00");
+            ViewSetting.SetRowCellValue(0, dcAction, cbxActionKind.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcFloors, "0");
+            ViewSetting.SetRowCellValue(0, dcRunDelay, "00:00:00");
 
-           // ViewSetting.BestFitColumns();
 
         }
 
@@ -98,20 +82,13 @@ namespace ConfigDevice
         {
             //----------计算时间-------------------
             DataRow dr = ViewSetting.GetDataRow(0);
-            DateTime dtRunTime = DateTime.Parse(dr[dcRunTime.FieldName].ToString());
-            DateTime dtOpenDelay = DateTime.Parse(dr[dcOpenDelay.FieldName].ToString());
-            DateTime dtCloseDelay = DateTime.Parse(dr[dcCloseDelay.FieldName].ToString());
+            DateTime dtRunDelay = DateTime.Parse(dr[dcRunDelay.FieldName].ToString());
 
-            int runTimeSeconds = dtRunTime.Hour * 60 * 60 + dtRunTime.Minute * 60 + dtRunTime.Second;//运行秒数
-            int openDelaySeconds = dtOpenDelay.Hour * 60 * 60 + dtOpenDelay.Minute * 60 + dtOpenDelay.Second;//开延迟秒数
-            int closeDelaySeconds = dtCloseDelay.Hour * 60 * 60 + dtCloseDelay.Minute * 60 + dtCloseDelay.Second;//关延迟秒数
+            int runTimeSeconds = dtRunDelay.Hour * 60 * 60 + dtRunDelay.Minute * 60 + dtRunDelay.Second;//运行秒数
 
             if (runTimeSeconds > 64800)
                 CommonTools.MessageShow("运行时间不能大于18小时!", 2, "");
-            if (openDelaySeconds > 64800)
-                CommonTools.MessageShow("开延迟不能大于18小时!", 2, "");
-            if (closeDelaySeconds > 64800)
-                CommonTools.MessageShow("关延迟不能大于18小时!", 2, "");
+
         }
 
         /// <summary>
@@ -120,45 +97,81 @@ namespace ConfigDevice
         /// <returns></returns>
         public override CommandData GetCommand()
         {
+            CommandData result = new CommandData();
             ViewSetting.PostEditor();
             DataRow dr = ViewSetting.GetDataRow(0);
-            byte[] motorCommand = Motor.NameAndCommand[dr[dcCommand.FieldName].ToString()];//-----电机命令-----------------            
-            int percent = Convert.ToInt16(dr[dcPercent.FieldName].ToString());//-----百分比----
-            //----------电机动作-----------------
-            int actionIndex = 0;
-            string actionName = dr[dcMotorAction.FieldName].ToString();
-            if (actionName == Motor.NAME_ACTION_ROAD_FRONT_1)
-                actionIndex = 0;
-            else if (actionName == Motor.NAME_ACTION_ROAD_BACK_1)
-                actionIndex = 1;
-            else if (actionName == Motor.NAME_ACTION_ROAD_FRONT_2)
-                actionIndex = 2;
-            else if (actionName == Motor.NAME_ACTION_ROAD_BACK_2)
-                actionIndex = 3;
-            else if (actionName == Motor.NAME_ACTION_ROAD_FRONT_3)
-                actionIndex = 4;
-            else if (actionName == Motor.NAME_ACTION_ROAD_BACK_3)
-                actionIndex = 5;
+            byte[] cupboardCommand = CupboardSwit.NameAndCommand[dr[dcCommand.FieldName].ToString()];//-----电机命令-----------------            
+            int floors = Convert.ToInt16(dr[dcFloors.FieldName].ToString());//-----层数---- 
             //----------计算时间-------------------
-            DateTime dtRunTime = DateTime.Parse(dr[dcRunTime.FieldName].ToString());
-            DateTime dtOpenDelay = DateTime.Parse(dr[dcOpenDelay.FieldName].ToString());
-            DateTime dtCloseDelay = DateTime.Parse(dr[dcCloseDelay.FieldName].ToString());
-
-            int runTimeSeconds = dtRunTime.Hour * 60 * 60 + dtRunTime.Minute * 60 + dtRunTime.Second;//运行秒数
-            int openDelaySeconds = dtOpenDelay.Hour * 60 * 60 + dtOpenDelay.Minute * 60 + dtOpenDelay.Second;//开延迟秒数
-            int closeDelaySeconds = dtCloseDelay.Hour * 60 * 60 + dtCloseDelay.Minute * 60 + dtCloseDelay.Second;//关延迟秒数
-
-            if (runTimeSeconds > 64800)
+            DateTime dtRunDelay = DateTime.Parse(dr[dcRunDelay.FieldName].ToString());
+            int RunDelaySeconds = dtRunDelay.Hour * 60 * 60 + dtRunDelay.Minute * 60 + dtRunDelay.Second;//运行秒数
+            if (RunDelaySeconds > 64800)
             { CommonTools.MessageShow("运行时间不能大于18小时!", 2, ""); return null; }
-            if (openDelaySeconds > 64800)
-            { CommonTools.MessageShow("开延迟不能大于18小时!", 2, ""); return null; }
-            if (closeDelaySeconds > 64800)
-            { CommonTools.MessageShow("关延迟不能大于18小时!", 2, ""); return null; }
-
-            CommandData result = motor.GetCommandData(motorCommand, percent, actionIndex, runTimeSeconds, openDelaySeconds, closeDelaySeconds);
+            string actionName = "";
+            //---1.运行/停止----
+            if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP))
+            {
+                if (actionName == CupboardSwit.NAME_ACTION_OPEN_CUPBOARD)
+                    result = cupboardSwit.ActionRunStopOpen(floors, RunDelaySeconds);
+                else
+                    result = cupboardSwit.ActionRunStopClose();
+            }
+            //---2.运行----
+            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN))
+            {
+                if (actionName == CupboardSwit.NAME_ACTION_OPEN_CUPBOARD)
+                    result = cupboardSwit.ActionOpenCmdOpenCupboard(floors, RunDelaySeconds);
+                else
+                    result = cupboardSwit.ActionOpenCmdCloseCupboard();
+            }
+            //---3.停止----
+            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE))
+            {
+                result = cupboardSwit.ActionStopCmdOpenCupboard();
+            }
+            //---4.条件运行----
+            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION))
+            {
+                if (actionName == CupboardSwit.NAME_ACTION_OPEN_CUPBOARD)
+                    result = cupboardSwit.ActionConditionOpenCmdOpenCupboard(floors, RunDelaySeconds);
+                else
+                    result = cupboardSwit.ActionConditionOpenCmdCloseCupboard();
+            }
+            //---5.条件停止----
+            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION))
+            {
+                result = cupboardSwit.ActionStopCmdOpenCupboard();
+            }
             result.NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
             result.PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
             return result;
+
+        }
+
+        /// <summary>
+        /// 根据选择开柜,关柜,设置列
+        /// </summary>
+        private void cbxActionKind_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ViewSetting.PostEditor();
+            DataRow dr = ViewSetting.GetDataRow(0);
+            string name = dr[this.dcAction.FieldName].ToString();
+            switch (name)
+            {
+                case CupboardSwit.NAME_ACTION_OPEN_CUPBOARD:
+                    setGridColumnValid(dcFloors, edtNum);
+                    setGridColumnValid(dcRunDelay, tedtTime);
+                    //----自动初始化------
+                    this.ViewSetting.SetRowCellValue(0, dcFloors, 0);//---开始值---
+                    this.ViewSetting.SetRowCellValue(0, dcRunDelay, "00:00:00");//---开始值---
+                    break;
+                case CupboardSwit.NAME_ACTION_CLOSE_CUPBOARD:
+                    setGridColumnInvalid(dcFloors);
+                    setGridColumnInvalid(dcRunDelay);
+                    break;
+                default: break;
+            }
+            dr.EndEdit();
         }
 
 
@@ -176,36 +189,30 @@ namespace ConfigDevice
         /// <param name="data"></param>
         public override void SetCommandData(CommandData data)
         {
-           
             //---找出对应的指令---------
             string cmdName = "";
-            foreach (string key in Motor.NameAndCommand.Keys)
+            foreach (string key in CupboardSwit.NameAndCommand.Keys)
             {
-                if (CommonTools.BytesEuqals(data.Cmd, Motor.NameAndCommand[key]))
+                if (CommonTools.BytesEuqals(data.Cmd, CupboardSwit.NameAndCommand[key]))
                 { cmdName = key; break; }
             }
             ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
 
-            int cmdIndex = (int)data.Data[2];//---电机动作---
-            ViewSetting.SetRowCellValue(0, dcMotorAction, cbxActionKind.Items[cmdIndex].ToString());//---电机动作---
-            ViewSetting.SetRowCellValue(0, dcPercent, (int)data.Data[1]);//---程度----
+            int actionIndex = (int)data.Data[2];//---动作---
+            if (actionIndex == 1)//关柜
+                ViewSetting.SetRowCellValue(0, dcAction, CupboardSwit.NAME_ACTION_CLOSE_CUPBOARD);
+            else if (actionIndex == 2)//开柜
+                ViewSetting.SetRowCellValue(0, dcAction, CupboardSwit.NAME_ACTION_OPEN_CUPBOARD);
+            else
+                ViewSetting.SetRowCellValue(0, dcAction, "");
+ 
+            byte[] byteOpenDelayTime = CommonTools.CopyBytes(data.Data, 5, 2);  
+            int openDelayTime = ConvertTools.Bytes2ToInt16(byteOpenDelayTime); 
 
-            byte[] byteRunTime = CommonTools.CopyBytes(data.Data, 3, 2); 
-            byte[] byteOpenDelayTime = CommonTools.CopyBytes(data.Data, 5, 2);
-            byte[] byteCloseDelayTime = CommonTools.CopyBytes(data.Data, 7, 2);
-
-            int runTime =   ConvertTools.Bytes2ToInt16(byteRunTime);
-            int openDelayTime = ConvertTools.Bytes2ToInt16(byteOpenDelayTime);  
-            int closeDelayTime = ConvertTools.Bytes2ToInt16(byteCloseDelayTime); 
-
-            string nowDateStr = DateTime.Now.ToShortDateString(); 
+            string nowDateStr = DateTime.Now.ToShortDateString();
             DataTable dt = ViewSetting.GridControl.DataSource as DataTable;
             DataRow dr = dt.Rows[0];
-
-            dr[dcRunTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(runTime).ToLongTimeString();
-            dr[dcOpenDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(openDelayTime).ToLongTimeString();
-            dr[dcCloseDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(closeDelayTime).ToLongTimeString();
-
+            dr[dcRunDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(openDelayTime).ToLongTimeString();
 
         }
 

@@ -43,7 +43,8 @@ namespace ConfigDevice
                 return new ViewInnerInteractionControl(controlObj, gv);
             else if (controlObj is ConfigDevice.OuterInteraction)
                 return new ViewOuterInteractionControl(controlObj, gv);
-
+            else if (controlObj is ConfigDevice.CupboardSwit)
+                return new ViewCupboardControl(controlObj, gv);
             else return null;
         }
 

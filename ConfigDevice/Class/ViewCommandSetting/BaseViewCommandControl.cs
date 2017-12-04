@@ -4,6 +4,8 @@ using System.Text;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using System.Data;
+using DevExpress.XtraGrid.Columns;
+using System.Drawing;
 
 namespace ConfigDevice
 {
@@ -18,7 +20,7 @@ namespace ConfigDevice
         protected GridViewDigitalEdit edtNum;//数字编辑
         protected DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtPercentNum;//百分比
         protected DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit meEdit;//下拉文本框
-        
+        protected GridViewTextEdit InvalidEdit = new GridViewTextEdit();//无效编辑
         //----配置界面列表------
         public GridView ViewSetting;
         public BaseViewCommandControl(ControlObj _controlObj, GridView gv)
@@ -94,6 +96,36 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="data">指令数据</param>
         public abstract void SetCommandData(CommandData data);
+
+        /// <summary>
+        /// 设置生效
+        /// </summary>
+        /// <param name="gc"></param>
+        /// <param name="editor"></param>
+        protected void setGridColumnValid(GridColumn gc, DevExpress.XtraEditors.Repository.RepositoryItem editor)
+        {
+            gc.ColumnEdit = editor;
+            gc.AppearanceCell.BackColor = Color.LightYellow;
+            gc.AppearanceCell.ForeColor = Color.Blue;
+            gc.OptionsColumn.AllowEdit = true;
+
+        }
+
+        /// <summary>
+        /// 设置无效
+        /// </summary>
+        /// <param name="gc"></param>
+        protected void setGridColumnInvalid(GridColumn gc)
+        {
+            DataRow dr = ViewSetting.GetDataRow(0);
+            if (gc.FieldName != "")
+                dr[gc.FieldName] = SensorConfig.SENSOR_INVALID;//---内容为无效
+            dr.EndEdit();
+            gc.ColumnEdit = InvalidEdit;
+            gc.AppearanceCell.BackColor = Color.Gainsboro;//灰色
+            gc.AppearanceCell.ForeColor = Color.Black;
+            gc.OptionsColumn.AllowEdit = false;
+        }
 
     }
 }
