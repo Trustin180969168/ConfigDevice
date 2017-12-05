@@ -181,6 +181,7 @@ namespace ConfigDevice
                             return "内部联动号";
                     } break;
                 case DeviceConfig.EQUIPMENT_SERVER: return "服务器";
+                case DeviceConfig.EQUIPMENT_EL_CUPBOARD: return DeviceConfig.CONTROL_OBJECT_CUPBOARD;//---升降柜
                 default: return "无效";
             }
             return "无效";

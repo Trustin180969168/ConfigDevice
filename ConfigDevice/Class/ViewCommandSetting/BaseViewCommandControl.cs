@@ -21,10 +21,13 @@ namespace ConfigDevice
         protected DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit edtPercentNum;//百分比
         protected DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit meEdit;//下拉文本框
         protected GridViewTextEdit InvalidEdit = new GridViewTextEdit();//无效编辑
+
+        public const string  NAME_INVALID_VALUE = "无效";
         //----配置界面列表------
         public GridView ViewSetting;
         public BaseViewCommandControl(ControlObj _controlObj, GridView gv)
-        {    
+        {
+
             //----长文本编辑控件------------------
             this.meEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             //----命令编辑控件----
@@ -64,6 +67,13 @@ namespace ConfigDevice
             ViewSetting.Columns.ColumnByFieldName(DeviceConfig.DC_ID).ColumnEdit = edtNum;
             ViewSetting.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).ColumnEdit = edtNum;
             ViewSetting.FocusedColumn = ViewSetting.Columns[3];
+
+            //----初始化为生效
+            setGridColumnValid(ViewSetting.Columns.ColumnByName("parameter1"), edtNum);
+            setGridColumnValid(ViewSetting.Columns.ColumnByName("parameter2"), edtNum);
+            setGridColumnValid(ViewSetting.Columns.ColumnByName("parameter3"), edtNum);
+            setGridColumnValid(ViewSetting.Columns.ColumnByName("parameter4"), edtNum);
+            setGridColumnValid(ViewSetting.Columns.ColumnByName("parameter5"), edtNum);
         }
 
         /// <summary>

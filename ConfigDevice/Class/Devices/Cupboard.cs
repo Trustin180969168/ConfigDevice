@@ -8,22 +8,25 @@ namespace ConfigDevice
     public class Cupboard : Device
     {
         public int ExclusionDeviceId;
-          public Cupboard(UserUdpData userUdpData)
+        public Cupboard(UserUdpData userUdpData)
             : base(userUdpData)
         { 
-            initCallback(); 
+            initCallback();
+            initControlObjs();
         }
 
         public Cupboard(DeviceData data)
             : base(data)
         { 
-            initCallback(); 
+            initCallback();
+            initControlObjs();
         }
 
         public Cupboard(DataRow dr)
             : base(dr)
         { 
-            initCallback(); 
+            initCallback();
+            initControlObjs();
         }
         private CallbackFromUDP getWriteEnd;//----获取结束读取信息----
         private CallbackFromUDP getConfig;//-------每参数名称----

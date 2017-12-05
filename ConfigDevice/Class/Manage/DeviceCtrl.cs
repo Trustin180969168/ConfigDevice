@@ -178,6 +178,7 @@ namespace ConfigDevice
                 case DeviceConfig.EQUIPMENT_KEY_4: return new FactoryButton4();//4按键 
                 case DeviceConfig.EQUIPMENT_KEY_8: return new FactoryButton8();//8按键 
                 case DeviceConfig.EQUIPMENT_LINKID: return new FactorySystemInteraction();//系统联动号
+                case DeviceConfig.EQUIPMENT_EL_CUPBOARD: return new FactoryCupboard();//电动升降柜
                 default: return new FactoryBaseDevice();
             }
         }
@@ -742,6 +743,22 @@ namespace ConfigDevice
         public Device CreateDevice(DeviceData data)
         {
             Device device = new SystemInteraction(data);
+            return device;
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// 电动升降柜
+    /// </summary>
+    public class FactoryCupboard : IFactoryDevice
+    {
+        #region IFactoryDevice 成员
+
+        public Device CreateDevice(DeviceData data)
+        {
+            Device device = new Cupboard(data);
             return device;
         }
 
