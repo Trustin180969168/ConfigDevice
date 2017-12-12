@@ -65,10 +65,10 @@ namespace ConfigDevice
             cmdData.Cmd = cmd;
             cmdData.DataLen = 9;
 
-            cmdData.Data[0] = (byte)commandActionKindId;//---指令对应的执行动作类型Id 
-            //cmdData.Data[1] //---未使用
-            cmdData.Data[2] = (byte)actionCupboardKindId;
-            cmdData.Data[3] = (byte)value;//---类型值 
+            cmdData.Data[0] = (byte)commandActionKindId;//指令配合使用的类型值
+            //cmdData.Data[1] //保留
+            cmdData.Data[2] = (byte)actionCupboardKindId;//（关柜，开柜） 
+            cmdData.Data[3] = (byte)value;//---类型值
             Buffer.BlockCopy(BitConverter.GetBytes(runDly), 0, cmdData.Data, 5, 2); 
 
             return cmdData;
@@ -78,9 +78,9 @@ namespace ConfigDevice
         /// 运行/停止->关柜
         /// </summary>
         /// <returns></returns>
-        public CommandData ActionRunStopClose()
+        public CommandData ActionRunStopClose(int openDly)
         {
-            return ControlAction(DeviceConfig.CMD_SW_SWIT_LOOP, COMMAND_RUN_FLAG, ACTION_CLOSE_CUPBOARD, 0, 0);
+            return ControlAction(DeviceConfig.CMD_SW_SWIT_LOOP, COMMAND_RUN_FLAG, ACTION_CLOSE_CUPBOARD, 0, openDly);
         }
 
         /// <summary>
@@ -96,9 +96,9 @@ namespace ConfigDevice
         /// 运行->关柜
         /// </summary>
         /// <returns></returns>
-        public CommandData ActionOpenCmdCloseCupboard()
+        public CommandData ActionOpenCmdCloseCupboard(int openDly)
         {
-            return ControlAction(DeviceConfig.CMD_SW_SWIT_LOOP_OPEN, COMMAND_STOP_FLAG, ACTION_CLOSE_CUPBOARD, 0, 0);
+            return ControlAction(DeviceConfig.CMD_SW_SWIT_LOOP_OPEN, COMMAND_RUN_FLAG, ACTION_CLOSE_CUPBOARD, 0, openDly);
         }
 
         /// <summary>
@@ -117,16 +117,16 @@ namespace ConfigDevice
         /// <returns></returns>
         public CommandData ActionStopCmdOpenCupboard()
         {
-            return ControlAction(DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE, COMMAND_RUN_FLAG, ACTION_OPEN_CUPBOARD, 0, 0);
+            return ControlAction(DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE, COMMAND_STOP_FLAG, ACTION_CLOSE_CUPBOARD, 0, 0);
         }
 
         /// <summary>
         /// 条件运行->关柜
         /// </summary>
         /// <returns></returns>
-        public CommandData ActionConditionOpenCmdCloseCupboard()
+        public CommandData ActionConditionOpenCmdCloseCupboard(int openDly)
         {
-            return ControlAction(DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION, COMMAND_STOP_FLAG, ACTION_CLOSE_CUPBOARD, 0, 0);
+            return ControlAction(DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION, COMMAND_RUN_FLAG, ACTION_CLOSE_CUPBOARD, 0, openDly);
         }
 
         /// <summary>
@@ -136,6 +136,15 @@ namespace ConfigDevice
         public CommandData ActionConditionOpenCmdOpenCupboard(int floors, int openDly)
         {
             return ControlAction(DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION, COMMAND_RUN_FLAG, ACTION_OPEN_CUPBOARD, floors, openDly);
+        }
+
+        /// <summary>
+        /// 条件停止
+        /// </summary>
+        /// <returns></returns>
+        public CommandData ActionConditionCmdStopCupboard()
+        {
+            return ControlAction(DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION, COMMAND_STOP_FLAG, ACTION_CLOSE_CUPBOARD, 0, 0);
         }
 
         /// <summary>

@@ -26,8 +26,7 @@ namespace ConfigDevice
         //----配置界面列表------
         public GridView ViewSetting;
         public BaseViewCommandControl(ControlObj _controlObj, GridView gv)
-        {
-
+        {    
             //----长文本编辑控件------------------
             this.meEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             //----命令编辑控件----
@@ -68,7 +67,6 @@ namespace ConfigDevice
             ViewSetting.Columns.ColumnByFieldName(DeviceConfig.DC_NETWORK_ID).ColumnEdit = edtNum;
             ViewSetting.FocusedColumn = ViewSetting.Columns[3];
 
-            //----初始化为生效
             setGridColumnValid(ViewSetting.Columns.ColumnByName("parameter1"), edtNum);
             setGridColumnValid(ViewSetting.Columns.ColumnByName("parameter2"), edtNum);
             setGridColumnValid(ViewSetting.Columns.ColumnByName("parameter3"), edtNum);

@@ -30,7 +30,7 @@ namespace ConfigDevice
             dcAction = ViewSetting.Columns.ColumnByName("parameter1");
             dcFloors = ViewSetting.Columns.ColumnByName("parameter2");
             dcRunDelay = ViewSetting.Columns.ColumnByName("parameter3");
-        
+
             cbxActionKind = new RepositoryItemComboBox();
             cbxActionKind.TextEditStyle = TextEditStyles.DisableTextEditor;
 
@@ -49,8 +49,6 @@ namespace ConfigDevice
             ViewSetting.Columns.ColumnByName("parameter1").VisibleIndex = 6;
             ViewSetting.Columns.ColumnByName("parameter2").VisibleIndex = 7;
             ViewSetting.Columns.ColumnByName("parameter3").VisibleIndex = 8;
-            ViewSetting.Columns.ColumnByName("parameter4").Visible = false;
-            ViewSetting.Columns.ColumnByName("parameter5").Visible = false; 
 
             cbxCommandKind.Items.Add(CupboardSwit.NAME_CMD_SWIT_LOOP);
             cbxCommandKind.Items.Add(CupboardSwit.NAME_CMD_SWIT_LOOP_OPEN);
@@ -93,68 +91,7 @@ namespace ConfigDevice
 
         }
 
-        /// <summary>
-        /// 生成指令数据
-        /// </summary>
-        /// <returns></returns>
-        public override CommandData GetCommand()
-        {
-            CommandData result = new CommandData();
-            ViewSetting.PostEditor();
-            DataRow dr = ViewSetting.GetDataRow(0);
-            byte[] cupboardCommand = CupboardSwit.NameAndCommand[dr[dcCommand.FieldName].ToString()];//-----电机命令-----------------            
-            int floors = 0;
-            if (dr[dcFloors.FieldName].ToString() != NAME_INVALID_VALUE)
-                floors = Convert.ToInt16(dr[dcFloors.FieldName].ToString());//-----层数---- 
-            //----------计算时间-------------------
-            int RunDelaySeconds = 0;
-            string actionName = dr[dcAction.FieldName].ToString();
-            if (actionName != NAME_INVALID_VALUE && actionName != CupboardSwit.NAME_ACTION_CLOSE_CUPBOARD)
-            {
-                DateTime dtRunDelay = DateTime.Parse(dr[dcRunDelay.FieldName].ToString());
-                RunDelaySeconds = dtRunDelay.Hour * 60 * 60 + dtRunDelay.Minute * 60 + dtRunDelay.Second;//运行秒数
-                if (RunDelaySeconds > 64800)
-                { CommonTools.MessageShow("运行时间不能大于18小时!", 2, ""); return null; }
-            }
-            //---1.运行/停止----
-            if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP))
-            {
-                if (actionName == CupboardSwit.NAME_ACTION_OPEN_CUPBOARD)
-                    result = cupboardSwit.ActionRunStopOpen(floors, RunDelaySeconds);
-                else
-                    result = cupboardSwit.ActionRunStopClose();
-            }
-            //---2.运行----
-            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN))
-            {
-                if (actionName == CupboardSwit.NAME_ACTION_OPEN_CUPBOARD)
-                    result = cupboardSwit.ActionOpenCmdOpenCupboard(floors, RunDelaySeconds);
-                else
-                    result = cupboardSwit.ActionOpenCmdCloseCupboard();
-            }
-            //---3.停止----
-            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE))
-            {
-                result = cupboardSwit.ActionStopCmdOpenCupboard();
-            }
-            //---4.条件运行----
-            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION))
-            {
-                if (actionName == CupboardSwit.NAME_ACTION_OPEN_CUPBOARD)
-                    result = cupboardSwit.ActionConditionOpenCmdOpenCupboard(floors, RunDelaySeconds);
-                else
-                    result = cupboardSwit.ActionConditionOpenCmdCloseCupboard();
-            }
-            //---5.条件停止----
-            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION))
-            {
-                result = cupboardSwit.ActionStopCmdOpenCupboard();
-            }
-            result.NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
-            result.PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
-            return result;
-
-        }
+       
 
         /// <summary>
         /// 根据选择开柜,关柜,设置列
@@ -175,7 +112,7 @@ namespace ConfigDevice
                     break;
                 case CupboardSwit.NAME_ACTION_CLOSE_CUPBOARD:
                     setGridColumnInvalid(dcFloors);
-                    setGridColumnInvalid(dcRunDelay);
+                    this.ViewSetting.SetRowCellValue(0, dcRunDelay, "00:00:00");//---开始值---
                     break;
                 default: break;
             }
@@ -244,7 +181,7 @@ namespace ConfigDevice
             cbxCommandKind_SelectedIndexChanged(null, null);//---触发命令动作
 
             //---非停止指令----
-            if (cmdName != CupboardSwit.NAME_CMD_SWIT_LOOP_CLOSE)
+            if (cmdName != CupboardSwit.NAME_CMD_SWIT_LOOP_CLOSE && cmdName != CupboardSwit.NAME_CMD_SWIT_LOOP_CLOSE_CONDITION)
             {
                 int actionIndex = (int)data.Data[2];//---动作---
                 if (actionIndex == 1)//关柜
@@ -252,18 +189,87 @@ namespace ConfigDevice
                 else if (actionIndex == 2)//开柜
                     ViewSetting.SetRowCellValue(0, dcAction, CupboardSwit.NAME_ACTION_OPEN_CUPBOARD);
                 cbxActionKind_SelectedIndexChanged(null, null);//---触发动作改变界面选择----
-                if (actionIndex == 2)
+                if (actionIndex == 2)//---开柜
                 {
                     ViewSetting.SetRowCellValue(0, dcFloors, data.Data[3]);
-                    byte[] byteOpenDelayTime = CommonTools.CopyBytes(data.Data, 5, 2);
-                    int openDelayTime = ConvertTools.Bytes2ToInt16(byteOpenDelayTime);
-                    string nowDateStr = DateTime.Now.ToShortDateString();
-                    DataTable dt = ViewSetting.GridControl.DataSource as DataTable;
-                    DataRow dr = dt.Rows[0];
-                    dr[dcRunDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(openDelayTime).ToLongTimeString();
-
+  
                 }
+                else if (actionIndex == 1)//关柜
+                {
+                    setGridColumnInvalid(dcFloors);
+                }
+                byte[] byteOpenDelayTime = CommonTools.CopyBytes(data.Data, 5, 2);
+                int openDelayTime = ConvertTools.Bytes2ToInt16(byteOpenDelayTime);
+                string nowDateStr = DateTime.Now.ToShortDateString();
+                DataTable dt = ViewSetting.GridControl.DataSource as DataTable;
+                DataRow dr = dt.Rows[0];
+                dr[dcRunDelay.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(openDelayTime).ToLongTimeString();
+
             }
+        }
+
+
+        /// <summary>
+        /// 生成指令数据
+        /// </summary>
+        /// <returns></returns>
+        public override CommandData GetCommand()
+        {
+            CommandData result = new CommandData();
+            ViewSetting.PostEditor();
+            DataRow dr = ViewSetting.GetDataRow(0);
+            byte[] cupboardCommand = CupboardSwit.NameAndCommand[dr[dcCommand.FieldName].ToString()];//-----电机命令-----------------            
+            int floors = 0;
+            if (dr[dcFloors.FieldName].ToString() != NAME_INVALID_VALUE)
+                floors = Convert.ToInt16(dr[dcFloors.FieldName].ToString());//-----层数---- 
+            //----------计算时间-------------------
+            int RunDelaySeconds = 0;
+            string actionName = dr[dcAction.FieldName].ToString();
+            if (actionName != NAME_INVALID_VALUE  )
+            {
+                DateTime dtRunDelay = DateTime.Parse(dr[dcRunDelay.FieldName].ToString());
+                RunDelaySeconds = dtRunDelay.Hour * 60 * 60 + dtRunDelay.Minute * 60 + dtRunDelay.Second;//运行秒数
+                if (RunDelaySeconds > 64800)
+                { CommonTools.MessageShow("运行时间不能大于18小时!", 2, ""); return null; }
+            }
+            //---1.运行/停止----
+            if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP))
+            {
+                if (actionName == CupboardSwit.NAME_ACTION_OPEN_CUPBOARD)
+                    result = cupboardSwit.ActionRunStopOpen(floors, RunDelaySeconds);
+                else
+                    result = cupboardSwit.ActionRunStopClose(RunDelaySeconds);
+            }
+            //---2.运行----
+            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN))
+            {
+                if (actionName == CupboardSwit.NAME_ACTION_OPEN_CUPBOARD)
+                    result = cupboardSwit.ActionOpenCmdOpenCupboard(floors, RunDelaySeconds);
+                else
+                    result = cupboardSwit.ActionOpenCmdCloseCupboard(RunDelaySeconds);
+            }
+            //---3.停止----
+            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE))
+            {
+                result = cupboardSwit.ActionStopCmdOpenCupboard();
+            }
+            //---4.条件运行----
+            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_OPEN_CONDITION))
+            {
+                if (actionName == CupboardSwit.NAME_ACTION_OPEN_CUPBOARD)
+                    result = cupboardSwit.ActionConditionOpenCmdOpenCupboard(floors, RunDelaySeconds);
+                else
+                    result = cupboardSwit.ActionConditionOpenCmdCloseCupboard(RunDelaySeconds);
+            }
+            //---5.条件停止----
+            else if (CommonTools.BytesEuqals(cupboardCommand, DeviceConfig.CMD_SW_SWIT_LOOP_CLOSE_CONDITION))
+            {
+                result = cupboardSwit.ActionConditionCmdStopCupboard();
+            }
+            result.NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
+            result.PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
+            return result;
+
         }
     }
 
