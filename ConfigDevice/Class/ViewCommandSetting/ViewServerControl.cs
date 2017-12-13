@@ -38,9 +38,9 @@ namespace ConfigDevice
             ViewSetting.Columns.ColumnByName("parameter1").VisibleIndex = 6;
             cbxCommandKind.Items.Add(ServerControlObj.NAME_CMD_SEND_WEIXIN);
 
-            dcEmailContent.Caption = "Email内容";
+            dcEmailContent.Caption = "内容";
             ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
- 
+            dcEmailContent.ColumnEdit = new GridViewTextEdit();
 
            // ViewSetting.BestFitColumns();
         }

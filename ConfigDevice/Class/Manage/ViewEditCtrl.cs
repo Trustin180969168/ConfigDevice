@@ -229,6 +229,16 @@ namespace ConfigDevice
             drInsert[DeviceConfig.DC_ID] = (int)DeviceConfig.SpecicalID.ID_PKGNUM_PUBLIC;//-----特殊地址----- 
             drInsert[DeviceConfig.DC_NAME] = "联动号";
             drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[DeviceConfig.EQUIPMENT_LINKID];
+
+            //----默认加入虚拟设备"云平台"-----
+            drInsert = dtSelectDevices.Rows.Add();
+            drInsert[DeviceConfig.DC_KIND_ID] = DeviceConfig.EQUIPMENT_SERVER;//----服务器------
+            drInsert[DeviceConfig.DC_NETWORK_ID] = 255;//----网段ID---
+            drInsert[DeviceConfig.DC_ID] = (int)DeviceConfig.SpecicalID.ID_SERVER;//-----特殊地址----- 
+            drInsert[DeviceConfig.DC_NAME] = "云平台主机";
+            drInsert[DeviceConfig.DC_KIND_NAME] = DeviceConfig.EQUIPMENT_ID_NAME[DeviceConfig.EQUIPMENT_SERVER];
+
+
             //----初始化新的设备值----
             dtSelectDevices.Columns.Add(ViewConfig.DC_DEVICE_VALUE, System.Type.GetType("System.String"));
             foreach (DataRow dr in dtSelectDevices.Rows)

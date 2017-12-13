@@ -146,8 +146,8 @@ namespace ConfigDevice
                    "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_6 + "'," +
                    "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_8 + "'," +
                    "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_EL_CUPBOARD + "'," +
-                   "'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
+                   "'" + (int)DeviceConfig.EQUIPMENT_EL_CUPBOARD + "'" +
+                   //"'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
                    ")";
 
         public static string SELECT_LOGIC_DEVICE_QUERY_CONDITION = " 1 = 1 ";
