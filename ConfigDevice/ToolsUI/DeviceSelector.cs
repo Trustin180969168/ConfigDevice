@@ -38,7 +38,7 @@ namespace ConfigDevice
 
             
             edtNum.MinValue = 0;
-            edtNum.MaxValue = 200;
+            edtNum.MaxValue = 255;
         }
 
  

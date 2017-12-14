@@ -34,7 +34,7 @@ namespace ConfigDevice
             dcDeviceValue.FieldName = ViewConfig.DC_DEVICE_VALUE; 
 
             edtNum.MinValue = 0;
-            edtNum.MaxValue = 200;
+            edtNum.MaxValue = 255;
         }
 
         /// <summary>

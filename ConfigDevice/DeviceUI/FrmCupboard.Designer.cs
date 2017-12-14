@@ -36,6 +36,7 @@
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.pageJcsz = new DevExpress.XtraTab.XtraTabPage();
             this.BaseViewSetting = new ConfigDevice.ViewBaseEdit();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.pagePzjm.SuspendLayout();
@@ -60,6 +61,7 @@
             // 
             // pagePzjm
             // 
+            this.pagePzjm.Controls.Add(this.labelControl1);
             this.pagePzjm.Controls.Add(this.deviceSelector);
             this.pagePzjm.Controls.Add(this.tsDoorInput);
             this.pagePzjm.Name = "pagePzjm";
@@ -68,7 +70,7 @@
             // 
             // deviceSelector
             // 
-            this.deviceSelector.Location = new System.Drawing.Point(52, 60);
+            this.deviceSelector.Location = new System.Drawing.Point(52, 77);
             this.deviceSelector.Name = "deviceSelector";
             this.deviceSelector.Size = new System.Drawing.Size(404, 156);
             this.deviceSelector.TabIndex = 8;
@@ -119,6 +121,14 @@
             this.BaseViewSetting.Size = new System.Drawing.Size(783, 512);
             this.BaseViewSetting.TabIndex = 0;
             // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(52, 57);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(48, 14);
+            this.labelControl1.TabIndex = 9;
+            this.labelControl1.Text = "柜子互斥";
+            // 
             // FrmCupboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -151,6 +161,7 @@
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DeviceSelector deviceSelector;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
 
 
     }
