@@ -4,6 +4,7 @@ using System.Text;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Columns;
+using System.Data;
 
 namespace ConfigDevice
 {
@@ -55,17 +56,7 @@ namespace ConfigDevice
             cbxCommandKind.Items.Add(Scene.NAME_CMD_SW_SWIT_SCENE_CLOSE);
 
             dcSceneNum.Caption = DeviceConfig.CONTROL_OBJECT_SCENE_NAME;
-            cbxSceneNum.Items.Add("全部");
-            cbxSceneNum.Items.Add("1");
-            cbxSceneNum.Items.Add("2");
-            cbxSceneNum.Items.Add("3");
-            cbxSceneNum.Items.Add("4");
-            cbxSceneNum.Items.Add("5");
-            cbxSceneNum.Items.Add("6");
-            cbxSceneNum.Items.Add("7");
-            cbxSceneNum.Items.Add("8");
-            cbxSceneNum.Items.Add("无效");
-            dcSceneNum.ColumnEdit = cbxSceneNum;
+            dcSceneNum.ColumnEdit = edtNum;
 
             dcGroup.Caption = "分组";
             dcGroup.ColumnEdit = edtNum;
@@ -73,7 +64,7 @@ namespace ConfigDevice
             dcRunTime.ColumnEdit = tedtTime;
 
             ViewSetting.SetRowCellValue(0, dcCommand, cbxCommandKind.Items[0].ToString());
-            ViewSetting.SetRowCellValue(0, dcSceneNum, cbxSceneNum.Items[0].ToString());
+            ViewSetting.SetRowCellValue(0, dcSceneNum, "1");
             ViewSetting.SetRowCellValue(0, dcGroup, "1");
             ViewSetting.SetRowCellValue(0, dcRunTime, "00:00:00");
 
@@ -94,16 +85,55 @@ namespace ConfigDevice
         /// <returns></returns>
         public override CommandData GetCommand()
         {
-            return null;
+            ViewSetting.PostEditor();
+            DataRow dr = ViewSetting.GetDataRow(0);
+            byte[] sceneCommand = Scene.NameAndCommand[dr[dcCommand.FieldName].ToString()];//-----回路命令-----------------            
+            int groupNum = Convert.ToInt16(dr[dcGroup.FieldName].ToString());//-----分组----           
+            int sceneNum = Convert.ToInt16(dr[dcSceneNum.FieldName]); //----------场景-----------------        
+            //----------计算时间-------------------
+            DateTime dtRunTime = DateTime.Parse(dr[dcRunTime.FieldName].ToString()); 
+
+            int runTimeSeconds = dtRunTime.Hour * 60 * 60 + dtRunTime.Minute * 60 + dtRunTime.Second;//运行秒数
+        
+            if (runTimeSeconds > 64800)
+            { CommonTools.MessageShow("运行时间不能大于18小时!", 2, ""); return null; } 
+
+            CommandData result = scene.GetCommandData(sceneCommand, groupNum, sceneNum, runTimeSeconds);
+            result.NetworkIP = dr[DeviceConfig.DC_NETWORK_IP].ToString();
+            result.PCAddress = dr[DeviceConfig.DC_PC_ADDRESS].ToString();
+            return result;
         }
 
+
         /// <summary>
-        /// 设置命令数据
+        /// 设置数据
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">指令数据</param>
         public override void SetCommandData(CommandData data)
         {
-     
+            string cmdName = "";
+            foreach (string key in Scene.NameAndCommand.Keys)
+            {
+                if (CommonTools.BytesEuqals(data.Cmd, Scene.NameAndCommand[key]))
+                { cmdName = key; break; }
+            }
+            ViewSetting.SetRowCellValue(0, dcCommand, cmdName);//---命令名称---
+
+            int groupIndex = (int)data.Data[2];
+            int sceneIndex = (int)data.Data[3];
+            //ViewSetting.SetRowCellValue(0, dcCircuit, cbxCircuitNum.Items[cmdIndex].ToString());//--回路----
+            ViewSetting.SetRowCellValue(0, dcGroup, groupIndex);//--分组----
+            ViewSetting.SetRowCellValue(0, dcSceneNum, sceneIndex == 0 ? 1 : sceneIndex);//---场景----
+
+            byte[] byteRunTime = CommonTools.CopyBytes(data.Data, 4, 2);  
+            int runTime = ConvertTools.Bytes2ToInt16(byteRunTime); 
+
+            string nowDateStr = DateTime.Now.ToShortDateString();
+            DataTable dt = ViewSetting.GridControl.DataSource as DataTable;
+            DataRow dr = dt.Rows[0];
+
+            dr[dcRunTime.FieldName] = DateTime.Parse(nowDateStr).AddSeconds(runTime).ToLongTimeString();//----运行时间---
+       
         }
     }
 }

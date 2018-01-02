@@ -806,7 +806,7 @@ namespace ConfigDevice
             crcData[9] = len;
             Buffer.BlockCopy(managerPassword, 0, crcData, 10, 4);
             Buffer.BlockCopy(newIP, 0, crcData, 14, 4);
-            Buffer.BlockCopy(temp, 0, crcData, 18, 2);
+ 
             Buffer.BlockCopy(gateWay, 0, crcData, 20, 4);
             Buffer.BlockCopy(mask, 0, crcData, 24, 4);
             crcData[28] = _networkID;
