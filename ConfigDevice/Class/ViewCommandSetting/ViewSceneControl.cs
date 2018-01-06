@@ -123,7 +123,7 @@ namespace ConfigDevice
             int sceneIndex = (int)data.Data[3];
             //ViewSetting.SetRowCellValue(0, dcCircuit, cbxCircuitNum.Items[cmdIndex].ToString());//--回路----
             ViewSetting.SetRowCellValue(0, dcGroup, groupIndex);//--分组----
-            ViewSetting.SetRowCellValue(0, dcSceneNum, sceneIndex == 0 ? 1 : sceneIndex);//---场景----
+            ViewSetting.SetRowCellValue(0, dcSceneNum, sceneIndex);//---场景----
 
             byte[] byteRunTime = CommonTools.CopyBytes(data.Data, 4, 2);  
             int runTime = ConvertTools.Bytes2ToInt16(byteRunTime); 

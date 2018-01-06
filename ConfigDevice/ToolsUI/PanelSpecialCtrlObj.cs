@@ -47,7 +47,7 @@ namespace ConfigDevice
                 case 0:
                 case 1:
                 case 4:
-                case 2: DataControlObjects.Rows.Clear(); return;
+                case 2: DataControlObjects.Rows.Clear(); break;
                 case 3:
                 case 6:
                 case 7: 

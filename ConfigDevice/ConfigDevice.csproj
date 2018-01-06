@@ -403,6 +403,14 @@
   <ItemGroup>
     <Content Include="ConfigDevice.ico" />
     <Content Include="Config\SmartLight.h" />
+    <None Include="Resources\7.png" />
+    <None Include="Resources\6.png" />
+    <None Include="Resources\5.png" />
+    <None Include="Resources\4.png" />
+    <None Include="Resources\3.png" />
+    <None Include="Resources\2.png" />
+    <None Include="Resources\1.png" />
+    <None Include="Resources\0.png" />
     <None Include="Resources\Leave_Back.png" />
     <None Include="Resources\scene.png" />
     <None Include="Resources\lights.png" />
