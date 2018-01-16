@@ -58,6 +58,7 @@
    (34) V4.8版本，增加[CMD_RFLINE_WRITE_DEVAC_RSL][EQUIPMENT_EL_KNIFE_FRAME]       (廖超庭 2017年08月31日)
    (35) V4.9版本, 增加[EQUIPMENT_INTELLIGENT_SINK]                                 (廖超庭 2017年09月01日)
    (35) V4.9版本, 增加[EQUIPMENT_EL_CUPBOARD]                                      (廖超庭 2017年11月03日)
+   (35) V5.0版本, 增加[VIRKEY_TYPE_NULL]等                                         (廖超庭 2018年01月05日)
 **======================================================================================================*/
 
 
@@ -426,7 +427,9 @@ enum    //公共指令    _PUBLIC
 	CMD_PUBLIC_RESET_DEVICE             = ((CMD_TYPE_PUBLIC << 8) | 0xb4)       ,//设备出厂初始指令 (使用本指令要谨慎)
 
 	CMD_PUBLIC_READ_ADDRESS          	= ((CMD_TYPE_PUBLIC << 8) | 0x35)		,//读地址，
-	CMD_PUBLIC_WRITE_ADDRESS          	= ((CMD_TYPE_PUBLIC << 8) | 0xb5)		 //写地址，广州市天河区xxxx
+	CMD_PUBLIC_WRITE_ADDRESS          	= ((CMD_TYPE_PUBLIC << 8) | 0xb5)		,//写地址，广州市天河区xxxx
+	
+	CMD_PUBLIC_WRITE_MUTEX              = ((CMD_TYPE_PUBLIC << 8) | 0xb6)        //对象互斥控制指令
 };
 
 
@@ -607,7 +610,7 @@ enum  // LOGIC 指令	 EQUIPMENT_LOGIC
 	CMD_LOGIC_READ_TIMER_INF            = ((CMD_TYPE_LOGIC << 8) | 0x84) 			,//读定时器设置信息  │     标准要求:[读指令]bit7=0,[写指令]bit7=1!!!!!!
 	CMD_LOGIC_WRITE_BLOCK_INF           = ((CMD_TYPE_LOGIC << 8) | 0x05)			,//写逻辑块设置信息  │
 	CMD_LOGIC_READ_BLOCK_INF            = ((CMD_TYPE_LOGIC << 8) | 0x85) 			,//读逻辑块设置信息  │
-	//                  │
+	//                                                                                                   │
 	CMD_LOGIC_WRITE_CMD                 = ((CMD_TYPE_LOGIC << 8) | 0x06) 			,//写控制指令        │
 	CMD_LOGIC_READ_CMD                  = ((CMD_TYPE_LOGIC << 8) | 0x86) 			,//读控制指令        ┘
 	
@@ -1164,6 +1167,29 @@ typedef struct _EQUIP_INF_FORMAT
 	unsigned short Location;             //位置 位置分为16位，高8位表示楼层，低8位表示房间号
 	unsigned char  Name[30];             //回路名称，最长30字节
 }EQUIP_INF_FORMAT;
+
+//按键/回路控制对象(按键类型)(针对[CMD_PUBLIC_WRITE_LOOP_NAME]指令数据的第2-3字节)(2017-01-05)
+typedef enum
+{
+   /*用于新的液晶面板 2018-1-6*/
+   VIRKEY_TYPE_NULL        = 0x00,  //非特殊类型
+   VIRKEY_TYPE_SCENE       = 0x10,  //场景；     //例如：回/离家、空间消毒、求助
+   VIRKEY_TYPE_AMPLIFIER   = 0x20,  //音响
+   VIRKEY_TYPE_LIGHT       = 0x30,  //灯         //独立设备
+   VIRKEY_TYPE_LIGHT_ON    = 0x31,  //灯-开┐    //当出现配置两个按键，所有灯开，所有灯关时
+   VIRKEY_TYPE_LIGHT_OFF   = 0x32,  //灯-关┘
+   VIRKEY_TYPE_CURTAIN     = 0x40,  //窗帘
+   VIRKEY_TYPE_CURTAIN_ON  = 0x41,  //窗帘-开┐
+   VIRKEY_TYPE_CURTAIN_OFF = 0x42,  //窗帘-关┘
+   VIRKEY_TYPE_DOOR        = 0x50,  //门
+   VIRKEY_TYPE_DOOR_ON     = 0x51,  //门-开┐
+   VIRKEY_TYPE_DOOR_OFF    = 0x52,  //门-关┘
+   VIRKEY_TYPE_WINDOW      = 0x60,  //窗
+   VIRKEY_TYPE_WINDOW_ON   = 0x61,  //窗-开┐
+   VIRKEY_TYPE_WINDOW_OFF  = 0x62,  //窗-关┘
+   VIRKEY_TYPE_FINDING     = 0x70,  //找物
+   VIRKEY_TYPE_MAX
+}KEY_CONFIG_VIRKEY_ENUM;
 
 //设备名称格式
 typedef struct _LOOP_NAME_FORMAT

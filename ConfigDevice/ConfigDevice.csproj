@@ -466,6 +466,7 @@
     <Compile Include="Class\Manage\CommandList.cs" />
     <Compile Include="Class\Manage\KeyList.cs" />
     <Compile Include="Class\ViewCommandSetting\ViewCupboardControl.cs" />
+    <Compile Include="Class\ViewKeySetting\BaseKeySetting.cs" />
     <Compile Include="Data\ButtonPanelOptionData.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -523,7 +524,7 @@
     </Compile>
     <Compile Include="Tools\MyLog.cs" />
     <Compile Include="Class\Sensor\Sensor.cs" />
-    <Compile Include="Class\ViewKeySetting\BaseKeySetting.cs" />
+    <Compile Include="Class\ViewKeySetting\BaseKeySettingV2.cs" />
     <Compile Include="Class\Devices\FlammableGasProbe.cs" />
     <Compile Include="Class\Devices\SystemInteraction.cs" />
     <Compile Include="Class\Devices\Environment.cs" />

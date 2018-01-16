@@ -94,6 +94,40 @@ namespace ConfigDevice
         public const string KEY_TYPE_NAME_CURTAIN = "窗帘";//--窗帘
         public const string KEY_TYPE_NAME_HELP = "求助";//--求助
 
+        public const int VIRKEY_TYPE_NULL = 0x00;  //非特殊类型
+        public const int VIRKEY_TYPE_SCENE = 0x10;  //场景；     //例如：回/离家、空间消毒、求助
+        public const int VIRKEY_TYPE_AMPLIFIER = 0x20;  //音响
+        public const int VIRKEY_TYPE_LIGHT = 0x30;  //灯         //独立设备
+        public const int VIRKEY_TYPE_LIGHT_ON = 0x31;  //灯-开┐    //当出现配置两个按键，所有灯开，所有灯关时
+        public const int VIRKEY_TYPE_LIGHT_OFF = 0x32;  //灯-关┘
+        public const int VIRKEY_TYPE_CURTAIN = 0x40;  //窗帘
+        public const int VIRKEY_TYPE_CURTAIN_ON = 0x41;  //窗帘-开┐
+        public const int VIRKEY_TYPE_CURTAIN_OFF = 0x42;  //窗帘-关┘
+        public const int VIRKEY_TYPE_DOOR = 0x50;  //门
+        public const int VIRKEY_TYPE_DOOR_ON = 0x51;  //门-开┐
+        public const int VIRKEY_TYPE_DOOR_OFF = 0x52;  //门-关┘
+        public const int VIRKEY_TYPE_WINDOW = 0x60;  //窗
+        public const int VIRKEY_TYPE_WINDOW_ON = 0x61;  //窗-开┐
+        public const int VIRKEY_TYPE_WINDOW_OFF = 0x62;  //窗-关┘
+        public const int VIRKEY_TYPE_FINDING = 0x70;  //找物 
+
+        public const string VIRKEY_TYPE_NULL_NAME = "非特殊类型";
+        public const string VIRKEY_TYPE_SCENE_NAME = "场景";    //例如：回/离家、空间消毒、求助
+        public const string VIRKEY_TYPE_AMPLIFIER_NAME = "音响";
+        public const string VIRKEY_TYPE_LIGHT_NAME = "灯";         //独立设备
+        public const string VIRKEY_TYPE_LIGHT_ON_NAME = "灯-开";    //当出现配置两个按键，所有灯开，所有灯关时
+        public const string VIRKEY_TYPE_LIGHT_OFF_NAME = "灯-关";  //灯-关┘
+        public const string VIRKEY_TYPE_CURTAIN_NAME = "窗帘";  //
+        public const string VIRKEY_TYPE_CURTAIN_ON_NAME = "窗帘-开";
+        public const string VIRKEY_TYPE_CURTAIN_OFF_NAME = "窗帘-关";
+        public const string VIRKEY_TYPE_DOOR_NAME = "门";  //
+        public const string VIRKEY_TYPE_DOOR_ON_NAME = "门-开";
+        public const string VIRKEY_TYPE_DOOR_OFF_NAME = "门-关";
+        public const string VIRKEY_TYPE_WINDOW_NAME = "窗";  //
+        public const string VIRKEY_TYPE_WINDOW_ON_NAME = "窗-开";
+        public const string VIRKEY_TYPE_WINDOW_OFF_NAME = "窗-关";
+        public const string VIRKEY_TYPE_FINDING_NAME = "找物";  //
+
         //-------按键的控制类型选择-----
         public const string KEY_CONTROL_KIND_NAME_OPEN_CLOSE = "开关";
         public const string KEY_CONTROL_KIND_NAME_OPEN = "开";
@@ -135,6 +169,12 @@ namespace ConfigDevice
         public static Dictionary<string, byte> KEY_TYPE_NAME_ID = new Dictionary<string, byte>(); //-----按键类型名称ID---- 
         public static Dictionary<byte, string> KEY_TYPE_ID_NAME = new Dictionary<byte, string>(); //-----按键类型ID名称---- 
 
+        public static Dictionary<string, int> VIRKEY_TYPE_NAME_ID = new Dictionary<string, int>(); //-----按键类型名称ID---- 
+        public static Dictionary<int, string> VIRKEY_TYPE_ID_NAME = new Dictionary<int, string>(); //-----按键类型ID名称---- 
+
+
+
+
         public static string SELECT_COMMAND_DEVICE_QUERY_CONDITION = DeviceConfig.DC_KIND_ID + " in (" +
                    "'" + (int)DeviceConfig.EQUIPMENT_AMP_MP3 + "'," +
                    "'" + (int)DeviceConfig.EQUIPMENT_CURTAIN_3CH + "'," +
@@ -147,7 +187,7 @@ namespace ConfigDevice
                    "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_8 + "'," +
                    "'" + (int)DeviceConfig.EQUIPMENT_TRAILING_12 + "'," +
                    "'" + (int)DeviceConfig.EQUIPMENT_EL_CUPBOARD + "'" +
-                   //"'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
+            //"'" + (int)DeviceConfig.EQUIPMENT_SERVER + "'" +
                    ")";
 
         public static string SELECT_LOGIC_DEVICE_QUERY_CONDITION = " 1 = 1 ";
@@ -295,6 +335,40 @@ namespace ConfigDevice
             KEY_TYPE_ID_NAME.Add(KEY_TYPE_SOUND, KEY_TYPE_NAME_SOUND);
             KEY_TYPE_ID_NAME.Add(KEY_TYPE_CURTAIN, KEY_TYPE_NAME_CURTAIN);
             KEY_TYPE_ID_NAME.Add(KEY_TYPE_HELP, KEY_TYPE_NAME_HELP);
+            //-------控制键类型(V2)关系------
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_NULL_NAME, VIRKEY_TYPE_NULL);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_SCENE_NAME, VIRKEY_TYPE_SCENE);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_AMPLIFIER_NAME, VIRKEY_TYPE_AMPLIFIER);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_LIGHT_NAME, VIRKEY_TYPE_LIGHT);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_LIGHT_ON_NAME, VIRKEY_TYPE_LIGHT_ON);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_LIGHT_OFF_NAME, VIRKEY_TYPE_LIGHT_OFF);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_CURTAIN_NAME, VIRKEY_TYPE_CURTAIN);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_CURTAIN_ON_NAME, VIRKEY_TYPE_CURTAIN_ON);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_CURTAIN_OFF_NAME, VIRKEY_TYPE_CURTAIN_OFF);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_DOOR_NAME, VIRKEY_TYPE_DOOR);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_DOOR_ON_NAME, VIRKEY_TYPE_DOOR_ON);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_DOOR_OFF_NAME, VIRKEY_TYPE_DOOR_OFF);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_WINDOW_NAME, VIRKEY_TYPE_WINDOW);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_WINDOW_ON_NAME, VIRKEY_TYPE_WINDOW_ON);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_WINDOW_OFF_NAME, VIRKEY_TYPE_WINDOW_OFF);
+            VIRKEY_TYPE_NAME_ID.Add(VIRKEY_TYPE_FINDING_NAME, VIRKEY_TYPE_FINDING);
+
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_NULL, VIRKEY_TYPE_NULL_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_SCENE, VIRKEY_TYPE_SCENE_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_AMPLIFIER, VIRKEY_TYPE_AMPLIFIER_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_LIGHT, VIRKEY_TYPE_LIGHT_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_LIGHT_ON, VIRKEY_TYPE_LIGHT_ON_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_LIGHT_OFF, VIRKEY_TYPE_LIGHT_OFF_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_CURTAIN, VIRKEY_TYPE_CURTAIN_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_CURTAIN_ON, VIRKEY_TYPE_CURTAIN_ON_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_CURTAIN_OFF, VIRKEY_TYPE_CURTAIN_OFF_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_DOOR, VIRKEY_TYPE_DOOR_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_DOOR_ON, VIRKEY_TYPE_DOOR_ON_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_DOOR_OFF, VIRKEY_TYPE_DOOR_OFF_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_WINDOW, VIRKEY_TYPE_WINDOW_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_WINDOW_ON, VIRKEY_TYPE_WINDOW_ON_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_WINDOW_OFF, VIRKEY_TYPE_WINDOW_OFF_NAME);
+            VIRKEY_TYPE_ID_NAME.Add(VIRKEY_TYPE_FINDING, VIRKEY_TYPE_FINDING_NAME);
         }
 
 
@@ -378,7 +452,7 @@ namespace ConfigDevice
             IsFloatValue = false;
             Leave += new System.EventHandler(SysConfig.Edit_Leave);
             Enter += new System.EventHandler(SysConfig.Edit_Enter);
-            
+
         }
     }
 
@@ -441,10 +515,10 @@ namespace ConfigDevice
             this.View.OptionsView.ShowGroupPanel = false;
             this.View.OptionsView.ShowAutoFilterRow = true;
             this.View.BestFitColumns();
-    
+
         }
 
-     }
+    }
 
 
     /// <summary>

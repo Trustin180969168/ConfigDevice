@@ -770,7 +770,8 @@ namespace ConfigDevice
                     SysConfig.ListNetworks.Add(this.NetworkIP, this);//---重新添加到对象列表-- 
                 }
                 NetworkCtrl.GetInstance().UpdateNetworkDataTable(this);//---更新网络列表--
-                
+                this.CallbackUI(new CallbackParameter(ActionKind.SaveNetworkParameter, DeviceID));//----返回界面结果----
+        
                 //CommonTools.MessageShow("参数修改成功!", 1, "");
             }
             else

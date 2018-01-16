@@ -19,7 +19,7 @@ namespace ConfigDevice
         private GridViewComboBox cbxControlObj;//---下拉选择控制对象--
         private GridViewComboBox cbxLightControlKind;//---灯的控制类型--
         private GridViewComboBox cbxElseControlKind;//----其他的控制类型---
-        private BaseKeySetting keySetting;//---按键配置对象---
+        private BaseKeySettingV2 keySetting;//---按键配置对象---
 
         /// <summary>
         /// 获取显示按键个数
@@ -83,37 +83,54 @@ namespace ConfigDevice
             showCount = _showCount;
             startNum = _startNum;
 
-            keySetting = new BaseKeySetting(gvKeyData);//---按键配置对象---
+            keySetting = new BaseKeySettingV2(gvKeyData);//---按键配置对象---
             keyList = new KeyList(deviceControled);
             keyList.OnCallbackUI_Action += this.ReturnKeyData;
 
-            cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_LIGHT);
-            cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_SOUND);
-            cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_CURTAIN);
-            cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_HELP);
-            cbxControlObj.EditValueChanged += new EventHandler(cbxControlObj_EditValueChanged);
-            dcCtrlObj.ColumnEdit = cbxControlObj;
+            //cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_LIGHT);
+            //cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_SOUND);
+            //cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_CURTAIN);
+            //cbxControlObj.Items.Add(ViewConfig.KEY_TYPE_NAME_HELP);
+            //cbxControlObj.EditValueChanged += new EventHandler(cbxControlObj_EditValueChanged);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_NULL_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_SCENE_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_AMPLIFIER_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_LIGHT_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_LIGHT_ON_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_LIGHT_OFF_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_CURTAIN_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_CURTAIN_ON_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_CURTAIN_OFF_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_DOOR_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_DOOR_ON_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_DOOR_OFF_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_WINDOW_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_WINDOW_ON_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_WINDOW_OFF_NAME);
+            cbxControlObj.Items.Add(ViewConfig.VIRKEY_TYPE_FINDING_NAME);
+            cbxControlObj.DropDownRows = 16;
 
+            dcCtrlObj.ColumnEdit = cbxControlObj; 
             gcKeyData.DataSource = dtKeyData;
 
             KeyCircuit = deviceControled.ContrlObjs[DeviceConfig.CONTROL_OBJECT_CIRCUIT_NAME] as Circuit;
             KeyCircuit.OnCallbackUI_Action += ReturnKeyName;
-
         }
 
         void cbxControlObj_EditValueChanged(object sender, EventArgs e)
         {
-            gvKeyData.PostEditor();
-            DataRow dr = gvKeyData.GetDataRow(gvKeyData.FocusedRowHandle);
-            if (dr != null)
-            {
-                dr.EndEdit();
-                string controlObj = dr[dcCtrlObj.FieldName].ToString();
-                if (controlObj == ViewConfig.KEY_TYPE_NAME_LIGHT)
-                    dcCtrlKind.ColumnEdit = cbxLightControlKind;
-                else
-                    dcCtrlKind.ColumnEdit = cbxElseControlKind;
-            }
+            //gvKeyData.PostEditor();
+            //DataRow dr = gvKeyData.GetDataRow(gvKeyData.FocusedRowHandle);
+            //if (dr != null)
+            //{
+            //    dr.EndEdit();
+            //    string controlObj = dr[dcCtrlObj.FieldName].ToString();
+            //    //if (controlObj == ViewConfig.KEY_TYPE_NAME_LIGHT)
+            //    //    dcCtrlKind.ColumnEdit = cbxLightControlKind;
+            //    //else
+            //    //    dcCtrlKind.ColumnEdit = cbxElseControlKind;
+            //    dcCtrlKind.ColumnEdit = cbxLightControlKind;
+            //}
         }
 
   
@@ -125,14 +142,14 @@ namespace ConfigDevice
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CallbackUIAction(ReturnKeyData), parameter); 
+                this.Invoke(new CallbackUIAction(ReturnKeyData), parameter);
                 return;
             }
             KeyData keyData = parameter.Parameters[0] as KeyData;
             int index = keyData.KeyNum % 8;
 
-            while (dtKeyData.Rows.Count < index+1)
-                dtKeyData.Rows.Add(index+1);
+            while (dtKeyData.Rows.Count < index + 1)
+                dtKeyData.Rows.Add(index + 1);
 
             DataRow dr = gvKeyData.GetDataRow(index);//---获取分页的对应行
             if (dr != null)
@@ -140,6 +157,8 @@ namespace ConfigDevice
                 keySetting.SetKeyData(keyData, dr);//---赋值到行----
                 //----添加名称------- 
                 dr[ViewConfig.DC_NAME] = KeyCircuit.ListCircuitIDAndName[keyData.KeyNum + 1];
+                dr[ViewConfig.DC_CONTROL_OBJ] = ViewConfig.VIRKEY_TYPE_ID_NAME
+                    [KeyCircuit.ListCircuitIDAndControlObj[keyData.KeyNum + 1]];
                 dr.AcceptChanges();
 
                 gvKeyData.RefreshData();
@@ -148,10 +167,11 @@ namespace ConfigDevice
                 if (index == 0)
                 {
                     string controlObj = dr[dcCtrlObj.FieldName].ToString();
-                    if (controlObj == ViewConfig.KEY_TYPE_NAME_LIGHT)
-                        dcCtrlKind.ColumnEdit = cbxLightControlKind;
-                    else
-                        dcCtrlKind.ColumnEdit = cbxElseControlKind;
+                    //if (controlObj == ViewConfig.KEY_TYPE_NAME_LIGHT)
+                    //    dcCtrlKind.ColumnEdit = cbxLightControlKind;
+                    //else
+                    //    dcCtrlKind.ColumnEdit = cbxElseControlKind;
+                    dcCtrlKind.ColumnEdit = cbxLightControlKind;
                 }
             }
         }
@@ -173,8 +193,13 @@ namespace ConfigDevice
                 {
                     NeedInit = false;//----回路读取完毕为初始化完毕----     
                     int i = 1;
-                    foreach(DataRow dr in dtKeyData.Rows)
-                        dr[ViewConfig.DC_NAME] = KeyCircuit.ListCircuitIDAndName[this.startNum+i++];
+                    foreach (DataRow dr in dtKeyData.Rows)
+                    {
+                        dr[ViewConfig.DC_NAME] = KeyCircuit.ListCircuitIDAndName[this.startNum + i];
+                        dr[ViewConfig.DC_CONTROL_OBJ] = ViewConfig.VIRKEY_TYPE_ID_NAME
+                            [KeyCircuit.ListCircuitIDAndControlObj[this.startNum + i]];
+                        i++;
+                    }
                     dtKeyData.AcceptChanges();
                    // keyList.ReadKeyData(0, showCount - 1);
                 }
@@ -209,7 +234,7 @@ namespace ConfigDevice
             DataRow drCurrent = gvKeyData.GetDataRow(gvKeyData.FocusedRowHandle);
             if (drCurrent != null)
                 drCurrent.EndEdit();
-                        
+
             DataTable dtModify = dtKeyData.GetChanges(DataRowState.Modified);
             if (dtModify == null) return;
             //----保存配置信息------
@@ -220,12 +245,18 @@ namespace ConfigDevice
             {
                 string changeName = dr[ViewConfig.DC_NAME].ToString();
                 int changeID = Convert.ToInt16(dr[ViewConfig.DC_NUM]);
-                if(KeyCircuit.ListCircuitIDAndName[changeID] != changeName)
-                    KeyCircuit.SaveKeyRoadSetting(changeID - 1, changeName);//--保存回路名称---
+
+                string changeControlObj = dr[ViewConfig.DC_CONTROL_OBJ].ToString();
+                int controlObjId = 0;
+                if (ViewConfig.VIRKEY_TYPE_NAME_ID.ContainsKey(changeControlObj))
+                    controlObjId = ViewConfig.VIRKEY_TYPE_NAME_ID[changeControlObj];
+
+                if (KeyCircuit.ListCircuitIDAndName[changeID] != changeName ||
+                    KeyCircuit.ListCircuitIDAndControlObj[changeID] != controlObjId)
+                    KeyCircuit.SaveKeyRoadSetting(changeID - 1, changeName, controlObjId);//--保存回路名称---
             }
             dtKeyData.AcceptChanges();
         }
-
 
         /// <summary>
         /// 切换控制类型编辑
@@ -236,10 +267,11 @@ namespace ConfigDevice
             if (dr != null)
             {
                 string controlObj = dr[dcCtrlObj.FieldName].ToString();
-                if (controlObj == ViewConfig.KEY_TYPE_NAME_LIGHT)
-                    dcCtrlKind.ColumnEdit = cbxLightControlKind;
-                else
-                    dcCtrlKind.ColumnEdit = cbxElseControlKind;
+                dcCtrlKind.ColumnEdit = cbxLightControlKind;
+                //if (controlObj == ViewConfig.KEY_TYPE_NAME_LIGHT)
+                //    dcCtrlKind.ColumnEdit = cbxLightControlKind;
+                //else
+                    //dcCtrlKind.ColumnEdit = cbxElseControlKind;
             }
         }
 

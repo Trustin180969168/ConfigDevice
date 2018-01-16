@@ -7,7 +7,7 @@ using System.Data;
 
 namespace ConfigDevice
 {
-    public class BaseKeySetting
+    public class BaseKeySettingV2
     {
 
         protected GridViewPercentEdit percentEdit;  //---百分比编辑控件
@@ -25,7 +25,7 @@ namespace ConfigDevice
         /// 设置按键配置
         /// </summary>
         /// <param name="gv"></param>
-        public BaseKeySetting(GridView gv)
+        public BaseKeySettingV2(GridView gv)
         {
             percentEdit = new GridViewPercentEdit();  //---百分比编辑控件
             digitalEdit = new GridViewDigitalEdit();  //---数字编辑控件
@@ -120,7 +120,6 @@ namespace ConfigDevice
                 && (((keyData.KeyType >> 4) & 0xF) != (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)  // != 0
                 && (((keyData.KeyType >> 0) & 0xF) != (byte)DeviceConfig.KeyKind.KEY_TYPE_NULL)) // != 0
                 keyKindValue = ViewConfig.KEY_CONTROL_KIND_NAME_OPEN_CLOSE_LOOP_LIGHT;//开关+循环调光
-
 
             if ((keyData.FunctionDataMinValue == 1)
                 && (keyData.FunctionDataMaxValue == 1)
@@ -234,7 +233,7 @@ namespace ConfigDevice
             }
             keyData.KeyNum = (byte)(Convert.ToInt16(dr[ViewConfig.DC_NUM]) - 1);//---按键序号
             keyData.KeyType = (byte)(((hi4 << 4) & 0xF0) | (lo4 & 0x0F));//----控制类型---
-            keyData.ControlObj = ViewConfig.KEY_TYPE_NAME_ID[dr[ViewConfig.DC_CONTROL_OBJ].ToString()];//---控制对象---
+            //keyData.ControlObj = ViewConfig.KEY_TYPE_NAME_ID[dr[ViewConfig.DC_CONTROL_OBJ].ToString()];//---控制对象---
             keyData.DirectionMaxValue = (byte)Convert.ToInt16(dr[ViewConfig.DC_DIRECTION_MAX]);//方向最大值
             keyData.DirectionMinValue = (byte)Convert.ToInt16(dr[ViewConfig.DC_DIRECTION_MIN]);//方向最小值
             keyData.DirectionDataFloatingStep = (byte)Convert.ToInt16(dr[ViewConfig.DC_DIRECTION_STEP]);//---步进---
@@ -264,8 +263,8 @@ namespace ConfigDevice
         public void SetKeyData(KeyData keyData, DataRow drKeyData)
         {
             drKeyData[ViewConfig.DC_NUM] = (int)keyData.KeyNum + 1;         //---第几个按键
-            if (ViewConfig.KEY_TYPE_ID_NAME.ContainsKey(keyData.ControlObj))
-                drKeyData[ViewConfig.DC_CONTROL_OBJ] = ViewConfig.KEY_TYPE_ID_NAME[keyData.ControlObj];  //控制对象(设备类型)
+            //if (ViewConfig.KEY_TYPE_ID_NAME.ContainsKey(keyData.ControlObj))
+            //    drKeyData[ViewConfig.DC_CONTROL_OBJ] = ViewConfig.KEY_TYPE_ID_NAME[keyData.ControlObj];  //控制对象(设备类型)
             drKeyData[ViewConfig.DC_CONTROL_KIND] = this.GetKeyKindName(keyData);//操作类型
 
             drKeyData[ViewConfig.DC_DIRECTION_MAX] = (int)keyData.DirectionMaxValue;//方向最大值

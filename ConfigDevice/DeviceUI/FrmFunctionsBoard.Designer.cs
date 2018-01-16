@@ -241,6 +241,7 @@
             this.listScene.ShowCount = 8;
             this.listScene.Size = new System.Drawing.Size(996, 514);
             this.listScene.TabIndex = 0;
+            this.listScene.Load += new System.EventHandler(this.listScene_Load);
             // 
             // pageLight
             // 

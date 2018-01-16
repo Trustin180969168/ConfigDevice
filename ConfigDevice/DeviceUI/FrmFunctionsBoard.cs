@@ -288,13 +288,18 @@ namespace ConfigDevice
             switch (xtcPage.SelectedTabPageIndex)
             {
                 case 0: if (!(bool)(this.pageLeaveBack.Tag))
-                        this.listLeaveBack.ReadKeyData(); pageLeaveBack.Tag = true; break;
+                        listLeaveBack.ReadKeyData(); pageLeaveBack.Tag = true;// panelKey.Circuit.ReadRoadTitle();    
+                        break;
                 case 1: if (!(bool)(pageScene.Tag))
-                        listScene.ReadKeyData(); pageScene.Tag = true; break;
+                        listScene.ReadKeyData();
+                        pageScene.Tag = true;// panelKey.Circuit.ReadRoadTitle(); 
+                        break;
                 case 2: if (!(bool)(pageLight.Tag))
-                        listLight.ReadKeyData(); pageLight.Tag = true; break;
+                        listLight.ReadKeyData(); pageLight.Tag = true;// panelKey.Circuit.ReadRoadTitle(); 
+                        break;
                 case 3: if (!(bool)pageCurTain.Tag)
-                        listCurtain.ReadKeyData(); pageCurTain.Tag = true; break;
+                        listCurtain.ReadKeyData(); pageCurTain.Tag = true;// panelKey.Circuit.ReadRoadTitle(); 
+                        break;
 
                 //case 5: if (!(bool)pageEnvironment.Tag)
                 //    {
@@ -318,6 +323,11 @@ namespace ConfigDevice
         private void tbcSleep_ValueChanged(object sender, EventArgs e)
         {
             lblSleepLum.Text = tbcSleep.Value.ToString();
+        }
+
+        private void listScene_Load(object sender, EventArgs e)
+        {
+
         }
 
 

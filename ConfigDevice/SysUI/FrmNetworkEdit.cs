@@ -107,7 +107,11 @@ namespace ConfigDevice
             }
             edtSoftwareVer.Text = NetworkEdit.SoftwareVer;
             edtHarewareVer.Text = NetworkEdit.HardwareVer;
-
+            if (callbackParameter.Action == ActionKind.SaveNetworkParameter)
+            {
+                //---触发保存网络位置--
+                btSavePosition_Click(null, null);
+            }
             if (callbackParameter.Action == ActionKind.SaveNetworkPosition)
             {
                 Position pos = callbackParameter.Parameters[0] as Position;

@@ -13,6 +13,7 @@ namespace ConfigDevice
         private int circuitCount = 1;
 
         public Dictionary<int, string> ListCircuitIDAndName = new Dictionary<int, string>();//回路ID和名称对应表用于指令配置
+        public Dictionary<int, int> ListCircuitIDAndControlObj = new Dictionary<int, int>();//回路ID和指令对象对应表用于指令配置
         private CallbackFromUDP getRoadTitles;//-------每回路名称----
         private CallbackFromUDP finishGetRoadTitles;//-------完成读取回路名称---- 
 
@@ -41,8 +42,9 @@ namespace ConfigDevice
             circuitCount = _circuitCount;
             //-----初始化列表---------
             for (int i = 1; i <= circuitCount; i++)
-                ListCircuitIDAndName.Add(i, ""); 
-
+                ListCircuitIDAndName.Add(i, "");
+            for (int i = 1; i <= circuitCount; i++)
+                this.ListCircuitIDAndControlObj.Add(i, 0); 
             if (NameAndCommand.Count == 0)
             {
                 NameAndCommand.Add(NAME_CMD_SWIT_LOOP, DeviceConfig.CMD_SW_SWIT_LOOP);
@@ -197,7 +199,10 @@ namespace ConfigDevice
 
             int num = userData.Data[0];
             string roadName = ConvertTools.ToGB2312Str(byteName);
-            if (ListCircuitIDAndName.ContainsKey(num + 1)) ListCircuitIDAndName[num + 1] = roadName.Replace(" ", "");
+            if (ListCircuitIDAndName.ContainsKey(num + 1)) 
+                ListCircuitIDAndName[num + 1] = roadName.Replace(" ", "");
+            if (ListCircuitIDAndControlObj.ContainsKey(num + 1)) 
+                ListCircuitIDAndControlObj[num + 1] = ConvertTools.Bytes2ToInt16(userData.Data[1], userData.Data[2]);
             if (num + 1 == this.circuitCount) 
                 finishReadRoads = true;//---表示回路已经读取完毕----
         }
@@ -286,6 +291,22 @@ namespace ConfigDevice
         }
 
 
+
+        /// <summary>
+        /// 保存按键回路配置
+        /// </summary>
+        public void SaveKeyRoadSetting(int roadNum, string roadName, int controlObjId)
+        {
+            byte[] value = Encoding.GetEncoding("GB2312").GetBytes(roadName);
+            if (value.Length > 12)
+            {
+                CommonTools.MessageShow("回路名称过长!", 2, "按键名称的GB2312字节不能大于12");
+                return;
+            }
+            UdpData udpSend = createSaveKeyRoadSettingUdp(roadNum, roadName, controlObjId);
+            mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
+                 new CallbackUdpAction(callbackSaveRoadSetting), null);
+        } 
         /// <summary>
         /// 保存按键回路配置
         /// </summary>
@@ -297,11 +318,11 @@ namespace ConfigDevice
                 CommonTools.MessageShow("回路名称过长!", 2, "按键名称的GB2312字节不能大于12");
                 return;
             }
-            UdpData udpSend = createSaveKeyRoadSettingUdp(roadNum, roadName);
+            UdpData udpSend = createSaveKeyRoadSettingUdp(roadNum, roadName,-1);
             mySocket.SendData(udpSend, deviceControled.NetworkIP, SysConfig.RemotePort,
                  new CallbackUdpAction(callbackSaveRoadSetting), null);
-        } 
-        private UdpData createSaveKeyRoadSettingUdp(int roadNum, string roadName)
+        }
+        private UdpData createSaveKeyRoadSettingUdp(int roadNum, string roadName, int controlObjId)
         {
             UdpData udp = new UdpData();
 
@@ -328,7 +349,10 @@ namespace ConfigDevice
             Buffer.BlockCopy(cmd, 0, crcData, 7, 2);
             crcData[9] = len;
             crcData[10] = (byte)roadNum;
-            crcData[13] = 2;//11,12为位置,直接填0x0,0x0,忽略, 13为位置, 直接填0x02.
+            byte[] byteObjId = ConvertTools.GetByteFromInt16(controlObjId);
+            crcData[11] = byteObjId[0];
+            crcData[12] = byteObjId[1];
+            crcData[13] = 0;
             Buffer.BlockCopy(byteName, 0, crcData, 14, byteName.Length);
 
             byte[] crc = CRC32.GetCheckValue(crcData);     //---------获取CRC校验码--------

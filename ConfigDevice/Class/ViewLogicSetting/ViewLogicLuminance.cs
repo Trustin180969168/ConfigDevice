@@ -63,8 +63,6 @@ namespace ConfigDevice
             gvLogic.SetRowCellValue(0, dcRecoverTime, "00:00:00");//----默认为0秒
         }
 
-
-
         /// <summary>
         /// 位置触发
         /// </summary>
@@ -73,15 +71,17 @@ namespace ConfigDevice
             base.positionChanged();
             DataRow dr = gvLogic.GetDataRow(0);
             string positionName = dr[ViewConfig.DC_POSITION].ToString();
-            if (positionName == SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT)//---差值变更范围
+            //---外设差值情况 ----
+            if (positionName == SensorConfig.SENSOR_POSITION_PERIPHERAL_DIFFERENT)
             {
                 sensorValueEdit.MaxValue = 5000;
                 sensorValueEdit.MinValue = -2500;
             }
+            //---非外设差值情况---
             else
             {
-                sensorValueEdit.MaxValue = 2500;
-                sensorValueEdit.MinValue = 0;
+                sensorValueEdit.MaxValue = -32767;
+                sensorValueEdit.MinValue = 32767;
             }
         }
 
@@ -233,8 +233,6 @@ namespace ConfigDevice
             dr.EndEdit();
             dr.AcceptChanges();
         }
-
-
 
 
     }

@@ -70,7 +70,8 @@ namespace ConfigDevice
         SaveDeviceName,
         GetVer,
         ReadInf,//公共读取功能
-        SaveNetworkPosition,
+        SaveNetworkPosition,//保存网络位置
+        SaveNetworkParameter,//保存网络参数
         ReadCircuit,//读取回路
         ReadSafe,//获取安防
         ReadConfig,//获取参数配置
