@@ -180,11 +180,11 @@
             // 
             this.edtGateway.Font = new System.Drawing.Font("Tahoma", 12F);
             this.edtGateway.IP = "IP地址格式不正确";
-            this.edtGateway.Location = new System.Drawing.Point(82, 100);
+            this.edtGateway.Location = new System.Drawing.Point(82, 101);
             this.edtGateway.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.edtGateway.Name = "edtGateway";
             this.edtGateway.Size = new System.Drawing.Size(240, 26);
-            this.edtGateway.TabIndex = 26;
+            this.edtGateway.TabIndex = 25;
             // 
             // FrmNetworkIPEdit
             // 
@@ -201,9 +201,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.edtNetworkID);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.edtGateway);
             this.Controls.Add(this.edtNetworkIP);
             this.Controls.Add(this.edtMask);
-            this.Controls.Add(this.edtGateway);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmNetworkIPEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -230,8 +230,8 @@
         private System.Windows.Forms.Label label1;
         private IpInputTextbox edtNetworkIP;
         private IpInputTextbox edtMask;
-        private IpInputTextbox edtGateway;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btSaveInfo;
+        private IpInputTextbox edtGateway;
     }
 }
