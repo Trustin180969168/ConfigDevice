@@ -222,7 +222,7 @@ namespace ConfigDevice
             panelOptionDataValue.SaftPageFlags = flags;
             listEnvironment.SetOptionData(panelOptionDataValue);//---环境页
             keySecuritySetting.GetOptionData(ref panelOptionDataValue);//------安全页----
-
+            panelMusic.GetOptionData(ref panelOptionDataValue);//------音乐页----
             //---判断是否更改,更改执行保存----
             if (!CommonTools.BytesEuqals(panelOptionDataValue.GetPanelOptionValue(), panelOptionData.GetPanelOptionValue()))
                 panelKey.PanelCtrl.SaveKeyOption(panelOptionDataValue);
