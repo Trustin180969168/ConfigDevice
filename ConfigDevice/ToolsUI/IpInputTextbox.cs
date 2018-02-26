@@ -67,22 +67,7 @@ namespace ConfigDevice
       
         private string ip;
 
-        public byte[] ByteIP
-        {           
-            get
-            {
-                byte[] temp = new byte[4];
-                string tempStr = ip.Substring(0, ip.Length);
-                string[] sub = tempStr.Split(new string[1] { "." }, StringSplitOptions.None);
-                if (sub.Length != 4) return null;
-                temp[0] = ConvertTools.GetByteFrom8BitNumStr(sub[0]);
-                temp[1] = ConvertTools.GetByteFrom8BitNumStr(sub[1]);
-                temp[2] = ConvertTools.GetByteFrom8BitNumStr(sub[2]);
-                temp[3] = ConvertTools.GetByteFrom8BitNumStr(sub[3]);
 
-                return temp;
-            }
-        }
 
         public byte[] GetBypeIP()
         {

@@ -31,8 +31,8 @@ namespace ConfigDevice
         {
             edtNetworkIP.IP = edtNetworkIP.IP;
             NetworkEdit.ManagerPassword = PassWord;
-            NetworkEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.GetBypeIP(), edtMask.ByteIP,
-                ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text), edtDNS1.ByteIP, edtDNS2.ByteIP);
+            NetworkEdit.SaveNetworkParameter(edtNetworkIP.GetBypeIP(), edtGateway.GetBypeIP(), edtMask.GetBypeIP(),
+                ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text), edtDNS1.GetBypeIP(), edtDNS2.GetBypeIP());
         }
 
 

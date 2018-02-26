@@ -151,8 +151,8 @@ namespace ConfigDevice
             NetworkEdit.SaveNetworkName(edtNetworkName.Text);
 
             edtNetworkIP.IP = edtNetworkIP.IP;
-            NetworkEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP,edtMask.ByteIP,
-                ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text),edtDNS1.ByteIP,edtDNS2.ByteIP);
+            NetworkEdit.SaveNetworkParameter(edtNetworkIP.GetBypeIP(), edtGateway.GetBypeIP(), edtMask.GetBypeIP(),
+                ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text), edtDNS1.GetBypeIP(), edtDNS2.GetBypeIP());
         }
 
         /// <summary>
@@ -165,8 +165,8 @@ namespace ConfigDevice
 
         private void btSavePagameter_Click(object sender, EventArgs e)
         {
-            NetworkEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.GetBypeIP(), edtMask.ByteIP,
-                         ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text),edtDNS1.ByteIP,edtDNS2.ByteIP);
+            NetworkEdit.SaveNetworkParameter(edtNetworkIP.GetBypeIP(), edtGateway.GetBypeIP(), edtMask.GetBypeIP(),
+                         ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text), edtDNS1.GetBypeIP(), edtDNS2.GetBypeIP());
         } 
 
         private void cbxNetwork_SelectedIndexChanged(object sender, EventArgs e)
