@@ -38,7 +38,7 @@ namespace ConfigDevice
         public byte[] Source;//----源头----
         public byte[] Page;//------分页-----
         public byte[] Command;//---命令-----
-        public byte[] DataLength;//数据长度(包含校验码)---
+        public byte DataLength;//数据长度(包含校验码)---
         public byte[] Data;//------数据-----包含4个校验码
         public byte[] CrcCode;//------CRC-----
         public int Length;//----总长度-----
@@ -46,18 +46,22 @@ namespace ConfigDevice
         public int Port;//---端口------
 
         public string CommandStr { get { return ConvertTools.ByteToHexStr(Command); } }
-        public int DataOfLength { get { return Convert.ToInt16(DataLength[0]); } }
+        public int DataOfLength { get { return Convert.ToInt16(DataLength); } }
         public string UdpInfo { get { return this.GetUdpInfo(); } }
+        public string TargetID {get{return Convert.ToInt16(Target[0]).ToString();}}
+        public string SourceID { get { return Convert.ToInt16(Source[0]).ToString(); } }
+        public string NetworkID { get { return Convert.ToInt16(Source[1]).ToString(); } }
 
         public UserUdpData(UdpData udp)
         {
             byte[] data = udp.ProtocolData;
+            if (udp.ProtocolData.Length < 10) return ;
             //------基本协议--------
             Target = new byte[3];
             Source = new byte[3];
+
             Page = new byte[1];
-            Command = new byte[2];
-            DataLength = new byte[1];
+            Command = new byte[2];         
             CrcCode = new byte[4];
             Length = data.Length;
 
@@ -65,11 +69,11 @@ namespace ConfigDevice
             Buffer.BlockCopy(data, 3, Source, 0, 3);
             Buffer.BlockCopy(data, 6, Page, 0, 1);
             Buffer.BlockCopy(data, 7, Command, 0, 2);
-            Buffer.BlockCopy(data, 9, DataLength, 0, 1);
+             DataLength = data[9];
        
             //---获取数据长度,根据协议加上4个字节的校验码长度----
             Data = new byte[Length - 10];
-            int dataLen = Convert.ToInt16(DataLength[0]);
+            int dataLen = Convert.ToInt16(DataLength);
             Buffer.BlockCopy(data, 10, Data, 0, dataLen);//-----数据-----
             Buffer.BlockCopy(data, data.Length-4, CrcCode, 0, 4);//----校验码---
 
@@ -84,7 +88,7 @@ namespace ConfigDevice
             info += "源头:" + byteToHexStr(Source) + "\n";
             info += "分页:" + byteToHexStr(Page) + "\n";
             info += "命令:" + byteToHexStr(Command) + "\n";
-            info += "长度:" + byteToHexStr(DataLength) + "\n";
+            info += "长度:" + (int)DataLength + "\n";
             info += "数据(含CRC校验):" + byteToHexStr(Data) + "\n";
             info += "CRC校验:" + byteToHexStr(CrcCode) + "\n";
 

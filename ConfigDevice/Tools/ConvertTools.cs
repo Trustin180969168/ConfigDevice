@@ -40,7 +40,7 @@ namespace ConfigDevice
             {
                 for (int i = 0; i < bytes.Length; i++)
                 {
-                    returnStr += " "+bytes[i].ToString("X2")  ;
+                    returnStr += " " + bytes[i].ToString("X2");
                 }
                 returnStr = returnStr.Substring(1);
             }
@@ -117,12 +117,44 @@ namespace ConfigDevice
         /// <summary>
         /// 字节转10进制
         /// </summary>
-        /// <param name="b"></param>
+        /// <param name="b">4个字节</param>
         /// <returns></returns>
-        public static int Bytes4ToInt(byte[] b)
-        {            
-           return System.BitConverter.ToInt32(b, 0); 
+        public static Int32 Bytes4ToInt32(params byte[] b)
+        {
+            return System.BitConverter.ToInt32(b, 0);
         }
+
+        /// <summary>
+        /// 字节转10进制
+        /// </summary>
+        /// <param name="b">4个字节</param>
+        /// <returns></returns>
+        public static UInt32 Bytes4ToUInt32(params byte[] b)
+        {
+            return System.BitConverter.ToUInt32(b, 0);
+        }
+
+
+        /// <summary>
+        /// 字节转10进制
+        /// </summary>
+        /// <param name="b">两个字节</param>
+        /// <returns></returns>
+        public static short Bytes2ToInt16(params byte[] b)
+        {
+            return System.BitConverter.ToInt16(b, 0);
+        }
+
+        /// <summary>
+        /// 字节转10进制
+        /// </summary>
+        /// <param name="b">两个字节</param>
+        /// <returns></returns>
+        public static UInt16 Bytes2ToUInt16(params byte[] b)
+        {
+            return System.BitConverter.ToUInt16(b, 0);
+        }
+
 
         /// <summary>
         /// 十进制字符串转16进制字符串
@@ -145,8 +177,19 @@ namespace ConfigDevice
         /// <returns>一个字节</returns>
         public static byte GetByteFrom8BitNumStr(string num)
         {
-            byte temp = BitConverter.GetBytes(Convert.ToInt16(num))[0];
-            return temp;
+            byte value = BitConverter.GetBytes(Convert.ToInt16(num))[0];
+            return value;
+        }
+
+        /// <summary>
+        /// 根据一个32位以下的整数,取首字节
+        /// </summary>
+        /// <param name="num">32位整数</param>
+        /// <returns>一个字节</returns>
+        public static byte GetByteFromIntNum(int num)
+        {
+            byte value = BitConverter.GetBytes(num)[0];
+            return value;
         }
 
         /// <summary>
@@ -154,10 +197,71 @@ namespace ConfigDevice
         /// </summary>
         /// <param name="num">16位整数</param>
         /// <returns>两个字节</returns>
-        public static byte[] GetByteFrom16BitInt(int num)
+        public static byte[] GetByteFromInt16(int num)
         {
-            byte[] temp = BitConverter.GetBytes(Convert.ToInt16(num));
-            return temp;
+            byte[] value = BitConverter.GetBytes(Convert.ToInt16(num));
+            return value;
+        }
+
+        /// <summary>
+        /// 根据一个16位无符号整数,翻译成两个字节的数组
+        /// </summary>
+        /// <param name="num">16位无符号整数</param>
+        /// <returns>两个字节</returns>
+        public static byte[] GetByteFromUInt16(UInt16 num)
+        {
+            byte[] value = BitConverter.GetBytes(Convert.ToUInt16(num));
+            return value;
+        }
+
+
+        /// <summary>
+        /// 根据一个32位的有符号整数,翻译成4个字节的数组
+        /// </summary>
+        /// <param name="num">32位有符号整数</param>
+        /// <returns>4个字节</returns>
+        public static byte[] GetByteFromInt32(int num)
+        {
+            byte[] value = BitConverter.GetBytes(Convert.ToInt32(num));
+            return value;
+        }
+
+        /// <summary>
+        /// 根据一个32位的无符号整数,翻译成4个字节的数组
+        /// </summary>
+        /// <param name="num">32位无符号整数</param>
+        /// <returns>4个字节</returns>
+        public static byte[] GetByteFromUInt32(uint num)
+        {
+            byte[] value = BitConverter.GetBytes(num);
+            return value;
+        }
+
+
+        /// <summary>
+        /// 汉字转换为Unicode编码
+        /// </summary>
+        /// <param name="str">要编码的汉字字符串</param>
+        /// <returns>Unicode编码的的字符串</returns>
+        public static string ToUnicode(string str)
+        {
+            byte[] bts = Encoding.Unicode.GetBytes(str);
+            string r = "";
+            for (int i = 0; i < bts.Length; i += 2) r += "\\u" + bts[i + 1].ToString("x").PadLeft(2, '0') + bts[i].ToString("x").PadLeft(2, '0');
+            return r;
+        }
+
+        /// <summary>
+        /// 字节转GB2312字符串
+        /// </summary>
+        /// <param name="data">字符数组</param>
+        /// <returns>GB2312字符串</returns>
+        public static string ToGB2312Str(byte[] data)
+        {
+            string tempName = Encoding.GetEncoding("GB2312").GetString(data).Trim();
+            if(tempName.IndexOf('\0') != -1)
+                tempName = tempName.Substring(0, tempName.IndexOf('\0'));
+            return tempName.Trim();
         }
     }
 }

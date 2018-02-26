@@ -55,7 +55,38 @@ namespace ConfigDevice
                 }
             }
         }
+
+        public string DefaultGateWay
+        {
+            get {
+
+                string ip = this.IP;
+                string temp = ip.Substring(0, ip.LastIndexOf(".")) + ".1";
+                return temp;
+            
+            
+            
+            }
+        }
+      
         private string ip;
+
+        public byte[] ByteIP
+        {           
+            get
+            {
+                byte[] temp = new byte[4];
+                string[] sub = ip.Split(new string[]{"."}, StringSplitOptions.RemoveEmptyEntries);
+                if (sub.Length != 4) return null;
+                temp[0] = ConvertTools.GetByteFrom8BitNumStr(sub[0]);
+                temp[1] = ConvertTools.GetByteFrom8BitNumStr(sub[1]);
+                temp[2] = ConvertTools.GetByteFrom8BitNumStr(sub[2]);
+                temp[3] = ConvertTools.GetByteFrom8BitNumStr(sub[3]);
+
+                return temp;
+            }
+        }
+
 
         public IpInputTextbox()
         {

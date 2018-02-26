@@ -9,9 +9,10 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ConfigDevice</RootNamespace>
-    <AssemblyName>SocketTest</AssemblyName>
+    <AssemblyName>ConfigDevice</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>ConfigDevice.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,51 +31,196 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
-    <Reference Include="DevExpress.Utils.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
-    <Reference Include="DevExpress.XtraEditors.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
+    <Reference Include="DevExpress.Data.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraBars.v8.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.XtraGrid.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraGrid.v8.1.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
+    <Reference Include="DevExpress.XtraLayout.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Developer Express .NET v8.1\\Sources\DevExpress.DLL\DevExpress.XtraNavBar.v8.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.XtraRichTextEdit.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraRichTextEdit.v8.1\8.1.1.0__49d90c14d24271b5\DevExpress.XtraRichTextEdit.v8.1.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="IpInputExt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\Command.cs" />
-    <Compile Include="Class\Device.cs" />
-    <Compile Include="Class\DeviceAmplifier.cs" />
-    <Compile Include="Class\FactoryDevice.cs" />
-    <Compile Include="Class\IFactory.cs" />
-    <Compile Include="Class\NetworkCtrl.cs" />
-    <Compile Include="Class\DevicedWeatherStation.cs" />
-    <Compile Include="Data\DeviceData.cs" />
-    <Compile Include="Common\ThreadActionTimer.cs">
+    <Compile Include="Class\Devices\DoorInput4.cs">
+    </Compile>
+    <Compile Include="Class\Manage\DeviceCtrl.cs" />
+    <Compile Include="Class\Manage\NetworkList.cs" />
+    <Compile Include="Class\Devices\BaseDevice.cs" />
+    <Compile Include="Class\Devices\Device.cs" />
+    <Compile Include="Tools\ThreadActionTimer.cs">
     </Compile>
     <Compile Include="Config\DeviceConfig.cs" />
-    <Compile Include="Class\DeviceCtrl.cs" />
+    <Compile Include="Class\Manage\DeviceList.cs" />
     <Compile Include="Config\NetworkConfig.cs" />
-    <Compile Include="Data\NetworkData.cs">
+    <Compile Include="Class\Devices\Network.cs">
     </Compile>
-    <Compile Include="Class\SysCtrl.cs" />
+    <Compile Include="Class\Manage\SysCtrl.cs" />
     <Compile Include="Data\UdpData.cs" />
     <Compile Include="Config\PublicConfig.cs" />
     <Compile Include="Data\UserUdpData.cs" />
+    <Compile Include="DeviceUI\FrmDoorInput4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmDoorInput4.designer.cs">
+      <DependentUpon>FrmDoorInput4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Class\WeiXinMenu\MenuEditControl\MenuSensorControl.resx">
+      <DependentUpon>MenuSensorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityControl.resx">
+      <DependentUpon>MenuSecurityControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmFunctionsBoard.resx">
+      <DependentUpon>FrmFunctionsBoard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmShort4.resx">
+      <DependentUpon>FrmShort4.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmBodyIndction.resx">
+      <DependentUpon>FrmBodyIndction.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmButton4.resx">
+      <DependentUpon>FrmButton4.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class\WeiXinMenu\FrmWeiXin.resx">
+      <DependentUpon>FrmWeiXin.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmWirlessDevices.resx">
+      <DependentUpon>FrmWirlessDevices.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmLockDevices.resx">
+      <DependentUpon>FrmLockDevices.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmButton8.resx">
+      <DependentUpon>FrmButton8.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmCupboard.resx">
+      <DependentUpon>FrmCupboard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SysUI\FrmNetworkIPEdit.resx">
+      <DependentUpon>FrmNetworkIPEdit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SysUI\FrmUdpLog.resx">
+      <DependentUpon>FrmUdpLog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\LCDUI\KeySecuritySetting.resx">
+      <DependentUpon>KeySecuritySetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\LCDUI\PanelEnvironment.resx">
+      <DependentUpon>PanelEnvironment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\LCDUI\PanelMusic.resx">
+      <DependentUpon>PanelMusic.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\PanelSpecialCtrlObj.resx">
+      <DependentUpon>PanelSpecialCtrlObj.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\ViewLogicTools.resx">
+      <DependentUpon>ViewLogicTools.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\ViewLogicSetting.resx">
+      <DependentUpon>ViewLogicSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmEnvironment.resx">
+      <DependentUpon>FrmEnvironment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmFlammableGasProbe.resx">
+      <DependentUpon>FrmFlammableGasProbe.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmDoorInput4.resx">
+      <DependentUpon>FrmDoorInput4.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\ViewCommandSetting.resx">
+      <DependentUpon>ViewCommandSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmMotorDC3.resx">
+      <DependentUpon>FrmMotorDC3.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmO2.resx">
+      <DependentUpon>FrmO2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmDriver.resx">
+      <DependentUpon>FrmDriver.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmWeather.resx">
+      <DependentUpon>FrmWeather.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmRadar.resx">
+      <DependentUpon>FrmRadar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceUI\FrmButton2.resx">
+      <DependentUpon>FrmButton2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -84,48 +230,64 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tools\IpInputTextbox.resx">
+    <EmbeddedResource Include="ToolsUI\IpInputTextbox.resx">
       <DependentUpon>IpInputTextbox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tools\UCtrlBaseEdit.resx">
-      <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
+    <EmbeddedResource Include="SysUI\FrmChangePassword.resx">
+      <DependentUpon>FrmChangePassword.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmAmplifier.resx">
-      <DependentUpon>FrmAmplifier.cs</DependentUpon>
+    <EmbeddedResource Include="ToolsUI\ViewBaseEdit.resx">
+      <DependentUpon>ViewBaseEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmBaseDevice.resx">
+    <EmbeddedResource Include="DeviceUI\FrmBaseDevice.resx">
       <DependentUpon>FrmBaseDevice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmDevice.resx">
+    <EmbeddedResource Include="DeviceUI\FrmDevice.resx">
       <DependentUpon>FrmDevice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmNetworkEdit.resx">
+    <EmbeddedResource Include="SysUI\FrmNetworkEdit.resx">
       <DependentUpon>FrmNetworkEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmNetworkPW.resx">
+    <EmbeddedResource Include="SysUI\FrmNetworkPW.resx">
       <DependentUpon>FrmNetworkPW.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmPackageInfo.resx">
+    <EmbeddedResource Include="SysUI\FrmPackageInfo.resx">
       <DependentUpon>FrmPackageInfo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmTest.resx">
+    <EmbeddedResource Include="SysUI\FrmTest.resx">
       <DependentUpon>FrmTest.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmTestSocket.resx">
-      <DependentUpon>FrmTestSocket.cs</DependentUpon>
+    <EmbeddedResource Include="SysUI\PleaseWait.resx">
+      <DependentUpon>PleaseWait.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\PleaseWait.resx">
-      <DependentUpon>PleaseWait.cs</DependentUpon>
+    <EmbeddedResource Include="ToolsUI\SelectDevice.resx">
+      <DependentUpon>SelectDevice.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\ViewCommandTools.resx">
+      <DependentUpon>ViewCommandTools.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\LCDUI\KeyBaseSetting.resx">
+      <DependentUpon>KeyBaseSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\ViewSecurity.resx">
+      <DependentUpon>ViewSecurity.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsUI\DeviceSelector.resx">
+      <DependentUpon>DeviceSelector.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -151,82 +313,69 @@
     <Compile Include="Tools\ConvertTools.cs" />
     <Compile Include="Tools\CommonTools.cs" />
     <Compile Include="Tools\CRC32.cs" />
-    <Compile Include="Tools\IpInputTextbox.cs">
+    <Compile Include="ToolsUI\IpInputTextbox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Tools\IpInputTextbox.Designer.cs">
+    <Compile Include="ToolsUI\IpInputTextbox.Designer.cs">
       <DependentUpon>IpInputTextbox.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\MySocket.cs" />
     <Compile Include="Tools\NumberTextBoxExt.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Tools\UCtrlBaseEdit.cs">
+    <Compile Include="SysUI\FrmChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SysUI\FrmChangePassword.Designer.cs">
+      <DependentUpon>FrmChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\ViewBaseEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Tools\UCtrlBaseEdit.Designer.cs">
-      <DependentUpon>UCtrlBaseEdit.cs</DependentUpon>
+    <Compile Include="ToolsUI\ViewBaseEdit.Designer.cs">
+      <DependentUpon>ViewBaseEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\UdpTools.cs" />
-    <Compile Include="Tools\MySocketTest.cs" />
-    <Compile Include="UI\FrmAmplifier.cs">
+    <Compile Include="DeviceUI\FrmBaseDevice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmAmplifier.Designer.cs">
-      <DependentUpon>FrmAmplifier.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\FrmBaseDevice.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\FrmBaseDevice.Designer.cs">
+    <Compile Include="DeviceUI\FrmBaseDevice.Designer.cs">
       <DependentUpon>FrmBaseDevice.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmDevice.cs">
+    <Compile Include="DeviceUI\FrmDevice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmDevice.Designer.cs">
+    <Compile Include="DeviceUI\FrmDevice.Designer.cs">
       <DependentUpon>FrmDevice.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmNetworkEdit.cs">
+    <Compile Include="SysUI\FrmNetworkEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmNetworkEdit.Designer.cs">
+    <Compile Include="SysUI\FrmNetworkEdit.Designer.cs">
       <DependentUpon>FrmNetworkEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmNetworkPW.cs">
+    <Compile Include="SysUI\FrmNetworkPW.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmNetworkPW.Designer.cs">
+    <Compile Include="SysUI\FrmNetworkPW.Designer.cs">
       <DependentUpon>FrmNetworkPW.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmPackageInfo.cs">
+    <Compile Include="SysUI\FrmPackageInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmPackageInfo.Designer.cs">
+    <Compile Include="SysUI\FrmPackageInfo.Designer.cs">
       <DependentUpon>FrmPackageInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmTest.cs">
+    <Compile Include="SysUI\FrmTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmTest.Designer.cs">
+    <Compile Include="SysUI\FrmTest.Designer.cs">
       <DependentUpon>FrmTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmTestSocket.cs">
+    <Compile Include="SysUI\PleaseWait.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmTestSocket.Designer.cs">
-      <DependentUpon>FrmTestSocket.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\FrmWeatherStation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\FrmWeatherStation.Designer.cs">
-      <DependentUpon>FrmWeatherStation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\PleaseWait.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\PleaseWait.Designer.cs">
+    <Compile Include="SysUI\PleaseWait.Designer.cs">
       <DependentUpon>PleaseWait.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -250,6 +399,395 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ConfigDevice.ico" />
+    <Content Include="Config\SmartLight.h" />
+    <None Include="Resources\7.png" />
+    <None Include="Resources\6.png" />
+    <None Include="Resources\5.png" />
+    <None Include="Resources\4.png" />
+    <None Include="Resources\3.png" />
+    <None Include="Resources\2.png" />
+    <None Include="Resources\1.png" />
+    <None Include="Resources\0.png" />
+    <None Include="Resources\Leave_Back.png" />
+    <None Include="Resources\scene.png" />
+    <None Include="Resources\lights.png" />
+    <None Include="Resources\curtain.png" />
+    <None Include="Resources\down.png" />
+    <None Include="Resources\up.png" />
+    <None Include="Resources\logic4OR.bmp" />
+    <None Include="Resources\logic4AND.bmp" />
+    <None Include="Resources\logic3OR_1AND.bmp" />
+    <None Include="Resources\logic3AND_1OR.bmp" />
+    <None Include="Resources\logic2OR_2AND_OR.bmp" />
+    <None Include="Resources\logic2OR_2AND_AND.bmp" />
+    <None Include="Resources\power_off.png" />
+    <None Include="Resources\power_on.png" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\refresh2.png" />
+    <None Include="Resources\refresh1.png" />
+    <None Include="Resources\close_light.png" />
+    <None Include="Resources\open_light.png" />
+    <None Include="Resources\open_found1.png" />
+    <None Include="Resources\del12.png" />
+    <None Include="Resources\logo_connect.png" />
+    <None Include="Resources\off.png" />
+    <None Include="Resources\on1.png" />
+    <None Include="Resources\disconnect1.png" />
+    <None Include="Resources\connect1.png" />
+    <None Include="Resources\open_found.png" />
+    <None Include="Resources\Add.png" />
+    <None Include="Resources\uncheck.jpg" />
+    <None Include="Resources\check.png" />
+    <None Include="Resources\Election11.png" />
+    <None Include="Resources\Traces1.png" />
+    <Compile Include="Class\ControlObj\Buzzer.cs" />
+    <Compile Include="Class\ControlObj\LCDPanelCtrl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Class\ControlObj\Light.cs" />
+    <Compile Include="Class\ControlObj\InnerInteraction.cs" />
+    <Compile Include="Class\ControlObj\OuterInteraction.cs" />
+    <Compile Include="Class\ControlObj\ButtonPanelCtrl.cs" />
+    <Compile Include="Class\ControlObj\ShortInput.cs" />
+    <Compile Include="Class\ControlObj\SecurityObj.cs" />
+    <Compile Include="Class\ControlObj\SpecialPanelCtrl.cs" />
+    <Compile Include="Class\ControlObj\CupboardSwit.cs" />
+    <Compile Include="Class\Devices\BodyInduction.cs" />
+    <Compile Include="Class\Devices\ButtonPanelKey.cs" />
+    <Compile Include="Class\Devices\Cupboard.cs" />
+    <Compile Include="Class\Devices\Short4.cs" />
+    <Compile Include="Class\Devices\VirtualPasswordFingerMarkLock.cs" />
+    <Compile Include="Class\Devices\WeiXin.cs" />
+    <Compile Include="Class\Devices\WirlessTransform .cs" />
+    <Compile Include="Class\Devices\SpecialPanelKey.cs" />
+    <Compile Include="Class\Manage\CommandList.cs" />
+    <Compile Include="Class\Manage\KeyList.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewCupboardControl.cs" />
+    <Compile Include="Class\ViewKeySetting\BaseKeySetting.cs" />
+    <Compile Include="Data\ButtonPanelOptionData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\LockData.cs" />
+    <Compile Include="Data\WirlessActionResultData.cs" />
+    <Compile Include="Data\WirlessDeviceData.cs" />
+    <Compile Include="Data\SpecialPanelOptionData.cs" />
+    <Compile Include="DeviceUI\FrmWirlessDevices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmWirlessDevices.Designer.cs">
+      <DependentUpon>FrmWirlessDevices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmLockDevices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmLockDevices.Designer.cs">
+      <DependentUpon>FrmLockDevices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmButton8.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmButton8.Designer.cs">
+      <DependentUpon>FrmButton8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmCupboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmCupboard.Designer.cs">
+      <DependentUpon>FrmCupboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SysUI\FrmNetworkIPEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SysUI\FrmNetworkIPEdit.Designer.cs">
+      <DependentUpon>FrmNetworkIPEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SysUI\FrmUdpLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SysUI\FrmUdpLog.Designer.cs">
+      <DependentUpon>FrmUdpLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\PanelSpecialCtrlObj.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\PanelSpecialCtrlObj.Designer.cs">
+      <DependentUpon>PanelSpecialCtrlObj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\DeviceSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\DeviceSelector.Designer.cs">
+      <DependentUpon>DeviceSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\MyLog.cs" />
+    <Compile Include="Class\Sensor\Sensor.cs" />
+    <Compile Include="Class\ViewKeySetting\BaseKeySettingV2.cs" />
+    <Compile Include="Class\Devices\FlammableGasProbe.cs" />
+    <Compile Include="Class\Devices\SystemInteraction.cs" />
+    <Compile Include="Class\Devices\Environment.cs" />
+    <Compile Include="Class\Devices\Road12Relay.cs" />
+    <Compile Include="Class\Devices\Radar.cs" />
+    <Compile Include="Class\Devices\LCDPanelKey.cs" />
+    <Compile Include="Class\Manage\DeviceCommandList.cs" />
+    <Compile Include="Class\Devices\Road4Relay.cs" />
+    <Compile Include="Class\Devices\Road6FrontDimming.cs" />
+    <Compile Include="Class\Devices\Road8FrontDimming.cs" />
+    <None Include="Resources\del1.png" />
+    <Compile Include="Class\Devices\Road6Relay.cs" />
+    <Compile Include="Class\Devices\Road2FrontDimming.cs" />
+    <Compile Include="Class\Devices\Road4FrontDimming.cs" />
+    <Compile Include="Class\Devices\Road12FrontDimming.cs" />
+    <Compile Include="Class\Manage\LogicList.cs" />
+    <Compile Include="Class\Manage\LogicQuickSetting.cs" />
+    <Compile Include="Class\Manage\NetworkCtrl.cs" />
+    <Compile Include="Class\Manage\SensorCtrl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewInnerInteractionControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewOuterInteractionControl.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicBody.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicHumidity.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicTemperature.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicTVOC.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicCO2.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicPM25.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicCH20.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicO2.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicLuminance.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicWindy.cs" />
+    <Compile Include="Class\WeiXinMenu\Data\MenuCommandData.cs" />
+    <Compile Include="Class\WeiXinMenu\Data\MenuSensorData.cs" />
+    <Compile Include="Class\WeiXinMenu\Data\MenuSecurityData.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuCtrl.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSensorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSensorControl.Designer.cs">
+      <DependentUpon>MenuSensorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class\WeiXinMenu\MenuEditor\BaseMenuEdit.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuEditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\WeiXinMenu\MenuCommandList.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditor\MenuSensorEdit.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuView\CommandMenuView.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuConfig.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEdit.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditor\MenuSecurityEdit.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuKind.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuList.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuView\BaseMenuView.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuView\OtherMenuViews.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuView\SensorMenuView.cs" />
+    <Compile Include="Class\WeiXinMenu\WeiXinMeun.cs" />
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\WeiXinMenu\MenuEditControl\MenuSecurityControl.Designer.cs">
+      <DependentUpon>MenuSecurityControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CommandReadObj.cs" />
+    <Compile Include="Data\DeviceCommandData.cs" />
+    <Compile Include="Data\KeyData.cs" />
+    <Compile Include="Data\LCDPanelOptionData.cs" />
+    <Compile Include="Class\WeiXinMenu\Data\MenuData.cs" />
+    <Compile Include="Data\SensorStateData.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewCircuitControl.cs" />
+    <Compile Include="Class\Manage\ViewEditCtrl.cs" />
+    <Compile Include="Class\Devices\Road8Relay.cs" />
+    <Compile Include="Class\Devices\Road3Window.cs" />
+    <Compile Include="Class\Devices\Amplifier.cs" />
+    <Compile Include="Class\Devices\Server.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewSceneControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewTimingControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewSwitControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewBackgroundControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewMessagesControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewServerControl.cs" />
+    <Compile Include="Class\ViewLogicSetting\BaseViewLogicControl.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicControlObjs.cs" />
+    <Compile Include="Class\ViewLogicSetting\ViewLogicFireControlTemperature.cs" />
+    <Compile Include="Config\AudioConfig.cs" />
+    <Compile Include="Config\SensorConfig.cs" />
+    <Compile Include="Config\ViewConfig.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\CommandData.cs" />
+    <Compile Include="Class\ViewCommandSetting\BaseViewCommandControl.cs" />
+    <Compile Include="Class\ViewCommandSetting\ViewMotorControl.cs" />
+    <Compile Include="Class\ControlObj\Background.cs" />
+    <Compile Include="Class\ControlObj\Circuit.cs" />
+    <Compile Include="Class\ControlObj\ControlObj.cs" />
+    <Compile Include="Class\ControlObj\Messages.cs" />
+    <Compile Include="Class\ControlObj\Motor.cs" />
+    <Compile Include="Class\ControlObj\Scene.cs" />
+    <Compile Include="Class\ControlObj\ServerControlObj.cs" />
+    <Compile Include="Class\ControlObj\Swit.cs" />
+    <Compile Include="Class\ControlObj\Timing.cs" />
+    <Compile Include="Data\DeviceData.cs" />
+    <Compile Include="Data\NetworkData.cs" />
+    <Compile Include="Data\LogicData.cs" />
+    <Compile Include="DeviceUI\FrmFunctionsBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmFunctionsBoard.Designer.cs">
+      <DependentUpon>FrmFunctionsBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmShort4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmShort4.Designer.cs">
+      <DependentUpon>FrmShort4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmBodyIndction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmBodyIndction.Designer.cs">
+      <DependentUpon>FrmBodyIndction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmButton4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmButton4.Designer.cs">
+      <DependentUpon>FrmButton4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class\WeiXinMenu\FrmWeiXin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Class\WeiXinMenu\FrmWeiXin.Designer.cs">
+      <DependentUpon>FrmWeiXin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\LCDUI\KeySecuritySetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\LCDUI\KeySecuritySetting.Designer.cs">
+      <DependentUpon>KeySecuritySetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\LCDUI\PanelEnvironment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\LCDUI\PanelEnvironment.Designer.cs">
+      <DependentUpon>PanelEnvironment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\LCDUI\PanelMusic.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\LCDUI\PanelMusic.Designer.cs">
+      <DependentUpon>PanelMusic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\ViewSecurity.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\ViewSecurity.Designer.cs">
+      <DependentUpon>ViewSecurity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\ViewCommandSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\ViewCommandSetting.Designer.cs">
+      <DependentUpon>ViewCommandSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\ViewLogicTools.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\ViewLogicTools.Designer.cs">
+      <DependentUpon>ViewLogicTools.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\ViewLogicSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\ViewLogicSetting.Designer.cs">
+      <DependentUpon>ViewLogicSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmEnvironment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmEnvironment.Designer.cs">
+      <DependentUpon>FrmEnvironment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmFlammableGasProbe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmFlammableGasProbe.Designer.cs">
+      <DependentUpon>FrmFlammableGasProbe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmMotorDC3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmMotorDC3.Designer.cs">
+      <DependentUpon>FrmMotorDC3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmO2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmO2.Designer.cs">
+      <DependentUpon>FrmO2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmDriver.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmDriver.Designer.cs">
+      <DependentUpon>FrmDriver.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmWeather.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmWeather.Designer.cs">
+      <DependentUpon>FrmWeather.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmRadar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmRadar.Designer.cs">
+      <DependentUpon>FrmRadar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUI\FrmButton2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceUI\FrmButton2.Designer.cs">
+      <DependentUpon>FrmButton2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\LCDUI\KeyBaseSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\LCDUI\KeyBaseSetting.Designer.cs">
+      <DependentUpon>KeyBaseSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ImageHelper.cs" />
+    <Compile Include="Tools\LogTools.cs" />
+    <Compile Include="Tools\PortTools.cs" />
+    <Compile Include="ToolsUI\SelectDevice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\SelectDevice.Designer.cs">
+      <DependentUpon>SelectDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsUI\ViewCommandTools.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolsUI\ViewCommandTools.Designer.cs">
+      <DependentUpon>ViewCommandTools.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\WaitingTimer.cs" />
+    <None Include="Resources\snyc.png" />
+    <None Include="Resources\checkWork.png" />
+    <None Include="Resources\exchange.png" />
+    <None Include="Resources\disconnect.png" />
+    <None Include="Resources\connect.png" />
+    <None Include="Resources\Clear.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\confirm.png" />
+    <None Include="Resources\relation.png" />
+    <None Include="Resources\operator.png" />
+    <None Include="Resources\section.png" />
+    <None Include="Resources\goyi.png" />
+    <None Include="Resources\client.png" />
+    <None Include="Resources\Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

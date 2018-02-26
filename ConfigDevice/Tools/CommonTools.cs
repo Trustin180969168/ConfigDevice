@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace ConfigDevice
 {
@@ -13,27 +14,6 @@ namespace ConfigDevice
         [DllImport("user32.dll")]
         static extern bool EndDialog(IntPtr hDlg, int nResult);
         const int WM_CLOSE = 0x10;
-        /// <summary>
-        /// 用于提示窗体自动关闭
-        /// </summary>
-        /// <param name="text">内容</param>
-        /// <param name="caption">标题</param>
-        /// <param name="second">秒</param>
-        /// <returns></returns>
-        public static DialogResult AutoCloseShow(string text, string caption, int second)
-        {
-            Timer time = new Timer();
-            time.Interval = second * 1000;
-            time.Tick += (a, b) =>
-            {
-                IntPtr ptr = FindWindow(null, caption);
-                if (ptr != IntPtr.Zero) EndDialog(ptr, 0);
-                time.Stop();
-            };
-            time.Start();
-            MessageBox.Show(text, "提示!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            return DialogResult.OK;
-        }
 
         /// <summary>
         /// 回复结果
@@ -79,13 +59,37 @@ namespace ConfigDevice
                 content = "\n" + remark;
             switch (flag)
             {
-                case 1: return AutoCloseShow(content, "提示!", 3);//MessageBox.Show(content, "提示!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                case 2: return MessageBox.Show(content, "错误!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                case 3: return MessageBox.Show(content, "停止!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                case 4: return MessageBox.Show(content, "询问?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                case 5: return MessageBox.Show(content, "警告!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                case 1: return AutoCloseShow(content, "提示!", 2);//MessageBox.Show(content, "提示!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                case 2: return MessageBox.Show(content, "错误!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                case 3: return MessageBox.Show(content, "停止!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                case 4: return MessageBox.Show(content, "询问?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                case 5: return MessageBox.Show(content, "警告!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                 default: return DialogResult.None;
             }
+        }
+
+
+        /// <summary>
+        /// 用于提示窗体自动关闭
+        /// </summary>
+        /// <param name="text">内容</param>
+        /// <param name="caption">标题</param>
+        /// <param name="second">秒</param>
+        /// <returns></returns>
+        public static DialogResult AutoCloseShow(string text, string caption, int second)
+        {
+            Timer time = new Timer();
+            time.Interval = second * 1000;
+            time.Tick += (a, b) =>
+            {
+                IntPtr ptr = FindWindow(null, caption);
+                if (ptr != IntPtr.Zero)
+                    EndDialog(ptr, 0);
+                time.Stop();
+            };
+            time.Start();
+            MessageBox.Show(text, "提示!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return DialogResult.OK;
         }
 
         /// <summary>
@@ -115,9 +119,12 @@ namespace ConfigDevice
         /// <returns>字节数组</returns>
         public static byte[] CopyBytes(byte[] src, int start, int len)
         {
-            byte[] temp= new byte[len];
-            Buffer.BlockCopy(src, start, temp, 0, len);
-            return temp;
+            byte[] value= new byte[len];
+            Buffer.BlockCopy(src, start, value, 0, len);
+            return value;
         }
+
+
+
     }
 }
