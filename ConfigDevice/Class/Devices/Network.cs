@@ -746,8 +746,8 @@ namespace ConfigDevice
         public void SaveNetworkParameter(byte[] newIP, byte[] gateWay, byte[] mask, byte _networkID,byte[] dns1,byte[] dns2)
         {
             UdpData udpSend = createSaveNetworkParameter(newIP, gateWay, mask, _networkID,dns1,dns2);
-            mySocket.SendData(udpSend, NetworkConfig.BROADCAST_IP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangeParameter),
-                new object[] { udpSend, newIP, _networkID });
+            mySocket.SendData(udpSend, NetworkConfig.BROADCAST_IP, SysConfig.RemotePort, new CallbackUdpAction(callbackChangeParameter), 
+                new object[] { udpSend, newIP, _networkID  });
         }
         private void callbackChangeParameter(UdpData udpReply, object[] values)
         {

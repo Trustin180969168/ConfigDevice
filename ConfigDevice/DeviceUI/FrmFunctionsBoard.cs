@@ -214,7 +214,6 @@ namespace ConfigDevice
             panelOptionDataValue.DoorWindowShowAllID = cbxShowContent.SelectedIndex;//---门窗显示设置
             panelOptionDataValue.DoorWindowShowModelID = cbxShowModel.SelectedIndex;//---全部房间显示设置
             panelOptionDataValue.NotCloseWindowPlayMusic = ceIfOpenMusic.Checked;//---没关，没锁门是否播放音乐
-          
             //------密码页配置---------------
             bool[] flags = new bool[] { false, false, false, false, false, false, false, false, 
             false, false, false, false, false, false, false, false};
@@ -223,7 +222,7 @@ namespace ConfigDevice
             panelOptionDataValue.SaftPageFlags = flags;
             listEnvironment.SetOptionData(panelOptionDataValue);//---环境页
             keySecuritySetting.GetOptionData(ref panelOptionDataValue);//------安全页----
-            panelMusic.GetOptionData(ref panelOptionDataValue);//音乐页
+
             //---判断是否更改,更改执行保存----
             if (!CommonTools.BytesEuqals(panelOptionDataValue.GetPanelOptionValue(), panelOptionData.GetPanelOptionValue()))
                 panelKey.PanelCtrl.SaveKeyOption(panelOptionDataValue);
