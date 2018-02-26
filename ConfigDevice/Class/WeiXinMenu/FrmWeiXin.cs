@@ -193,8 +193,8 @@ namespace ConfigDevice
             weiXinEdit.SaveNetworkName(edtNetworkName.Text);
 
             edtNetworkIP.IP = edtNetworkIP.IP;
-            weiXinEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
-                  ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text), edtDNS1.ByteIP, edtDNS2.ByteIP);
+            weiXinEdit.SaveNetworkParameter(edtNetworkIP.GetByteIP(), edtGateway.GetByteIP(), edtMask.GetByteIP(),
+                  ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text), edtDNS1.GetByteIP(), edtDNS2.GetByteIP());
         }
 
         /// <summary>
@@ -207,8 +207,8 @@ namespace ConfigDevice
 
         private void btSavePagameter_Click(object sender, EventArgs e)
         {
-            weiXinEdit.SaveNetworkParameter(edtNetworkIP.ByteIP, edtGateway.ByteIP, edtMask.ByteIP,
-                         ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text),edtDNS1.ByteIP,edtDNS2.ByteIP);
+            weiXinEdit.SaveNetworkParameter(edtNetworkIP.GetByteIP(), edtGateway.GetByteIP(), edtMask.GetByteIP(),
+                         ConvertTools.GetByteFrom8BitNumStr(edtNetworkID.Text), edtDNS1.GetByteIP(), edtDNS2.GetByteIP());
         }
 
 
